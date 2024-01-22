@@ -53,7 +53,7 @@ jobs:
       env:
         API_URI: http://${{ secrets.DEPLOY_HOST }}:8000
       with:
-          name: arquisoft/wiq_0/webapp
+          name: arquisoft/wiq_es04a/webapp
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
@@ -71,7 +71,7 @@ jobs:
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@v5
       with:
-          name: arquisoft/wiq_0/authservice
+          name: arquisoft/wiq_es04a/authservice
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
@@ -88,7 +88,7 @@ jobs:
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@v5
       with:
-        name: arquisoft/wiq_0/userservice
+        name: arquisoft/wiq_es04a/userservice
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: ghcr.io
@@ -105,7 +105,7 @@ jobs:
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@v5
       with:
-        name: arquisoft/wiq_0/gatewayservice
+        name: arquisoft/wiq_es04a/gatewayservice
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: ghcr.io
@@ -122,7 +122,6 @@ jobs:
         user: ${{ secrets.DEPLOY_USER }}
         key: ${{ secrets.DEPLOY_KEY }}
         command: |
-          wget https://raw.githubusercontent.com/arquisoft/wiq_0/master/docker-compose.yml
-          wget https://raw.githubusercontent.com/arquisoft/wiq_0/master/docker-compose-deploy.override.yml
+          wget https://raw.githubusercontent.com/arquisoft/wiq_es04a/master/docker-compose.yml
           docker compose down
           docker compose --profile prod up -d

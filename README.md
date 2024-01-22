@@ -1,8 +1,8 @@
-# wiq_0
+# wiq_es04a
 
-[![Deploy on release](https://github.com/Arquisoft/wiq_0/actions/workflows/release.yml/badge.svg)](https://github.com/Arquisoft/wiq_0/actions/workflows/release.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_0&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_0)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_0&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_0)
+[![Deploy on release](https://github.com/Arquisoft/wiq_es04a/actions/workflows/release.yml/badge.svg)](https://github.com/Arquisoft/wiq_es04a/actions/workflows/release.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_es04a&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_es04a)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_es04a&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_es04a)
 
 This is a base repo for the [Software Architecture course](http://arquisoft.github.io/) in [2023/2024 edition](https://arquisoft.github.io/course2324.html). 
 
@@ -22,7 +22,7 @@ Both the user and auth service share a Mongo database that is accessed with mong
 The fastest way for launching this sample project is using docker. Just clone the project:
 
 ```sh
-git clone https://github.com/Arquisoft/wiq_0.git
+git clone https://github.com/Arquisoft/wiq_es04a.git
 ```
 
 and launch it with docker compose:
@@ -100,7 +100,7 @@ deploy:
         user: ${{ secrets.DEPLOY_USER }}
         key: ${{ secrets.DEPLOY_KEY }}
         command: |
-          wget https://raw.githubusercontent.com/arquisoft/wiq_0/master/docker-compose-deploy.yml -O docker-compose.yml
+          wget https://raw.githubusercontent.com/arquisoft/wiq_es04a/master/docker-compose-deploy.yml -O docker-compose.yml
           docker compose down --volumes
           docker compose --profile prod up -d
 ```
