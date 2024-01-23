@@ -101,7 +101,7 @@ deploy:
         key: ${{ secrets.DEPLOY_KEY }}
         command: |
           wget https://raw.githubusercontent.com/arquisoft/wiq_es04a/master/docker-compose.yml -O docker-compose.yml
-          wget https://raw.githubusercontent.com/arquisoft/wiq_es04a/master/.env
+          wget https://raw.githubusercontent.com/arquisoft/wiq_es04a/master/.env -O .env
           docker compose down
           docker compose --profile prod up -d
 ```
