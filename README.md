@@ -1,3 +1,16 @@
+## 👨‍💻 Contributors:
+
+| Contributor | Contact |
+| ------------- | ------------- |
+| Méndez Fernández, Hugo  | <a href="https://github.com/uo288543"><img src="https://img.shields.io/badge/uo288543-Hugo Méndez-red"></a>  |
+| Barrero Cruz, Pablo   | <a href="https://github.com/PBC003"><img src="https://img.shields.io/badge/PBC003-Pablo Barrero-orange"></a>  |
+| Lago Conde, Alberto  | <a href="https://github.com/uo288245"><img src="https://img.shields.io/badge/uo288245-Alberto Lago-yellow"></a>  |
+| García-Ovies Pérez, Pablo  | <a href="https://github.com/PabloGOP"><img src="https://img.shields.io/badge/PabloGOP-Pablo García Ovies-green"></a>  |
+| Bustamante Larriet, Samuel  | <a href="https://github.com/uo289689"><img src="https://img.shields.io/badge/uo289689-Samuel Bustamante-cyan"></a>  |
+| González García, María Teresa  | <a href="https://github.com/uo288347"><img src="https://img.shields.io/badge/uo288347-María Teresa González-blue"></a>  |
+| Andina Pailos, Daniel  | <a href="https://github.com/and1na"><img src="https://img.shields.io/badge/and1na-Daniel Andina-violet"></a>  |
+
+
 # wiq_es04a
 
 [![Deploy on release](https://github.com/Arquisoft/wiq_es04a/actions/workflows/release.yml/badge.svg)](https://github.com/Arquisoft/wiq_es04a/actions/workflows/release.yml)
