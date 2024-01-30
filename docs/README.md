@@ -1,3 +1,17 @@
+## 👨‍💻 Contributors:
+
+| Contributor | Contact |
+| ------------- | ------------- |
+| Méndez Fernandez, Hugo  | <a href="https://github.com/uo288543"><img src="https://img.shields.io/badge/uo288543-Hugo Méndez-red"></a>  |
+| Barrero Cruz, Pablo   | <a href="https://github.com/PBC003"><img src="https://img.shields.io/badge/PBC003-Pablo Barrero-orange"></a>  |
+| Lago Conde, Alberto  | <a href="https://github.com/uo288245"><img src="https://img.shields.io/badge/uo288245-Alberto Lago-yellow"></a>  |
+| García-Ovies Pérez, Pablo  | <a href="https://github.com/PabloGOP"><img src="https://img.shields.io/badge/PabloGOP-Pablo García Ovies-green"></a>  |
+| Bustamante Larriet, Samuel  | <a href="https://github.com/uo289689"><img src="https://img.shields.io/badge/uo289689-Samuel Bustamante-cyan"></a>  |
+| González García, María Teresa  | <a href="https://github.com/uo288347"><img src="https://img.shields.io/badge/uo288347-María Teresa-blue"></a>  |
+| Andina Pailos, Daniel  | <a href="https://github.com/and1na"><img src="https://img.shields.io/badge/and1na-Daniel Andina-violet"></a>  |
+
+
+
 ## The documentation
 In this project, the documentation is compiled locally and deployed to GitHub pages.
 The deployment url is: [https://arquisoft.github.io/wiq_es04a/](https://arquisoft.github.io/wiq_es04a/).
