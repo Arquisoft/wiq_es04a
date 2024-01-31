@@ -51,10 +51,10 @@ def ciudad_random():
     else:
         print("No se encontraron ciudades.")
 
-    print(codigo_q + "\n")
+    #print(codigo_q + "\n")
     return nombre_ciudad, codigo_q
 
-def obtener_informacion_ciudad(codigo_ciudad):
+def obtener_poblacion_ciudad(codigo_ciudad):
 
     # Consulta a la API de Wikidata para obtener información detallada sobre la ciudad
     url = f"https://www.wikidata.org/w/api.php?action=wbgetclaims&format=json&entity={codigo_ciudad}&property=P1082"
@@ -65,15 +65,37 @@ def obtener_informacion_ciudad(codigo_ciudad):
     population_claim = data["claims"]["P1082"][0]["mainsnak"]["datavalue"]["value"]["amount"]
     return int(population_claim)
 
+def poblacion_ciudad_aleatoria():
+    intentos_maximos = 25
+    intentos = 0
+
+    while intentos < intentos_maximos:
+        nombre_ciudad, codigo_ciudad = ciudad_random()
+
+        try:
+            poblacion = obtener_poblacion_ciudad(codigo_ciudad)
+            return poblacion
+        except KeyError:
+            intentos += 1
 
 # Ejemplo de uso
 nombre_ciudad, codigo_q = ciudad_random()
-poblacion = obtener_informacion_ciudad(codigo_q)
+poblacion = obtener_poblacion_ciudad(codigo_q)
 
 # Plantilla para pregunta y respuesta
 pregunta = f"¿Cuál es la población de {nombre_ciudad.capitalize()}?"
-respuesta = f"La población de {nombre_ciudad.capitalize()} es {poblacion:,} habitantes."
+respuesta_real = f"SOLUCION: La población de {nombre_ciudad.capitalize()} es {poblacion:,} habitantes."
+
+respuesta_a = poblacion_ciudad_aleatoria()
+respuesta_b = poblacion_ciudad_aleatoria()
+respuesta_c = poblacion_ciudad_aleatoria()
+respuesta_d = poblacion #es un ejemplo, la d siempre seria la correcta
 
 print(pregunta)
-print(respuesta)
+print(respuesta_real)
+
+print("a)" + str(respuesta_a))
+print("b)" + str(respuesta_b))
+print("c)" + str(respuesta_c))
+print("d)" + str(respuesta_d))
 
