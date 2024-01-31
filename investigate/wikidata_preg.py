@@ -1,6 +1,14 @@
 import requests
 import random
 
+# Codigo de ejemplo para generar plantillas de preguntas
+
+# Habria que mejorarlo para asegurarse que todas las ciudades generadas
+# tienen disponibles los datos de poblacion, buscar otra ciudad si esa falla...
+
+# Habria que filtrar ciudades con un numero minimo de habitantes para
+# que las ciudades sean conocidas y no pueblos perdidos que nadie conoce...
+
 def ciudad_random():
 
      # Consulta SPARQL para obtener ciudades de España
@@ -11,7 +19,7 @@ def ciudad_random():
     WHERE {
       ?ciudad wdt:P31 wd:Q515;
               wdt:P17 wd:Q29;
-              wdt:P646 ?codigoQ.
+              rdfs:label ?ciudadLabel.
       SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
     }
     """
@@ -37,25 +45,19 @@ def ciudad_random():
     if ciudades:
         ciudad_aleatoria = random.choice(ciudades)
         nombre_ciudad = ciudad_aleatoria["ciudadLabel"]["value"]
-        codigoQ = ciudad_aleatoria["codigoQ"]["value"]
-        print(f"Ciudad aleatoria de España: {nombre_ciudad}")
+        codigo_q = ciudad_aleatoria["ciudad"]["value"]
+        codigo_q = codigo_q.split("/")[-1]
+        #print(f"Ciudad aleatoria de España: {nombre_ciudad}")
     else:
         print("No se encontraron ciudades.")
 
-        print(codigoQ + "codigoq")
-        return codigoQ
+    print(codigo_q + "\n")
+    return nombre_ciudad, codigo_q
 
-def obtener_informacion_ciudad(nombre_ciudad_q):
-    # Consulta a la API de Wikidata para obtener información sobre la ciudad
-    #url = f"https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&titles={nombre_ciudad}&sites=enwiki"
-    #response = requests.get(url)
-    #data = response.json()
-
-    # Extraer el ID de la entidad de la ciudad desde la respuesta
-    #city_id = list(data["entities"].keys())[0]
+def obtener_informacion_ciudad(codigo_ciudad):
 
     # Consulta a la API de Wikidata para obtener información detallada sobre la ciudad
-    url = f"https://www.wikidata.org/w/api.php?action=wbgetclaims&format=json&entity={nombre_ciudad_q}&property=P1082"
+    url = f"https://www.wikidata.org/w/api.php?action=wbgetclaims&format=json&entity={codigo_ciudad}&property=P1082"
     response = requests.get(url)
     data = response.json()
 
@@ -63,15 +65,15 @@ def obtener_informacion_ciudad(nombre_ciudad_q):
     population_claim = data["claims"]["P1082"][0]["mainsnak"]["datavalue"]["value"]["amount"]
     return int(population_claim)
 
+
 # Ejemplo de uso
-nombre_ciudad_q = "Q14317"  # Puedes reemplazar con el nombre de la ciudad que estás buscando
-poblacion = obtener_informacion_ciudad(nombre_ciudad_q)
+nombre_ciudad, codigo_q = ciudad_random()
+poblacion = obtener_informacion_ciudad(codigo_q)
 
 # Plantilla para pregunta y respuesta
-pregunta = f"¿Cuál es la población de {nombre_ciudad_q.capitalize()}?"
-respuesta = f"La población de {nombre_ciudad_q.capitalize()} es {poblacion:,} habitantes."
+pregunta = f"¿Cuál es la población de {nombre_ciudad.capitalize()}?"
+respuesta = f"La población de {nombre_ciudad.capitalize()} es {poblacion:,} habitantes."
 
 print(pregunta)
 print(respuesta)
 
-print(ciudad_random())
