@@ -1,13 +1,12 @@
 import {Header} from "./Header"
 import {Footer} from "./Footer"
-import {MainContent} from "./MainContent"
+import {QuestionBox} from "./QuestionBox"
 
 export function App(){
-
     return (
         <>
         <Header />
-        <MainContent />
+        <QuestionBox/>
         <Footer />
         </>
     )

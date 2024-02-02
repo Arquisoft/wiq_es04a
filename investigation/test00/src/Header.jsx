@@ -2,17 +2,18 @@
 export function Header() {
   return (
     <header>
+     
+      <div>
+        <h1>WIQ</h1>
+        <p>Your trivia game.</p>
+      </div>
       <nav>
         <ul>
-          <li><a href="/">Start</a></li>
-          <li><a href="/acerca-de">About us</a></li>
-          <li><a href="/contacto">Contact us</a></li>
+          <li><a href="">New game</a></li>
+          <li><a href="">About us</a></li>
+          <li><a href="">Contact us</a></li>
         </ul>
       </nav>
-      <div>
-        <h1>HEADER</h1>
-        <p>Short website description</p>
-      </div>
     </header>
   );
 }
