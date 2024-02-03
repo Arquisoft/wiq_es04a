@@ -74,6 +74,24 @@ body{
     border-radius: 2em;
 }
 
+.answerBox-correct{
+    margin-top: 1em;
+    margin-left: 2em;
+    padding: 1em 5em 1em 5em;
+    text-align: center;
+    border-radius: 2em;
+    background-color: rgba(0, 255, 0, 0.362);
+}
+
+.answerBox-incorrect{
+    margin-top: 1em;
+    margin-left: 2em;
+    padding: 1em 5em 1em 5em;
+    text-align: center;
+    border-radius: 2em;
+    background-color: rgba(255, 0, 0, 0.362);
+}
+
 .question{
     margin-left: 1em;
     padding-top: 2em;
@@ -83,4 +101,6 @@ body{
 h1{
     display: block;
 }
+
+
 

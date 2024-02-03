@@ -14,6 +14,10 @@ export function QuestionBox() {
       {
       answers.map((element, index) => {
         let isCorrect = element === correctAnswer ? true : false;
+
+
+        console.log(isCorrect)
+
         return ( 
           <AnswerBox isCorrect={isCorrect} key={element}>
            {index + 1 + ") " + element}
