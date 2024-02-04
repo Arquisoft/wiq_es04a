@@ -9,7 +9,7 @@ Currently, two official plugins are available:
 
 ## How-to start?
 
-Run npm install and npm start dev when you are in the 'test00' folder.
+Run npm install and npm run dev when you are in the 'test00' folder.
 
 An URL will be displayed in your terminal, simply copy and paste it into your browser.
 
