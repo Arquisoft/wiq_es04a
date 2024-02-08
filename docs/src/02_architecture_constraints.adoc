@@ -6,44 +6,6 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 [cols="2,10"]
 
-=== Convenciones de Nomenclatura
-|===
-| **Restricción** | **Descripción**
-| Nombre de la aplicación | El nombre de la aplicación desarrollada será WIQ.
-|===
-
-=== Requisitos de la Aplicación
-|===
-| **Restricción** | **Descripción**
-| Temática | Aplicación online de preguntas y respuestas. Es similar al concurso "Saber y Ganar".
-| Generación de preguntas | Tanto las preguntas como las respuestas se generarán automáticamente a partir de los datos de Wikidata. 
-| Estructura de preguntas | Cada pregunta tendrá una respuesta correcta y varias respuestas incorrectas o distractoras. Habrá un tiempo límite para responder a cada pregunta.
-| Frontend | El sistema contará al menos con un frontend Web que estará desplegado y el acceso será a través de la Web.
-| Gestión de usuarios | Los usuarios podrán registrarse y entrar a jugar. Los usuarios registrados también podrán consultar el historial de su participación en el sistema (número de juegos, preguntas acertadas/falldas, tiempos, etc).
-| Uso de APIs | Se utilizarán APIs para acceder a la información de los usuarios y a la información de preguntas generadas.
-|===
-
-=== Documentación
-|===
-| **Restricción** | **Descripción**
-| Uso de Arc42 | El proyecto seguirá el estándar de documentación Arc42.
-|===
-
-=== Restricciones Organizativas y de Versionado
-|===
-| **Restricción** | **Descripción**
-| Organización del proyecto | El proyecto está distribuido en tres entregas establecidas. Por tanto, cada módulo del proyecto irá evolucionando en varias versiones, marcadas por las entregas.
-| Git y Github | Es obligatorio el uso de Git como controlador de versiones y de la plataforma Github. En esta plataforma se alojará el repositorio público.
-|===
-
-=== Restricciones del Equipo de Desarrollo
-|===
-| **Restricción** | **Descripción**
-| Conocimiento técnicos y teóricos | No somos desarrolladores profesionales y tenemos escasa experiencia. Por ello, utilizaremos herramientas y lenguajes mínimamente conocidos por algún miembro del equipo.
-| Presupuesto | Se utilizarán herramientas gratuitas o servicios para los que la Universidad tenga una licencia.
-|===
-
-
 === Naming Conventions
 |===
 | **Constraint** | **Description**
