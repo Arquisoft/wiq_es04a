@@ -2,26 +2,81 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-architecture-constraints]]
 == Architecture Constraints
-
-
 [role="arc42help"]
-****
-.Contents
-Any requirement that constraints software architects in their freedom of design and implementation decisions or decision about the development process. These constraints sometimes go beyond individual systems and are valid for whole organizations and companies.
 
-.Motivation
-Architects should know exactly where they are free in their design decisions and where they must adhere to constraints.
-Constraints must always be dealt with; they may be negotiable, though.
+[cols="2,10"]
 
-.Form
-Simple tables of constraints with explanations.
-If needed you can subdivide them into
-technical constraints, organizational and political constraints and
-conventions (e.g. programming or versioning guidelines, documentation or naming conventions)
+=== Convenciones de Nomenclatura
+|===
+| **Restricción** | **Descripción**
+| Nombre de la aplicación | El nombre de la aplicación desarrollada será WIQ.
+|===
+
+=== Requisitos de la Aplicación
+|===
+| **Restricción** | **Descripción**
+| Temática | Aplicación online de preguntas y respuestas. Es similar al concurso "Saber y Ganar".
+| Generación de preguntas | Tanto las preguntas como las respuestas se generarán automáticamente a partir de los datos de Wikidata. 
+| Estructura de preguntas | Cada pregunta tendrá una respuesta correcta y varias respuestas incorrectas o distractoras. Habrá un tiempo límite para responder a cada pregunta.
+| Frontend | El sistema contará al menos con un frontend Web que estará desplegado y el acceso será a través de la Web.
+| Gestión de usuarios | Los usuarios podrán registrarse y entrar a jugar. Los usuarios registrados también podrán consultar el historial de su participación en el sistema (número de juegos, preguntas acertadas/falldas, tiempos, etc).
+| Uso de APIs | Se utilizarán APIs para acceder a la información de los usuarios y a la información de preguntas generadas.
+|===
+
+=== Documentación
+|===
+| **Restricción** | **Descripción**
+| Uso de Arc42 | El proyecto seguirá el estándar de documentación Arc42.
+|===
+
+=== Restricciones Organizativas y de Versionado
+|===
+| **Restricción** | **Descripción**
+| Organización del proyecto | El proyecto está distribuido en tres entregas establecidas. Por tanto, cada módulo del proyecto irá evolucionando en varias versiones, marcadas por las entregas.
+| Git y Github | Es obligatorio el uso de Git como controlador de versiones y de la plataforma Github. En esta plataforma se alojará el repositorio público.
+|===
+
+=== Restricciones del Equipo de Desarrollo
+|===
+| **Restricción** | **Descripción**
+| Conocimiento técnicos y teóricos | No somos desarrolladores profesionales y tenemos escasa experiencia. Por ello, utilizaremos herramientas y lenguajes mínimamente conocidos por algún miembro del equipo.
+| Presupuesto | Se utilizarán herramientas gratuitas o servicios para los que la Universidad tenga una licencia.
+|===
 
 
-.Further Information
+=== Naming Conventions
+|===
+| **Constraint** | **Description**
+| Application name | The name of the developed application will be WIQ.
+|===
 
-See https://docs.arc42.org/section-2/[Architecture Constraints] in the arc42 documentation.
+=== Application Requirements
+|===
+| **Constraint** | **Description**
+| Theme | Online question and answer application. It is similar to the "Saber y Ganar" game show.
+| Question generation | Both questions and answers will be automatically generated from Wikidata.
+| Question structure | Each question will have one correct answer and multiple incorrect or distracting answers. There will be a time limit to answer each question.
+| Frontend | The system will have at least one Web frontend deployed. Access will be through the Web.
+| User management | Users can register and log in to play. Registered users can also check their participation history in the system (number of games, correct/incorrect answers, times, etc.).
+| API usage | APIs will be used to access users and generated questions information.
+|===
 
-****
+=== Documentation
+|===
+| **Constraint** | **Description**
+| Use of Arc42 | The project will follow the Arc42 documentation standard.
+|===
+
+=== Organizational and Versioning Constraints
+|===
+| **Constraint** | **Description**
+| Project organization | The project is distributed in three established deliveries. Therefore, each module of the project will evolve in several versions, marked by the deliveries.
+| Git and Github | The use of Git as a version control system and the Github platform is mandatory. The public repository will be hosted on this platform.
+|===
+
+=== Development Team Constraints
+|===
+| **Constraint** | **Description**
+| Technical and theoretical knowledge | We are not professional developers and have limited experience. Therefore, we will use tools and languages minimally known by some team members.
+| Budget | We will use free tools or services for which the University has a license.
+|===
