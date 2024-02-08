@@ -30,13 +30,79 @@ See https://docs.arc42.org/section-12/[Glossary] in the arc42 documentation.
 
 ****
 
+=== 12.1. Acronyms
 [cols="e,2e" options="header"]
 |===
 |Term |Definition
 
-|<Term-1>
+|ADR
 |<definition-1>
 
-|<Term-2>
-|<definition-2>
+|API
+|<definition-1>
+
+|PR
+|<definition-1>
+|===
+
+=== 12.2. Domain Specific Terms
+[cols="e,3e,e" options="header"]
+|===
+|Term |Definition |ES Translation
+
+|Discarding
+|<definition-1>
+|Descartando
+
+|Discovering cities
+|<definition-1>
+|Descubriendo ciudades
+
+|HappySw
+|<definition-1>
+|_N/A_
+
+|Know & Win
+|<definition-1>
+|"Saber Y Ganar"
+
+|Warm question
+|<definition-1>
+|Pregunta caliente
+
+|Wise Men Stack
+|<definition-1>
+|Batería de sabios
+
+|===
+
+=== 12.3. Technical Terms
+[cols="e,3e,e" options="header"]
+|===
+|Term |Definition |ES Translation
+
+|Backend
+|<definition-1>
+|_N/A_
+
+|Frontend
+|<definition-1>
+|_N/A_
+
+|Git
+|<definition-1>
+|_N/A_
+
+|Microservice
+|<definition-1>
+|Microservicio
+
+|User
+|<definition-1>
+|Usuario
+
+|Wikidata
+|<definition-1>
+|_N/A_
+
 |===
