@@ -63,11 +63,11 @@ In the best case you will get away with examples or simple signatures.
 
 ****
 
-_**<Overview Diagram>**_
+image::05_scope_context.png["Overview diagram"]
 
 Motivation::
 
-_<text explanation>_
+This white box decomposes into 4 black boxes representing the different microservices of the application.
 
 
 Contained Building Blocks::
@@ -210,3 +210,4 @@ _<white box template>_
 ==== White Box <_building block y.1_>
 
 _<white box template>_
+
