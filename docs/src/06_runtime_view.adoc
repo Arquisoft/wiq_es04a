@@ -3,6 +3,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-runtime-view]]
 == Runtime View
 
+In this Runtime View section, some sequence diagrams of different interactions with the system will be shown.
 
 [role="arc42help"]
 ****
@@ -37,29 +38,47 @@ See https://docs.arc42.org/section-6/[Runtime View] in the arc42 documentation.
 
 ****
 
-=== <Runtime Scenario 1>
+=== Register Scenario
 
-
-* _<insert runtime diagram or textual description of the scenario>_
-* _<insert description of the notable aspects of the interactions between the
-building block instances depicted in this diagram.>_
-
-It is possible to use a sequence diagram:
-
-[plantuml,"Sequence diagram",png]
+[plantuml,"Register diagram",png]
 ----
-actor Alice
-actor Bob
-database Pod as "Bob's Pod"
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
-Alice  --> Pod: Store route
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+actor User
+participant App
+participant GatewayService
+participant AuthService
+database Database
+
+User -> App: click register link
+App --> User: show register view
+User -> App: click add user button
+App -> GatewayService: addUser()
+GatewayService -> AuthService: post('/addUser')
+AuthService -> Database: validateRequiredFields()
+Database --> AuthService
+AuthService --> GatewayService
+GatewayService --> App
+App --> User
 ----
 
-=== <Runtime Scenario 2>
+=== Login Scenario
+[plantuml,"Login diagram",png]
+----
+actor User
+participant App
+participant GatewayService
+participant UserService
+database Database
 
-=== ...
+User -> App: click login link
+App --> User: show login view
+User -> App: click login button
+App -> GatewayService: loginUser()
+GatewayService -> UserService: post('/login')
+UserService-> Database: validateRequiredFields()
+Database --> UserService
+UserService--> GatewayService
+GatewayService --> App
+App --> User
+----
 
-=== <Runtime Scenario n>
+=== TBD
