@@ -5,6 +5,9 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 == Deployment View
 
+image::DeploymentView.png["Categories of Quality Requirements"]
+
+
 [role="arc42help"]
 ****
 .Content
