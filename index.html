@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.20">
+<meta name="generator" content="Asciidoctor 2.0.18">
 <title>Template</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -208,10 +208,13 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
 .sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
-.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
-.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
 .literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
 @media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
 @media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
@@ -390,7 +393,7 @@ b.conum *{color:inherit!important}
 dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
 h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
 p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
-p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
+p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
 .exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
@@ -451,7 +454,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_stakeholders">1.3. Stakeholders</a></li>
 </ul>
 </li>
-<li><a href="#section-architecture-constraints">2. Architecture Constraints</a></li>
+<li><a href="#section-architecture-constraints">2. Architecture Constraints</a>
+<ul class="sectlevel2">
+<li><a href="#_naming_conventions">2.1. Naming Conventions</a></li>
+<li><a href="#_application_requirements">2.2. Application Requirements</a></li>
+<li><a href="#_documentation">2.3. Documentation</a></li>
+<li><a href="#_organizational_and_versioning_constraints">2.4. Organizational and Versioning Constraints</a></li>
+<li><a href="#_development_team_constraints">2.5. Development Team Constraints</a></li>
+</ul>
+</li>
 <li><a href="#section-system-scope-and-context">3. System Scope and Context</a>
 <ul class="sectlevel2">
 <li><a href="#_business_context">3.1. Business Context</a></li>
@@ -487,7 +498,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_concept_n">8.3. <em>&lt;Concept n&gt;</em></a></li>
 </ul>
 </li>
-<li><a href="#section-design-decisions">9. Architecture Decisions</a></li>
+<li><a href="#section-design-decisions">9. Architecture Decisions</a>
+<ul class="sectlevel2">
+<li><a href="#_9_1_team_working_methodology">9.1. 9.1. Team Working Methodology</a></li>
+</ul>
+</li>
 <li><a href="#section-quality-scenarios">10. Quality Requirements</a>
 <ul class="sectlevel2">
 <li><a href="#_quality_tree">10.1. Quality Tree</a></li>
@@ -495,7 +510,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#section-technical-risks">11. Risks and Technical Debts</a></li>
-<li><a href="#section-glossary">12. Glossary</a></li>
+<li><a href="#section-glossary">12. Glossary</a>
+<ul class="sectlevel2">
+<li><a href="#_12_1_acronyms">12.1. 12.1. Acronyms</a></li>
+<li><a href="#_12_2_domain_specific_terms">12.2. 12.2. Domain Specific Terms</a></li>
+<li><a href="#_12_3_technical_terms">12.3. 12.3. Technical Terms</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -551,6 +572,19 @@ For documentation of your own system you use better the <em>plain</em> version.<
 <div class="sect1">
 <h2 id="section-introduction-and-goals">1. Introduction and Goals (wiq_es04a)</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>The aim of this project is to create a version of the famous quiz show "Saber y Ganar," developing a web
+application. The added value and main functional requirement are that questions cannot be repeated.</p>
+</div>
+<div class="paragraph">
+<p>Regarding quality requirements, the goal is to achieve an optimal level, especially in terms of usability,
+ maintainability, efficiency, security, and testability.</p>
+</div>
+<div class="paragraph">
+<p>The main stakeholders in the project are several. Firstly, Professor José Emilio Labra, who teaches the
+subject. Also, the students and members of the HappySoftware development team. Lastly, potential users of
+the application will show interest in the project, as their user experience depends on it.</p>
+</div>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -580,6 +614,19 @@ These include</p>
 </div>
 <div class="sect2">
 <h3 id="_requirements_overview">1.1. Requirements Overview</h3>
+<div class="paragraph">
+<p>An enumeration of the requirements that the project must meet in terms of functionality can be elaborated:</p>
+</div>
+<div class="paragraph">
+<p>The application must be accessed through a web frontend.
+A record of users and their game history will be maintained.
+Both questions and answers will be generated using data collected from Wikidata, with only one of the
+four answer options being correct.
+There will be a countdown to answer each question.
+Two APIs will exist to access information about both users and generated questions.
+Reference to the requirements source:
+<a href="https://docs.google.com/document/d/1pahOfYFY&#8212;&#8203;Wi7_9bbxiKOGevB_9tOSyRm78blncgBKg/edit#heading=h.m5kdjaka3pec" class="bare">https://docs.google.com/document/d/1pahOfYFY&#8212;&#8203;Wi7_9bbxiKOGevB_9tOSyRm78blncgBKg/edit#heading=h.m5kdjaka3pec</a></p>
+</div>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -610,6 +657,34 @@ If requirements documents exist this overview should refer to these documents.</
 </div>
 <div class="sect2">
 <h3 id="_quality_goals">1.2. Quality Goals</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quality goal</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Concrete scenario</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It must be easy to use the app, thus everybody could use it</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Availability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The system should be available the most time possible</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Security</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s data must remain confidential.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Performance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Using the system must be as smooth as possible. Especially, the question generation must be fast.</p></td>
+</tr>
+</tbody>
+</table>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -641,6 +716,35 @@ If you as an architect do not know how the quality of your work will be judged&#
 </div>
 <div class="sect2">
 <h3 id="_stakeholders">1.3. Stakeholders</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Role/Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contact</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expectations</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Happy Software</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Méndez Fernández, Hugo Barrero Cruz, Pablo Lago Conde, Alberto García-Ovies Pérez, Pablo Bustamante Larriet, Samuel González García, María Teresa Andina Pailos, Daniel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Students are the developers of the app. They need to do a great project to obtain a good mark.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Teachers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">José Emilio Labra</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">They will qualify the proyect.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Users</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Users of the game</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">They want to have fun answering questions. It must be intuitive and easy to use.</p></td>
+</tr>
+</tbody>
+</table>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -711,31 +815,130 @@ These stakeholders determine the extent and the level of detail of your work and
 <div class="sect1">
 <h2 id="section-architecture-constraints">2. Architecture Constraints</h2>
 <div class="sectionbody">
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<div class="title">Contents</div>
-<p>Any requirement that constraints software architects in their freedom of design and implementation decisions or decision about the development process. These constraints sometimes go beyond individual systems and are valid for whole organizations and companies.</p>
+<div class="sect2 arc42help">
+<h3 id="_naming_conventions">2.1. Naming Conventions</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Constraint</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Application name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the developed application will be WIQ.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="paragraph">
-<div class="title">Motivation</div>
-<p>Architects should know exactly where they are free in their design decisions and where they must adhere to constraints.
-Constraints must always be dealt with; they may be negotiable, though.</p>
+<div class="sect2">
+<h3 id="_application_requirements">2.2. Application Requirements</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Constraint</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Theme</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Online question and answer application. It is similar to the "Saber y Ganar" game show.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Question generation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Both questions and answers will be automatically generated from Wikidata.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Question structure</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Each question will have one correct answer and multiple incorrect or distracting answers. There will be a time limit to answer each question.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Frontend</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The system will have at least one Web frontend deployed. Access will be through the Web.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User management</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Users can register and log in to play. Registered users can also check their participation history in the system (number of games, correct/incorrect answers, times, etc.).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">API usage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">APIs will be used to access users and generated questions information.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="paragraph">
-<div class="title">Form</div>
-<p>Simple tables of constraints with explanations.
-If needed you can subdivide them into
-technical constraints, organizational and political constraints and
-conventions (e.g. programming or versioning guidelines, documentation or naming conventions)</p>
+<div class="sect2">
+<h3 id="_documentation">2.3. Documentation</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Constraint</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use of Arc42</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The project will follow the Arc42 documentation standard.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="paragraph">
-<div class="title">Further Information</div>
-<p>See <a href="https://docs.arc42.org/section-2/">Architecture Constraints</a> in the arc42 documentation.</p>
+<div class="sect2">
+<h3 id="_organizational_and_versioning_constraints">2.4. Organizational and Versioning Constraints</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Constraint</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Project organization</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The project is distributed in three established deliveries. Therefore, each module of the project will evolve in several versions, marked by the deliveries.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Git and Github</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The use of Git as a version control system and the Github platform is mandatory. The public repository will be hosted on this platform.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
-</div>
-</div>
+<div class="sect2">
+<h3 id="_development_team_constraints">2.5. Development Team Constraints</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Constraint</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Technical and theoretical knowledge</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We are not professional developers and have limited experience. Therefore, we will use tools and languages minimally known by some team members.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Budget</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We will use free tools or services for which the University has a license.</p></td>
+</tr>
+</tbody>
+</table>
 <div style="page-break-after: always;"></div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -758,6 +961,21 @@ conventions (e.g. programming or versioning guidelines, documentation or naming 
 <div class="paragraph">
 <div class="title">Form</div>
 <p>Various options:</p>
+</div>
+<div class="paragraph">
+<p>&lt;pre class="mermaid"&gt;
+    flowchart TD
+      el1[User] -.&#8594;|Interacts with| sis1(WIQ Webapp)
+      subgraph system
+      sis1 -&#8594; |Authenticate| sis2(Gateway Service)
+      sis1 -&#8594; |Create user| sis2
+      sis2 -&#8594; |Log in validation| sis3(Authentication service)
+      sis2 -&#8594; |Sign up user| sis4(User service)
+      sis3 -&#8594; db1[(MongoDB)]
+      sis4 -&#8594; db1
+      end
+      sis1 -&#8594; |Get questions| D[Wikidata]
+&lt;/pre&gt;</p>
 </div>
 <div class="ulist">
 <ul>
@@ -840,6 +1058,92 @@ together with a mapping table showing the relationships between channels and inp
 <div class="sect1">
 <h2 id="section-solution-strategy">4. Solution Strategy</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Technology decisions</p>
+</div>
+<div class="paragraph">
+<p>To develop the app we will use the following technologies:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>JavaScript will be the main programming language</p>
+</li>
+<li>
+<p>ReactJS to build the user interface</p>
+</li>
+<li>
+<p>NodeJS for the backend</p>
+</li>
+<li>
+<p>Other programming languages can be used to experiment</p>
+</li>
+<li>
+<p>Docker Compose to deploy all the microservices</p>
+</li>
+<li>
+<p>GitHub for version control</p>
+</li>
+<li>
+<p>WikiData API to obtain question and answer information</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>We have considered the trade-offs that belong to each technology, such as SpringBoot or PHP for the backend of the app.
+However, JavaScript was the language that adapted better to our requirements due to the simplicity of the language and its
+ focus on agile development that can lead to faster development cycles.
+One of the main disadvantages is that we had to learn it, because our main language is Java.</p>
+</div>
+<div class="paragraph">
+<p>Decisions about the top-level decomposition of the system</p>
+</div>
+<div class="paragraph">
+<p>We decided to use a microservices arquitecture, having different modules for each functionality.
+For example, we will use a microservice to generate the questions.</p>
+</div>
+<div class="paragraph">
+<p>Decisions on how to achieve key quality goals</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quality goal</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Decisions to achieve it.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We are going to use real users to test the app interface and improve it according to their feedback.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Availability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker Compose will be helpful to avoid problems with the deploy of the app. In addition we will use web hosting to expose it to the internet.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Security</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A login system with encrypted password storage will be used to protect the user data.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Performance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We will use the minimum required calls to the APIs to mantain the minimum time response, for example, with bulk requests.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Relevant organizational decisions</p>
+</div>
+<div class="paragraph">
+<p>We are going to divide tasks for each person placing the deadline at the middle of the maximum established time by the delivery.
+Then other person will review the work done.</p>
+</div>
+<div class="paragraph">
+<p>Each assigned task will be created as an Issue in GitHub to track the progress done. In addition, we are going to use GitHub Projects to organize the workflow of the team.
+To merge the code to the develop branch we are going to use Pull Requests in order to be approved by every person of the team.</p>
+</div>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -1291,6 +1595,11 @@ building block instances depicted in this diagram.&gt;</em></p>
 <div class="sect1">
 <h2 id="section-deployment-view">7. Deployment View</h2>
 <div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="./images/DeploymentView.png" alt="Deployment View">
+</div>
+</div>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -1603,12 +1912,47 @@ There you will find links and examples about ADR.</p>
 </div>
 </div>
 </div>
+<div class="paragraph">
+<p>The architectural decisions are completely documented in our <a href="https://github.com/Arquisoft/wiq_es04a/wiki">repository Wiki section</a>. Henceforth, to avoid redundancy, instead of re-document those decisions here, we will refer to them.</p>
+</div>
+<div class="sect2">
+<h3 id="_9_1_team_working_methodology">9.1. 9.1. Team Working Methodology</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/Arquisoft/wiq_es04a/wiki/ADR-01-‐-Usage-of-A-Succesful-Branching-Model">ADR 01</a> - Usage of A Succesful Branching Model</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><em>TBD when more architecture decisions are taken</em></p>
+</div>
 <div style="page-break-after: always;"></div>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="section-quality-scenarios">10. Quality Requirements</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>The main quality goals are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Usability: The interface should be intuitive, with clear instructions and an accessible design. This will allow users of all abilities to navigate and use the application effortlessly.</p>
+</li>
+<li>
+<p>Availability: The system should aim for maximum availability, ensuring it is accessible around the clock. This will guarantee uninterrupted access most of the time, regardless of their time zone or schedule.</p>
+</li>
+<li>
+<p>Security: User data confidentiality must be upheld as a top priority, ensuring sensitive information remains secure and protected at all times. This commitment to privacy instills trust and confidence among users, fostering a safe and secure environment for their data.</p>
+</li>
+<li>
+<p>Performance: Efficiency is paramount in system usage, particularly in swift question generation, ensuring a seamless experience for users. Streamlining processes enhances overall usability, enabling swift and effortless interaction with the system.</p>
+</li>
+</ul>
+</div>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -1633,6 +1977,11 @@ concrete and measurable.</p>
 </div>
 <div class="sect2">
 <h3 id="_quality_tree">10.1. Quality Tree</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Quality_Tree.png" alt="Quality Tree">
+</div>
+</div>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -1665,6 +2014,64 @@ concrete and measurable.</p>
 </div>
 <div class="sect2">
 <h3 id="_quality_scenarios">10.2. Quality Scenarios</h3>
+<div class="paragraph">
+<p>Usage Scenario table:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usage Scenario</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System Reaction</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user initiates the web application, enters their username and password, and clicks the login button.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The system verifies the information entered by the user, and if correct, redirects them to the main page; otherwise, it indicates an error has occurred.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user surveys the main window, where several buttons with different options appear.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">In response to pressing each of these buttons, the system will display the corresponding content.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user starts the game and is awaiting the questions.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The system swiftly generates the question and its possible answers.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user loses the game and decides to stop playing for a while. Five hours later, they decide to play again.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The system remains active and functions correctly.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Change Scenario table:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Change Scenario</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System Reaction</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adding an additional login system to access the account not only through email but also through the username.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The system should be capable of adapting to provide this functionality without affecting the existing ones.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adding a new game mode or functionality.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When adding a new feature, the application&#8217;s usage methodology should not be distorted, ensuring it can still be used in the same manner.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adding a new game language.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When adding a new game language, the system should continue to function smoothly.</p></td>
+</tr>
+</tbody>
+</table>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -1775,6 +2182,8 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_12_1_acronyms">12.1. 12.1. Acronyms</h3>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -1788,22 +2197,125 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Term-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>ADR</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Term-2&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-2&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>API</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>PR</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_12_2_domain_specific_terms">12.2. 12.2. Domain Specific Terms</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 60%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Term</th>
+<th class="tableblock halign-left valign-top">Definition</th>
+<th class="tableblock halign-left valign-top">ES Translation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Discarding</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Descartando</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Discovering cities</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Descubriendo ciudades</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>HappySw</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em><em>N/A</em></em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Know &amp; Win</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>"Saber Y Ganar"</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Warm question</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Pregunta caliente</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Wise Men Stack</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Batería de sabios</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_12_3_technical_terms">12.3. 12.3. Technical Terms</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 60%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Term</th>
+<th class="tableblock halign-left valign-top">Definition</th>
+<th class="tableblock halign-left valign-top">ES Translation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Backend</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em><em>N/A</em></em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Frontend</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em><em>N/A</em></em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Git</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em><em>N/A</em></em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Microservice</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Microservicio</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>User</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Usuario</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Wikidata</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em><em>N/A</em></em></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 </div>
+</div>
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2024-02-06 20:09:24 +0100
+Last updated 2024-02-08 19:50:49 +0100
 </div>
 </div>
 </body>
