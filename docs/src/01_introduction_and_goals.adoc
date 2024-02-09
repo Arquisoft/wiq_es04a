@@ -3,6 +3,16 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-introduction-and-goals]]
 == Introduction and Goals (wiq_es04a)
 
+The aim of this project is to create a version of the famous quiz show "Saber y Ganar," developing a web 
+application. The added value and main functional requirement are that questions cannot be repeated.
+
+Regarding quality requirements, the goal is to achieve an optimal level, especially in terms of usability,
+ maintainability, efficiency, security, and testability.
+
+The main stakeholders in the project are several. Firstly, Professor José Emilio Labra, who teaches the 
+subject. Also, the students and members of the HappySoftware development team. Lastly, potential users of 
+the application will show interest in the project, as their user experience depends on it.
+
 [role="arc42help"]
 ****
 Describes the relevant requirements and the driving forces that software architects and development team must consider. 
@@ -16,6 +26,17 @@ These include
 ****
 
 === Requirements Overview
+
+An enumeration of the requirements that the project must meet in terms of functionality can be elaborated:
+
+The application must be accessed through a web frontend.
+A record of users and their game history will be maintained.
+Both questions and answers will be generated using data collected from Wikidata, with only one of the 
+four answer options being correct.
+There will be a countdown to answer each question.
+Two APIs will exist to access information about both users and generated questions.
+Reference to the requirements source:
+https://docs.google.com/document/d/1pahOfYFY--Wi7_9bbxiKOGevB_9tOSyRm78blncgBKg/edit#heading=h.m5kdjaka3pec
 
 [role="arc42help"]
 ****
@@ -43,6 +64,14 @@ See https://docs.arc42.org/section-1/[Introduction and Goals] in the arc42 docum
 
 === Quality Goals
 
+|===
+|Quality goal|Concrete scenario
+|Usability|It must be easy to use the app, thus everybody could use it
+|Availability|The system should be available the most time possible
+|Security|The user's data must remain confidential.
+|Performance|Using the system must be as smooth as possible. Especially, the question generation must be fast.
+|===
+
 [role="arc42help"]
 ****
 .Contents
@@ -64,6 +93,13 @@ A table with quality goals and concrete scenarios, ordered by priorities
 ****
 
 === Stakeholders
+
+|===
+|Role/Name|Contact|Expectations
+| Happy Software | Méndez Fernández, Hugo Barrero Cruz, Pablo Lago Conde, Alberto García-Ovies Pérez, Pablo Bustamante Larriet, Samuel González García, María Teresa Andina Pailos, Daniel | Students are the developers of the app. They need to do a great project to obtain a good mark.
+| Teachers | José Emilio Labra | They will qualify the proyect.
+| Users | Users of the game | They want to have fun answering questions. It must be intuitive and easy to use.
+|===
 
 [role="arc42help"]
 ****
