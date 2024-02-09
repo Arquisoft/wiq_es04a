@@ -3,6 +3,45 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-solution-strategy]]
 == Solution Strategy
 
+Technology decisions
+
+To develop the app we will use the following technologies:
+
+* JavaScript will be the main programming language
+* ReactJS to build the user interface
+* NodeJS for the backend
+* Other programming languages can be used to experiment
+* Docker Compose to deploy all the microservices
+* GitHub for version control
+* WikiData API to obtain question and answer information
+
+We have considered the trade-offs that belong to each technology, such as SpringBoot or PHP for the backend of the app. 
+However, JavaScript was the language that adapted better to our requirements due to the simplicity of the language and its
+ focus on agile development that can lead to faster development cycles. 
+One of the main disadvantages is that we had to learn it, because our main language is Java. 
+
+Decisions about the top-level decomposition of the system
+
+We decided to use a microservices arquitecture, having different modules for each functionality. 
+For example, we will use a microservice to generate the questions.
+
+Decisions on how to achieve key quality goals
+
+|===
+|Quality goal| Decisions to achieve it.
+|Usability| We are going to use real users to test the app interface and improve it according to their feedback.
+|Availability| Docker Compose will be helpful to avoid problems with the deploy of the app. In addition we will use web hosting to expose it to the internet.
+|Security| A login system with encrypted password storage will be used to protect the user data.
+|Performance| We will use the minimum required calls to the APIs to mantain the minimum time response, for example, with bulk requests.
+|===
+
+Relevant organizational decisions
+
+We are going to divide tasks for each person placing the deadline at the middle of the maximum established time by the delivery.
+Then other person will review the work done.
+
+Each assigned task will be created as an Issue in GitHub to track the progress done. In addition, we are going to use GitHub Projects to organize the workflow of the team.
+To merge the code to the develop branch we are going to use Pull Requests in order to be approved by every person of the team.
 
 [role="arc42help"]
 ****
