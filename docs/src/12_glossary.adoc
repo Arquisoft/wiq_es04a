@@ -30,8 +30,8 @@ See https://docs.arc42.org/section-12/[Glossary] in the arc42 documentation.
 
 ****
 
-=== 12.1. Acronyms
-[cols="e,3e,e" options="header"]
+=== Acronyms
+[cols="^,^,<",options="header"]
 |===
 |Acronym |Term |Definition
 
@@ -43,17 +43,21 @@ See https://docs.arc42.org/section-12/[Glossary] in the arc42 documentation.
 |Application Programming Interface
 |Set of rules, protocols, and tools that allows different software applications to communicate and interact with each other. It defines the methods and data formats that developers can use to request and exchange information between different software components.
 
+|CI/CD
+|Continuous Integration & Continuous Delivery
+|CI refers to the practice of automatically and frequently integrating code changes into a shared source code repository; CD is a 2 part process that refers to the integration, testing, and delivery of code changes. Continuous delivery stops short of automatic production deployment, while continuous deployment automatically releases the updates into the production environment.
+
 |PR
 |Pull Request
 |Proposal to merge a set of changes from one branch into another. In a pull request, collaborators can review and discuss the proposed set of changes before they integrate the changes into the main codebase.
 
 |WIQ
-|_N/A_
+|TBD
 |Web application's name, where the users can register and login themselves to play different type of rounds.
 |===
 
-=== 12.2. Domain Specific Terms
-[cols="e,3e,e" options="header"]
+=== Domain Specific Terms
+[cols="^,<,^",options="header"]
 |===
 |Term |Definition |ES Translation
 
@@ -83,8 +87,8 @@ See https://docs.arc42.org/section-12/[Glossary] in the arc42 documentation.
 
 |===
 
-=== 12.3. Technical Terms
-[cols="e,3e,e" options="header"]
+=== Technical Terms
+[cols="^,<,^",options="header"]
 |===
 |Term |Definition |ES Translation
 
@@ -99,6 +103,14 @@ See https://docs.arc42.org/section-12/[Glossary] in the arc42 documentation.
 |Git
 |Free and open-source version control system used for tracking changes in source code during software development. It allows multiple developers to collaborate on projects simultaneously and efficiently manage changes to the codebase.
 |_N/A_
+
+|Github
+|Online software development platform built around Git used for storing, tracking, and collaborating on software projects. It makes it easy for developers to share code files and collaborate with fellow developers on open-source projects.
+|_N/A_
+
+|Internationalization
+|Process of designing and developing a software application in such a way that it can easily adapt to different languages, cultures, and regions of the world. This involves for example the application's ability to handle different sets of characters, date and time formats, units of measurement, and other cultural and linguistic aspects.
+|Internacionalización
 
 |Microservice
 |Software architectural style that structures an application as a collection of loosely coupled services; each service is designed to perform a specific and narrowly defined function within the application. These services are typically small, independently deployable, and can be developed, tested, and deployed separately from the rest of the application.
