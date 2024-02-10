@@ -5,6 +5,9 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 == Deployment View
 
+image::DeploymentView.png["Deployment View"]
+
+
 [role="arc42help"]
 ****
 .Content

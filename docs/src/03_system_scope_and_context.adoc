@@ -18,6 +18,20 @@ The domain interfaces and technical interfaces to communication partners are amo
 .Form
 Various options:
 
+<pre class="mermaid">
+    flowchart TD
+      el1[User] -.->|Interacts with| sis1(WIQ Webapp)
+      subgraph system
+      sis1 --> |Authenticate| sis2(Gateway Service)
+      sis1 --> |Create user| sis2
+      sis2 --> |Log in validation| sis3(Authentication service)
+      sis2 --> |Sign up user| sis4(User service)
+      sis3 --> db1[(MongoDB)]
+      sis4 --> db1
+      end
+      sis1 --> |Get questions| D[Wikidata]
+</pre>
+
 * Context diagrams
 * Lists of communication partners and their interfaces.
 

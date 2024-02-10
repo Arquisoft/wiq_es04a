@@ -33,3 +33,12 @@ See https://docs.arc42.org/section-9/[Architecture Decisions] in the arc42 docum
 There you will find links and examples about ADR.
 
 ****
+
+The architectural decisions are completely documented in our https://github.com/Arquisoft/wiq_es04a/wiki[repository Wiki section]. Henceforth, to avoid redundancy, instead of re-document those decisions here, we will refer to them.
+
+=== 9.1. Team Working Methodology
+- https://github.com/Arquisoft/wiq_es04a/wiki/ADR-01-‐-Usage-of-A-Succesful-Branching-Model[ADR 01] - Usage of A Succesful Branching Model
+
+_TBD when more architecture decisions are taken_
+
+

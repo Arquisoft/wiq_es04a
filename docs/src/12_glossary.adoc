@@ -30,13 +30,86 @@ See https://docs.arc42.org/section-12/[Glossary] in the arc42 documentation.
 
 ****
 
-[cols="e,2e" options="header"]
+=== 12.1. Acronyms
+[cols="e,3e,e" options="header"]
 |===
-|Term |Definition
+|Acronym |Term |Definition
 
-|<Term-1>
-|<definition-1>
+|ADR
+|Arquitectural Design Record
+|Document that describes a choice the team makes about a significant aspect of the software architecture they're planning to build. Each ADR describes the architectural decision, its context, and its consequences, and its goal is to ensure that the proposed design meets functional, aesthetic, regulatory, and safety requirements before proceeding further with the project.
 
-|<Term-2>
-|<definition-2>
+|API
+|Application Programming Interface
+|Set of rules, protocols, and tools that allows different software applications to communicate and interact with each other. It defines the methods and data formats that developers can use to request and exchange information between different software components.
+
+|PR
+|Pull Request
+|Proposal to merge a set of changes from one branch into another. In a pull request, collaborators can review and discuss the proposed set of changes before they integrate the changes into the main codebase.
+
+|WIQ
+|_N/A_
+|Web application's name, where the users can register and login themselves to play different type of rounds.
+|===
+
+=== 12.2. Domain Specific Terms
+[cols="e,3e,e" options="header"]
+|===
+|Term |Definition |ES Translation
+
+|Discarding
+|Test in which the participants must answer a series of multiple-choice questions; for each question, they are presented with a set of options and must eliminate those they believe to be incorrect until they arrive at the correct answer. This process of elimination continues until the contestants are confident in the correct answer or until the allotted time for the test runs out
+|Descartando
+
+|Discovering cities
+|Test in which contestants receive clues about a specific city and must guess which city it is; this clues may include descriptions of geographical features, famous monuments, historical or cultural events, among other aspects related to the city in question.
+|Descubriendo ciudades
+
+|HappySw
+|Name of the fictitious company under which the members of the group will simulate that we have been hired to develop the application. 
+|_N/A_
+
+|Know & Win
+|Popular Spanish television program that combines quiz shows with educational entertainment aired daily on La 2 of Televisión Española. The show is known for its unique format, which includes a variety of challenges and tests where contestants demonstrate their knowledge in different areas such as history, geography, science, popular culture, literature, art, among other subjects. 
+|"Saber Y Ganar"
+
+|Warm question
+|Test in which contestants' aim is to answer questions rapidly and accurately, requiring quick thinking, as questions are presented rapidly without pauses between them. Contestants strive to provide correct answers to accumulate points, but they must also carefully assess the risk of answering incorrectly, which could lead to losing points.
+|Pregunta caliente
+
+|Wise Men Stack
+|Test in which questions are presented on a wide range of topics spanning from literature and history to science and popular culture. Contestants must answer as many questions correctly as possible within a limited time frame.
+|Batería de sabios
+
+|===
+
+=== 12.3. Technical Terms
+[cols="e,3e,e" options="header"]
+|===
+|Term |Definition |ES Translation
+
+|Backend
+|Server-side of a software application or website. It encompasses everything that users don't see directly, such as databases, servers, and application logic. The backend is responsible for processing requests from the frontend and generating the appropriate responses.
+|_N/A_
+
+|Frontend
+|Part of a software application or website that users interact with directly. It encompasses the user interface (UI) and user experience (UX) components that users see and interact with in their web browsers or on their devices. This includes elements such as buttons, forms, menus, and any visual or interactive elements users interact with to use the application.
+|_N/A_
+
+|Git
+|Free and open-source version control system used for tracking changes in source code during software development. It allows multiple developers to collaborate on projects simultaneously and efficiently manage changes to the codebase.
+|_N/A_
+
+|Microservice
+|Software architectural style that structures an application as a collection of loosely coupled services; each service is designed to perform a specific and narrowly defined function within the application. These services are typically small, independently deployable, and can be developed, tested, and deployed separately from the rest of the application.
+|Microservicio
+
+|User
+|Typically refers to an individual or entity that interacts with the system or software to perform tasks, access resources, or obtain information. Users can interact with computer systems through various means, such as graphical user interfaces, command-line interfaces, or the mentioned APIs.
+|Usuario
+
+|Wikidata
+|Free and open knowledge base that acts as a central storage repository for structured data from Wikimedia projects and beyond. It provides a common platform for collecting and sharing structured data about various topics, including but not limited to, people, places, events, concepts, and objects.
+|_N/A_
+
 |===
