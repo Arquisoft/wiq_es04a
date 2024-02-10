@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.18">
+<meta name="generator" content="Asciidoctor 2.0.20">
 <title>Template</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -208,13 +208,10 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
-.exampleblock>.content>:first-child{margin-top:0}
-.exampleblock>.content>:last-child{margin-bottom:0}
 .sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
-.sidebarblock>:first-child{margin-top:0}
-.sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
-.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
 .literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
 @media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
 @media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
@@ -393,7 +390,7 @@ b.conum *{color:inherit!important}
 dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
 h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
 p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
-p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
 .exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
@@ -473,8 +470,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#section-building-block-view">5. Building Block View</a>
 <ul class="sectlevel2">
 <li><a href="#_whitebox_overall_system">5.1. Whitebox Overall System</a></li>
-<li><a href="#_level_2">5.2. Level 2</a></li>
-<li><a href="#_level_3">5.3. Level 3</a></li>
+<li><a href="#_level_1">5.2. Level 1</a></li>
+<li><a href="#_level_2">5.3. Level 2</a></li>
 </ul>
 </li>
 <li><a href="#section-runtime-view">6. Runtime View</a>
@@ -492,9 +489,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#section-concepts">8. Cross-cutting Concepts</a>
 <ul class="sectlevel2">
-<li><a href="#_concept_1">8.1. <em>&lt;Concept 1&gt;</em></a></li>
-<li><a href="#_concept_2">8.2. <em>&lt;Concept 2&gt;</em></a></li>
-<li><a href="#_concept_n">8.3. <em>&lt;Concept n&gt;</em></a></li>
+<li><a href="#_domain_concepts">8.1. Domain concepts</a></li>
+<li><a href="#_architecture_and_design_patterns">8.2. Architecture and Design Patterns</a></li>
+<li><a href="#_user_experience_ux">8.3. User Experience (UX)</a></li>
+<li><a href="#_security">8.4. Security</a></li>
+<li><a href="#_development_concepts">8.5. Development Concepts</a></li>
+<li><a href="#_under_the_hood">8.6. Under-the-hood</a></li>
+<li><a href="#_operation_concepts">8.7. Operation Concepts</a></li>
 </ul>
 </li>
 <li><a href="#section-design-decisions">9. Architecture Decisions</a>
@@ -508,7 +509,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_quality_scenarios">10.2. Quality Scenarios</a></li>
 </ul>
 </li>
-<li><a href="#section-technical-risks">11. Risks and Technical Debts</a></li>
+<li><a href="#section-technical-risks">11. Risks and Technical Debts</a>
+<ul class="sectlevel2">
+<li><a href="#_technical_risks">11.1. Technical risks</a></li>
+<li><a href="#_technical_debts">11.2. Technical debts</a></li>
+</ul>
+</li>
 <li><a href="#section-glossary">12. Glossary</a>
 <ul class="sectlevel2">
 <li><a href="#_12_1_acronyms">12.1. 12.1. Acronyms</a></li>
@@ -814,18 +820,47 @@ These stakeholders determine the extent and the level of detail of your work and
 <div class="sect1">
 <h2 id="section-architecture-constraints">2. Architecture Constraints</h2>
 <div class="sectionbody">
-<div class="sect2 arc42help">
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<div class="title">Contents</div>
+<p>Any requirement that constraints software architects in their freedom of design and implementation decisions or decision about the development process. These constraints sometimes go beyond individual systems and are valid for whole organizations and companies.</p>
+</div>
+<div class="paragraph">
+<div class="title">Motivation</div>
+<p>Architects should know exactly where they are free in their design decisions and where they must adhere to constraints.
+Constraints must always be dealt with; they may be negotiable, though.</p>
+</div>
+<div class="paragraph">
+<div class="title">Form</div>
+<p>Simple tables of constraints with explanations.
+If needed you can subdivide them into
+technical constraints, organizational and political constraints and
+conventions (e.g. programming or versioning guidelines, documentation or naming conventions)</p>
+</div>
+<div class="paragraph">
+<div class="title">Further Information</div>
+<p>See <a href="https://docs.arc42.org/section-2/">Architecture Constraints</a> in the arc42 documentation.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>There are various architectural constraints that affect this application. They have been divided into the following sections.</p>
+</div>
+<div class="sect2">
 <h3 id="_naming_conventions">2.1. Naming Conventions</h3>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Constraint</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+<th class="tableblock halign-left valign-top">Constraint</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Application name</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The name of the developed application will be WIQ.</p></td>
@@ -840,11 +875,13 @@ These stakeholders determine the extent and the level of detail of your work and
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Constraint</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+<th class="tableblock halign-left valign-top">Constraint</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Theme</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Online question and answer application. It is similar to the "Saber y Ganar" game show.</p></td>
@@ -879,11 +916,13 @@ These stakeholders determine the extent and the level of detail of your work and
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Constraint</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+<th class="tableblock halign-left valign-top">Constraint</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use of Arc42</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The project will follow the Arc42 documentation standard.</p></td>
@@ -898,11 +937,13 @@ These stakeholders determine the extent and the level of detail of your work and
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Constraint</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+<th class="tableblock halign-left valign-top">Constraint</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Project organization</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The project is distributed in three established deliveries. Therefore, each module of the project will evolve in several versions, marked by the deliveries.</p></td>
@@ -921,11 +962,13 @@ These stakeholders determine the extent and the level of detail of your work and
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Constraint</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+<th class="tableblock halign-left valign-top">Constraint</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Technical and theoretical knowledge</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">We are not professional developers and have limited experience. Therefore, we will use tools and languages minimally known by some team members.</p></td>
@@ -1190,6 +1233,9 @@ Refer to details in the following sections.</p>
 <div class="sect1">
 <h2 id="section-building-block-view">5. Building Block View</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>The building block view shows in a graphic way a decomposition of the system.</p>
+</div>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -1237,6 +1283,9 @@ Thus it contains the white box description of selected building blocks of level 
 </div>
 <div class="sect2">
 <h3 id="_whitebox_overall_system">5.1. Whitebox Overall System</h3>
+<div class="paragraph">
+<p>Main view of the system. WIQ application is related to one external component: the Wikidata API</p>
+</div>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -1276,67 +1325,21 @@ In the best case you will get away with examples or simple signatures.</p>
 </div>
 </div>
 <div class="paragraph">
-<p><em><strong>&lt;Overview Diagram&gt;</strong></em></p>
+<p><em><strong>&lt;Overview Diagram&gt;</strong></em>
+<span class="image"><img src="./images/05_scope_context.png" alt="Main Build Block"></span></p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Motivation</dt>
 <dd>
-<p><em>&lt;text explanation&gt;</em></p>
-</dd>
-<dt class="hdlist1">Contained Building Blocks</dt>
-<dd>
-<p><em>&lt;Description of contained building block (black boxes)&gt;</em></p>
-</dd>
-<dt class="hdlist1">Important Interfaces</dt>
-<dd>
-<p><em>&lt;Description of important interfaces&gt;</em></p>
+<p>This is a general overview of the application. Here it can be seen the external services that will be used.</p>
 </dd>
 </dl>
 </div>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
-<p>Insert your explanations of black boxes from level 1:</p>
-</div>
-<div class="paragraph">
-<p>If you use tabular form you will only describe your black boxes with name and
-responsibility according to the following schema:</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top"><strong>Name</strong></th>
-<th class="tableblock halign-left valign-top"><strong>Responsibility</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;black box 1&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"> <em>&lt;Text&gt;</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;black box 2&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"> <em>&lt;Text&gt;</em></p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>If you use a list of black box descriptions then you fill in a separate black box template for every important building block .
-Its headline is the name of the black box.</p>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_name_black_box_1">5.1.1. &lt;Name black box 1&gt;</h4>
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<p>Here you describe &lt;black box 1&gt;
+<p>Here you describe black boxes
 according the the following black box template:</p>
 </div>
 <div class="ulist">
@@ -1363,54 +1366,30 @@ according the the following black box template:</p>
 </div>
 </div>
 </div>
-<div class="paragraph">
-<p><em>&lt;Purpose/Responsibility&gt;</em></p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Contained Building Blocks</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>WIQ</strong>: It is the main application, represented as a blackbox that will be detailed in the following decompositions.</p>
+</li>
+<li>
+<p><strong>Wikidata API</strong>: It is the external API that the system uses to generate questions and answers.</p>
+</li>
+</ul>
 </div>
-<div class="paragraph">
-<p><em>&lt;Interface(s)&gt;</em></p>
-</div>
-<div class="paragraph">
-<p><em>&lt;(Optional) Quality/Performance Characteristics&gt;</em></p>
-</div>
-<div class="paragraph">
-<p><em>&lt;(Optional) Directory/File Location&gt;</em></p>
-</div>
-<div class="paragraph">
-<p><em>&lt;(Optional) Fulfilled Requirements&gt;</em></p>
-</div>
-<div class="paragraph">
-<p><em>&lt;(optional) Open Issues/Problems/Risks&gt;</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_name_black_box_2">5.1.2. &lt;Name black box 2&gt;</h4>
-<div class="paragraph">
-<p><em>&lt;black box template&gt;</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_name_black_box_n">5.1.3. &lt;Name black box n&gt;</h4>
-<div class="paragraph">
-<p><em>&lt;black box template&gt;</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_name_interface_1">5.1.4. &lt;Name interface 1&gt;</h4>
-<div class="paragraph">
-<p>&#8230;&#8203;</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_name_interface_m">5.1.5. &lt;Name interface m&gt;</h4>
-
+</dd>
+</dl>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_level_2">5.2. Level 2</h3>
+<h3 id="_level_1">5.2. Level 1</h3>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
-<p>Here you can specify the inner structure of (some) building blocks from level 1 as white boxes.</p>
+<p>Here you can specify the inner structure of (some) building blocks from Overall System as white boxes.</p>
 </div>
 <div class="paragraph">
 <p>You have to decide which building blocks of your system are important enough to justify such a detailed description.
@@ -1420,40 +1399,55 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_white_box_building_block_1">5.2.1. White Box <em>&lt;building block 1&gt;</em></h4>
+<h4 id="_white_box_wiq">5.2.1. White Box WIQ</h4>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
-<p>&#8230;&#8203;describes the internal structure of <em>building block 1</em>.</p>
+<p>&#8230;&#8203;describes the internal structure of <em>building block WIQ</em>.</p>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p><em>&lt;white box template&gt;</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_white_box_building_block_2">5.2.2. White Box <em>&lt;building block 2&gt;</em></h4>
-<div class="paragraph">
-<p><em>&lt;white box template&gt;</em></p>
+<p><em><strong>Overview Diagram</strong></em></p>
 </div>
 <div class="paragraph">
-<p>&#8230;&#8203;</p>
+<p><span class="image"><img src="./images/05_level1.png" alt="White Box WIQ"></span></p>
 </div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Motivation</dt>
+<dd>
+<p>First decomposition of the system. It shows the webapp, users managament and question generator modules as blackboxes. Also displays the docs module which contains the documentation of the project.</p>
+</dd>
+<dt class="hdlist1">Contained Building Blocks</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>WebApp</strong>: It is the main module of the application.</p>
+</li>
+<li>
+<p><strong>UsersManagement</strong>: Handles user management.</p>
+</li>
+<li>
+<p><strong>QuestionGenerationSystem</strong>: It is responsible for the automatic generation of questions and answers using the Wikidata API.</p>
+</li>
+<li>
+<p><strong>Docs</strong>: It is the module of the project devoted to provide all the documentation of the application. It won&#8217;t be decomposed any further.</p>
+</li>
+</ul>
 </div>
-<div class="sect3">
-<h4 id="_white_box_building_block_m">5.2.3. White Box <em>&lt;building block m&gt;</em></h4>
-<div class="paragraph">
-<p><em>&lt;white box template&gt;</em></p>
+</dd>
+</dl>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_level_3">5.3. Level 3</h3>
+<h3 id="_level_2">5.3. Level 2</h3>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
-<p>Here you can specify the inner structure of (some) building blocks from level 2 as white boxes.</p>
+<p>Here you can specify the inner structure of (some) building blocks from level 1 as white boxes.</p>
 </div>
 <div class="paragraph">
 <p>When you need more detailed levels of your architecture please copy this
@@ -1462,28 +1456,49 @@ part of arc42 for additional levels.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_white_box_building_block_x_1">5.3.1. White Box &lt;_building block x.1_&gt;</h4>
+<h4 id="_white_box_users_management">5.3.1. White Box Users Management</h4>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
-<p>Specifies the internal structure of <em>building block x.1</em>.</p>
+<p>Specifies the internal structure of <em>building block Users Management</em>.</p>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p><em>&lt;white box template&gt;</em></p>
+<p><em><strong>Overview Diagram</strong></em></p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="_white_box_building_block_x_2">5.3.2. White Box &lt;_building block x.2_&gt;</h4>
 <div class="paragraph">
-<p><em>&lt;white box template&gt;</em></p>
+<p><span class="image"><img src="./images/05_level2_usersManagement.png" alt="White Box Users Management"></span></p>
 </div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Motivation</dt>
+<dd>
+<p>Decomposition of the level 1 system. It shows the gateway, users, authentification and database modules as blackboxes.</p>
+</dd>
+<dt class="hdlist1">Contained Building Blocks</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Gateway Service</strong>: Express service that is exposed to the public and serves as a proxy to the two next ones.</p>
+</li>
+<li>
+<p><strong>Authentication Service</strong>: Express service that handles the authentication of users.</p>
+</li>
+<li>
+<p><strong>User Service</strong>: Express service that handles the insertion of new users in the system.</p>
+</li>
+<li>
+<p><strong>Data Base</strong>: Pending to decide.</p>
+</li>
+</ul>
 </div>
-<div class="sect3">
-<h4 id="_white_box_building_block_y_1">5.3.3. White Box &lt;_building block y.1_&gt;</h4>
+</dd>
+</dl>
+</div>
 <div class="paragraph">
-<p><em>&lt;white box template&gt;</em></p>
+<p><strong>PENDING TO COMPLETE&#8230;&#8203;</strong></p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1829,25 +1844,117 @@ on this list.</p>
 </div>
 </div>
 </div>
+<div class="paragraph">
+<p>Some important concepts need to be taken into account so as to a better understanding of the application. These concepts have to do with the following categories.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Domain concepts</p>
+</li>
+<li>
+<p>Architecture and Design Patterns</p>
+</li>
+<li>
+<p>User Experience (UX)</p>
+</li>
+<li>
+<p>Development Concepts</p>
+</li>
+<li>
+<p>Under-the-hood</p>
+</li>
+<li>
+<p>Operation Concepts</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Next, each category will be detailed.</p>
+</div>
 <div class="sect2">
-<h3 id="_concept_1">8.1. <em>&lt;Concept 1&gt;</em></h3>
+<h3 id="_domain_concepts">8.1. Domain concepts</h3>
 <div class="paragraph">
-<p><em>&lt;explanation&gt;</em></p>
+<p>TBD</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_concept_2">8.2. <em>&lt;Concept 2&gt;</em></h3>
-<div class="paragraph">
-<p><em>&lt;explanation&gt;</em></p>
-</div>
-<div class="paragraph">
-<p>&#8230;&#8203;</p>
+<h3 id="_architecture_and_design_patterns">8.2. Architecture and Design Patterns</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://arquisoft.github.io/wiq_es04a/#_12_3_technical_terms"><strong>Microservice</strong></a>: In this application there are some microservices such as the User Management, which involves signing up, logging in and everything related to the points and timing of the user.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_concept_n">8.3. <em>&lt;Concept n&gt;</em></h3>
+<h3 id="_user_experience_ux">8.3. User Experience (UX)</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://arquisoft.github.io/wiq_es04a/#_12_3_technical_terms"><strong>Frontend</strong></a>: the frontend of this application consists of a web app which will be deployed.</p>
+</li>
+<li>
+<p><a href="https://arquisoft.github.io/wiq_es04a/#_12_3_technical_terms"><strong>Internationalization</strong></a> the application will be available in different languages, including English as the main language.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_security">8.4. Security</h3>
 <div class="paragraph">
-<p><em>&lt;explanation&gt;</em></p>
+<p>TBD</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_development_concepts">8.5. Development Concepts</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Testing</strong>: Numerous use-cases will be studied so as to provide a solid and easy-to-use application.</p>
+</li>
+<li>
+<p><strong>CI/CD</strong>: The application will be in continuous integration and deployment.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_under_the_hood">8.6. Under-the-hood</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Persistency</strong>: TBD</p>
+</li>
+<li>
+<p><strong>Session handing</strong>: TBD</p>
+</li>
+<li>
+<p><strong>Business rules</strong>: TBD</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_operation_concepts">8.7. Operation Concepts</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Administration</strong>: TBD</p>
+</li>
+<li>
+<p><strong>Logging</strong>: TBD</p>
+</li>
+<li>
+<p><strong>Usability</strong>: The application should be easy to use. Some testing is done to make sure that we achieve this objective</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/08_mindmap_concepts.png" alt="Initial version of cross-cutting concepts">
+</div>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -2128,7 +2235,62 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_technical_risks">11.1. Technical risks</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Technical Risk</th>
+<th class="tableblock halign-left valign-top">Relevance (0-10)</th>
+<th class="tableblock halign-left valign-top">Considerations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Limited knowledge of certain tools or languages</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A solution could be to use the tools and languages that are most well-known to the team members. Also, each member should try to learn those aspects they know less about.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The team has not worked together before</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A suggestion could be to mantain a good communication and inform about any aspect that could affect others.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Being a big group</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Being  many members can difficult the communication. However, if the previous suggestions are followed there should not be any problem.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_technical_debts">11.2. Technical debts</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Technical Debt</th>
+<th class="tableblock halign-left valign-top">Considerations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The use of Wikidata API</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Each member should learn how to use this API properly.</p></td>
+</tr>
+</tbody>
+</table>
 <div style="page-break-after: always;"></div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -2313,7 +2475,7 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2024-02-08 19:50:49 +0100
+Last updated 2024-02-06 20:09:24 +0100
 </div>
 </div>
 </body>
