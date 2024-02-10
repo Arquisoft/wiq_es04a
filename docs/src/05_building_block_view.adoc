@@ -113,7 +113,7 @@ image:05_level1.png["White Box WIQ"]
 
 Motivation::
 
-First decomposition of the system. It shows the webapp, users managament and quetion generator modules as blackboxes. Also displays the docs module which contains the documentation of the project.
+First decomposition of the system. It shows the webapp, users managament and question generator modules as blackboxes. Also displays the docs module which contains the documentation of the project.
 
 Contained Building Blocks::
 * **WebApp**: It is the main module of the application. 
@@ -121,36 +121,37 @@ Contained Building Blocks::
 * **QuestionGenerationSystem**: It is responsible for the automatic generation of questions and answers using the Wikidata API.
 * **Docs**: It is the module of the project devoted to provide all the documentation of the application. It won't be decomposed any further.
 
-=== Level 3
+=== Level 2
 
 [role="arc42help"]
 ****
-Here you can specify the inner structure of (some) building blocks from level 2 as white boxes.
+Here you can specify the inner structure of (some) building blocks from level 1 as white boxes.
 
 When you need more detailed levels of your architecture please copy this
 part of arc42 for additional levels.
 ****
 
 
-==== White Box <_building block x.1_>
+==== White Box Users Management
 
 [role="arc42help"]
 ****
-Specifies the internal structure of _building block x.1_.
+Specifies the internal structure of _building block Users Management_.
 ****
+_**Overview Diagram**_
 
+image:05_level2_usersManagement.png["White Box Users Management"]
 
-_<white box template>_
+Motivation::
 
+Decomposition of the level 1 system. It shows the gateway, users, authentification and database modules as blackboxes.
 
-==== White Box <_building block x.2_>
+Contained Building Blocks::
+* **Gateway Service**: Express service that is exposed to the public and serves as a proxy to the two next ones.
+* **Authentication Service**: Express service that handles the authentication of users.
+* **User Service**: Express service that handles the insertion of new users in the system.
+* **Data Base**: Pending to decide.
 
-_<white box template>_
-
-
-
-==== White Box <_building block y.1_>
-
-_<white box template>_
+**PENDING TO COMPLETE...**
 
 
