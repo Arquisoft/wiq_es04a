@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import "./css/timer.css" 
 
 const Clock = () => {
     const[count, setCount] = useState(15)
@@ -21,6 +23,20 @@ const Clock = () => {
             <h1>Reloj</h1>
             <p><i className="material-icons">access_time</i>{count}</p>
             <button onClick={handleReset}>Reiniciar contador</button>
+            <CountdownCircleTimer
+                isPlaying
+                duration={15}
+                colors={["#0bfc03", "#F7B801", "#f50707", "#A30000"]}
+                colorsTime={[10, 6, 3, 0]}
+                onComplete={() => ({ shouldRepeat: true, delay: 1 })}
+            >
+                {({ remainingTime }) => (
+                <div class="timer">
+                    <div className="value">{remainingTime}</div>
+                    <div className="text">seconds</div>
+                </div>
+        )}
+            </CountdownCircleTimer>
         </div>
     );
 }
