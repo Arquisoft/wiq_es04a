@@ -479,10 +479,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#section-runtime-view">6. Runtime View</a>
 <ul class="sectlevel2">
-<li><a href="#_runtime_scenario_1">6.1. &lt;Runtime Scenario 1&gt;</a></li>
-<li><a href="#_runtime_scenario_2">6.2. &lt;Runtime Scenario 2&gt;</a></li>
-<li><a href="#">6.3. &#8230;&#8203;</a></li>
-<li><a href="#_runtime_scenario_n">6.4. &lt;Runtime Scenario n&gt;</a></li>
+<li><a href="#_register_scenario">6.1. Register Scenario</a></li>
+<li><a href="#_login_scenario">6.2. Login Scenario</a></li>
+<li><a href="#_tbd">6.3. TBD</a></li>
 </ul>
 </li>
 <li><a href="#section-deployment-view">7. Deployment View</a>
@@ -1494,6 +1493,9 @@ part of arc42 for additional levels.</p>
 <div class="sect1">
 <h2 id="section-runtime-view">6. Runtime View</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>In this Runtime View section, some sequence diagrams of different interactions with the system will be shown.</p>
+</div>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -1557,37 +1559,23 @@ You will mainly capture scenarios in your documentation to communicate your arch
 </div>
 </div>
 <div class="sect2">
-<h3 id="_runtime_scenario_1">6.1. &lt;Runtime Scenario 1&gt;</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><em>&lt;insert runtime diagram or textual description of the scenario&gt;</em></p>
-</li>
-<li>
-<p><em>&lt;insert description of the notable aspects of the interactions between the
-building block instances depicted in this diagram.&gt;</em></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>It is possible to use a sequence diagram:</p>
-</div>
+<h3 id="_register_scenario">6.1. Register Scenario</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/Sequence%20diagram.png" alt="Sequence diagram" width="332" height="335">
+<img src="./images/Register%20diagram.png" alt="Register diagram" width="563" height="421">
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_runtime_scenario_2">6.2. &lt;Runtime Scenario 2&gt;</h3>
-
+<h3 id="_login_scenario">6.2. Login Scenario</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Login%20diagram.png" alt="Login diagram" width="540" height="421">
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="">6.3. &#8230;&#8203;</h3>
-
-</div>
-<div class="sect2">
-<h3 id="_runtime_scenario_n">6.4. &lt;Runtime Scenario n&gt;</h3>
+<h3 id="_tbd">6.3. TBD</h3>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -2186,11 +2174,13 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <h3 id="_12_1_acronyms">12.1. 12.1. Acronyms</h3>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+<col style="width: 20%;">
 </colgroup>
 <thead>
 <tr>
+<th class="tableblock halign-left valign-top">Acronym</th>
 <th class="tableblock halign-left valign-top">Term</th>
 <th class="tableblock halign-left valign-top">Definition</th>
 </tr>
@@ -2198,15 +2188,23 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>ADR</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Arquitectural Design Record</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Document that describes a choice the team makes about a significant aspect of the software architecture they&#8217;re planning to build. Each ADR describes the architectural decision, its context, and its consequences, and its goal is to ensure that the proposed design meets functional, aesthetic, regulatory, and safety requirements before proceeding further with the project.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>API</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Application Programming Interface</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Set of rules, protocols, and tools that allows different software applications to communicate and interact with each other. It defines the methods and data formats that developers can use to request and exchange information between different software components.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>PR</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Pull Request</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Proposal to merge a set of changes from one branch into another. In a pull request, collaborators can review and discuss the proposed set of changes before they integrate the changes into the main codebase.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>WIQ</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em><em>N/A</em></em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Web application&#8217;s name, where the users can register and login themselves to play different type of rounds.</em></p></td>
 </tr>
 </tbody>
 </table>
@@ -2229,32 +2227,32 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Discarding</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Test in which the participants must answer a series of multiple-choice questions; for each question, they are presented with a set of options and must eliminate those they believe to be incorrect until they arrive at the correct answer. This process of elimination continues until the contestants are confident in the correct answer or until the allotted time for the test runs out</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Descartando</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Discovering cities</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Test in which contestants receive clues about a specific city and must guess which city it is; this clues may include descriptions of geographical features, famous monuments, historical or cultural events, among other aspects related to the city in question.</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Descubriendo ciudades</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>HappySw</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Name of the fictitious company under which the members of the group will simulate that we have been hired to develop the application.</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em><em>N/A</em></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Know &amp; Win</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Popular Spanish television program that combines quiz shows with educational entertainment aired daily on La 2 of Televisión Española. The show is known for its unique format, which includes a variety of challenges and tests where contestants demonstrate their knowledge in different areas such as history, geography, science, popular culture, literature, art, among other subjects.</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>"Saber Y Ganar"</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Warm question</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Test in which contestants' aim is to answer questions rapidly and accurately, requiring quick thinking, as questions are presented rapidly without pauses between them. Contestants strive to provide correct answers to accumulate points, but they must also carefully assess the risk of answering incorrectly, which could lead to losing points.</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Pregunta caliente</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Wise Men Stack</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Test in which questions are presented on a wide range of topics spanning from literature and history to science and popular culture. Contestants must answer as many questions correctly as possible within a limited time frame.</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Batería de sabios</em></p></td>
 </tr>
 </tbody>
@@ -2278,32 +2276,32 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Backend</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Server-side of a software application or website. It encompasses everything that users don&#8217;t see directly, such as databases, servers, and application logic. The backend is responsible for processing requests from the frontend and generating the appropriate responses.</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em><em>N/A</em></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Frontend</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Part of a software application or website that users interact with directly. It encompasses the user interface (UI) and user experience (UX) components that users see and interact with in their web browsers or on their devices. This includes elements such as buttons, forms, menus, and any visual or interactive elements users interact with to use the application.</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em><em>N/A</em></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Git</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Free and open-source version control system used for tracking changes in source code during software development. It allows multiple developers to collaborate on projects simultaneously and efficiently manage changes to the codebase.</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em><em>N/A</em></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Microservice</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Software architectural style that structures an application as a collection of loosely coupled services; each service is designed to perform a specific and narrowly defined function within the application. These services are typically small, independently deployable, and can be developed, tested, and deployed separately from the rest of the application.</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Microservicio</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>User</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Typically refers to an individual or entity that interacts with the system or software to perform tasks, access resources, or obtain information. Users can interact with computer systems through various means, such as graphical user interfaces, command-line interfaces, or the mentioned APIs.</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Usuario</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Wikidata</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Free and open knowledge base that acts as a central storage repository for structured data from Wikimedia projects and beyond. It provides a common platform for collecting and sharing structured data about various topics, including but not limited to, people, places, events, concepts, and objects.</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em><em>N/A</em></em></p></td>
 </tr>
 </tbody>
