@@ -5,16 +5,22 @@ const Clock = () => {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setCount(count => count - 1)
+            if(count > 0)
+               setCount(count => count - 1)
         }, 1000)
 
         return () => clearInterval(interval)
-    }, [])
+    }, [count])
+
+    const handleReset = () => {
+        setCount(15);
+    };
 
     return (
         <div>
             <h1>Reloj</h1>
-            <p>{count}</p>
+            <p><i className="material-icons">access_time</i>{count}</p>
+            <button onClick={handleReset}>Reiniciar contador</button>
         </div>
     );
 }
