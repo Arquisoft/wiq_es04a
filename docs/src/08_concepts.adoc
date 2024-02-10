@@ -3,7 +3,6 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-concepts]]
 == Cross-cutting Concepts
 
-
 [role="arc42help"]
 ****
 .Content
@@ -56,18 +55,44 @@ See https://docs.arc42.org/section-8/[Concepts] in the arc42 documentation.
 ****
 
 
-=== _<Concept 1>_
+Some important concepts need to be taken into account so as to a better understanding of the application. These concepts have to do with the following categories.
 
-_<explanation>_
+. Domain concepts
+. Architecture and Design Patterns
+. User Experience (UX)
+. Development Concepts
+. Under-the-hood
+. Operation Concepts
 
 
+Next, each category will be detailed.
 
-=== _<Concept 2>_
+=== Domain concepts
+TBD
 
-_<explanation>_
+=== Architecture and Design Patterns
+* https://arquisoft.github.io/wiq_es04a/#_12_3_technical_terms[**Microservice**]: In this application there are some microservices such as the User Management, which involves signing up, logging in and everything related to the points and timing of the user.
 
-...
+=== User Experience (UX)
+* https://arquisoft.github.io/wiq_es04a/#_12_3_technical_terms[**Frontend**]: the frontend of this application consists of a web app which will be deployed.
+* https://arquisoft.github.io/wiq_es04a/#_12_3_technical_terms[**Internationalization**] the application will be available in different languages, including English as the main language.
 
-=== _<Concept n>_
+=== Security
+TBD
 
-_<explanation>_
+=== Development Concepts
+* **Testing**: Numerous use-cases will be studied so as to provide a solid and easy-to-use application.
+* **CI/CD**: The application will be in continuous integration and deployment.
+
+=== Under-the-hood
+* **Persistency**: TBD
+* **Session handing**: TBD
+* **Business rules**: TBD
+
+=== Operation Concepts
+* **Administration**: TBD
+* **Logging**: TBD
+* **Usability**: The application should be easy to use. Some testing is done to make sure that we achieve this objective
+
+
+image::08_mindmap_concepts.png["Initial version of cross-cutting concepts"]
