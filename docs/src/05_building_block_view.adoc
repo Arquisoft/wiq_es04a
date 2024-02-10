@@ -2,8 +2,8 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-building-block-view]]
 
-
 == Building Block View
+The building block view shows in a graphic way a decomposition of the system. 
 
 [role="arc42help"]
 ****
@@ -42,6 +42,8 @@ See https://docs.arc42.org/section-5/[Building Block View] in the arc42 document
 
 === Whitebox Overall System
 
+Main view of the system. WIQ application is related to one external component: the Wikidata API
+
 [role="arc42help"]
 ****
 Here you describe the decomposition of the overall system using the following white box template. It contains
@@ -63,45 +65,16 @@ In the best case you will get away with examples or simple signatures.
 
 ****
 
-image::05_scope_context.png["Overview diagram"]
+_**<Overview Diagram>**_
+image:05_scope_context.png["Main Build Block"]
 
 Motivation::
 
-This white box decomposes into 4 black boxes representing the different microservices of the application.
-
-
-Contained Building Blocks::
-_<Description of contained building block (black boxes)>_
-
-Important Interfaces::
-_<Description of important interfaces>_
+This is a general overview of the application. Here it can be seen the external services that will be used.
 
 [role="arc42help"]
 ****
-Insert your explanations of black boxes from level 1:
-
-If you use tabular form you will only describe your black boxes with name and
-responsibility according to the following schema:
-
-[cols="1,2" options="header"]
-|===
-| **Name** | **Responsibility**
-| _<black box 1>_ | _<Text>_
-| _<black box 2>_ | _<Text>_
-|===
-
-
-
-If you use a list of black box descriptions then you fill in a separate black box template for every important building block .
-Its headline is the name of the black box.
-****
-
-
-==== <Name black box 1>
-
-[role="arc42help"]
-****
-Here you describe <black box 1>
+Here you describe black boxes
 according the the following black box template:
 
 * Purpose/Responsibility
@@ -113,71 +86,40 @@ according the the following black box template:
 
 ****
 
-_<Purpose/Responsibility>_
+Contained Building Blocks::
+* **WIQ**: It is the main application, represented as a blackbox that will be detailed in the following decompositions. 
+* **Wikidata API**: It is the external API that the system uses to generate questions and answers.
 
-_<Interface(s)>_
-
-_<(Optional) Quality/Performance Characteristics>_
-
-_<(Optional) Directory/File Location>_
-
-_<(Optional) Fulfilled Requirements>_
-
-_<(optional) Open Issues/Problems/Risks>_
-
-
-
-
-==== <Name black box 2>
-
-_<black box template>_
-
-==== <Name black box n>
-
-_<black box template>_
-
-
-==== <Name interface 1>
-
-...
-
-==== <Name interface m>
-
-
-
-=== Level 2
+=== Level 1
 
 [role="arc42help"]
 ****
-Here you can specify the inner structure of (some) building blocks from level 1 as white boxes.
+Here you can specify the inner structure of (some) building blocks from Overall System as white boxes.
 
 You have to decide which building blocks of your system are important enough to justify such a detailed description.
 Please prefer relevance over completeness. Specify important, surprising, risky, complex or volatile building blocks.
 Leave out normal, simple, boring or standardized parts of your system
 ****
 
-==== White Box _<building block 1>_
+==== White Box WIQ
 
 [role="arc42help"]
 ****
-...describes the internal structure of _building block 1_.
+...describes the internal structure of _building block WIQ_.
 ****
+_**Overview Diagram**_
 
-_<white box template>_
+image:05_level1.png["White Box WIQ"]
 
-==== White Box _<building block 2>_
+Motivation::
 
+First decomposition of the system. It shows the webapp, users managament and quetion generator modules as blackboxes. Also displays the docs module which contains the documentation of the project.
 
-_<white box template>_
-
-...
-
-==== White Box _<building block m>_
-
-
-_<white box template>_
-
-
+Contained Building Blocks::
+* **WebApp**: It is the main module of the application. 
+* **UsersManagement**: Handles user management.
+* **QuestionGenerationSystem**: It is responsible for the automatic generation of questions and answers using the Wikidata API.
+* **Docs**: It is the module of the project devoted to provide all the documentation of the application. It won't be decomposed any further.
 
 === Level 3
 
@@ -210,4 +152,5 @@ _<white box template>_
 ==== White Box <_building block y.1_>
 
 _<white box template>_
+
 
