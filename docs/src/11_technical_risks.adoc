@@ -23,3 +23,18 @@ List of risks and/or technical debts, probably including suggested measures to m
 See https://docs.arc42.org/section-11/[Risks and Technical Debt] in the arc42 documentation.
 
 ****
+=== Technical risks 
+[options="header"]
+|===
+| Technical Risk | Relevance (0-10) |  Considerations
+| Limited knowledge of certain tools or languages | 6 | A solution could be to use the tools and languages that are most well-known to the team members. Also, each member should try to learn those aspects they know less about.
+| The team has not worked together before | 3 | A suggestion could be to mantain a good communication and inform about any aspect that could affect others.
+| Being a big group | 3 | Being  many members can difficult the communication. However, if the previous suggestions are followed there should not be any problem.
+|===
+
+=== Technical debts 
+[options="header"]
+|===
+| Technical Debt |  Considerations
+| The use of Wikidata API | Each member should learn how to use this API properly.
+|===
