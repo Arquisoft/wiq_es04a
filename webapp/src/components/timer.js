@@ -30,12 +30,14 @@ const Clock = () => {
                 colorsTime={[10, 6, 3, 0]}
                 onComplete={() => ({ shouldRepeat: true, delay: 1 })}
             >
-                {({ remainingTime }) => (
+                {({ remainingTime }) => {
+                return (
                 <div class="timer">
-                    <div className="value">{remainingTime}</div>
-                    <div className="text">seconds</div>
+                    <div className="value"><span>{remainingTime}</span></div>
+                    <div className="text">seconds</div> 
                 </div>
-        )}
+                )
+            }}
             </CountdownCircleTimer>
         </div>
     );
