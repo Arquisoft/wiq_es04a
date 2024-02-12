@@ -18,20 +18,6 @@ The domain interfaces and technical interfaces to communication partners are amo
 .Form
 Various options:
 
-<pre class="mermaid">
-    flowchart TD
-      el1[User] -.->|Interacts with| sis1(WIQ Webapp)
-      subgraph system
-      sis1 --> |Authenticate| sis2(Gateway Service)
-      sis1 --> |Create user| sis2
-      sis2 --> |Log in validation| sis3(Authentication service)
-      sis2 --> |Sign up user| sis4(User service)
-      sis3 --> db1[(MongoDB)]
-      sis4 --> db1
-      end
-      sis1 --> |Get questions| D[Wikidata]
-</pre>
-
 * Context diagrams
 * Lists of communication partners and their interfaces.
 
@@ -62,6 +48,9 @@ The title of the table is the name of your system, the three columns contain the
 
 ****
 
+
+[![](https://mermaid.ink/img/pako:eNpdkEFrwzAMhf-K8KmFZtAdcyiMBUoPO4xu5FD3oNpqY5o4mS0vhKb_fVrSU3USj--J93RTprWkcnWu295UGBi-Cu1Bhur14TtSOEL2km3GnWcKaDhC77gaIbq4XpS7TyjphF23nE0xnS4BuwriEJmahygoZNkGxrfEFXl2BpmmE6-Lraw9DrCn8OsMLZ8t74GEgCRJZscjnbfP5JYYfhJFdq2PIxSH0l2dRcbjP6m99mqlGgoNOiuNb5OqJFBDWuWyWgxXrbS_C4eJ2_3gjco5JFqp1MklKhxKvUblZ6yjqGQdt-FjfuH0yfsf-UZwWg?type=png)](https://mermaid.live/edit#pako:eNpdkEFrwzAMhf-K8KmFZtAdcyiMBUoPO4xu5FD3oNpqY5o4mS0vhKb_fVrSU3USj--J93RTprWkcnWu295UGBi-Cu1Bhur14TtSOEL2km3GnWcKaDhC77gaIbq4XpS7TyjphF23nE0xnS4BuwriEJmahygoZNkGxrfEFXl2BpmmE6-Lraw9DrCn8OsMLZ8t74GEgCRJZscjnbfP5JYYfhJFdq2PIxSH0l2dRcbjP6m99mqlGgoNOiuNb5OqJFBDWuWyWgxXrbS_C4eJ2_3gjco5JFqp1MklKhxKvUblZ6yjqGQdt-FjfuH0yfsf-UZwWg)
+
 **<Diagram or Table>**
 
 **<optionally: Explanation of external domain interfaces>**
@@ -81,6 +70,10 @@ E.g. UML deployment diagram describing channels to neighboring systems,
 together with a mapping table showing the relationships between channels and input/output.
 
 ****
+
+[![](https://mermaid.ink/img/pako:eNplkU1rwkAQhv_KsKcETMGPkwehbUCEeii2eDAexuw0WTS76e6sIsb_3jVRW-yelneedz5PIjeSxFh87cwhL9EyfKSZhvBo1199OrJrSJ6SSTPTTBZzdnBQXDbglOtHy9k7LGmDdR13Juc3hcW6BHd0TNVVDCgkyQSaZ88laVY5MrUpBtE0fA94hAXZvcopfrS8WgoE-NBJ57gDgw54MwUoDXvcKYmsjG6xYfSnVhDBPea_2heq0ODr3wKj6DL1f37Y8nLTX0VzowuTvsTre3B0C153p-XjHFNi-PbkLs24BtLVUm0vDWObJNOZFj1Rka1QyXCPU6uKMEJFmRiHr0S7zUSmz4FDz2Zx1LkYs_XUE74OmShVGJZf3USSio2dd_dtz3z-AXxiokw?type=png)](https://mermaid.live/edit#pako:eNplkU1rwkAQhv_KsKcETMGPkwehbUCEeii2eDAexuw0WTS76e6sIsb_3jVRW-yelneedz5PIjeSxFh87cwhL9EyfKSZhvBo1199OrJrSJ6SSTPTTBZzdnBQXDbglOtHy9k7LGmDdR13Juc3hcW6BHd0TNVVDCgkyQSaZ88laVY5MrUpBtE0fA94hAXZvcopfrS8WgoE-NBJ57gDgw54MwUoDXvcKYmsjG6xYfSnVhDBPea_2heq0ODr3wKj6DL1f37Y8nLTX0VzowuTvsTre3B0C153p-XjHFNi-PbkLs24BtLVUm0vDWObJNOZFj1Rka1QyXCPU6uKMEJFmRiHr0S7zUSmz4FDz2Zx1LkYs_XUE74OmShVGJZf3USSio2dd_dtz3z-AXxiokw)
+
+[![](https://mermaid.ink/img/pako:eNplkD9vwkAMxb-K5SlIMBSYMlRqFYmlTIGJY3DvTLCa-NDlDoSA784R-meoJ-u937NsX9B6x1jirvUnu6cQYVUZhVy99NNiQZFPdIaaw1Esj2AyeYXrh29AFI7UiqMoXq8Pela8pbhnjWIHEfrv0N-8Z7yWRiEdIGVgSM6LdW7_87OBd58vm2LptfHV-2j7a85_TKNGcYwdh47E5VsuD8Zg3qVjg2VuHYUvg0ZvmaMUfX1Wi2UMiceYDvkGroSaQB2WO2r7rLKT6MPy-ZzhR7c7HjBinw?type=png)](https://mermaid.live/edit#pako:eNplkD9vwkAMxb-K5SlIMBSYMlRqFYmlTIGJY3DvTLCa-NDlDoSA784R-meoJ-u937NsX9B6x1jirvUnu6cQYVUZhVy99NNiQZFPdIaaw1Esj2AyeYXrh29AFI7UiqMoXq8Pela8pbhnjWIHEfrv0N-8Z7yWRiEdIGVgSM6LdW7_87OBd58vm2LptfHV-2j7a85_TKNGcYwdh47E5VsuD8Zg3qVjg2VuHYUvg0ZvmaMUfX1Wi2UMiceYDvkGroSaQB2WO2r7rLKT6MPy-ZzhR7c7HjBinw)
 
 **<Diagram or Table>**
 
