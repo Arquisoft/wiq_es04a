@@ -1,0 +1,5 @@
+flowchart TD
+    sis2(Gateway Service) --> |Log in validation| sis3(Authentication service)
+    sis2 --> |Sign up user| sis4(User service)
+    sis3 --> db1[(MongoDB)]
+    sis4 --> db1
