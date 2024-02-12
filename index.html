@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.20">
+<meta name="generator" content="Asciidoctor 2.0.18">
 <title>Template</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -208,10 +208,13 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
 .sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
-.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
-.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
 .literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
 @media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
 @media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
@@ -390,7 +393,7 @@ b.conum *{color:inherit!important}
 dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
 h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
 p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
-p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
+p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
 .exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
@@ -1004,21 +1007,6 @@ conventions (e.g. programming or versioning guidelines, documentation or naming 
 <div class="title">Form</div>
 <p>Various options:</p>
 </div>
-<div class="paragraph">
-<p>&lt;pre class="mermaid"&gt;
-    flowchart TD
-      el1[User] -.&#8594;|Interacts with| sis1(WIQ Webapp)
-      subgraph system
-      sis1 -&#8594; |Authenticate| sis2(Gateway Service)
-      sis1 -&#8594; |Create user| sis2
-      sis2 -&#8594; |Log in validation| sis3(Authentication service)
-      sis2 -&#8594; |Sign up user| sis4(User service)
-      sis3 -&#8594; db1[(MongoDB)]
-      sis4 -&#8594; db1
-      end
-      sis1 -&#8594; |Get questions| D[Wikidata]
-&lt;/pre&gt;</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
@@ -1059,6 +1047,9 @@ The title of the table is the name of your system, the three columns contain the
 </div>
 </div>
 <div class="paragraph">
+<p>[![](<a href="https://mermaid.ink/img/pako:eNpdkEFrwzAMhf-K8KmFZtAdcyiMBUoPO4xu5FD3oNpqY5o4mS0vhKb_fVrSU3USj&#8212;&#8203;J93RTprWkcnWu295UGBi-Cu1Bhur14TtSOEL2km3GnWcKaDhC77gaIbq4XpS7TyjphF23nE0xnS4BuwriEJmahygoZNkGxrfEFXl2BpmmE6-Lraw9DrCn8OsMLZ8t74GEgCRJZscjnbfP5JYYfhJFdq2PIxSH0l2dRcbjP6m99mqlGgoNOiuNb5OqJFBDWuWyWgxXrbS_C4eJ2_3gjco5JFqp1MklKhxKvUblZ6yjqGQdt-FjfuH0yfsf-UZwWg?type=png" class="bare">https://mermaid.ink/img/pako:eNpdkEFrwzAMhf-K8KmFZtAdcyiMBUoPO4xu5FD3oNpqY5o4mS0vhKb_fVrSU3USj&#8212;&#8203;J93RTprWkcnWu295UGBi-Cu1Bhur14TtSOEL2km3GnWcKaDhC77gaIbq4XpS7TyjphF23nE0xnS4BuwriEJmahygoZNkGxrfEFXl2BpmmE6-Lraw9DrCn8OsMLZ8t74GEgCRJZscjnbfP5JYYfhJFdq2PIxSH0l2dRcbjP6m99mqlGgoNOiuNb5OqJFBDWuWyWgxXrbS_C4eJ2_3gjco5JFqp1MklKhxKvUblZ6yjqGQdt-FjfuH0yfsf-UZwWg?type=png</a>)](<a href="https://mermaid.live/edit#pako:eNpdkEFrwzAMhf-K8KmFZtAdcyiMBUoPO4xu5FD3oNpqY5o4mS0vhKb_fVrSU3USj&#8212;&#8203;J93RTprWkcnWu295UGBi-Cu1Bhur14TtSOEL2km3GnWcKaDhC77gaIbq4XpS7TyjphF23nE0xnS4BuwriEJmahygoZNkGxrfEFXl2BpmmE6-Lraw9DrCn8OsMLZ8t74GEgCRJZscjnbfP5JYYfhJFdq2PIxSH0l2dRcbjP6m99mqlGgoNOiuNb5OqJFBDWuWyWgxXrbS_C4eJ2_3gjco5JFqp1MklKhxKvUblZ6yjqGQdt-FjfuH0yfsf-UZwWg" class="bare">https://mermaid.live/edit#pako:eNpdkEFrwzAMhf-K8KmFZtAdcyiMBUoPO4xu5FD3oNpqY5o4mS0vhKb_fVrSU3USj&#8212;&#8203;J93RTprWkcnWu295UGBi-Cu1Bhur14TtSOEL2km3GnWcKaDhC77gaIbq4XpS7TyjphF23nE0xnS4BuwriEJmahygoZNkGxrfEFXl2BpmmE6-Lraw9DrCn8OsMLZ8t74GEgCRJZscjnbfP5JYYfhJFdq2PIxSH0l2dRcbjP6m99mqlGgoNOiuNb5OqJFBDWuWyWgxXrbS_C4eJ2_3gjco5JFqp1MklKhxKvUblZ6yjqGQdt-FjfuH0yfsf-UZwWg</a>)</p>
+</div>
+<div class="paragraph">
 <p><strong>&lt;Diagram or Table&gt;</strong></p>
 </div>
 <div class="paragraph">
@@ -1083,6 +1074,12 @@ The title of the table is the name of your system, the three columns contain the
 together with a mapping table showing the relationships between channels and input/output.</p>
 </div>
 </div>
+</div>
+<div class="paragraph">
+<p>[![](<a href="https://mermaid.ink/img/pako:eNplkU1rwkAQhv_KsKcETMGPkwehbUCEeii2eDAexuw0WTS76e6sIsb_3jVRW-yelneedz5PIjeSxFh87cwhL9EyfKSZhvBo1199OrJrSJ6SSTPTTBZzdnBQXDbglOtHy9k7LGmDdR13Juc3hcW6BHd0TNVVDCgkyQSaZ88laVY5MrUpBtE0fA94hAXZvcopfrS8WgoE-NBJ57gDgw54MwUoDXvcKYmsjG6xYfSnVhDBPea_2heq0ODr3wKj6DL1f37Y8nLTX0VzowuTvsTre3B0C153p-XjHFNi-PbkLs24BtLVUm0vDWObJNOZFj1Rka1QyXCPU6uKMEJFmRiHr0S7zUSmz4FDz2Zx1LkYs_XUE74OmShVGJZf3USSio2dd_dtz3z-AXxiokw?type=png" class="bare">https://mermaid.ink/img/pako:eNplkU1rwkAQhv_KsKcETMGPkwehbUCEeii2eDAexuw0WTS76e6sIsb_3jVRW-yelneedz5PIjeSxFh87cwhL9EyfKSZhvBo1199OrJrSJ6SSTPTTBZzdnBQXDbglOtHy9k7LGmDdR13Juc3hcW6BHd0TNVVDCgkyQSaZ88laVY5MrUpBtE0fA94hAXZvcopfrS8WgoE-NBJ57gDgw54MwUoDXvcKYmsjG6xYfSnVhDBPea_2heq0ODr3wKj6DL1f37Y8nLTX0VzowuTvsTre3B0C153p-XjHFNi-PbkLs24BtLVUm0vDWObJNOZFj1Rka1QyXCPU6uKMEJFmRiHr0S7zUSmz4FDz2Zx1LkYs_XUE74OmShVGJZf3USSio2dd_dtz3z-AXxiokw?type=png</a>)](<a href="https://mermaid.live/edit#pako:eNplkU1rwkAQhv_KsKcETMGPkwehbUCEeii2eDAexuw0WTS76e6sIsb_3jVRW-yelneedz5PIjeSxFh87cwhL9EyfKSZhvBo1199OrJrSJ6SSTPTTBZzdnBQXDbglOtHy9k7LGmDdR13Juc3hcW6BHd0TNVVDCgkyQSaZ88laVY5MrUpBtE0fA94hAXZvcopfrS8WgoE-NBJ57gDgw54MwUoDXvcKYmsjG6xYfSnVhDBPea_2heq0ODr3wKj6DL1f37Y8nLTX0VzowuTvsTre3B0C153p-XjHFNi-PbkLs24BtLVUm0vDWObJNOZFj1Rka1QyXCPU6uKMEJFmRiHr0S7zUSmz4FDz2Zx1LkYs_XUE74OmShVGJZf3USSio2dd_dtz3z-AXxiokw" class="bare">https://mermaid.live/edit#pako:eNplkU1rwkAQhv_KsKcETMGPkwehbUCEeii2eDAexuw0WTS76e6sIsb_3jVRW-yelneedz5PIjeSxFh87cwhL9EyfKSZhvBo1199OrJrSJ6SSTPTTBZzdnBQXDbglOtHy9k7LGmDdR13Juc3hcW6BHd0TNVVDCgkyQSaZ88laVY5MrUpBtE0fA94hAXZvcopfrS8WgoE-NBJ57gDgw54MwUoDXvcKYmsjG6xYfSnVhDBPea_2heq0ODr3wKj6DL1f37Y8nLTX0VzowuTvsTre3B0C153p-XjHFNi-PbkLs24BtLVUm0vDWObJNOZFj1Rka1QyXCPU6uKMEJFmRiHr0S7zUSmz4FDz2Zx1LkYs_XUE74OmShVGJZf3USSio2dd_dtz3z-AXxiokw</a>)</p>
+</div>
+<div class="paragraph">
+<p>[![](<a href="https://mermaid.ink/img/pako:eNplkD9vwkAMxb-K5SlIMBSYMlRqFYmlTIGJY3DvTLCa-NDlDoSA784R-meoJ-u937NsX9B6x1jirvUnu6cQYVUZhVy99NNiQZFPdIaaw1Esj2AyeYXrh29AFI7UiqMoXq8Pela8pbhnjWIHEfrv0N-8Z7yWRiEdIGVgSM6LdW7_87OBd58vm2LptfHV-2j7a85_TKNGcYwdh47E5VsuD8Zg3qVjg2VuHYUvg0ZvmaMUfX1Wi2UMiceYDvkGroSaQB2WO2r7rLKT6MPy-ZzhR7c7HjBinw?type=png" class="bare">https://mermaid.ink/img/pako:eNplkD9vwkAMxb-K5SlIMBSYMlRqFYmlTIGJY3DvTLCa-NDlDoSA784R-meoJ-u937NsX9B6x1jirvUnu6cQYVUZhVy99NNiQZFPdIaaw1Esj2AyeYXrh29AFI7UiqMoXq8Pela8pbhnjWIHEfrv0N-8Z7yWRiEdIGVgSM6LdW7_87OBd58vm2LptfHV-2j7a85_TKNGcYwdh47E5VsuD8Zg3qVjg2VuHYUvg0ZvmaMUfX1Wi2UMiceYDvkGroSaQB2WO2r7rLKT6MPy-ZzhR7c7HjBinw?type=png</a>)](<a href="https://mermaid.live/edit#pako:eNplkD9vwkAMxb-K5SlIMBSYMlRqFYmlTIGJY3DvTLCa-NDlDoSA784R-meoJ-u937NsX9B6x1jirvUnu6cQYVUZhVy99NNiQZFPdIaaw1Esj2AyeYXrh29AFI7UiqMoXq8Pela8pbhnjWIHEfrv0N-8Z7yWRiEdIGVgSM6LdW7_87OBd58vm2LptfHV-2j7a85_TKNGcYwdh47E5VsuD8Zg3qVjg2VuHYUvg0ZvmaMUfX1Wi2UMiceYDvkGroSaQB2WO2r7rLKT6MPy-ZzhR7c7HjBinw" class="bare">https://mermaid.live/edit#pako:eNplkD9vwkAMxb-K5SlIMBSYMlRqFYmlTIGJY3DvTLCa-NDlDoSA784R-meoJ-u937NsX9B6x1jirvUnu6cQYVUZhVy99NNiQZFPdIaaw1Esj2AyeYXrh29AFI7UiqMoXq8Pela8pbhnjWIHEfrv0N-8Z7yWRiEdIGVgSM6LdW7_87OBd58vm2LptfHV-2j7a85_TKNGcYwdh47E5VsuD8Zg3qVjg2VuHYUvg0ZvmaMUfX1Wi2UMiceYDvkGroSaQB2WO2r7rLKT6MPy-ZzhR7c7HjBinw</a>)</p>
 </div>
 <div class="paragraph">
 <p><strong>&lt;Diagram or Table&gt;</strong></p>
@@ -2493,7 +2490,7 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2024-02-10 22:24:17 +0100
+Last updated 2024-02-08 19:50:49 +0100
 </div>
 </div>
 </body>
