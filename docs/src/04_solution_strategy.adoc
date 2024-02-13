@@ -9,8 +9,6 @@ To develop the app we will use the following technologies:
 
 * JavaScript will be the main programming language
 * ReactJS to build the user interface
-* NodeJS for the backend
-* Other programming languages can be used to experiment
 * Docker Compose to deploy all the microservices
 * GitHub for version control
 * WikiData API to obtain question and answer information
@@ -27,6 +25,7 @@ For example, we will use a microservice to generate the questions.
 
 Decisions on how to achieve key quality goals
 
+[options="header",cols="1,2,2"]
 |===
 |Quality goal| Decisions to achieve it.
 |Usability| We are going to use real users to test the app interface and improve it according to their feedback.
@@ -37,8 +36,8 @@ Decisions on how to achieve key quality goals
 
 Relevant organizational decisions
 
-We are going to divide tasks for each person placing the deadline at the middle of the maximum established time by the delivery.
-Then other person will review the work done.
+Our framework will be based on working every week with two weekly meetings, one will be held during lab time in order to assign tasks and make minor decisions.
+On the other hand, the weekend meeting will be intended for more thorough reviews as well as more significant decisions.
 
 Each assigned task will be created as an Issue in GitHub to track the progress done. In addition, we are going to use GitHub Projects to organize the workflow of the team.
 To merge the code to the develop branch we are going to use Pull Requests in order to be approved by every person of the team.

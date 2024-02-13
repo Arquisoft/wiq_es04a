@@ -94,6 +94,7 @@ A table with quality goals and concrete scenarios, ordered by priorities
 
 === Stakeholders
 
+[options="header",cols="1,2,2"]
 |===
 |Role/Name|Contact|Expectations
 | Happy Software | Méndez Fernández, Hugo Barrero Cruz, Pablo Lago Conde, Alberto García-Ovies Pérez, Pablo Bustamante Larriet, Samuel González García, María Teresa Andina Pailos, Daniel | Students are the developers of the app. They need to do a great project to obtain a good mark.
@@ -120,10 +121,3 @@ These stakeholders determine the extent and the level of detail of your work and
 .Form
 Table with role names, person names, and their expectations with respect to the architecture and its documentation.
 ****
-
-[options="header",cols="1,2,2"]
-|===
-|Role/Name|Contact|Expectations
-| _<Role-1>_ | _<Contact-1>_ | _<Expectation-1>_
-| _<Role-2>_ | _<Contact-2>_ | _<Expectation-2>_
-|===

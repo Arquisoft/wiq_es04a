@@ -59,6 +59,7 @@ In any case the tree should include links to the scenarios of the following sect
 
 Usage Scenario table:
 
+[options="header",cols="1,2,2"]
 |===
 |Usage Scenario|System Reaction
 |The user initiates the web application, enters their username and password, and clicks the login button.|The system verifies the information entered by the user, and if correct, redirects them to the main page; otherwise, it indicates an error has occurred.
@@ -70,6 +71,7 @@ Usage Scenario table:
 
 Change Scenario table:
 
+[options="header",cols="1,2,2"]
 |===
 |Change Scenario|System Reaction
 |Adding an additional login system to access the account not only through email but also through the username. |The system should be capable of adapting to provide this functionality without affecting the existing ones.
