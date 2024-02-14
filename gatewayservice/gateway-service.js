@@ -41,6 +41,43 @@ app.post('/adduser', async (req, res) => {
   }
 });
 
+//////////////This should not be here///////////////////////////////
+const questions = [
+  {
+    id: 1,
+    question: '¿Cuál es la capital de Francia?',
+    options: ['Roma', 'Madrid', 'París', 'Londres'],
+    correctAnswer: 'París',
+  },
+  {
+    id: 2,
+    question: '¿Cuál es la capital de Asturias?',
+    options: ['Llanes', 'Avilés', 'Gijón', 'Oviedo'],
+    correctAnswer: 'Oviedo',
+  },
+  {
+    id: 3,
+    question: '¿En qué año comenzó la Segunda Guerra Mundial?',
+    options: ['1935', '1938', '1941', '1939'],
+    correctAnswer: '1939',
+  },
+  {
+    id: 4,
+    question: '¿Cuál es el río más largo del mundo?',
+    options: ['Nilo', 'Amazonas', 'Misisipi', 'Yangtsé'],
+    correctAnswer: 'Amazonas',
+  }
+];
+
+app.get('/question', (_req, res) => {
+  //const randomIndex = Math.floor(Math.random() * questions.length);
+  //const randomQuestion = questions[randomIndex];
+  
+  res.json(questions);
+});
+
+//////TODO:refactor to another service/////////////////
+
 // Start the gateway service
 const server = app.listen(port, () => {
   console.log(`Gateway Service listening at http://localhost:${port}`);

@@ -1,29 +1,23 @@
 import { Box, Container, Typography, Button, Radio, RadioGroup, FormControl, FormControlLabel } from '@mui/material';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './navBar';
 import VideogameAssetIcon from '@mui/icons-material/VideogameAsset';
-
-const questions = [
-    {
-      id: 1,
-      question: '¿Cuál es la capital de Francia?',
-      options: ['Roma', 'Madrid', 'París', 'Londres'],
-      correctAnswer: 'París',
-    },
-    {
-      id: 2,
-      question: '¿Cuál es la capital de Asturias?',
-      options: ['Llanes', 'Avilés', 'Gijón', 'Oviedo'],
-      correctAnswer: 'Oviedo',
-    },
-  ];
 
 const Game = () => {
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState('');
     const [score, setScore] = useState(0);
+
+    const[questions, setQuestions] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:8000/question')
+          .then(response => response.json())
+          .then(data => setQuestions(data))
+          .catch(error => console.error('Error al cargar las preguntas:', error));
+      }, []);
   
     const handleAnswerChange = (event) => {
       setSelectedAnswer(event.target.value);
