@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import "./css/timer.css" 
+import Navbar from './navBar';
 
 const Clock = () => {
     const[count, setCount] = useState(15)
@@ -25,6 +26,7 @@ const Clock = () => {
 
     return (
         <div>
+          <Navbar/>
           <button onClick={toggleClock}>Mostrar/ocultar reloj</button>
           {showClock && (
             <div>
