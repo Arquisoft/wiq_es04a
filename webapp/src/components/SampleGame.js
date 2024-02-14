@@ -53,7 +53,9 @@ const Game = () => {
                     <VideogameAssetIcon style={{ fontSize: 70, verticalAlign: 'middle', marginLeft: '0.1em'}}/>
                 </Typography>
 
-                <Container style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100vh', marginTop: '1.5em' }}>
+                <Container style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100vh', marginTop: '1.5em',
+                         padding: '20px', border: "1px solid #ccc", borderRadius: '10px', boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                         maxInlineSize: '300px',  maxBlockSize: '430px' }}>
                 {currentQuestion < questions.length ? (
                     <div>
                     <Typography variant="h4" style={{ fontFamily: 'inherit', marginBottom: '20px', textAlign: 'center' }}>
@@ -62,7 +64,7 @@ const Game = () => {
                     <Typography variant="h5" style={{ fontFamily: 'inherit', marginBottom: '20px', textAlign: 'center' }}>
                         {questions[currentQuestion].question}
                     </Typography>
-                    <Box style={{display: 'flex', flexDirection: 'column',}}>
+                    <Box style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                         <FormControl component="fieldset">
                             <RadioGroup
                             aria-label="options"
@@ -84,6 +86,7 @@ const Game = () => {
                             variant="contained"
                             color="primary"
                             onClick={handleNextQuestion}
+                            style={{marginTop: '0.8em'}}
                         >
                             Siguiente
                         </Button>
@@ -91,10 +94,10 @@ const Game = () => {
                     </div>
                 ) : (
                     <div>
-                    <Typography variant="h4" style={{ fontFamily: 'inherit', marginBottom: '20px' }}>
+                    <Typography variant="h4" style={{ fontFamily: 'inherit', marginBottom: '20px', textAlign: 'center' }}>
                         Juego terminado
                     </Typography>
-                    <Typography variant="h5" style={{ fontFamily: 'inherit', marginBottom: '20px' }}>
+                    <Typography variant="h5" style={{ fontFamily: 'inherit', marginBottom: '20px', textAlign: 'center' }}>
                         Puntuación: {score} de {questions.length}
                     </Typography>
                     <Button variant="contained" color="primary" onClick={resetGame}>
