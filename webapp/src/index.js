@@ -11,6 +11,7 @@ import {
 
 import Clock from './components/timer';
 import ErrorPage from "./components/errorPage";
+import Game from './components/SampleGame';
 
 const router = createBrowserRouter([
   {
@@ -19,8 +20,14 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/test",
+    path: "/clock",
     element: <Clock />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/game",
+    element: <Game/>,
+    errorElement: <ErrorPage />,
   },
 ]);
 

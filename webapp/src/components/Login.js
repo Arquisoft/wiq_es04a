@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
-import Clock from './timer';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -44,7 +43,6 @@ const Login = () => {
           <Typography component="p" variant="body1" sx={{ textAlign: 'center', marginTop: 2 }}>
             Your account was created on {new Date(createdAt).toLocaleDateString()}.
           </Typography>
-          <Clock/>
         </div>
       ) : (
         <div>

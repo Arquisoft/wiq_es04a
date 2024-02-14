@@ -25,6 +25,7 @@ const Clock = () => {
         setShowClock(!showClock);
     };
 
+    //Just test code (very bad)
     return (
         <div>
           <Navbar/>
