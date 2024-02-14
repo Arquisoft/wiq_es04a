@@ -1,6 +1,7 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button } from '@mui/material';
+import { AppBar, Toolbar, Button, IconButton, Typography, Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
+import HomeIcon from '@mui/icons-material/Home';
 
 //Link carga solo partes del DOM, mejora la eficiencia respecto a usar href
 
@@ -8,18 +9,23 @@ const Navbar = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography color="inherit" variant="h6" component={Link} to="/">
-          Aplicacion de ejemplo
+        <IconButton size='large' edge='start' color='inherit' component={Link} to="/" >
+            <HomeIcon/>
+        </IconButton>
+        <Typography variant='h6' component='div' sx={{flexGrow: 1}} style={{ fontFamily: 'inherit' }}>
+            APP Ejemplo
         </Typography>
-        <Button color="inherit" component={Link} to="/">
-          Home
-        </Button>
-        <Button color="inherit" component={Link} to="/test">
-          test
-        </Button>
-        <Button color="inherit" component={Link} to="/eieqwd">
-          Ver página de error
-        </Button>
+        <Stack direction='row' spacing={2}>
+            <Button color="inherit" component={Link} to="/">
+            Home
+            </Button>
+            <Button color="inherit" component={Link} to="/test">
+            test
+            </Button>
+            <Button color="inherit" component={Link} to="/eieqwd">
+            Ver página de error
+            </Button>
+        </Stack>
       </Toolbar>
     </AppBar>
   );
