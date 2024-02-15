@@ -12,13 +12,17 @@ const Game = () => {
 
     const[questions, setQuestions] = useState([]);
 
-    useEffect(() => {
-        fetch('http://localhost:8000/question')
+    const loadQuestions = async () => {
+        await fetch('http://localhost:8000/question')
           .then(response => response.json())
           .then(data => setQuestions(data))
           .catch(error => console.error('Error al cargar las preguntas:', error));
+      };
+    
+    useEffect(() => {
+        loadQuestions();
       }, []);
-  
+
     const handleAnswerChange = (event) => {
       setSelectedAnswer(event.target.value);
     };
@@ -32,7 +36,8 @@ const Game = () => {
       setCurrentQuestion(currentQuestion + 1);
     };
   
-    const resetGame = () => {
+    const resetGame = async () => {
+      await loadQuestions();
       setCurrentQuestion(0);
       setSelectedAnswer('');
       setScore(0);
