@@ -1,4 +1,4 @@
-import { Box, Container, Typography, Button, Radio, RadioGroup, FormControl, FormControlLabel } from '@mui/material';
+import { Box, Container, Typography, Button, Radio, RadioGroup, FormControl, FormControlLabel, CircularProgress } from '@mui/material';
 
 import React, { useState, useEffect } from 'react';
 import Navbar from './navBar';
@@ -11,12 +11,23 @@ const Game = () => {
     const [score, setScore] = useState(0);
 
     const[questions, setQuestions] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const loadQuestions = async () => {
-        await fetch('http://localhost:8000/question')
-          .then(response => response.json())
-          .then(data => setQuestions(data))
-          .catch(error => console.error('Error al cargar las preguntas:', error));
+       // await fetch('http://localhost:8000/question')
+        //  .then(response => response.json())
+        //  .then(data => setQuestions(data))
+        //  .catch(error => console.error('Error al cargar las preguntas:', error));
+        try {
+            setLoading(true);
+            const response = await fetch('http://localhost:8000/question');
+            const data = await response.json();
+            setQuestions(data);
+          } catch (error) {
+            console.error('Error al cargar las preguntas:', error);
+          } finally {
+            setLoading(false);
+          }
       };
     
     useEffect(() => {
@@ -37,7 +48,9 @@ const Game = () => {
     };
   
     const resetGame = async () => {
+      setLoading(true);
       await loadQuestions();
+      setLoading(false);
       setCurrentQuestion(0);
       setSelectedAnswer('');
       setScore(0);
@@ -99,9 +112,12 @@ const Game = () => {
                     <Typography variant="h5" style={{ fontFamily: 'inherit', marginBottom: '20px', textAlign: 'center' }}>
                         Puntuación: {score} de {questions.length}
                     </Typography>
-                    <Button variant="contained" color="primary" onClick={resetGame}>
-                        Reiniciar Juego
-                    </Button>
+                        <div style={{display: "flex", flexDirection: "column", alignItems: "center", gap: "2em"}}>
+                        <Button variant="contained" color="primary" onClick={resetGame} disabled={loading}>
+                            Reiniciar Juego
+                        </Button>
+                        {loading && <CircularProgress style={{ marginLeft: '10px' }} />}
+                        </div>
                     </div>
                 )}
                 </Container>
