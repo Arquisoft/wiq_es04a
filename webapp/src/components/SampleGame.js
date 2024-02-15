@@ -39,7 +39,7 @@ const Game = () => {
     };
   
     const handleNextQuestion = () => {
-      if (selectedAnswer === questions[currentQuestion].correctAnswer) {
+      if (selectedAnswer === (questions[currentQuestion].correctAnswer + "")) {
         setScore(score + 1);
       }
   
