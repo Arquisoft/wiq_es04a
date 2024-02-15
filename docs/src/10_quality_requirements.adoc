@@ -5,10 +5,10 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 The main quality goals are:
 
-* Usability: The interface should be intuitive, with clear instructions and an accessible design. This will allow users of all abilities to navigate and use the application effortlessly.
-* Availability: The system should aim for maximum availability, ensuring it is accessible around the clock. This will guarantee uninterrupted access most of the time, regardless of their time zone or schedule.
-* Security: User data confidentiality must be upheld as a top priority, ensuring sensitive information remains secure and protected at all times. This commitment to privacy instills trust and confidence among users, fostering a safe and secure environment for their data.
-* Performance: Efficiency is paramount in system usage, particularly in swift question generation, ensuring a seamless experience for users. Streamlining processes enhances overall usability, enabling swift and effortless interaction with the system.
+* ***Usability***: The interface should be intuitive, with clear instructions and an accessible design. This will allow users of all abilities to navigate and use the application effortlessly.
+* ***Availability***: The system should aim for maximum availability, ensuring it is accessible around the clock. This will guarantee uninterrupted access most of the time, regardless of their time zone or schedule.
+* ***:Security***:: User data confidentiality must be upheld as a top priority, ensuring sensitive information remains secure and protected at all times. This commitment to privacy instills trust and confidence among users, fostering a safe and secure environment for their data.
+* ***:Performance***:: Efficiency is paramount in system usage, particularly in swift question generation, ensuring a seamless experience for users. Streamlining processes enhances overall usability, enabling swift and effortless interaction with the system.
 
 
 [role="arc42help"]
