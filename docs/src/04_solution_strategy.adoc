@@ -50,7 +50,7 @@ Decisions about the top-level decomposition of the system
 We decided to use a microservices arquitecture, having different modules for each functionality. 
 For example, we will use a microservice to generate the questions.
 
-Decisions on how to achieve key [quality goals](10_quality_requirements.adoc)
+Decisions on how to achieve key 10_quality_requirements.adoc[quality goals]
 
 [options="header",cols="1,2,2"]
 |===

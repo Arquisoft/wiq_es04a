@@ -7,6 +7,21 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 image::DeploymentView.png["Deployment View"]
 
+'''
+mermaid
+graph TD
+user --> |uses| webApp
+webApp --> |request| gateWayService
+webApp --> |get questions|questionGenerationModule
+monitoring-systems --> gateWayService
+database 
+gateWayService --> |control login and auth| userServices
+userServices --> |persist data| database
+gateWayService
+questionGenerationModule
+'''
+
+image::deploymentViewMermaid.png["Deployment View"]
 
 [role="arc42help"]
 ****
