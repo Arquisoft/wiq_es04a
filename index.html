@@ -576,23 +576,6 @@ For documentation of your own system you use better the <em>plain</em> version.<
 <div class="sect1">
 <h2 id="section-introduction-and-goals">1. Introduction and Goals (wiq_es04a)</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>The aim of this project is to create a version of the famous quiz show "Saber y Ganar". In the quiz you have to
-answer different questions about various topics (chosing topic will be possible), winning a reward for each correct answer.
-One of the most relevant requirement is that the questions are generated from WikiData so there will always be different questions.</p>
-</div>
-<div class="paragraph">
-<p>To do the game we are going to develop a web application that will be available to enter from any device with internet connection.</p>
-</div>
-<div class="paragraph">
-<p>Regarding quality requirements, the goal is to achieve an optimal level, especially in terms of usability,
- maintainability, efficiency, security, and testability.</p>
-</div>
-<div class="paragraph">
-<p>The main stakeholders in the project are several. Firstly, Professor José Emilio Labra, who teaches the
-subject. Also, the students and members of the HappySoftware development team. Lastly, potential users of
-the application will show interest in the project, as their user experience depends on it.</p>
-</div>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -619,6 +602,23 @@ These include</p>
 </ul>
 </div>
 </div>
+</div>
+<div class="paragraph">
+<p>The aim of this project is to create a version of the famous quiz show "Saber y Ganar". In the quiz you have to
+answer different questions about various topics (chosing topic will be possible), winning a reward for each correct answer.
+One of the most relevant requirement is that the questions are generated from WikiData so there will always be different questions.</p>
+</div>
+<div class="paragraph">
+<p>To do the game we are going to develop a web application that will be available to enter from any device with internet connection.</p>
+</div>
+<div class="paragraph">
+<p>Regarding quality requirements, the goal is to achieve an optimal level, especially in terms of usability,
+ maintainability, efficiency, security, and testability.</p>
+</div>
+<div class="paragraph">
+<p>The main stakeholders in the project are several. Firstly, Professor José Emilio Labra, who teaches the
+subject. Also, the students and members of the HappySoftware development team. Lastly, potential users of
+the application will show interest in the project, as their user experience depends on it.</p>
 </div>
 <div class="sect2">
 <h3 id="_requirements_overview">1.1. Requirements Overview</h3>
@@ -2203,6 +2203,9 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 </div>
 <div class="sect2">
 <h3 id="_technical_risks">11.1. Technical risks</h3>
+<div class="paragraph">
+<p>To assess the relevance level of the following technical risks, we will use number 1 to indicate low relevance, 2 for medium relevance, and 3 for high relevance.</p>
+</div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -2212,24 +2215,24 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Technical Risk</th>
-<th class="tableblock halign-left valign-top">Relevance (0-10)</th>
+<th class="tableblock halign-left valign-top">Relevance</th>
 <th class="tableblock halign-left valign-top">Considerations</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Limited knowledge of certain tools or languages</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A solution could be to use the tools and languages that are most well-known to the team members. Also, each member should try to learn those aspects they know less about.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The team has not worked together before</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A suggestion could be to mantain a good communication and inform about any aspect that could affect others.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Being a big group</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Being  many members can difficult the communication. However, if the previous suggestions are followed there should not be any problem.</p></td>
 </tr>
 </tbody>
@@ -2250,8 +2253,8 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The use of Wikidata API</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Each member should learn how to use this API properly.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Low-quality code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The use of new technologies and languages can lead to poorly written or poorly designed code. To address this issue, we will use pull requests to ensure that the code is reviewed by multiple team members.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2459,7 +2462,7 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2024-02-15 19:41:04 +0100
+Last updated 2024-01-30 14:11:35 +0100
 </div>
 </div>
 </body>
