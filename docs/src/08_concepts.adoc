@@ -66,7 +66,9 @@ Some important concepts need to be taken into account so as to a better understa
 Next, each category will be detailed.
 
 === Domain concepts
-TBD
+At the moment, nothing has been definitively decided or implemented to support the following outline. This simply illustrates how a preliminary version of the structure of our application could look like.
+
+image::08_domain_model.png["Initial version of the domain model"]
 
 === User Experience (UX)
 * https://arquisoft.github.io/wiq_es04a/#_12_3_technical_terms[**Frontend**]: the frontend of this application consists of a web app which will be deployed. Now, the user can register and log in with accounts already created on an intuitive page.
