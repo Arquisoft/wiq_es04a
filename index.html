@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.18">
+<meta name="generator" content="Asciidoctor 2.0.20">
 <title>Template</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -208,13 +208,10 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
-.exampleblock>.content>:first-child{margin-top:0}
-.exampleblock>.content>:last-child{margin-bottom:0}
 .sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
-.sidebarblock>:first-child{margin-top:0}
-.sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
-.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
 .literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
 @media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
 @media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
@@ -393,7 +390,7 @@ b.conum *{color:inherit!important}
 dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
 h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
 p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
-p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
 .exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
@@ -493,17 +490,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#section-concepts">8. Cross-cutting Concepts</a>
 <ul class="sectlevel2">
 <li><a href="#_domain_concepts">8.1. Domain concepts</a></li>
-<li><a href="#_architecture_and_design_patterns">8.2. Architecture and Design Patterns</a></li>
-<li><a href="#_user_experience_ux">8.3. User Experience (UX)</a></li>
+<li><a href="#_user_experience_ux">8.2. User Experience (UX)</a></li>
+<li><a href="#_operation_concepts">8.3. Operation Concepts</a></li>
 <li><a href="#_security">8.4. Security</a></li>
-<li><a href="#_development_concepts">8.5. Development Concepts</a></li>
-<li><a href="#_under_the_hood">8.6. Under-the-hood</a></li>
-<li><a href="#_operation_concepts">8.7. Operation Concepts</a></li>
+<li><a href="#_architecture_and_design_patterns">8.5. Architecture and Design Patterns</a></li>
+<li><a href="#_development_concepts">8.6. Development Concepts</a></li>
 </ul>
 </li>
 <li><a href="#section-design-decisions">9. Architecture Decisions</a>
 <ul class="sectlevel2">
-<li><a href="#_9_1_team_working_methodology">9.1. 9.1. Team Working Methodology</a></li>
+<li><a href="#_team_working_methodology">9.1. Team Working Methodology</a></li>
 </ul>
 </li>
 <li><a href="#section-quality-scenarios">10. Quality Requirements</a>
@@ -581,8 +577,12 @@ For documentation of your own system you use better the <em>plain</em> version.<
 <h2 id="section-introduction-and-goals">1. Introduction and Goals (wiq_es04a)</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The aim of this project is to create a version of the famous quiz show "Saber y Ganar," developing a web
-application. The added value and main functional requirement are that questions cannot be repeated.</p>
+<p>The aim of this project is to create a version of the famous quiz show "Saber y Ganar". In the quiz you have to
+answer different questions about various topics (chosing topic will be possible), winning a reward for each correct answer.
+One of the most relevant requirement is that the questions are generated from WikiData so there will always be different questions.</p>
+</div>
+<div class="paragraph">
+<p>To do the game we are going to develop a web application that will be available to enter from any device with internet connection.</p>
 </div>
 <div class="paragraph">
 <p>Regarding quality requirements, the goal is to achieve an optimal level, especially in terms of usability,
@@ -726,16 +726,18 @@ If you as an architect do not know how the quality of your work will be judged&#
 <h3 id="_stakeholders">1.3. Stakeholders</h3>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Role/Name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Contact</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Expectations</p></td>
+<th class="tableblock halign-left valign-top">Role/Name</th>
+<th class="tableblock halign-left valign-top">Contact</th>
+<th class="tableblock halign-left valign-top">Expectations</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Happy Software</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Méndez Fernández, Hugo Barrero Cruz, Pablo Lago Conde, Alberto García-Ovies Pérez, Pablo Bustamante Larriet, Samuel González García, María Teresa Andina Pailos, Daniel</p></td>
@@ -790,32 +792,6 @@ These stakeholders determine the extent and the level of detail of your work and
 </div>
 </div>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 20%;">
-<col style="width: 40%;">
-<col style="width: 40%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Role/Name</th>
-<th class="tableblock halign-left valign-top">Contact</th>
-<th class="tableblock halign-left valign-top">Expectations</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Role-1&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Contact-1&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Expectation-1&gt;</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Role-2&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Contact-2&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Expectation-2&gt;</em></p></td>
-</tr>
-</tbody>
-</table>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -908,6 +884,10 @@ conventions (e.g. programming or versioning guidelines, documentation or naming 
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">API usage</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">APIs will be used to access users and generated questions information.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker will be used to deploy the application locally and remotely.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1075,9 +1055,16 @@ together with a mapping table showing the relationships between channels and inp
 </div>
 </div>
 </div>
+<div class="sect3">
+<h4 id="_system_scope">3.2.1. System Scope</h4>
 <div class="paragraph">
-<p><span class="image"><img src="./images/03_Technical_1.png" alt="Diagram 3.2: Techincal Context"></span>
-<span class="image"><img src="./images/03_Technical_2.png" alt="Diagram 3.3: Communication"></span></p>
+<p><span class="image"><img src="./images/03_Technical_1.png" alt="Diagram 3.2: Techincal Context"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_gateway_service_system">3.2.2. Gateway Service System</h4>
+<div class="paragraph">
+<p><span class="image"><img src="./images/03_Technical_2.png" alt="Diagram 3.3: Communication"></span></p>
 </div>
 <div class="paragraph">
 <p><strong>&lt;Diagram or Table&gt;</strong></p>
@@ -1092,95 +1079,10 @@ together with a mapping table showing the relationships between channels and inp
 </div>
 </div>
 </div>
+</div>
 <div class="sect1">
 <h2 id="section-solution-strategy">4. Solution Strategy</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Technology decisions</p>
-</div>
-<div class="paragraph">
-<p>To develop the app we will use the following technologies:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>JavaScript will be the main programming language</p>
-</li>
-<li>
-<p>ReactJS to build the user interface</p>
-</li>
-<li>
-<p>NodeJS for the backend</p>
-</li>
-<li>
-<p>Other programming languages can be used to experiment</p>
-</li>
-<li>
-<p>Docker Compose to deploy all the microservices</p>
-</li>
-<li>
-<p>GitHub for version control</p>
-</li>
-<li>
-<p>WikiData API to obtain question and answer information</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>We have considered the trade-offs that belong to each technology, such as SpringBoot or PHP for the backend of the app.
-However, JavaScript was the language that adapted better to our requirements due to the simplicity of the language and its
- focus on agile development that can lead to faster development cycles.
-One of the main disadvantages is that we had to learn it, because our main language is Java.</p>
-</div>
-<div class="paragraph">
-<p>Decisions about the top-level decomposition of the system</p>
-</div>
-<div class="paragraph">
-<p>We decided to use a microservices arquitecture, having different modules for each functionality.
-For example, we will use a microservice to generate the questions.</p>
-</div>
-<div class="paragraph">
-<p>Decisions on how to achieve key quality goals</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Quality goal</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Decisions to achieve it.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Usability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">We are going to use real users to test the app interface and improve it according to their feedback.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Availability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Docker Compose will be helpful to avoid problems with the deploy of the app. In addition we will use web hosting to expose it to the internet.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Security</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A login system with encrypted password storage will be used to protect the user data.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Performance</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">We will use the minimum required calls to the APIs to mantain the minimum time response, for example, with bulk requests.</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>Relevant organizational decisions</p>
-</div>
-<div class="paragraph">
-<p>We are going to divide tasks for each person placing the deadline at the middle of the maximum established time by the delivery.
-Then other person will review the work done.</p>
-</div>
-<div class="paragraph">
-<p>Each assigned task will be created as an Issue in GitHub to track the progress done. In addition, we are going to use GitHub Projects to organize the workflow of the team.
-To merge the code to the develop branch we are going to use Pull Requests in order to be approved by every person of the team.</p>
-</div>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -1221,6 +1123,84 @@ Refer to details in the following sections.</p>
 <p>See <a href="https://docs.arc42.org/section-4/">Solution Strategy</a> in the arc42 documentation.</p>
 </div>
 </div>
+</div>
+<div class="paragraph">
+<p>Technology decisions</p>
+</div>
+<div class="paragraph">
+<p>To develop the app we will use the following technologies:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>JavaScript will be the main programming language</p>
+</li>
+<li>
+<p>ReactJS to build the user interface</p>
+</li>
+<li>
+<p>Docker Compose to deploy all the microservices</p>
+</li>
+<li>
+<p>GitHub for version control</p>
+</li>
+<li>
+<p>WikiData API to obtain question and answer information</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>We have considered the trade-offs that belong to each technology, such as SpringBoot or PHP for the backend of the app.
+However, JavaScript was the language that adapted better to our requirements due to the simplicity of the language and its
+ focus on agile development that can lead to faster development cycles.
+One of the main disadvantages is that we had to learn it, because our main language is Java.</p>
+</div>
+<div class="paragraph">
+<p>Decisions about the top-level decomposition of the system</p>
+</div>
+<div class="paragraph">
+<p>We decided to use a microservices arquitecture, having different modules for each functionality.
+For example, we will use a microservice to generate the questions.</p>
+</div>
+<div class="paragraph">
+<p>Decisions on how to achieve key 10_quality_requirements.adoc[quality goals]</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Quality goal</th>
+<th class="tableblock halign-left valign-top">Decisions to achieve it.</th>
+<th class="tableblock halign-left valign-top">Usability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We are going to use real users to test the app interface and improve it according to their feedback.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Availability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker Compose will be helpful to avoid problems with the deploy of the app. In addition we will use web hosting to expose it to the internet.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Security</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A login system with encrypted password storage will be used to protect the user data.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Performance</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Relevant organizational decisions</p>
+</div>
+<div class="paragraph">
+<p>Our framework will be based on working every week with two weekly meetings, one will be held during lab time in order to assign tasks and make minor decisions.
+On the other hand, the weekend meeting will be intended for more thorough reviews as well as more significant decisions.</p>
+</div>
+<div class="paragraph">
+<p>Each assigned task will be created as an Issue in GitHub to track the progress done. In addition, we are going to use GitHub Projects to organize the workflow of the team.
+To merge the code to the develop branch we are going to use Pull Requests in order to be approved by every person of the team.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1594,6 +1574,26 @@ You will mainly capture scenarios in your documentation to communicate your arch
 <img src="./images/DeploymentView.png" alt="Deployment View">
 </div>
 </div>
+<hr>
+<div class="paragraph">
+<p>mermaid
+graph TD
+user -&#8594; |uses| webApp
+webApp -&#8594; |request| gateWayService
+webApp -&#8594; |get questions|questionGenerationModule
+monitoring-systems -&#8594; gateWayService
+database
+gateWayService -&#8594; |control login and auth| userServices
+userServices -&#8594; |persist data| database
+gateWayService
+questionGenerationModule
+'''</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/deploymentViewMermaid.png" alt="Deployment View">
+</div>
+</div>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -1844,19 +1844,16 @@ on this list.</p>
 <p>Domain concepts</p>
 </li>
 <li>
-<p>Architecture and Design Patterns</p>
-</li>
-<li>
 <p>User Experience (UX)</p>
 </li>
 <li>
-<p>Development Concepts</p>
-</li>
-<li>
-<p>Under-the-hood</p>
-</li>
-<li>
 <p>Operation Concepts</p>
+</li>
+<li>
+<p>Architecture and Design Patterns</p>
+</li>
+<li>
+<p>Development Concepts</p>
 </li>
 </ol>
 </div>
@@ -1866,28 +1863,33 @@ on this list.</p>
 <div class="sect2">
 <h3 id="_domain_concepts">8.1. Domain concepts</h3>
 <div class="paragraph">
-<p>TBD</p>
+<p>At the moment, nothing has been definitively decided or implemented to support the following outline. This simply illustrates how a preliminary version of the structure of our application could look like.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/08_domain_model.png" alt="Initial version of the domain model">
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_architecture_and_design_patterns">8.2. Architecture and Design Patterns</h3>
+<h3 id="_user_experience_ux">8.2. User Experience (UX)</h3>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://arquisoft.github.io/wiq_es04a/#_12_3_technical_terms"><strong>Microservice</strong></a>: In this application there are some microservices such as the User Management, which involves signing up, logging in and everything related to the points and timing of the user.</p>
+<p><a href="https://arquisoft.github.io/wiq_es04a/#_12_3_technical_terms"><strong>Frontend</strong></a>: the frontend of this application consists of a web app which will be deployed. Now, the user can register and log in with accounts already created on an intuitive page.</p>
+</li>
+<li>
+<p><a href="https://arquisoft.github.io/wiq_es04a/#_12_3_technical_terms"><strong>Internationalization</strong></a> The application will likely be available in various languages, including English as the main language. This would provide a better user experience as users could better tailor the application to their personal preferences.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_user_experience_ux">8.3. User Experience (UX)</h3>
+<h3 id="_operation_concepts">8.3. Operation Concepts</h3>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://arquisoft.github.io/wiq_es04a/#_12_3_technical_terms"><strong>Frontend</strong></a>: the frontend of this application consists of a web app which will be deployed.</p>
-</li>
-<li>
-<p><a href="https://arquisoft.github.io/wiq_es04a/#_12_3_technical_terms"><strong>Internationalization</strong></a> the application will be available in different languages, including English as the main language.</p>
+<p><strong>Usability</strong>: The application should be easy to use. For this reason, we will probably some various people to try our application. This way we can know its strengths and weaknesses and improve them. Usability affects User Experience as well, so it is an important aspect of the application.</p>
 </li>
 </ul>
 </div>
@@ -1895,50 +1897,28 @@ on this list.</p>
 <div class="sect2">
 <h3 id="_security">8.4. Security</h3>
 <div class="paragraph">
-<p>TBD</p>
+<p>At the moment, there are no security mechanisms implemented, but decisions regarding this aspect will be taken as progress is made.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_development_concepts">8.5. Development Concepts</h3>
+<h3 id="_architecture_and_design_patterns">8.5. Architecture and Design Patterns</h3>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Testing</strong>: Numerous use-cases will be studied so as to provide a solid and easy-to-use application.</p>
-</li>
-<li>
-<p><strong>CI/CD</strong>: The application will be in continuous integration and deployment.</p>
+<p><a href="https://arquisoft.github.io/wiq_es04a/#_12_3_technical_terms"><strong>Microservice</strong></a>: In this application there are some microservices such as the User Management, which involves signing up, logging in and everything related to the points and timing of the user. Microservices provide an easy way of creating a complex application composed by independent systems.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_under_the_hood">8.6. Under-the-hood</h3>
+<h3 id="_development_concepts">8.6. Development Concepts</h3>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Persistency</strong>: TBD</p>
+<p><strong>Testing</strong>: Numerous use-cases will be studied so as to provide a solid and easy-to-use application. For the moment, there is some testing in e2e folder referring to how accounts are created and how to log in the application.</p>
 </li>
 <li>
-<p><strong>Session handing</strong>: TBD</p>
-</li>
-<li>
-<p><strong>Business rules</strong>: TBD</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_operation_concepts">8.7. Operation Concepts</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Administration</strong>: TBD</p>
-</li>
-<li>
-<p><strong>Logging</strong>: TBD</p>
-</li>
-<li>
-<p><strong>Usability</strong>: The application should be easy to use. Some testing is done to make sure that we achieve this objective</p>
+<p><a href="https://arquisoft.github.io/wiq_es04a/#_acronyms"><strong>CI/CD</strong></a>: The application will be in continuous integration and deployment. Team members commit frequently into the repository where the proyect is stored. This makes it easier when assembling project parts involving collaboration from different team members.</p>
 </li>
 </ul>
 </div>
@@ -2002,7 +1982,7 @@ There you will find links and examples about ADR.</p>
 <p>The architectural decisions are completely documented in our <a href="https://github.com/Arquisoft/wiq_es04a/wiki">repository Wiki section</a>. Henceforth, to avoid redundancy, instead of re-document those decisions here, we will refer to them.</p>
 </div>
 <div class="sect2">
-<h3 id="_9_1_team_working_methodology">9.1. 9.1. Team Working Methodology</h3>
+<h3 id="_team_working_methodology">9.1. Team Working Methodology</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -2026,16 +2006,16 @@ There you will find links and examples about ADR.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Usability: The interface should be intuitive, with clear instructions and an accessible design. This will allow users of all abilities to navigate and use the application effortlessly.</p>
+<p><strong><strong>Usability</strong></strong>: The interface should be intuitive, with clear instructions and an accessible design. This will allow users of all abilities to navigate and use the application effortlessly.</p>
 </li>
 <li>
-<p>Availability: The system should aim for maximum availability, ensuring it is accessible around the clock. This will guarantee uninterrupted access most of the time, regardless of their time zone or schedule.</p>
+<p><strong><strong>Availability</strong></strong>: The system should aim for maximum availability, ensuring it is accessible around the clock. This will guarantee uninterrupted access most of the time, regardless of their time zone or schedule.</p>
 </li>
 <li>
-<p>Security: User data confidentiality must be upheld as a top priority, ensuring sensitive information remains secure and protected at all times. This commitment to privacy instills trust and confidence among users, fostering a safe and secure environment for their data.</p>
+<p><strong><strong>Security</strong></strong>: User data confidentiality must be upheld as a top priority, ensuring sensitive information remains secure and protected at all times. This commitment to privacy instills trust and confidence among users, fostering a safe and secure environment for their data.</p>
 </li>
 <li>
-<p>Performance: Efficiency is paramount in system usage, particularly in swift question generation, ensuring a seamless experience for users. Streamlining processes enhances overall usability, enabling swift and effortless interaction with the system.</p>
+<p><strong><strong>Performance</strong></strong>: Efficiency is paramount in system usage, particularly in swift question generation, ensuring a seamless experience for users. Streamlining processes enhances overall usability, enabling swift and effortless interaction with the system.</p>
 </li>
 </ul>
 </div>
@@ -2105,29 +2085,27 @@ concrete and measurable.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
 </colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Usage Scenario</th>
+<th class="tableblock halign-left valign-top">System Reaction</th>
+<th class="tableblock halign-left valign-top">The user initiates the web application, enters their username and password, and clicks the login button.</th>
+</tr>
+</thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Usage Scenario</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">System Reaction</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The user initiates the web application, enters their username and password, and clicks the login button.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The system verifies the information entered by the user, and if correct, redirects them to the main page; otherwise, it indicates an error has occurred.</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The user surveys the main window, where several buttons with different options appear.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">In response to pressing each of these buttons, the system will display the corresponding content.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The user starts the game and is awaiting the questions.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The system swiftly generates the question and its possible answers.</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The user loses the game and decides to stop playing for a while. Five hours later, they decide to play again.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The system remains active and functions correctly.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2136,25 +2114,22 @@ concrete and measurable.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
 </colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Change Scenario</th>
+<th class="tableblock halign-left valign-top">System Reaction</th>
+<th class="tableblock halign-left valign-top">Adding an additional login system to access the account not only through email but also through the username.</th>
+</tr>
+</thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Change Scenario</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">System Reaction</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Adding an additional login system to access the account not only through email but also through the username.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The system should be capable of adapting to provide this functionality without affecting the existing ones.</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Adding a new game mode or functionality.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">When adding a new feature, the application&#8217;s usage methodology should not be distorted, ensuring it can still be used in the same manner.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Adding a new game language.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">When adding a new game language, the system should continue to function smoothly.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2484,7 +2459,7 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2024-02-08 19:50:49 +0100
+Last updated 2024-02-15 19:41:04 +0100
 </div>
 </div>
 </body>
