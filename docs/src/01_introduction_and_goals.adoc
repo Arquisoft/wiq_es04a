@@ -3,6 +3,18 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-introduction-and-goals]]
 == Introduction and Goals (wiq_es04a)
 
+[role="arc42help"]
+****
+Describes the relevant requirements and the driving forces that software architects and development team must consider. 
+These include
+
+* underlying business goals, 
+* essential features, 
+* essential functional requirements, 
+* quality goals for the architecture and
+* relevant stakeholders and their expectations
+****
+
 The aim of this project is to create a version of the famous quiz show "Saber y Ganar". In the quiz you have to 
 answer different questions about various topics (chosing topic will be possible), winning a reward for each correct answer. 
 One of the most relevant requirement is that the questions are generated from WikiData so there will always be different questions.
@@ -16,30 +28,7 @@ The main stakeholders in the project are several. Firstly, Professor José Emili
 subject. Also, the students and members of the HappySoftware development team. Lastly, potential users of 
 the application will show interest in the project, as their user experience depends on it.
 
-[role="arc42help"]
-****
-Describes the relevant requirements and the driving forces that software architects and development team must consider. 
-These include
-
-* underlying business goals, 
-* essential features, 
-* essential functional requirements, 
-* quality goals for the architecture and
-* relevant stakeholders and their expectations
-****
-
 === Requirements Overview
-
-An enumeration of the requirements that the project must meet in terms of functionality can be elaborated:
-
-The application must be accessed through a web frontend.
-A record of users and their game history will be maintained.
-Both questions and answers will be generated using data collected from Wikidata, with only one of the 
-four answer options being correct.
-There will be a countdown to answer each question.
-Two APIs will exist to access information about both users and generated questions.
-Reference to the requirements source:
-https://docs.google.com/document/d/1pahOfYFY--Wi7_9bbxiKOGevB_9tOSyRm78blncgBKg/edit#heading=h.m5kdjaka3pec
 
 [role="arc42help"]
 ****
@@ -65,15 +54,18 @@ See https://docs.arc42.org/section-1/[Introduction and Goals] in the arc42 docum
 
 ****
 
-=== Quality Goals
+An enumeration of the requirements that the project must meet in terms of functionality can be elaborated:
 
-|===
-|Quality goal|Concrete scenario
-|Usability|It must be easy to use the app, thus everybody could use it
-|Availability|The system should be available the most time possible
-|Security|The user's data must remain confidential.
-|Performance|Using the system must be as smooth as possible. Especially, the question generation must be fast.
-|===
+The application must be accessed through a web frontend.
+A record of users and their game history will be maintained.
+Both questions and answers will be generated using data collected from Wikidata, with only one of the 
+four answer options being correct.
+There will be a countdown to answer each question.
+Two APIs will exist to access information about both users and generated questions.
+Reference to the requirements source:
+https://docs.google.com/document/d/1pahOfYFY--Wi7_9bbxiKOGevB_9tOSyRm78blncgBKg/[Reference to the requirements source]
+
+=== Quality Goals
 
 [role="arc42help"]
 ****
@@ -95,15 +87,16 @@ If you as an architect do not know how the quality of your work will be judged..
 A table with quality goals and concrete scenarios, ordered by priorities
 ****
 
-=== Stakeholders
+[options="header",cols="1,2"]
+|===
+|Quality goal|Concrete scenario
+|Usability|It must be easy to use the app, thus everybody could use it
+|Availability|The system should be available the most time possible
+|Security|The user's data must remain confidential.
+|Performance|Using the system must be as smooth as possible. Especially, the question generation must be fast.
+|===
 
-[options="header",cols="1,2,2"]
-|===
-|Role/Name|Contact|Expectations
-| Happy Software | Méndez Fernández, Hugo Barrero Cruz, Pablo Lago Conde, Alberto García-Ovies Pérez, Pablo Bustamante Larriet, Samuel González García, María Teresa Andina Pailos, Daniel | Students are the developers of the app. They need to do a great project to obtain a good mark.
-| Teachers | José Emilio Labra | They will qualify the proyect.
-| Users | Users of the game | They want to have fun answering questions. It must be intuitive and easy to use.
-|===
+=== Stakeholders
 
 [role="arc42help"]
 ****
@@ -124,3 +117,13 @@ These stakeholders determine the extent and the level of detail of your work and
 .Form
 Table with role names, person names, and their expectations with respect to the architecture and its documentation.
 ****
+
+[options="header",cols="1,2,2"]
+|===
+|Role/Name|Contact|Expectations
+| Happy Software |Hugo Méndez Fernández, Pablo Barrero Cruz, Alberto Lago Conde, Pablo García-Ovies Pérez, Samuel Bustamante Larriet, María Teresa González García, Daniel  Andina Pailos| Students are the developers of the app. They need to do a great project to obtain a good mark.
+| Teachers | José Emilio Labra | They will qualify the proyect.
+| Users | Users of the game | They want to have fun answering questions. It must be intuitive and easy to use.
+|===
+
+
