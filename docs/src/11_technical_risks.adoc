@@ -36,5 +36,5 @@ See https://docs.arc42.org/section-11/[Risks and Technical Debt] in the arc42 do
 [options="header"]
 |===
 | Technical Debt |  Considerations
-| The use of Wikidata API | Each member should learn how to use this API properly.
+| Low-quality code | The use of new technologies and languages can lead to poorly written or poorly designed code. To address this issue, we will use pull requests to ensure that the code is reviewed by multiple team members.
 |===
