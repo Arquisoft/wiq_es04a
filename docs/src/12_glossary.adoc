@@ -94,8 +94,20 @@ See https://docs.arc42.org/section-12/[Glossary] in the arc42 documentation.
 |===
 |Term |Definition |ES Translation
 
+|Arc42
+|Set of recommendations for documenting and designing software architectures, particularly for software-intensive systems, that provides a template for architecture documentation structured into various sections covering different aspects of the architecture and aiming to promote clear communication and understanding of this one among stakeholders.
+|_N/A_
+
 |Backend
 |Server-side of a software application or website. It encompasses everything that users don't see directly, such as databases, servers, and application logic. The backend is responsible for processing requests from the frontend and generating the appropriate responses.
+|_N/A_
+
+|Container
+|Lightweight, portable, and self-contained unit that packages together all the necessary software components, such as code, runtime, libraries, and dependencies, needed to run an application. Containers provide a consistent environment for running applications across different computing environments.
+|Contenedor
+
+|Docker
+|Docker is a popular platform used for developing, shipping, and running applications within containers providing a way to automate the deployment of those applications using a client-server architecture.
 |_N/A_
 
 |Frontend
