@@ -29,7 +29,7 @@ There are various architectural constraints that affect this application. They h
 [options="header"]
 |===
 | Constraint | Description
-| Application name | The name of the developed application will be WIQ.
+| Application name | The name of the developed application will be WIQ. We have discussed the https://github.com/Arquisoft/wiq_es04a/discussions/19[meaning of these acronyms] 
 |===
 
 === Application Requirements
@@ -56,7 +56,7 @@ There are various architectural constraints that affect this application. They h
 [options="header"]
 |===
 | Constraint | Description
-| Project organization | The project is distributed in three established deliveries. Therefore, each module of the project will evolve in several versions, marked by the deliveries.
+| Project organization | The project is distributed in three established deliveries. Therefore, each module of the project will evolve in several versions, marked by the deliveries. At the end of these deliveries a final presentation will take place. Then, the team will explain the application.
 | Git and Github | The use of Git as a version control system and the Github platform is mandatory. The public repository will be hosted on this platform.
 |===
 
