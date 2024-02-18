@@ -71,8 +71,8 @@ At the moment, nothing has been definitively decided or implemented to support t
 image::08_domain_model.png["Initial version of the domain model"]
 
 === User Experience (UX)
-* https://arquisoft.github.io/wiq_es04a/#_12_3_technical_terms[**Frontend**]: the frontend of this application consists of a web app which will be deployed. Now, the user can register and log in with accounts already created on an intuitive page.
-* https://arquisoft.github.io/wiq_es04a/#_12_3_technical_terms[**Internationalization**] The application will likely be available in various languages, including English as the main language. This would provide a better user experience as users could better tailor the application to their personal preferences.
+* https://arquisoft.github.io/wiq_es04a/#_technical_terms[**Frontend**]: the frontend of this application consists of a web app which will be deployed. Now, the user can register and log in with accounts already created on an intuitive page.
+* https://arquisoft.github.io/wiq_es04a/#_technical_terms[**Internationalization**] The application will likely be available in various languages, including English as the main language. This would provide a better user experience as users could better tailor the application to their personal preferences.
 
 === Operation Concepts
 * **Usability**: The application should be easy to use. For this reason, we will probably some various people to try our application. This way we can know its strengths and weaknesses and improve them. Usability affects User Experience as well, so it is an important aspect of the application.
@@ -81,7 +81,7 @@ image::08_domain_model.png["Initial version of the domain model"]
 At the moment, there are no security mechanisms implemented, but decisions regarding this aspect will be taken as progress is made.
 
 === Architecture and Design Patterns
-* https://arquisoft.github.io/wiq_es04a/#_12_3_technical_terms[**Microservice**]: In this application there are some microservices such as the User Management, which involves signing up, logging in and everything related to the points and timing of the user. Microservices provide an easy way of creating a complex application composed by independent systems.
+* https://arquisoft.github.io/wiq_es04a/#_technical_terms[**Microservice**]: In this application there are some microservices such as the User Management, which involves signing up, logging in and everything related to the points and timing of the user. Microservices provide an easy way of creating a complex application composed by independent systems.
 
 === Development Concepts
 * **Testing**: Numerous use-cases will be studied so as to provide a solid and easy-to-use application. For the moment, there is some testing in e2e folder referring to how accounts are created and how to log in the application. 
