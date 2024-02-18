@@ -65,7 +65,6 @@ In the best case you will get away with examples or simple signatures.
 
 ****
 
-_**<Overview Diagram>**_
 image:05_scope_context.png["Main Build Block"]
 
 Motivation::
