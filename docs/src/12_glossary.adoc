@@ -54,7 +54,7 @@ See https://docs.arc42.org/section-12/[Glossary] in the arc42 documentation.
 |Proposal to merge a set of changes from one branch into another. In a pull request, collaborators can review and discuss the proposed set of changes before they integrate the changes into the main codebase.
 
 |WIQ
-|TBD
+|https://github.com/Arquisoft/wiq_es04a/discussions/19[Wikidata Infinite Quest]
 |Web application's name, where the users can register and login themselves to play different type of rounds.
 |===
 

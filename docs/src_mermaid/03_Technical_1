@@ -1,11 +1,12 @@
 flowchart TD
     el1[User] -.->|Interacts with| sis1(WIQ Webapp)
-    subgraph system
+    subgraph WIQ
     sis1 --> |Authenticate| sis2(Gateway Service)
     sis1 --> |Create user| sis2
+    sis1 --> |Get questions| sis5(Question Generation Service)
     sis2 --> |Log in validation| sis3(Authentication service)
     sis2 --> |Sign up user| sis4(User service)
     sis3 --> db1[(MongoDB)]
     sis4 --> db1
     end
-    sis1 --> |Get questions| D[Wikidata]
+    sis5 -.-> D[Wikidata]
