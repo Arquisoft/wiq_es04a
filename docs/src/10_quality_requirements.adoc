@@ -3,6 +3,13 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-quality-scenarios]]
 == Quality Requirements
 
+The main quality goals are:
+
+* **Usability**: The interface should be intuitive, with clear instructions and an accessible design. This will allow users of all abilities to navigate and use the application effortlessly.
+* **Availability**: The system should aim for maximum availability, ensuring it is accessible around the clock. This will guarantee uninterrupted access most of the time, regardless of their time zone or schedule.
+* **Security**: User data confidentiality must be upheld as a top priority, ensuring sensitive information remains secure and protected at all times. This commitment to privacy instills trust and confidence among users, fostering a safe and secure environment for their data.
+* **Performance**: Efficiency is paramount in system usage, particularly in swift question generation, ensuring a seamless experience for users. Streamlining processes enhances overall usability, enabling swift and effortless interaction with the system.
+
 
 [role="arc42help"]
 ****
@@ -27,6 +34,8 @@ See https://docs.arc42.org/section-10/[Quality Requirements] in the arc42 docume
 
 === Quality Tree
 
+image::Quality_Tree.png["Quality Tree"]
+
 [role="arc42help"]
 ****
 .Content
@@ -47,6 +56,29 @@ In any case the tree should include links to the scenarios of the following sect
 ****
 
 === Quality Scenarios
+
+Usage Scenario table:
+
+[options="header",cols="1,2"]
+|===
+|Usage Scenario|System Reaction
+|The user initiates the web application, enters their username and password, and clicks the login button.|The system verifies the information entered by the user, and if correct, redirects them to the main page; otherwise, it indicates an error has occurred.
+|The user surveys the main window, where several buttons with different options appear.|In response to pressing each of these buttons, the system will display the corresponding content.
+|The user starts the game and is awaiting the questions.|The system swiftly generates the question and its possible answers.
+|The user loses the game and decides to stop playing for a while. Five hours later, they decide to play again.|The system remains active and functions correctly.
+|===
+
+
+Change Scenario table:
+
+[options="header",cols="1,2"]
+|===
+|Change Scenario|System Reaction
+|Adding an additional login system to access the account not only through email but also through the username. |The system should be capable of adapting to provide this functionality without affecting the existing ones.
+|Adding a new game mode or functionality.|When adding a new feature, the application's usage methodology should not be distorted, ensuring it can still be used in the same manner.
+|Adding a new game language.|When adding a new game language, the system should continue to function smoothly.
+|===
+
 
 [role="arc42help"]
 ****

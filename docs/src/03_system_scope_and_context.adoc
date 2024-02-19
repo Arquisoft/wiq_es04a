@@ -48,9 +48,10 @@ The title of the table is the name of your system, the three columns contain the
 
 ****
 
-**<Diagram or Table>**
+image:03_Business_1.png["Diagram 3.1: Business Context"]
 
-**<optionally: Explanation of external domain interfaces>**
+- **WIQ:** Overview of the whole system. Essentialy, a web application in which users will be able to register/log in, play "Saber y Ganar" and display statistics of their games.
+- **Wikidata:** Free and open knowledge base that acts as a central storage repository for structured data. Its API will be used to obtain information used in questions and answers of the application.
 
 === Technical Context
 
@@ -68,8 +69,17 @@ together with a mapping table showing the relationships between channels and inp
 
 ****
 
-**<Diagram or Table>**
+==== System Scope
+image:03_Technical_1.png["Diagram 3.2: Techincal Context"]
 
-**<optionally: Explanation of technical interfaces>**
 
-**<Mapping Input/Output to Channels>**
+- **WIQ Webapp:** Module that supports user interaction via UI _i.e._, the front-end of the whole system.
+- **Gateway Service:** Express service that is exposed to the public and serves as a proxy to the users management allowing sign up and log in.
+- **Question Generation Service**: Service that will be used internally to manage information retrival from Wikidata.
+
+==== Gateway Service System
+image:03_Technical_2.png["Diagram 3.3: Communication"]
+
+
+- **User service:** Express service that handles the insertion of new users in the system.
+- **Auth service:** Express service that handles the authentication of users.

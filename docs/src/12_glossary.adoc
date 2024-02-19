@@ -3,6 +3,8 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-glossary]]
 == Glossary
 
+In this section we will present, define and translate some concepts that we consider relevant to know when facing our application.
+
 [role="arc42help"]
 ****
 .Contents
@@ -30,13 +32,110 @@ See https://docs.arc42.org/section-12/[Glossary] in the arc42 documentation.
 
 ****
 
-[cols="e,2e" options="header"]
+=== Acronyms
+[cols="1,1,3",options="header"]
 |===
-|Term |Definition
+|Acronym |Term |Definition
 
-|<Term-1>
-|<definition-1>
+|ADR
+|Arquitectural Design Record
+|Document that describes a choice the team makes about a significant aspect of the software architecture they're planning to build. Each ADR describes the architectural decision, its context, and its consequences, and its goal is to ensure that the proposed design meets functional, aesthetic, regulatory, and safety requirements before proceeding further with the project.
 
-|<Term-2>
-|<definition-2>
+|API
+|Application Programming Interface
+|Set of rules, protocols, and tools that allows different software applications to communicate and interact with each other. It defines the methods and data formats that developers can use to request and exchange information between different software components.
+
+|CI/CD
+|Continuous Integration & Continuous Delivery
+|CI refers to the practice of automatically and frequently integrating code changes into a shared source code repository; CD is a 2 part process that refers to the integration, testing, and delivery of code changes. Continuous delivery stops short of automatic production deployment, while continuous deployment automatically releases the updates into the production environment.
+
+|PR
+|Pull Request
+|Proposal to merge a set of changes from one branch into another. In a pull request, collaborators can review and discuss the proposed set of changes before they integrate the changes into the main codebase.
+
+|WIQ
+|https://github.com/Arquisoft/wiq_es04a/discussions/19[Wikidata Infinite Quest]
+|Web application's name, where the users can register and login themselves to play different type of rounds.
+|===
+
+=== Domain Specific Terms
+[cols="1,3,1",options="header"]
+|===
+|Term |Definition |ES Translation
+
+|Discarding
+|Test in which the participants must answer a series of multiple-choice questions; for each question, they are presented with a set of options and must eliminate those they believe to be incorrect until they arrive at the correct answer. This process of elimination continues until the contestants are confident in the correct answer or until the allotted time for the test runs out
+|Descartando
+
+|Discovering cities
+|Test in which contestants receive clues about a specific city and must guess which city it is; this clues may include descriptions of geographical features, famous monuments, historical or cultural events, among other aspects related to the city in question.
+|Descubriendo ciudades
+
+|HappySw
+|Name of the fictitious company under which the members of the group will simulate that we have been hired to develop the application. 
+|_N/A_
+
+|Know & Win
+|Popular Spanish television program that combines quiz shows with educational entertainment aired daily on La 2 of Televisión Española. The show is known for its unique format, which includes a variety of challenges and tests where contestants demonstrate their knowledge in different areas such as history, geography, science, popular culture, literature, art, among other subjects. 
+|"Saber Y Ganar"
+
+|Warm question
+|Test in which contestants' aim is to answer questions rapidly and accurately, requiring quick thinking, as questions are presented rapidly without pauses between them. Contestants strive to provide correct answers to accumulate points, but they must also carefully assess the risk of answering incorrectly, which could lead to losing points.
+|Pregunta caliente
+
+|Wise Men Stack
+|Test in which questions are presented on a wide range of topics spanning from literature and history to science and popular culture. Contestants must answer as many questions correctly as possible within a limited time frame.
+|Batería de sabios
+
+|===
+
+=== Technical Terms
+[cols="1,3,1",options="header"]
+|===
+|Term |Definition |ES Translation
+
+|Arc42
+|Set of recommendations for documenting and designing software architectures, particularly for software-intensive systems, that provides a template for architecture documentation structured into various sections covering different aspects of the architecture and aiming to promote clear communication and understanding of this one among stakeholders.
+|_N/A_
+
+|Backend
+|Server-side of a software application or website. It encompasses everything that users don't see directly, such as databases, servers, and application logic. The backend is responsible for processing requests from the frontend and generating the appropriate responses.
+|_N/A_
+
+|Container
+|Lightweight, portable, and self-contained unit that packages together all the necessary software components, such as code, runtime, libraries, and dependencies, needed to run an application. Containers provide a consistent environment for running applications across different computing environments.
+|Contenedor
+
+|Docker
+|Docker is a popular platform used for developing, shipping, and running applications within containers providing a way to automate the deployment of those applications using a client-server architecture.
+|_N/A_
+
+|Frontend
+|Part of a software application or website that users interact with directly. It encompasses the user interface (UI) and user experience (UX) components that users see and interact with in their web browsers or on their devices. This includes elements such as buttons, forms, menus, and any visual or interactive elements users interact with to use the application.
+|_N/A_
+
+|Git
+|Free and open-source version control system used for tracking changes in source code during software development. It allows multiple developers to collaborate on projects simultaneously and efficiently manage changes to the codebase.
+|_N/A_
+
+|Github
+|Online software development platform built around Git used for storing, tracking, and collaborating on software projects. It makes it easy for developers to share code files and collaborate with fellow developers on open-source projects.
+|_N/A_
+
+|Internationalization
+|Process of designing and developing a software application in such a way that it can easily adapt to different languages, cultures, and regions of the world. This involves for example the application's ability to handle different sets of characters, date and time formats, units of measurement, and other cultural and linguistic aspects.
+|Internacionalización
+
+|Microservice
+|Software architectural style that structures an application as a collection of loosely coupled services; each service is designed to perform a specific and narrowly defined function within the application. These services are typically small, independently deployable, and can be developed, tested, and deployed separately from the rest of the application.
+|Microservicio
+
+|User
+|Typically refers to an individual or entity that interacts with the system or software to perform tasks, access resources, or obtain information. Users can interact with computer systems through various means, such as graphical user interfaces, command-line interfaces, or the mentioned APIs.
+|Usuario
+
+|Wikidata
+|Free and open knowledge base that acts as a central storage repository for structured data from Wikimedia projects and beyond. It provides a common platform for collecting and sharing structured data about various topics, including but not limited to, people, places, events, concepts, and objects.
+|_N/A_
+
 |===

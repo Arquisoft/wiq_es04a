@@ -3,7 +3,6 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-architecture-constraints]]
 == Architecture Constraints
 
-
 [role="arc42help"]
 ****
 .Contents
@@ -19,9 +18,52 @@ If needed you can subdivide them into
 technical constraints, organizational and political constraints and
 conventions (e.g. programming or versioning guidelines, documentation or naming conventions)
 
-
 .Further Information
 
 See https://docs.arc42.org/section-2/[Architecture Constraints] in the arc42 documentation.
 
 ****
+There are various architectural constraints that affect this application. They have been divided into the following sections.
+
+=== Naming Conventions
+[options="header"]
+|===
+| Constraint | Description
+| Application name | The name of the developed application will be WIQ. We have discussed the https://github.com/Arquisoft/wiq_es04a/discussions/19[meaning of these acronyms] 
+|===
+
+=== Application Requirements
+[options="header"]
+|===
+| Constraint | Description
+| Theme | Online question and answer application. It is similar to the "Saber y Ganar" game show.
+| Question generation | Both questions and answers will be automatically generated from Wikidata.
+| Question structure | Each question will have one correct answer and multiple incorrect or distracting answers. There will be a time limit to answer each question.
+| Frontend | The system will have at least one Web frontend deployed. Access will be through the Web.
+| User management | Users can register and log in to play. Registered users can also check their participation history in the system (number of games, correct/incorrect answers, times, etc.).
+| API usage | APIs will be used to access users and generated questions information.
+| Docker | Docker will be used to deploy the application locally and remotely.
+|===
+
+=== Documentation
+[options="header"]
+|===
+| Constraint | Description
+| Use of Arc42 | The project will follow the Arc42 documentation standard.
+|===
+
+=== Organizational and Versioning Constraints
+[options="header"]
+|===
+| Constraint | Description
+| Project organization | The project is distributed in three established deliveries. Therefore, each module of the project will evolve in several versions, marked by the deliveries. At the end of these deliveries a final presentation will take place. Then, the team will explain the application.
+| Git and Github | The use of Git as a version control system and the Github platform is mandatory. The public repository will be hosted on this platform.
+|===
+
+=== Development Team Constraints
+[options="header"]
+|===
+| Constraint | Description
+| Technical and theoretical knowledge | We are not professional developers and have limited experience. Therefore, we will use tools and languages minimally known by some team members.
+| Budget | We will use free tools or services for which the University has a license.
+|===

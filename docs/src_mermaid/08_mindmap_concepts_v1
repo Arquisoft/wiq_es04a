@@ -1,0 +1,14 @@
+mindmap
+  root((Cross-cutting <br> concepts))
+    Domain concepts
+    Security
+    Operation concepts
+        Usability
+    Architecture and Design Patterns
+        Microservices
+    User Experience
+        User interface
+        Internationalization
+    Development concepts
+        Testing
+        CI/CD
