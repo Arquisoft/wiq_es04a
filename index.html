@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.20">
-<title>Template</title>
+<meta name="generator" content="Asciidoctor 2.0.18">
+<title>Wikidata Infinite Quest</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -208,10 +208,13 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
 .sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
-.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
-.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
 .literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
 @media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
 @media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
@@ -390,7 +393,7 @@ b.conum *{color:inherit!important}
 dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
 h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
 p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
-p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
+p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
 .exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
@@ -435,7 +438,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1><span class="image"><img src="./images/arc42-logo.png" alt="arc42"></span> Template</h1>
+<h1><span class="image"><img src="./images/arc42-logo.png" alt="arc42"></span> Wikidata Infinite Quest</h1>
 <div class="details">
 <span id="revnumber">version 8.2 EN,</span>
 <span id="revdate">January 2023</span>
@@ -1029,13 +1032,17 @@ The title of the table is the name of your system, the three columns contain the
 </div>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="./images/03_Business_1s.png" alt="Diagram 3.1: Business Context"></span></p>
+<p><span class="image"><img src="./images/03_Business_1.png" alt="Diagram 3.1: Business Context"></span></p>
 </div>
-<div class="paragraph">
-<p><strong>&lt;Diagram or Table&gt;</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>&lt;optionally: Explanation of external domain interfaces&gt;</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>WIQ:</strong> Overview of the whole system. Essentialy, a web application in which users will be able to register/log in, play "Saber y Ganar" and display statistics of their games.</p>
+</li>
+<li>
+<p><strong>Wikidata:</strong> Free and open knowledge base that acts as a central storage repository for structured data. Its API will be used to obtain information used in questions and answers of the application.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -1062,20 +1069,34 @@ together with a mapping table showing the relationships between channels and inp
 <div class="paragraph">
 <p><span class="image"><img src="./images/03_Technical_1.png" alt="Diagram 3.2: Techincal Context"></span></p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>WIQ Webapp:</strong> Module that supports user interaction via UI <em>i.e.</em>, the front-end of the whole system.</p>
+</li>
+<li>
+<p><strong>Gateway Service:</strong> Express service that is exposed to the public and serves as a proxy to the users management allowing sign up and log in.</p>
+</li>
+<li>
+<p><strong>Question Generation Service</strong>: Service that will be used internally to manage information retrival from Wikidata.</p>
+</li>
+</ul>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_gateway_service_system">3.2.2. Gateway Service System</h4>
 <div class="paragraph">
 <p><span class="image"><img src="./images/03_Technical_2.png" alt="Diagram 3.3: Communication"></span></p>
 </div>
-<div class="paragraph">
-<p><strong>&lt;Diagram or Table&gt;</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>&lt;optionally: Explanation of technical interfaces&gt;</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>&lt;Mapping Input/Output to Channels&gt;</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>User service:</strong> Express service that handles the insertion of new users in the system.</p>
+</li>
+<li>
+<p><strong>Auth service:</strong> Express service that handles the authentication of users.</p>
+</li>
+</ul>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -2284,7 +2305,7 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">WIQ</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">TBD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/Arquisoft/wiq_es04a/discussions/19">Wikidata Infinite Quest</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Web application&#8217;s name, where the users can register and login themselves to play different type of rounds.</p></td>
 </tr>
 </tbody>
@@ -2419,7 +2440,7 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2024-02-15 19:41:04 +0100
+Last updated 2024-02-19 21:55:45 +0100
 </div>
 </div>
 </body>
