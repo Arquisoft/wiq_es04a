@@ -6,7 +6,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 [role="arc42help"]
 ****
 Describes the relevant requirements and the driving forces that software architects and development team must consider. 
-These include
+These include 
 
 * underlying business goals, 
 * essential features, 
