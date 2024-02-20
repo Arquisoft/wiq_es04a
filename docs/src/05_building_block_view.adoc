@@ -65,6 +65,8 @@ In the best case you will get away with examples or simple signatures.
 
 ****
 
+image:05_scope_and_context.png["Diagram 05.1: Scope And Context"]
+
 Motivation::
 
 This is a general overview of the application. Here it can be seen the external services that will be used.
@@ -84,7 +86,7 @@ according the the following black box template:
 ****
 
 Contained Building Blocks::
-* **WIQ**: It is the main application, represented as a blackbox that will be detailed in the following decompositions. 
+* **Wikidata Infinite Quest**: It is the main application, represented as a blackbox that will be detailed in the following decompositions. 
 * **Wikidata API**: It is the external API that the system uses to generate questions and answers.
 
 === Level 1
@@ -104,17 +106,17 @@ Leave out normal, simple, boring or standardized parts of your system
 ****
 ...describes the internal structure of _building block WIQ_.
 ****
-_**Overview Diagram**_
+
+image:05_level1.png["Diagram 05.2: Level1"]
 
 Motivation::
 
 First decomposition of the system. It shows the webapp, users managament and question generator modules as blackboxes. Also displays the docs module which contains the documentation of the project.
 
 Contained Building Blocks::
-* **WebApp**: It is the main module of the application. 
-* **UsersManagement**: Handles user management.
-* **QuestionGenerationSystem**: It is responsible for the automatic generation of questions and answers using the Wikidata API.
-* **Docs**: It is the module of the project devoted to provide all the documentation of the application. It won't be decomposed any further.
+* **Web App**: It is the main module of the application. 
+* **User Management**: Handles user management.
+* **Question Generation Service**: It is responsible for the automatic generation of questions and answers using the Wikidata API.
 
 === Level 2
 
