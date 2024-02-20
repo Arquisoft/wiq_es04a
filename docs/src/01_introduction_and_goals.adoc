@@ -1,7 +1,7 @@
 ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-introduction-and-goals]]
-== Introduction and Goals (wiq_es04a)
+== Introduction and Goals
 
 [role="arc42help"]
 ****
