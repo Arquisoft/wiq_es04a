@@ -512,7 +512,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#section-technical-risks">11. Risks and Technical Debts</a>
 <ul class="sectlevel2">
-<li><a href="#_technical_risks">11.1. Technical risks</a></li>
+<li><a href="#_risks">11.1. Risks</a></li>
 <li><a href="#_technical_debts">11.2. Technical debts</a></li>
 </ul>
 </li>
@@ -2151,9 +2151,9 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 </div>
 </div>
 <div class="sect2">
-<h3 id="_technical_risks">11.1. Technical risks</h3>
+<h3 id="_risks">11.1. Risks</h3>
 <div class="paragraph">
-<p>To assess the relevance level of the following technical risks, we will use number 1 to indicate low relevance, 2 for medium relevance, and 3 for high relevance.</p>
+<p>To assess the relevance level of the following risks, we will use number 1 to indicate low relevance, 2 for medium relevance, and 3 for high relevance.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -2163,7 +2163,7 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Technical Risk</th>
+<th class="tableblock halign-left valign-top">Risk</th>
 <th class="tableblock halign-left valign-top">Relevance</th>
 <th class="tableblock halign-left valign-top">Considerations</th>
 </tr>
@@ -2285,11 +2285,6 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <td class="tableblock halign-left valign-top"><p class="tableblock">CI refers to the practice of automatically and frequently integrating code changes into a shared source code repository; CD is a 2 part process that refers to the integration, testing, and delivery of code changes. Continuous delivery stops short of automatic production deployment, while continuous deployment automatically releases the updates into the production environment.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">PR</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Pull Request</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Proposal to merge a set of changes from one branch into another. In a pull request, collaborators can review and discuss the proposed set of changes before they integrate the changes into the main codebase.</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">WIQ</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/Arquisoft/wiq_es04a/discussions/19">Wikidata Infinite Quest</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Web application&#8217;s name, where the users can register and login themselves to play different type of rounds.</p></td>
@@ -2332,6 +2327,11 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <td class="tableblock halign-left valign-top"><p class="tableblock">Know &amp; Win</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Popular Spanish television program that combines quiz shows with educational entertainment aired daily on La 2 of Televisión Española. The show is known for its unique format, which includes a variety of challenges and tests where contestants demonstrate their knowledge in different areas such as history, geography, science, popular culture, literature, art, among other subjects.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">"Saber Y Ganar"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Player who can register and then login into the app to play some of the different quizes explained around this explanation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usuario</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Warm question</p></td>
@@ -2378,11 +2378,6 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <td class="tableblock halign-left valign-top"><p class="tableblock">Contenedor</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Docker</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Docker is a popular platform used for developing, shipping, and running applications within containers providing a way to automate the deployment of those applications using a client-server architecture.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>N/A</em></p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Frontend</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Part of a software application or website that users interact with directly. It encompasses the user interface (UI) and user experience (UX) components that users see and interact with in their web browsers or on their devices. This includes elements such as buttons, forms, menus, and any visual or interactive elements users interact with to use the application.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>N/A</em></p></td>
@@ -2393,24 +2388,9 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>N/A</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Github</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Online software development platform built around Git used for storing, tracking, and collaborating on software projects. It makes it easy for developers to share code files and collaborate with fellow developers on open-source projects.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>N/A</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Internationalization</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Process of designing and developing a software application in such a way that it can easily adapt to different languages, cultures, and regions of the world. This involves for example the application&#8217;s ability to handle different sets of characters, date and time formats, units of measurement, and other cultural and linguistic aspects.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Internacionalización</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Microservice</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Software architectural style that structures an application as a collection of loosely coupled services; each service is designed to perform a specific and narrowly defined function within the application. These services are typically small, independently deployable, and can be developed, tested, and deployed separately from the rest of the application.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Microservicio</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically refers to an individual or entity that interacts with the system or software to perform tasks, access resources, or obtain information. Users can interact with computer systems through various means, such as graphical user interfaces, command-line interfaces, or the mentioned APIs.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Usuario</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Wikidata</p></td>
@@ -2426,7 +2406,7 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2024-02-20 13:51:13 +0100
+Last updated 2024-02-20 18:06:38 +0100
 </div>
 </div>
 </body>
