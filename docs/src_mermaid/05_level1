@@ -1,0 +1,8 @@
+flowchart TD
+    subgraph Whitebox Wikidata Infinite Quest
+    sis1(Web App) -.->|Get questions| sis2(Question Generation Service)
+    sis1 -.->|Authenticate| sis3(Users Management)
+    sis1 -.->|Create user| sis3
+    end
+    el1(User) -.->|Interacts with| sis1
+    sis1 -.->|Get questions| sis4(Wikidata)

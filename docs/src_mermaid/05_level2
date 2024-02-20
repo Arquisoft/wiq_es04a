@@ -1,0 +1,8 @@
+flowchart TD
+    subgraph Whitebox Users Management
+    sis1(Gateway Service) -.->|Log in validation| sis2(Authentication Service)
+    sis1 -.->|Sing up user| sis3(User Service)
+    sis3 -.-> db1[(MongoDB)]
+    sis2 -.-> db1
+    end
+    sis4(Web App) -.-> sis1
