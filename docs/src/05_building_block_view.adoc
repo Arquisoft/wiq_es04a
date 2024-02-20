@@ -65,8 +65,6 @@ In the best case you will get away with examples or simple signatures.
 
 ****
 
-image:05_scope_context.png["Main Build Block"]
-
 Motivation::
 
 This is a general overview of the application. Here it can be seen the external services that will be used.
@@ -108,8 +106,6 @@ Leave out normal, simple, boring or standardized parts of your system
 ****
 _**Overview Diagram**_
 
-image:05_level1.png["White Box WIQ"]
-
 Motivation::
 
 First decomposition of the system. It shows the webapp, users managament and question generator modules as blackboxes. Also displays the docs module which contains the documentation of the project.
@@ -138,8 +134,6 @@ part of arc42 for additional levels.
 Specifies the internal structure of _building block Users Management_.
 ****
 _**Overview Diagram**_
-
-image:05_level2_usersManagement.png["White Box Users Management"]
 
 Motivation::
 
