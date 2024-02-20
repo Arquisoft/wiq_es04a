@@ -1,0 +1,13 @@
+sequenceDiagram
+    User ->>+ App: click login link
+    App -->>- User: show login view
+    User ->>+ App: click login button
+    App ->> Gateway Service: loginUser()
+    Gateway Service ->> User Service: post('/login')
+
+    User Service ->> Database: validateRequiredFields()
+    Database -->> User Service: 
+
+    User Service -->> Gateway Service: 
+    Gateway Service -->> App: 
+    App -->>- User: 
