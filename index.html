@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>Template</title>
+<title>Wikidata Infinite Quest</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -435,7 +435,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1><span class="image"><img src="./images/arc42-logo.png" alt="arc42"></span> Template</h1>
+<h1><span class="image"><img src="./images/arc42-logo.png" alt="arc42"></span> Wikidata Infinite Quest</h1>
 <div class="details">
 <span id="revnumber">version 8.2 EN,</span>
 <span id="revdate">January 2023</span>
@@ -466,7 +466,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_technical_context">3.2. Technical Context</a></li>
 </ul>
 </li>
-<li><a href="#section-solution-strategy">4. Solution Strategy</a></li>
+<li><a href="#section-solution-strategy">4. Solution Strategy</a>
+<ul class="sectlevel2">
+<li><a href="#_technology_decisions">4.1. Technology decisions</a></li>
+<li><a href="#_decisions_about_the_top_level_decomposition_of_the_system">4.2. Decisions about the top-level decomposition of the system</a></li>
+<li><a href="#_decisions_on_how_to_achieve_key_quality_goals">4.3. Decisions on how to achieve key quality goals</a></li>
+<li><a href="#_relevant_organizational_decisions">4.4. Relevant organizational decisions</a></li>
+</ul>
+</li>
 <li><a href="#section-building-block-view">5. Building Block View</a>
 <ul class="sectlevel2">
 <li><a href="#_whitebox_overall_system">5.1. Whitebox Overall System</a></li>
@@ -481,12 +488,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_tbd">6.3. TBD</a></li>
 </ul>
 </li>
-<li><a href="#section-deployment-view">7. Deployment View</a>
-<ul class="sectlevel2">
-<li><a href="#_infrastructure_level_1">7.1. Infrastructure Level 1</a></li>
-<li><a href="#_infrastructure_level_2">7.2. Infrastructure Level 2</a></li>
-</ul>
-</li>
+<li><a href="#section-deployment-view">7. Deployment View</a></li>
 <li><a href="#section-concepts">8. Cross-cutting Concepts</a>
 <ul class="sectlevel2">
 <li><a href="#_domain_concepts">8.1. Domain concepts</a></li>
@@ -510,7 +512,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#section-technical-risks">11. Risks and Technical Debts</a>
 <ul class="sectlevel2">
-<li><a href="#_technical_risks">11.1. Technical risks</a></li>
+<li><a href="#_risks">11.1. Risks</a></li>
 <li><a href="#_technical_debts">11.2. Technical debts</a></li>
 </ul>
 </li>
@@ -622,19 +624,6 @@ the application will show interest in the project, as their user experience depe
 </div>
 <div class="sect2">
 <h3 id="_requirements_overview">1.1. Requirements Overview</h3>
-<div class="paragraph">
-<p>An enumeration of the requirements that the project must meet in terms of functionality can be elaborated:</p>
-</div>
-<div class="paragraph">
-<p>The application must be accessed through a web frontend.
-A record of users and their game history will be maintained.
-Both questions and answers will be generated using data collected from Wikidata, with only one of the
-four answer options being correct.
-There will be a countdown to answer each question.
-Two APIs will exist to access information about both users and generated questions.
-Reference to the requirements source:
-<a href="https://docs.google.com/document/d/1pahOfYFY&#8212;&#8203;Wi7_9bbxiKOGevB_9tOSyRm78blncgBKg/edit#heading=h.m5kdjaka3pec" class="bare">https://docs.google.com/document/d/1pahOfYFY&#8212;&#8203;Wi7_9bbxiKOGevB_9tOSyRm78blncgBKg/edit#heading=h.m5kdjaka3pec</a></p>
-</div>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -662,37 +651,22 @@ If requirements documents exist this overview should refer to these documents.</
 </div>
 </div>
 </div>
+<div class="paragraph">
+<p>An enumeration of the requirements that the project must meet in terms of functionality can be elaborated:</p>
+</div>
+<div class="paragraph">
+<p>The application must be accessed through a web frontend.
+A record of users and their game history will be maintained.
+Both questions and answers will be generated using data collected from Wikidata, with only one of the
+four answer options being correct.
+There will be a countdown to answer each question.
+Two APIs will exist to access information about both users and generated questions.
+Reference to the requirements source:
+<a href="https://docs.google.com/document/d/1pahOfYFY&#8212;&#8203;Wi7_9bbxiKOGevB_9tOSyRm78blncgBKg/">Reference to the requirements source</a></p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_quality_goals">1.2. Quality Goals</h3>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Quality goal</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Concrete scenario</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Usability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">It must be easy to use the app, thus everybody could use it</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Availability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The system should be available the most time possible</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Security</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s data must remain confidential.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Performance</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Using the system must be as smooth as possible. Especially, the question generation must be fast.</p></td>
-</tr>
-</tbody>
-</table>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -721,40 +695,39 @@ If you as an architect do not know how the quality of your work will be judged&#
 </div>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_stakeholders">1.3. Stakeholders</h3>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 40%;">
-<col style="width: 40%;">
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Role/Name</th>
-<th class="tableblock halign-left valign-top">Contact</th>
-<th class="tableblock halign-left valign-top">Expectations</th>
+<th class="tableblock halign-left valign-top">Quality goal</th>
+<th class="tableblock halign-left valign-top">Concrete scenario</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Happy Software</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Méndez Fernández, Hugo Barrero Cruz, Pablo Lago Conde, Alberto García-Ovies Pérez, Pablo Bustamante Larriet, Samuel González García, María Teresa Andina Pailos, Daniel</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Students are the developers of the app. They need to do a great project to obtain a good mark.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It must be easy to use the app, thus everybody could use it</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Teachers</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">José Emilio Labra</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">They will qualify the proyect.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Availability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The system should be available the most time possible</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Users</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Users of the game</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">They want to have fun answering questions. It must be intuitive and easy to use.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Security</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s data must remain confidential.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Performance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Using the system must be as smooth as possible. Especially, the question generation must be fast.</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+<div class="sect2">
+<h3 id="_stakeholders">1.3. Stakeholders</h3>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -792,6 +765,37 @@ These stakeholders determine the extent and the level of detail of your work and
 </div>
 </div>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Role/Name</th>
+<th class="tableblock halign-left valign-top">Contact</th>
+<th class="tableblock halign-left valign-top">Expectations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Happy Software</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hugo Méndez Fernández, Pablo Barrero Cruz, Alberto Lago Conde, Pablo García-Ovies Pérez, Samuel Bustamante Larriet, María Teresa González García, Daniel  Andina Pailos</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Students are the developers of the app. They need to do a great project to obtain a good mark.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Teachers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">José Emilio Labra</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">They will qualify the proyect.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Users</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Users of the game</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">They want to have fun answering questions. It must be intuitive and easy to use.</p></td>
+</tr>
+</tbody>
+</table>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -842,7 +846,7 @@ conventions (e.g. programming or versioning guidelines, documentation or naming 
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Application name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the developed application will be WIQ.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the developed application will be WIQ. We have discussed the <a href="https://github.com/Arquisoft/wiq_es04a/discussions/19">meaning of these acronyms</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -929,7 +933,7 @@ conventions (e.g. programming or versioning guidelines, documentation or naming 
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Project organization</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The project is distributed in three established deliveries. Therefore, each module of the project will evolve in several versions, marked by the deliveries.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The project is distributed in three established deliveries. Therefore, each module of the project will evolve in several versions, marked by the deliveries. At the end of these deliveries a final presentation will take place. Then, the team will explain the application.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Git and Github</p></td>
@@ -1027,13 +1031,17 @@ The title of the table is the name of your system, the three columns contain the
 </div>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="./images/03_Business_1s.png" alt="Diagram 3.1: Business Context"></span></p>
+<p><span class="image"><img src="./images/03_Business_1.png" alt="Diagram 3.1: Business Context"></span></p>
 </div>
-<div class="paragraph">
-<p><strong>&lt;Diagram or Table&gt;</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>&lt;optionally: Explanation of external domain interfaces&gt;</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>WIQ:</strong> Overview of the whole system. Essentialy, a web application in which users will be able to register/log in, play "Saber y Ganar" and display statistics of their games.</p>
+</li>
+<li>
+<p><strong>Wikidata:</strong> Free and open knowledge base that acts as a central storage repository for structured data. Its API will be used to obtain information used in questions and answers of the application.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -1060,20 +1068,34 @@ together with a mapping table showing the relationships between channels and inp
 <div class="paragraph">
 <p><span class="image"><img src="./images/03_Technical_1.png" alt="Diagram 3.2: Techincal Context"></span></p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>WIQ Webapp:</strong> Module that supports user interaction via UI <em>i.e.</em>, the front-end of the whole system.</p>
+</li>
+<li>
+<p><strong>Gateway Service:</strong> Express service that is exposed to the public and serves as a proxy to the users management allowing sign up and log in.</p>
+</li>
+<li>
+<p><strong>Question Generation Service</strong>: Service that will be used internally to manage information retrival from Wikidata.</p>
+</li>
+</ul>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_gateway_service_system">3.2.2. Gateway Service System</h4>
 <div class="paragraph">
 <p><span class="image"><img src="./images/03_Technical_2.png" alt="Diagram 3.3: Communication"></span></p>
 </div>
-<div class="paragraph">
-<p><strong>&lt;Diagram or Table&gt;</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>&lt;optionally: Explanation of technical interfaces&gt;</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>&lt;Mapping Input/Output to Channels&gt;</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>User service:</strong> Express service that handles the insertion of new users in the system.</p>
+</li>
+<li>
+<p><strong>Auth service:</strong> Express service that handles the authentication of users.</p>
+</li>
+</ul>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1124,9 +1146,8 @@ Refer to details in the following sections.</p>
 </div>
 </div>
 </div>
-<div class="paragraph">
-<p>Technology decisions</p>
-</div>
+<div class="sect2">
+<h3 id="_technology_decisions">4.1. Technology decisions</h3>
 <div class="paragraph">
 <p>To develop the app we will use the following technologies:</p>
 </div>
@@ -1155,45 +1176,52 @@ However, JavaScript was the language that adapted better to our requirements due
  focus on agile development that can lead to faster development cycles.
 One of the main disadvantages is that we had to learn it, because our main language is Java.</p>
 </div>
-<div class="paragraph">
-<p>Decisions about the top-level decomposition of the system</p>
 </div>
+<div class="sect2">
+<h3 id="_decisions_about_the_top_level_decomposition_of_the_system">4.2. Decisions about the top-level decomposition of the system</h3>
 <div class="paragraph">
 <p>We decided to use a microservices arquitecture, having different modules for each functionality.
 For example, we will use a microservice to generate the questions.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_decisions_on_how_to_achieve_key_quality_goals">4.3. Decisions on how to achieve key quality goals</h3>
 <div class="paragraph">
-<p>Decisions on how to achieve key 10_quality_requirements.adoc[quality goals]</p>
+<p>Quality goals are explained in detail in point 10.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 40%;">
-<col style="width: 40%;">
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Quality goal</th>
 <th class="tableblock halign-left valign-top">Decisions to achieve it.</th>
-<th class="tableblock halign-left valign-top">Usability</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usability</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">We are going to use real users to test the app interface and improve it according to their feedback.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Availability</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Docker Compose will be helpful to avoid problems with the deploy of the app. In addition we will use web hosting to expose it to the internet.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Security</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A login system with encrypted password storage will be used to protect the user data.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Performance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We will use the minimum required calls to the APIs to mantain the minimum time response, for example, with bulk requests.</p></td>
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p>Relevant organizational decisions</p>
 </div>
+<div class="sect2">
+<h3 id="_relevant_organizational_decisions">4.4. Relevant organizational decisions</h3>
 <div class="paragraph">
 <p>Our framework will be based on working every week with two weekly meetings, one will be held during lab time in order to assign tasks and make minor decisions.
 On the other hand, the weekend meeting will be intended for more thorough reviews as well as more significant decisions.</p>
@@ -1203,6 +1231,7 @@ On the other hand, the weekend meeting will be intended for more thorough review
 To merge the code to the develop branch we are going to use Pull Requests in order to be approved by every person of the team.</p>
 </div>
 <div style="page-break-after: always;"></div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1300,8 +1329,7 @@ In the best case you will get away with examples or simple signatures.</p>
 </div>
 </div>
 <div class="paragraph">
-<p><em><strong>&lt;Overview Diagram&gt;</strong></em>
-<span class="image"><img src="./images/05_scope_context.png" alt="Main Build Block"></span></p>
+<p><span class="image"><img src="./images/05_scope_and_context.png" alt="Diagram 05.1: Scope And Context"></span></p>
 </div>
 <div class="dlist">
 <dl>
@@ -1348,7 +1376,7 @@ according the the following black box template:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>WIQ</strong>: It is the main application, represented as a blackbox that will be detailed in the following decompositions.</p>
+<p><strong>Wikidata Infinite Quest</strong>: It is the main application, represented as a blackbox that will be detailed in the following decompositions.</p>
 </li>
 <li>
 <p><strong>Wikidata API</strong>: It is the external API that the system uses to generate questions and answers.</p>
@@ -1383,10 +1411,7 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 </div>
 </div>
 <div class="paragraph">
-<p><em><strong>Overview Diagram</strong></em></p>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="./images/05_level1.png" alt="White Box WIQ"></span></p>
+<p><span class="image"><img src="./images/05_level1.png" alt="Diagram 05.2: Level1"></span></p>
 </div>
 <div class="dlist">
 <dl>
@@ -1399,16 +1424,13 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>WebApp</strong>: It is the main module of the application.</p>
+<p><strong>Web App</strong>: It is the main module of the application.</p>
 </li>
 <li>
-<p><strong>UsersManagement</strong>: Handles user management.</p>
+<p><strong>User Management</strong>: Handles user management.</p>
 </li>
 <li>
-<p><strong>QuestionGenerationSystem</strong>: It is responsible for the automatic generation of questions and answers using the Wikidata API.</p>
-</li>
-<li>
-<p><strong>Docs</strong>: It is the module of the project devoted to provide all the documentation of the application. It won&#8217;t be decomposed any further.</p>
+<p><strong>Question Generation Service</strong>: It is responsible for the automatic generation of questions and answers using the Wikidata API.</p>
 </li>
 </ul>
 </div>
@@ -1440,10 +1462,7 @@ part of arc42 for additional levels.</p>
 </div>
 </div>
 <div class="paragraph">
-<p><em><strong>Overview Diagram</strong></em></p>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="./images/05_level2_usersManagement.png" alt="White Box Users Management"></span></p>
+<p><span class="image"><img src="./images/05_level2.png" alt="Diagram 05.2: Level2"></span></p>
 </div>
 <div class="dlist">
 <dl>
@@ -1465,7 +1484,7 @@ part of arc42 for additional levels.</p>
 <p><strong>User Service</strong>: Express service that handles the insertion of new users in the system.</p>
 </li>
 <li>
-<p><strong>Data Base</strong>: Pending to decide.</p>
+<p><strong>Data Base</strong>: MongoDB.</p>
 </li>
 </ul>
 </div>
@@ -1569,31 +1588,6 @@ You will mainly capture scenarios in your documentation to communicate your arch
 <div class="sect1">
 <h2 id="section-deployment-view">7. Deployment View</h2>
 <div class="sectionbody">
-<div class="imageblock">
-<div class="content">
-<img src="./images/DeploymentView.png" alt="Deployment View">
-</div>
-</div>
-<hr>
-<div class="paragraph">
-<p>mermaid
-graph TD
-user -&#8594; |uses| webApp
-webApp -&#8594; |request| gateWayService
-webApp -&#8594; |get questions|questionGenerationModule
-monitoring-systems -&#8594; gateWayService
-database
-gateWayService -&#8594; |control login and auth| userServices
-userServices -&#8594; |persist data| database
-gateWayService
-questionGenerationModule
-'''</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="./images/deploymentViewMermaid.png" alt="Deployment View">
-</div>
-</div>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -1648,89 +1642,41 @@ when your infrastructure is more complex.</p>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_infrastructure_level_1">7.1. Infrastructure Level 1</h3>
-<div class="sidebarblock arc42help">
-<div class="content">
 <div class="paragraph">
-<p>Describe (usually in a combination of diagrams, tables, and text):</p>
+<p>We have several services deployed in a single containter using Docker Compose, this eases the deployment.
+This are the different container and their relations:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>distribution of a system to multiple locations, environments, computers, processors, .., as well as physical connections between them</p>
+<p>WebApp: The web page. Gets data from Gateway Service.</p>
 </li>
 <li>
-<p>important justifications or motivations for this deployment structure</p>
+<p>Gateway Service: data access interface for services.</p>
 </li>
 <li>
-<p>quality and/or performance features of this infrastructure</p>
+<p>AuthService and UserService: manages authentication and login systems.</p>
 </li>
 <li>
-<p>mapping of software artifacts to elements of this infrastructure</p>
+<p>MongoDB: persistance system used in the application.</p>
+</li>
+<li>
+<p>Grafana and Prometeus: code monitoring systems.</p>
+</li>
+<li>
+<p>QuestionGenerationSystem: generates questions to use in the game.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>For multiple environments or alternative deployments please copy and adapt this section of arc42 for all relevant environments.</p>
+<p>We are going to use an Azure VM to deploy all this services.</p>
 </div>
-</div>
-</div>
-<div class="paragraph">
-<p><em><strong>&lt;Overview Diagram&gt;</strong></em></p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Motivation</dt>
-<dd>
-<p><em>&lt;explanation in text form&gt;</em></p>
-</dd>
-<dt class="hdlist1">Quality and/or Performance Features</dt>
-<dd>
-<p><em>&lt;explanation in text form&gt;</em></p>
-</dd>
-<dt class="hdlist1">Mapping of Building Blocks to Infrastructure</dt>
-<dd>
-<p><em>&lt;description of the mapping&gt;</em></p>
-</dd>
-</dl>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_infrastructure_level_2">7.2. Infrastructure Level 2</h3>
-<div class="sidebarblock arc42help">
+<div class="imageblock">
 <div class="content">
-<div class="paragraph">
-<p>Here you can include the internal structure of (some) infrastructure elements from level 1.</p>
+<img src="./images/DeploymentView.png" alt="Deployment View">
 </div>
-<div class="paragraph">
-<p>Please copy the structure from level 1 for each selected element.</p>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_infrastructure_element_1">7.2.1. <em>&lt;Infrastructure Element 1&gt;</em></h4>
-<div class="paragraph">
-<p><em>&lt;diagram + explanation&gt;</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_infrastructure_element_2">7.2.2. <em>&lt;Infrastructure Element 2&gt;</em></h4>
-<div class="paragraph">
-<p><em>&lt;diagram + explanation&gt;</em></p>
-</div>
-<div class="paragraph">
-<p>&#8230;&#8203;</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_infrastructure_element_n">7.2.3. <em>&lt;Infrastructure Element n&gt;</em></h4>
-<div class="paragraph">
-<p><em>&lt;diagram + explanation&gt;</em></p>
 </div>
 <div style="page-break-after: always;"></div>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -1876,10 +1822,10 @@ on this list.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://arquisoft.github.io/wiq_es04a/#_12_3_technical_terms"><strong>Frontend</strong></a>: the frontend of this application consists of a web app which will be deployed. Now, the user can register and log in with accounts already created on an intuitive page.</p>
+<p><a href="https://arquisoft.github.io/wiq_es04a/#_technical_terms"><strong>Frontend</strong></a>: the frontend of this application consists of a web app which will be deployed. Now, the user can register and log in with accounts already created on an intuitive page.</p>
 </li>
 <li>
-<p><a href="https://arquisoft.github.io/wiq_es04a/#_12_3_technical_terms"><strong>Internationalization</strong></a> The application will likely be available in various languages, including English as the main language. This would provide a better user experience as users could better tailor the application to their personal preferences.</p>
+<p><a href="https://arquisoft.github.io/wiq_es04a/#_technical_terms"><strong>Internationalization</strong></a> The application will likely be available in various languages, including English as the main language. This would provide a better user experience as users could better tailor the application to their personal preferences.</p>
 </li>
 </ul>
 </div>
@@ -1905,7 +1851,7 @@ on this list.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://arquisoft.github.io/wiq_es04a/#_12_3_technical_terms"><strong>Microservice</strong></a>: In this application there are some microservices such as the User Management, which involves signing up, logging in and everything related to the points and timing of the user. Microservices provide an easy way of creating a complex application composed by independent systems.</p>
+<p><a href="https://arquisoft.github.io/wiq_es04a/#_technical_terms"><strong>Microservice</strong></a>: In this application there are some microservices such as the User Management, which involves signing up, logging in and everything related to the points and timing of the user. Microservices provide an easy way of creating a complex application composed by independent systems.</p>
 </li>
 </ul>
 </div>
@@ -2006,16 +1952,16 @@ There you will find links and examples about ADR.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong><strong>Usability</strong></strong>: The interface should be intuitive, with clear instructions and an accessible design. This will allow users of all abilities to navigate and use the application effortlessly.</p>
+<p><strong>Usability</strong>: The interface should be intuitive, with clear instructions and an accessible design. This will allow users of all abilities to navigate and use the application effortlessly.</p>
 </li>
 <li>
-<p><strong><strong>Availability</strong></strong>: The system should aim for maximum availability, ensuring it is accessible around the clock. This will guarantee uninterrupted access most of the time, regardless of their time zone or schedule.</p>
+<p><strong>Availability</strong>: The system should aim for maximum availability, ensuring it is accessible around the clock. This will guarantee uninterrupted access most of the time, regardless of their time zone or schedule.</p>
 </li>
 <li>
-<p><strong><strong>Security</strong></strong>: User data confidentiality must be upheld as a top priority, ensuring sensitive information remains secure and protected at all times. This commitment to privacy instills trust and confidence among users, fostering a safe and secure environment for their data.</p>
+<p><strong>Security</strong>: User data confidentiality must be upheld as a top priority, ensuring sensitive information remains secure and protected at all times. This commitment to privacy instills trust and confidence among users, fostering a safe and secure environment for their data.</p>
 </li>
 <li>
-<p><strong><strong>Performance</strong></strong>: Efficiency is paramount in system usage, particularly in swift question generation, ensuring a seamless experience for users. Streamlining processes enhances overall usability, enabling swift and effortless interaction with the system.</p>
+<p><strong>Performance</strong>: Efficiency is paramount in system usage, particularly in swift question generation, ensuring a seamless experience for users. Streamlining processes enhances overall usability, enabling swift and effortless interaction with the system.</p>
 </li>
 </ul>
 </div>
@@ -2085,27 +2031,31 @@ concrete and measurable.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 40%;">
-<col style="width: 40%;">
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Usage Scenario</th>
 <th class="tableblock halign-left valign-top">System Reaction</th>
-<th class="tableblock halign-left valign-top">The user initiates the web application, enters their username and password, and clicks the login button.</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user initiates the web application, enters their username and password, and clicks the login button.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The system verifies the information entered by the user, and if correct, redirects them to the main page; otherwise, it indicates an error has occurred.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The user surveys the main window, where several buttons with different options appear.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">In response to pressing each of these buttons, the system will display the corresponding content.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The user starts the game and is awaiting the questions.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The system swiftly generates the question and its possible answers.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The user loses the game and decides to stop playing for a while. Five hours later, they decide to play again.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The system remains active and functions correctly.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2114,22 +2064,27 @@ concrete and measurable.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 40%;">
-<col style="width: 40%;">
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Change Scenario</th>
 <th class="tableblock halign-left valign-top">System Reaction</th>
-<th class="tableblock halign-left valign-top">Adding an additional login system to access the account not only through email but also through the username.</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adding an additional login system to access the account not only through email but also through the username.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The system should be capable of adapting to provide this functionality without affecting the existing ones.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Adding a new game mode or functionality.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">When adding a new feature, the application&#8217;s usage methodology should not be distorted, ensuring it can still be used in the same manner.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adding a new game language.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When adding a new game language, the system should continue to function smoothly.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2202,19 +2157,19 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 </div>
 </div>
 <div class="sect2">
-<h3 id="_technical_risks">11.1. Technical risks</h3>
+<h3 id="_risks">11.1. Risks</h3>
 <div class="paragraph">
-<p>To assess the relevance level of the following technical risks, we will use number 1 to indicate low relevance, 2 for medium relevance, and 3 for high relevance.</p>
+<p>To assess the relevance level of the following risks, we will use number 1 to indicate low relevance, 2 for medium relevance, and 3 for high relevance.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Technical Risk</th>
+<th class="tableblock halign-left valign-top">Risk</th>
 <th class="tableblock halign-left valign-top">Relevance</th>
 <th class="tableblock halign-left valign-top">Considerations</th>
 </tr>
@@ -2242,8 +2197,8 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <h3 id="_technical_debts">11.2. Technical debts</h3>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
+<col style="width: 25%;">
+<col style="width: 75%;">
 </colgroup>
 <thead>
 <tr>
@@ -2336,13 +2291,8 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <td class="tableblock halign-left valign-top"><p class="tableblock">CI refers to the practice of automatically and frequently integrating code changes into a shared source code repository; CD is a 2 part process that refers to the integration, testing, and delivery of code changes. Continuous delivery stops short of automatic production deployment, while continuous deployment automatically releases the updates into the production environment.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">PR</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Pull Request</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Proposal to merge a set of changes from one branch into another. In a pull request, collaborators can review and discuss the proposed set of changes before they integrate the changes into the main codebase.</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">WIQ</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">TBD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/Arquisoft/wiq_es04a/discussions/19">Wikidata Infinite Quest</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Web application&#8217;s name, where the users can register and login themselves to play different type of rounds.</p></td>
 </tr>
 </tbody>
@@ -2385,6 +2335,11 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <td class="tableblock halign-left valign-top"><p class="tableblock">"Saber Y Ganar"</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Player who can register and then login into the app to play some of the different quizes explained around this explanation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usuario</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Warm question</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Test in which contestants' aim is to answer questions rapidly and accurately, requiring quick thinking, as questions are presented rapidly without pauses between them. Contestants strive to provide correct answers to accumulate points, but they must also carefully assess the risk of answering incorrectly, which could lead to losing points.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Pregunta caliente</p></td>
@@ -2414,9 +2369,19 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Arc42</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set of recommendations for documenting and designing software architectures, particularly for software-intensive systems, that provides a template for architecture documentation structured into various sections covering different aspects of the architecture and aiming to promote clear communication and understanding of this one among stakeholders.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>N/A</em></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Backend</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Server-side of a software application or website. It encompasses everything that users don&#8217;t see directly, such as databases, servers, and application logic. The backend is responsible for processing requests from the frontend and generating the appropriate responses.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>N/A</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Container</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lightweight, portable, and self-contained unit that packages together all the necessary software components, such as code, runtime, libraries, and dependencies, needed to run an application. Containers provide a consistent environment for running applications across different computing environments.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contenedor</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Frontend</p></td>
@@ -2429,24 +2394,9 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>N/A</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Github</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Online software development platform built around Git used for storing, tracking, and collaborating on software projects. It makes it easy for developers to share code files and collaborate with fellow developers on open-source projects.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>N/A</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Internationalization</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Process of designing and developing a software application in such a way that it can easily adapt to different languages, cultures, and regions of the world. This involves for example the application&#8217;s ability to handle different sets of characters, date and time formats, units of measurement, and other cultural and linguistic aspects.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Internacionalización</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Microservice</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Software architectural style that structures an application as a collection of loosely coupled services; each service is designed to perform a specific and narrowly defined function within the application. These services are typically small, independently deployable, and can be developed, tested, and deployed separately from the rest of the application.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Microservicio</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically refers to an individual or entity that interacts with the system or software to perform tasks, access resources, or obtain information. Users can interact with computer systems through various means, such as graphical user interfaces, command-line interfaces, or the mentioned APIs.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Usuario</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Wikidata</p></td>
@@ -2462,7 +2412,7 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2024-01-30 14:11:35 +0100
+Last updated 2024-02-20 13:51:13 +0100
 </div>
 </div>
 </body>
