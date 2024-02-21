@@ -5,4 +5,4 @@ flowchart TD
     sis1 -.->|Create user| sis3
     end
     el1(User) -.->|Interacts with| sis1
-    sis1 -.->|Get questions| sis4(Wikidata)
+    sis2 -.-> sis4(Wikidata)
