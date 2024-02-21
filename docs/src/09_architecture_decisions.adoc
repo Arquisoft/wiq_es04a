@@ -39,6 +39,10 @@ The architectural decisions are completely documented in our https://github.com/
 === Team Working Methodology
 - https://github.com/Arquisoft/wiq_es04a/wiki/ADR-01-‐-Usage-of-A-Succesful-Branching-Model[ADR 01] - Usage of A Succesful Branching Model
 
-_TBD when more architecture decisions are taken_
+=== Technology
+- https://github.com/Arquisoft/wiq_es04a/wiki/ADR-02-‐-Microservices-Architecture[ADR 02] - Microservices Architecture
+- https://github.com/Arquisoft/wiq_es04a/wiki/ADR-03-‐-Frontend-in-React[ADR 03] - Front-end in React
+
+_TBC when more architecture decisions are taken_
 
 
