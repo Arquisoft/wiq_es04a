@@ -72,14 +72,10 @@ together with a mapping table showing the relationships between channels and inp
 ==== System Scope
 image:03_Technical_1.png["Diagram 3.2: Techincal Context"]
 
+Other elements of the system which can be looked up in point https://arquisoft.github.io/wiq_es04a/#section-building-block-view[Point 5: Building Block View] are:
 
 - **WIQ Webapp:** Module that supports user interaction via UI _i.e._, the front-end of the whole system.
-- **Gateway Service:** Express service that is exposed to the public and serves as a proxy to the users management allowing sign up and log in.
 - **Question Generation Service**: Service that will be used internally to manage information retrival from Wikidata.
-
-==== Gateway Service System
-image:03_Technical_2.png["Diagram 3.3: Communication"]
-
-
+- **Gateway Service:** Express service that is exposed to the public and serves as a proxy to the users management allowing sign up and log in.
 - **User service:** Express service that handles the insertion of new users in the system.
 - **Auth service:** Express service that handles the authentication of users.
