@@ -1,12 +1,12 @@
 ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-introduction-and-goals]]
-== Introduction and Goals (wiq_es04a)
+== Introduction and Goals
 
 [role="arc42help"]
 ****
 Describes the relevant requirements and the driving forces that software architects and development team must consider. 
-These include
+These include 
 
 * underlying business goals, 
 * essential features, 
@@ -121,9 +121,12 @@ Table with role names, person names, and their expectations with respect to the 
 [options="header",cols="1,2,2"]
 |===
 |Role/Name|Contact|Expectations
-| Happy Software |Hugo Méndez Fernández, Pablo Barrero Cruz, Alberto Lago Conde, Pablo García-Ovies Pérez, Samuel Bustamante Larriet, María Teresa González García, Daniel  Andina Pailos| Students are the developers of the app. They need to do a great project to obtain a good mark.
+| Happy Software (Dev Team) |Hugo Méndez Fernández, Pablo Barrero Cruz, Alberto Lago Conde, Pablo García-Ovies Pérez, Samuel Bustamante Larriet, María Teresa González García, Daniel  Andina Pailos| Students are the developers of the app. They need to do a great project to obtain a good mark.
+| Happy Software (Investors)|Owner and the investors.| They expect the application to work correctly and produce benefits for the company.
 | Teachers | José Emilio Labra | They will qualify the proyect.
 | Users | Users of the game | They want to have fun answering questions. It must be intuitive and easy to use.
+| RTVE | Radio y Televisión Española | They expect it to be a competent application since they are the ones who invested in the project and want to promote it on their different platforms.
+| WikiData | Wikimedia Foundation | They hope, thanks to the impact of our application, to gain more relevance and visibility in order to attract more users and expand their ways of working. Additionally, their structured data and semantic web also gain relevance.
 |===
 
 

@@ -1,8 +1,6 @@
-flowchart TD
-    el1[User] -.->|Interacts with| sis1(WIQ Webapp)
-    subgraph WIQ
-    sis1 --> |Authenticate| sis2(Gateway Service)
-    sis1 --> |Create user| sis2
-    sis1 --> |Get questions| sis5(Question Generation Service)
+flowchart LR
+    el1[User] -.-> sis1(WIQ)
+    subgraph System
+    sis1
     end
-    sis5 -.-> D[Wikidata]
+    sis1 -.-> el2[Wikidata]

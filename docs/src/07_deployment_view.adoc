@@ -45,11 +45,13 @@ See https://docs.arc42.org/section-7/[Deployment View] in the arc42 documentatio
 We have several services deployed in a single containter using Docker Compose, this eases the deployment.
 This are the different container and their relations:
 
-- WebApp: Gets data from Gateway Service.
-- Gateway Service: Data access interface for services.
-- User Services: Manages authentication and login systems.
-- Database: Persistance system for the application.
+- WebApp: The web page. Gets data from Gateway Service.
+- Gateway Service: data access interface for services.
+- AuthService and UserService: manages authentication and login systems.
+- MongoDB: persistance system used in the application.
+- Grafana and Prometeus: code monitoring systems.
+- QuestionGenerationSystem: generates questions to use in the game.
 
 We are going to use an Azure VM to deploy all this services.
 
-image::deploymentViewMermaid.png["Deployment View"]
+image::DeploymentView.png["Deployment View"]

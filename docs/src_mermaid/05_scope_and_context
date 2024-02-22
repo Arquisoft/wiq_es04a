@@ -1,0 +1,5 @@
+flowchart TD
+    subgraph Scope And Context
+    el1(User) -.->|Interacts with| sis1(Wikidata Infinite Quest)
+    sis1 -.-> sis2(Wikidata)
+    end

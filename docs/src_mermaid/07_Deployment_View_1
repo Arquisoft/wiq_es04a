@@ -1,0 +1,72 @@
+'''
+@startuml
+
+
+title Deployment Diagram
+
+!theme vibrant
+
+left to right direction
+node AzureServer{    
+    
+
+    node DockerContainer1 {
+        component MongoDB
+    } 
+  
+  node DockerContainer2 {
+        component AuthService
+    }   
+
+
+  node DockerContainer3{
+        component UserService
+    }   
+
+ node DockerContainer7{
+        component GatewayService
+    }
+
+ node DockerContainer4 {
+        component WebApp
+    }   
+
+node DockerContainer8{
+        component QuestionGenerationSystem
+    }
+
+ 
+
+
+
+ node DockerContainer5{
+        component Grafana
+    }   
+
+  node DockerContainer6{
+        component Prometheus
+    }   
+
+}
+
+node Wikidata{
+  
+    }
+ 
+node UserDevice {
+    node WebBrowser {
+    }
+
+
+ 
+Actor User
+
+}
+
+User -l-> WebBrowser : "uses"
+
+
+WebApp -d-> WebBrowser : "shows on user device"
+QuestionGenerationSystem -d-> Wikidata : "Fetches data"
+@enduml
+'''

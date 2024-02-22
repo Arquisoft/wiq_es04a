@@ -1,0 +1,13 @@
+sequenceDiagram
+    User ->>+ App: click register link
+    App -->>- User: show register view
+    User ->>+ App: click add user button
+    App ->> Gateway Service: addUser()
+    Gateway Service ->> Auth Service: post('/addUser')
+
+    Auth Service ->> Database: validateRequiredFields()
+    Database -->> Auth Service: 
+
+    Auth Service -->> Gateway Service: 
+    Gateway Service -->> App: 
+    App -->>- User: 

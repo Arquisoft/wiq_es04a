@@ -65,7 +65,7 @@ In the best case you will get away with examples or simple signatures.
 
 ****
 
-image:05_scope_context.png["Main Build Block"]
+image:05_scope_and_context.png["Diagram 05.1: Scope And Context"]
 
 Motivation::
 
@@ -86,7 +86,7 @@ according the the following black box template:
 ****
 
 Contained Building Blocks::
-* **WIQ**: It is the main application, represented as a blackbox that will be detailed in the following decompositions. 
+* **Wikidata Infinite Quest**: It is the main application, represented as a blackbox that will be detailed in the following decompositions. 
 * **Wikidata API**: It is the external API that the system uses to generate questions and answers.
 
 === Level 1
@@ -106,19 +106,17 @@ Leave out normal, simple, boring or standardized parts of your system
 ****
 ...describes the internal structure of _building block WIQ_.
 ****
-_**Overview Diagram**_
 
-image:05_level1.png["White Box WIQ"]
+image:05_level1.png["Diagram 05.2: Level1"]
 
 Motivation::
 
 First decomposition of the system. It shows the webapp, users managament and question generator modules as blackboxes. Also displays the docs module which contains the documentation of the project.
 
 Contained Building Blocks::
-* **WebApp**: It is the main module of the application. 
-* **UsersManagement**: Handles user management.
-* **QuestionGenerationSystem**: It is responsible for the automatic generation of questions and answers using the Wikidata API.
-* **Docs**: It is the module of the project devoted to provide all the documentation of the application. It won't be decomposed any further.
+* **Web App**: It is the main module of the application. 
+* **User Management**: Handles user management.
+* **Question Generation Service**: It is responsible for the automatic generation of questions and answers using the Wikidata API.
 
 === Level 2
 
@@ -129,17 +127,14 @@ Here you can specify the inner structure of (some) building blocks from level 1 
 When you need more detailed levels of your architecture please copy this
 part of arc42 for additional levels.
 ****
-
-
 ==== White Box Users Management
 
 [role="arc42help"]
 ****
 Specifies the internal structure of _building block Users Management_.
 ****
-_**Overview Diagram**_
 
-image:05_level2_usersManagement.png["White Box Users Management"]
+image:05_level2.png["Diagram 05.2: Level2"]
 
 Motivation::
 
@@ -149,7 +144,7 @@ Contained Building Blocks::
 * **Gateway Service**: Express service that is exposed to the public and serves as a proxy to the two next ones.
 * **Authentication Service**: Express service that handles the authentication of users.
 * **User Service**: Express service that handles the insertion of new users in the system.
-* **Data Base**: Pending to decide.
+* **Data Base**: MongoDB.
 
 **PENDING TO COMPLETE...**
 

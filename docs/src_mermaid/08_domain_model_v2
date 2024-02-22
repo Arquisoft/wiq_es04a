@@ -2,21 +2,22 @@ classDiagram
     User "*"-->"1" Contest
     Contest "1"-->"*" Question
     Contest "1"-->"*" Profile
-    Contest "1"-->"*" Award
-    Profile "1"-->"*" Award
+    Profile "1"-->"1" HistoricalRecord
     class Contest {
         - List~Question~ questions
         - List~Profile~ profiles
     }
     class Profile {
+        - String username
         - int points
-        - List~Award~ awards
     }
     class Question {
         - String question
         - List~String~ answers
         - String correctAnswer
     }
-    class Award {
-        - int price
+    class HistoricalRecord {
+        - List~Question~ right
+        - List~Question~ wrong
+        - int position
     }
