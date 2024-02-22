@@ -1,0 +1,11 @@
+{
+  "name": "questiongeneration",
+  "version": "0.0.1",
+  "description": "Question generation module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "wiq-es04a",
+  "license": "ISC"
+}
