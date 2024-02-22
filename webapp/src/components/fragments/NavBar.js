@@ -10,9 +10,11 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import MenuIcon from '@mui/icons-material/Menu';
+import {Link} from 'react-router-dom';
 
 const pages = ['Inicio'];
-const settings = ['Perfil', 'Cuenta', 'Salir'];
+const settings = ['Mi Cuenta', 'Sobre Nosotros', 'Salir'];
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -21,9 +23,10 @@ function NavBar() {
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
+
+  // const handleOpenUserMenu = (event) => {
+  //   setAnchorElUser(event.currentTarget);
+  // };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
@@ -45,7 +48,9 @@ function NavBar() {
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
               color="inherit"
-            ></IconButton>
+            >
+              <MenuIcon />
+            </IconButton>
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -99,14 +104,15 @@ function NavBar() {
               </Button>
             ))}
           </Box>
-          <Button onClick={handleOpenUserMenu} sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0 }}>
+          <Button to={'/login'} component={Link} sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0 }}
+          // onClick={handleOpenUserMenu} 
+          >
             <Typography variant="body2" color="inherit" sx={{ mr: 1, color: 'white', textDecoration: 'none' }}>
               Iniciar sesión
             </Typography>
             <Tooltip title="Settings">
               <IconButton sx={{ p: 0 }}>
-                {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
-                <Avatar alt="Remy Sharp" src="/user_default.png" />
+                <Avatar alt="Remy Sharp" src="/def_user.jpg" />
               </IconButton>
             </Tooltip>
           </Button>
