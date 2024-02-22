@@ -6,6 +6,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import NavBar from './components/NavBar';
+import Footer from './components/Footer';
 
 function App() {
   const [showLogin, setShowLogin] = useState(true);
@@ -35,6 +36,7 @@ function App() {
           )}
         </Typography>
       </Container>
+      <Footer/>
     </div>
   );
 }
