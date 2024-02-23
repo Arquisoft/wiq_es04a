@@ -2,10 +2,11 @@ const mysql = require('mysql2/promise');
 
 // Crear un pool de conexiones a la base de datos()
 const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'tu_usuario',
-    password: 'tu_contraseña',
-    database: 'tu_base_de_datos',
+    host: process.env.REACT_APP_DB_HOST,
+    port: process.env.REACT_APP_DB_PORT,
+    user: process.env.REACT_APP_DB_USER,
+    password: process.env.REACT_APP_DB_PASSWORD,
+    database: process.env.REACT_APP_DB_NAME,
     waitForConnections: true, //determina si las conexiones se encolaran o se rechazaran si el pool ha llegado al límite
     connectionLimit: 10, // límite máximo de conexiones simultáneas
     queueLimit: 0 // límite máximo de conexiones en la cola de espera

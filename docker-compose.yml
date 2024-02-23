@@ -1,7 +1,7 @@
 version: '3'
 services:
   mongodb:
-    container_name: mongodb-${teamA_L4:-defaultASW}
+    container_name: mongodb-${teamname:-defaultASW}
     image: mongo
     profiles: ["dev", "prod"]
     volumes:
@@ -12,7 +12,7 @@ services:
       - mynetwork
 
   mariadb:
-    container_name: mariadb-${teamA_L4:-defaultASW}
+    container_name: mariadb-${teamname:-defaultASW}
     image: mariadb
     profiles: ["dev", "prod"]
     volumes:
@@ -28,7 +28,7 @@ services:
       - mynetwork
 
   authservice:
-    container_name: authservice-${teamA_L4:-defaultASW}
+    container_name: authservice-${teamname:-defaultASW}
     image: ghcr.io/arquisoft/wiq_0/authservice:latest
     profiles: ["dev", "prod"]
     build: ./users/authservice
@@ -44,7 +44,7 @@ services:
       MYSQL_PASSWORD: Xp@7qZr#3wT2
 
   userservice:
-    container_name: userservice-${teamA_L4:-defaultASW}
+    container_name: userservice-${teamname:-defaultASW}
     image: ghcr.io/arquisoft/wiq_0/userservice:latest
     profiles: ["dev", "prod"]
     build: ./users/userservice
@@ -60,7 +60,7 @@ services:
       MYSQL_PASSWORD: Xp@7qZr#3wT2
 
   gatewayservice:
-    container_name: gatewayservice-${teamA_L4:-defaultASW}
+    container_name: gatewayservice-${teamname:-defaultASW}
     image: ghcr.io/arquisoft/wiq_0/gatewayservice:latest
     profiles: ["dev", "prod"]
     build: ./gatewayservice
@@ -77,7 +77,7 @@ services:
       USER_SERVICE_URL: http://userservice:8001
 
   webapp:
-    container_name: webapp-${teamA_L4:-defaultASW}
+    container_name: webapp-${teamname:-defaultASW}
     image: ghcr.io/arquisoft/wiq_0/webapp:latest
     profiles: ["dev", "prod"]
     build: ./webapp
@@ -88,7 +88,7 @@ services:
 
   prometheus:
     image: prom/prometheus
-    container_name: prometheus-${teamA_L4:-defaultASW}
+    container_name: prometheus-${teamname:-defaultASW}
     profiles: ["dev"]
     networks:
       - mynetwork
@@ -102,7 +102,7 @@ services:
       
   grafana:
     image: grafana/grafana
-    container_name: grafana-${teamA_L4:-defaultASW}
+    container_name: grafana-${teamname:-defaultASW}
     profiles: ["dev"]
     networks:
       - mynetwork
