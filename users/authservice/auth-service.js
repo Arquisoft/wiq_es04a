@@ -1,5 +1,4 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('./auth-model')
@@ -9,10 +8,6 @@ const port = 8002;
 
 // Middleware to parse JSON in request body
 app.use(express.json());
-
-// Connect to MongoDB
-const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/userdb';
-mongoose.connect(mongoUri);
 
 // Function to validate required fields in the request body
 function validateRequiredFields(req, requiredFields) {
@@ -31,17 +26,22 @@ app.post('/login', async (req, res) => {
 
     const { username, password } = req.body;
 
-    // Find the user by username in the database
-    const user = await User.findOne({ username });
+    // Get a connection from the pool
+    const conn = await pool.getConnection();
 
-    // Check if the user exists and verify the password
-    if (user && await bcrypt.compare(password, user.password)) {
-      // Generate a JWT token
-      const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
-      // Respond with the token and user information
-      res.json({ token: token, username: username, createdAt: user.createdAt });
-    } else {
-      res.status(401).json({ error: 'Invalid credentials' });
+    try {
+      // Query the database to find the user by username
+      const [rows] = await conn.query('SELECT * FROM users WHERE username = ?', [username]);
+
+      if (rows.length > 0 && await bcrypt.compare(password, rows[0].password)) {
+        const token = jwt.sign({ userId: rows[0].id }, 'your-secret-key', { expiresIn: '1h' });
+        res.json({ token: token, username: username, createdAt: rows[0].createdAt });
+      } else {
+        res.status(401).json({ error: 'Invalid credentials' });
+      }
+    } finally {
+      // Release the connection back to the pool
+      conn.release();
     }
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
@@ -54,8 +54,8 @@ const server = app.listen(port, () => {
 });
 
 server.on('close', () => {
-    // Close the Mongoose connection
-    mongoose.connection.close();
+    // Close the MariaDB connection pool
+  pool.end();
   });
 
 module.exports = server
