@@ -22,11 +22,11 @@ const userSchema = `
         surname VARCHAR(255) NOT NULL,
         createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         imageUrl VARCHAR(255),
-        score INT DEFAULT 0,
-        correctly_answered questions INT DEFAULT 0,
-        incorrectly_answered questions INT DEFAULT 0,
+        total_score INT DEFAULT 0,
+        correctly_answered_questions INT DEFAULT 0,
+        incorrectly_answered_questions INT DEFAULT 0,
         total_time_played INT DEFAULT 0,
-        number_of_games played INT DEFAULT 0
+        games_played INT DEFAULT 0
     )
 `;
 
