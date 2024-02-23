@@ -1,3 +1,4 @@
+const express = require('express');
 const axios = require('axios');
 
 async function fetchBulkData() {
@@ -10,63 +11,34 @@ async function fetchBulkData() {
                     rdfs:label ?ciudadLabel.
             SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
         }`;
-        const consultaSparql2 = `
-        SELECT ?ciudad ?ciudadLabel ?codigoQ
-        WHERE {
-            ?ciudad wdt:P31 wd:Q515;
-                    wdt:P17 wd:Q29;
-                    rdfs:label ?ciudadLabel.
-            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
-        }`;
-        const consultaSparql3 = `
-        SELECT ?ciudad ?ciudadLabel ?codigoQ
-        WHERE {
-            ?ciudad wdt:P31 wd:Q515;
-                    wdt:P17 wd:Q29;
-                    rdfs:label ?ciudadLabel.
-            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
-        }`;
-    const consultaSparql4 = `
-        SELECT ?ciudad ?ciudadLabel ?codigoQ
-        WHERE {
-            ?ciudad wdt:P31 wd:Q515;
-                    wdt:P17 wd:Q29;
-                    rdfs:label ?ciudadLabel.
-            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
-        }
-    `;
-    const consultaSparql5 = `
-        SELECT ?ciudad ?ciudadLabel ?codigoQ
-        WHERE {
-            ?ciudad wdt:P31 wd:Q515;
-                    wdt:P17 wd:Q29;
-                    rdfs:label ?ciudadLabel.
-            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
-        }
-    `;
 
         // Concatenate SPARQL queries
         // const fullQuery = `${consultaSparql1}; ${consultaSparql2}; ${consultaSparql3}; ${consultaSparql4}; ${consultaSparql5};`;
         const fullQuery = `${consultaSparql1}`;
 
+        var startTime = performance.now();
         const response = await axios.post('https://query.wikidata.org/sparql', {
             query: fullQuery,
             format: 'json'
         });
-        const datos = await response.data
-        const ciudades = datos.results.bindings;
+        var endTime = performance.now();
+        var duration = endTime - startTime;
+        console.log("Fast request: ",response.data);
+        console.log("Fast request time: ",duration);
+        //const datos = await response.data
+        //const ciudades = datos.results.bindings;
   
-        if (ciudades.length > 0) {
+        /*if (ciudades.length > 0) {
             const ciudadAleatoria = ciudades[Math.floor(Math.random() * ciudades.length)];
             const nombreCiudad = ciudadAleatoria.ciudadLabel.value;
             const codigoQ = ciudadAleatoria.ciudad.value.split('/').pop();
             return [nombreCiudad, codigoQ];
         } else {
             return null;
-        }
+        }*/
     } catch (error) {
         console.error('Error fetching data:', error);
-        return null;
+        //return null;
     }
 }
 
@@ -91,12 +63,17 @@ async function ciudadRandom() {
        // const response = await fetch(`${urlApiWikidata}?query=${encodeURIComponent(consultaSparql)}&format=json`, {
        //     headers: headers,
        // });
-  
+       var startTime = performance.now();
         const response = await axios.get(`${urlApiWikidata}?query=${encodeURIComponent(consultaSparql)}&format=json`, {
           headers: headers,
         });
   
-        const datos = await response.data
+        var endTime = performance.now();
+        var duration = endTime - startTime;
+        console.log("Normal request: ",response.data);
+        console.log("Normal request time: ",duration);
+
+       /* const datos = await response.data
         const ciudades = datos.results.bindings;
   
         if (ciudades.length > 0) {
@@ -106,18 +83,44 @@ async function ciudadRandom() {
             return [nombreCiudad, codigoQ];
         } else {
             return null;
-        }
+        }*/
     } catch (error) {
         console.error(`Error al obtener ciudad aleatoria: ${error.message}`);
-        return null;
+        //return null;
     }
   }
 
+ciudadRandom();
+fetchBulkData();
 
-var before = new Date();
-console.log(ciudadRandom());
-console.log(new Date()-before);
+/*
+const axios = require('axios');
+const SparqlClient = require('sparql-client-2');
 
-before = new Date();
-console.log(fetchBulkData());
-console.log(new Date()-before);
+// Configuración de la consulta SPARQL
+const query = `
+    SELECT ?ciudad ?ciudadLabel ?codigoQ
+        WHERE {
+            ?ciudad wdt:P31 wd:Q515;
+                    wdt:P17 wd:Q29;
+                    rdfs:label ?ciudadLabel.
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+        }
+`;
+
+// URL del punto de consulta SPARQL de Wikidata
+const endpointUrl = 'https://query.wikidata.org/sparql';
+
+// Configuración del cliente SPARQL
+const client = new SparqlClient({ endpointUrl });
+
+// Ejecución de la consulta SPARQL
+client.query.select(query).execute()
+    .then(response => {
+        console.log('Resultados de la consulta:');
+        console.log(response.results.bindings);
+    })
+    .catch(error => {
+        console.error('Error al ejecutar la consulta SPARQL:', error);
+    });
+*/
