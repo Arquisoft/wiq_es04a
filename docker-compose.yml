@@ -39,7 +39,7 @@ services:
     networks:
       - mynetwork
     environment:
-      DATABASE_URL: jdbc:mariadb://mariadb:3306/userdb
+      DATABASE_URL: mariadb:3306/userdb
       MYSQL_USER: Admin
       MYSQL_PASSWORD: Xp@7qZr#3wT2
 
@@ -55,7 +55,7 @@ services:
     networks:
       - mynetwork
     environment:
-      DATABASE_URL: jdbc:mariadb://mariadb:3306/userdb
+      DATABASE_URL: mariadb:3306/userdb
       MYSQL_USER: Admin
       MYSQL_PASSWORD: Xp@7qZr#3wT2
 

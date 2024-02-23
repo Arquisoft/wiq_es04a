@@ -6,8 +6,8 @@ const promBundle = require('express-prom-bundle');
 const app = express();
 const port = 8000;
 
-const authServiceUrl = process.env.AUTH_SERVICE_URL || 'http://localhost:8002';
-const userServiceUrl = process.env.USER_SERVICE_URL || 'http://localhost:8001';
+const authServiceUrl = process.env.AUTH_SERVICE_URL || 'http://authservice:8002';
+const userServiceUrl = process.env.USER_SERVICE_URL || 'http://userservice:8001';
 
 app.use(cors());
 app.use(express.json());
@@ -34,10 +34,16 @@ app.post('/login', async (req, res) => {
 app.post('/adduser', async (req, res) => {
   try {
     // Forward the add user request to the user service
-    const userResponse = await axios.post(userServiceUrl+'/adduser', req.body);
+    const userResponse = await axios.post(userServiceUrl + '/adduser', req.body);
     res.json(userResponse.data);
   } catch (error) {
-    res.status(error.response.status).json({ error: error.response.data.error });
+    if (error.response && error.response.status) {
+      res.status(error.response.status).json({ error: error.response.data.error });
+    } else if (error.message) {
+      res.status(500).json({ error: error.message });
+    } else {
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
   }
 });
 

@@ -1,16 +1,22 @@
 const mysql = require('mysql2/promise');
+require('dotenv').config();
 
-// Create a connection pool to the database
-const pool = mysql.createPool({
-    host: process.env.REACT_APP_DB_HOST,
-    port: process.env.REACT_APP_DB_PORT,
-    user: process.env.REACT_APP_DB_USER,
-    password: process.env.REACT_APP_DB_PASSWORD,
-    database: process.env.REACT_APP_DB_NAME,
-    waitForConnections: true, // determines if connections should be queued or rejected if the pool has reached its limit
-    connectionLimit: 10, // maximum limit of simultaneous connections
-    queueLimit: 0 // maximum limit of connections in the waiting queue
-});
+// Función para conectar a la base de datos
+async function connectToDatabase() {
+    try {
+        const connection = await mysql.createConnection({
+            host: process.env.DB_HOST || 'mariadb',  
+            port: process.env.DB_PORT || '3306',
+            user: process.env.MYSQL_USER || 'Admin',
+            password: process.env.MYSQL_PASSWORD || 'Xp@7qZr#3wT2',
+            database: process.env.DB_NAME || 'base_de_datos_de_usuarios',
+        });
+        return connection;
+    } catch (error) {
+        console.error('Error al conectar a la base de datos:', error);
+        throw error;
+    }
+}
 
 // Define the user schema
 const userSchema = `
@@ -30,11 +36,29 @@ const userSchema = `
     )
 `;
 
-// Create the users table if it doesn't exist
-pool.query(userSchema)
-    .catch((err) => {
-        console.error('Error creating users table:', err);
-    });
+// Función para crear la tabla de usuarios
+async function createUsersTable() {
+    const connection = await connectToDatabase(); // Llamada a connectToDatabase dentro de una función asíncrona
+    try {
+        // Iniciar una transacción
+        await connection.beginTransaction();
 
-// Export the connection pool for use in other files
-module.exports = pool;
+        // Ejecutar la consulta para crear la tabla de usuarios
+        await connection.query(userSchema);
+
+        // Confirmar la transacción
+        await connection.commit();
+
+        console.log('Tabla de usuarios creada con éxito');
+    } catch (err) {
+        // Revertir la transacción en caso de error
+        await connection.rollback();
+
+        console.error('Error creando la tabla de usuarios:', err);
+    } finally {
+        // No cerrar la conexión aquí, ya que se desea reutilizar en otros lugares
+    }
+}
+
+// Exportar la función createUsersTable solamente, no la conexión
+module.exports = { createUsersTable };
