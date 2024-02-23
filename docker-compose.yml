@@ -1,7 +1,7 @@
 version: '3'
 services:
   mongodb:
-    container_name: mongodb-${teamname:-defaultASW}
+    container_name: mongodb-${teamA_L4:-defaultASW}
     image: mongo
     profiles: ["dev", "prod"]
     volumes:
@@ -11,41 +11,61 @@ services:
     networks:
       - mynetwork
 
+  mariadb:
+    container_name: mariadb-${teamA_L4:-defaultASW}
+    image: mariadb
+    profiles: ["dev", "prod"]
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: R#9aLp2sWu6y
+      MYSQL_DATABASE: base_de_datos_de_usuarios
+      MYSQL_USER: Admin
+      MYSQL_PASSWORD: Xp@7qZr#3wT2
+    ports:
+      - "3306:3306"
+    networks:
+      - mynetwork
+
   authservice:
-    container_name: authservice-${teamname:-defaultASW}
+    container_name: authservice-${teamA_L4:-defaultASW}
     image: ghcr.io/arquisoft/wiq_0/authservice:latest
     profiles: ["dev", "prod"]
     build: ./users/authservice
     depends_on:
-      - mongodb
+      - mariadb
     ports:
       - "8002:8002"
     networks:
       - mynetwork
     environment:
-      MONGODB_URI: mongodb://mongodb:27017/userdb
+      DATABASE_URL: jdbc:mariadb://mariadb:3306/userdb
+      MYSQL_USER: Admin
+      MYSQL_PASSWORD: Xp@7qZr#3wT2
 
   userservice:
-    container_name: userservice-${teamname:-defaultASW}
+    container_name: userservice-${teamA_L4:-defaultASW}
     image: ghcr.io/arquisoft/wiq_0/userservice:latest
     profiles: ["dev", "prod"]
     build: ./users/userservice
     depends_on:
-      - mongodb
+      - mariadb
     ports:
       - "8001:8001"
     networks:
       - mynetwork
     environment:
-      MONGODB_URI: mongodb://mongodb:27017/userdb
+      DATABASE_URL: jdbc:mariadb://mariadb:3306/userdb
+      MYSQL_USER: Admin
+      MYSQL_PASSWORD: Xp@7qZr#3wT2
 
   gatewayservice:
-    container_name: gatewayservice-${teamname:-defaultASW}
+    container_name: gatewayservice-${teamA_L4:-defaultASW}
     image: ghcr.io/arquisoft/wiq_0/gatewayservice:latest
     profiles: ["dev", "prod"]
     build: ./gatewayservice
     depends_on:
-      - mongodb
+      - mariadb
       - userservice
       - authservice
     ports:
@@ -57,7 +77,7 @@ services:
       USER_SERVICE_URL: http://userservice:8001
 
   webapp:
-    container_name: webapp-${teamname:-defaultASW}
+    container_name: webapp-${teamA_L4:-defaultASW}
     image: ghcr.io/arquisoft/wiq_0/webapp:latest
     profiles: ["dev", "prod"]
     build: ./webapp
@@ -68,7 +88,7 @@ services:
 
   prometheus:
     image: prom/prometheus
-    container_name: prometheus-${teamname:-defaultASW}
+    container_name: prometheus-${teamA_L4:-defaultASW}
     profiles: ["dev"]
     networks:
       - mynetwork
@@ -82,7 +102,7 @@ services:
       
   grafana:
     image: grafana/grafana
-    container_name: grafana-${teamname:-defaultASW}
+    container_name: grafana-${teamA_L4:-defaultASW}
     profiles: ["dev"]
     networks:
       - mynetwork
@@ -101,6 +121,7 @@ services:
 
 
 volumes:
+  mariadb_data:
   mongodb_data:
   prometheus_data: 
   grafana_data: 
