@@ -5,7 +5,7 @@ const sequelize = new Sequelize({
     host: 'mariadb',
     username: 'root',
     password: 'R#9aLp2sWu6y',
-    database: 'user_database',
+    database: 'base_de_datos_de_usuarios',
     port: 3306,
     dialect: 'mariadb'
 });
