@@ -82,7 +82,7 @@ async function ciudadRandom() {
         ?city wdt:P1082 ?population.   
         FILTER(?population > 100000).
     }
-    ORDER BY RAND()
+    ORDER BY UUID()
     LIMIT 3
     `;
     const urlApiWikidata = 'https://query.wikidata.org/sparql';
