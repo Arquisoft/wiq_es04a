@@ -58,7 +58,6 @@ async function ciudadRandom() {
             const nombreCiudad = ciudadAleatoria.cityLabel.value;
             const codigoQ = ciudadAleatoria.city.value.split('/').pop();
             const population = ciudadAleatoria.population.value;
-            console.log(ciudadAleatoria);
             //console.log(nombreCiudad);
             return [nombreCiudad, codigoQ, population];
         } else {
@@ -76,7 +75,7 @@ async function ciudadRandom() {
   }
   
   // Función para obtener la población de una ciudad
-  async function obtenerPoblacionCiudad(codigoCiudad) {
+  async function obtenerPoblacionCiudad() {
     const consultaSparql = `
     SELECT ?population
     WHERE {
@@ -110,10 +109,30 @@ async function ciudadRandom() {
     }
   }
   
+  async function obtenerPoblacionCiudadOption1(codigoCiudad) {
+    const url = `https://www.wikidata.org/w/api.php?action=wbgetclaims&format=json&entity=${codigoCiudad}&property=P1082`;
+  
+    try {
+        //const response = await fetch(url);
+        const response = await axios.get(url);
+        const data = await response.data;
+  
+        if (data.claims && data.claims.P1082 && data.claims.P1082[0] && data.claims.P1082[0].mainsnak && data.claims.P1082[0].mainsnak.datavalue && data.claims.P1082[0].mainsnak.datavalue.value && data.claims.P1082[0].mainsnak.datavalue.value.amount) {
+            const populationClaim = data.claims.P1082[0].mainsnak.datavalue.value.amount;
+            return parseInt(populationClaim);
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.error(`Error al obtener población: ${error.message}`);
+        return null;
+    }
+  }
+
   // Función para obtener la población de una ciudad aleatoria con reintentos
   async function poblacionCiudadAleatoria() {
     const [nombreCiudad, codigoCiudad] = await ciudadRandom();
-    const poblacion = await obtenerPoblacionCiudad(codigoCiudad);
+    const poblacion = await obtenerPoblacionCiudadOption1(codigoCiudad);
     return poblacion;
   }
   
@@ -124,10 +143,64 @@ async function ciudadRandom() {
     }
     return array;
   }
-  
-  app.get('/question', async (_req, res) => {
-    try {
-      const questions = [];
+
+  async function option1(_res, res) {
+    const inicio = performance.now();
+    const questions = [];
+      
+    for (let i = 0; i < 5; i++) {
+      const [nombreCiudad, codigoQ] = await ciudadRandom();
+      const poblacion = await obtenerPoblacionCiudad(codigoQ);
+
+      if (poblacion !== null) {
+        const questionText = `¿Cuál es la población de ${nombreCiudad.charAt(0).toUpperCase() + nombreCiudad.slice(1)}?`;
+        const correctAnswer = poblacion;
+
+        // Promise devuelve un array de los resultados de todas las promesas
+        let options = await Promise.all([
+          poblacionCiudadAleatoria(),
+          poblacionCiudadAleatoria(),
+          poblacionCiudadAleatoria(),
+        ]);
+
+        // Filtrar los elementos null y llamar a poblacionAleatoria para reemplazarlos
+        while (options.some(respuesta => respuesta === null)) {
+          options = await Promise.all(
+            options.map(async (respuesta) => {
+              if (respuesta === null) {
+                return await poblacionCiudadAleatoria();
+              } else {
+                return respuesta;
+              }
+            })
+          );
+        }
+
+        options.push(correctAnswer);
+
+        // Desordenar las opciones
+        const shuffledOptions = shuffleArray(options);
+
+        // Crear el objeto de pregunta
+        const newQuestion = {
+          id: i,
+          question: questionText,
+          options: shuffledOptions,
+          correctAnswer: correctAnswer,
+        };
+
+        questions.push(newQuestion);
+      }
+    }
+
+    res.json(questions);
+    const fin = performance.now();
+    console.log("Time option 1: ",fin-inicio);
+  }
+
+  async function option2(_req, res) {
+    const inicio = performance.now();
+    const questions = [];
       
       for (let i = 0; i < 1; i++) {
         const [nombreCiudad, codigoQ, population] = await ciudadRandom();
@@ -136,26 +209,6 @@ async function ciudadRandom() {
         if (poblacion !== null) {
           const questionText = `¿Cuál es la población de ${nombreCiudad.charAt(0).toUpperCase() + nombreCiudad.slice(1)}?`;
           const correctAnswer = poblacion;
-          /*
-          // Promise devuelve un array de los resultados de todas las promesas
-          let options = await Promise.all([
-            ciudadRandom().population,
-            ciudadRandom().population,
-            ciudadRandom().population,
-          ]);
-  
-          // Filtrar los elementos null y llamar a poblacionAleatoria para reemplazarlos
-          while (options.some(respuesta => respuesta === null)) {
-            options = await Promise.all(
-              options.map(async (respuesta) => {
-                if (respuesta === null) {
-                  return await ciudadRandom().population;
-                } else {
-                  return respuesta;
-                }
-              })
-            );
-          }*/
           const options = [];
           for(var j = 0; j < 3 ; j++) {
             const [,,res] = await ciudadRandom();
@@ -175,11 +228,17 @@ async function ciudadRandom() {
           };
   
           questions.push(newQuestion);
+          res.json(questions);
         }
       }
+      const fin = performance.now();
+      console.log("Time option 2: ",fin-inicio);
+  }
   
-      res.json(questions);
-  
+  app.get('/question', async (_req, res) => {
+    try {
+      //await option1(_req, res);
+      await option2(_req, res);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Error al procesar la solicitud' });
