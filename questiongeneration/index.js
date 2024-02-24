@@ -82,8 +82,6 @@ async function ciudadRandom() {
         ?city wdt:P1082 ?population.   
         FILTER(?population > 100000).
     }
-    ORDER BY UUID()
-    LIMIT 3
     `;
     const urlApiWikidata = 'https://query.wikidata.org/sparql';
     try {
@@ -97,8 +95,8 @@ async function ciudadRandom() {
       if(list.length>0) {
         const populations = new Array(3);
         for(var i = 0; i < 3 ; i++) {
-          //populations[i] = list[Math.floor(Math.random() * list.length)].population.value;
-          populations[i] = list[i].population.value;
+          populations[i] = list[Math.floor(Math.random() * list.length)].population.value;
+          //populations[i] = list[i].population.value;
         }
         return populations;
       }
