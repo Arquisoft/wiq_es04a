@@ -9,8 +9,8 @@ const pages = [
   // Inicio not appearing as WIQ logo is used for that
   { path: '/play', text: 'Play' },
   { path: '/statistics', text: 'Statistics' },
-  { path: '/instructions', text: 'Instructions' }
-  // Agrega más objetos para cada página
+  { path: '/instructions', text: 'Instructions' },
+  // Add an object for each new page
 ];
 
 function NavBar() {
@@ -86,7 +86,7 @@ function NavBar() {
         
         <Button component={Link} to={'/login'} sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0 }} >
           <Typography variant="body2" sx={{ color: 'white', textDecoration: 'none' }}>
-            Iniciar sesión
+            Log In
           </Typography>
           <IconButton >
             <img src="/default_user.jpg" alt="Profile pic" style={{ height: 40, borderRadius: 50 }} />
