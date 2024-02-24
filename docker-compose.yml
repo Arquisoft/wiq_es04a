@@ -20,8 +20,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: R#9aLp2sWu6y
       MYSQL_DATABASE: base_de_datos_de_usuarios
-      MYSQL_USER: Admin
-      MYSQL_PASSWORD: Xp@7qZr#3wT2
     ports:
       - "3306:3306"
     networks:
@@ -40,8 +38,6 @@ services:
       - mynetwork
     environment:
       DATABASE_URL: mariadb:3306/userdb
-      MYSQL_USER: Admin
-      MYSQL_PASSWORD: Xp@7qZr#3wT2
 
   userservice:
     container_name: userservice-${teamname:-defaultASW}
@@ -56,8 +52,6 @@ services:
       - mynetwork
     environment:
       DATABASE_URL: mariadb:3306/userdb
-      MYSQL_USER: Admin
-      MYSQL_PASSWORD: Xp@7qZr#3wT2
 
   gatewayservice:
     container_name: gatewayservice-${teamname:-defaultASW}

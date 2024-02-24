@@ -10,17 +10,17 @@ app.use(bodyParser.json());
 
 app.post('/adduser', async (req, res) => {
     try {
-        const { username, password} = req.body;
+        const { username, password } = req.body;
 
-        // Validar campos requeridos
+        // Validate required fields
         if (!username || !password) {
             throw new Error('Missing required fields: username and password');
         }
 
-        // Hash de la contraseña
+        // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Crear el usuario en la base de datos usando Sequelize
+        // Create the user in the database using Sequelize
         const newUser = await User.create({
             username,
             password: hashedPassword,

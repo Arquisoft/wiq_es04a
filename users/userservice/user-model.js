@@ -1,16 +1,16 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
-// Configuración de la conexión a la base de datos
+// Database connection configuration
 const sequelize = new Sequelize({
     host: 'mariadb',
     username: 'root',
     password: 'R#9aLp2sWu6y',
-    database: 'base_de_datos_de_usuarios',
+    database: 'user_database',
     port: 3306,
     dialect: 'mariadb'
 });
 
-// Define el modelo de usuario
+// Define the user model
 const User = sequelize.define('User', {
     id: {
         type: DataTypes.INTEGER,
@@ -26,26 +26,60 @@ const User = sequelize.define('User', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "defaultName", // Temporary (until added in the form)
+    },
+    surname: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "defaultSurname", // Temporary (until added in the form)
+    },
+    createdAt: {
+        type: DataTypes.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    },
+    imageUrl: DataTypes.STRING,
+    total_score: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    correctly_answered_questions: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    incorrectly_answered_questions: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    total_time_played: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    games_played: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    }
 });
 
-// Sincroniza el modelo con la base de datos
+// Synchronize the model with the database
 sequelize.sync()
     .then(() => {
-        console.log('Modelo sincronizado correctamente con la base de datos');
+        console.log('Model synchronized successfully with the database');
     })
     .catch((err) => {
-        console.error('Error al sincronizar el modelo con la base de datos:', err);
+        console.error('Error synchronizing the model with the database:', err);
     });
 
-// Autenticar la conexión a la base de datos
+// Authenticate the database connection
 sequelize
     .authenticate()
     .then(() => {
-        console.log('Conexión exitosa a la base de datos');
+        console.log('Successful connection to the database');
     })
     .catch((err) => {
-        console.error('Error al conectar a la base de datos:', err);
+        console.error('Error connecting to the database:', err);
     });
 
-// Exporta la instancia de Sequelize
 module.exports = { sequelize, User };
