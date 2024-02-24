@@ -78,12 +78,10 @@ async function ciudadRandom() {
   // Función para obtener la población de una ciudad
   async function obtenerPoblacionCiudad(codigoCiudad) {
     const consultaSparql = `
-    SELECT ?city ?cityLabel  ?codigoQ ?population
+    SELECT ?population
     WHERE {
-        ?city wdt:P31 wd:Q515;   
+        wdt:P31 wd:Q515;   
               wdt:P1082 ?population.   
-        ?city rdfs:label ?cityLabel.  
-        SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
         FILTER(?population > 100000).
     }
     `;
@@ -96,7 +94,16 @@ async function ciudadRandom() {
           query: consultaSparql,
           format: 'json' // Debe ser una cadena
         }});
-        
+      const data = await response.data;
+      const list = data.results.bindings;
+      if(list.length>0) {
+        const populations = new Array(3);
+        for(var i = 0; i < 3 ; i++) {
+          populations[i] = list[Math.floor(Math.random() * list.length)].population.value;
+        }
+        return populations;
+      }
+      return null;
     } catch (error) {
         console.error(`Error al obtener población: ${error.message}`);
         return null;
@@ -129,12 +136,12 @@ async function ciudadRandom() {
         if (poblacion !== null) {
           const questionText = `¿Cuál es la población de ${nombreCiudad.charAt(0).toUpperCase() + nombreCiudad.slice(1)}?`;
           const correctAnswer = poblacion;
-  
+          /*
           // Promise devuelve un array de los resultados de todas las promesas
           let options = await Promise.all([
             ciudadRandom().population,
-            poblacionCiudadAleatoria(),
-            poblacionCiudadAleatoria(),
+            ciudadRandom().population,
+            ciudadRandom().population,
           ]);
   
           // Filtrar los elementos null y llamar a poblacionAleatoria para reemplazarlos
@@ -142,14 +149,18 @@ async function ciudadRandom() {
             options = await Promise.all(
               options.map(async (respuesta) => {
                 if (respuesta === null) {
-                  return await poblacionCiudadAleatoria();
+                  return await ciudadRandom().population;
                 } else {
                   return respuesta;
                 }
               })
             );
+          }*/
+          const options = [];
+          for(var j = 0; j < 3 ; j++) {
+            const [,,res] = await ciudadRandom();
+            options.push(res);
           }
-  
           options.push(correctAnswer);
   
           // Desordenar las opciones
