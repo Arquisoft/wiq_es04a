@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import AddUser from './components/AddUser';
 import Login from './components/Login';
-import NavBar from './components/fragments/NavBar';
+import NavBar from './components/NavBar';
 import Footer from './components/fragments/Footer';
 import Home from './components/fragments/Home';
 import {Route, Routes} from 'react-router-dom';
