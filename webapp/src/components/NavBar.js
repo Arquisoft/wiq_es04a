@@ -7,7 +7,9 @@ import {Link} from 'react-router-dom';
 // Also as the element added is subjected to internazionalization, so we ll have to address it
 const pages = [
   // Inicio not appearing as WIQ logo is used for that
-  { path: '/about', text: 'Sobre Nosotros' },
+  { path: '/play', text: 'Play' },
+  { path: '/statistics', text: 'Statistics' },
+  { path: '/instructions', text: 'Instructions' }
   // Agrega más objetos para cada página
 ];
 
@@ -75,17 +77,14 @@ function NavBar() {
         {/* Pages list in NavBar, only displayed when menu button is not, i.e., in larger devices */}
         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
           {pages.map((page) => (
-            <Button
-              key={page.path}
-              sx={{ color: 'white', display: 'block' }}
-            >
-              {page.text}
-            </Button>
+            <Button component={Link} to={page.path} key={page.path} sx={{ color: 'white', display: 'block' }}>
+            {page.text}
+        </Button>
           ))}
         </Box>
         {/* Pending: auth depending: if not auth: log in else: menu */}
         
-        <Button to={'/login'} component={Link} sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0 }} >
+        <Button component={Link} to={'/login'} sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0 }} >
           <Typography variant="body2" sx={{ color: 'white', textDecoration: 'none' }}>
             Iniciar sesión
           </Typography>

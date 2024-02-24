@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
-import AddUser from './components/AddUser';
-import Login from './components/Login';
+import AddUser from './pages/AddUser';
+import Login from './pages/Login';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
-import Home from './components/Home';
+import Home from './pages/Home';
 import {Route, Routes} from 'react-router-dom';
 
 function App() {
