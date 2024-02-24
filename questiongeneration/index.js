@@ -33,7 +33,18 @@ async function ciudadRandom() {
        //     headers: headers,
        // });
   
-        const response = await axios.get(`${urlApiWikidata}?query=${encodeURIComponent(consultaSparql)}&format=json`, {
+        const fullQuery = `${consultaSparql}`;
+        /*const response = await axios.post(urlApiWikidata, {
+          query:fullQuery,
+          format:json,
+          headers: headers,
+        });*/
+
+        response = await axios.get(urlApiWikidata, {
+          params: {
+            query: fullQuery,
+            format: 'json' // Debe ser una cadena
+          },
           headers: headers,
         });
   
@@ -80,38 +91,6 @@ async function ciudadRandom() {
     const [nombreCiudad, codigoCiudad] = await ciudadRandom();
     const poblacion = await obtenerPoblacionCiudad(codigoCiudad);
     return poblacion;
-  }
-  
-  // Función principal
-  async function ejecutarGenerador() {
-    try {
-        const [nombreCiudad, codigoQ] = await ciudadRandom();
-        const poblacion = await obtenerPoblacionCiudad(codigoQ);
-  
-        if (poblacion !== null) {
-            const pregunta = `¿Cuál es la población de ${nombreCiudad.charAt(0).toUpperCase() + nombreCiudad.slice(1)}?`;
-            const respuestaReal = `SOLUCION: La población de ${nombreCiudad.charAt(0).toUpperCase() + nombreCiudad.slice(1)} es ${poblacion.toLocaleString()}.`;
-  
-            // Promise devuelve un array un array de los resultados de todas las promesas
-            const respuestasAleatorias = await Promise.all([
-                poblacionCiudadAleatoria(),
-                poblacionCiudadAleatoria(),
-                poblacionCiudadAleatoria(),
-            ]);
-  
-            const [respuestaA, respuestaB, respuestaC] = respuestasAleatorias;
-  
-            if (respuestaA !== null && respuestaB !== null && respuestaC !== null) {
-                mostrarPreguntasRespuestas(pregunta, respuestaReal, respuestaA, respuestaB, respuestaC, poblacion);
-            } else {
-                await ejecutarGenerador();
-            }
-        } else {
-            await ejecutarGenerador();
-        }
-    } catch (error) {
-        console.error(error);
-    }
   }
   
   function shuffleArray(array) {
