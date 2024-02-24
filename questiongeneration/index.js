@@ -8,20 +8,38 @@ const port = 8010;
 app.use(cors());
 app.use(express.json());
 
-//EXAMPLE STARTING CODE
-
 // Función para obtener una ciudad aleatoria
 async function ciudadRandom() {
-    const consultaSparql = `
-        SELECT ?ciudad ?ciudadLabel ?codigoQ
+    /*const consultaSparql1 = `
+        SELECT ?team ?teamLabel ?codigoQ
+        WHERE {
+            ?team wdt:P31 wd:Q515;
+                    wdt:P17 wd:Q29;
+
+                    rdfs:label ?teamLabel.
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+        }
+    `;*/
+    /*const consultaSparql2 = `
+        SELECT ?ciudad ?ciudadLabel ?poblacion
         WHERE {
             ?ciudad wdt:P31 wd:Q515;
                     wdt:P17 wd:Q29;
-                    rdfs:label ?ciudadLabel.
+                    wdt:P1082 ?poblacion].
+            ?ciudad rdfs:label ?ciudadLabel.
             SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
         }
+    `;*/
+    const consultaSparql2 = `
+    SELECT ?city ?cityLabel ?population
+    WHERE {
+        ?city wdt:P31 wd:Q515;   # Entidades que son instancias de ciudades
+              wdt:P1082 ?population.   # Propiedad de población
+        ?city rdfs:label ?cityLabel.   # Etiqueta de la ciudad
+        FILTER(?population > 100000)   # Filtro para ciudades con población mayor a 1 millón
+    }
     `;
-  
+
     const urlApiWikidata = 'https://query.wikidata.org/sparql';
     const headers = {
         'User-Agent': 'EjemploCiudades/1.0',
@@ -29,16 +47,7 @@ async function ciudadRandom() {
     };
   
     try {
-       // const response = await fetch(`${urlApiWikidata}?query=${encodeURIComponent(consultaSparql)}&format=json`, {
-       //     headers: headers,
-       // });
-  
-        const fullQuery = `${consultaSparql}`;
-        /*const response = await axios.post(urlApiWikidata, {
-          query:fullQuery,
-          format:json,
-          headers: headers,
-        });*/
+        const fullQuery = `${consultaSparql2}`;
 
         response = await axios.get(urlApiWikidata, {
           params: {
@@ -47,21 +56,23 @@ async function ciudadRandom() {
           },
           headers: headers,
         });
-  
-        const datos = await response.data
+        const datos = await response.data;
         const ciudades = datos.results.bindings;
   
         if (ciudades.length > 0) {
             const ciudadAleatoria = ciudades[Math.floor(Math.random() * ciudades.length)];
-            const nombreCiudad = ciudadAleatoria.ciudadLabel.value;
-            const codigoQ = ciudadAleatoria.ciudad.value.split('/').pop();
-            return [nombreCiudad, codigoQ];
+            //const nombreCiudad = ciudadAleatoria.ciudadLabel.value;
+            //const codigoQ = ciudadAleatoria.ciudad.value.split('/').pop();
+            //const poblacion = ciudadAleatoria.poblacion.value;
+            console.log(ciudadAleatoria);
+            //console.log(nombreCiudad);
+            //return [nombreCiudad, codigoQ];
         } else {
-            return null;
+            //return null;
         }
     } catch (error) {
         console.error(`Error al obtener ciudad aleatoria: ${error.message}`);
-        return null;
+        //return null;
     }
   }
   
@@ -103,9 +114,10 @@ async function ciudadRandom() {
   
   app.get('/question', async (_req, res) => {
     try {
-      const questions = [];
+      ciudadRandom();
+      /*const questions = [];
       
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 1; i++) {
         const [nombreCiudad, codigoQ] = await ciudadRandom();
         const poblacion = await obtenerPoblacionCiudad(codigoQ);
   
@@ -150,7 +162,7 @@ async function ciudadRandom() {
         }
       }
   
-      res.json(questions);
+      res.json(questions);*/
   
     } catch (error) {
       console.error(error);
