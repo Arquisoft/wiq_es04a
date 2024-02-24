@@ -1,0 +1,9 @@
+[
+  {
+    "category": "Geography",
+    "question": "How many inhabitants are there in x?",
+    "properties": [{"wdt": "Q31","wd":"P515"},
+                    {"wdt":"P31"}],
+    "conditions": []
+  }
+]

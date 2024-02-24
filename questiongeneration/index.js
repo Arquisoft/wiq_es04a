@@ -10,19 +10,8 @@ app.use(express.json());
 
 // Función para obtener una ciudad aleatoria
 async function ciudadRandom() {
-    const consultaSparql1 = `
-        SELECT ?item ?itemLabel ?stadium ?country ?population
-        WHERE {
-            ?item wdt:P31 wd:Q476028;
-                  wdt:P115 ?stadium;
-                  wdt:P17 ?country.
-            ?item rdfs:label ?itemLabel.
-            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
-        }
-    `;
-  
     const consultaSparql2 = `
-    SELECT ?city ?cityLabel  ?codigoQ ?population
+    SELECT ?city ?cityLabel ?population
     WHERE {
         ?city wdt:P31 wd:Q515;   
               wdt:P1082 ?population.   
@@ -49,28 +38,20 @@ async function ciudadRandom() {
           headers: headers,
         });
         const datos = await response.data;
-        //console.log(datos);
         const ciudades = datos.results.bindings.filter(result => result.city);
-        //const teams = datos.filter(result => result.hasOwnProperty("team"));
   
         if (ciudades.length > 0) {
             const ciudadAleatoria = ciudades[Math.floor(Math.random() * ciudades.length)];
             const nombreCiudad = ciudadAleatoria.cityLabel.value;
-            const codigoQ = ciudadAleatoria.city.value.split('/').pop();
+            //const codigoQ = ciudadAleatoria.city.value.split('/').pop();
             const population = ciudadAleatoria.population.value;
-            //console.log(nombreCiudad);
-            return [nombreCiudad, codigoQ, population];
+            return [nombreCiudad, population];
         } else {
-            //return null;
+            return null;
         }
-
-        /*if(teams.length > 0) {
-          const randomTeam = teams[Math.floor(Math.random() * teams.length)];
-          console.log(randomTeam);
-        }*/
     } catch (error) {
         console.error(`Error al obtener ciudad aleatoria: ${error.message}`);
-        //return null;
+        return null;
     }
   }
   
@@ -96,7 +77,6 @@ async function ciudadRandom() {
         const populations = new Array(3);
         for(var i = 0; i < 3 ; i++) {
           populations[i] = list[Math.floor(Math.random() * list.length)].population.value;
-          //populations[i] = list[i].population.value;
         }
         return populations;
       }
@@ -113,13 +93,12 @@ async function ciudadRandom() {
         [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
-  }
-
+  }  
   async function option2(_req, res) {
     const inicio = performance.now();
     const questions = [];
       
-      for (let i = 0; i < 1; i++) {
+      for (let i = 0; i < 5; i++) {
         const [nombreCiudad, codigoQ, population] = await ciudadRandom();
         //const poblacion = await obtenerPoblacionCiudad(codigoQ);
         const poblacion = population;
@@ -145,9 +124,10 @@ async function ciudadRandom() {
           };
   
           questions.push(newQuestion);
-          res.json(questions);
         }
       }
+      res.json(questions);
+
       const fin = performance.now();
       console.log("Time option 2: ",fin-inicio);
   }
@@ -156,8 +136,8 @@ async function ciudadRandom() {
     const inicio = performance.now();
     const questions = [];
       
-      for (let i = 0; i < 1; i++) {
-        const [nombreCiudad, codigoQ, population] = await ciudadRandom();
+      for (let i = 0; i < 5; i++) {
+        const [nombreCiudad, population] = await ciudadRandom();
         //const poblacion = await obtenerPoblacionCiudad(codigoQ);
         const poblacion = population;
         if (poblacion !== null) {
@@ -180,9 +160,10 @@ async function ciudadRandom() {
           };
   
           questions.push(newQuestion);
-          res.json(questions);
         }
       }
+      res.json(questions);
+
       const fin = performance.now();
       console.log("Time option 3: ",fin-inicio);
   }
@@ -203,3 +184,7 @@ async function ciudadRandom() {
   });
   
   module.exports = server
+
+
+
+  /**/
