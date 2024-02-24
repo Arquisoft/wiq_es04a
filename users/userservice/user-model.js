@@ -1,64 +1,51 @@
-const mysql = require('mysql2/promise');
-require('dotenv').config();
+const { Sequelize, DataTypes } = require('sequelize');
 
-// Función para conectar a la base de datos
-async function connectToDatabase() {
-    try {
-        const connection = await mysql.createConnection({
-            host: process.env.DB_HOST || 'mariadb',  
-            port: process.env.DB_PORT || '3306',
-            user: process.env.MYSQL_USER || 'Admin',
-            password: process.env.MYSQL_PASSWORD || 'Xp@7qZr#3wT2',
-            database: process.env.DB_NAME || 'base_de_datos_de_usuarios',
-        });
-        return connection;
-    } catch (error) {
-        console.error('Error al conectar a la base de datos:', error);
-        throw error;
-    }
-}
+// Configuración de la conexión a la base de datos
+const sequelize = new Sequelize({
+    host: 'mariadb',
+    username: 'root',
+    password: 'R#9aLp2sWu6y',
+    database: 'base_de_datos_de_usuarios',
+    port: 3306,
+    dialect: 'mariadb'
+});
 
-// Define the user schema
-const userSchema = `
-    CREATE TABLE IF NOT EXISTS users (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        username VARCHAR(255) UNIQUE NOT NULL,
-        password VARCHAR(255) NOT NULL,
-        name VARCHAR(255) NOT NULL,
-        surname VARCHAR(255) NOT NULL,
-        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        imageUrl VARCHAR(255),
-        total_score INT DEFAULT 0,
-        correctly_answered_questions INT DEFAULT 0,
-        incorrectly_answered_questions INT DEFAULT 0,
-        total_time_played INT DEFAULT 0,
-        games_played INT DEFAULT 0
-    )
-`;
+// Define el modelo de usuario
+const User = sequelize.define('User', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
+    username: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: false,
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+});
 
-// Función para crear la tabla de usuarios
-async function createUsersTable() {
-    const connection = await connectToDatabase(); // Llamada a connectToDatabase dentro de una función asíncrona
-    try {
-        // Iniciar una transacción
-        await connection.beginTransaction();
+// Sincroniza el modelo con la base de datos
+sequelize.sync()
+    .then(() => {
+        console.log('Modelo sincronizado correctamente con la base de datos');
+    })
+    .catch((err) => {
+        console.error('Error al sincronizar el modelo con la base de datos:', err);
+    });
 
-        // Ejecutar la consulta para crear la tabla de usuarios
-        await connection.query(userSchema);
+// Autenticar la conexión a la base de datos
+sequelize
+    .authenticate()
+    .then(() => {
+        console.log('Conexión exitosa a la base de datos');
+    })
+    .catch((err) => {
+        console.error('Error al conectar a la base de datos:', err);
+    });
 
-        // Confirmar la transacción
-        await connection.commit();
-
-        console.log('Tabla de usuarios creada con éxito');
-    } catch (err) {
-        // Revertir la transacción en caso de error
-        await connection.rollback();
-
-        console.error('Error creando la tabla de usuarios:', err);
-    } finally {
-        // No cerrar la conexión aquí, ya que se desea reutilizar en otros lugares
-    }
-}
-
-// Exportar la función createUsersTable solamente, no la conexión
-module.exports = { createUsersTable };
+// Exporta la instancia de Sequelize
+module.exports = { sequelize, User };
