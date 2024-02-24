@@ -1,6 +1,8 @@
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
+const fs = require('fs');
+const { request } = require('./readFromFile.js');
 
 const app = express();
 const port = 8010;
@@ -167,11 +169,11 @@ async function ciudadRandom() {
       const fin = performance.now();
       console.log("Time option 3: ",fin-inicio);
   }
-  
+
   app.get('/question', async (_req, res) => {
     try {
-      //await option1(_req, res);
-      await option3(_req, res);
+      //await option3(_req, res);
+      request();
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Error al procesar la solicitud' });
