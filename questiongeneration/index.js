@@ -33,10 +33,11 @@ async function ciudadRandom() {
     const consultaSparql2 = `
     SELECT ?city ?cityLabel ?population
     WHERE {
-        ?city wdt:P31 wd:Q515;   # Entidades que son instancias de ciudades
-              wdt:P1082 ?population.   # Propiedad de población
-        ?city rdfs:label ?cityLabel.   # Etiqueta de la ciudad
-        FILTER(?population > 100000)   # Filtro para ciudades con población mayor a 1 millón
+        ?city wdt:P31 wd:Q515;   
+              wdt:P1082 ?population.   
+        ?city rdfs:label ?cityLabel.  
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+        FILTER(?population > 100000).
     }
     `;
 
