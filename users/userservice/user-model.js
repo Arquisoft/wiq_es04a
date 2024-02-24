@@ -29,18 +29,19 @@ const User = sequelize.define('User', {
     name: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: "defaultName", // Temporary (until added in the form)
     },
     surname: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: "defaultSurname", // Temporary (until added in the form)
     },
     createdAt: {
         type: DataTypes.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
     },
-    imageUrl: DataTypes.STRING,
+    imageUrl: {
+        type: DataTypes.STRING,
+        defult: "NAN", //establecer url de imagen por defecto
+    },
     total_score: {
         type: DataTypes.INTEGER,
         defaultValue: 0,

@@ -10,11 +10,11 @@ app.use(bodyParser.json());
 
 app.post('/adduser', async (req, res) => {
     try {
-        const { username, password } = req.body;
+        const { username, password, name, surname, imageUrl,} = req.body;
 
         // Validate required fields
-        if (!username || !password) {
-            throw new Error('Missing required fields: username and password');
+        if (!username || !password || !name || !surname || !imageUrl) {
+            throw new Error('Missing required fields');
         }
 
         // Hash the password
@@ -26,6 +26,9 @@ app.post('/adduser', async (req, res) => {
             password: hashedPassword,
             createdAt: new Date(),
             updatedAt: new Date(),
+            name,
+            surname,
+            imageURL,
         });
 
         res.json(newUser);
