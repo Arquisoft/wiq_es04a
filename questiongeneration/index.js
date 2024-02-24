@@ -10,26 +10,17 @@ app.use(express.json());
 
 // Función para obtener una ciudad aleatoria
 async function ciudadRandom() {
-    /*const consultaSparql1 = `
-        SELECT ?team ?teamLabel ?codigoQ
+    const consultaSparql1 = `
+        SELECT ?team ?teamLabel ?stadium ?country
         WHERE {
-            ?team wdt:P31 wd:Q515;
-                    wdt:P17 wd:Q29;
-
-                    rdfs:label ?teamLabel.
+            ?team wdt:P31 wd:Q476028;
+                  wdt:P115 ?stadium;
+                  wdt:P17 ?country.
+            ?team rdfs:label ?teamLabel.
             SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
         }
-    `;*/
-    /*const consultaSparql2 = `
-        SELECT ?ciudad ?ciudadLabel ?poblacion
-        WHERE {
-            ?ciudad wdt:P31 wd:Q515;
-                    wdt:P17 wd:Q29;
-                    wdt:P1082 ?poblacion].
-            ?ciudad rdfs:label ?ciudadLabel.
-            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
-        }
-    `;*/
+    `;
+  
     const consultaSparql2 = `
     SELECT ?city ?cityLabel ?population
     WHERE {
@@ -48,7 +39,7 @@ async function ciudadRandom() {
     };
   
     try {
-        const fullQuery = `${consultaSparql2}`;
+        const fullQuery = `${consultaSparql1} UNION ${consultaSparql2}`;
 
         response = await axios.get(urlApiWikidata, {
           params: {
@@ -57,8 +48,10 @@ async function ciudadRandom() {
           },
           headers: headers,
         });
-        const datos = await response.data;
-        const ciudades = datos.results.bindings;
+        const datos = await response.data.results.bindings;
+        //console.log(datos);
+        const ciudades = datos.filter(result => result.city);
+        const teams = datos.filter(result => result.hasOwnProperty("team"));
   
         if (ciudades.length > 0) {
             const ciudadAleatoria = ciudades[Math.floor(Math.random() * ciudades.length)];
@@ -70,6 +63,11 @@ async function ciudadRandom() {
             //return [nombreCiudad, codigoQ];
         } else {
             //return null;
+        }
+
+        if(teams.length > 0) {
+          const randomTeam = teams[Math.floor(Math.random() * teams.length)];
+          console.log(randomTeam);
         }
     } catch (error) {
         console.error(`Error al obtener ciudad aleatoria: ${error.message}`);
