@@ -27,7 +27,7 @@ function NavBar() {
 
   return (
     // position="static" => Barra se desplaza con scroll down
-    <AppBar position="static" sx={{ backgroundColor: '#484848' }}>
+    <AppBar position="static" sx={{ backgroundColor: '#006699' }}>
     {/* The Container component is used to limit the maximum width of the content inside the AppBar. It ensures that the content doesn't extend too far horizontally. */}
     {/* <Container maxWidth="xl"> */}
       {/* disableGutters -> Remove toolbar's padding */}
@@ -72,7 +72,7 @@ function NavBar() {
           </Menu>
         </Box>
         <Button component={Link} to="/" >
-            <img src="/logo_wiq.png" alt="Logo" style={{ height: 40 }} />
+            <img src="/white_logo.png" alt="Logo" style={{ height: 40 }} />
         </Button>
         {/* Pages list in NavBar, only displayed when menu button is not, i.e., in larger devices */}
         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>

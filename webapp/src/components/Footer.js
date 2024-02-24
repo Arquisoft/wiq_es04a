@@ -7,7 +7,7 @@ const Footer = () => {
 
     return (
         <div style={{ position: 'fixed', bottom: 0, left: 0, width: '100%', zIndex: 1000 }}>
-          <AppBar position="static" sx={{ backgroundColor: '#484848' }}>
+          <AppBar position="static" sx={{ backgroundColor: '#006699' }}>
             <Toolbar>
               <Typography sx={{ margin: 'auto' }}>
                 © WIQ_ES04A
