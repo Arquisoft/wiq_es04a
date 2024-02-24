@@ -28,7 +28,7 @@ app.post('/adduser', async (req, res) => {
             updatedAt: new Date(),
             name,
             surname,
-            imageURL,
+            imageUrl,
         });
 
         res.json(newUser);
