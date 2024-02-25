@@ -1,14 +1,12 @@
 import * as React from 'react';
 import { Container } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
-import {Button, Typography, Box, Grid } from '@mui/material';
-import { useState } from 'react';
+import { Button, Typography, Box, Grid } from '@mui/material';
 import datos from '../data/gameInfo.json';
 
 
 
 const GameInfo = ({ informacion }) => {
-    console.log('El componente se ha montado');
     return (
         <Box width='100%' sx={{marginBottom:20}} >
             {informacion}
@@ -17,14 +15,9 @@ const GameInfo = ({ informacion }) => {
   };
 
 const Instructions = () => {
-
-    const [info, setInfo] = useState(null);
+    const [info, setInfo] = React.useState(null);
 
     const newGameInfo = (key) => {
-        console.log('El componente se ha montado');
-
-
-
         setInfo(
 
             <Box sx={{  marginTop: 10, display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width:'100%'}}>
@@ -37,10 +30,9 @@ const Instructions = () => {
                 </Box>
             </Box>
         );
-     };
+    };
+
     return (
-
-
         <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'top', minHeight: '70vh' }}>
             <CssBaseline />
             <Typography component="h1" variant="h3" align="center" sx={{ marginTop: 10, marginBotton: 10, fontWeight: 'bold'}}>

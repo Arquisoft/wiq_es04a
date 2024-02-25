@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {AppBar, Toolbar, Menu, MenuItem, Box, Button, IconButton, Typography } from '@mui/material';
+import { AppBar, Toolbar, Menu, MenuItem, Box, Button, IconButton, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // List of site pages for the menu. We have to address if it wouldnt be more consistent to extract this to a fragment / global const as it could be used outside.
 // Also as the element added is subjected to internazionalization, so we ll have to address it
