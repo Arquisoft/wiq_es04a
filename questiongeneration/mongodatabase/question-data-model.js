@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 
 const questionSchema = new mongoose.Schema({
-    username: String,
-    password: String,
-    createdAt: Date,
+    id: String,
+    question: String,
+    options: [String],
+    correctAnswer: String,
 });
 
 const Question = mongoose.model('Question', questionSchema);

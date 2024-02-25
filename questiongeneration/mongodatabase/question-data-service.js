@@ -2,10 +2,11 @@ const mongoose = require('mongoose');
 
 const uri = process.env.QUESTION_DATABASE_URI || 'mongodb://localhost:27017/questionDB';
 mongoose.connect(uri);
+const port = 8005; 
 
 // Start the server
 const server = app.listen(port, () => {
-    console.log(`Auth Service listening at http://localhost:${port}`);
+    console.log(`Question-data-service listening at http://localhost:${port}`);
 });
   
 server.on('close', () => {
