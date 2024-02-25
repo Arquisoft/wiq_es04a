@@ -2,7 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
 const fs = require('fs');
-const { request } = require('./readFromFile.js');
+const { option4 } = require('./readFromFile.js');
 
 const app = express();
 const port = 8010;
@@ -173,7 +173,7 @@ async function ciudadRandom() {
   app.get('/question', async (_req, res) => {
     try {
       //await option3(_req, res);
-      request();
+      option4();
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Error al procesar la solicitud' });

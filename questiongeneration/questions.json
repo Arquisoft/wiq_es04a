@@ -2,8 +2,8 @@
 {
     "category": "Geography",
     "question": "How many inhabitants are there in x?",
-    "properties": [{"wdt": "P31","wd":"Q515"},
-                    {"wdt":"P1082"}],
+    "properties": [{"wdt": "P31","wd":"Q515"}],
+    "discriminator": "P1082",
     "conditions": []
 },
 {
