@@ -71,7 +71,7 @@ function NavBar() {
               ))}
           </Menu>
         </Box>
-        <Button component={Link} to="/" sx={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
+        <Button component={Link} to="/" >
             <img src="/white_logo.png" alt="Logo" style={{ height: 40 }} />
         </Button>
         {/* Pages list in NavBar, only displayed when menu button is not, i.e., in larger devices */}
@@ -83,6 +83,7 @@ function NavBar() {
           ))}
         </Box>
         {/* Pending: auth depending: if not auth: log in else: menu */}
+        
         <Button component={Link} to={'/login'} sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0 }} >
           <Typography variant="body2" sx={{ color: 'white', textDecoration: 'none' }}>
             Log In
