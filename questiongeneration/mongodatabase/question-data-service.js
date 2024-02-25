@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+//TODO: QUESTION_DATABASE_URI without value
 const uri = process.env.QUESTION_DATABASE_URI || 'mongodb://localhost:27017/questionDB';
 mongoose.connect(uri);
 const port = 8005; 
