@@ -35,8 +35,8 @@ const AddUser = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs" sx={{justifyContent: 'center', alignItems: 'center', height: '80vh', marginBottom:10}}>
-      <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%'}}>
+    <Container component="main" maxWidth="xs" sx={{ height: '85vh' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
         <Box>
             <Typography component="h1" variant="h5">
               Sign Up

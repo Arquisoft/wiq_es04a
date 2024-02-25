@@ -4,8 +4,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { Button, Typography, Box, Grid } from '@mui/material';
 import datos from '../data/gameInfo.json';
 
-
-
 const GameInfo = ({ informacion }) => {
     return (
         <Box width='100%' sx={{marginBottom:20}} >
@@ -19,7 +17,6 @@ const Instructions = () => {
 
     const newGameInfo = (key) => {
         setInfo(
-
             <Box sx={{  marginTop: 10, display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width:'100%'}}>
                 <Box sx={{width: '30%', display: 'flex', flexDirection: 'column', marginTop: '10'}}>
                     <img src={datos[key].foto} alt="Foto del minijuego" style={{ maxWidth: '100%', height: 'auto', border: '2px solid #006699', borderRadius: '5px'}}/>
@@ -33,7 +30,7 @@ const Instructions = () => {
     };
 
     return (
-        <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'top', minHeight: '70vh' }}>
+        <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'top', minHeight: '85vh' }}>
             <CssBaseline />
             <Typography component="h1" variant="h3" align="center" sx={{ marginTop: 10, marginBotton: 10, fontWeight: 'bold'}}>
                 GAMEPLAY & MODES:
