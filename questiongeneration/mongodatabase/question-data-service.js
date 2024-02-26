@@ -24,25 +24,8 @@ async function addQuestion(questionData) {
     } 
   }
 
-  // Función para agregar una pregunta a la base de datos
-async function addQuestion(questionData) {
-  try {
-    // Crear una nueva instancia del modelo Question con los datos proporcionados
-    const newQuestion = new Question(questionData);
-    
-    // Guardar la pregunta en la base de datos
-    const savedQuestion = await newQuestion.save();
-    
-    console.log('Pregunta añadida con éxito:', savedQuestion);
-  } catch (error) {
-    console.error('Error al añadir la pregunta:', error.message);
-  } finally {
-    // Cerrar la conexión después de realizar la operación
-    mongoose.connection.close();
-  }
-}
 
-// Get random questions
+// Get random questions  TODO: refactor to use common code with get questions by category
 async function getRandomQuestions(n) {
     try {
       // Obtain total number of questions in database
@@ -69,6 +52,36 @@ async function getRandomQuestions(n) {
       console.log('Random questions: ', randomQuestions);
     } catch (error) {
       console.error('Error obtaining random questions: ', error.message);
+    } 
+  }
+
+// Obtaing random questions filtered by category
+async function getRandomQuestionsByCategory(n, category) {
+    try {
+      // Obtain total number of questions with that category
+      const totalQuestions = await Question.countDocuments({ category });
+  
+      // Check if there are required number of questions
+      if (totalQuestions < n) {
+        console.log('Required ', n, ' questions and there are ', totalQuestions);
+        return;
+      }
+  
+     // Obtain n random indexes
+     const randomIndexes = [];
+     while (randomIndexes.length < n) {
+       const randomIndex = Math.floor(Math.random() * totalQuestions);
+       if (!randomIndexes.includes(randomIndex)) {
+         randomIndexes.push(randomIndex);
+       }
+     }
+  
+      // Obtain n random questions with that category
+      const randomQuestions = await Question.find({ category }).limit(n).skip(randomIndexes[0]);
+  
+      console.log('Random questions: ', randomQuestions);
+    } catch (error) {
+      console.error('Error obtaining random questions (with category): ', error.message);
     } 
   }
   
