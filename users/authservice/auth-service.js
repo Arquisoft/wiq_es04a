@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('./auth-model');
+const { User } = require('./auth-model');
 
 const app = express();
 const port = 8002; 

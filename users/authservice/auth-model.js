@@ -12,18 +12,56 @@ const sequelize = new Sequelize({
 
 // Define the user model
 const User = sequelize.define('User', {
-    id: DataTypes.INTEGER,
-    username: DataTypes.STRING,
-    password: DataTypes.STRING,
-    name: DataTypes.STRING,
-    surname: DataTypes.STRING,
-    createdAt: DataTypes.STRING,
-    imageUrl: DataTypes.STRING,
-    total_score: DataTypes.INTEGER,
-    correctly_answered_questions: DataTypes.INTEGER,
-    incorrectly_answered_questions: DataTypes.INTEGER,
-    total_time_played: DataTypes.INTEGER,
-    games_played: DataTypes.INTEGER
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
+    username: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: false,
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    surname: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    createdAt: {
+        type: DataTypes.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    },
+    imageUrl: {
+        type: DataTypes.STRING,
+        defult: "NAN", //establecer url de imagen por defecto
+    },
+    total_score: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    correctly_answered_questions: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    incorrectly_answered_questions: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    total_time_played: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    games_played: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    }
 });
 
 // Synchronize the model with the database
