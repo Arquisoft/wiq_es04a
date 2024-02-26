@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const dbService = require('../mongodatabase/question-data-service');
+const dbService = require('../services/question-data-service');
 const { getRandomCity, getCityPopulation, getPopulationFromRandomCity, shuffleArray } = require('../utils/cityPopulation');
-const { db } = require('../mongodatabase/question-data-model');
+const { db } = require('../services/question-data-model');
 
 // Manejo de la ruta '/question'
 router.get('/', async (_req, res) => {
