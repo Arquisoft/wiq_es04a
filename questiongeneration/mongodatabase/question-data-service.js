@@ -45,7 +45,7 @@ async function getRandomQuestions(n) {
   
       // Obtain n random questions
       const randomQuestions = await Question.find().limit(n).skip(randomIndexes[0]);
-      
+      return randomQuestions;
       //console.log('Random questions: ', randomQuestions);
     } catch (error) {
       console.error('Error obtaining random questions: ', error.message);
@@ -75,7 +75,8 @@ async function getRandomQuestionsByCategory(n, category) {
   
       // Obtain n random questions with that category
       const randomQuestions = await Question.find({ category }).limit(n).skip(randomIndexes[0]);
-  
+      res.json(randomQuestions);
+      return randomQuestions;
       //console.log('Random questions: ', randomQuestions);
     } catch (error) {
       console.error('Error obtaining random questions (with category): ', error.message);
@@ -108,13 +109,10 @@ const testQuestions = [
   async function addTestData() {
     try {
       await Question.insertMany(testQuestions);
- 
     } catch (error) {
       console.error('Error in sample data:', error);
     }
   }
-  
-  
   
   module.exports = {
     addQuestion,

@@ -62,13 +62,21 @@ router.get('/', async (_req, res) => {
     }
 });
 
-// Enter in this url to load sample questoins to db: http://localhost:8010/questions/loadSampleData
+// Enter in this url to load sample questions to db: http://localhost:8010/questions/loadSampleData
 router.get('/loadSampleData', async (_req, res) => {
     dbService.addTestData();
 });
 
-router.get('/getQuestionsFromDb', async(_req, res) => {
-    questions = dbService.getRandomQuestions(3);
+//Get random questions from db: http://localhost:8010/questions/getQuestionsFromDb/3
+router.get('/getQuestionsFromDb/:n', async(_req, res) => {
+    const n = parseInt(_req.params.n, 10);
+
+    //Verify is n is a correct number
+    if (isNaN(n) || n <= 0) {
+        return res.status(400).json({ error: 'Parameter "n" must be > 0.' });
+    }
+
+    questions = await dbService.getRandomQuestions(n);
     res.json(questions);
 });
 
