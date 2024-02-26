@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 // Also as the element added is subjected to internazionalization, so we ll have to address it
 const pages = [
   // Inicio not appearing as WIQ logo is used for that
-  { path: '/play', text: 'Play' },
+  { path: '/homepage', text: 'Play' },
   { path: '/statistics', text: 'Statistics' },
   { path: '/instructions', text: 'Instructions' },
   // Add an object for each new page

@@ -1,0 +1,20 @@
+{"list": [
+    {
+        "question": "¿Cuál es la capital de Francia?",
+        "options": ["Berlín", "París", "Londres", "Madrid"],
+        "correctAnswer": "París",
+        "category": "Geografía"
+    },
+    {
+        "question": "¿En qué año comenzó la Segunda Guerra Mundial?",
+        "options": ["1935", "1938", "1939", "1942"],
+        "correctAnswer": "1939",
+        "category": "Historia"
+    },
+    {
+        "question": "¿Cuál es el elemento más abundante en la corteza terrestre?",
+        "options": ["Hierro", "Oxígeno", "Aluminio", "Silicio"],
+        "correctAnswer": "Oxígeno",
+        "category": "Ciencia"
+    }
+]}
