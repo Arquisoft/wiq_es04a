@@ -47,6 +47,7 @@ router.get('/', async (_req, res) => {
                     question: questionText,
                     options: shuffledOptions,
                     correctAnswer: correctAnswer,
+                    category: "not defined yet"
                 };
     
                 questions.push(newQuestion);
@@ -77,6 +78,20 @@ router.get('/getQuestionsFromDb/:n', async(_req, res) => {
     }
 
     questions = await dbService.getRandomQuestions(n);
+    res.json(questions);
+});
+
+//Get random questions from db with category filter: http://localhost:8010/questions/getQuestionsFromDb/2/Geografía
+router.get('/getQuestionsFromDb/:n/:category', async(_req, res) => {
+    const n = parseInt(_req.params.n, 10);
+    const category = _req.params.category;
+
+    //Verify is n is a correct number
+    if (isNaN(n) || n <= 0) {
+        return res.status(400).json({ error: 'Parameter "n" must be > 0.' });
+    }
+
+    questions = await dbService.getRandomQuestionsByCategory(n, category);
     res.json(questions);
 });
 

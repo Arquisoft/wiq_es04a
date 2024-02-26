@@ -75,7 +75,7 @@ async function getRandomQuestionsByCategory(n, category) {
   
       // Obtain n random questions with that category
       const randomQuestions = await Question.find({ category }).limit(n).skip(randomIndexes[0]);
-      res.json(randomQuestions);
+      
       return randomQuestions;
       //console.log('Random questions: ', randomQuestions);
     } catch (error) {
