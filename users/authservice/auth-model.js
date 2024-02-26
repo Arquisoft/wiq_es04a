@@ -1,43 +1,48 @@
-const mysql = require('mysql2/promise');
+const { Sequelize, DataTypes } = require('sequelize');
 
-// Create a connection pool to the MariaDB server
-const pool = mysql.createPool({
-    host: process.env.REACT_APP_DB_HOST,
-    port: process.env.REACT_APP_DB_PORT,
-    user: process.env.REACT_APP_DB_USER,
-    password: process.env.REACT_APP_DB_PASSWORD,
-    database: process.env.REACT_APP_DB_NAME,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
+// Database connection configuration
+const sequelize = new Sequelize({
+    host: 'mariadb',
+    username: 'root',
+    password: 'R#9aLp2sWu6y',
+    database: 'base_de_datos_de_usuarios',
+    port: 3306,
+    dialect: 'mariadb'
 });
 
-// Define the user schema
-const userSchema = `
-    CREATE TABLE IF NOT EXISTS users (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        username VARCHAR(255) UNIQUE NOT NULL,
-        password VARCHAR(255) NOT NULL,
-        name VARCHAR(255) NOT NULL,
-        surname VARCHAR(255) NOT NULL,
-        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        imageUrl VARCHAR(255),
-        total_score INT DEFAULT 0,
-        correctly_answered questions INT DEFAULT 0,
-        incorrectly_answered questions INT DEFAULT 0,
-        total_time_played INT DEFAULT 0,
-        games_played INT DEFAULT 0
-    )
-`;
+// Define the user model
+const User = sequelize.define('User', {
+    id: DataTypes.INTEGER,
+    username: DataTypes.STRING,
+    password: DataTypes.STRING,
+    name: DataTypes.STRING,
+    surname: DataTypes.STRING,
+    createdAt: DataTypes.STRING,
+    imageUrl: DataTypes.STRING,
+    total_score: DataTypes.INTEGER,
+    correctly_answered_questions: DataTypes.INTEGER,
+    incorrectly_answered_questions: DataTypes.INTEGER,
+    total_time_played: DataTypes.INTEGER,
+    games_played: DataTypes.INTEGER
+});
 
-// Create the users table using pool.query
-pool.query(userSchema)
+// Synchronize the model with the database
+sequelize.sync()
     .then(() => {
-        console.log('Users table created or already exists');
+        console.log('Model synchronized successfully with the database');
     })
     .catch((err) => {
-        console.error('Error creating users table:', err);
+        console.error('Error synchronizing the model with the database:', err);
     });
-  
-// Export the pool for use in other parts of the application
-module.exports = pool;
+
+// Authenticate the database connection
+sequelize
+    .authenticate()
+    .then(() => {
+        console.log('Successful connection to the database');
+    })
+    .catch((err) => {
+        console.error('Error connecting to the database:', err);
+    });
+
+module.exports = { sequelize, User };

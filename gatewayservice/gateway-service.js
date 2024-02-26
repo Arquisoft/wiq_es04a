@@ -27,7 +27,14 @@ app.post('/login', async (req, res) => {
     const authResponse = await axios.post(authServiceUrl+'/login', req.body);
     res.json(authResponse.data);
   } catch (error) {
-    res.status(error.response.status).json({ error: error.response.data.error });
+    // console.log(error + " hola");
+    if (error.response && error.response.status) {
+      res.status(error.response.status).json({ error: error.response.data.error });
+    } else if (error.message) {
+      res.status(500).json({ error: error.message });
+    } else {
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
   }
 });
 
