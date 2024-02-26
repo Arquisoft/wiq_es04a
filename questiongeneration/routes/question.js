@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const dbService = require('../mongodatabase/question-data-service');
 const { getRandomCity, getCityPopulation, getPopulationFromRandomCity, shuffleArray } = require('../utils/cityPopulation');
+const { db } = require('../mongodatabase/question-data-model');
 
 // Manejo de la ruta '/question'
 router.get('/', async (_req, res) => {
@@ -43,13 +44,13 @@ router.get('/', async (_req, res) => {
     
                 // Crear el objeto de pregunta
                 const newQuestion = {
-                    id: i,
                     question: questionText,
                     options: shuffledOptions,
                     correctAnswer: correctAnswer,
                 };
     
                 questions.push(newQuestion);
+                dbService.addQuestion(newQuestion);
             }
         }
     
@@ -64,6 +65,11 @@ router.get('/', async (_req, res) => {
 // Enter in this url to load sample questoins to db: http://localhost:8010/questions/loadSampleData
 router.get('/loadSampleData', async (_req, res) => {
     dbService.addTestData();
+});
+
+router.get('/getQuestionsFromDb', async(_req, res) => {
+    questions = dbService.getRandomQuestions(3);
+    res.json(questions);
 });
 
 module.exports = router;

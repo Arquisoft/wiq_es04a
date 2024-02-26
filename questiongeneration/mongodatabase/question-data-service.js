@@ -4,23 +4,18 @@ const Question = require('./question-data-model');
 //TODO: QUESTION_DATABASE_URI has no value yet
 const uri = process.env.QUESTION_DATABASE_URI || 'mongodb://localhost:27017/questionDB';
 mongoose.connect(uri);
-//const port = 8005; 
 
 //TODO: when should db call disconnect?
-
-// Start the server
-//const server = app.listen(port, () => {
-//    console.log(`Question-data-service listening at http://localhost:${port}`);
-//});
 
 // Add question to database
 async function addQuestion(questionData) {
     try {
       const newQuestion = new Question(questionData);
       
-      const savedQuestion = await newQuestion.save();
+      //const savedQuestion = await newQuestion.save();
+      await newQuestion.save();
       
-      console.log('Added question: ', savedQuestion);
+      //console.log('Added question: ', savedQuestion);
     } catch (error) {
       console.error('Error adding the question: ', error.message);
     } 
@@ -50,8 +45,8 @@ async function getRandomQuestions(n) {
   
       // Obtain n random questions
       const randomQuestions = await Question.find().limit(n).skip(randomIndexes[0]);
-  
-      console.log('Random questions: ', randomQuestions);
+      
+      //console.log('Random questions: ', randomQuestions);
     } catch (error) {
       console.error('Error obtaining random questions: ', error.message);
     } 
@@ -81,16 +76,11 @@ async function getRandomQuestionsByCategory(n, category) {
       // Obtain n random questions with that category
       const randomQuestions = await Question.find({ category }).limit(n).skip(randomIndexes[0]);
   
-      console.log('Random questions: ', randomQuestions);
+      //console.log('Random questions: ', randomQuestions);
     } catch (error) {
       console.error('Error obtaining random questions (with category): ', error.message);
     } 
   }
-  
-//server.on('close', () => {
-    // Close the Mongoose connection
-//    mongoose.connection.close();
-//});
 
 // Test data
 const testQuestions = [
