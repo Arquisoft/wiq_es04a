@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const dbService = require('../mongodatabase/question-data-service');
 const { getRandomCity, getCityPopulation, getPopulationFromRandomCity, shuffleArray } = require('../utils/cityPopulation');
 
 // Manejo de la ruta '/question'
@@ -58,6 +59,11 @@ router.get('/', async (_req, res) => {
         console.error(error);
         res.status(500).json({ error: 'Error al procesar la solicitud' });
     }
+});
+
+// Enter in this url to load sample questoins to db: http://localhost:8010/questions/loadSampleData
+router.get('/loadSampleData', async (_req, res) => {
+    dbService.addTestData();
 });
 
 module.exports = router;

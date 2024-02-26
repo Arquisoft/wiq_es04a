@@ -4,12 +4,14 @@ const Question = require('./question-data-model');
 //TODO: QUESTION_DATABASE_URI has no value yet
 const uri = process.env.QUESTION_DATABASE_URI || 'mongodb://localhost:27017/questionDB';
 mongoose.connect(uri);
-const port = 8005; 
+//const port = 8005; 
+
+//TODO: when should db call disconnect?
 
 // Start the server
-const server = app.listen(port, () => {
-    console.log(`Question-data-service listening at http://localhost:${port}`);
-});
+//const server = app.listen(port, () => {
+//    console.log(`Question-data-service listening at http://localhost:${port}`);
+//});
 
 // Add question to database
 async function addQuestion(questionData) {
@@ -85,9 +87,48 @@ async function getRandomQuestionsByCategory(n, category) {
     } 
   }
   
-server.on('close', () => {
+//server.on('close', () => {
     // Close the Mongoose connection
-    mongoose.connection.close();
-});
+//    mongoose.connection.close();
+//});
+
+// Test data
+const testQuestions = [
+    {
+      question: '¿Cuál es la capital de Francia?',
+      options: ['Berlín', 'París', 'Londres', 'Madrid'],
+      correctAnswer: 'París',
+      category: 'Geografía'
+    },
+    {
+      question: '¿En qué año comenzó la Segunda Guerra Mundial?',
+      options: ['1935', '1938', '1939', '1942'],
+      correctAnswer: '1939',
+      category: 'Historia'
+    },
+    {
+      question: '¿Cuál es el elemento más abundante en la corteza terrestre?',
+      options: ['Hierro', 'Oxígeno', 'Aluminio', 'Silicio'],
+      correctAnswer: 'Oxígeno',
+      category: 'Ciencia'
+    },
+  ];
   
-  module.exports = server
+  // Add test data to db
+  async function addTestData() {
+    try {
+      await Question.insertMany(testQuestions);
+ 
+    } catch (error) {
+      console.error('Error in sample data:', error);
+    }
+  }
+  
+  
+  
+  module.exports = {
+    addQuestion,
+    getRandomQuestions,
+    getRandomQuestionsByCategory,
+    addTestData
+};
