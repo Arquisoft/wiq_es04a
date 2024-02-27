@@ -7,8 +7,8 @@ const Game = () => {
     const [questionData, setQuestionData] = React.useState(null);
 
     React.useEffect(() => {
-        const randomIndex = Math.floor(Math.random() * questions.list.length);
-        setQuestionData(questions.list[randomIndex]);
+        const randomIndex = Math.floor(Math.random() * questions.length);
+        setQuestionData(questions[randomIndex]);
     }, []);
 
     if (!questionData) {

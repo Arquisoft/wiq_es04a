@@ -1,4 +1,4 @@
-{"list": [
+[
     {
         "question": "¿Cuál es la capital de Francia?",
         "options": ["Berlín", "París", "Londres", "Madrid"],
@@ -17,4 +17,4 @@
         "correctAnswer": "Oxígeno",
         "category": "Ciencia"
     }
-]}
+]
