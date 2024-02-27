@@ -1,0 +1,18 @@
+[
+    {"city": {
+        "instance": "Q515",
+            "properties": [
+                {   
+                    "property": "P1082",
+                    "template": "What is the population of ",
+                    "category": []
+                },
+                {   
+                    "property": "P1082",
+                    "template": "What is the population of ",
+                    "category": []
+                }
+            ]
+        }
+    } 
+]
