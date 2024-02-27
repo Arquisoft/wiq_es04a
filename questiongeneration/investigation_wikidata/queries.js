@@ -124,3 +124,14 @@ client.query.select(query).execute()
         console.error('Error al ejecutar la consulta SPARQL:', error);
     });
 */
+
+const consultaSparql1 = `
+        SELECT ?item ?itemLabel ?stadium ?country ?population
+        WHERE {
+            ?item wdt:P31 wd:Q476028;
+                  wdt:P115 ?stadium;
+                  wdt:P17 ?country.
+            ?item rdfs:label ?itemLabel.
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+        }
+    `;
