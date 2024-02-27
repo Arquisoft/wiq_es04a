@@ -10,12 +10,7 @@ app.use(bodyParser.json());
 
 app.post('/adduser', async (req, res) => {
     try {
-        const { username, password, name, surname, imageUrl,} = req.body;
-
-        // Validate required fields
-        if (!username || !password || !name || !surname || !imageUrl) {
-            throw new Error('Missing required fields');
-        }
+        const { username, password, name, surname, imageUrl } = req.body;
 
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -33,7 +28,14 @@ app.post('/adduser', async (req, res) => {
 
         res.json(newUser);
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        if (error.name === 'SequelizeValidationError') {
+            // validation errors
+            const validationErrors = error.errors.map(err => err.message);
+            res.status(400).json({ error: 'Error de validación', details: validationErrors });
+        } else {
+            // Other errores
+            res.status(400).json({ error: error.message });
+        }
     }
 });
 
