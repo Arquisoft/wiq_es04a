@@ -30,7 +30,7 @@ const Instructions = () => {
     };
 
     return (
-        <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'top', minHeight: '85vh' }}>
+        <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'top', flex:'1', marginTop: '2em', marginBottom: '2em'}}>
             <CssBaseline />
             <Typography component="h1" variant="h3" align="center" sx={{ marginTop: 10, marginBotton: 10, fontWeight: 'bold'}}>
                 GAMEPLAY & MODES:

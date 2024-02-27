@@ -17,7 +17,7 @@ const Game = () => {
 
     
     return (
-        <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '85vh' }}>
+        <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flex:'1' }}>
             <CssBaseline />
             <Grid container spacing={4}>
             <Grid item xs={12}>

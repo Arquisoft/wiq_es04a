@@ -35,8 +35,8 @@ const Login = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs" sx={{ height: '85vh' }}>
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
+    <Container component="main" maxWidth="xs" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flex:'1', marginTop: '2em', marginBottom: '2em'}}>
+      <Box sx={{margin: '2em'}}>
         {loginSuccess ? (
           <div>
             <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>

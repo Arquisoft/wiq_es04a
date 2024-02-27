@@ -9,6 +9,7 @@ import Homepage from './pages/Homepage';
 import Game from './pages/Game';
 import {Route, Routes} from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Box } from '@mui/material';
 
 const theme = createTheme({
   palette: {
@@ -27,19 +28,21 @@ const theme = createTheme({
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <NavBar/>
-        <Routes>
-          <Route path="/" element={<Home />}/>
-          <Route path="/login" element={<Login />}/>
-          <Route path="/register" element={<AddUser />}/>
-          <Route path="/instructions" element={<Instructions />}/>
-          <Route path="/homepage" element={<Homepage />}/>
-          <Route path="/game" element={<Game />}/>
-          
-        </Routes>
-      <Footer/>
-    </ThemeProvider>
+    <Box sx={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
+      <ThemeProvider theme={theme}>
+        <NavBar/>
+          <Routes>
+            <Route path="/" element={<Home />}/>
+            <Route path="/login" element={<Login />}/>
+            <Route path="/register" element={<AddUser />}/>
+            <Route path="/instructions" element={<Instructions />}/>
+            <Route path="/homepage" element={<Homepage />}/>
+            <Route path="/game" element={<Game />}/>
+
+          </Routes>
+        <Footer/>
+      </ThemeProvider>
+    </Box>
   );
 }
 

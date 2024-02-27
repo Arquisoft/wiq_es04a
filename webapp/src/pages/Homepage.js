@@ -5,7 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 const Homepage = () => {
 
     return (
-        <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '85vh' }}>
+        <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flex:'1', marginTop: '5em', marginBottom: '5em'}}>
             <CssBaseline />
             <Button variant="contained" href="/game" sx={{ height: "15vh", width: "15vw" }}>
                 Jugar
