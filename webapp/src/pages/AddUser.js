@@ -17,7 +17,7 @@ const AddUser = () => {
 
   const addUser = async () => {
     try {
-      await axios.post(`${apiEndpoint}/adduser`, {
+      await axios.post(`${apiEndpoint}/user/add`, {
         username,
         password,
         name, 

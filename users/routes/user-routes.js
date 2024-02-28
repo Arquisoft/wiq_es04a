@@ -1,14 +1,9 @@
 const express = require('express');
+const router = express.Router();
 const bcrypt = require('bcrypt');
-const bodyParser = require('body-parser');
-const { User } = require('./user-model');
+const { User } = require('../models/user-model');
 
-const app = express();
-const port = 8001;
-
-app.use(bodyParser.json());
-
-app.post('/adduser', async (req, res) => {
+router.post('/add', async (req, res) => {
     try {
         const { username, password, name, surname, imageUrl } = req.body;
 
@@ -33,14 +28,10 @@ app.post('/adduser', async (req, res) => {
             const validationErrors = error.errors.map(err => err.message);
             res.status(400).json({ error: 'Error de validación', details: validationErrors });
         } else {
-            // Other errores
+            // Other errors
             res.status(400).json({ error: error.message });
         }
     }
 });
 
-const server = app.listen(port, () => {
-    console.log(`User Service listening at http://localhost:${port}`);
-});
-
-module.exports = server;
+module.exports = router;

@@ -25,25 +25,11 @@ services:
     networks:
       - mynetwork
 
-  authservice:
-    container_name: authservice-${teamname:-defaultASW}
-    image: ghcr.io/arquisoft/wiq_0/authservice:latest
+  users:
+    container_name: users-${teamname:-defaultASW}
+    image: ghcr.io/arquisoft/wiq_es04a/users:latest
     profiles: ["dev", "prod"]
-    build: ./users/authservice
-    depends_on:
-      - mariadb
-    ports:
-      - "8002:8002"
-    networks:
-      - mynetwork
-    environment:
-      DATABASE_URL: mariadb:3306/userdb
-
-  userservice:
-    container_name: userservice-${teamname:-defaultASW}
-    image: ghcr.io/arquisoft/wiq_0/userservice:latest
-    profiles: ["dev", "prod"]
-    build: ./users/userservice
+    build: ./users
     depends_on:
       - mariadb
     ports:
@@ -60,15 +46,13 @@ services:
     build: ./gatewayservice
     depends_on:
       - mariadb
-      - userservice
-      - authservice
+      - users
     ports:
       - "8000:8000"
     networks:
       - mynetwork
     environment:
-      AUTH_SERVICE_URL: http://authservice:8002
-      USER_SERVICE_URL: http://userservice:8001
+      USER_SERVICE_URL: http://users:8001
 
   webapp:
     container_name: webapp-${teamname:-defaultASW}

@@ -6,8 +6,7 @@ const promBundle = require('express-prom-bundle');
 const app = express();
 const port = 8000;
 
-const authServiceUrl = process.env.AUTH_SERVICE_URL || 'http://authservice:8002';
-const userServiceUrl = process.env.USER_SERVICE_URL || 'http://userservice:8001';
+const userServiceUrl = process.env.USER_SERVICE_URL || 'http://users:8001';
 
 app.use(cors());
 app.use(express.json());
@@ -24,7 +23,7 @@ app.get('/health', (_req, res) => {
 app.post('/login', async (req, res) => {
   try {
     // Forward the login request to the authentication service
-    const authResponse = await axios.post(authServiceUrl+'/login', req.body);
+    const authResponse = await axios.post(userServiceUrl+'/login', req.body);
     res.json(authResponse.data);
   } catch (error) {
     if (error.response && error.response.status) {
@@ -37,10 +36,10 @@ app.post('/login', async (req, res) => {
   }
 });
 
-app.post('/adduser', async (req, res) => {
+app.post('/user/add', async (req, res) => {
   try {
     // Forward the add user request to the user service
-    const userResponse = await axios.post(userServiceUrl + '/adduser', req.body);
+    const userResponse = await axios.post(userServiceUrl + '/user/add', req.body);
     res.json(userResponse.data);
   } catch (error) {
     if (error.response && error.response.status) {
