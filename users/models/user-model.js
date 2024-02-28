@@ -40,7 +40,7 @@ const User = sequelize.define('User', {
     },
     imageUrl: {
         type: DataTypes.STRING,
-        defult: "../../webapp/public/default_user.jpg",
+        defaultValue: "../../webapp/public/default_user.jpg",
     },
     total_score: {
         type: DataTypes.INTEGER,
