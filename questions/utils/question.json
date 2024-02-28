@@ -1,34 +1,34 @@
 [
-    {"city": {
+    {
+        "name": "city",
         "instance": "Q515",
         "properties": [
-                {   
-                    "property": "P1082",
-                    "template": "What is the population of x",
-                    "category": ["Geography"]
-                },
-                {   
-                    "property": "P1376",
-                    "template": "What country is x the capital of",
-                    "category": []
-                }
-            ]
-        }
+            {   
+                "property": "P1082",
+                "template": "What is the population of x",
+                "category": ["Geography"]
+            },
+            {   
+                "property": "P1376",
+                "template": "What country is x the capital of",
+                "category": []
+            }
+        ]
     },
-    {"football": {
+    {
+        "name": "football",
         "instance": "Q476028",
         "properties": [
-                {   
-                    "property": "P115",
-                    "template": "What is the stadium of x team",
-                    "category": ["Sports"]
-                },
-                {   
-                    "property": "P17",
-                    "template": "What is the country of x team",
-                    "category": []
-                }
-            ]
-        }
+            {   
+                "property": "P115",
+                "template": "What is the stadium of x team",
+                "category": ["Sports"]
+            },
+            {   
+                "property": "P17",
+                "template": "What is the country of x team",
+                "category": []
+            }
+        ]
     }
 ]

@@ -1,3 +1,15 @@
-node_modules
 coverage
 docs/build
+
+# Dependencies lock files
+package-lock.json
+
+# Node.js dependencies
+node_modules
+
+# IDE/Editor files
+.idea/
+.vscode/
+
+# Environment variables
+.env
