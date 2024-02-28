@@ -24,7 +24,7 @@ router.get('/allUsers', async (req,res) => {
 });
 
 //Get user by username
-router.get('/users/:username', async (req,res) => {
+router.get('/user/:username', async (req,res) => {
     try {
 
         const username = req.params.username;
@@ -45,27 +45,40 @@ router.get('/users/:username', async (req,res) => {
 });
 
 //Get users ordered by correct answers
+router.get('/ranking', async (req,res) => {
+    try {
+
+        const username = req.params.username;
+
+        // Querying using sequelize findOne method
+        const usersSortedByCorrectAnswers = await User.findAll({
+            order: [['correctly_answered_questions', 'DESC']]
+        });
+
+
+        console.log(usersSortedByCorrectAnswers);
+
+        // Converting each user to a JSON object
+        const sortedUsersJSON = usersSortedByCorrectAnswers.map(user => user.toJSON());
+
+        // Returned object in response, it contains a list of JSON objects (each user)
+        const allSortedUsersJSON = {
+            users: sortedUsersJSON
+        };
+
+        res.json(allSortedUsersJSON);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+
+});
+
+
+
 
 //Get Groups
 
 //Get group by name
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
