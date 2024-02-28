@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const dbService = require('../services/question-data-service');
-const { readFromFile, getRandomEntity, getProperties, shuffleArray } = require('../utils/cityPopulation');
+const { readFromFile, getRandomEntity, getProperties, shuffleArray } = require('../utils/generalQuestions');
 const { db } = require('../services/question-data-model');
 
 // Manejo de la ruta '/question'
@@ -26,8 +26,8 @@ router.get('/', async (_req, res) => {
             var [entityName, searched_property] = await getRandomEntity(instance, property);
     
             if (searched_property !== null) {
-                console.log(entityName, searched_property);
                 //const questionText = question + entityName.charAt(0).toUpperCase() + entityName.slice(1) +`?`;
+                //This way we can ask questions with different structures
                 const questionText = question.replace('x',entityName.charAt(0).toUpperCase() + entityName.slice(1)) +`?`;
                 const correctAnswer = searched_property;
     
