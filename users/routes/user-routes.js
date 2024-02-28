@@ -3,6 +3,9 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const { User } = require('../models/user-model');
 
+//User internal routes
+const apiRoutes = require('../services/user-api');
+
 router.post('/add', async (req, res) => {
     try {
         const { username, password, name, surname, imageUrl } = req.body;
@@ -33,5 +36,10 @@ router.post('/add', async (req, res) => {
         }
     }
 });
+
+
+//Api middleware
+router.use('/api', apiRoutes);
+
 
 module.exports = router;
