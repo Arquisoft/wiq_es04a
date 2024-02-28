@@ -11,10 +11,12 @@ router.get('/', async (_req, res) => {
 
         const questions = [];
         var entity = json[0].city;
+        //entity = json[1].football;
       
         for (let i = 0; i < 5; i++) {
             // get data for selected entity
             //var pos = Math.floor(Math.random() * entity.properties.length);
+            // TODO: differenciate cases where the propierty we are looking for is data or another entity
             var pos = 0;
             var instance = entity.instance;
             var property = entity.properties[pos].property;
@@ -26,7 +28,7 @@ router.get('/', async (_req, res) => {
             if (searched_property !== null) {
                 console.log(entityName, searched_property);
                 //const questionText = question + entityName.charAt(0).toUpperCase() + entityName.slice(1) +`?`;
-                const questionText = question.replace('x',entityName.charAt(0).toUpperCase() + entityName.slice(1)); +`?`;
+                const questionText = question.replace('x',entityName.charAt(0).toUpperCase() + entityName.slice(1)) +`?`;
                 const correctAnswer = searched_property;
     
                 // options will contain 3 wrong answers plus the correct one

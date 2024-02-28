@@ -19,9 +19,11 @@ async function getRandomEntity(instance, property) {
             ?entity wdt:P31 wd:${instance};   
                 wdt:${property} ?property.   
             ?entity rdfs:label ?entityLabel.  
-            SERVICE wikibase:label { bd:serviceParam wikibase:language "es". }
+            FILTER(LANG(?entityLabel) = "es")
     }
     `;
+    // it is better to use the FILTER rather than SERVICE
+    //SERVICE wikibase:label { bd:serviceParam wikibase:language "es". }
   
     const urlApiWikidata = 'https://query.wikidata.org/sparql';
     const headers = {

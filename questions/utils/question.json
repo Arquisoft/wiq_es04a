@@ -20,12 +20,12 @@
         "properties": [
                 {   
                     "property": "P115",
-                    "template": "What is the stadium of ",
+                    "template": "What is the stadium of x team",
                     "category": ["Sports"]
                 },
                 {   
                     "property": "P17",
-                    "template": "What is the country of ",
+                    "template": "What is the country of x team",
                     "category": []
                 }
             ]
