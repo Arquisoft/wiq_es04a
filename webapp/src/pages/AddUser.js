@@ -1,7 +1,7 @@
 // src/components/AddUser.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Container, Typography, TextField, Button, Snackbar, Box } from '@mui/material';
+import { Container, Typography, TextField, Button, Snackbar, Box, Divider } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
@@ -11,7 +11,6 @@ const AddUser = () => {
   const [password, setPassword] = useState('');
   const [name, setName] = useState(''); 
   const [surname, setSurname] = useState('');
-  const [imageUrl, setImageUrl] = useState(''); 
   const [error, setError] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
@@ -21,8 +20,7 @@ const AddUser = () => {
         username,
         password,
         name, 
-        surname, 
-        imageUrl,
+        surname
       });
       setOpenSnackbar(true);
     } catch (error) {
@@ -35,7 +33,7 @@ const AddUser = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs" sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', flex:'1', marginTop: '1em', marginBottom: '1em'}}>
+    <Container component="main" maxWidth="xs" sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', flex:'1'}}>
       <Box sx={{ margin: '2em'}}>
         <Box>
             <Typography component="h1" variant="h5">
@@ -58,6 +56,7 @@ const AddUser = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            <Divider style={{ marginTop:'3%'}}/>
             <TextField
               name="name"
               margin="normal"
@@ -74,22 +73,13 @@ const AddUser = () => {
               value={surname}
               onChange={(e) => setSurname(e.target.value)}
             />
-            <TextField
-              name="imageUrl"
-              margin="normal"
-              fullWidth
-              label="Image URL"
-              value={imageUrl}
-              onChange={(e) => setImageUrl(e.target.value)}
-            />
-            <Button variant="contained" color="primary" onClick={addUser}>
+            <Divider style={{ marginTop:'3%'}}/>
+            <Button variant="contained" color="primary" onClick={addUser} style={{ width: '100%', marginTop: '5%' }}>
               Sign Up
             </Button>
             <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="User added successfully" />
-            {error && (
-              <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
-            )}
-            <Container style={{ textAlign: 'center', marginTop: '10%' }}>
+            {error && (<Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />)}
+            <Container style={{ textAlign: 'center', marginTop: '15%' }}>
               <Link name="gotologin" component="button" variant="body2" to="/login">
                 Already have an account? Login here.
               </Link>

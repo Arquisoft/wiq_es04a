@@ -1,7 +1,7 @@
 // src/components/Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Container, Typography, TextField, Button, Snackbar, Box } from '@mui/material';
+import { Container, Typography, TextField, Button, Snackbar, Box, Divider } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
@@ -66,14 +66,15 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button variant="contained" color="primary" onClick={loginUser}>
+            <Divider style={{ marginTop:'3%'}}/>
+            <Button variant="contained" color="primary" onClick={loginUser} style={{ width: '100%', marginTop: '5%' }}>
               Log In
             </Button>
             <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="Login successful" />
             {error && (
               <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
             )}
-            <Container style={{textAlign: 'center', marginTop:'10%'}}>
+            <Container style={{textAlign: 'center', marginTop:'15%'}}>
               <Link name="gotoregister" component="button" variant="body2" to="/register">
               Don't have an account? Register here.
               </Link>

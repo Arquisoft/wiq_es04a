@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AppBar, Toolbar, Menu, MenuItem, Box, Button, IconButton, Typography } from '@mui/material';
+import { AppBar, Toolbar, Menu, MenuItem, Box, Button, IconButton, Typography, Avatar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
 
@@ -89,7 +89,7 @@ function NavBar() {
             Log In
           </Typography>
           <IconButton >
-            <img src="/default_user.jpg" alt="Profile pic" style={{ height: 40, borderRadius: 50 }} />
+            <Avatar src="/default_user.jpg" alt="Profile pic" sx={{ width: 33, height: 33 }} />
           </IconButton>
         </Button>
       </Toolbar>
