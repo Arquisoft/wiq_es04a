@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const dbService = require('../services/question-data-service');
-const { getRandomCity, getCityPopulation, getPopulationFromRandomCity, shuffleArray } = require('../utils/cityPopulation');
+const { getRandomCity, getCitiesPopulation, shuffleArray } = require('../utils/cityPopulation');
 const { db } = require('../services/question-data-model');
 
 // Manejo de la ruta '/question'
@@ -9,40 +9,21 @@ router.get('/', async (_req, res) => {
     try {
         const questions = [];
         
-        for (let i = 0; i < 5; i++) {
-            const [nombreCiudad, codigoQ] = await getRandomCity();
-            const poblacion = await getCityPopulation(codigoQ);
+        for (let i = 0; i < 3; i++) {
+            const [cityName, population] = await getRandomCity();
     
-            if (poblacion !== null) {
-                const questionText = `¿Cuál es la población de ${nombreCiudad.charAt(0).toUpperCase() + nombreCiudad.slice(1)}?`;
-                const correctAnswer = poblacion;
+            if (population !== null) {
+                const questionText = `¿What is the population of ${cityName.charAt(0).toUpperCase() + cityName.slice(1)}?`;
+                const correctAnswer = population;
     
-                // Promise devuelve un array de los resultados de todas las promesas
-                let options = await Promise.all([
-                    getPopulationFromRandomCity(),
-                    getPopulationFromRandomCity(),
-                    getPopulationFromRandomCity(),
-                ]);
-    
-                // Filtrar los elementos null y llamar a poblacionAleatoria para reemplazarlos
-                while (options.some(respuesta => respuesta === null)) {
-                    options = await Promise.all(
-                        options.map(async (respuesta) => {
-                            if (respuesta === null) {
-                                return await getPopulationFromRandomCity();
-                            } else {
-                                return respuesta;
-                            }
-                        })
-                    );
-                }
-    
+                // options will contain 3 wrong answers plus the correct one
+                const options = await getCitiesPopulation();
                 options.push(correctAnswer);
-    
-                // Desordenar las opciones
+
+                // Shuffle options, we will not know where is the correct option
                 const shuffledOptions = shuffleArray(options);
-    
-                // Crear el objeto de pregunta
+  
+                // Create object with data for the question
                 const newQuestion = {
                     question: questionText,
                     options: shuffledOptions,
