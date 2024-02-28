@@ -1,14 +1,25 @@
 const axios = require('axios');
+const fs = require('fs').promises;
 
-async function getRandomCity() {
+async function readFromFile(filePath) {
+    try {
+        const jsonData = await fs.readFile(filePath, 'utf8');
+        return JSON.parse(jsonData);
+    } catch (error) {
+        console.error(`Error al leer el archivo JSON: ${error.message}`);
+        return null;
+    }
+}
+
+
+async function getRandomEntity(instance, property) {
     const consultaSparql = `
-        SELECT ?city ?cityLabel ?population
+        SELECT ?entity ?entityLabel ?property
         WHERE {
-            ?city wdt:P31 wd:Q515;   
-                wdt:P1082 ?population.   
-            ?city rdfs:label ?cityLabel.  
-            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
-            FILTER(?population > 100000).
+            ?entity wdt:P31 wd:${instance};   
+                wdt:${property} ?property.   
+            ?entity rdfs:label ?entityLabel.  
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "es". }
     }
     `;
   
@@ -28,30 +39,29 @@ async function getRandomCity() {
           });
   
         const data = await response.data
-        const cities = data.results.bindings;
+        const entities = data.results.bindings;
   
-        if (cities.length > 0) {
-            const randomCity = cities[Math.floor(Math.random() * cities.length)];
-            const cityName = randomCity.cityLabel.value;
-            const population = randomCity.population.value;
-            return [cityName, population];
+        if (entities.length > 0) {
+            const randomEntity = entities[Math.floor(Math.random() * entities.length)];
+            const entityName = randomEntity.entityLabel.value;
+            const property = randomEntity.property.value;
+            return [entityName, property];
         } else {
             return null;
         }
 
     } catch (error) {
-        console.error(`Error al obtener ciudad aleatoria: ${error.message}`);
+        console.error(`Error al obtener entidad aleatoria: ${error.message}`);
         return null;
     }
 }
 
 
-async function getCitiesPopulation() {
+async function getProperties(property) {
     const consultaSparql = `
-        SELECT ?population
+        SELECT ?property
         WHERE {
-            ?city wdt:P1082 ?population.   
-            FILTER(?population > 100000).
+            ?entity wdt:${property} ?property.   
         }
     `;
     const urlApiWikidata = 'https://query.wikidata.org/sparql';
@@ -65,15 +75,15 @@ async function getCitiesPopulation() {
         const list = data.results.bindings;
 
         if(list.length>0) {
-            const populations = new Array(3);
+            const properties = new Array(3);
             for(var i = 0; i < 3 ; i++) {
-              populations[i] = list[Math.floor(Math.random() * list.length)].population.value;
+                properties[i] = list[Math.floor(Math.random() * list.length)].property.value;
             }
-            return populations;
+            return properties;
         }
         return null;
     } catch (error) {
-        console.error(`Error al obtener población: ${error.message}`);
+        console.error(`Error al obtener propiedades: ${error.message}`);
         return null;
     }
 }
@@ -88,7 +98,8 @@ function shuffleArray(array) {
 }
 
 module.exports = {
-    getRandomCity,
-    getCitiesPopulation,
+    readFromFile,
+    getRandomEntity,
+    getProperties,
     shuffleArray
 };

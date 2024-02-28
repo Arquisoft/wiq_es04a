@@ -1,23 +1,36 @@
 const express = require('express');
 const router = express.Router();
 const dbService = require('../services/question-data-service');
-const { getRandomCity, getCitiesPopulation, shuffleArray } = require('../utils/cityPopulation');
+const { readFromFile, getRandomEntity, getProperties, shuffleArray } = require('../utils/cityPopulation');
 const { db } = require('../services/question-data-model');
 
 // Manejo de la ruta '/question'
 router.get('/', async (_req, res) => {
     try {
+        const json = await readFromFile("../questions/utils/question.json");
+
         const questions = [];
-        
-        for (let i = 0; i < 3; i++) {
-            const [cityName, population] = await getRandomCity();
+        var entity = json[0].city;
+      
+        for (let i = 0; i < 5; i++) {
+            // get data for selected entity
+            //var pos = Math.floor(Math.random() * entity.properties.length);
+            var pos = 0;
+            var instance = entity.instance;
+            var property = entity.properties[pos].property;
+            var question = entity.properties[pos].template;
+            var category = entity.properties[pos].category[0];
+
+            var [entityName, searched_property] = await getRandomEntity(instance, property);
     
-            if (population !== null) {
-                const questionText = `¿What is the population of ${cityName.charAt(0).toUpperCase() + cityName.slice(1)}?`;
-                const correctAnswer = population;
+            if (searched_property !== null) {
+                console.log(entityName, searched_property);
+                //const questionText = question + entityName.charAt(0).toUpperCase() + entityName.slice(1) +`?`;
+                const questionText = question.replace('x',entityName.charAt(0).toUpperCase() + entityName.slice(1)); +`?`;
+                const correctAnswer = searched_property;
     
                 // options will contain 3 wrong answers plus the correct one
-                const options = await getCitiesPopulation();
+                const options = await getProperties(property);
                 options.push(correctAnswer);
 
                 // Shuffle options, we will not know where is the correct option
@@ -28,7 +41,7 @@ router.get('/', async (_req, res) => {
                     question: questionText,
                     options: shuffledOptions,
                     correctAnswer: correctAnswer,
-                    category: "not defined yet"
+                    category: category
                 };
     
                 questions.push(newQuestion);
