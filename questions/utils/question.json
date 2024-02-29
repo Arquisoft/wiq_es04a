@@ -41,6 +41,16 @@
                 "category": ["Political"]
             }
         ]
+    },
+    {
+        "name": "river",
+        "instance": "Q4022",
+        "properties": [
+            {   
+                "property": "P1376",
+                "template": "What country river x is in",
+                "category": ["Geography"]
+            }
+        ]
     }
-
 ]
