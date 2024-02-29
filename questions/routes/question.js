@@ -18,9 +18,9 @@ router.get('/', async (_req, res) => {
       
         for (let i = 0; i < 5; i++) {
             // get data for selected entity
-            //var pos = Math.floor(Math.random() * entity.properties.length);
+            var pos = Math.floor(Math.random() * entity.properties.length);
            
-            var pos = 1;
+            //var pos = 1;
             var instance = entity.instance;
             var property = entity.properties[pos].property;
             var question = entity.properties[pos].template;

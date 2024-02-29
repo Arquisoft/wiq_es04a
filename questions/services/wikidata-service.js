@@ -53,7 +53,7 @@ async function getProperties(property) {
         WHERE {
             ?entity wdt:${property} ?property.   
         }
-        LIMIT 250
+        LIMIT 400
     `;
     const urlApiWikidata = 'https://query.wikidata.org/sparql';
     try {

@@ -11,7 +11,7 @@
             {   
                 "property": "P1376",
                 "template": "What country is x the capital of",
-                "category": []
+                "category": ["Geography"]
             }
         ]
     },
@@ -27,8 +27,20 @@
             {   
                 "property": "P17",
                 "template": "What is the country of x team",
-                "category": []
+                "category": ["Sports", "Geography"]
+            }
+        ]
+    },
+    {
+        "name": "currency",
+        "instance": "Q6256",
+        "properties": [
+            {   
+                "property": "P38",
+                "template": "What currency x has",
+                "category": ["Political"]
             }
         ]
     }
+
 ]
