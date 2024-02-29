@@ -15,7 +15,7 @@ async function getRandomEntity(instance, property) {
   
     const urlApiWikidata = 'https://query.wikidata.org/sparql';
     const headers = {
-        'User-Agent': 'EjemploCiudades/1.0',
+        'User-Agent': 'QuestionGeneration/1.0',
         'Accept': 'application/json',
     };
   
@@ -41,7 +41,7 @@ async function getRandomEntity(instance, property) {
         }
 
     } catch (error) {
-        console.error(`Error al obtener entidad aleatoria: ${error.message}`);
+        console.error(`Error obtaining random entity: ${error.message}`);
         return null;
     }
 }
@@ -73,12 +73,38 @@ async function getProperties(property) {
         }
         return null;
     } catch (error) {
-        console.error(`Error al obtener propiedades: ${error.message}`);
+        console.error(`Error obtaining properties: ${error.message}`);
         return null;
     }
 }
 
+// return label of a entity
+async function getEntityLabel(entityUrl) {
+    const apiUrl = `https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&ids=${entityUrl}`;
+    const response = await axios.get(apiUrl);
+    const entity = response.data.entities[entityUrl];
+
+    if(entity.labels.es) {
+        return entity.labels.es.value;
+    } if(entity.labels.en)  {
+        return entity.labels.en.value;
+    }
+    
+    return "no label (TEST)";
+  }
+  
+  // Change entities urls to labels
+  async function convertUrlsToLabels(options) {
+    const newOptions = options.map(url => {
+        const match = url.match(/\/Q(\d+)$/);
+        return match ? 'Q' + match[1] : null;
+      });
+    const labels = await Promise.all(newOptions.map(getEntityLabel));
+    return labels;
+  }
+
 module.exports = {
     getRandomEntity,
-    getProperties
+    getProperties,
+    convertUrlsToLabels
 };

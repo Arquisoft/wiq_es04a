@@ -10,7 +10,10 @@ router.get('/', async (_req, res) => {
         const json = await utils.readFromFile("../questions/utils/question.json");
 
         const questions = [];
-        var entity = json[0];
+        //Gets random template
+        const randomIndex = Math.floor(Math.random() * json.length);
+        var entity = json[randomIndex];
+        //var entity = json[0];
         //entity = json[1].football;
       
         for (let i = 0; i < 5; i++) {
@@ -29,15 +32,22 @@ router.get('/', async (_req, res) => {
                 //const questionText = question + entityName.charAt(0).toUpperCase() + entityName.slice(1) +`?`;
                 //This way we can ask questions with different structures
                 const questionText = question.replace('x',entityName.charAt(0).toUpperCase() + entityName.slice(1)) +`?`;
-                const correctAnswer = searched_property;
+                let correctAnswer = searched_property;
     
                 // options will contain 3 wrong answers plus the correct one
-                const options = await wikidataService.getProperties(property);
+                let options = await wikidataService.getProperties(property);
                 options.push(correctAnswer);
+
+                //If properties are entities
+                if(correctAnswer.startsWith("http:")) {
+                    options = await wikidataService.convertUrlsToLabels(options);
+                    //before shuffle correct answer is last one
+                    correctAnswer = options[3];
+                }
 
                 // Shuffle options, we will not know where is the correct option
                 const shuffledOptions = utils.shuffleArray(options);
-  
+                
                 // Create object with data for the question
                 const newQuestion = {
                     question: questionText,
@@ -45,7 +55,7 @@ router.get('/', async (_req, res) => {
                     correctAnswer: correctAnswer,
                     category: category
                 };
-    
+
                 questions.push(newQuestion);
                 dbService.addQuestion(newQuestion);
             }
