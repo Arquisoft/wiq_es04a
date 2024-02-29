@@ -49,10 +49,11 @@ async function getRandomEntity(instance, property) {
 
 async function getProperties(property) {
     const consultaSparql = `
-        SELECT ?property
+        SELECT DISTINCT ?property
         WHERE {
             ?entity wdt:${property} ?property.   
         }
+        LIMIT 250
     `;
     const urlApiWikidata = 'https://query.wikidata.org/sparql';
     try {
@@ -60,11 +61,13 @@ async function getProperties(property) {
             params: {
               query: consultaSparql,
               format: 'json' // Debe ser una cadena
-            }});
+            }
+        });
+
         const data = await response.data;
         const list = data.results.bindings;
 
-        if(list.length>0) {
+        if(list.length > 0) {
             const properties = new Array(3);
             for(var i = 0; i < 3 ; i++) {
                 properties[i] = list[Math.floor(Math.random() * list.length)].property.value;
@@ -73,6 +76,7 @@ async function getProperties(property) {
         }
         return null;
     } catch (error) {
+        console.error(error.stack);
         console.error(`Error obtaining properties: ${error.message}`);
         return null;
     }

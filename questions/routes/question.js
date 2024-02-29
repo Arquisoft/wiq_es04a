@@ -19,15 +19,15 @@ router.get('/', async (_req, res) => {
         for (let i = 0; i < 5; i++) {
             // get data for selected entity
             //var pos = Math.floor(Math.random() * entity.properties.length);
-            // TODO: differenciate cases where the propierty we are looking for is data or another entity
-            var pos = 0;
+           
+            var pos = 1;
             var instance = entity.instance;
             var property = entity.properties[pos].property;
             var question = entity.properties[pos].template;
             var category = entity.properties[pos].category[0];
 
             var [entityName, searched_property] = await wikidataService.getRandomEntity(instance, property);
-    
+          
             if (searched_property !== null) {
                 //const questionText = question + entityName.charAt(0).toUpperCase() + entityName.slice(1) +`?`;
                 //This way we can ask questions with different structures
