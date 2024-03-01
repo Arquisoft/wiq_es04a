@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Container, CssBaseline, Button, Grid, Typography, CircularProgress } from '@mui/material';
-import CssBaseline from '@mui/material/CssBaseline';
 import questions from "../data/__questions.json"; //static questions battery, we have to change it
 import { useNavigate } from 'react-router-dom';
 
