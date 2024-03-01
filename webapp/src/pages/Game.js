@@ -11,7 +11,6 @@ const Game = () => {
     const [questionData, setQuestionData] = React.useState(null);
     const [buttonStates, setButtonStates] = React.useState([]);
     const [shouldRedirect, setShouldRedirect] = React.useState(false);
-    const [totalScore, setTotalScore] = React.useState(0);
     const [userData, setUserData] = React.useState({
         username: "Samu11", //change it
         total_score: 0,
