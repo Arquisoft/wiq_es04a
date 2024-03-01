@@ -47,16 +47,21 @@ const Game = () => {
                     newButtonStates[i] = "success";
                 }
             }
-            setUserData(prevUserData => ({
+            setUserData((prevUserData) => ({
                 ...prevUserData,
+                correctly_answered_questions: prevUserData.correctly_answered_questions + 1,
+                incorrectly_answered_questions: prevUserData.incorrectly_answered_questions,
                 total_score: prevUserData.total_score + 20,
-                correctly_answered_questions: correctAnswers + 1,
+                games_played: prevUserData.games_played,
             }));
         } else {
             newButtonStates[index] = "failure";
             setUserData(prevUserData => ({
                 ...prevUserData,
-                incorrectly_answered_questions: incorrectAnswers + 1,
+                correctly_answered_questions: prevUserData.correctly_answered_questions,
+                incorrectly_answered_questions: prevUserData.incorrectly_answered_questions + 1,
+                total_score: prevUserData.total_score,
+                games_played: prevUserData.games_played,
             }));
         }
 
