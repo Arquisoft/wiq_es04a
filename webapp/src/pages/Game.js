@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Container, Button, Grid, Typography, CircularProgress } from '@mui/material';
+import { Container, CssBaseline, Button, Grid, Typography, CircularProgress } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import questions from "../data/__questions.json"; //static questions battery, we have to change it
 import { useNavigate } from 'react-router-dom';
@@ -12,7 +12,6 @@ const Game = () => {
     const [questionData, setQuestionData] = React.useState(null);
     const [buttonStates, setButtonStates] = React.useState({});
     const [shouldRedirect, setShouldRedirect] = React.useState(false);
-    const [loading, setLoading] = React.useState(true);
 
     // state to accumulate game statistics
     const [gameStatistics, setGameStatistics] = React.useState({
@@ -23,7 +22,6 @@ const Game = () => {
 
     // hook to initiating new rounds if the current number of rounds is less than or equal to 3 
     React.useEffect(() => {
-        const fetchData = async () => {
             if (round <= 3) {
                 startNewRound();
             } else {
@@ -39,7 +37,7 @@ const Game = () => {
 
                 try {
                     // Send a POST request to update user data
-                    const response = await fetch('/user/edit', {
+                    const response = fetch('/user/edit', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -58,20 +56,13 @@ const Game = () => {
                     console.error('Error while updating user data:', error);
                 }
             }
-        };
-
-        fetchData(); // Call the async function
     }, [round, gameStatistics]);
 
     // selects a random question from the data and initializes button states for the selected question
     const startNewRound = () => {
         const randomIndex = Math.floor(Math.random() * questions.length);
-        // Simulate a delay for loading the question (you can replace this with your actual data fetching logic)
-        setTimeout(() => {
-            setQuestionData(questions[randomIndex]);
-            setButtonStates({});
-            setLoading(false); // Set loading to false when the question is loaded
-        }, 2000); // Simulated 2-second delay
+        setQuestionData(questions[randomIndex]);
+        setButtonStates(new Array(questions[randomIndex].options.length).fill(null));
     };
 
     // this function is called when a user selects a response. It checks if the selected response is correct and updates button states accordingly.
@@ -105,8 +96,8 @@ const Game = () => {
         }, 2000); // 2-second pause
     };
 
-    // circular loading
-    if (loading) {
+    // circular loading, shows while searching for questions
+    if (!questionData) {
         return (
             <Container
                 sx={{
@@ -134,41 +125,27 @@ const Game = () => {
     }
 
     return (
-        <Container
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '100vh',
-                textAlign: 'center',
-            }}
-        >
+        <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
             <CssBaseline />
-            <Typography variant="h5" mb={2}>
-                {questionData.question}
-            </Typography>
-            <Grid container spacing={2}>
+            <Grid container spacing={4} alignItems="center" justifyContent="center">
+                <Grid item xs={12}>
+                    <Typography variant="h5" align="center">{questionData.question}</Typography>
+                </Grid>
                 {questionData.options.map((option, index) => (
                     <Grid item xs={12} key={index}>
                         <Button
-                            variant={buttonStates[index] === "success" ? "contained" : "outlined"}
+                            variant="contained"
                             onClick={() => selectResponse(index, option)}
-                            disabled={buttonStates[index] !== undefined}
+                            disabled={buttonStates[index] !== null}
                             sx={{
-                                height: "50px",
-                                width: "50%",
-                                borderRadius: "20px",
-                                margin: "5px",
-                                backgroundColor: buttonStates[index] === "success" ? "green" : buttonStates[index] === "failure" ? "red" : null,
-                                color: "white",
+                                height: "15vh", width: "50%", borderRadius: "50%", backgroundColor: buttonStates[index] === "success" ? "green" : buttonStates[index] === "failure" ? "red" : null,
                                 "&:disabled": {
                                     backgroundColor: buttonStates[index] === "success" ? "green" : buttonStates[index] === "failure" ? "red" : null,
-                                    color: "white",
-                                },
+                                    color: "white"
+                                }
                             }}
                         >
-                            {option}
+                            {`${String.fromCharCode(65 + index)}) ${option}`}
                         </Button>
                     </Grid>
                 ))}
