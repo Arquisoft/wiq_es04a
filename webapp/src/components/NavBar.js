@@ -1,16 +1,16 @@
 import * as React from 'react';
-import {AppBar, Toolbar, Menu, MenuItem, Box, Button, IconButton, Typography } from '@mui/material';
+import { AppBar, Toolbar, Menu, MenuItem, Box, Button, IconButton, Typography, Avatar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // List of site pages for the menu. We have to address if it wouldnt be more consistent to extract this to a fragment / global const as it could be used outside.
 // Also as the element added is subjected to internazionalization, so we ll have to address it
 const pages = [
   // Inicio not appearing as WIQ logo is used for that
-  { path: '/play', text: 'Play' },
+  { path: '/homepage', text: 'Play' },
   { path: '/statistics', text: 'Statistics' },
-  { path: '/instructions', text: 'Instructions' }
-  // Agrega más objetos para cada página
+  { path: '/instructions', text: 'Instructions' },
+  // Add an object for each new page
 ];
 
 function NavBar() {
@@ -86,10 +86,10 @@ function NavBar() {
         
         <Button component={Link} to={'/login'} sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0 }} >
           <Typography variant="body2" sx={{ color: 'white', textDecoration: 'none' }}>
-            Iniciar sesión
+            Log In
           </Typography>
           <IconButton >
-            <img src="/default_user.jpg" alt="Profile pic" style={{ height: 40, borderRadius: 50 }} />
+            <Avatar src="/default_user.jpg" alt="Profile pic" sx={{ width: 33, height: 33 }} />
           </IconButton>
         </Button>
       </Toolbar>
