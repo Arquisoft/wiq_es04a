@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Container, Button, Grid, Typography } from '@mui/material';
+import { Container, Button, Grid, Typography, CircularProgress } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import questions from "../data/__questions.json"; //static questions battery, we have to change it
 import { useNavigate } from 'react-router-dom';
@@ -12,10 +12,12 @@ const Game = () => {
     const [questionData, setQuestionData] = React.useState(null);
     const [buttonStates, setButtonStates] = React.useState([]);
     const [shouldRedirect, setShouldRedirect] = React.useState(false);
+    const [loading, setLoading] = React.useState(true);
 
     // hook to initiating new rounds if the current number of rounds is less than or equal to 3 
     React.useEffect(() => {
-        if (round <= 3) { //number of rounds
+        if (round <= 3) {
+            setLoading(true); // Set loading to true when initiating a new round
             startNewRound();
         } else {
             // set shouldRedirect to true after a 3-second delay to trigger redirection
@@ -28,8 +30,12 @@ const Game = () => {
     // selects a random question from the data and initializes button states for the selected question
     const startNewRound = () => {
         const randomIndex = Math.floor(Math.random() * questions.length);
-        setQuestionData(questions[randomIndex]);
-        setButtonStates(new Array(questions[randomIndex].options.length).fill(null));
+        // Simulate a delay for loading the question (you can replace this with your actual data fetching logic)
+        setTimeout(() => {
+            setQuestionData(questions[randomIndex]);
+            setButtonStates(new Array(questions[randomIndex].options.length).fill(null));
+            setLoading(false); // Set loading to false when the question is loaded
+        }, 2000); // Simulated 2-second delay
     };
 
     // this function is called when a user selects a response. It checks if the selected response is correct and updates button states accordingly.
@@ -56,15 +62,27 @@ const Game = () => {
         }, 2000); // 2 second pause
     };
 
-    if (!questionData) {
-        return <div>Loading...</div>; // show a loading message while data is being fetched
+    // circular loading
+    if (loading) {
+        return (
+            <Container
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '100vh',
+                    textAlign: 'center',
+                }}
+            >
+                <CssBaseline />
+                <CircularProgress />
+            </Container>
+        );
     }
 
-    if (shouldRedirect) {
-        // Redirect after 3 seconds
-        setTimeout(() => {
-            navigate('/');
-        }, 3000);
+    // prints 'Game Over' on the screen before redirecting if game over
+    if (!questionData) {
         return (
             <Container
                 sx={{
@@ -80,9 +98,18 @@ const Game = () => {
                 <Typography variant="h5" mb={2}>
                     Game Over
                 </Typography>
-                {/* game result statistics here */}
+                {/* Display your game result statistics here */}
             </Container>
         );
+    }
+
+    // redirect to / if game over 
+    if (shouldRedirect) {
+        // Redirect after 3 seconds
+        setTimeout(() => {
+            navigate('/');
+        }, 3000);
+        return null; // Avoid rendering anything else after the redirection
     }
 
     return (
@@ -108,9 +135,9 @@ const Game = () => {
                             onClick={() => selectResponse(index, option)}
                             disabled={buttonStates[index] !== null}
                             sx={{
-                                height: "50px",
-                                width: "50px",
-                                borderRadius: "50%",
+                                height: "50px", // Ajusta el tamaño según sea necesario
+                                width: "50%", // Ajusta el ancho según sea necesario
+                                borderRadius: "20px", // Ajusta el radio según sea necesario
                                 margin: "5px",
                                 backgroundColor: buttonStates[index] === "success" ? "green" : buttonStates[index] === "failure" ? "red" : null,
                                 "&:disabled": {
