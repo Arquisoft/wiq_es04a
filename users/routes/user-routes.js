@@ -1,180 +1,98 @@
-import * as React from 'react';
-import { Container, Button, Grid, Typography, CircularProgress } from '@mui/material';
-import CssBaseline from '@mui/material/CssBaseline';
-import questions from "../data/__questions.json"; //static questions battery, we have to change it
-import { useNavigate } from 'react-router-dom';
+const express = require('express');
+const router = express.Router();
+const bcrypt = require('bcrypt');
+const { User } = require('../models/user-model');
 
-const Game = () => {
-    const navigate = useNavigate();
+//User internal routes
+const apiRoutes = require('../services/user-api');
 
-    // state game initialization
-    const [round, setRound] = React.useState(1);
-    const [questionData, setQuestionData] = React.useState(null);
-    const [buttonStates, setButtonStates] = React.useState({});
-    const [shouldRedirect, setShouldRedirect] = React.useState(false);
-    const [loading, setLoading] = React.useState(true);
+// Route for add a user
+router.post('/add', async (req, res) => {
+    try {
+        const { username, password, name, surname, imageUrl } = req.body;
 
-    // state to accumulate game statistics
-    const [gameStatistics, setGameStatistics] = React.useState({
-        correctlyAnswered: 0,
-        incorrectlyAnswered: 0,
-        totalScore: 0,
-    });
-
-    // hook to initiating new rounds if the current number of rounds is less than or equal to 3 
-    React.useEffect(() => {
-        const fetchData = async () => {
-            if (round <= 3) {
-                startNewRound();
-            } else {
-                // Prepare data for the /edit endpoint
-                const userData = {
-                    username: "Samu11", // Replace with the actual username
-                    total_score: gameStatistics.totalScore,
-                    correctly_answered_questions: gameStatistics.correctlyAnswered,
-                    incorrectly_answered_questions: gameStatistics.incorrectlyAnswered,
-                    total_time_played: 300, // Replace with the actual time
-                    games_played: 1,
-                };
-
-                try {
-                    // Send a POST request to update user data
-                    const response = await fetch('/user/edit', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(userData),
-                    });
-
-                    if (response.ok) {
-                        console.log('User data updated successfully');
-                    } else {
-                        console.error('Failed to update user data');
-                    }
-
-                    setShouldRedirect(true);
-                } catch (error) {
-                    console.error('Error while updating user data:', error);
-                }
-            }
-        };
-
-        fetchData(); // Call the async function
-    }, [round, gameStatistics]);
-
-    // selects a random question from the data and initializes button states for the selected question
-    const startNewRound = () => {
-        const randomIndex = Math.floor(Math.random() * questions.length);
-        // Simulate a delay for loading the question (you can replace this with your actual data fetching logic)
-        setTimeout(() => {
-            setQuestionData(questions[randomIndex]);
-            setButtonStates({});
-            setLoading(false); // Set loading to false when the question is loaded
-        }, 2000); // Simulated 2-second delay
-    };
-
-    // this function is called when a user selects a response. It checks if the selected response is correct and updates button states accordingly.
-    const selectResponse = (index, response) => {
-        const newButtonStates = { ...buttonStates };
-        if (response === questionData.correctAnswer) {
-            for (let i = 0; i < questionData.options.length; i++) {
-                newButtonStates[i] = i === index ? "success" : "failure";
-            }
-            // Update game statistics for correct answer
-            setGameStatistics(prevStats => ({
-                ...prevStats,
-                correctlyAnswered: prevStats.correctlyAnswered + 1,
-                totalScore: prevStats.totalScore + 20,
-            }));
-        } else {
-            newButtonStates[index] = "failure";
-            // Update game statistics for incorrect answer
-            setGameStatistics(prevStats => ({
-                ...prevStats,
-                incorrectlyAnswered: prevStats.incorrectlyAnswered + 1,
-            }));
+        // Password validation
+        if (password.length < 8) {
+            throw new Error('The password must be at least 8 characters long');
+        }
+        if (!/\d/.test(password)) {
+            throw new Error('The password must contain at least one numeric character');
+        }
+        if (!/[A-Z]/.test(password)) {
+            throw new Error('The password must contain at least one uppercase letter');
         }
 
-        setButtonStates(newButtonStates);
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-        // add a short pause before moving to the next round
-        setTimeout(() => {
-            setRound(round + 1);
-            setButtonStates({});
-        }, 2000); // 2-second pause
-    };
+        // Create the user in the database using Sequelize
+        const newUser = await User.create({
+            username,
+            password: hashedPassword,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            name,
+            surname,
+            imageUrl,
+        });
 
-    // circular loading
-    if (loading) {
-        return (
-            <Container
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    height: '100vh',
-                    textAlign: 'center',
-                }}
-            >
-                <CssBaseline />
-                <CircularProgress />
-            </Container>
-        );
+        res.json(newUser);
+    } catch (error) {
+        if (error.name === 'SequelizeValidationError') {
+            // validation errors
+            const validationErrors = error.errors.map(err => err.message);
+            res.status(400).json({ error: 'Error de validación', details: validationErrors });
+        } else {
+            // Other errors
+            res.status(400).json({ error: error.message });
+        }
     }
+});
 
-    // redirect to / if game over 
-    if (shouldRedirect) {
-        // Redirect after 3 seconds
-        setTimeout(() => {
-            navigate('/');
-        }, 3000);
-        return null; // Avoid rendering anything else after the redirection
+// Route for edit a user
+router.post('/edit', async (req, res) => {
+    try {
+        const { username, total_score, correctly_answered_questions, incorrectly_answered_questions, total_time_played, games_played } = req.body;
+
+        // Find the user in the database by their username
+        const userToUpdate = await User.findOne({
+            where: {
+                username: username
+            }
+        });
+
+        // Check if the user exists
+        if (!userToUpdate) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Update the user's fields with the provided values
+        userToUpdate.total_score = total_score;
+        userToUpdate.correctly_answered_questions = correctly_answered_questions;
+        userToUpdate.incorrectly_answered_questions = incorrectly_answered_questions;
+        userToUpdate.total_time_played = total_time_played;
+        userToUpdate.games_played = games_played;
+
+        // Save the changes to the database
+        await userToUpdate.save();
+
+        res.json({ message: 'User updated successfully' });
+    } catch (error) {
+        console.error('Error updating user:', error);
+
+        if (error.name === 'SequelizeValidationError') {
+            // Validation errors
+            const validationErrors = error.errors.map(err => err.message);
+            res.status(400).json({ error: 'Validation error', details: validationErrors });
+        } else {
+            // Other errors
+            res.status(500).json({ error: 'Internal Server Error', details: error.message });
+        }
     }
+});
 
-    return (
-        <Container
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '100vh',
-                textAlign: 'center',
-            }}
-        >
-            <CssBaseline />
-            <Typography variant="h5" mb={2}>
-                {questionData.question}
-            </Typography>
-            <Grid container spacing={2}>
-                {questionData.options.map((option, index) => (
-                    <Grid item xs={12} key={index}>
-                        <Button
-                            variant={buttonStates[index] === "success" ? "contained" : "outlined"}
-                            onClick={() => selectResponse(index, option)}
-                            disabled={buttonStates[index] !== undefined}
-                            sx={{
-                                height: "50px",
-                                width: "50%",
-                                borderRadius: "20px",
-                                margin: "5px",
-                                backgroundColor: buttonStates[index] === "success" ? "green" : buttonStates[index] === "failure" ? "red" : null,
-                                color: "white",
-                                "&:disabled": {
-                                    backgroundColor: buttonStates[index] === "success" ? "green" : buttonStates[index] === "failure" ? "red" : null,
-                                    color: "white",
-                                },
-                            }}
-                        >
-                            {option}
-                        </Button>
-                    </Grid>
-                ))}
-            </Grid>
-        </Container>
-    );
-};
+//Api middleware
+router.use('/api', apiRoutes);
 
-export default Game;
+
+module.exports = router;

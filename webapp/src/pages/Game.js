@@ -10,9 +10,9 @@ const Game = () => {
     // state game initialization
     const [round, setRound] = React.useState(1);
     const [questionData, setQuestionData] = React.useState(null);
-    const [buttonStates, setButtonStates] = React.useState([]);
+    const [buttonStates, setButtonStates] = React.useState({});
     const [shouldRedirect, setShouldRedirect] = React.useState(false);
-    const [loading, setLoading] = React.useState(false);
+    const [loading, setLoading] = React.useState(true);
 
     // state to accumulate game statistics
     const [gameStatistics, setGameStatistics] = React.useState({
@@ -69,21 +69,17 @@ const Game = () => {
         // Simulate a delay for loading the question (you can replace this with your actual data fetching logic)
         setTimeout(() => {
             setQuestionData(questions[randomIndex]);
-            setButtonStates(new Array(questions[randomIndex].options.length).fill(null));
+            setButtonStates({});
             setLoading(false); // Set loading to false when the question is loaded
         }, 2000); // Simulated 2-second delay
     };
 
     // this function is called when a user selects a response. It checks if the selected response is correct and updates button states accordingly.
     const selectResponse = (index, response) => {
-        const newButtonStates = [...buttonStates];
+        const newButtonStates = { ...buttonStates };
         if (response === questionData.correctAnswer) {
             for (let i = 0; i < questionData.options.length; i++) {
-                if (i === index) {
-                    newButtonStates[i] = "success"; // Change to "contained" for correct answer
-                } else {
-                    newButtonStates[i] = "failure"; // Change to "outlined" for incorrect answers
-                }
+                newButtonStates[i] = i === index ? "success" : "failure";
             }
             // Update game statistics for correct answer
             setGameStatistics(prevStats => ({
@@ -92,7 +88,7 @@ const Game = () => {
                 totalScore: prevStats.totalScore + 20,
             }));
         } else {
-            newButtonStates[index] = "failure"; // Change to "outlined" for incorrect answers
+            newButtonStates[index] = "failure";
             // Update game statistics for incorrect answer
             setGameStatistics(prevStats => ({
                 ...prevStats,
@@ -105,7 +101,7 @@ const Game = () => {
         // add a short pause before moving to the next round
         setTimeout(() => {
             setRound(round + 1);
-            setButtonStates([]);
+            setButtonStates({});
         }, 2000); // 2-second pause
     };
 
@@ -156,9 +152,9 @@ const Game = () => {
                 {questionData.options.map((option, index) => (
                     <Grid item xs={12} key={index}>
                         <Button
-                            variant={buttonStates[index] === "success" ? "contained" : "outlined"} // Use "contained" for correct answers, "outlined" for incorrect answers
+                            variant={buttonStates[index] === "success" ? "contained" : "outlined"}
                             onClick={() => selectResponse(index, option)}
-                            disabled={buttonStates[index] !== null}
+                            disabled={buttonStates[index] !== undefined}
                             sx={{
                                 height: "50px",
                                 width: "50%",
