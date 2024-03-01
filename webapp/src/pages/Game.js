@@ -7,25 +7,61 @@ import { useNavigate } from 'react-router-dom';
 const Game = () => {
     const navigate = useNavigate();
 
-    // state initialization
+    // state game initialization
     const [round, setRound] = React.useState(1);
     const [questionData, setQuestionData] = React.useState(null);
     const [buttonStates, setButtonStates] = React.useState([]);
     const [shouldRedirect, setShouldRedirect] = React.useState(false);
-    const [loading, setLoading] = React.useState(true);
+    const [loading, setLoading] = React.useState(false);
+
+    // state to accumulate game statistics
+    const [gameStatistics, setGameStatistics] = React.useState({
+        correctlyAnswered: 0,
+        incorrectlyAnswered: 0,
+        totalScore: 0,
+    });
 
     // hook to initiating new rounds if the current number of rounds is less than or equal to 3 
     React.useEffect(() => {
-        if (round <= 3) {
-            setLoading(true); // Set loading to true when initiating a new round
-            startNewRound();
-        } else {
-            // set shouldRedirect to true after a 3-second delay to trigger redirection
-            setTimeout(() => {
-                setShouldRedirect(true);
-            }, 3000);
-        }
-    }, [round]);
+        const fetchData = async () => {
+            if (round <= 3) {
+                startNewRound();
+            } else {
+                // Prepare data for the /edit endpoint
+                const userData = {
+                    username: "Samu11", // Replace with the actual username
+                    total_score: gameStatistics.totalScore,
+                    correctly_answered_questions: gameStatistics.correctlyAnswered,
+                    incorrectly_answered_questions: gameStatistics.incorrectlyAnswered,
+                    total_time_played: 300, // Replace with the actual time
+                    games_played: 1,
+                };
+
+                try {
+                    // Send a POST request to update user data
+                    const response = await fetch('/user/edit', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(userData),
+                    });
+
+                    if (response.ok) {
+                        console.log('User data updated successfully');
+                    } else {
+                        console.error('Failed to update user data');
+                    }
+
+                    setShouldRedirect(true);
+                } catch (error) {
+                    console.error('Error while updating user data:', error);
+                }
+            }
+        };
+
+        fetchData(); // Call the async function
+    }, [round, gameStatistics]);
 
     // selects a random question from the data and initializes button states for the selected question
     const startNewRound = () => {
@@ -44,13 +80,24 @@ const Game = () => {
         if (response === questionData.correctAnswer) {
             for (let i = 0; i < questionData.options.length; i++) {
                 if (i === index) {
-                    newButtonStates[i] = "success";
+                    newButtonStates[i] = "success"; // Change to "contained" for correct answer
                 } else {
-                    newButtonStates[i] = "failure";
+                    newButtonStates[i] = "failure"; // Change to "outlined" for incorrect answers
                 }
             }
+            // Update game statistics for correct answer
+            setGameStatistics(prevStats => ({
+                ...prevStats,
+                correctlyAnswered: prevStats.correctlyAnswered + 1,
+                totalScore: prevStats.totalScore + 20,
+            }));
         } else {
-            newButtonStates[index] = "failure";
+            newButtonStates[index] = "failure"; // Change to "outlined" for incorrect answers
+            // Update game statistics for incorrect answer
+            setGameStatistics(prevStats => ({
+                ...prevStats,
+                incorrectlyAnswered: prevStats.incorrectlyAnswered + 1,
+            }));
         }
 
         setButtonStates(newButtonStates);
@@ -59,7 +106,7 @@ const Game = () => {
         setTimeout(() => {
             setRound(round + 1);
             setButtonStates([]);
-        }, 2000); // 2 second pause
+        }, 2000); // 2-second pause
     };
 
     // circular loading
@@ -77,28 +124,6 @@ const Game = () => {
             >
                 <CssBaseline />
                 <CircularProgress />
-            </Container>
-        );
-    }
-
-    // prints 'Game Over' on the screen before redirecting if game over
-    if (!questionData) {
-        return (
-            <Container
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    height: '100vh',
-                    textAlign: 'center',
-                }}
-            >
-                <CssBaseline />
-                <Typography variant="h5" mb={2}>
-                    Game Over
-                </Typography>
-                {/* Display your game result statistics here */}
             </Container>
         );
     }
@@ -131,15 +156,16 @@ const Game = () => {
                 {questionData.options.map((option, index) => (
                     <Grid item xs={12} key={index}>
                         <Button
-                            variant="contained"
+                            variant={buttonStates[index] === "success" ? "contained" : "outlined"} // Use "contained" for correct answers, "outlined" for incorrect answers
                             onClick={() => selectResponse(index, option)}
                             disabled={buttonStates[index] !== null}
                             sx={{
-                                height: "50px", // Ajusta el tamaño según sea necesario
-                                width: "50%", // Ajusta el ancho según sea necesario
-                                borderRadius: "20px", // Ajusta el radio según sea necesario
+                                height: "50px",
+                                width: "50%",
+                                borderRadius: "20px",
                                 margin: "5px",
                                 backgroundColor: buttonStates[index] === "success" ? "green" : buttonStates[index] === "failure" ? "red" : null,
+                                color: "white",
                                 "&:disabled": {
                                     backgroundColor: buttonStates[index] === "success" ? "green" : buttonStates[index] === "failure" ? "red" : null,
                                     color: "white",
