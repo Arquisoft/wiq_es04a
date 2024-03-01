@@ -27,7 +27,7 @@ function NavBar() {
 
   return (
     // position="static" => Barra se desplaza con scroll down
-    <AppBar position="static" sx={{ backgroundColor: '#006699' }}>
+    <AppBar position="static" >
     {/* The Container component is used to limit the maximum width of the content inside the AppBar. It ensures that the content doesn't extend too far horizontally. */}
     {/* <Container maxWidth="xl"> */}
       {/* disableGutters -> Remove toolbar's padding */}
