@@ -28,12 +28,12 @@ const estiloImagenDeFondo = {
                                 <Box sx={{width:'70%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                                     <Typography align="center" sx={{fontWeight: 'bold',  fontSize: '2vw', color:'#990000', marginRight:'0.4em'}}> WIKIDATA </Typography>
                                     <Typography align="center" sx={{fontWeight: 'bold',  fontSize: '2vw', color:'#339966', marginRight:'0.4em'}}> INFINITE </Typography>
-                                    <Typography align="center" sx={{fontWeight: 'bold',  fontSize: '2vw', color:'#006699',marginRight:'0.4em'}}> QUIZ </Typography>
+                                    <Typography align="center" sx={{fontWeight: 'bold',  fontSize: '2vw', color:'#006699',marginRight:'0.4em'}}> QUEST </Typography>
                                 </Box>
                             </Box>
 
                             <Typography variant="body1" align="center" sx={{fontWeight: 'bold', width:'70%', fontSize: '1vw'}}>
-                                Welcome to WIQ, also known as Wikidata Infinite Question. On this page, a vast array of challenges awaits you, which will help you become the most knowledgeable person in the world. <br/><br/>
+                                Welcome to WIQ, also known as Wikidata Infinite Quest. On this page, a vast array of challenges awaits you, which will help you become the most knowledgeable person in the world. <br/><br/>
                                 To achieve this, you'll need to complete various mini-games. But don't worry, thanks to our dynamic question system, you can play as many times as you want since the questions are infinite.<br/><br/>
                                 From here, HappySoftware in collaboration with RTVE wishes you luck and hopes to see you at the top of the leaderboard.
                             </Typography>
