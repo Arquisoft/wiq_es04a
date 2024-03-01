@@ -14,9 +14,7 @@ const sequelize = new Sequelize({
 const User = sequelize.define('User', {
     username: {
         type: DataTypes.STRING,
-        unique: true,
         primaryKey: true,
-        allowNull: false,
     },
     password: {
         type: DataTypes.STRING,
@@ -60,6 +58,27 @@ const User = sequelize.define('User', {
     }
 });
 
+const Group = sequelize.define('Group', {
+    name: {
+        type: DataTypes.STRING,
+        primaryKey: true
+    },
+    createdAt: {
+        type: DataTypes.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+    }
+})
+
+const UserGroup = sequelize.define('UserGroup', {
+    enteredAt: {
+        type: DataTypes.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+    }
+});
+
+User.belongsToMany(Group, { through: UserGroup });
+Group.belongsToMany(User, { through: UserGroup });
+
 // Synchronize the model with the database
 sequelize.sync()
     .then(() => {
@@ -79,4 +98,4 @@ sequelize
         console.error('Error connecting to the database:', err);
     });
 
-module.exports = { sequelize, User };
+module.exports = { sequelize, User, Group, UserGroup };
