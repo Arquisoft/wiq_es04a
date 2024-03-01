@@ -12,19 +12,32 @@ const sequelize = new Sequelize({
 
 // Define the user model
 const User = sequelize.define('User', {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-    },
     username: {
         type: DataTypes.STRING,
         unique: true,
+        primaryKey: true,
         allowNull: false,
     },
     password: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+            isLongEnough(value) {
+                if (value.length < 8) {
+                    throw new Error('La contraseña debe tener al menos 8 caracteres');
+                }
+            },
+            hasNumber(value) {
+                if (!/\d/.test(value)) {
+                    throw new Error('La contraseña debe contener al menos un carácter numérico');
+                }
+            },
+            hasUppercase(value) {
+                if (!/[A-Z]/.test(value)) {
+                    throw new Error('La contraseña debe contener al menos una letra mayúscula');
+                }
+            },
+        },
     },
     name: {
         type: DataTypes.STRING,
