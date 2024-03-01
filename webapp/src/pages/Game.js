@@ -1,26 +1,27 @@
 import * as React from 'react';
 import { Container, Button, Grid, Typography } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
-import { useHistory } from 'react-router-dom';
 import questions from "../data/__questions.json"; //static questions battery, we have to change it
+import { useNavigate } from 'react-router-dom';
 
 const Game = () => {
-    const history = useHistory(); // initialize the history object (use)
+    const navigate = useNavigate();
 
     // state initialization
     const [round, setRound] = React.useState(1);
     const [questionData, setQuestionData] = React.useState(null);
     const [buttonStates, setButtonStates] = React.useState([]);
+    const [shouldRedirect, setShouldRedirect] = React.useState(false);
 
     // hook to initiating new rounds if the current number of rounds is less than or equal to 3 
     React.useEffect(() => {
         if (round <= 3) { //number of rounds
             startNewRound();
         } else {
-            // change and add statics to print like time, good answers, etc
-            console.log("Game Over");
-            // redirect to '/' after completing rounds
-            history.push('/');
+            // set shouldRedirect to true after a 3-second delay to trigger redirection
+            setTimeout(() => {
+                setShouldRedirect(true);
+            }, 3000);
         }
     }, [round]);
 
@@ -56,13 +57,47 @@ const Game = () => {
     };
 
     if (!questionData) {
-        return <div>Loading...</div>; // Show a loading message while data is being fetched
+        return <div>Loading...</div>; // show a loading message while data is being fetched
+    }
+
+    if (shouldRedirect) {
+        // Redirect after 3 seconds
+        setTimeout(() => {
+            navigate('/');
+        }, 3000);
+        return (
+            <Container
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '100vh',
+                    textAlign: 'center',
+                }}
+            >
+                <CssBaseline />
+                <Typography variant="h5" mb={2}>
+                    Game Over
+                </Typography>
+                {/* game result statistics here */}
+            </Container>
+        );
     }
 
     return (
-        <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+        <Container
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '100vh',
+                textAlign: 'center',
+            }}
+        >
             <CssBaseline />
-            <Typography variant="h5" align="center" mb={2}>
+            <Typography variant="h5" mb={2}>
                 {questionData.question}
             </Typography>
             <Grid container spacing={2}>
@@ -71,16 +106,20 @@ const Game = () => {
                         <Button
                             variant="contained"
                             onClick={() => selectResponse(index, option)}
-                            disabled={buttonStates[index] !== null} // Disable the button once its state has been established
+                            disabled={buttonStates[index] !== null}
                             sx={{
-                                height: "15vh", width: "100%", backgroundColor: buttonStates[index] === "success" ? "green" : buttonStates[index] === "failure" ? "red" : null,
-                                "&:disabled": { // Apply color to the disabled button
+                                height: "50px",
+                                width: "50px",
+                                borderRadius: "50%",
+                                margin: "5px",
+                                backgroundColor: buttonStates[index] === "success" ? "green" : buttonStates[index] === "failure" ? "red" : null,
+                                "&:disabled": {
                                     backgroundColor: buttonStates[index] === "success" ? "green" : buttonStates[index] === "failure" ? "red" : null,
-                                    color: "white"
-                                }
+                                    color: "white",
+                                },
                             }}
                         >
-                            {`${String.fromCharCode(65 + index)}) ${option}`} {/* Convert the index to a letter (A, B, C, ...) */}
+                            {option}
                         </Button>
                     </Grid>
                 ))}
