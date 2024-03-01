@@ -10,6 +10,17 @@ router.post('/add', async (req, res) => {
     try {
         const { username, password, name, surname, imageUrl } = req.body;
 
+        // Password validation
+        if (password.length < 8) {
+            throw new Error('The password must be at least 8 characters long');
+        }
+        if (!/\d/.test(password)) {
+            throw new Error('The password must contain at least one numeric character');
+        }
+        if (!/[A-Z]/.test(password)) {
+            throw new Error('The password must contain at least one uppercase letter');
+        }
+
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
 
