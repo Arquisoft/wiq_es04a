@@ -11,6 +11,15 @@ const Game = () => {
     const [questionData, setQuestionData] = React.useState(null);
     const [buttonStates, setButtonStates] = React.useState([]);
     const [shouldRedirect, setShouldRedirect] = React.useState(false);
+    const [totalScore, setTotalScore] = React.useState(0);
+    const [userData, setUserData] = React.useState({
+        username: "Samu11", //change it
+        total_score: 0,
+        correctly_answered_questions: 0,
+        incorrectly_answered_questions: 0,
+        total_time_played: 3600, //change it
+        games_played: 1,
+    });
 
     // hook to initiating new rounds if the current number of rounds is less than or equal to 3 
     React.useEffect(() => {
@@ -39,30 +48,24 @@ const Game = () => {
                     newButtonStates[i] = "success";
                 }
             }
+            setUserData(prevUserData => ({
+                ...prevUserData,
+                total_score: prevUserData.total_score + 20,
+                correctly_answered_questions: correctAnswers + 1,
+            }));
         } else {
             newButtonStates[index] = "failure";
+            setUserData(prevUserData => ({
+                ...prevUserData,
+                incorrectly_answered_questions: incorrectAnswers + 1,
+            }));
         }
 
         setButtonStates(newButtonStates);
 
         if (round >= 3) {
-            // Calculate total score
-            const correctAnswers = newButtonStates.filter(state => state === "success").length;
-            const incorrectAnswers = newButtonStates.filter(state => state === "failure").length;
-            const currentScore = correctAnswers === questionData.options.length && incorrectAnswers === 0 ? 20 : 0;
-            setTotalScore(totalScore + currentScore);
-
             // Update user data before redirecting
             try {
-                const userData = {
-                    username: "Samu11", // change it
-                    total_score: totalScore,
-                    correctly_answered_questions: correctAnswers,
-                    incorrectly_answered_questions: incorrectAnswers,
-                    total_time_played: 3600, // change it
-                    games_played: 1,
-                };
-
                 const response = await fetch('/user/edit', {
                     method: 'POST',
                     headers: {
@@ -81,15 +84,10 @@ const Game = () => {
             }
         }
 
-        if (round < 3) {
-            setTimeout(() => {
-                setRound(round + 1);
-                setButtonStates([]);
-            }, 2000);
-        } else {
+        setTimeout(() => {
             setRound(round + 1);
             setButtonStates([]);
-        }
+        }, 2000);
     };
 
 
@@ -113,29 +111,34 @@ const Game = () => {
     }
 
     // redirect to / if game over 
-    if (shouldRedirect) {
-        // Redirect after 3 seconds
-        setTimeout(() => {
-            navigate('/');
-        }, 3000);
+if (shouldRedirect) {
+    // Redirect after 3 seconds
+    setTimeout(() => {
+        navigate('/');
+    }, 4000);
 
-        return (
-            <Container
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    height: '100vh',
-                    textAlign: 'center',
-                }}
-            >
-                <CssBaseline />
-                <p>Game Over</p>
-            </Container>
-        ); 
-    }
-
+    return (
+        <Container
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '100vh',
+                textAlign: 'center',
+            }}
+        >
+            <CssBaseline />
+            <p>Game Over</p>
+            <div>
+                <Typography variant="h6">Correct Answers: {userData.correctly_answered_questions}</Typography>
+                <Typography variant="h6">Incorrect Answers: {userData.incorrectly_answered_questions}</Typography>
+                <Typography variant="h6">Total money: {userData.total_score}</Typography>
+                <Typography variant="h6">Time: {userData.total_time_played} seconds</Typography>
+            </div>
+        </Container>
+    );
+}
     return (
         <Container
             sx={{
