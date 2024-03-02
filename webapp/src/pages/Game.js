@@ -5,6 +5,8 @@ import ClearIcon from '@mui/icons-material/Clear';
 import questions from "../data/__questions.json"; //static questions battery, we have to change it
 import { useNavigate } from 'react-router-dom';
 
+const MAX_ROUNDS = 3;
+
 const Game = () => {
     const navigate = useNavigate();
 
@@ -40,7 +42,7 @@ const Game = () => {
 
     // hook to initiating new rounds if the current number of rounds is less than or equal to 3 
     React.useEffect(() => {
-        if (round <= 3) {
+        if (round <= MAX_ROUNDS) {
             startNewRound();
         } else {
             setTimerRunning(false);
@@ -192,6 +194,9 @@ if (shouldRedirect) {
             >
                 Time: {userData.total_time_played} s
             </Typography>
+            <Typography variant='h6' >
+                {round} / {MAX_ROUNDS}
+            </Typography>
             <Typography variant="h5" mb={2}>
                 {questionData.question}
             </Typography>
@@ -201,7 +206,7 @@ if (shouldRedirect) {
                         <Button
                             variant="contained"
                             onClick={() => selectResponse(index, option)}
-                            disabled={buttonStates[index] !== null || answered}
+                            disabled={buttonStates[index] !== null || answered} // before, you could still press more than one button
                             sx={{
                                 height: "50px", // Ajusta el tamaño según sea necesario
                                 width: "50%", // Ajusta el ancho según sea necesario
