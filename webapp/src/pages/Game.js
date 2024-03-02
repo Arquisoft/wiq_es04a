@@ -42,26 +42,27 @@ const Game = () => {
 
         //check answer
         if (response === questionData.correctAnswer) {
-            for (let i = 0; i < questionData.options.length; i++) {
+            /*for (let i = 0; i < questionData.options.length; i++) {
                 if (i === index) {
                     newButtonStates[i] = "success";
                 }
-            }
+            }*/
+            newButtonStates[index] = "success"
             setUserData((prevUserData) => ({
                 ...prevUserData,
                 correctly_answered_questions: prevUserData.correctly_answered_questions + 1,
-                incorrectly_answered_questions: prevUserData.incorrectly_answered_questions,
                 total_score: prevUserData.total_score + 20,
-                games_played: prevUserData.games_played,
             }));
         } else {
             newButtonStates[index] = "failure";
+            for (let i = 0; i < questionData.options.length; i++) {
+                if (questionData.options[i] === questionData.correctAnswer) {
+                    newButtonStates[i] = "success";
+                }
+            }
             setUserData(prevUserData => ({
                 ...prevUserData,
-                correctly_answered_questions: prevUserData.correctly_answered_questions,
                 incorrectly_answered_questions: prevUserData.incorrectly_answered_questions + 1,
-                total_score: prevUserData.total_score,
-                games_played: prevUserData.games_played,
             }));
         }
 
