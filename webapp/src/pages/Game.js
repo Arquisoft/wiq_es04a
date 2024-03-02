@@ -12,6 +12,7 @@ const Game = () => {
     const [round, setRound] = React.useState(1);
     const [questionData, setQuestionData] = React.useState(null);
     const [buttonStates, setButtonStates] = React.useState([]);
+    const [answered, setAnswered] = React.useState(false);
     const [shouldRedirect, setShouldRedirect] = React.useState(false);
     const [userData, setUserData] = React.useState({
         username: "Samu11", //change it
@@ -49,6 +50,7 @@ const Game = () => {
 
     // selects a random question from the data and initializes button states for the selected question
     const startNewRound = () => {
+        setAnswered(false);
         const randomIndex = Math.floor(Math.random() * questions.length);
         setQuestionData(questions[randomIndex]);
         setButtonStates(new Array(questions[randomIndex].options.length).fill(null));
@@ -56,6 +58,7 @@ const Game = () => {
 
     // this function is called when a user selects a response. 
     const selectResponse = async (index, response) => {
+        setAnswered(true);
         const newButtonStates = [...buttonStates];
 
         //check answer
@@ -198,7 +201,7 @@ if (shouldRedirect) {
                         <Button
                             variant="contained"
                             onClick={() => selectResponse(index, option)}
-                            disabled={buttonStates[index] !== null}
+                            disabled={buttonStates[index] !== null || answered}
                             sx={{
                                 height: "50px", // Ajusta el tamaño según sea necesario
                                 width: "50%", // Ajusta el ancho según sea necesario
