@@ -21,12 +21,26 @@ const Game = () => {
         total_time_played: 3600, //change it
         games_played: 1,
     });
+    const [timeElapsed, setTimeElapsed] = React.useState(0); // save time 
+    const [timerRunning, setTimerRunning] = React.useState(true); // indicate if the timer is working
+
+    // hook to iniciate timer
+    React.useEffect(() => {
+        let timer;
+        if (timerRunning) {
+            timer = setInterval(() => {
+                setTimeElapsed(prevTime => prevTime + 1);
+            }, 1000); 
+        }
+        return () => clearInterval(timer); 
+    }, [timerRunning]);
 
     // hook to initiating new rounds if the current number of rounds is less than or equal to 3 
     React.useEffect(() => {
         if (round <= 3) {
             startNewRound();
         } else {
+            setTimerRunning(false);
             setShouldRedirect(true);
         }
     }, [round]);
@@ -116,7 +130,7 @@ const Game = () => {
 if (shouldRedirect) {
     // Redirect after 3 seconds
     setTimeout(() => {
-        navigate('/');
+        navigate('/homepage');
     }, 4000);
 
     return (
@@ -131,12 +145,22 @@ if (shouldRedirect) {
             }}
         >
             <CssBaseline />
-            <p>Game Over</p>
+            <Typography 
+            variant="h4" 
+            sx={{
+                color: userData.correctly_answered_questions > userData.incorrectly_answered_questions ? 'green' : 'red',
+                fontSize: '4rem', // Tamaño de fuente
+                marginTop: '20px', // Espaciado superior
+                marginBottom: '50px', // Espaciado inferior
+            }}
+        >
+            {userData.correctly_answered_questions > userData.incorrectly_answered_questions ? "Great Job!" : "Game Over"}
+        </Typography>
             <div>
                 <Typography variant="h6">Correct Answers: {userData.correctly_answered_questions}</Typography>
                 <Typography variant="h6">Incorrect Answers: {userData.incorrectly_answered_questions}</Typography>
                 <Typography variant="h6">Total money: {userData.total_score}</Typography>
-                <Typography variant="h6">Time: {userData.total_time_played} seconds</Typography>
+                <Typography variant="h6">Time: {timeElapsed} seconds</Typography>
             </div>
         </Container>
     );
@@ -153,6 +177,16 @@ if (shouldRedirect) {
             }}
         >
             <CssBaseline />
+            <Typography
+                variant="h6"
+                sx={{
+                    position: 'absolute',
+                    top: '10%', 
+                    right: '5%', 
+                }}
+            >
+                Time: {timeElapsed} s
+            </Typography>
             <Typography variant="h5" mb={2}>
                 {questionData.question}
             </Typography>
@@ -164,7 +198,7 @@ if (shouldRedirect) {
                             onClick={() => selectResponse(index, option)}
                             disabled={buttonStates[index] !== null}
                             sx={{
-                                height: "90%", // Ajusta el tamaño según sea necesario
+                                height: "50px", // Ajusta el tamaño según sea necesario
                                 width: "50%", // Ajusta el ancho según sea necesario
                                 borderRadius: "20px", // Ajusta el radio según sea necesario
                                 margin: "5px",
