@@ -214,7 +214,7 @@ if (shouldRedirect) {
                                 margin: "5px",
                                 backgroundColor: buttonStates[index] === "success" ? "green" : buttonStates[index] === "failure" ? "red" : null,
                                 "&:disabled": {
-                                    backgroundColor: buttonStates[index] === "success" ? "green" : buttonStates[index] === "failure" ? "red" : null,
+                                    backgroundColor: buttonStates[index] === "success" ? "green" : buttonStates[index] === "failure" ? "red" : "gray",
                                     color: "white",
                                 },
                             }}
