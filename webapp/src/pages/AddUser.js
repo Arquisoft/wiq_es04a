@@ -1,4 +1,3 @@
-// src/components/AddUser.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar, Box, Divider } from '@mui/material';
