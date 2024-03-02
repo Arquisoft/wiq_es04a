@@ -18,10 +18,9 @@ const Game = () => {
         total_score: 0,
         correctly_answered_questions: 0,
         incorrectly_answered_questions: 0,
-        total_time_played: 3600, //change it
+        total_time_played: 0, 
         games_played: 1,
     });
-    const [timeElapsed, setTimeElapsed] = React.useState(0); // save time 
     const [timerRunning, setTimerRunning] = React.useState(true); // indicate if the timer is working
 
     // hook to iniciate timer
@@ -29,7 +28,10 @@ const Game = () => {
         let timer;
         if (timerRunning) {
             timer = setInterval(() => {
-                setTimeElapsed(prevTime => prevTime + 1);
+                setUserData((prevUserData) => ({
+                    ...prevUserData,
+                    total_time_played: prevUserData.total_time_played + 1
+                }));
             }, 1000); 
         }
         return () => clearInterval(timer); 
@@ -160,7 +162,7 @@ if (shouldRedirect) {
                 <Typography variant="h6">Correct Answers: {userData.correctly_answered_questions}</Typography>
                 <Typography variant="h6">Incorrect Answers: {userData.incorrectly_answered_questions}</Typography>
                 <Typography variant="h6">Total money: {userData.total_score}</Typography>
-                <Typography variant="h6">Time: {timeElapsed} seconds</Typography>
+                <Typography variant="h6">Time: {userData.total_time_played} seconds</Typography>
             </div>
         </Container>
     );
@@ -185,7 +187,7 @@ if (shouldRedirect) {
                     right: '5%', 
                 }}
             >
-                Time: {timeElapsed} s
+                Time: {userData.total_time_played} s
             </Typography>
             <Typography variant="h5" mb={2}>
                 {questionData.question}
