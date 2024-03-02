@@ -67,6 +67,7 @@ const Group = sequelize.define('Group', {
         type: DataTypes.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
+    // When the session is introduced, the creator user and more stuff will be added
 })
 
 const UserGroup = sequelize.define('UserGroup', {
