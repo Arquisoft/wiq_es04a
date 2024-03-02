@@ -50,7 +50,7 @@ const Instructions = () => {
             <CssBaseline />
             <Grid container spacing={{ xs: 2, md: 4 }} columns={{ xs: 2, sm: 3, md: 4 }} >
                 <Grid item xs={2} sm={3} md={4}>
-                    <Typography variant="h3" align="center">GAMEPLAY & MODES:</Typography>
+                    <Typography variant="h3" align="center">GAME MODES</Typography>
                 </Grid>
                 {info.map((option, index) => (
                     <Grid item xs={1} key={option.nombre} >
