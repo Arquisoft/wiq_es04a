@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { Container } from '@mui/material';
-import CssBaseline from '@mui/material/CssBaseline';
-import { Button, Typography, Box, Grid } from '@mui/material';
-import data from '../data/gameInfo.json';
+import * as React from "react";
+import { Container } from "@mui/material";
+import CssBaseline from "@mui/material/CssBaseline";
+import { Button, Typography, Grid } from "@mui/material";
+import data from "../data/gameInfo.json";
 
 
 const Instructions = () => {
@@ -15,15 +15,16 @@ const Instructions = () => {
 
     const newGameInfo = (index) => {
         setGameInfo(
-            <Box sx={{  marginTop: 10, display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width:'100%'}}>
-                <Box sx={{width: '30%', display: 'flex', flexDirection: 'column', marginTop: '10'}}>
-                    <img src={info[index].foto} alt="Foto del minijuego" style={{ maxWidth: '100%', height: 'auto', border: '2px solid #006699', borderRadius: '5px'}}/>
-                </Box>
-                <Box sx={{width: '40%', display: 'flex', flexDirection: 'column', marginLeft: 10}}>
-                    <Typography component="h1" variant="h3" align="center" sx={{marginBotton: 10, fontWeight: 'bold'}}> {info[index].nombre} </Typography>
-                    <Typography  component="body" variant="body1" align="center" sx={{ textAlign: 'justify', marginTop: 6}}> {info[index].descripcion} </Typography>
-                </Box>
-            </Box>
+            <Grid container spacing={2} columns={4} >
+                <Grid item xs={2}>
+                    <img src={info[index].foto} alt="Foto del minijuego" style={{ maxWidth: "100%", border: "2px solid #006699", borderRadius: "5px"}}/>
+                </Grid>
+                
+                <Grid item xs={2} sx={{ display: "flex", flexDirection: "column", justifyContent: "space-evenly" }}>
+                    <Typography variant="h3" align="center" > {info[index].nombre} </Typography>
+                    <Typography  component="body" variant="body1" align="center" sx={{ textAlign: "justify", background: "none" }}> {info[index].descripcion} </Typography>
+                </Grid>
+            </Grid>
         );
     };
 
@@ -32,7 +33,7 @@ const Instructions = () => {
     }
 
     return (
-        <Container sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: '90vh' }}>
+        <Container sx={{ display: "flex", flexDirection: "column", justifyContent: "center", flexGrow: 1, gap: "2em" }}>
             <CssBaseline />
             <Grid container spacing={4}>
                 <Grid item xs={12}>
@@ -40,7 +41,7 @@ const Instructions = () => {
                 </Grid>
                 {info.map((option, index) => (
                     <Grid item xs={3} key={option.nombre} >
-                        <Button width="100%" color="primary" size="large" variant="outlined" sx={{ width: '100%', height: '100px'  }} onClick={() => newGameInfo([index])}>
+                        <Button width="100%" color="primary" size="large" variant="outlined" sx={{ width: "100%", height: "100px"  }} onClick={() => newGameInfo([index])}>
                             {option.nombre}
                         </Button>
                     </Grid>
