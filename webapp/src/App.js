@@ -27,6 +27,9 @@ const theme = createTheme({
 });
 
 function App() {
+  React.useEffect(() => {
+    document.title = "WIQ - Wikidata Infinite Quest";
+  }, []);
   return (
     <Box sx={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
       <ThemeProvider theme={theme}>
