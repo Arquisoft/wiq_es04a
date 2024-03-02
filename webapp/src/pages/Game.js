@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { Container, Button, CssBaseline, Grid, Typography, CircularProgress } from '@mui/material';
+import CheckIcon from '@mui/icons-material/Check';
+import ClearIcon from '@mui/icons-material/Clear';
 import questions from "../data/__questions.json"; //static questions battery, we have to change it
 import { useNavigate } from 'react-router-dom';
 
@@ -42,11 +44,6 @@ const Game = () => {
 
         //check answer
         if (response === questionData.correctAnswer) {
-            /*for (let i = 0; i < questionData.options.length; i++) {
-                if (i === index) {
-                    newButtonStates[i] = "success";
-                }
-            }*/
             newButtonStates[index] = "success"
             setUserData((prevUserData) => ({
                 ...prevUserData,
@@ -167,7 +164,7 @@ if (shouldRedirect) {
                             onClick={() => selectResponse(index, option)}
                             disabled={buttonStates[index] !== null}
                             sx={{
-                                height: "50px", // Ajusta el tamaño según sea necesario
+                                height: "90%", // Ajusta el tamaño según sea necesario
                                 width: "50%", // Ajusta el ancho según sea necesario
                                 borderRadius: "20px", // Ajusta el radio según sea necesario
                                 margin: "5px",
@@ -178,6 +175,7 @@ if (shouldRedirect) {
                                 },
                             }}
                         >
+                            {buttonStates[index] === "success" ? <CheckIcon /> : buttonStates[index] === "failure" ? <ClearIcon /> : null}
                             {option}
                         </Button>
                     </Grid>
