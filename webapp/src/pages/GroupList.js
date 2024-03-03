@@ -10,7 +10,7 @@ const GroupList = () => {
         const fetchData = async () => {
           try {
             const response = await axios.get(`${apiEndpoint}/group/list`);
-            setGroups(response.data);
+            setGroups(response.data.groups);
           } catch (error) {
             console.error('Error fetching data:', error);
           }
@@ -23,11 +23,12 @@ const GroupList = () => {
     <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
       <Typography variant="h3">GROUPS</Typography>
       <Stack spacing={2}>
-        <Typography>Prueba</Typography>
-      {groups.map(group => (
-          // Need to revise the JSON format when integrating back and frontend
-          <Typography key={group.id}>{group.name}</Typography>
-      ))}
+        {groups.map(group => {
+          return (
+            // Need to add more items when session is added and modify the format
+            <Typography key={group.name}>{group.name}</Typography>
+          );
+        })}
       </Stack>
     </Container>
     );

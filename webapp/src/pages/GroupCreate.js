@@ -11,7 +11,6 @@ const AddGroup = () => {
 
   const addGroup = async () => {
     try {
-      console.log("hola");
       await axios.post(`${apiEndpoint}/group/add`, {
         name
         // Need also the logged user
