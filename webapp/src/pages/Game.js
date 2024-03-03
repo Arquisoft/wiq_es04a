@@ -4,6 +4,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import questions from "../data/__questions.json"; //static questions battery, we have to change it
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -90,22 +91,10 @@ const Game = () => {
         if (round >= 3) {
             // Update user data before redirecting
             try {
-                const response = await fetch('${apiEndpoint}/user/edit', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(userData),
-                });
-
-                if (response.ok) {
-                    console.log('User data updated successfully');
-                } else {
-                    console.error('Failed to update user data:', response.statusText);
-                }
-            } catch (error) {
-                console.error('Error updating user data:', error);
-            }
+                await axios.post(`${apiEndpoint}/user/edit`, userData);
+              } catch (error) {
+                console.error("Error:", error);
+              }
         }
 
         setTimeout(() => {
