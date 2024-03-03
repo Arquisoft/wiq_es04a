@@ -3,21 +3,8 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const { Group,User,UserGroup } = require('../models/user-model');
 
-// Getting the list of groups in the database
-router.get('/list', async (req, res) => {
-    try {
-        const allGroups = await Group.findAll();
-        const groupsJSON = allGroups.map(group => group.toJSON());
-
-        const allGroupsJSON = {
-            groups: groupsJSON
-        };
-
-        res.json(allGroupsJSON);
-    } catch (error) {
-      return res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
+//Group internal routes
+const apiRoutes = require('../services/group-api');
 
 // Adding a group to the database
 router.post('/add', async (req, res) => {
@@ -33,40 +20,6 @@ router.post('/add', async (req, res) => {
         res.json(newGroup);
     } catch (error) {
       return res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
-// Getting a group by its name
-router.get('/:name', async (req, res) => {
-    try {
-        const groupName = req.params.name;
-
-        // Need also to get the group members
-        const group = await Group.findOne({
-            where: {
-                name: groupName
-            }
-        });
-        if (!group) {
-            return res.status(404).json({ error: 'Group not found' });
-        }
-        
-        const groupUsers = await User.findAll({
-            include: [
-                {
-                    model: UserGroup,
-                    where: { name: groupName }
-                }
-            ]
-        });
-
-        // Construct JSON response
-        const groupJSON = group.toJSON();
-        groupJSON.users = groupUsers.map(user => user.toJSON());
-
-        res.json(groupJSON);
-    } catch (error) {
-        return res.status(400).json({ error: error.message });
     }
 });
 
@@ -87,5 +40,9 @@ router.post('/:name/join', async (req, res) => {
        return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+
+//Api middleware
+router.use('/api', apiRoutes);
 
 module.exports = router;
