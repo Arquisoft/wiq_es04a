@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
+
 // Database connection configuration
 const sequelize = new Sequelize({
     host: 'mariadb',

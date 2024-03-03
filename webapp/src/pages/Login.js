@@ -18,6 +18,12 @@ const Login = () => {
     try {
       const response = await axios.post(`${apiEndpoint}/login`, { username, password });
 
+
+      //Token received from post request.
+      const { authToken } = response.data;
+      localStorage.setItem('jwt', authToken)
+
+
       // Extract data from the response
       const { createdAt: userCreatedAt } = response.data;
 
