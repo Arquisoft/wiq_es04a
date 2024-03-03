@@ -5,6 +5,12 @@ const wikidataService = require('../services/wikidata-service');
 
 const router = express.Router();
 
+/**
+ * Asynchronously generates a specified number of questions using data from the JSON file and stores them in the DB.
+ * 
+ * @param {number} n - The number of questions to generate.
+ * @returns {Promise<void>} A Promise that resolves when all questions are generated.
+ */
 async function generateQuestions(n) {
     try {
         const json = await utils.readFromFile("../questions/utils/question.json");
@@ -29,7 +35,7 @@ async function generateQuestions(n) {
                 let correctAnswer = searched_property;
     
                 // options will contain 3 wrong answers plus the correct one
-                let options = await wikidataService.getProperties(property);
+                let options = await wikidataService.getProperties(property, filter);
                 options.push(correctAnswer);
 
                 //If properties are entities
@@ -51,6 +57,9 @@ async function generateQuestions(n) {
                 };
 
                 dbService.addQuestion(newQuestion);
+
+                randomIndex = Math.floor(Math.random() * json.length);
+                entity = json[randomIndex];
             }
         }
     } catch (error) {
@@ -68,7 +77,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Manejo de la ruta '/questions'
+// Manejo de la ruta '/questions/add'
 router.get('/add', async (_req, res) => {
     const questions = [];
     
