@@ -1,35 +1,29 @@
 const express = require('express');
-const router = express.Router();
 const dbService = require('../services/question-data-service');
 const utils = require('../utils/generalQuestions');
 const wikidataService = require('../services/wikidata-service');
 
-// Manejo de la ruta '/question'
-router.get('/', async (_req, res) => {
+const router = express.Router();
+
+async function generateQuestions(n) {
     try {
         const json = await utils.readFromFile("../questions/utils/question.json");
+        for (let i = 0; i < n; i++) {
+            //Gets random template
+            const randomIndex = Math.floor(Math.random() * json.length);
+            const entity = json[randomIndex];
 
-        const questions = [];
-        //Gets random template
-        const randomIndex = Math.floor(Math.random() * json.length);
-        var entity = json[randomIndex];
-        //var entity = json[0];
-        //entity = json[1].football;
-      
-        for (let i = 0; i < 5; i++) {
             // get data for selected entity
-            var pos = Math.floor(Math.random() * entity.properties.length);
+            const pos = Math.floor(Math.random() * entity.properties.length);
            
-            //var pos = 1;
-            var instance = entity.instance;
-            var property = entity.properties[pos].property;
-            var question = entity.properties[pos].template;
-            var category = entity.properties[pos].category[0];
+            const instance = entity.instance;
+            const property = entity.properties[pos].property;
+            const question = entity.properties[pos].template;
+            const categories = entity.properties[pos].category;
 
-            var [entityName, searched_property] = await wikidataService.getRandomEntity(instance, property);
+            let [entityName, searched_property] = await wikidataService.getRandomEntity(instance, property);
           
             if (searched_property !== null) {
-                //const questionText = question + entityName.charAt(0).toUpperCase() + entityName.slice(1) +`?`;
                 //This way we can ask questions with different structures
                 const questionText = question.replace('x',entityName.charAt(0).toUpperCase() + entityName.slice(1)) +`?`;
                 let correctAnswer = searched_property;
@@ -53,20 +47,38 @@ router.get('/', async (_req, res) => {
                     question: questionText,
                     options: shuffledOptions,
                     correctAnswer: correctAnswer,
-                    category: category
+                    categories: categories
                 };
 
-                questions.push(newQuestion);
                 dbService.addQuestion(newQuestion);
             }
         }
-    
-        res.json(questions);
-    
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Error al procesar la solicitud' });
+        console.error("Error generating questions: ", error.message);
     }
+}
+
+router.get('/', async (req, res) => {
+    const question = await dbService.getQuestion();
+    res.json(question);
+    dbService.deleteQuestionById(question._id);
+    console.log(await dbService.getQuestionCount());
+    if (await dbService.getQuestionCount() < 10) {
+        generateQuestions(10);
+    }
+});
+
+// Manejo de la ruta '/questions'
+router.get('/add', async (_req, res) => {
+    const questions = [];
+    
+    for (let i = 0; i < 5; i++) {
+        const newQuestion = generateQuestions(1);
+        questions.push(newQuestion);
+        dbService.addQuestion(newQuestion);
+    }
+
+    res.json(questions);
 });
 
 // Enter in this url to load sample questions to db: http://localhost:8010/questions/loadSampleData

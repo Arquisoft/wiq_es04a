@@ -1,29 +1,85 @@
 const mongoose = require('mongoose');
 const Question = require('./question-data-model');
+require('dotenv').config();
 
 //TODO: QUESTION_DATABASE_URI has no value yet
-const uri = process.env.QUESTION_DATABASE_URI || 'mongodb://localhost:27017/questionDB';
+const uri = process.env.DATABASE_URI;
 mongoose.connect(uri);
 
-//TODO: when should db call disconnect?
+// Test data
+const testQuestions = [
+  {
+    question: '¿Cuál es la capital de Francia?',
+    options: ['Berlín', 'París', 'Londres', 'Madrid'],
+    correctAnswer: 'París',
+    category: 'Geografía'
+  },
+  {
+    question: '¿En qué año comenzó la Segunda Guerra Mundial?',
+    options: ['1935', '1938', '1939', '1942'],
+    correctAnswer: '1939',
+    category: 'Historia'
+  },
+  {
+    question: '¿Cuál es el elemento más abundante en la corteza terrestre?',
+    options: ['Hierro', 'Oxígeno', 'Aluminio', 'Silicio'],
+    correctAnswer: 'Oxígeno',
+    category: 'Ciencia'
+  },
+];
 
-// Add question to database
-async function addQuestion(questionData) {
+module.exports = {
+  // Add question to database
+  addQuestion : async function(questionData) {
     try {
       const newQuestion = new Question(questionData);
-      
-      //const savedQuestion = await newQuestion.save();
       await newQuestion.save();
-      
-      //console.log('Added question: ', savedQuestion);
+      console.log(`Question ${newQuestion._id} saved successfully in DB`);
     } catch (error) {
       console.error('Error adding the question: ', error.message);
-    } 
-  }
+    }
+  },
 
 
-// Get random questions  TODO: refactor to use common code with get questions by category
-async function getRandomQuestions(n) {
+  /**
+   * Returns a question from the database that could be filtered using a dictionary and removes it.
+   * @param {dict} filter - The dict containing the filter options for mongoose.
+   * @returns {Question} The question (it will be removed from DB)
+   */
+  getQuestion : async function(filter = {}) {
+    try {
+      const question = await Question.findOne(filter);
+      return question;
+
+    } catch (error) {
+      console.error('Error obtaining the question', error.message);
+    }
+  },
+
+  deleteQuestionById : async function(id) {
+    try {
+      await Question.findByIdAndDelete(id);
+      console.log(`Question ${id} deleted successfully`);
+
+    } catch (error) {
+        console.error('Error deleting question:', error.message);
+    }
+  },
+
+  getQuestionCount : async function() {
+    try {
+      // Obtain total number of questions in database
+      const totalQuestions = await Question.countDocuments();
+      return totalQuestions;
+
+    } catch (error) {
+      console.error('Error obtaining the number of questions: ', error.message);
+    }
+  },
+
+
+  // Get random questions  TODO: refactor to use common code with get questions by category
+  getRandomQuestions : async function(n) {
     try {
       // Obtain total number of questions in database
       const totalQuestions = await Question.countDocuments();
@@ -49,11 +105,11 @@ async function getRandomQuestions(n) {
       //console.log('Random questions: ', randomQuestions);
     } catch (error) {
       console.error('Error obtaining random questions: ', error.message);
-    } 
-  }
+    }
+  },
 
-// Obtaing random questions filtered by category
-async function getRandomQuestionsByCategory(n, category) {
+  // Obtaing random questions filtered by category
+  getRandomQuestionsByCategory : async function(n, category) {
     try {
       // Obtain total number of questions with that category
       const totalQuestions = await Question.countDocuments({ category });
@@ -64,14 +120,14 @@ async function getRandomQuestionsByCategory(n, category) {
         return;
       }
   
-     // Obtain n random indexes
-     const randomIndexes = [];
-     while (randomIndexes.length < n) {
-       const randomIndex = Math.floor(Math.random() * totalQuestions);
-       if (!randomIndexes.includes(randomIndex)) {
-         randomIndexes.push(randomIndex);
-       }
-     }
+    // Obtain n random indexes
+    const randomIndexes = [];
+    while (randomIndexes.length < n) {
+      const randomIndex = Math.floor(Math.random() * totalQuestions);
+      if (!randomIndexes.includes(randomIndex)) {
+        randomIndexes.push(randomIndex);
+      }
+    }
   
       // Obtain n random questions with that category
       const randomQuestions = await Question.find({ category }).limit(n).skip(randomIndexes[0]);
@@ -80,43 +136,17 @@ async function getRandomQuestionsByCategory(n, category) {
       //console.log('Random questions: ', randomQuestions);
     } catch (error) {
       console.error('Error obtaining random questions (with category): ', error.message);
-    } 
-  }
+    }
+  },
 
-// Test data
-const testQuestions = [
-    {
-      question: '¿Cuál es la capital de Francia?',
-      options: ['Berlín', 'París', 'Londres', 'Madrid'],
-      correctAnswer: 'París',
-      category: 'Geografía'
-    },
-    {
-      question: '¿En qué año comenzó la Segunda Guerra Mundial?',
-      options: ['1935', '1938', '1939', '1942'],
-      correctAnswer: '1939',
-      category: 'Historia'
-    },
-    {
-      question: '¿Cuál es el elemento más abundante en la corteza terrestre?',
-      options: ['Hierro', 'Oxígeno', 'Aluminio', 'Silicio'],
-      correctAnswer: 'Oxígeno',
-      category: 'Ciencia'
-    },
-  ];
-  
+    
   // Add test data to db
-  async function addTestData() {
+  addTestData : async function() {
     try {
       await Question.insertMany(testQuestions);
     } catch (error) {
       console.error('Error in sample data:', error);
     }
   }
-  
-  module.exports = {
-    addQuestion,
-    getRandomQuestions,
-    getRandomQuestionsByCategory,
-    addTestData
+
 };
