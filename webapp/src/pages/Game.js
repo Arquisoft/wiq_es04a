@@ -5,10 +5,11 @@ import ClearIcon from '@mui/icons-material/Clear';
 import questions from "../data/__questions.json"; //static questions battery, we have to change it
 import { useNavigate } from 'react-router-dom';
 
-const MAX_ROUNDS = 3;
+const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const Game = () => {
     const navigate = useNavigate();
+    const MAX_ROUNDS = 3;
 
     // state initialization
     const [round, setRound] = React.useState(1);
@@ -89,7 +90,7 @@ const Game = () => {
         if (round >= 3) {
             // Update user data before redirecting
             try {
-                const response = await fetch('/user/edit', {
+                const response = await fetch('${apiEndpoint}/user/edit', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
