@@ -11,6 +11,8 @@ const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000
 const Game = () => {
     const navigate = useNavigate();
     const MAX_ROUNDS = 3;
+    const SUCCESS_SOUND_ROUTE = "/sounds/success_sound.mp3";
+    const FAILURE_SOUND_ROUTE = "/sounds/wrong_sound.mp3";
 
     // state initialization
     const [round, setRound] = React.useState(1);
@@ -68,6 +70,8 @@ const Game = () => {
         //check answer
         if (response === questionData.correctAnswer) {
             newButtonStates[index] = "success"
+            const sucessSound = new Audio(SUCCESS_SOUND_ROUTE);
+            sucessSound.play();
             setUserData((prevUserData) => ({
                 ...prevUserData,
                 correctly_answered_questions: prevUserData.correctly_answered_questions + 1,
@@ -75,6 +79,8 @@ const Game = () => {
             }));
         } else {
             newButtonStates[index] = "failure";
+            const failureSound = new Audio(FAILURE_SOUND_ROUTE);
+            failureSound.play();
             for (let i = 0; i < questionData.options.length; i++) {
                 if (questionData.options[i] === questionData.correctAnswer) {
                     newButtonStates[i] = "success";
