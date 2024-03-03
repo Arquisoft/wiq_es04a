@@ -71,6 +71,7 @@ const Game = () => {
         if (response === questionData.correctAnswer) {
             newButtonStates[index] = "success"
             const sucessSound = new Audio(SUCCESS_SOUND_ROUTE);
+            sucessSound.volume = 0.40;
             sucessSound.play();
             setUserData((prevUserData) => ({
                 ...prevUserData,
@@ -80,6 +81,7 @@ const Game = () => {
         } else {
             newButtonStates[index] = "failure";
             const failureSound = new Audio(FAILURE_SOUND_ROUTE);
+            failureSound.volume = 0.40;
             failureSound.play();
             for (let i = 0; i < questionData.options.length; i++) {
                 if (questionData.options[i] === questionData.correctAnswer) {
