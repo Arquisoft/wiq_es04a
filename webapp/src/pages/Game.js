@@ -27,7 +27,7 @@ const Game = () => {
         incorrectly_answered_questions: 0,
         total_time_played: 0, 
         games_played: 1,
-    });
+    }); 
     const [timerRunning, setTimerRunning] = React.useState(true); // indicate if the timer is working
 
     // hook to iniciate timer
