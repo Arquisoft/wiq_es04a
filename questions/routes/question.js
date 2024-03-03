@@ -11,22 +11,20 @@ router.get('/', async (_req, res) => {
 
         const questions = [];
         //Gets random template
-        const randomIndex = Math.floor(Math.random() * json.length);
+        var randomIndex = Math.floor(Math.random() * json.length);
         var entity = json[randomIndex];
-        //var entity = json[0];
-        //entity = json[1].football;
       
         for (let i = 0; i < 5; i++) {
             // get data for selected entity
             var pos = Math.floor(Math.random() * entity.properties.length);
-           
             //var pos = 1;
             var instance = entity.instance;
             var property = entity.properties[pos].property;
             var question = entity.properties[pos].template;
             var category = entity.properties[pos].category[0];
+            var filter = entity.properties[pos].filter;
 
-            var [entityName, searched_property] = await wikidataService.getRandomEntity(instance, property);
+            var [entityName, searched_property] = await wikidataService.getRandomEntity(instance, property, filter);
           
             if (searched_property !== null) {
                 //const questionText = question + entityName.charAt(0).toUpperCase() + entityName.slice(1) +`?`;
@@ -35,7 +33,7 @@ router.get('/', async (_req, res) => {
                 let correctAnswer = searched_property;
     
                 // options will contain 3 wrong answers plus the correct one
-                let options = await wikidataService.getProperties(property);
+                let options = await wikidataService.getProperties(property, filter);
                 options.push(correctAnswer);
 
                 //If properties are entities
@@ -58,6 +56,9 @@ router.get('/', async (_req, res) => {
 
                 questions.push(newQuestion);
                 dbService.addQuestion(newQuestion);
+
+                randomIndex = Math.floor(Math.random() * json.length);
+                entity = json[randomIndex];
             }
         }
     

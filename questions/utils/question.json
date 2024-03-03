@@ -6,6 +6,7 @@
             {   
                 "property": "P1082",
                 "template": "What is the population of x",
+                "filter": ">1000000",
                 "category": ["Geography"]
             },
             {   
@@ -24,7 +25,7 @@
                 "template": "What is the stadium of x team",
                 "category": ["Sports"]
             },
-            {   
+            {
                 "property": "P17",
                 "template": "What is the country of x team",
                 "category": ["Sports", "Geography"]
@@ -47,7 +48,7 @@
         "instance": "Q4022",
         "properties": [
             {   
-                "property": "P1376",
+                "property": "P205",
                 "template": "What country river x is in",
                 "category": ["Geography"]
             }

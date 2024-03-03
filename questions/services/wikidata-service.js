@@ -1,6 +1,11 @@
 const axios = require('axios');
 
-async function getRandomEntity(instance, property) {
+async function getRandomEntity(instance, property, filt) {
+    var filter = '';
+    if(filt) {
+        filter = `FILTER(?property${filt})`;
+    }
+   
     const consultaSparql = `
         SELECT ?entity ?entityLabel ?property
         WHERE {
@@ -8,6 +13,7 @@ async function getRandomEntity(instance, property) {
                 wdt:${property} ?property.   
             ?entity rdfs:label ?entityLabel.  
             FILTER(LANG(?entityLabel) = "es")
+            ${filter}
     }
     `;
     // it is better to use the FILTER rather than SERVICE
@@ -47,11 +53,16 @@ async function getRandomEntity(instance, property) {
 }
 
 
-async function getProperties(property) {
+async function getProperties(property, filt) {
+    var filter = '';
+    if(filt) {
+        filter = `FILTER(?property${filt})`;
+    }
     const consultaSparql = `
         SELECT DISTINCT ?property
         WHERE {
-            ?entity wdt:${property} ?property.   
+            ?entity wdt:${property} ?property. 
+            ${filter}  
         }
         LIMIT 400
     `;
