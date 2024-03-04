@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar, Box, Divider } from '@mui/material';
 import { Link } from 'react-router-dom';
+import verifyToken from '../../../users/services/authVerifyMiddleWare';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -18,18 +19,15 @@ const Login = () => {
     try {
       const response = await axios.post(`${apiEndpoint}/login`, { username, password });
 
-
       //Token received from post request.
-      const { authToken } = response.data;
-      localStorage.setItem('jwt', authToken)
-
+      const { token } = response.data;
+      localStorage.setItem('jwt', token)
 
       // Extract data from the response
       const { createdAt: userCreatedAt } = response.data;
 
       setCreatedAt(userCreatedAt);
       setLoginSuccess(true);
-
       setOpenSnackbar(true);
     } catch (error) {
       setError(error.response.data.error);

@@ -1,7 +1,9 @@
 import * as React from 'react';
+import { useContext } from 'react';
 import { AppBar, Toolbar, Menu, MenuItem, Box, Button, IconButton, Typography, Avatar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
+import { SessionContext } from '../SessionContext';
 
 // List of site pages for the menu. We have to address if it wouldnt be more consistent to extract this to a fragment / global const as it could be used outside.
 // Also as the element added is subjected to internazionalization, so we ll have to address it
@@ -24,6 +26,8 @@ function NavBar() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
+  const { sessionId, username, isLoggedIn, createSession, destroySession } = useContext(SessionContext);
 
   return (
     // position="static" => Barra se desplaza con scroll down
@@ -86,7 +90,7 @@ function NavBar() {
         
         <Button component={Link} to={'/login'} sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0 }} >
           <Typography variant="body2" sx={{ color: 'white', textDecoration: 'none' }}>
-            Log In
+            {isLoggedIn ? ({username}):("Log In")}
           </Typography>
           <IconButton >
             <Avatar src="/default_user.jpg" alt="Profile pic" sx={{ width: 33, height: 33 }} />
