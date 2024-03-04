@@ -90,7 +90,8 @@ function NavBar() {
         
         <Button component={Link} to={'/login'} sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0 }} >
           <Typography variant="body2" sx={{ color: 'white', textDecoration: 'none' }}>
-            {isLoggedIn ? ({username}):("Log In")}
+            {/* {isLoggedIn ? {username} : "Log In"} */}
+            {isLoggedIn ? "CAMBIAR" : "Log In"}
           </Typography>
           <IconButton >
             <Avatar src="/default_user.jpg" alt="Profile pic" sx={{ width: 33, height: 33 }} />
