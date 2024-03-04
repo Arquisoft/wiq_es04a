@@ -26,8 +26,7 @@ router.post('/', async (req, res) => {
         
         // Token payload
         const payload = {
-          userId: username,
-          password: password
+          userId: username
         };
 
         //CHANGE THIS TO ENVIRONMENT VARS (NOT PUBLIC)
@@ -39,9 +38,12 @@ router.post('/', async (req, res) => {
 
         //Token sign and creation
         const token = jwt.sign(payload, secretKey, options);
+        
+        //This should save token in user's browser, it doesn't seem to do anything
+        res.cookie("token", token); // maxAge (millis) = 1 hour
 
         // Respond with the token and user information
-        return res.json({ authToken: token, username, createdAt: user.createdAt });
+        return res.status(200).json({ token, username, createdAt: user.createdAt });
 
       } else {
         return res.status(401).json({ error: 'Invalid credentials' });
