@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/arquisoft/wiq_0.git"
+    "url": "git+https://github.com/arquisoft/wiq_es04a.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/arquisoft/wiq_0/issues"
+    "url": "https://github.com/arquisoft/wiq_es04a/issues"
   },
-  "homepage": "https://github.com/arquisoft/wiq_0#readme",
+  "homepage": "https://github.com/arquisoft/wiq_es04a#readme",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
