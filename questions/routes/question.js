@@ -58,8 +58,9 @@ async function generateQuestions(n) {
 
                 dbService.addQuestion(newQuestion);
 
-                randomIndex = Math.floor(Math.random() * json.length);
-                entity = json[randomIndex];
+                //This code was here and it crashed the generator after first iteration
+                //randomIndex = Math.floor(Math.random() * json.length);
+                //entity = json[randomIndex];
             }
         }
     } catch (error) {
@@ -74,7 +75,7 @@ router.get('/', async (req, res) => {
     const question = await dbService.getQuestion();
     res.json(question);
 
-    //dbService.deleteQuestionById(question._id);
+    dbService.deleteQuestionById(question._id);
     console.log(await dbService.getQuestionCount());
 });
 
