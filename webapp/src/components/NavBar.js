@@ -12,6 +12,8 @@ const pages = [
   { path: '/homepage', text: 'Play' },
   { path: '/statistics', text: 'Statistics' },
   { path: '/instructions', text: 'Instructions' },
+  { path: '/group/list', text: 'List Groups' },
+  { path: '/group/create', text: 'Create Group' },
   // Add an object for each new page
 ];
 
@@ -31,7 +33,7 @@ function NavBar() {
 
   return (
     // position="static" => Barra se desplaza con scroll down
-    <AppBar position="static" sx={{ backgroundColor: '#006699' }}>
+    <AppBar position="static" >
     {/* The Container component is used to limit the maximum width of the content inside the AppBar. It ensures that the content doesn't extend too far horizontally. */}
     {/* <Container maxWidth="xl"> */}
       {/* disableGutters -> Remove toolbar's padding */}
@@ -75,20 +77,20 @@ function NavBar() {
               ))}
           </Menu>
         </Box>
-        <Button component={Link} to="/" >
+        <Button component={Link} to="/" sx={{'&:hover': { backgroundColor: '#5f7e94'},}}>
             <img src="/white_logo.png" alt="Logo" style={{ height: 40 }} />
         </Button>
         {/* Pages list in NavBar, only displayed when menu button is not, i.e., in larger devices */}
         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
           {pages.map((page) => (
-            <Button component={Link} to={page.path} key={page.path} sx={{ color: 'white', display: 'block' }}>
+            <Button component={Link} to={page.path} key={page.path} sx={{ color: 'white', display: 'block','&:hover': { backgroundColor: '#5f7e94',  },}}>
             {page.text}
         </Button>
           ))}
         </Box>
         {/* Pending: auth depending: if not auth: log in else: menu */}
         
-        <Button component={Link} to={'/login'} sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0 }} >
+        <Button component={Link} to={'/login'} sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0, '&:hover': { backgroundColor: '#5f7e94',  }}} >
           <Typography variant="body2" sx={{ color: 'white', textDecoration: 'none' }}>
             {/* {isLoggedIn ? {username} : "Log In"} */}
             {isLoggedIn ? "CAMBIAR" : "Log In"}

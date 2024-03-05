@@ -1,61 +1,23 @@
-import * as React from 'react';
-import ImageSlider from '../components/ImageSlider';
-import {Container, Box, Typography, Paper} from '@mui/material';
+import * as React from "react";
+import ImageSlider from "../components/ImageSlider";
+import { Box, Typography, Paper, useTheme } from "@mui/material";
 import data from "../data/sliderData.json";
 
 const Home = () => {
-
-const estiloImagenDeFondo = {
-    backgroundImage: `url(FondoSimetrico.png)`,
-    backgroundPosition: 'center',
-    minWidth: '100%',
-    minHeight: '100%',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover'
-
-};
+    const theme = useTheme();
 
     return (
-        <Container sx={{ display: 'flex', flex:'1' , ...estiloImagenDeFondo}}>
-
-                <Box className="contidoPrincipal" width="100vw" sx={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems:'center' }}>
-
-
-                    <Box className="texto" sx={{width: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-                            <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginBottom:'5vh'}}>
-                                <img style={{height: '15vw'}}  key='foto' src={'./logo_wiq.png'} alt='Foto sobre el dato correcto' />
-
-                                <Box sx={{width:'70%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                                    <Typography align="center" sx={{fontWeight: 'bold',  fontSize: '2vw', color:'#990000', marginRight:'0.4em'}}> WIKIDATA </Typography>
-                                    <Typography align="center" sx={{fontWeight: 'bold',  fontSize: '2vw', color:'#339966', marginRight:'0.4em'}}> INFINITE </Typography>
-                                    <Typography align="center" sx={{fontWeight: 'bold',  fontSize: '2vw', color:'#006699',marginRight:'0.4em'}}> QUIZ </Typography>
-                                </Box>
-                            </Box>
-
-                            <Typography variant="body1" align="center" sx={{fontWeight: 'bold', width:'70%', fontSize: '1vw'}}>
-                                Welcome to WIQ, also known as Wikidata Infinite Question. On this page, a vast array of challenges awaits you, which will help you become the most knowledgeable person in the world. <br/><br/>
-                                To achieve this, you'll need to complete various mini-games. But don't worry, thanks to our dynamic question system, you can play as many times as you want since the questions are infinite.<br/><br/>
-                                From here, HappySoftware in collaboration with RTVE wishes you luck and hopes to see you at the top of the leaderboard.
-                            </Typography>
-
-
-                    </Box>
-
-
-                    <Box className="slider" sx={{ width: '50%', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-
-
-                        <Paper sx={{ userSelect: 'none', backgroundColor:'transparent', marginLeft:'10vw', marginRight:'2vw'}}>
-                            <ImageSlider slides={data.slides} />
-                        </Paper>
-
-
-                    </Box>
-
-
-                </Box>
-
-        </Container>
+        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", margin: "1.6em 5em auto" }}>
+            <img src="./logo_wiq.png" alt="Logo" style={{ width: "35vw", marginLeft: "1.8em" }}/>
+            <Box sx={{ display: "flex", justifyContent: "center", gap: "1em", letterSpacing: "100%" }}>
+                <Typography align="center" variant="h5" sx={{ fontWeight: "bold",  color: theme.palette.error.main }}> WIKIDATA </Typography>
+                <Typography align="center" variant="h5" sx={{ fontWeight: "bold",  color: theme.palette.secondary.main }}> INFINITE </Typography>
+                <Typography align="center" variant="h5" sx={{ fontWeight: "bold",  color: theme.palette.primary.main }}> QUEST </Typography>
+            </Box>
+            <Typography variant="body1" textAlign="center" fontWeight="700" marginTop="4em" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)', fontSize: '150%' }}>
+            WELCOME TO WIQ, WHERE INFINITE KNOWLEDGE AWAITS POWERED BY WIKIDATA.<br/>PLAY MINI-GAMES BASED ON 'SABER Y GANAR' TO BECOME THE ULTIMATE CHAMPION.<br/><br/>HAPPYSOFTWARE WISHES YOU LUCK ON YOUR QUEST TO THE TOP!
+            </Typography>
+        </Box>
     );
 };
 
