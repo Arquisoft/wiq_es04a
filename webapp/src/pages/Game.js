@@ -2,9 +2,14 @@ import * as React from 'react';
 import { Container, Button, CssBaseline, Grid, Typography, CircularProgress } from '@mui/material';
 import questions from "../data/__questions.json"; //static questions battery, we have to change it
 import { useNavigate } from 'react-router-dom';
+import { SessionContext } from '../SessionContext';
+import { useContext } from 'react';
 
 const Game = () => {
     const navigate = useNavigate();
+
+    //sesion information
+    const { sessionId, username, isLoggedIn, createSession, destroySession } = useContext(SessionContext);
 
     // state initialization
     const [round, setRound] = React.useState(1);
@@ -12,11 +17,11 @@ const Game = () => {
     const [buttonStates, setButtonStates] = React.useState([]);
     const [shouldRedirect, setShouldRedirect] = React.useState(false);
     const [userData, setUserData] = React.useState({
-        username: "Samu11", //change it
+        username: `${username}`, 
         total_score: 0,
         correctly_answered_questions: 0,
         incorrectly_answered_questions: 0,
-        total_time_played: 3600, //change it
+        total_time_played: 3600, 
         games_played: 1,
     });
 
