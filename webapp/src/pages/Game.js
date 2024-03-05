@@ -4,6 +4,9 @@ import questions from "../data/__questions.json"; //static questions battery, we
 import { useNavigate } from 'react-router-dom';
 import { SessionContext } from '../SessionContext';
 import { useContext } from 'react';
+import axios from 'axios';
+
+const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const Game = () => {
     const navigate = useNavigate();
@@ -17,7 +20,7 @@ const Game = () => {
     const [buttonStates, setButtonStates] = React.useState([]);
     const [shouldRedirect, setShouldRedirect] = React.useState(false);
     const [userData, setUserData] = React.useState({
-        username: `${username}`, 
+        username: username,
         total_score: 0,
         correctly_answered_questions: 0,
         incorrectly_answered_questions: 0,
@@ -54,6 +57,7 @@ const Game = () => {
             }
             setUserData((prevUserData) => ({
                 ...prevUserData,
+                username: prevUserData.username,
                 correctly_answered_questions: prevUserData.correctly_answered_questions + 1,
                 incorrectly_answered_questions: prevUserData.incorrectly_answered_questions,
                 total_score: prevUserData.total_score + 20,
@@ -63,6 +67,7 @@ const Game = () => {
             newButtonStates[index] = "failure";
             setUserData(prevUserData => ({
                 ...prevUserData,
+                username: prevUserData.username,
                 correctly_answered_questions: prevUserData.correctly_answered_questions,
                 incorrectly_answered_questions: prevUserData.incorrectly_answered_questions + 1,
                 total_score: prevUserData.total_score,
@@ -75,22 +80,10 @@ const Game = () => {
         if (round >= 3) {
             // Update user data before redirecting
             try {
-                const response = await fetch('/user/edit', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(userData),
-                });
-
-                if (response.ok) {
-                    console.log('User data updated successfully');
-                } else {
-                    console.error('Failed to update user data:', response.statusText);
-                }
-            } catch (error) {
-                console.error('Error updating user data:', error);
-            }
+                await axios.post(`${apiEndpoint}/user/edit`, userData);
+              } catch (error) {
+                console.error("Error:", error);
+              }
         }
 
         setTimeout(() => {

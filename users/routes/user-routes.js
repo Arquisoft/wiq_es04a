@@ -52,6 +52,7 @@ router.post('/add', async (req, res) => {
 // Route for edit a user
 router.post('/edit', async (req, res) => {
     try {
+
         const { username, total_score, correctly_answered_questions, incorrectly_answered_questions, total_time_played, games_played } = req.body;
 
         // Find the user in the database by their username
