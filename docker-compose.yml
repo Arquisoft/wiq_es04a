@@ -39,6 +39,20 @@ services:
     environment:
       DATABASE_URL: mariadb:3306/userdb
 
+  questions:
+      container_name: questions-${teamname:-defaultASW}
+      image: ghcr.io/arquisoft/wiq_es04a/questions:latest
+      profiles: ["dev", "prod"]
+      build: ./questions
+      depends_on:
+        - mongodb
+      ports:
+        - "8010:8010"
+      networks:
+        - mynetwork
+      environment:
+        DATABASE_URI: mongodb://localhost:27017/questionDB
+
   gatewayservice:
     container_name: gatewayservice-${teamname:-defaultASW}
     image: ghcr.io/arquisoft/wiq_0/gatewayservice:latest

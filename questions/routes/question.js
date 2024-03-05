@@ -70,7 +70,10 @@ async function generateQuestions(n) {
 
 router.get('/', async (req, res) => {
     if (await dbService.getQuestionCount() < 10) {
-        await generateQuestions(10);
+        //Must generate 2 questions
+        await generateQuestions(2);
+        //Do not wait to generate the others
+        generateQuestions(8);
     }
     const question = await dbService.getQuestion();
     res.json(question);
