@@ -67,11 +67,11 @@ router.post('/edit', async (req, res) => {
         }
 
         // Update the user's fields with the provided values
-        userToUpdate.total_score = total_score;
-        userToUpdate.correctly_answered_questions = correctly_answered_questions;
-        userToUpdate.incorrectly_answered_questions = incorrectly_answered_questions;
-        userToUpdate.total_time_played = total_time_played;
-        userToUpdate.games_played = games_played;
+        userToUpdate.total_score = userToUpdate.total_score + total_score;
+        userToUpdate.correctly_answered_questions = userToUpdate.correctly_answered_questions + correctly_answered_questions;
+        userToUpdate.incorrectly_answered_questions = userToUpdate.incorrectly_answered_questions + incorrectly_answered_questions;
+        userToUpdate.total_time_played = userToUpdate.total_time_played + total_time_played;
+        userToUpdate.games_played = userToUpdate.games_played + games_played;
 
         // Save the changes to the database
         await userToUpdate.save();
