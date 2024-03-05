@@ -35,7 +35,7 @@ async function generateQuestions(n) {
                 let correctAnswer = searched_property;
     
                 // options will contain 3 wrong answers plus the correct one
-                let options = await wikidataService.getProperties(property, filter);
+                let options = await wikidataService.getProperties(property);
                 options.push(correctAnswer);
 
                 //If properties are entities
@@ -68,13 +68,14 @@ async function generateQuestions(n) {
 }
 
 router.get('/', async (req, res) => {
+    if (await dbService.getQuestionCount() < 10) {
+        await generateQuestions(10);
+    }
     const question = await dbService.getQuestion();
     res.json(question);
-    dbService.deleteQuestionById(question._id);
+
+    //dbService.deleteQuestionById(question._id);
     console.log(await dbService.getQuestionCount());
-    if (await dbService.getQuestionCount() < 10) {
-        generateQuestions(10);
-    }
 });
 
 // Manejo de la ruta '/questions/add'
@@ -98,7 +99,7 @@ router.get('/loadSampleData', async (_req, res) => {
 //Get random questions from db: http://localhost:8010/questions/getQuestionsFromDb/3
 router.get('/getQuestionsFromDb/:n', async(_req, res) => {
     const n = parseInt(_req.params.n, 10);
-
+ 
     //Verify is n is a correct number
     if (isNaN(n) || n <= 0) {
         return res.status(400).json({ error: 'Parameter "n" must be > 0.' });

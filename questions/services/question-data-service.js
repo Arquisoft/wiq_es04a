@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const Question = require('./question-data-model');
 require('dotenv').config();
 
-//TODO: QUESTION_DATABASE_URI has no value yet
-const uri = process.env.DATABASE_URI;
+//TODO:DATABASE_URI has value but do not work
+const uri = process.env.DATABASE_URI || 'mongodb://localhost:27017/questionDB';
 mongoose.connect(uri);
 
 // Test data
