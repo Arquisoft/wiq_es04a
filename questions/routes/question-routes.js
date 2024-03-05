@@ -26,8 +26,9 @@ async function generateQuestions(n) {
             const property = entity.properties[pos].property;
             const question = entity.properties[pos].template;
             const categories = entity.properties[pos].category;
+            const filter = entity.properties[pos].filter;
 
-            let [entityName, searched_property] = await wikidataService.getRandomEntity(instance, property);
+            let [entityName, searched_property] = await wikidataService.getRandomEntity(instance, property, filter);
           
             if (searched_property !== null) {
                 //This way we can ask questions with different structures
@@ -35,7 +36,7 @@ async function generateQuestions(n) {
                 let correctAnswer = searched_property;
     
                 // options will contain 3 wrong answers plus the correct one
-                let options = await wikidataService.getProperties(property);
+                let options = await wikidataService.getProperties(property, filter);
                 options.push(correctAnswer);
 
                 //If properties are entities
