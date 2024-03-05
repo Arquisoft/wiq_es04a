@@ -1,11 +1,15 @@
 import * as React from 'react';
+import axios from 'axios';
+
 import { Container, Button, CssBaseline, Grid, Typography, CircularProgress } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
-import questions from "../data/__questions.json"; //static questions battery, we have to change it
 import { useNavigate } from 'react-router-dom';
 
 const MAX_ROUNDS = 3;
+//const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8010';
+const apiEndpoint = 'http://localhost:8010';
+
 
 const Game = () => {
     const navigate = useNavigate();
@@ -50,12 +54,18 @@ const Game = () => {
         }
     }, [round]);
 
-    // selects a random question from the data and initializes button states for the selected question
+    // gets a random question from the database and initializes button states to null
     const startNewRound = () => {
         setAnswered(false);
-        const randomIndex = Math.floor(Math.random() * questions.length);
-        setQuestionData(questions[randomIndex]);
-        setButtonStates(new Array(questions[randomIndex].options.length).fill(null));
+        axios.get(`${apiEndpoint}/questions/`)
+        .then(quest => {
+            // every new round it gets a new question from db
+            setQuestionData(quest.data);    
+            setButtonStates(new Array(quest.data.options.length).fill(null));
+        }).catch(error => {
+            console.error(error);
+        }); 
+        
     };
 
     // this function is called when a user selects a response. 

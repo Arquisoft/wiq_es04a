@@ -2,7 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 // Routes:
-const questionRoutes = require('./routes/question');
+const questionRoutes = require('./routes/question-routes.js');
 
 // App definition and
 const app = express();
@@ -17,7 +17,7 @@ app.use('/questions', questionRoutes);
 
 // Start the service
 const server = app.listen(port, () => {
-  console.log(`Question Generation Service listening at http://localhost:${port}`);
+  console.log(`Question Service listening at http://localhost:${port}`);
 });
 
 module.exports = server

@@ -54,9 +54,9 @@ app.post('/user/add', async (req, res) => {
   }
 });
 
-app.post('/questions', async (req, res) => {
+app.get('/questions', async (req, res) => {
   try {
-    const questionsResponse = await axios.post(questionGenerationServiceUrl+'/question', req.body);
+    const questionsResponse = await axios.get(questionGenerationServiceUrl+'/questions/');
     res.json(questionsResponse.data);
   } catch (error) {
     res.status(error.response.status).json({ error: error.response.data.error });
