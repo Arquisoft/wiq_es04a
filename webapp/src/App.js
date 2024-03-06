@@ -7,6 +7,8 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Homepage from './pages/Homepage';
 import Game from './pages/Game';
+import GroupList from './pages/GroupList';
+import GroupCreate from './pages/GroupCreate';
 import {Route, Routes} from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Box } from '@mui/material';
@@ -27,6 +29,9 @@ const theme = createTheme({
 });
 
 function App() {
+  React.useEffect(() => {
+    document.title = "WIQ - Wikidata Infinite Quest";
+  }, []);
   return (
     <Box sx={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
       <ThemeProvider theme={theme}>
@@ -38,7 +43,8 @@ function App() {
             <Route path="/instructions" element={<Instructions />}/>
             <Route path="/homepage" element={<Homepage />}/>
             <Route path="/game" element={<Game />}/>
-
+            <Route path="/group/list" element={<GroupList />}/>
+            <Route path="/group/create" element={<GroupCreate />}/>
           </Routes>
         <Footer/>
       </ThemeProvider>
