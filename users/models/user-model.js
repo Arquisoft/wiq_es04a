@@ -67,6 +67,9 @@ const Group = sequelize.define('Group', {
         type: DataTypes.STRING,
         primaryKey: true
     },
+    creator: {
+        type: DataTypes.STRING,
+    },
     createdAt: {
         type: DataTypes.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')

@@ -27,10 +27,10 @@ const SessionProvider = ({ children }) => {
     const createSession = (username) => {
       const newSessionId = uuidv4();
       setSessionId(newSessionId);
+      setUsername(username);
       setIsLoggedIn(true);
       localStorage.setItem('sessionId', newSessionId);
       localStorage.setItem('username', username);
-      setUsername(username);
     };
   
     const destroySession = () => {

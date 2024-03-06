@@ -68,7 +68,7 @@ app.post('/user/edit', async (req, res) => {
   }
 });
 
-app.get('/group/list', async (req, res) => {
+app.get('/group/api/list', async (req, res) => {
   try {
     const userResponse = await axios.get(userServiceUrl + '/group/list');
     res.json(userResponse.data);

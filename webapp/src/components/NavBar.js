@@ -29,7 +29,7 @@ function NavBar() {
     setAnchorElNav(null);
   };
 
-  const { sessionId, username, isLoggedIn, createSession, destroySession } = useContext(SessionContext);
+  const { username, isLoggedIn } = useContext(SessionContext);
 
   return (
     // position="static" => Barra se desplaza con scroll down
@@ -77,20 +77,24 @@ function NavBar() {
               ))}
           </Menu>
         </Box>
-        <Button component={Link} to="/" sx={{'&:hover': { backgroundColor: '#5f7e94'},}}>
+        <Button component={Link} to="/" sx={{'&:hover': { backgroundColor: '#5f7e94' },}}>
             <img src="/white_logo.png" alt="Logo" style={{ height: 40 }} />
         </Button>
         {/* Pages list in NavBar, only displayed when menu button is not, i.e., in larger devices */}
-        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-          {pages.map((page) => (
-            <Button component={Link} to={page.path} key={page.path} sx={{ color: 'white', display: 'block','&:hover': { backgroundColor: '#5f7e94',  },}}>
-            {page.text}
-        </Button>
-          ))}
-        </Box>
+        {isLoggedIn ? (
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            {pages.map((page) => (
+              <Button component={Link} to={page.path} key={page.path} sx={{ color: 'white', display: 'block','&:hover': { backgroundColor: '#5f7e94' },}}>
+                {page.text}
+              </Button>
+            ))}
+          </Box>
+        ):(
+          <Box></Box>
+        )}
         {/* Pending: auth depending: if not auth: log in else: menu */}
         
-        <Button component={Link} to={'/login'} sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0, '&:hover': { backgroundColor: '#5f7e94',  }}} >
+        <Button component={Link} to={'/login'} sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0, '&:hover': { backgroundColor: '#5f7e94' }}} >
           <Typography variant="body2" sx={{ color: 'white', textDecoration: 'none' }}>
             {isLoggedIn ? `${username}` : "Log In"}
           </Typography>
