@@ -4,11 +4,8 @@ import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import questions from "../data/__questions.json"; //static questions battery, we have to change it
 import { useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
 import { SessionContext } from '../SessionContext';
 import { useContext } from 'react';
-=======
->>>>>>> origin/develop
 import axios from 'axios';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
@@ -33,11 +30,7 @@ const Game = () => {
         total_score: 0,
         correctly_answered_questions: 0,
         incorrectly_answered_questions: 0,
-<<<<<<< HEAD
-        total_time_played: 3600, 
-=======
         total_time_played: 0, 
->>>>>>> origin/develop
         games_played: 1,
     }); 
     const [timerRunning, setTimerRunning] = React.useState(true); // indicate if the timer is working
@@ -103,11 +96,8 @@ const Game = () => {
             }
             setUserData(prevUserData => ({
                 ...prevUserData,
-<<<<<<< HEAD
                 username: prevUserData.username,
                 correctly_answered_questions: prevUserData.correctly_answered_questions,
-=======
->>>>>>> origin/develop
                 incorrectly_answered_questions: prevUserData.incorrectly_answered_questions + 1,
             }));
         }
