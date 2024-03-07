@@ -32,16 +32,16 @@ const Game = () => {
     const [gamesPlayed, setGamesPlayed] = React.useState(1);
     const [timerRunning, setTimerRunning] = React.useState(true); // indicate if the timer is working
 
-    // hook to iniciate timer
     React.useEffect(() => {
         let timer;
-        console.log(totalTimePlayed)
+    
         if (timerRunning) {
             timer = setInterval(() => {
-                setTotalTimePlayed(totalTimePlayed + 1);
-            }, 1000); 
+                setTotalTimePlayed((prevTotalTime) => prevTotalTime + 1);
+            }, 1000);
         }
-        return () => clearInterval(timer); 
+    
+        return () => clearInterval(timer);
     }, [timerRunning]);
 
     // hook to initiating new rounds if the current number of rounds is less than or equal to 3 
