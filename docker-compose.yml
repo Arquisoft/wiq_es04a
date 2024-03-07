@@ -59,8 +59,8 @@ services:
     profiles: ["dev", "prod"]
     build: ./gatewayservice
     depends_on:
-      - mariadb
       - users
+      - questions
     ports:
       - "8000:8000"
     networks:

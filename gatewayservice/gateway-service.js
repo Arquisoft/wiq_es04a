@@ -8,7 +8,7 @@ const port = 8000;
 
 const userServiceUrl = process.env.USER_SERVICE_URL || 'http://users:8001';
 
-const questionGenerationServiceUrl = 'http://localhost:8010';
+const questionGenerationServiceUrl = 'http://questions:8010';
 
 app.use(cors());
 app.use(express.json());
@@ -59,7 +59,7 @@ app.get('/questions', async (req, res) => {
     const questionsResponse = await axios.get(questionGenerationServiceUrl+'/questions/');
     res.json(questionsResponse.data);
   } catch (error) {
-    res.status(error.response.status).json({ error: error.response.data.error });
+    res.status(error.response).json({ error: error.response });
   }
 });
 

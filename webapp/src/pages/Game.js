@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 const MAX_ROUNDS = 3;
 //const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8010';
-const apiEndpoint = 'http://localhost:8010';
+const apiEndpoint = 'http://localhost:8000';
 
 
 const Game = () => {
@@ -57,7 +57,7 @@ const Game = () => {
     // gets a random question from the database and initializes button states to null
     const startNewRound = () => {
         setAnswered(false);
-        axios.get(`${apiEndpoint}/questions/`)
+        axios.get(`${apiEndpoint}/questions`)
         .then(quest => {
             // every new round it gets a new question from db
             setQuestionData(quest.data);    
