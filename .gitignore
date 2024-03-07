@@ -1,4 +1,9 @@
-node_modules
 coverage
 docs/build
-.vscode
+
+# Node.js dependencies
+node_modules
+
+# IDE/Editor files
+.idea/
+.vscode/

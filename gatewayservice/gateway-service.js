@@ -8,6 +8,8 @@ const port = 8000;
 
 const userServiceUrl = process.env.USER_SERVICE_URL || 'http://users:8001';
 
+const questionGenerationServiceUrl = 'http://questions:8010';
+
 app.use(cors());
 app.use(express.json());
 
@@ -52,6 +54,15 @@ app.post('/user/add', async (req, res) => {
   }
 });
 
+app.get('/questions', async (req, res) => {
+  try {
+    const questionsResponse = await axios.get(questionGenerationServiceUrl+'/questions/');
+    res.json(questionsResponse.data);
+  } catch (error) {
+    res.status(error.response).json({ error: error.response });
+  }
+});
+
 app.post('/user/edit', async (req, res) => {
   try {
     // Forward the add user request to the user service
@@ -83,21 +94,6 @@ app.get('/group/list', async (req, res) => {
   }
 });
 
-app.post('/user/edit', async (req, res) => {
-  try {
-    // Forward the add user request to the user service
-    const userResponse = await axios.post(userServiceUrl + '/user/edit', req.body);
-    res.json(userResponse.data);
-  } catch (error) {
-    if (error.response && error.response.status) {
-      res.status(error.response.status).json({ error: error.response.data.error });
-    } else if (error.message) {
-      res.status(500).json({ error: error.message });
-    } else {
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
-  }
-});
 
 app.post('/group/add', async (req, res) => {
   try {
