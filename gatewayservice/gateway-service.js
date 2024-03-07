@@ -8,7 +8,7 @@ const port = 8000;
 
 const userServiceUrl = process.env.USER_SERVICE_URL || 'http://users:8001';
 
-const questionGenerationServiceUrl = 'http://localhost:8010';
+const questionGenerationServiceUrl = 'http://questions:8010';
 
 app.use(cors());
 app.use(express.json());
