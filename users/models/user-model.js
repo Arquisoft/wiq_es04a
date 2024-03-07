@@ -16,6 +16,7 @@ const User = sequelize.define('User', {
     username: {
         type: DataTypes.STRING,
         primaryKey: true,
+        notEmpty: true,
     },
     password: {
         type: DataTypes.STRING,
@@ -24,10 +25,12 @@ const User = sequelize.define('User', {
     name: {
         type: DataTypes.STRING,
         allowNull: false,
+        notEmpty: true,
     },
     surname: {
         type: DataTypes.STRING,
         allowNull: false,
+        notEmpty: true,
     },
     createdAt: {
         type: DataTypes.DATE,
@@ -63,6 +66,9 @@ const Group = sequelize.define('Group', {
     name: {
         type: DataTypes.STRING,
         primaryKey: true
+    },
+    creator: {
+        type: DataTypes.STRING,
     },
     createdAt: {
         type: DataTypes.DATE,

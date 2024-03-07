@@ -4,6 +4,8 @@ import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import questions from "../data/__questions.json"; //static questions battery, we have to change it
 import { useNavigate } from 'react-router-dom';
+import { SessionContext } from '../SessionContext';
+import { useContext } from 'react';
 import axios from 'axios';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
@@ -14,34 +16,32 @@ const Game = () => {
     const SUCCESS_SOUND_ROUTE = "/sounds/success_sound.mp3";
     const FAILURE_SOUND_ROUTE = "/sounds/wrong_sound.mp3";
 
+    //sesion information
+    const {username} = useContext(SessionContext);
+
     // state initialization
     const [round, setRound] = React.useState(1);
     const [questionData, setQuestionData] = React.useState(null);
     const [buttonStates, setButtonStates] = React.useState([]);
     const [answered, setAnswered] = React.useState(false);
     const [shouldRedirect, setShouldRedirect] = React.useState(false);
-    const [userData, setUserData] = React.useState({
-        username: "Samu11", //change it
-        total_score: 0,
-        correctly_answered_questions: 0,
-        incorrectly_answered_questions: 0,
-        total_time_played: 0, 
-        games_played: 1,
-    }); 
+    const [totalScore, setTotalScore] = React.useState(0);
+    const [correctlyAnsweredQuestions, setCorrectlyAnsweredQuestions] = React.useState(0);
+    const [incorrectlyAnsweredQuestions, setIncorrectlyAnsweredQuestions] = React.useState(0);
+    const [totalTimePlayed, setTotalTimePlayed] = React.useState(0);
+    const [gamesPlayed, setGamesPlayed] = React.useState(1);
     const [timerRunning, setTimerRunning] = React.useState(true); // indicate if the timer is working
 
-    // hook to iniciate timer
     React.useEffect(() => {
         let timer;
+    
         if (timerRunning) {
             timer = setInterval(() => {
-                setUserData((prevUserData) => ({
-                    ...prevUserData,
-                    total_time_played: prevUserData.total_time_played + 1
-                }));
-            }, 1000); 
+                setTotalTimePlayed((prevTotalTime) => prevTotalTime + 1);
+            }, 1000);
         }
-        return () => clearInterval(timer); 
+    
+        return () => clearInterval(timer);
     }, [timerRunning]);
 
     // hook to initiating new rounds if the current number of rounds is less than or equal to 3 
@@ -73,11 +73,8 @@ const Game = () => {
             const sucessSound = new Audio(SUCCESS_SOUND_ROUTE);
             sucessSound.volume = 0.40;
             sucessSound.play();
-            setUserData((prevUserData) => ({
-                ...prevUserData,
-                correctly_answered_questions: prevUserData.correctly_answered_questions + 1,
-                total_score: prevUserData.total_score + 20,
-            }));
+            setCorrectlyAnsweredQuestions(correctlyAnsweredQuestions + 1);
+            setTotalScore(totalScore + 20);
         } else {
             newButtonStates[index] = "failure";
             const failureSound = new Audio(FAILURE_SOUND_ROUTE);
@@ -88,10 +85,7 @@ const Game = () => {
                     newButtonStates[i] = "success";
                 }
             }
-            setUserData(prevUserData => ({
-                ...prevUserData,
-                incorrectly_answered_questions: prevUserData.incorrectly_answered_questions + 1,
-            }));
+            setIncorrectlyAnsweredQuestions(incorrectlyAnsweredQuestions + 1);
         }
 
         setButtonStates(newButtonStates);
@@ -99,7 +93,14 @@ const Game = () => {
         if (round >= 3) {
             // Update user data before redirecting
             try {
-                await axios.post(`${apiEndpoint}/user/edit`, userData);
+                await axios.post(`${apiEndpoint}/user/edit`, {
+                    username:username,
+                    total_score:totalScore,
+                    correctly_answered_questions:correctlyAnsweredQuestions,
+                    incorrectly_answered_questions:incorrectlyAnsweredQuestions,
+                    total_time_played:totalTimePlayed,
+                    games_played:gamesPlayed
+                  });
               } catch (error) {
                 console.error("Error:", error);
               }
@@ -153,19 +154,19 @@ if (shouldRedirect) {
             <Typography 
             variant="h4" 
             sx={{
-                color: userData.correctly_answered_questions > userData.incorrectly_answered_questions ? 'green' : 'red',
+                color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? 'green' : 'red',
                 fontSize: '4rem', // Tamaño de fuente
                 marginTop: '20px', // Espaciado superior
                 marginBottom: '50px', // Espaciado inferior
             }}
         >
-            {userData.correctly_answered_questions > userData.incorrectly_answered_questions ? "Great Job!" : "Game Over"}
+            {correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? "Great Job!" : "Game Over"}
         </Typography>
             <div>
-                <Typography variant="h6">Correct Answers: {userData.correctly_answered_questions}</Typography>
-                <Typography variant="h6">Incorrect Answers: {userData.incorrectly_answered_questions}</Typography>
-                <Typography variant="h6">Total money: {userData.total_score}</Typography>
-                <Typography variant="h6">Time: {userData.total_time_played} seconds</Typography>
+                <Typography variant="h6">Correct Answers: {correctlyAnsweredQuestions}</Typography>
+                <Typography variant="h6">Incorrect Answers: {incorrectlyAnsweredQuestions}</Typography>
+                <Typography variant="h6">Total money: {totalScore}</Typography>
+                <Typography variant="h6">Time: {totalTimePlayed} seconds</Typography>
             </div>
         </Container>
     );
@@ -190,7 +191,7 @@ if (shouldRedirect) {
                     right: '5%', 
                 }}
             >
-                Time: {userData.total_time_played} s
+                Time: {totalTimePlayed} s
             </Typography>
             <Typography variant='h6' >
                 {round} / {MAX_ROUNDS}

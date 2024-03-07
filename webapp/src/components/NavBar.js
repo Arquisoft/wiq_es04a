@@ -17,9 +17,17 @@ const pages = [
   // Add an object for each new page
 ];
 
+// Provisional settings menu for a logged user
+const settings = [
+  { path: '/profile', text: 'Perfil' },
+  { path: '/', text: 'Cerrar Sesión' }
+]
+
 function NavBar() {
   // Width for the nav menu element (?) Is it used later as a boolean ??????
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);  
+  const { username, isLoggedIn, destroySession } = useContext(SessionContext);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -29,13 +37,22 @@ function NavBar() {
     setAnchorElNav(null);
   };
 
-  const { sessionId, username, isLoggedIn, createSession, destroySession } = useContext(SessionContext);
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  const handleLogout = () => {
+    handleCloseUserMenu();
+    destroySession();
+  };
 
   return (
     // position="static" => Barra se desplaza con scroll down
     <AppBar position="static" >
-    {/* The Container component is used to limit the maximum width of the content inside the AppBar. It ensures that the content doesn't extend too far horizontally. */}
-    {/* <Container maxWidth="xl"> */}
       {/* disableGutters -> Remove toolbar's padding */}
       <Toolbar sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
         {/* Menú de Navegación, sólo se muestra en dispositivos móviles */}
@@ -77,29 +94,73 @@ function NavBar() {
               ))}
           </Menu>
         </Box>
-        <Button component={Link} to="/" sx={{'&:hover': { backgroundColor: '#5f7e94'},}}>
+        <Button component={Link} to="/" sx={{'&:hover': { backgroundColor: '#5f7e94' },}}>
             <img src="/white_logo.png" alt="Logo" style={{ height: 40 }} />
         </Button>
-        {/* Pages list in NavBar, only displayed when menu button is not, i.e., in larger devices */}
-        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-          {pages.map((page) => (
-            <Button component={Link} to={page.path} key={page.path} sx={{ color: 'white', display: 'block','&:hover': { backgroundColor: '#5f7e94',  },}}>
-            {page.text}
-        </Button>
-          ))}
-        </Box>
-        {/* Pending: auth depending: if not auth: log in else: menu */}
         
-        <Button component={Link} to={'/login'} sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0, '&:hover': { backgroundColor: '#5f7e94',  }}} >
-          <Typography variant="body2" sx={{ color: 'white', textDecoration: 'none' }}>
-            {isLoggedIn ? `${username}` : "Log In"}
-          </Typography>
-          <IconButton >
-            <Avatar src="/default_user.jpg" alt="Profile pic" sx={{ width: 33, height: 33 }} />
-          </IconButton>
-        </Button>
+        
+        {/* Pages list in NavBar, only displayed when menu button is not, i.e., in larger devices */}
+        {isLoggedIn ? (
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            {pages.map((page) => (
+              <Button component={Link} to={page.path} key={page.path} sx={{ color: 'white', display: 'block','&:hover': { backgroundColor: '#5f7e94' },}}>
+                {page.text}
+              </Button>
+            ))}
+          </Box>
+        ):(
+          <Box></Box>
+        )}
+
+
+        {isLoggedIn ? (
+          <Box>
+            <Button onClick={handleOpenUserMenu} sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0, '&:hover': { backgroundColor: '#5f7e94' }}} >
+              <Typography variant="body2" sx={{ color: 'white', textDecoration: 'none' }}>
+                {username}
+              </Typography>
+              <IconButton >
+                {/* Need to change the image for the user profile one  */}
+                <Avatar src="/default_user.jpg" alt="Profile pic" sx={{ width: 33, height: 33 }} />
+              </IconButton>
+            </Button>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting) => (
+
+                <MenuItem key={setting.path} onClick={setting.path==='/'? handleLogout:handleCloseUserMenu}>
+                  <Link to={setting.path} style={{ textDecoration:'none', color:'inherit' }}>
+                    <Typography textAlign="center">{setting.text}</Typography>
+                  </Link>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+        ):(
+          <Button component={Link} to={'/login'} sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0, '&:hover': { backgroundColor: '#5f7e94' }}} >
+            <Typography variant="body2" sx={{ color: 'white', textDecoration: 'none' }}>
+              Log In
+            </Typography>
+            <IconButton >
+              <Avatar src="/default_user.jpg" alt="Profile pic" sx={{ width: 33, height: 33 }} />
+            </IconButton>
+          </Button>
+        )}        
       </Toolbar>
-    {/* </Container> */}
   </AppBar>
   );
 }

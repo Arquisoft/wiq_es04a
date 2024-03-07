@@ -9,11 +9,11 @@ const apiRoutes = require('../services/group-api');
 // Adding a group to the database
 router.post('/add', async (req, res) => {
     try {
-        const { name } = req.body;
+        const { name,username } = req.body;
 
-        // To be changed when more fileds are added
         const newGroup = await Group.create({
             name: name,
+            creator: username,
             createdAt: new Date()
         });
 
@@ -27,11 +27,12 @@ router.post('/add', async (req, res) => {
 router.post('/:name/join', async (req, res) => {
     try {
         const groupName = req.params.name;
+        const { username } = req.body;
 
-        // Need to get the logged in user for the username
+        // Need to be tested
         const newUserGroup = await UserGroup.create({
             name: groupName,
-            // username: username,
+            username: username,
             createdAt: new Date()
         });
 
