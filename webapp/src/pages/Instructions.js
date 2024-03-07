@@ -30,9 +30,8 @@ const Instructions = () => {
                     <Grid item xs={2}>
                         <img src={info[index].foto} alt="Foto del minijuego" style={{ maxWidth: "100%", border: "2px solid #006699", borderRadius: "5px"}}/>
                     </Grid>
-                    
                     <Grid item xs={2} sx={{ display: "flex", flexDirection: "column", justifyContent: "space-evenly" }}>
-                        <Typography variant="h3" align="center" > {info[index].nombre} </Typography>
+                        <Typography variant="h3" align="center" fontWeight="bold"> {info[index].nombre} </Typography>
                         <Typography  variant="body1" align="center" sx={{ textAlign: "justify", background: "none" }}> {info[index].descripcion} </Typography>
                     </Grid>
                 </Grid>
@@ -46,11 +45,11 @@ const Instructions = () => {
     }
 
     return (
-        <Container sx={{ display: "flex", flexDirection: "column", justifyContent: "center", flexGrow: 1, gap: "2em" }}>
+        <Container sx={{ display: "flex", flexDirection: "column", justifyContent: "center", flexGrow: 1, gap: "2em", padding:"6vh"}}>
             <CssBaseline />
             <Grid container spacing={{ xs: 2, md: 4 }} columns={{ xs: 2, sm: 3, md: 4 }} >
                 <Grid item xs={2} sm={3} md={4}>
-                    <Typography variant="h3" align="center">GAME MODES</Typography>
+                    <Typography variant="h3" align="center" fontWeight="bold">GAME MODES</Typography>
                 </Grid>
                 {info.map((option, index) => (
                     <Grid item xs={1} key={option.nombre} >
