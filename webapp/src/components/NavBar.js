@@ -48,7 +48,6 @@ function NavBar() {
   const handleLogout = () => {
     handleCloseUserMenu();
     destroySession();
-    console.log("hola");
   };
 
   return (

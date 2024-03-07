@@ -68,9 +68,9 @@ app.post('/user/edit', async (req, res) => {
   }
 });
 
-app.get('/group/api/list', async (req, res) => {
+app.get('/group/list', async (req, res) => {
   try {
-    const userResponse = await axios.get(userServiceUrl + '/group/list');
+    const userResponse = await axios.get(userServiceUrl + '/group/api/list');
     res.json(userResponse.data);
   } catch (error) {
     if (error.response && error.response.status) {
