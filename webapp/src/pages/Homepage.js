@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Container, Button, Card, CardActionArea, CardMedia, Box, Pagination} from '@mui/material';
+import { Container, Button, Box, Pagination} from '@mui/material';
 import data from "../data/gameInfo.json";
 
 
@@ -64,16 +64,15 @@ const Homepage = () => {
         if (info !== null) {
             setGamePhoto(
                 <Box sx={{display:{xs:'none', md:'flex'}, flexDirection: "row", justifyContent: "center", alignItems:'center', width:'50%', flexGrow:1}}>
-                    <Card sx={{ width: '80%', height:'20rem' }}>
-                        <CardActionArea>
-                            <CardMedia
-                                component="img"
-                                height="400rem"
-                                image={info[index].foto}
-                                alt="Foto del juego"
-                            />
-                         </CardActionArea>
-                    </Card>
+                    <Box sx={{ width: '55%'}}>
+
+                        <img
+                            style={{ objectFit: 'contain', width: '100%'}}
+                            src={info[index].foto}
+                            alt="Foto del juego"
+                        />
+
+                    </Box>
                 </Box>
             );
         }
@@ -95,7 +94,7 @@ const Homepage = () => {
             displayGames(info, 1,0,4,0)
             displayGamePhoto(0);
         }
-    }, [info, gamePhoto]);
+    });
 
     // Muestra un mensaje de carga mientras se obtienen los info
     if (!info) {return <div>Cargando...</div>; }
