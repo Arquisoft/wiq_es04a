@@ -2,19 +2,17 @@ import * as React from 'react';
 import { Container, Button, Box, Pagination} from '@mui/material';
 import data from "../data/gameInfo.json";
 
-
-
-// Constante que almacena los estilos del boton en estado normal
+// Constant that stores the button styles in normal state
 const buttonClickedStyles = {
     width: "70%",
     height: "50px",
     backgroundColor: '#990000',
     color: '#fff',
-    transition: 'width 0.1s ease-in-out, height 0.1s ease-in-out', // Transición suave para el cambio de tamaño
+    transition: 'width 0.1s ease-in-out, height 0.1s ease-in-out',
     '&:hover': { backgroundColor: '#990000',},
 };
 
-// Constante que almacena los estilos del boton cuando esta clicado
+// Constant that stores the styles of the button when it is clicked
 const buttonNormalStyles = {
     width: "60%",
     height: "50px",
@@ -22,17 +20,16 @@ const buttonNormalStyles = {
 
 const Homepage = () => {
 
-    //Listado de jusgos de esta pagina
+    //List of games on this page
     const [games, setGames] = React.useState(null);
 
-    // Se encarga de generar los botones con los nombres de los juegos y el elemento de paginacion
+    // Responsible for generating the buttons with the names of the games and the pagination element
     const displayGames = (info, page, first, last, activeIndex) => {
         setGames(
             <Box sx={{ display: 'flex', flexDirection: "row", justifyContent: "center", alignItems: 'center', width: '50%', flexGrow: 1,}}>
                     <Box sx={{ display: 'flex', flexDirection: "column", justifyContent: "center", alignItems: 'center', width: '100%' }}>
                         {info.slice(first, last).map((option, index) => (
                             <Box key={option.nombre} sx={{width:'100%', display:'flex', flexDirection: "row", justifyContent: "center", alignItems:'center', margin:'1vh' , flexGrow:1}}>
-
                                 <Button width="100%" size="large" variant="outlined"     sx={activeIndex === index ? buttonClickedStyles : buttonNormalStyles} onClick={() => handleButtonClick(index, first,page)}>
                                     {option.nombre}
                                 </Button>
@@ -44,13 +41,13 @@ const Homepage = () => {
         );
     };
 
-    // Actualizar el número de página seleccionada, juegos de la pagina y foto del juego
+    // Update the selected page number, page games and game photo
     const handlePageChange = (event, page) => {
         displayGames(info, page, (page-1)*4, (page*4),0);
         displayGamePhoto((page-1)*4);
     };
 
-    // Actualizar el número de página seleccionada, juegos de la pagina y foto del juego
+    // Update the selected page number, page games and game photo
     const handleButtonClick = (index, first, page) => {
         displayGames(info, page, (page-1)*4, (page*4), index);
         displayGamePhoto(index+first);
@@ -59,19 +56,17 @@ const Homepage = () => {
     // Game to show info about and the comp with the info
     const [gamePhoto, setGamePhoto] = React.useState(null);
 
-    //Actializar componente que tiene la foto del jeugo seleccionado
+    //Update component that has the photo of the selected game
     const displayGamePhoto = (index) => {
         if (info !== null) {
             setGamePhoto(
                 <Box sx={{display:{xs:'none', md:'flex'}, flexDirection: "row", justifyContent: "center", alignItems:'center', width:'50%', flexGrow:1}}>
                     <Box sx={{ width: '55%'}}>
-
                         <img
                             style={{ objectFit: 'contain', width: '100%'}}
                             src={info[index].foto}
                             alt="Foto del juego"
                         />
-
                     </Box>
                 </Box>
             );
@@ -81,23 +76,23 @@ const Homepage = () => {
     // Whole information about games
     const [info, setInfo] = React.useState(null);
 
-    //Actualiza la informacion del juego
+    //Update the game information
     React.useEffect(() => {
         setInfo(data);
     }, []);
 
-    //Hace la carga inicial de los elementos de la pagina
+    //Does the initial loading of the page elements
     React.useEffect(() => {
-        // Si se ha cargado la información de los juegos (info) y no hay información de juego mostrada actualmente
+        // If game information (info) has been loaded and there is no game information currently displayed
         if (info !== null && gamePhoto === null) {
-            // Mostrar la información del primer juego
+            // Show the information of the first game
             displayGames(info, 1,0,4,0)
             displayGamePhoto(0);
         }
     });
 
-    // Muestra un mensaje de carga mientras se obtienen los info
-    if (!info) {return <div>Cargando...</div>; }
+    // Displays a loading message while the info is being obtained
+    if (!info) {return <div>Loading...</div>; }
 
     return (
         <Container sx={{ display: "flex", flexDirection: "column", flexGrow: 1, paddingTop: "4vh" }}>

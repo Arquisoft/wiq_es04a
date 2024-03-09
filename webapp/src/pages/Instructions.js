@@ -39,7 +39,7 @@ const Instructions = () => {
     };
 
     if (!info) {
-        return <div>Cargando...</div>; // Muestra un mensaje de carga mientras se obtienen los info
+        return <div>Loading...</div>; // Shows a loading message while the information is being obtained
     }
 
     return (
