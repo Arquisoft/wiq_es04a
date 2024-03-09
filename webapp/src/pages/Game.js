@@ -30,7 +30,6 @@ const Game = () => {
     const [correctlyAnsweredQuestions, setCorrectlyAnsweredQuestions] = React.useState(0);
     const [incorrectlyAnsweredQuestions, setIncorrectlyAnsweredQuestions] = React.useState(0);
     const [totalTimePlayed, setTotalTimePlayed] = React.useState(0);
-    const [gamesPlayed, setGamesPlayed] = React.useState(1);
     const [timerRunning, setTimerRunning] = React.useState(true); // indicate if the timer is working
 
     React.useEffect(() => {
@@ -105,7 +104,7 @@ const Game = () => {
                     correctly_answered_questions:correctlyAnsweredQuestions,
                     incorrectly_answered_questions:incorrectlyAnsweredQuestions,
                     total_time_played:totalTimePlayed,
-                    games_played:gamesPlayed
+                    games_played:1
                   });
               } catch (error) {
                 console.error("Error:", error);
