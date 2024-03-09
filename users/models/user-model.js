@@ -20,6 +20,10 @@ const User = sequelize.define('User', {
         type: DataTypes.STRING,
         primaryKey: true,
         notEmpty: true,
+        unique: {
+            args: true,
+            msg: 'An account with that username already exists'
+        },
     },
     password: {
         type: DataTypes.STRING,
