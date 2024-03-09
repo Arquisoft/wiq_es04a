@@ -11,6 +11,12 @@ router.post('/add', async (req, res) => {
     try {
         const { username, password, name, surname, imageUrl } = req.body;
 
+        const user = await User.findOne({ where: { username } });
+
+        if (user != null) {
+            throw new Error('An account with that username already exists');
+        }
+
         // Password validation
         if (password.length < 8) {
             throw new Error('The password must be at least 8 characters long');
