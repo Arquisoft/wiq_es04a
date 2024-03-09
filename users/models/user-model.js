@@ -8,7 +8,10 @@ const sequelize = new Sequelize({
     password: 'R#9aLp2sWu6y',
     database: 'base_de_datos_de_usuarios',
     port: 3306,
-    dialect: 'mariadb'
+    dialect: 'mariadb',
+    dialectOptions: {
+        connectTimeout: 5000 
+    }
 });
 
 // Define the user model
