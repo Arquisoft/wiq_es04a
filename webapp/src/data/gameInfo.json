@@ -1,0 +1,43 @@
+[
+    {
+      "nombre": "WISE MEN STACK",
+      "descripcion":
+            "The player chooses a topic from five available options and must answer a battery of questions related to it within 60 seconds. For each question, the host provides two options. If the contestant guesses correctly, they win €20; otherwise, they move on to the next question (as the correct answer would be the other option). If the time runs out before the question is fully asked and both possible answers are provided, the contestant may still answer it; however, if the statement hasn't been completed (or the options weren't provided), they cannot answer.",
+      "foto": "../gameImg/foto1.jpg"
+    },
+    {
+      "nombre": "DISCARDING",
+      "descripcion": "In this challenge, a work of any type (music, painting, sculpture, literature, scientific, and even works from the world of fiction) is presented, and the contestant must identify its author from four options. The mechanics of this challenge require the contestant to eliminate one of the non-authors so that only the correct author remains undisputed. If solved correctly, €100 is won, but if the author is eliminated, €50 is lost.",
+      "foto": "../gameImg/foto1.jpg"
+    },
+    {
+      "nombre": "WARM QUESTION",
+      "descripcion": "It consists of ten topics of varied themes. For each correct answer, €100 is earned, and €10 are lost if the contestant passes, does not respond, or answers incorrectly. After this challenge, the contestant with the lowest score moves to the rest area, with the possibility of avoiding the challenge thanks to the Last Call test.",
+      "foto": "../gameImg/foto2.jpg"
+    },
+    {
+      "nombre": "DISCOVERING CITIES",
+      "descripcion": "Through photographs and clues provided by Pilar Vázquez, the contestants must guess the city proposed by the program that day. The contestant who goes first after the 'Warm question' will have the right to answer first and for 300 points. If they guess it correctly, they earn the points; if not, there will be a rebound, an additional clue, and a reduction of 100 points for each contestant.",
+      "foto": "../gameImg/foto1.jpg"
+    },
+    {
+      "nombre": "LAST CALL",
+      "descripcion": "The three contestants are positioned according to the scores obtained so far in the program. Six questions related to a specific topic are asked. Before starting, the answers to the six questions are provided. If the contestant's answer is incorrect, €100 is deducted from their score, and it contributes to a jackpot (which starts at zero). If the contestant answers correctly, they add the amount accumulated in the jackpot to their score, and the jackpot resets to zero (if there is nothing accumulated, the score remains the same). The first question is directed to the participant with the highest score, the next to the second highest, and the third to the lowest scorer. For the next three questions, this order is repeated.",
+      "foto": "../gameImg/foto1.jpg"
+    },
+    {
+      "nombre": "THE HUMAN CALCULATOR",
+      "descripcion": "Introduced in 2003, this challenge is the most feared after the main game. In it, the contestant who placed second in Last Call (previously, the loser in The Duel) faces the resolution of 7 arithmetic operations in 30 seconds. In 2021, it was slightly modified to include operations with indirect numbers (e.g., years in a lustrum, dozens, elements that make up something...). If they solve them, they keep the points earned for the day, but if not, they lose all accumulated points for the day (since the introduction of the mixed term, they lose 50% of the day's accumulation).",
+      "foto": "../gameImg/foto3.jpg"
+    },
+    {
+      "nombre": "THE PART FOR THE WHOLE",
+      "descripcion": "This challenge allows one of the contestants to win an extra sum of money, directly added to their total accumulated. The contestants must discover a 'whole', related to each of the 'parts' provided by Elisenda as clues. For their answer to be considered valid, besides discovering the whole, they must describe correctly how each of the parts relates to that whole. All contestants can participate, but in a specific order depending on the score obtained during the program. The game can last for several days until a contestant has the correct and complete answer. First day, the prize starts at 1000 euros, and decreases by 100 euros for each day that passes.",
+      "foto": "../gameImg/foto1.jpg"
+    },
+    {
+      "nombre": "THE CHALLENGE",
+      "descripcion": "In the early days of the program, there was no challenge, so after the hot question, there was always an elimination. This challenge was incorporated in 1998. It is one of the audience's favorite challenges, despite being an elimination round. The contestant with the lowest score after the last call (previously, the contestant with the lowest score after the hot question) gains access to this challenge. The contestant is presented with seven words, of which they only know the first three letters, and with Elisenda Roca's definitions, they must guess all the words in less than 50 seconds. If they guess them correctly, they will participate in the next program; otherwise, their participation ends. In both cases, the points earned that day are added to the total.",
+      "foto": "../gameImg/foto4.jpg"
+    }
+  ]

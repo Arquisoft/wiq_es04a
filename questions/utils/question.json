@@ -1,0 +1,57 @@
+[
+    {
+        "name": "city",
+        "instance": "Q515",
+        "properties": [
+            {   
+                "property": "P1082",
+                "template": "What is the population of x",
+                "filter": ">1000000",
+                "category": ["Geography"]
+            },
+            {   
+                "property": "P1376",
+                "template": "What country is x the capital of",
+                "category": ["Geography"]
+            }
+        ]
+    },
+    {
+        "name": "football",
+        "instance": "Q476028",
+        "properties": [
+            {   
+                "property": "P115",
+                "template": "What is the stadium of x team",
+                "category": ["Sports"]
+            },
+            {
+                "property": "P17",
+                "template": "What is the country of x team",
+                "category": ["Sports", "Geography"]
+            }
+        ]
+    },
+    {
+        "name": "currency",
+        "instance": "Q6256",
+        "properties": [
+            {   
+                "property": "P38",
+                "template": "What currency x has",
+                "category": ["Political"]
+            }
+        ]
+    },
+    {
+        "name": "river",
+        "instance": "Q4022",
+        "properties": [
+            {   
+                "property": "P205",
+                "template": "What country river x is in",
+                "category": ["Geography"]
+            }
+        ]
+    }
+]

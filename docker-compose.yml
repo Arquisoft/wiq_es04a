@@ -11,33 +11,47 @@ services:
     networks:
       - mynetwork
 
-  authservice:
-    container_name: authservice-${teamname:-wiq_0}
-    image: ghcr.io/arquisoft/${teamname:-wiq_0}/authservice:latest
+  mariadb:
+    container_name: mariadb-${teamname:-defaultASW}
+    image: mariadb
     profiles: ["dev", "prod"]
-    build: ./users/authservice
-    depends_on:
-      - mongodb
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: R#9aLp2sWu6y
+      MYSQL_DATABASE: base_de_datos_de_usuarios
     ports:
-      - "8002:8002"
+      - "3306:3306"
     networks:
       - mynetwork
-    environment:
-      MONGODB_URI: mongodb://mongodb:27017/userdb
 
-  userservice:
-    container_name: userservice-${teamname:-wiq_0}
-    image: ghcr.io/arquisoft/${teamname:-wiq_0}/userservice:latest
+  users:
+    container_name: users-${teamname:-defaultASW}
+    image: ghcr.io/arquisoft/wiq_es04a/users:latest
     profiles: ["dev", "prod"]
-    build: ./users/userservice
+    build: ./users
     depends_on:
-      - mongodb
+      - mariadb
     ports:
       - "8001:8001"
     networks:
       - mynetwork
     environment:
-      MONGODB_URI: mongodb://mongodb:27017/userdb
+      DATABASE_URL: mariadb:3306/userdb
+
+  questions:
+      container_name: questions-${teamname:-defaultASW}
+      image: ghcr.io/arquisoft/wiq_es04a/questions:latest
+      profiles: ["dev", "prod"]
+      build: ./questions
+      depends_on:
+        - mongodb
+      ports:
+        - "8010:8010"
+      networks:
+        - mynetwork
+      environment:
+        DATABASE_URI: mongodb://mongodb:27017/questionDB
 
   gatewayservice:
     container_name: gatewayservice-${teamname:-wiq_0}
@@ -45,16 +59,14 @@ services:
     profiles: ["dev", "prod"]
     build: ./gatewayservice
     depends_on:
-      - mongodb
-      - userservice
-      - authservice
+      - users
+      - questions
     ports:
       - "8000:8000"
     networks:
       - mynetwork
     environment:
-      AUTH_SERVICE_URL: http://authservice:8002
-      USER_SERVICE_URL: http://userservice:8001
+      USER_SERVICE_URL: http://users:8001
 
   webapp:
     container_name: webapp-${teamname:-wiq_0}
@@ -101,6 +113,7 @@ services:
 
 
 volumes:
+  mariadb_data:
   mongodb_data:
   prometheus_data: 
   grafana_data: 
