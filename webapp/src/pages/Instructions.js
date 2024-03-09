@@ -1,7 +1,5 @@
 import * as React from "react";
-import { Container } from "@mui/material";
-import CssBaseline from "@mui/material/CssBaseline";
-import { Button, Typography, Grid } from "@mui/material";
+import { Button, Typography, Grid, Container, CssBaseline } from "@mui/material";
 import data from "../data/gameInfo.json";
 
 

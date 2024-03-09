@@ -1,7 +1,5 @@
 import * as React from "react";
-import ImageSlider from "../components/ImageSlider";
-import { Box, Typography, Paper, useTheme } from "@mui/material";
-import data from "../data/sliderData.json";
+import { Box, Typography, useTheme } from "@mui/material";
 
 const Home = () => {
     const theme = useTheme();
