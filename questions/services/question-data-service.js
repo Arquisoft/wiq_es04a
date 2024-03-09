@@ -6,28 +6,6 @@ require('dotenv').config();
 const uri = process.env.DATABASE_URI || 'mongodb://localhost:27017/questionDB';
 mongoose.connect(uri);
 
-// Test data
-const testQuestions = [
-  {
-    question: '¿Cuál es la capital de Francia?',
-    options: ['Berlín', 'París', 'Londres', 'Madrid'],
-    correctAnswer: 'París',
-    category: 'Geografía'
-  },
-  {
-    question: '¿En qué año comenzó la Segunda Guerra Mundial?',
-    options: ['1935', '1938', '1939', '1942'],
-    correctAnswer: '1939',
-    category: 'Historia'
-  },
-  {
-    question: '¿Cuál es el elemento más abundante en la corteza terrestre?',
-    options: ['Hierro', 'Oxígeno', 'Aluminio', 'Silicio'],
-    correctAnswer: 'Oxígeno',
-    category: 'Ciencia'
-  },
-];
-
 module.exports = {
   // Add question to database
   addQuestion : async function(questionData) {
@@ -41,6 +19,7 @@ module.exports = {
   },
 
 
+  //TODO - Filter func not yet implemented
   /**
    * Returns a question from the database that could be filtered using a dictionary and removes it.
    * @param {dict} filter - The dict containing the filter options for mongoose.
@@ -56,6 +35,10 @@ module.exports = {
     }
   },
 
+  /**
+   * Deletes a question from the database.
+   * @param {id} str - The id of the document to be removed
+   */
   deleteQuestionById : async function(id) {
     try {
       await Question.findByIdAndDelete(id);
@@ -66,6 +49,10 @@ module.exports = {
     }
   },
 
+  /**
+   * Returns a the number of questions in the db.
+   * @returns {int} The question count
+   */
   getQuestionCount : async function() {
     try {
       // Obtain total number of questions in database
@@ -138,15 +125,5 @@ module.exports = {
       console.error('Error obtaining random questions (with category): ', error.message);
     }
   },
-
-    
-  // Add test data to db
-  addTestData : async function() {
-    try {
-      await Question.insertMany(testQuestions);
-    } catch (error) {
-      console.error('Error in sample data:', error);
-    }
-  }
 
 };

@@ -69,6 +69,7 @@ async function generateQuestions(n) {
     }
 }
 
+//Get random question from db and deleting it, adding questions if there are less than 10: http://localhost:8010/questions
 router.get('/', async (req, res) => {
     if (await dbService.getQuestionCount() < 10) {
         //Must generate 2 questions
@@ -81,24 +82,6 @@ router.get('/', async (req, res) => {
 
     dbService.deleteQuestionById(question._id);
     console.log(await dbService.getQuestionCount());
-});
-
-// Manejo de la ruta '/questions/add'
-router.get('/add', async (_req, res) => {
-    const questions = [];
-    
-    for (let i = 0; i < 5; i++) {
-        const newQuestion = generateQuestions(1);
-        questions.push(newQuestion);
-        dbService.addQuestion(newQuestion);
-    }
-
-    res.json(questions);
-});
-
-// Enter in this url to load sample questions to db: http://localhost:8010/questions/loadSampleData
-router.get('/loadSampleData', async (_req, res) => {
-    dbService.addTestData();
 });
 
 //Get random questions from db: http://localhost:8010/questions/getQuestionsFromDb/3
