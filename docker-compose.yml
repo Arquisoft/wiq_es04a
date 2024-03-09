@@ -55,7 +55,7 @@ services:
 
   gatewayservice:
     container_name: gatewayservice-${teamname:-wiq_0}
-    image: ghcr.io/arquisoft/${teamname:-wiq_0}/gatewayservice:latest
+    image: ghcr.io/arquisoft/wiq_es04a/gatewayservice:latest
     profiles: ["dev", "prod"]
     build: ./gatewayservice
     depends_on:
@@ -70,7 +70,7 @@ services:
 
   webapp:
     container_name: webapp-${teamname:-wiq_0}
-    image: ghcr.io/arquisoft/${teamname:-wiq_0}/webapp:latest
+    image: ghcr.io/arquisoft/wiq_es04a/webapp:latest
     profiles: ["dev", "prod"]
     build: ./webapp
     depends_on:
