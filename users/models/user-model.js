@@ -10,7 +10,7 @@ const sequelize = new Sequelize({
     port: 3306,
     dialect: 'mariadb',
     dialectOptions: {
-        connectTimeout: 5000 
+        connectTimeout: 20000 
     }
 });
 
