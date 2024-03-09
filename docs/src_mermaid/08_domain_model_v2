@@ -2,14 +2,17 @@ classDiagram
     User "*"-->"1" Contest
     Contest "1"-->"*" Question
     Contest "1"-->"*" Profile
+    Contest "1"-->"*" Group
     Profile "1"-->"1" HistoricalRecord
+    Group "1"-->"*" Profile
     class Contest {
         - List~Question~ questions
         - List~Profile~ profiles
+        - List~Group~ groups
     }
     class Profile {
         - String username
-        - int points
+        - int money
     }
     class Question {
         - String question
@@ -20,4 +23,7 @@ classDiagram
         - List~Question~ right
         - List~Question~ wrong
         - int position
+    }
+    class Group {
+        - List~Profile~ profiles
     }
