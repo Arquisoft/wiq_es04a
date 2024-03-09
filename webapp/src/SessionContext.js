@@ -9,20 +9,20 @@ const SessionProvider = ({ children }) => {
     const [username, setUsername] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
   
-    // This hook recovers user data if available in localstorage when the sessprovider is created
-    // useEffect(() => {
-    //   const storedSessionId = localStorage.getItem('sessionId');
-    //   if (storedSessionId) {
-    //     setSessionId(storedSessionId);
-    //     setIsLoggedIn(true);
+    //This hook recovers user data if available in localstorage when the sessprovider is created
+    useEffect(() => {
+      const storedSessionId = localStorage.getItem('sessionId');
+      if (storedSessionId) {
+        setSessionId(storedSessionId);
+        setIsLoggedIn(true);
         
-    //     // Here you can get the username using the sessionID
-    //     const storedUsername = localStorage.getItem('username');
-    //     if (storedUsername) {
-    //       setUsername(storedUsername);
-    //     }
-    //   }
-    // }, []);
+        // Here you can get the username using the sessionID
+        const storedUsername = localStorage.getItem('username');
+        if (storedUsername) {
+          setUsername(storedUsername);
+        }
+      }
+    }, []);
   
     const createSession = (username) => {
       const newSessionId = uuidv4();
