@@ -56,7 +56,7 @@ app.post('/user/add', async (req, res) => {
 
 app.get('/questions', async (req, res) => {
   try {
-    console.log(process.env.USER_SERVICE_URL);
+    // This not even being executed: console.log(process.env.USER_SERVICE_URL);
     const questionsResponse = await axios.get(`${questionGenerationServiceUrl}/questions`);
     res.json(questionsResponse.data);
   } catch (error) {
