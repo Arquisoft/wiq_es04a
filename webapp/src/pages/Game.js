@@ -9,7 +9,7 @@ import { SessionContext } from '../SessionContext';
 import { useContext } from 'react';
 
 // const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
-const apiEndpoint = 'http://20.80.235.188:8000';
+const apiEndpoint = 'http://gatewayservice-wiq_es04a:8000';
 
 
 const Game = () => {
