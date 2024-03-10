@@ -58,7 +58,7 @@ const Game = () => {
     const startNewRound = () => {
         setAnswered(false);
         console.log(`${apiEndpoint}/questions`);
-        axios.get(`${apiEndpoint}/questions`)
+        axios.get(`http://20.80.235.188:8000/questions`)
         .then(quest => {
             // every new round it gets a new question from db
             setQuestionData(quest.data);    
