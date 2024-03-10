@@ -15,7 +15,7 @@ const Login = () => {
 
   const { createSession } = useContext(SessionContext);
 
-  const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
+  const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://gatewayservice:8000';
 
   const loginUser = async () => {
     try {
