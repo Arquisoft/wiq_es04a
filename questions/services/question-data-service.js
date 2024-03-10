@@ -3,7 +3,7 @@ const Question = require('./question-data-model');
 require('dotenv').config();
 
 //TODO:DATABASE_URI has value but do not work
-const uri = process.env.DATABASE_URI || 'mongodb://localhost:27017/questionDB';
+const uri = process.env.DATABASE_URI || 'mongodb';
 mongoose.connect(uri);
 
 module.exports = {
