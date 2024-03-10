@@ -67,6 +67,7 @@ services:
       - mynetwork
     environment:
       USER_SERVICE_URL: http://users:8001
+      QUESTION_SERVICE_URL: http://questions:8010
 
   webapp:
     container_name: webapp-${teamname:-wiq_0}

@@ -57,6 +57,7 @@ const Game = () => {
     // gets a random question from the database and initializes button states to null
     const startNewRound = () => {
         setAnswered(false);
+        console.log(`${apiEndpoint}/questions`);
         axios.get(`${apiEndpoint}/questions`)
         .then(quest => {
             // every new round it gets a new question from db
