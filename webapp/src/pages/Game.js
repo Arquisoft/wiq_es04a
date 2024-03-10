@@ -8,7 +8,9 @@ import { useNavigate } from 'react-router-dom';
 import { SessionContext } from '../SessionContext';
 import { useContext } from 'react';
 
-const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
+// const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
+const apiEndpoint = 'http://gatewayservice:8000';
+
 
 const Game = () => {
     const navigate = useNavigate();
