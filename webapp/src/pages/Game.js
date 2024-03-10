@@ -57,7 +57,8 @@ const Game = () => {
     // gets a random question from the database and initializes button states to null
     const startNewRound = async () => {
         setAnswered(false);
-        axios.get(`http://20.80.235.188:8000/questions`)
+        // It works deploying using git repo from machine with: axios.get(`http://20.80.235.188:8000/questions`)
+        axios.get(`${apiEndpoint}/questions`)
         .then(quest => {
             // every new round it gets a new question from db
             setQuestionData(quest.data);    
