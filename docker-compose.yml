@@ -80,7 +80,7 @@ services:
       - "3000:3000" 
     networks:
       - mynetwork
-    enviroment:
+    environment:
       REACT_APP_API_ENDPOINT: http://gatewayservice:8000
 
   prometheus:
