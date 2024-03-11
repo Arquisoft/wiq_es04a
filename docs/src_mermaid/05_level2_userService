@@ -1,0 +1,5 @@
+flowchart TD
+    subgraph Whitebox User Service
+    db1[(MariaDB)]
+    end
+    sis1(Gateway service) -.->|Insert/get user| db1

@@ -1,0 +1,5 @@
+flowchart TD
+    subgraph Whitebox Question Generation Service
+    db2[(MariaDb)]
+    end
+    sis1(Gateway Service) -.-> |Get questions| db2

@@ -111,12 +111,13 @@ image:05_level1.png["Diagram 05.2: Level1"]
 
 Motivation::
 
-First decomposition of the system. It shows the webapp, users managament and question generator modules as blackboxes. Also displays the docs module which contains the documentation of the project.
+First decomposition of the system. It shows the webapp, gateway service, user service and question generation service modules as blackboxes.
 
 Contained Building Blocks::
 * **Web App**: It is the main module of the application. 
-* **User Management**: Handles user management.
-* **Question Generation Service**: It is responsible for the automatic generation of questions and answers using the Wikidata API.
+* **Gateway Service**: Handle the communication between the user service and question service modules with the web app service.
+* **Question Generation Service**: Gets questions from Wikidata and handles their loading into the database.
+* **User Service**: Handles the registration and login of users.
 
 === Level 2
 
@@ -134,18 +135,23 @@ part of arc42 for additional levels.
 Specifies the internal structure of _building block Users Management_.
 ****
 
-image:05_level2.png["Diagram 05.2: Level2"]
+image:05_level2_userService.png["Diagram 05.2 User service: Level2"]
 
 Motivation::
 
-Decomposition of the level 1 system. It shows the gateway, users, authentification and database modules as blackboxes.
+Decomposition of the level 1 system. It shows the mongoDB module.
 
 Contained Building Blocks::
-* **Gateway Service**: Express service that is exposed to the public and serves as a proxy to the two next ones.
-* **Authentication Service**: Express service that handles the authentication of users.
-* **User Service**: Express service that handles the insertion of new users in the system.
-* **Data Base**: MongoDB.
+* **MariaDB**: database.
 
-**PENDING TO COMPLETE...**
+image:05_level2_questionGenerationService.png["Diagram 05.2 Question Generation service: Level2"]
+
+Motivation::
+
+Decomposition of the level 1 system. It shows the mariaDB module.
+
+Contained Building Blocks::
+* **MongoDB**: database.
+
 
 
