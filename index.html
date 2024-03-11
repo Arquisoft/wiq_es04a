@@ -1426,7 +1426,7 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 <dl>
 <dt class="hdlist1">Motivation</dt>
 <dd>
-<p>First decomposition of the system. It shows the webapp, users managament and question generator modules as blackboxes. Also displays the docs module which contains the documentation of the project.</p>
+<p>First decomposition of the system. It shows the webapp, gateway service, user service and question generation service modules as blackboxes.</p>
 </dd>
 <dt class="hdlist1">Contained Building Blocks</dt>
 <dd>
@@ -1436,10 +1436,13 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 <p><strong>Web App</strong>: It is the main module of the application.</p>
 </li>
 <li>
-<p><strong>User Management</strong>: Handles user management.</p>
+<p><strong>Gateway Service</strong>: Handle the communication between the user service and question service modules with the web app service.</p>
 </li>
 <li>
-<p><strong>Question Generation Service</strong>: It is responsible for the automatic generation of questions and answers using the Wikidata API.</p>
+<p><strong>Question Generation Service</strong>: Gets questions from Wikidata and handles their loading into the database.</p>
+</li>
+<li>
+<p><strong>User Service</strong>: Handles the registration and login of users.</p>
 </li>
 </ul>
 </div>
@@ -1471,29 +1474,20 @@ part of arc42 for additional levels.</p>
 </div>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="./images/05_level2.png" alt="Diagram 05.2: Level2"></span></p>
+<p><span class="image"><img src="./images/05_level2_userService.png" alt="Diagram 05.2 User service: Level2"></span></p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Motivation</dt>
 <dd>
-<p>Decomposition of the level 1 system. It shows the gateway, users, authentification and database modules as blackboxes.</p>
+<p>Decomposition of the level 1 system. It shows the mongoDB module.</p>
 </dd>
 <dt class="hdlist1">Contained Building Blocks</dt>
 <dd>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Gateway Service</strong>: Express service that is exposed to the public and serves as a proxy to the two next ones.</p>
-</li>
-<li>
-<p><strong>Authentication Service</strong>: Express service that handles the authentication of users.</p>
-</li>
-<li>
-<p><strong>User Service</strong>: Express service that handles the insertion of new users in the system.</p>
-</li>
-<li>
-<p><strong>Data Base</strong>: MongoDB.</p>
+<p><strong>MariaDB</strong>: database.</p>
 </li>
 </ul>
 </div>
@@ -1501,7 +1495,25 @@ part of arc42 for additional levels.</p>
 </dl>
 </div>
 <div class="paragraph">
-<p><strong>PENDING TO COMPLETE&#8230;&#8203;</strong></p>
+<p><span class="image"><img src="./images/05_level2_questionGenerationService.png" alt="Diagram 05.2 Question Generation service: Level2"></span></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Motivation</dt>
+<dd>
+<p>Decomposition of the level 1 system. It shows the mariaDB module.</p>
+</dd>
+<dt class="hdlist1">Contained Building Blocks</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>MongoDB</strong>: database.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -2434,7 +2446,7 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2024-02-20 13:51:13 +0100
+Last updated 2024-02-23 17:57:01 +0100
 </div>
 </div>
 </body>
