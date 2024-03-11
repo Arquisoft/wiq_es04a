@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar, Box, Divider } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://gatewayservice:8000';
+const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const AddUser = () => {
   const [username, setUsername] = useState('');

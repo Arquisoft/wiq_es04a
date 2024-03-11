@@ -6,9 +6,9 @@ const promBundle = require('express-prom-bundle');
 const app = express();
 const port = 8000;
 
-const userServiceUrl = process.env.USER_SERVICE_URL || 'http://users:8001';
+const userServiceUrl = process.env.USER_SERVICE_URL || 'http://localhost:8001';
 
-const questionGenerationServiceUrl = process.env.QUESTION_SERVICE_URL || 'http://questions:8010';
+const questionGenerationServiceUrl = process.env.QUESTION_SERVICE_URL || 'http://localhost:8010';
 
 app.use(cors());
 app.use(express.json());
