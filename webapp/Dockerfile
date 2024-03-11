@@ -1,21 +1,18 @@
 FROM node:20
 
+COPY . /app
 WORKDIR /app
 
-# Copiar solo el archivo package.json
-COPY package.json .
-
-# Install dependencies
+#Install the dependencies
 RUN npm install
 
-# Copiar el resto del código
-COPY . .
+ARG API_URI="http://localhost:8000"
+ENV REACT_APP_API_ENDPOINT=$API_URI
 
-# Build the app
+#Create an optimized version of the webapp
 RUN npm run build
-
-# Instalar serve
 RUN npm install serve
 
-#CMD ["serve", "-s", "build"]
-
+#Execute npm run prod to run the server
+CMD [ "npm", "run", "prod" ]
+#CMD ["npm", "start"]
