@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Question = require('./question-data-model');
 require('dotenv').config();
 
-const uri = process.env.DATABASE_URI || 'http://localhost:27017';
+const uri = process.env.DATABASE_URI || 'mongodb://localhost:27017/questionDB';
 mongoose.connect(uri);
 
 module.exports = {
