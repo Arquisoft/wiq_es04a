@@ -83,7 +83,7 @@ services:
 
   prometheus:
     image: prom/prometheus
-    container_name: prometheus-${teamname:-wiq_0}
+    container_name: prometheus
     profiles: ["dev"]
     networks:
       - mynetwork
@@ -97,7 +97,7 @@ services:
       
   grafana:
     image: grafana/grafana
-    container_name: grafana-${teamname:-wiq_0}
+    container_name: grafana
     profiles: ["dev"]
     networks:
       - mynetwork
