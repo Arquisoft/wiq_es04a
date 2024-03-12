@@ -6,9 +6,9 @@ const promBundle = require('express-prom-bundle');
 const app = express();
 const port = 8000;
 
-const userServiceUrl = process.env.USER_SERVICE_URL || 'http://users:8001';
+const userServiceUrl = process.env.USER_SERVICE_URL || 'http://localhost:8001';
 
-const questionGenerationServiceUrl = 'http://questions:8010';
+const questionGenerationServiceUrl = process.env.QUESTION_SERVICE_URL || 'http://localhost:8010';
 
 app.use(cors());
 app.use(express.json());
@@ -56,7 +56,8 @@ app.post('/user/add', async (req, res) => {
 
 app.get('/questions', async (req, res) => {
   try {
-    const questionsResponse = await axios.get(questionGenerationServiceUrl+'/questions/');
+    // This not even being executed: console.log(process.env.USER_SERVICE_URL);
+    const questionsResponse = await axios.get(`${questionGenerationServiceUrl}/questions`);
     res.json(questionsResponse.data);
   } catch (error) {
     res.status(error.response).json({ error: error.response });

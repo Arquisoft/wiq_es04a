@@ -1,5 +1,5 @@
 {
-  "name": "questiongeneration",
+  "name": "questions",
   "version": "0.0.1",
   "description": "Question generation module",
   "main": "index.js",

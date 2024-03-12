@@ -8,8 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import { SessionContext } from '../SessionContext';
 import { useContext } from 'react';
 
-//const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8010';
-const apiEndpoint = 'http://localhost:8000';
+const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
+
 
 const Game = () => {
     const navigate = useNavigate();
@@ -30,7 +30,6 @@ const Game = () => {
     const [correctlyAnsweredQuestions, setCorrectlyAnsweredQuestions] = React.useState(0);
     const [incorrectlyAnsweredQuestions, setIncorrectlyAnsweredQuestions] = React.useState(0);
     const [totalTimePlayed, setTotalTimePlayed] = React.useState(0);
-    const [gamesPlayed, setGamesPlayed] = React.useState(1);
     const [timerRunning, setTimerRunning] = React.useState(true); // indicate if the timer is working
 
     React.useEffect(() => {
@@ -55,8 +54,9 @@ const Game = () => {
     }, [round]);
 
     // gets a random question from the database and initializes button states to null
-    const startNewRound = () => {
+    const startNewRound = async () => {
         setAnswered(false);
+        // It works deploying using git repo from machine with: axios.get(`http://20.80.235.188:8000/questions`)
         axios.get(`${apiEndpoint}/questions`)
         .then(quest => {
             // every new round it gets a new question from db
@@ -105,7 +105,7 @@ const Game = () => {
                     correctly_answered_questions:correctlyAnsweredQuestions,
                     incorrectly_answered_questions:incorrectlyAnsweredQuestions,
                     total_time_played:totalTimePlayed,
-                    games_played:gamesPlayed
+                    games_played:1
                   });
               } catch (error) {
                 console.error("Error:", error);

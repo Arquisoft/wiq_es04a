@@ -81,7 +81,6 @@ router.get('/', async (req, res) => {
     res.json(question);
 
     dbService.deleteQuestionById(question._id);
-    console.log(await dbService.getQuestionCount());
 });
 
 //Get random questions from db: http://localhost:8010/questions/getQuestionsFromDb/3
