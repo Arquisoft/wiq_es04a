@@ -71,13 +71,29 @@ See https://docs.arc42.org/section-12/[Glossary] in the arc42 documentation.
 |Name of the fictitious company under which the members of the group will simulate that we have been hired to develop the application. 
 |_N/A_
 
+|Human Calculator
+|Test where complex mathematical problems are presented to them which they must solve mentally within a limited time. Contestants must be able to perform arithmetic operations such as addition, subtraction, multiplication, and division almost instantaneously and without failing.
+|Calculadora humana
+
 |Know & Win
 |Popular Spanish television program that combines quiz shows with educational entertainment aired daily on La 2 of Televisión Española. The show is known for its unique format, which includes a variety of challenges and tests where contestants demonstrate their knowledge in different areas such as history, geography, science, popular culture, literature, art, among other subjects. 
 |"Saber Y Ganar"
 
-|User
-|Player who can register and then login into the app to play some of the different quizes explained around this explanation.
-|Usuario
+|Last Call
+|Test where contestants have the opportunity to accumulate additional points at the end of the game. In this phase, quick and direct questions on various topics of general culture are asked and contestants must answer correctly to earn points, but they can also lose points if they answer incorrectly.
+|Última llamada
+
+|Player
+|User who can register and then login into the app to play some of the different quizes explained around this explanation.
+|Jugador
+
+|The Challenge
+|Test where contestants must face a series of questions or activities that test their knowledge and skills in a specific area, such as general culture, history, science, art, among other topics. This test may consist of answering multiple-choice questions, completing sentences, identifying images, or performing activities related to the subject matter.
+|El desafío
+
+|The part for the whole
+|test where the contestants must discover a 'whole', related to each of the 'parts' provided as clues. For their answer to be considered valid, besides discovering the whole, they must describe correctly how each of the parts relates to that whole. This game can last for several days until a contestant has the correct and complete answer.
+|La parte por el todo
 
 |Warm question
 |Test in which contestants' aim is to answer questions rapidly and accurately, requiring quick thinking, as questions are presented rapidly without pauses between them. Contestants strive to provide correct answers to accumulate points, but they must also carefully assess the risk of answering incorrectly, which could lead to losing points.
