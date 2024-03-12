@@ -21,12 +21,12 @@ This is a base repo for the [Software Architecture course](http://arquisoft.gith
 
 This repo is a basic application composed of several components.
 
-- **Gateway service**. Express service that is exposed to the public and serves as a proxy to the two previous ones.
-- **User service**. Express service that handles the insertion of new users in the system.
-- **Auth service**. Express service that handles the authentication of users.
-- **Webapp**. React web application that uses the gateway service to allow basic login and new user features.
+- **Webapp**. React web application that uses the gateway service to allow people register and enjoy playing different modes.
+- **Gateway service**. Express service that is exposed to the public and serves as a proxy to the following ones.
+- **Users**. Express service that handles the managment of the users and their groups in the system.
+- **Questions**. Express service that handles the managment of the questions generated for the game in the system.
 
-Both the user and auth service share a Mongo database that is accessed with mongoose.
+The Users service uses a MariaDB DBMS accesed with sequelizer and questions service uses MongoDB accesed with mongoose.
 
 ## Quick start guide
 
