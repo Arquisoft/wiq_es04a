@@ -13,8 +13,6 @@
 | Andina Pailos, Daniel  | <a href="https://github.com/and1na"><img src="https://img.shields.io/badge/and1na-Daniel Andina-violet"></a>  |
 
 
-# wiq_es04a
-
 [![Deploy on release](https://github.com/Arquisoft/wiq_es04a/actions/workflows/release.yml/badge.svg)](https://github.com/Arquisoft/wiq_es04a/actions/workflows/release.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_es04a&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_es04a)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_es04a&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_es04a)
