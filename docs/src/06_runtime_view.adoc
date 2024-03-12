@@ -40,7 +40,7 @@ See https://docs.arc42.org/section-6/[Runtime View] in the arc42 documentation.
 
 === Register Scenario
 
-image:06_register_sequence.png["Register Sequence"]
+image:06_register_seq.png["Register Sequence"]
 
 === Login Scenario
 
