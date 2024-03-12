@@ -44,6 +44,6 @@ image:06_register_sequence.png["Register Sequence"]
 
 === Login Scenario
 
-image:06_login_sequence.png["Login Sequence"]
+image:06_login_seq.png["Login Sequence"]
 
 === TBD
