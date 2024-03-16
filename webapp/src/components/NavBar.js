@@ -85,7 +85,9 @@ function NavBar() {
             </Menu>
           </Box>
         ):(
+          <Button component={Link} to="/" sx={{'&:hover': { backgroundColor: '#5f7e94' },}}>
             <img src="/white_logo.png" alt="Logo" style={{ height: 40 }} />
+          </Button>
         )}
         
         
@@ -111,7 +113,7 @@ function NavBar() {
         {isLoggedIn ? (
           <Box sx={{ display:'flex', alignItems:'center' }}>
             <Button component={Link} to="/profile" sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0, '&:hover': { backgroundColor: '#5f7e94' }}} >
-              <Typography variant="body2" sx={{ color: 'white', textDecoration: 'none',paddingLeft:'0.5em' }}>
+              <Typography variant="body2" sx={{ color: 'white', textDecoration: 'none', paddingLeft:'0.5em' }}>
                 {username}
               </Typography>
               <IconButton>
@@ -125,7 +127,7 @@ function NavBar() {
           </Box>
         ):(
           <Button component={Link} to={'/login'} sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0, '&:hover': { backgroundColor: '#5f7e94' }}} >
-            <Typography variant="body2" sx={{ color: 'white', textDecoration: 'none' }}>
+            <Typography variant="body2" sx={{ color: 'white', textDecoration: 'none', paddingLeft:'0.5em' }}>
               Log In
             </Typography>
             <IconButton >

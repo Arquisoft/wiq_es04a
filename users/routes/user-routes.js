@@ -9,7 +9,7 @@ const apiRoutes = require('../services/user-api');
 // Route for add a user
 router.post('/add', async (req, res) => {
     try {
-        const { username, password, name, surname, imageUrl } = req.body;
+        const { username, password, name, surname } = req.body;
 
         const user = await User.findOne({ where: { username } });
 
@@ -17,8 +17,13 @@ router.post('/add', async (req, res) => {
             throw new Error('An account with that username already exists');
         }
 
+        // Email validation
+        if (username.trim().length < 4) {
+            throw new Error('The username must be at least 4 characters long');
+        }
+
         // Password validation
-        if (password.length < 8) {
+        if (password.trim().length < 8) {
             throw new Error('The password must be at least 8 characters long');
         }
         if (!/\d/.test(password)) {
@@ -26,6 +31,16 @@ router.post('/add', async (req, res) => {
         }
         if (!/[A-Z]/.test(password)) {
             throw new Error('The password must contain at least one uppercase letter');
+        }
+
+        // Name validation
+        if (!name.trim()) {
+            throw new Error('The name cannot be empty or contain only spaces');
+        }
+        
+        // Surname validation
+        if (!surname.trim()) {
+            throw new Error('The surname cannot be empty or contain only spaces');
         }
 
         // Hash the password
@@ -38,8 +53,7 @@ router.post('/add', async (req, res) => {
             createdAt: new Date(),
             updatedAt: new Date(),
             name,
-            surname,
-            imageUrl,
+            surname
         });
 
         res.json(newUser);
