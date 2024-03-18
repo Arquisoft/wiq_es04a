@@ -1,4 +1,4 @@
-## Wkidata Infinite Quest
+# Wkidata Infinite Quest
 🌐 http://20.80.235.188:3000/
 ## 👨‍💻 Contributors:
 
