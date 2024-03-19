@@ -9,13 +9,13 @@ const apiRoutes = require('../services/statics-api');
 router.post('/edit', async (req, res) => {
     try {
 
-        const { userId, earned_money, classic_correctly_answered_questions, classic_incorrectly_answered_questions, 
+        const { username, earned_money, classic_correctly_answered_questions, classic_incorrectly_answered_questions, 
             classic_total_time_played, classic_games_played } = req.body;
 
         // Find the user in the database by their username
         const staticsUserToUpdate = await Statics.findOne({
             where: {
-                userId: userId
+                username: username
             }
         });
 

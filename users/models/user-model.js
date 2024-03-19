@@ -75,7 +75,7 @@ Group.belongsToMany(User, { through: UserGroup });
 // Define the statics model
 const Statics = sequelize.define('Statics', {
     // Add userId column as foreign key
-    userId: {
+    username: {
         type: DataTypes.STRING,
         primaryKey: true,
         allowNull: false
@@ -104,8 +104,8 @@ const Statics = sequelize.define('Statics', {
 })
 
 // Define the relationship between User and Statics
-User.hasOne(Statics, { foreignKey: 'userId' });
-Statics.belongsTo(User, { foreignKey: 'userId' });
+User.hasOne(Statics, { foreignKey: 'username' });
+Statics.belongsTo(User, { foreignKey: 'username' });
 
 // Synchronize the model with the database
 sequelize.sync()
