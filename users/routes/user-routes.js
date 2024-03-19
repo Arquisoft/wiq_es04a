@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const { User } = require('../models/user-model');
+const { User, Statics } = require('../models/user-model');
 
 //User internal routes
 const apiRoutes = require('../services/user-api');
@@ -41,6 +41,11 @@ router.post('/add', async (req, res) => {
             surname,
             imageUrl,
         });
+
+        // Create the user statics
+        await Statics.create({
+            username,
+        })
 
         res.json(newUser);
     } catch (error) {
