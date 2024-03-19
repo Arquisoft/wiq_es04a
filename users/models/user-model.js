@@ -74,29 +74,29 @@ Group.belongsToMany(User, { through: UserGroup });
 
 // Define the statics model
 const Statics = sequelize.define('Statics', {
-     // Add userId column as foreign key
-     userId: {
+    // Add userId column as foreign key
+    userId: {
         type: DataTypes.STRING,
         primaryKey: true,
         allowNull: false
     },
-    total_score: {
+    earned_money: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
     },
-    correctly_answered_questions: {
+    classic_correctly_answered_questions: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
     },
-    incorrectly_answered_questions: {
+    classic_incorrectly_answered_questions: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
     },
-    total_time_played: {
+    classic_total_time_played: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
     },
-    games_played: {
+    classic_games_played: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
     }
