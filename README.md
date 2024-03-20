@@ -1,5 +1,5 @@
 # Wkidata Infinite Quest
-🌐 http://20.19.89.97:3000/
+🌐 [wikiquest.sytes.net](http://wikiquest.sytes.net/)
 ## 👨‍💻 Contributors:
 
 | Contributor | Contact |
