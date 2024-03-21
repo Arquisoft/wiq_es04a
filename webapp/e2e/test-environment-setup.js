@@ -1,33 +1,22 @@
-////const { MongoMemoryServer } = require('mongodb-memory-server');
 const userMemoryDatabase = require('mysql2-promise')();
 
-//let mongoserver;
 let userservice;
 let gatewayservice;
 
 async function startServer() {
-    //console.log('Starting MongoDB memory server...');
-    //mongoserver = await MongoMemoryServer.create();
-    //const mongoUri = mongoserver.getUri();
-    //process.env.MONGODB_URI = mongoUri;
-
-    const mariadbConfig = {
-        host: 'localhost',
-        user: 'root',
-        database: 'base_de_datos_de_usuarios',
-        memory: true
-    };
-    //con = await userMemoryDatabase.createConnection(mariadbConfig);
 
     userMemoryDatabase.configure({
         "host": "mariadb",
-        "user": "foo",
-        "password": "bar",
-        "database": "base_de_datos_de_usuarios"
+        "user": "root",
+        "password": "R#9aLp2sWu6y",
+        "database": "base_de_datos_de_usuarios",
+        "port": 3306,
+        "dialect": 'mariadb'
     });
 
-    userservice = await require("../../users/index");
     gatewayservice = await require("../../gatewayservice/gateway-service");
+    userservice = await require("../../users/index");
+    
   }
 
   startServer();
