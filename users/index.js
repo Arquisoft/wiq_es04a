@@ -2,6 +2,13 @@
 const express = require('express');
 
 
+let expressSession = require('express-session');
+app.use(expressSession({
+ secret: 'abcdefg', //put in environment vars or secrets
+ resave: true,
+ saveUninitialized: true
+}));
+
 // Routes:
 const authRoutes = require('./routes/auth-routes.js');
 const userRoutes = require('./routes/user-routes.js');
