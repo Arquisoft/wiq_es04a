@@ -4,7 +4,6 @@ const userMemoryDatabase = require('mysql2-promise')();
 //let mongoserver;
 let userservice;
 let gatewayservice;
-let con;
 
 async function startServer() {
     //console.log('Starting MongoDB memory server...');
