@@ -1,4 +1,4 @@
-# Wkidata Infinite Quest
+# Wikidata Infinite Quest
 🌐 [wikiquest.sytes.net](http://wikiquest.sytes.net/)
 ## 👨‍💻 Contributors:
 
@@ -22,9 +22,9 @@ This is a base repo for the [Software Architecture course](http://arquisoft.gith
 This repo is a basic application composed of several components.
 
 - **Gateway service**. Express service that is exposed to the public and serves as a proxy to the two previous ones.
-- **User service**. Express service that handles the insertion of new users in the system.
-- **Auth service**. Express service that handles the authentication of users.
+- **Users service**. Express service that handles the insertion and authentication of users in the system.
 - **Webapp**. React web application that uses the gateway service to allow basic login and new user features.
+- **Questions**. Express service that generates questions for the game and has an api to get questions.
 
 Both the user and auth service share a Mongo database that is accessed with mongoose.
 
