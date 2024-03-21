@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const { User } = require('../models/user-model');
 
 
@@ -23,24 +22,8 @@ router.post('/', async (req, res) => {
   
       // Check if the user exists and verify the password
       if (user && user.username === username && await bcrypt.compare(password, user.password)) {
-        
-        // Token payload
-        const payload = {
-          userId: username
-        };
-
-        //CHANGE THIS TO ENVIRONMENT VARS (NOT PUBLIC)
-        const secretKey = 'eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTcwOTQ2OTkzMywiaWF0IjoxNzA5NDY5OTMzfQ.pQ8H6FKeZyEHPnGs4Ah3-n-QXJ5E8YM_u1AfZHI7Ip0';
-
-        const options = {
-          expiresIn: '1h'
-        };
-
-        //Token sign and creation
-        const token = jwt.sign(payload, secretKey, options);
-        
-        //This should save token in user's browser, it doesn't seem to do anything
-        res.cookie("token", token); // maxAge (millis) = 1 hour
+ 
+        req.session.username = user.username;
 
         // Respond with the token and user information
         return res.status(200).json({ token, username, createdAt: user.createdAt });
