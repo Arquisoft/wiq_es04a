@@ -64,6 +64,12 @@ app.get('/questions', async (req, res) => {
   }
 });
 
+//Method for getting the user session
+app.get('/user/session',async (req, res) => {
+  const session = await axios.get(userServiceUrl + '/user/session');
+  res.json(session);
+});
+
 app.post('/user/edit', async (req, res) => {
   try {
     // Forward the add user request to the user service

@@ -55,6 +55,12 @@ router.post('/add', async (req, res) => {
     }
 });
 
+
+// Route for add a user
+router.get('/session', async (req, res) => {
+    res.json({ session: req.session });
+});
+
 // Route for edit a user
 router.post('/edit', async (req, res) => {
     try {

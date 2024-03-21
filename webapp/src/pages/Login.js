@@ -22,7 +22,18 @@ const Login = () => {
       const response = await axios.post(`${apiEndpoint}/login`, { username, password });
 
       //TODO: Here session would have been created and accessible through some get method implemented in users module
-      
+      axios.get(`${apiEndpoint}/user/session`)
+      .then(session => {
+          
+        //Use the session, maybe using the sessioncontext???
+
+
+      }).catch(error => {
+          console.error(error);
+      }); 
+
+
+
       // Extract data from the response
       const { createdAt: userCreatedAt } = response.data;
       setCreatedAt(userCreatedAt);
