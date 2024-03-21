@@ -52,6 +52,7 @@
     "mongodb-memory-server": "^9.1.4",
     "puppeteer": "^21.7.0",
     "serve": "^14.2.1",
-    "start-server-and-test": "^2.0.3"
+    "start-server-and-test": "^2.0.3",
+    "mysql2-promise": "^0.1.4"
   }
 }
