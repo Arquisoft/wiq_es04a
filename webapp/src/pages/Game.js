@@ -219,7 +219,7 @@ if (shouldRedirect) {
                   colors={["#0bfc03", "#F7B801", "#f50707", "#A30000"]}
                   size={100}
                   colorsTime={[10, 6, 3, 0]}
-                  onComplete={() => ({ shouldRepeat: true, delay: 1 })}
+                  onComplete={() => selectResponse(0, "FAILED")} //when time ends always fail question
                 >
                   {({ remainingTime }) => {
                     return (
