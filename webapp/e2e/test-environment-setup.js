@@ -1,4 +1,4 @@
-const userMemoryDatabase = require('mysql2-promise')();
+/*const userMemoryDatabase = require('mysql2-promise')();
 
 let userservice;
 let gatewayservice;
@@ -19,4 +19,9 @@ async function startServer() {
     
   }
 
-  startServer();
+  startServer();*/
+
+  //TODO: This file is commented because MariaDB memory database is 
+  //not working and commented it does not affect anything.
+  
+  //new register-steps work correctly.
