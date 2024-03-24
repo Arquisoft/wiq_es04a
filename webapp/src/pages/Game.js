@@ -7,6 +7,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { useNavigate } from 'react-router-dom';
 import { SessionContext } from '../SessionContext';
 import { useContext } from 'react';
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -202,9 +203,26 @@ if (shouldRedirect) {
             <Typography variant='h6' >
                 {round} / {MAX_ROUNDS}
             </Typography>
-            <Typography variant="h5" mb={2}>
-                {questionData.question}
+            <Typography variant="h5" mb={4} fontWeight="bold" style={{ display: 'flex', alignItems: 'center' }}>
+            <span style={{ marginRight: '1em' }}>{questionData.question}</span>
+                <CountdownCircleTimer
+                  isPlaying
+                  duration={15}
+                  colors={["#0bfc03", "#F7B801", "#f50707", "#A30000"]}
+                  size={100}
+                  colorsTime={[10, 6, 3, 0]}
+                  onComplete={() => ({ shouldRepeat: true, delay: 1 })}
+                >
+                  {({ remainingTime }) => {
+                    return (
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <div style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{remainingTime}</div>
+                      </div>
+                    );
+                  }}
+                </CountdownCircleTimer>
             </Typography>
+
             <Grid container spacing={2}>
                 {questionData.options.map((option, index) => (
                     <Grid item xs={12} key={index}>
