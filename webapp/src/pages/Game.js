@@ -99,13 +99,13 @@ const Game = () => {
         if (round >= 3) {
             // Update user data before redirecting
             try {
-                await axios.post(`${apiEndpoint}/user/edit`, {
+                await axios.post(`${apiEndpoint}/statics/edit`, {
                     username:username,
-                    total_score:totalScore,
-                    correctly_answered_questions:correctlyAnsweredQuestions,
-                    incorrectly_answered_questions:incorrectlyAnsweredQuestions,
-                    total_time_played:totalTimePlayed,
-                    games_played:1
+                    earned_money:totalScore,
+                    classic_correctly_answered_questions:correctlyAnsweredQuestions,
+                    classic_incorrectly_answered_questions:incorrectlyAnsweredQuestions,
+                    classic_total_time_played:totalTimePlayed,
+                    classic_games_played:1
                   });
               } catch (error) {
                 console.error("Error:", error);

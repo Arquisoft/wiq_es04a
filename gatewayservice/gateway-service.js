@@ -64,10 +64,10 @@ app.get('/questions', async (req, res) => {
   }
 });
 
-app.post('/user/edit', async (req, res) => {
+app.post('/statics/edit', async (req, res) => {
   try {
-    // Forward the add user request to the user service
-    const userResponse = await axios.post(userServiceUrl + '/user/edit', req.body);
+    // Forward the user statics edit request to the user service
+    const userResponse = await axios.post(userServiceUrl + '/statics/edit', req.body);
     res.json(userResponse.data);
   } catch (error) {
     if (error.response && error.response.status) {

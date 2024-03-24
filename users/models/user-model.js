@@ -42,29 +42,10 @@ const User = sequelize.define('User', {
     imageUrl: {
         type: DataTypes.STRING,
         defaultValue: "../../webapp/public/default_user.jpg",
-    },
-    total_score: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
-    },
-    correctly_answered_questions: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
-    },
-    incorrectly_answered_questions: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
-    },
-    total_time_played: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
-    },
-    games_played: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
     }
 });
 
+// Define the group model
 const Group = sequelize.define('Group', {
     name: {
         type: DataTypes.STRING,
@@ -80,6 +61,7 @@ const Group = sequelize.define('Group', {
     // When the session is introduced, the creator user and more stuff will be added
 })
 
+// Define the user group model
 const UserGroup = sequelize.define('UserGroup', {
     enteredAt: {
         type: DataTypes.DATE,
@@ -89,6 +71,41 @@ const UserGroup = sequelize.define('UserGroup', {
 
 User.belongsToMany(Group, { through: UserGroup });
 Group.belongsToMany(User, { through: UserGroup });
+
+// Define the statics model
+const Statics = sequelize.define('Statics', {
+    // Add userId column as foreign key
+    username: {
+        type: DataTypes.STRING,
+        primaryKey: true,
+        allowNull: false
+    },
+    earned_money: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    classic_correctly_answered_questions: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    classic_incorrectly_answered_questions: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    classic_total_time_played: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    classic_games_played: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    }
+    //we have to add more statics for more games
+})
+
+// Define the relationship between User and Statics
+User.hasOne(Statics, { foreignKey: 'username' });
+Statics.belongsTo(User, { foreignKey: 'username' });
 
 // Synchronize the model with the database
 sequelize.sync()
@@ -109,4 +126,4 @@ sequelize
         console.error('Error connecting to the database:', err);
     });
 
-module.exports = { sequelize, User, Group, UserGroup };
+module.exports = { sequelize, User, Group, UserGroup, Statics };
