@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import { SessionContext } from '../SessionContext';
 import { useContext } from 'react';
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -34,6 +36,8 @@ const Game = () => {
     const [timerRunning, setTimerRunning] = React.useState(true); // indicate if the timer is working
     const [questionCountdownKey, setQuestionCountdownKey] = React.useState(15); //key to update question timer
     const [questionCountdownRunning, setQuestionCountdownRunning] = React.useState(false); //property to start and stop question timer
+
+    const [questionHistorial, setQuestionHistorial] = React.useState(Array(MAX_ROUNDS).fill(null));
 
 
     React.useEffect(() => {
@@ -90,6 +94,10 @@ const Game = () => {
             sucessSound.play();
             setCorrectlyAnsweredQuestions(correctlyAnsweredQuestions + 1);
             setTotalScore(totalScore + 20);
+
+            const newQuestionHistorial = [...questionHistorial];
+            newQuestionHistorial[round-1] = true;
+            setQuestionHistorial(newQuestionHistorial);
         } else {
             newButtonStates[index] = "failure";
             const failureSound = new Audio(FAILURE_SOUND_ROUTE);
@@ -101,6 +109,10 @@ const Game = () => {
                 }
             }
             setIncorrectlyAnsweredQuestions(incorrectlyAnsweredQuestions + 1);
+
+            const newQuestionHistorial = [...questionHistorial];
+            newQuestionHistorial[round-1] = false;
+            setQuestionHistorial(newQuestionHistorial);
         }
 
         setButtonStates(newButtonStates);
@@ -126,6 +138,22 @@ const Game = () => {
             setButtonStates([]);
         }, 2000);
     };
+
+    const questionHistorialBar = () => {
+        return questionHistorial.map((isCorrect, index) => (
+        <Card 
+          key={index + 1}
+          variant="outlined"
+          style={{ 
+            width: `${100 / MAX_ROUNDS}%`,
+            marginRight: '0.6em',
+            backgroundColor: isCorrect === null ? 'gray' : isCorrect ? 'lightgreen' : 'salmon',
+          }}
+        >
+          <CardContent>{index + 1}</CardContent>
+        </Card>
+        ));
+      };    
 
 
     // circular loading
@@ -208,6 +236,25 @@ if (shouldRedirect) {
             >
                 Game time: {totalTimePlayed} s
             </Typography>
+
+            <Container
+            sx={{
+                position: 'absolute',
+                top: '10%', 
+                right: '20%', 
+            }}>
+                <Container
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                    }}
+                >
+                    {questionHistorialBar()}
+                </Container>
+            </Container>
+            
+
             <Typography variant='h6' >
                 {round} / {MAX_ROUNDS}
             </Typography>
