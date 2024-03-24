@@ -32,8 +32,9 @@ const Game = () => {
     const [incorrectlyAnsweredQuestions, setIncorrectlyAnsweredQuestions] = React.useState(0);
     const [totalTimePlayed, setTotalTimePlayed] = React.useState(0);
     const [timerRunning, setTimerRunning] = React.useState(true); // indicate if the timer is working
-    const [questionCountdownKey, setQuestionCountdownKey] = React.useState(15);
-    const [questionCountdownRunning, setQuestionCountdownRunning] = React.useState(false);
+    const [questionCountdownKey, setQuestionCountdownKey] = React.useState(15); //key to update question timer
+    const [questionCountdownRunning, setQuestionCountdownRunning] = React.useState(false); //property to start and stop question timer
+
 
     React.useEffect(() => {
         let timer;
@@ -180,7 +181,7 @@ if (shouldRedirect) {
                 <Typography variant="h6">Correct Answers: {correctlyAnsweredQuestions}</Typography>
                 <Typography variant="h6">Incorrect Answers: {incorrectlyAnsweredQuestions}</Typography>
                 <Typography variant="h6">Total money: {totalScore}</Typography>
-                <Typography variant="h6">Time: {totalTimePlayed} seconds</Typography>
+                <Typography variant="h6">Game time: {totalTimePlayed} seconds</Typography>
             </div>
         </Container>
     );
@@ -205,7 +206,7 @@ if (shouldRedirect) {
                     right: '5%', 
                 }}
             >
-                Time: {totalTimePlayed} s
+                Game time: {totalTimePlayed} s
             </Typography>
             <Typography variant='h6' >
                 {round} / {MAX_ROUNDS}
