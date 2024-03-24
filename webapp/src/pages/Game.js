@@ -33,6 +33,7 @@ const Game = () => {
     const [totalTimePlayed, setTotalTimePlayed] = React.useState(0);
     const [timerRunning, setTimerRunning] = React.useState(true); // indicate if the timer is working
     const [questionCountdownKey, setQuestionCountdownKey] = React.useState(15);
+    const [questionCountdownRunning, setQuestionCountdownRunning] = React.useState(false);
 
     React.useEffect(() => {
         let timer;
@@ -49,10 +50,12 @@ const Game = () => {
     React.useEffect(() => {
         if (round <= MAX_ROUNDS) {
             startNewRound();
+            setQuestionCountdownRunning(true);
             setQuestionCountdownKey(questionCountdownKey => questionCountdownKey + 1); //code to reset countdown timer
         } else {
             setTimerRunning(false);
             setShouldRedirect(true);
+            setQuestionCountdownRunning(false);
         }
     }, [round]);
 
@@ -75,6 +78,8 @@ const Game = () => {
     const selectResponse = async (index, response) => {
         setAnswered(true);
         const newButtonStates = [...buttonStates];
+
+        setQuestionCountdownRunning(false);
 
         //check answer
         if (response === questionData.correctAnswer) {
@@ -209,7 +214,7 @@ if (shouldRedirect) {
             <span style={{ marginRight: '1em' }}>{questionData.question}</span>
                 <CountdownCircleTimer
                   key={questionCountdownKey}
-                  isPlaying
+                  isPlaying = {questionCountdownRunning}
                   duration={15}
                   colors={["#0bfc03", "#F7B801", "#f50707", "#A30000"]}
                   size={100}
