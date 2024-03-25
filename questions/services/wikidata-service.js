@@ -2,8 +2,6 @@ const axios = require('axios');
 
 async function getRandomEntity(entity, pos, lang) {
     const property = entity.properties[pos].property[0];
-    const question = entity.properties[pos].template[0].question;
-    const categories = entity.properties[pos].category;
     const filt = entity.properties[pos].filter;
     var filter = '';
     if(filt) {
@@ -59,7 +57,7 @@ async function getRandomEntity(entity, pos, lang) {
 }
 
 
-async function getProperties(property, filt) {
+async function getProperties(property, language, filt) {
     var filter = '';
     if(filt) {
         filter = `FILTER(?property${filt})`;
@@ -68,6 +66,8 @@ async function getProperties(property, filt) {
         SELECT DISTINCT ?property
         WHERE {
             ?entity wdt:${property} ?property. 
+            ?entity rdfs:label ?entityLabel. 
+            FILTER(LANG(?entityLabel) = "${language}")
             ${filter}  
         }
         LIMIT 400

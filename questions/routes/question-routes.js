@@ -22,12 +22,12 @@ async function generateQuestions(n) {
             // get data for selected entity
             const pos = Math.floor(Math.random() * entity.properties.length);
            
-            const instance = entity.instance;
             const property = entity.properties[pos].property[0];
             const question = entity.properties[pos].template[0].question;
             const categories = entity.properties[pos].category;
             const filter = entity.properties[pos].filter;
-            const lang = 0 ; //spanish
+            const lang = 0 ; //english
+            const language = entity.properties[pos].template[lang].lang;
 
             //let [entityName, searched_property] = await wikidataService.getRandomEntity(instance, property, filter);
             let [entityName, searched_property] = await wikidataService.getRandomEntity(entity, pos, lang);
@@ -38,7 +38,7 @@ async function generateQuestions(n) {
                 let correctAnswer = searched_property;
     
                 // options will contain 3 wrong answers plus the correct one
-                let options = await wikidataService.getProperties(property, filter);
+                let options = await wikidataService.getProperties(property, language, filter);
                 options.push(correctAnswer);
 
                 //If properties are entities
