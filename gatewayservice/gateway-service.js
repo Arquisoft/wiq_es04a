@@ -56,7 +56,6 @@ app.post('/user/add', async (req, res) => {
 
 app.get('/questions', async (req, res) => {
   try {
-    // This not even being executed: console.log(process.env.USER_SERVICE_URL);
     const questionsResponse = await axios.get(`${questionGenerationServiceUrl}/questions`);
     res.json(questionsResponse.data);
   } catch (error) {
@@ -82,7 +81,9 @@ app.post('/statics/edit', async (req, res) => {
 
 app.get('/group/list', async (req, res) => {
   try {
-    const userResponse = await axios.get(userServiceUrl + '/group/api/list');
+
+    const username = req.query.username;
+    const userResponse = await axios.get(userServiceUrl + '/group/api/list',{params: {username: username }});
     res.json(userResponse.data);
   } catch (error) {
     if (error.response && error.response.status) {

@@ -6,14 +6,39 @@ const { Group,User,UserGroup } = require('../models/user-model');
 // Getting the list of groups in the database
 router.get('/list', async (req, res) => {
     try {
+
+        const username = req.query.username;
+
+        // If the user is null or undefined (no one is logged, return all groups)
+        if (username===null || username===undefined) {
+            const allGroups = await Group.findAll();
+            const groupsJSON = allGroups.map(group => {
+              return {
+                name: group.name,
+                isMember: false
+              };
+            });
+            return res.json({ groups: groupsJSON });
+        }
+
+        // If someone is logged, return the groups indicating which one the user has joined
+        const userGroups = await UserGroup.findAll({
+            where: {
+              username: username
+            }
+        });
+        const userGroupNames = userGroups.map(userGroup => userGroup.groupName);
+
         const allGroups = await Group.findAll();
-        const groupsJSON = allGroups.map(group => group.toJSON());
+        const groupsJSON = allGroups.map(group => {
+            return {
+              name: group.name,
+              isMember: userGroupNames.includes(group.name)
+            };
+        });
 
-        const allGroupsJSON = {
-            groups: groupsJSON
-        };
+        res.json({ groups: groupsJSON });
 
-        res.json(allGroupsJSON);
     } catch (error) {
       return res.status(500).json({ error: 'Internal Server Error' });
     }

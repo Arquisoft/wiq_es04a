@@ -5,7 +5,7 @@ const { Group,UserGroup } = require('../models/user-model');
 //Group internal routes
 const apiRoutes = require('../services/group-api');
 
-// Adding a group to the database
+// Adding a group to the database and creating the relationship with the creator
 router.post('/add', async (req, res) => {
     try {
         const { name,username } = req.body;
@@ -14,6 +14,12 @@ router.post('/add', async (req, res) => {
             name: name,
             creator: username,
             createdAt: new Date()
+        });
+
+        await UserGroup.create({
+            username: username,
+            groupName: name,
+            enteredAt: new Date()
         });
 
         res.json(newGroup);
@@ -28,7 +34,6 @@ router.post('/:name/join', async (req, res) => {
         const groupName = req.params.name;
         const { username } = req.body;
 
-        // Need to be tested
         const newUserGroup = await UserGroup.create({
             username: username,
             groupName: groupName,
