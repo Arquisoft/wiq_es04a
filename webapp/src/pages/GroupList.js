@@ -1,11 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useContext } from 'react';
 import axios from 'axios';
-import { Container, Typography, List, ListItem, ListItemText, Button, Divider, Box } from '@mui/material';
+import { Container, Typography, List, ListItem, ListItemText, Button, Divider, Box, Snackbar } from '@mui/material';
+import { SessionContext } from '../SessionContext';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const GroupList = () => {
+
     const [groups, setGroups] = useState([]);
+    const [error, setError] = useState('');
+    const [openSnackbar, setOpenSnackbar] = useState(false);
+
     useEffect(() => {
         const fetchData = async () => {
           try {
@@ -20,6 +25,20 @@ const GroupList = () => {
         fetchData();
     }, []);
 
+    const handleCloseSnackbar = () => {
+      setOpenSnackbar(false);
+    };
+
+    const { username } = useContext(SessionContext);
+
+    const addToGroup = async (name) => {
+      try {
+        await axios.post(`${apiEndpoint}/group/`+name+`/join`, { username });
+      } catch (error) {
+        setError(error.response.data.error);
+      }
+    };
+
     return (
     <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
       <Typography variant="h3">GROUPS</Typography>
@@ -29,9 +48,11 @@ const GroupList = () => {
           <Box>
             <ListItem key={group.name} sx={{ display:'flex', alignContent:'space-between', margin:'0'}}>
               <ListItemText primary={group.name} />
-              <Button variant="contained" color="primary">
+              <Button variant="contained" color="primary" onClick={()=>addToGroup(group.name)}>
                 Unirse
               </Button>
+              <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="Joined the group successfully" />
+              {error && (<Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />)}
             </ListItem>
             <Divider style={{ marginTop:'3%'}}/>
           </Box>

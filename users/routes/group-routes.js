@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcrypt');
-const { Group,User,UserGroup } = require('../models/user-model');
+const { Group,UserGroup } = require('../models/user-model');
 
 //Group internal routes
 const apiRoutes = require('../services/group-api');
@@ -31,9 +30,9 @@ router.post('/:name/join', async (req, res) => {
 
         // Need to be tested
         const newUserGroup = await UserGroup.create({
-            name: groupName,
             username: username,
-            createdAt: new Date()
+            groupName: groupName,
+            enteredAt: new Date()
         });
 
         res.json(newUserGroup);
