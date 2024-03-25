@@ -13,7 +13,7 @@ const router = express.Router();
  */
 async function generateQuestions(n) {
     try {
-        const json = await utils.readFromFile("../questions/utils/question.json");
+        const json = await utils.readFromFile("../questions/utils/questions.json");
         for (let i = 0; i < n; i++) {
             //Gets random template
             const randomIndex = Math.floor(Math.random() * json.length);
@@ -23,12 +23,15 @@ async function generateQuestions(n) {
             const pos = Math.floor(Math.random() * entity.properties.length);
            
             const instance = entity.instance;
-            const property = entity.properties[pos].property;
+            const property = entity.properties[pos].property[0];
             const question = entity.properties[pos].template;
             const categories = entity.properties[pos].category;
             const filter = entity.properties[pos].filter;
+            const lang = 0 ; //spanish
 
-            let [entityName, searched_property] = await wikidataService.getRandomEntity(instance, property, filter);
+            //let [entityName, searched_property] = await wikidataService.getRandomEntity(instance, property, filter);
+            let [entityName, searched_property] = await wikidataService.getRandomEntity(entity, lang);
+
           
             if (searched_property !== null) {
                 //This way we can ask questions with different structures
