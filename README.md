@@ -1,5 +1,5 @@
-# Wkidata Infinite Quest
-🌐 http://20.80.235.188:3000/
+# Wikidata Infinite Quest
+🌐 [wikiquest.sytes.net](http://wikiquest.sytes.net/)
 ## 👨‍💻 Contributors:
 
 | Contributor | Contact |
@@ -17,16 +17,16 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_es04a&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_es04a)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_es04a&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_es04a)
 
-This is a base repo for the [Software Architecture course](http://arquisoft.github.io/) in [2023/2024 edition](https://arquisoft.github.io/course2324.html). 
+This is a repo for the [Software Architecture course](http://arquisoft.github.io/) in [2023/2024 edition](https://arquisoft.github.io/course2324.html). 
 
-This repo is a basic application composed of several components.
+This repo is an application composed of several components.
 
-- **Webapp**. React web application that uses the gateway service to allow people register and enjoy playing different modes.
-- **Gateway service**. Express service that is exposed to the public and serves as a proxy to the following ones.
-- **Users**. Express service that handles the managment of the users and their groups in the system.
-- **Questions**. Express service that handles the managment of the questions generated for the game in the system.
+- **Gateway service**. Express service that is exposed to the public and serves as a proxy to the two previous ones.
+- **Users service**. Express service that handles the insertion and authentication of users in the system.
+- **Webapp**. React web application that uses the gateway service to allow basic login and new user features.
+- **Questions service**. Express service that generates questions for the game and has an api to get questions.
 
-The Users service uses a MariaDB DBMS accesed with sequelizer and questions service uses MongoDB accesed with mongoose.
+Questions service uses a Mongo database and Users service uses MariaDB database.
 
 ## Quick start guide
 
