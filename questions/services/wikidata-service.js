@@ -2,21 +2,23 @@ const axios = require('axios');
 
 async function getRandomEntity(entity, pos, lang) {
     const property = entity.properties[pos].property[0];
-    const question = entity.properties[pos].template[lang].question;
+    const question = entity.properties[pos].template[0].question;
     const categories = entity.properties[pos].category;
     const filt = entity.properties[pos].filter;
     var filter = '';
     if(filt) {
         filter = `FILTER(?property${filt})`;
     }
-   
+    const language = entity.properties[pos].template[lang].lang;
+    const instance = entity.instance;
+
     const consultaSparql = `
         SELECT ?entity ?entityLabel ?property
         WHERE {
-            ?entity wdt:P31 wd:${entity.instance};   
-                wdt:${property[0]} ?property.   
+            ?entity wdt:P31 wd:${instance};   
+                wdt:${property} ?property.   
             ?entity rdfs:label ?entityLabel.  
-            FILTER(LANG(?entityLabel) = ${entity.properties[pos].template[lang].lang})
+            FILTER(LANG(?entityLabel) = "${language}")
             ${filter}
     }
     `;

@@ -24,15 +24,14 @@ async function generateQuestions(n) {
            
             const instance = entity.instance;
             const property = entity.properties[pos].property[0];
-            const question = entity.properties[pos].template;
+            const question = entity.properties[pos].template[0].question;
             const categories = entity.properties[pos].category;
             const filter = entity.properties[pos].filter;
             const lang = 0 ; //spanish
 
             //let [entityName, searched_property] = await wikidataService.getRandomEntity(instance, property, filter);
-            let [entityName, searched_property] = await wikidataService.getRandomEntity(entity, lang);
+            let [entityName, searched_property] = await wikidataService.getRandomEntity(entity, pos, lang);
 
-          
             if (searched_property !== null) {
                 //This way we can ask questions with different structures
                 const questionText = question.replace('x',entityName.charAt(0).toUpperCase() + entityName.slice(1)) +`?`;

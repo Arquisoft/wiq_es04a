@@ -20,11 +20,11 @@
                 "property": ["P36"],
                 "template": [{
                     "lang": "es",
-                    "es": "Cuál es la capital de x"
+                    "question": "Cuál es la capital de x"
                     },
                     {
                     "lang": "en",
-                    "en": "What is the capital of x"
+                    "question": "What is the capital of x"
                     }],
                 "category": ["Geography"]
             }
