@@ -7,6 +7,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { useNavigate } from 'react-router-dom';
 import { SessionContext } from '../SessionContext';
 import { useContext } from 'react';
+import Confetti from 'react-confetti'; // before: npm install react-confetti
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -31,6 +32,7 @@ const Game = () => {
     const [incorrectlyAnsweredQuestions, setIncorrectlyAnsweredQuestions] = React.useState(0);
     const [totalTimePlayed, setTotalTimePlayed] = React.useState(0);
     const [timerRunning, setTimerRunning] = React.useState(true); // indicate if the timer is working
+    const [showConfetti, setShowConfetti] = React.useState(false); //indicates if the confetti must appear
 
     React.useEffect(() => {
         let timer;
@@ -52,6 +54,16 @@ const Game = () => {
             setShouldRedirect(true);
         }
     }, [round]);
+
+    // stablish if the confetti must show or not
+    React.useEffect(() => {
+        if (correctlyAnsweredQuestions > incorrectlyAnsweredQuestions) {
+          setShowConfetti(true);
+        } else {
+          setShowConfetti(false);
+        }
+      }, [correctlyAnsweredQuestions, incorrectlyAnsweredQuestions]);
+    
 
     // gets a random question from the database and initializes button states to null
     const startNewRound = async () => {
@@ -174,6 +186,7 @@ if (shouldRedirect) {
                 <Typography variant="h6">Total money: {totalScore}</Typography>
                 <Typography variant="h6">Time: {totalTimePlayed} seconds</Typography>
             </div>
+        {showConfetti && <Confetti />}
         </Container>
     );
 }
