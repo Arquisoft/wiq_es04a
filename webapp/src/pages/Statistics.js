@@ -36,7 +36,7 @@ const Statistics = () => {
                 <List sx={{ width: '100%', maxWidth: 360, margin: 'auto' }}>
                     <Divider style={{ marginTop:'3%'}}/>
                     <ListItem>
-                        <ListItemText primary={`Earned Money: ${userStatics.earned_money}`} />
+                        <ListItemText primary={`Earned Money: ${userStatics.earned_money}€`} />
                     </ListItem>
                     <ListItem>
                         <ListItemText primary={`Correctly Answered Questions: ${userStatics.classic_correctly_answered_questions}`} />

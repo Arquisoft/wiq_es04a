@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Statics } = require('../models/user-model');
+const { Statistics } = require('../models/user-model');
 
 //Group internal routes
 const apiRoutes = require('../services/statics-api');
