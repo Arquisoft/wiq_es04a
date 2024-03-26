@@ -167,6 +167,18 @@ const Game = () => {
         ));
       };    
 
+    const togglePause = () => {
+        setTimerRunning(!timerRunning);
+        setQuestionCountdownRunning(!timerRunning);
+        if (timerRunning) {
+            // Si el juego estaba en marcha y se pausa, deshabilitar los botones
+            setButtonStates(new Array(questionData.options.length).fill(true));
+        } else {
+            // Si el juego estaba pausado y se reanuda, habilitar los botones
+            setButtonStates(new Array(questionData.options.length).fill(null));
+        }
+    }
+
 
     // circular loading
     if (!questionData) {
@@ -240,16 +252,25 @@ if (shouldRedirect) {
             }}
         >
             <CssBaseline />
+            
             <Typography
                 variant="h6"
                 sx={{
                     position: 'absolute',
                     top: '10%', 
-                    right: '5%', 
+                    right: '5%',
                 }}
             >
                 Game time: {totalTimePlayed} s
+      
             </Typography>
+
+            <Button variant="contained"
+                    onClick={() => togglePause()}
+                    disabled={answered}>
+
+                {timerRunning ? "Pause" : "Play"}
+                </Button>
 
             <Container
             sx={{
@@ -267,7 +288,6 @@ if (shouldRedirect) {
                     {questionHistorialBar()}
                 </Container>
             </Container>
-            
 
             <Typography variant='h6' >
                 {round} / {MAX_ROUNDS}
