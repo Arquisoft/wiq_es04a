@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Typography, List, ListItem, ListItemText} from '@mui/material';
+import { SessionContext } from '../SessionContext';
+import { useContext } from 'react';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -14,7 +16,7 @@ const UserStatics = () => {
                 const response = await axios.get(`${apiEndpoint}/statistics/${username}`);
                 setUserStatics(response.data);
             } catch (error) {
-                setError(error.message);
+                console.error('Error fetching data:', error);
             }
         };
 
