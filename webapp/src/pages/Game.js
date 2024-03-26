@@ -2,6 +2,7 @@ import * as React from 'react';
 import axios from 'axios';
 
 import { Container, Button, CssBaseline, Grid, Typography, CircularProgress } from '@mui/material';
+import { PlayArrow, Pause } from '@mui/icons-material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useNavigate } from 'react-router-dom';
@@ -269,8 +270,9 @@ if (shouldRedirect) {
                     onClick={() => togglePause()}
                     disabled={answered}>
 
-                {timerRunning ? "Pause" : "Play"}
-                </Button>
+                {timerRunning ? <Pause /> : <PlayArrow />}
+                {timerRunning ? 'Pause' : 'Play'}
+            </Button>
 
             <Container
             sx={{
