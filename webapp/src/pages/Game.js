@@ -7,7 +7,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { useNavigate } from 'react-router-dom';
 import { SessionContext } from '../SessionContext';
 import { useContext } from 'react';
-//import { Confetti } from 'react-confetti'; // before: npm install react-confetti
+//import { Confetti } from 'react-confetti';
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -194,8 +194,7 @@ if (shouldRedirect) {
         navigate('/homepage');
     }, 4000);
 
-    //        {showConfetti && <Confetti />}
-
+//{showConfetti && <Confetti />}
     return (
         <Container
             sx={{
@@ -225,6 +224,7 @@ if (shouldRedirect) {
                 <Typography variant="h6">Total money: {totalScore}</Typography>
                 <Typography variant="h6">Game time: {totalTimePlayed} seconds</Typography>
             </div>
+            
         </Container>
     );
 }
