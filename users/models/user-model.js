@@ -10,7 +10,7 @@ const sequelize = new Sequelize({
     port: 3306,
     dialect: 'mariadb',
     dialectOptions: {
-        connectTimeout: 20000 
+        connectTimeout: 50000 
     }
 });
 
@@ -108,7 +108,7 @@ User.hasOne(Statics, { foreignKey: 'username' });
 Statics.belongsTo(User, { foreignKey: 'username' });
 
 // Synchronize the model with the database
-sequelize.sync()
+sequelize.sync({ force: true })
     .then(() => {
         console.log('Model synchronized successfully with the database');
     })
