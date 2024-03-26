@@ -104,11 +104,11 @@ const Statistics = sequelize.define('Statistics', {
 })
 
 // Define the relationship between User and Statics
-User.hasOne(Statics, { foreignKey: 'username' });
-Statics.belongsTo(User, { foreignKey: 'username' });
+User.hasOne(Statistics, { foreignKey: 'username' });
+Statistics.belongsTo(User, { foreignKey: 'username' });
 
 // Synchronize the model with the database
-sequelize.sync({ force: true })
+sequelize.sync()
     .then(() => {
         console.log('Model synchronized successfully with the database');
     })
