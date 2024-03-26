@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { Statics } = require('../models/user-model');
+const { Statistics } = require('../models/user-model');
 
 //Get user statics by username
 router.get('/:username', async (req,res) => {
     try {
-
+        
         const username = req.params.username;
 
         // Querying using sequelize findOne method
