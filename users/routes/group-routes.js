@@ -10,6 +10,11 @@ router.post('/add', async (req, res) => {
     try {
         const { name,username } = req.body;
 
+        const existingGroup = await Group.findOne({ name: name });
+        if (existingGroup) {
+            return res.status(400).json({ error: 'A group with the same name already exists.' });
+        }
+
         const newGroup = await Group.create({
             name: name,
             creator: username,

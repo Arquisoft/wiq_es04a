@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useCallback } from 'react';
 import axios from 'axios';
 import { Container, Typography, List, ListItem, ListItemText, Button, Divider, Snackbar, TextField,Grid } from '@mui/material';
 import { SessionContext } from '../SessionContext';
@@ -14,18 +14,18 @@ const Groups = () => {
 
     const { username } = useContext(SessionContext);
 
-    const fetchData = async () => {
+    const fetchData = useCallback(async () => {
       try {
-        const response = await axios.get(`${apiEndpoint}/group/list`,{params: {username: username }});
+        const response = await axios.get(`${apiEndpoint}/group/list`, { params: { username: username } });
         setGroups(response.data.groups);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
-    };
-
+    }, [username]);
+  
     useEffect(() => {
       fetchData();
-    }, []);
+    }, [fetchData]);
 
     const addGroup = async () => {
       try {
@@ -80,7 +80,7 @@ const Groups = () => {
         <List sx={{ margin:'0', width: '100%' }}>
           {groups.map((group) => (
             <Container>
-              <ListItem key={group.name} sx={{ display:'flex', alignContent:'space-between', width: '100%', boxSizing: 'content-box'}}>
+              <ListItem key={group.name} sx={{ display:'flex', alignContent:'space-between', alignItems:'center' }}>
                 <ListItemText primary={group.name} />
                 {group.isMember ? (
                   <Button variant="contained" sx={{ backgroundColor:'#ffffff', color:'#006699', borderColor:'#006699', '&:hover': { backgroundColor: '#ffffff' } }}>
@@ -94,7 +94,7 @@ const Groups = () => {
                 <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="Joined the group successfully" />
                 {error && (<Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />)}
               </ListItem>
-              <Divider style={{ marginTop:'3%'}}/>
+              <Divider/>
             </Container>
           ))}
         </List>
