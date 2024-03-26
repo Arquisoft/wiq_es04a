@@ -45,7 +45,7 @@ const Statistics = () => {
                         <ListItemText primary={`Incorrectly Answered Questions: ${userStatics.classic_incorrectly_answered_questions}`} />
                     </ListItem>
                     <ListItem>
-                        <ListItemText primary={`Total Time Played: ${userStatics.classic_total_time_played}`} />
+                        <ListItemText primary={`Total Time Played: ${userStatics.classic_total_time_played}''`} />
                     </ListItem>
                     <ListItem>
                         <ListItemText primary={`Games Played: ${userStatics.classic_games_played}`} />
