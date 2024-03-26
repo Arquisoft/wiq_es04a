@@ -9,7 +9,7 @@ router.get('/:username', async (req,res) => {
         const username = req.params.username;
 
         // Querying using sequelize findOne method
-        const user = await Statics.findOne({
+        const user = await Statistics.findOne({
             where: {
                 username: username
             }

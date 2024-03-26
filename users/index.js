@@ -19,7 +19,7 @@ app.use(express.json());
 app.use('/user', userRoutes);
 app.use('/login', authRoutes);
 app.use('/group', groupRoutes);
-app.use('/statics', staticsRoutes);
+app.use('/statistics', staticsRoutes);
 
 // Start the service
 const server = app.listen(port, () => {
