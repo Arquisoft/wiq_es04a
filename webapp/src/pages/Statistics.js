@@ -6,7 +6,7 @@ import { useContext } from 'react';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
-const UserStatics = () => {
+const Statistics = () => {
     const [userStatics, setUserStatics] = useState(null);
     const {username} = useContext(SessionContext);
 
@@ -23,29 +23,31 @@ const UserStatics = () => {
         fetchUserStatics();
     }, []);
 
-
     return (
-        <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Typography variant="h5">User Statistics for {username}</Typography>
-            <List sx={{ margin: '0' }}>
+        <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+          <Typography variant="h3">Statics</Typography>
+    
+          <Typography variant="h5">Classic Game</Typography>
+          <List sx={{ margin:'0' }}>
                 <ListItem>
                     <ListItemText primary={`Earned Money: ${userStatics.earned_money}`} />
                 </ListItem>
                 <ListItem>
-                    <ListItemText primary={`Classic Correctly Answered Questions: ${userStatics.classic_correctly_answered_questions}`} />
+                    <ListItemText primary={`Correctly Answered Questions: ${userStatics.classic_correctly_answered_questions}`} />
                 </ListItem>
                 <ListItem>
-                    <ListItemText primary={`Classic Incorrectly Answered Questions: ${userStatics.classic_incorrectly_answered_questions}`} />
+                    <ListItemText primary={`Incorrectly Answered Questions: ${userStatics.classic_incorrectly_answered_questions}`} />
                 </ListItem>
                 <ListItem>
-                    <ListItemText primary={`Classic Total Time Played: ${userStatics.classic_total_time_played}`} />
+                    <ListItemText primary={`Total Time Played: ${userStatics.classic_total_time_played}`} />
                 </ListItem>
                 <ListItem>
-                    <ListItemText primary={`Classic Games Played: ${userStatics.classic_games_played}`} />
+                    <ListItemText primary={`Games Played: ${userStatics.classic_games_played}`} />
                 </ListItem>
             </List>
+            <Divider style={{ marginTop:'3%'}}/>
         </Container>
     );
 };
 
-export default UserStatics;
+export default Statistics;
