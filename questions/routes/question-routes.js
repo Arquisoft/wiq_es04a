@@ -23,10 +23,10 @@ async function generateQuestions(n) {
             const pos = Math.floor(Math.random() * entity.properties.length);
            
             const property = entity.properties[pos].property;
-            const question = entity.properties[pos].template[0].question;
             const categories = entity.properties[pos].category;
             const filter = entity.properties[pos].filter;
             const lang = 1 ; //english
+            const question = entity.properties[pos].template[lang].question;
             const language = entity.properties[pos].template[lang].lang;
 
             //let [entityName, searched_property] = await wikidataService.getRandomEntity(instance, property, filter);
