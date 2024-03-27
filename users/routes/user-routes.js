@@ -9,6 +9,7 @@ const apiRoutes = require('../services/user-api');
 // Route for add a user
 router.post('/add', async (req, res) => {
     try {
+        console.log(1);
         const { username, password, name, surname } = req.body;
 
         const user = await User.findOne({ where: { username } });
