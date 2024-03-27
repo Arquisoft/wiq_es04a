@@ -2,11 +2,13 @@ import * as React from 'react';
 import axios from 'axios';
 
 import { Container, Button, CssBaseline, Grid, Typography, CircularProgress } from '@mui/material';
+import { PlayArrow, Pause } from '@mui/icons-material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useNavigate } from 'react-router-dom';
 import { SessionContext } from '../SessionContext';
 import { useContext } from 'react';
+import Confetti from 'react-confetti';
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -34,6 +36,7 @@ const Game = () => {
     const [incorrectlyAnsweredQuestions, setIncorrectlyAnsweredQuestions] = React.useState(0);
     const [totalTimePlayed, setTotalTimePlayed] = React.useState(0);
     const [timerRunning, setTimerRunning] = React.useState(true); // indicate if the timer is working
+    const [showConfetti, setShowConfetti] = React.useState(false); //indicates if the confetti must appear
     const [questionCountdownKey, setQuestionCountdownKey] = React.useState(15); //key to update question timer
     const [questionCountdownRunning, setQuestionCountdownRunning] = React.useState(false); //property to start and stop question timer
 
@@ -63,6 +66,16 @@ const Game = () => {
             setQuestionCountdownRunning(false);
         }
     }, [round]);
+
+    // stablish if the confetti must show or not
+    React.useEffect(() => {
+        if (correctlyAnsweredQuestions > incorrectlyAnsweredQuestions) {
+          setShowConfetti(true);
+        } else {
+          setShowConfetti(false);
+        }
+      }, [correctlyAnsweredQuestions, incorrectlyAnsweredQuestions]);
+    
 
     // gets a random question from the database and initializes button states to null
     const startNewRound = async () => {
@@ -155,6 +168,18 @@ const Game = () => {
         ));
       };    
 
+    const togglePause = () => {
+        setTimerRunning(!timerRunning);
+        setQuestionCountdownRunning(!timerRunning);
+        if (timerRunning) {
+            // Si el juego estaba en marcha y se pausa, deshabilitar los botones
+            setButtonStates(new Array(questionData.options.length).fill(true));
+        } else {
+            // Si el juego estaba pausado y se reanuda, habilitar los botones
+            setButtonStates(new Array(questionData.options.length).fill(null));
+        }
+    }
+
 
     // circular loading
     if (!questionData) {
@@ -182,6 +207,7 @@ if (shouldRedirect) {
         navigate('/homepage');
     }, 4000);
 
+//
     return (
         <Container
             sx={{
@@ -211,6 +237,7 @@ if (shouldRedirect) {
                 <Typography variant="h6">Total money: {totalScore}</Typography>
                 <Typography variant="h6">Game time: {totalTimePlayed} seconds</Typography>
             </div>
+            {showConfetti && <Confetti />}
         </Container>
     );
 }
@@ -226,16 +253,26 @@ if (shouldRedirect) {
             }}
         >
             <CssBaseline />
+            
             <Typography
                 variant="h6"
                 sx={{
                     position: 'absolute',
                     top: '10%', 
-                    right: '5%', 
+                    right: '5%',
                 }}
             >
                 Game time: {totalTimePlayed} s
+      
             </Typography>
+
+            <Button variant="contained"
+                    onClick={() => togglePause()}
+                    disabled={answered}>
+
+                {timerRunning ? <Pause /> : <PlayArrow />}
+                {timerRunning ? 'Pause' : 'Play'}
+            </Button>
 
             <Container
             sx={{
@@ -253,7 +290,6 @@ if (shouldRedirect) {
                     {questionHistorialBar()}
                 </Container>
             </Container>
-            
 
             <Typography variant='h6' >
                 {round} / {MAX_ROUNDS}

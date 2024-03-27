@@ -124,5 +124,4 @@ module.exports = {
       console.error('Error obtaining random questions (with category): ', error.message);
     }
   },
-
 };
