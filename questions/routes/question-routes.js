@@ -112,4 +112,4 @@ router.get('/getQuestionsFromDb/:n/:category', async(_req, res) => {
     res.json(questions);
 });
 
-module.exports = router, generateQuestions;
+module.exports = router;
