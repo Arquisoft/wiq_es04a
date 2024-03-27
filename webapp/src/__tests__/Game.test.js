@@ -33,6 +33,7 @@ describe('Game component', () => {
     );
 
     expect(screen.getByRole('progressbar'));
+    expect(screen.findByText('1'));
     expect(screen.findByText('1/3'));
 
     // waits for the question to appear
@@ -63,6 +64,8 @@ describe('Game component', () => {
     //selects correct answer
     fireEvent.click(correctAnswer);
 
+    //expect(screen.findByText('1')).toHaveStyle({ backgroundColor: 'lightgreen' });
+
     expect(correctAnswer).toHaveStyle({ backgroundColor: 'green' });
 
   });
@@ -86,6 +89,7 @@ describe('Game component', () => {
     fireEvent.click(incorrectAnswer);
 
     expect(incorrectAnswer).toHaveStyle({ backgroundColor: 'red' });
+    //expect(screen.findByText('1')).toHaveStyle({ backgroundColor: 'salmon' });
 
   });
 
