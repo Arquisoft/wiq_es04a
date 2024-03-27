@@ -133,7 +133,7 @@ const Game = () => {
         if (round >= 3) {
             // Update user data before redirecting
             try {
-                await axios.post(`${apiEndpoint}/statics/edit`, {
+                await axios.post(`${apiEndpoint}/statistics/edit`, {
                     username:username,
                     earned_money:totalScore,
                     classic_correctly_answered_questions:correctlyAnsweredQuestions,

@@ -25,7 +25,7 @@ app.get('/health', (_req, res) => {
 app.post('/login', async (req, res) => {
   try {
     // Forward the login request to the authentication service
-    const authResponse = await axios.post(userServiceUrl+'/login', req.body);
+    const authResponse = await axios.post(`${userServiceUrl}/login`, req.body);
     res.json(authResponse.data);
   } catch (error) {
     if (error.response && error.response.status) {
@@ -41,7 +41,7 @@ app.post('/login', async (req, res) => {
 app.post('/user/add', async (req, res) => {
   try {
     // Forward the add user request to the user service
-    const userResponse = await axios.post(userServiceUrl + '/user/add', req.body);
+    const userResponse = await axios.post(`${userServiceUrl}/user/add`, req.body);
     res.json(userResponse.data);
   } catch (error) {
     if (error.response && error.response.status) {
@@ -64,10 +64,27 @@ app.get('/questions', async (req, res) => {
   }
 });
 
-app.post('/statics/edit', async (req, res) => {
+app.post('/statistics/edit', async (req, res) => {
   try {
     // Forward the user statics edit request to the user service
-    const userResponse = await axios.post(userServiceUrl + '/statics/edit', req.body);
+    const userResponse = await axios.post(`${userServiceUrl}/statistics/edit`, req.body);
+    res.json(userResponse.data);
+  } catch (error) {
+    if (error.response && error.response.status) {
+      res.status(error.response.status).json({ error: error.response.data.error });
+    } else if (error.message) {
+      res.status(500).json({ error: error.message });
+    } else {
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+});
+
+app.get('/statistics/:username', async (req, res) => {
+  try {
+    const username = req.params.username;
+    // Forward the user statics edit request to the user service
+    const userResponse = await axios.get(`${userServiceUrl}/statistics/api/${username}`, req.body);
     res.json(userResponse.data);
   } catch (error) {
     if (error.response && error.response.status) {
@@ -82,7 +99,7 @@ app.post('/statics/edit', async (req, res) => {
 
 app.get('/group/list', async (req, res) => {
   try {
-    const userResponse = await axios.get(userServiceUrl + '/group/api/list');
+    const userResponse = await axios.get(`${userServiceUrl}/group/api/list`);
     res.json(userResponse.data);
   } catch (error) {
     if (error.response && error.response.status) {
@@ -98,7 +115,7 @@ app.get('/group/list', async (req, res) => {
 
 app.post('/group/add', async (req, res) => {
   try {
-    const userResponse = await axios.post(userServiceUrl + '/group/add', req.body);
+    const userResponse = await axios.post(`${userServiceUrl}/group/add`, req.body);
     res.json(userResponse.data);
   } catch (error) {
     if (error.response && error.response.status) {
