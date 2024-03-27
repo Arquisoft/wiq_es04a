@@ -58,12 +58,12 @@ describe('Game component', () => {
     await waitFor(() => screen.getByText('Which is the capital of Spain?'));
     const correctAnswer = screen.getByRole('button', { name: 'Madrid' });
 
-    expect(correctAnswer).not.toHaveStyle({ color: 'green' });
+    expect(correctAnswer).not.toHaveStyle({ backgroundColor: 'green' });
 
     //selects correct answer
     fireEvent.click(correctAnswer);
 
-    expect(correctAnswer).toHaveStyle({ color: 'green' });
+    expect(correctAnswer).toHaveStyle({ backgroundColor: 'green' });
 
   });
 
@@ -80,12 +80,12 @@ describe('Game component', () => {
     await waitFor(() => screen.getByText('Which is the capital of Spain?'));
     const incorrectAnswer = screen.getByRole('button', { name: 'Barcelona' });
 
-    expect(incorrectAnswer).not.toHaveStyle({ color: 'red' });
+    expect(incorrectAnswer).not.toHaveStyle({ backgroundColor: 'red' });
 
     //selects correct answer
     fireEvent.click(incorrectAnswer);
 
-    expect(incorrectAnswer).toHaveStyle({ color: 'red' });
+    expect(incorrectAnswer).toHaveStyle({ backgroundColor: 'red' });
 
   });
 
