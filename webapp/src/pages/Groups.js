@@ -65,7 +65,11 @@ const Groups = () => {
         setOpenSnackbar(true);
         fetchData();
       } catch (error) {
-        setError(error.response.data.error);
+        if (error.response && error.response.status === 400) {
+          setError('Group is already full');
+        } else {
+          setError(error.response.data.error);
+        }
       }
     };
 
@@ -110,7 +114,11 @@ const Groups = () => {
                   <Button variant="contained" sx={{ backgroundColor:'#ffffff', color:'#006699', borderColor:'#006699', '&:hover': { backgroundColor: '#ffffff' } }}>
                     JOINED
                   </Button>
-                ):(
+                ) : group.isFull ? (
+                  <Button variant="contained" sx={{ backgroundColor:'#ffffff', color:'#FF0000', borderColor:'#FF0000', '&:hover': { backgroundColor: '#ffffff' } }}>
+                    FILLED
+                  </Button>
+                ) : (
                   <Button variant="contained" color="primary" onClick={() => addToGroup(group.name)}>
                     JOIN IT!
                   </Button>

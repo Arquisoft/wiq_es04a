@@ -112,7 +112,11 @@ app.post('/group/:name/join', async (req, res) => {
     const userResponse = await axios.post(`${userServiceUrl}/group/${name}/join`, req.body);
     res.json(userResponse.data);
   } catch (error) {
-    handleErrors(res, error);
+    if (error.response && error.response.status === 400) {
+      res.status(400).json({ error: error.response.data.error });
+    }else{
+      handleErrors(res, error);
+    }
   }
 });
 

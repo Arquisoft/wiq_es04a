@@ -39,6 +39,16 @@ router.post('/:name/join', async (req, res) => {
         const groupName = req.params.name;
         const { username } = req.body;
 
+        const userCount = await UserGroup.count({
+            where: {
+                groupName: groupName
+            }
+        });
+
+        if (userCount >= 20) {
+            return res.status(400).json({ error: 'Group is already full' });
+        }
+
         const newUserGroup = await UserGroup.create({
             username: username,
             groupName: groupName,

@@ -10,16 +10,22 @@ router.get('/list', async (req, res) => {
         const username = req.query.username;
 
         // If the user is null or undefined (no one is logged, return all groups)
-        if (username===null || username===undefined) {
-            const allGroups = await Group.findAll();
-            const groupsJSON = allGroups.map(group => {
+        if (username === null || username === undefined) {
+          const allGroups = await Group.findAll();
+          const groupsJSON = await Promise.all(allGroups.map(async (group) => {
+              const userCount = await UserGroup.count({
+                  where: {
+                      groupName: group.name
+                  }
+              });
               return {
-                name: group.name,
-                isMember: false
+                  name: group.name,
+                  isMember: false,
+                  isFull: userCount === 20
               };
-            });
-            return res.json({ groups: groupsJSON });
-        }
+          }));
+          return res.json({ groups: groupsJSON });
+      }
 
         // If someone is logged, return the groups indicating which one the user has joined
         const userGroups = await UserGroup.findAll({
@@ -30,12 +36,18 @@ router.get('/list', async (req, res) => {
         const userGroupNames = userGroups.map(userGroup => userGroup.groupName);
 
         const allGroups = await Group.findAll();
-        const groupsJSON = allGroups.map(group => {
-            return {
+        const groupsJSON = await Promise.all(allGroups.map(async (group) => {
+          const userCount = await UserGroup.count({
+              where: {
+                  groupName: group.name
+              }
+          });
+          return {
               name: group.name,
-              isMember: userGroupNames.includes(group.name)
-            };
-        });
+              isMember: userGroupNames.includes(group.name),
+              isFull: userCount === 20
+          };
+        }));
 
         res.json({ groups: groupsJSON });
 
