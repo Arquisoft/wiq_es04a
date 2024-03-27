@@ -13,7 +13,7 @@ const router = express.Router();
  */
 async function generateQuestions(n) {
     try {
-        const json = await utils.readFromFile("../questions/utils/questions.json");
+        const json = await utils.readFromFile("../questions/utils/question.json");
         for (let i = 0; i < n; i++) {
             //Gets random template
             const randomIndex = Math.floor(Math.random() * json.length);

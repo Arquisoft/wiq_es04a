@@ -268,7 +268,7 @@ if (shouldRedirect) {
 
             <Button variant="contained"
                     onClick={() => togglePause()}
-                    disabled={!answered}>
+                    disabled={answered}>
 
                 {timerRunning ? <Pause /> : <PlayArrow />}
                 {timerRunning ? 'Pause' : 'Play'}
