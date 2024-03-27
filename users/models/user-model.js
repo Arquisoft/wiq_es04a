@@ -1,18 +1,31 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
+// Function to create Sequelize instance with appropriate configurations
+function createSequelizeInstance() {
+    if (process.env.NODE_ENV === 'test') {
+        // Use SQLite in-memory database for testing
+        return new Sequelize({
+            dialect: 'sqlite',
+            storage: ':memory:'
+        });
+    } else {
+        // Normal database configuration for production
+        return new Sequelize({
+            host: 'mariadb',
+            username: 'root',
+            password: 'R#9aLp2sWu6y',
+            database: 'base_de_datos_de_usuarios',
+            port: 3306,
+            dialect: 'mariadb',
+            dialectOptions: {
+                connectTimeout: 20000
+            }
+        });
+    }
+}
 
 // Database connection configuration
-const sequelize = new Sequelize({
-    host: 'mariadb',
-    username: 'root',
-    password: 'R#9aLp2sWu6y',
-    database: 'base_de_datos_de_usuarios',
-    port: 3306,
-    dialect: 'mariadb',
-    dialectOptions: {
-        connectTimeout: 20000 
-    }
-});
+const sequelize = createSequelizeInstance();
 
 // Define the user model
 const User = sequelize.define('User', {
@@ -73,7 +86,7 @@ User.belongsToMany(Group, { through: {model: UserGroup,timestamps: false}, forei
 Group.belongsToMany(User, { through: {model: UserGroup,timestamps: false}, foreignKey: 'groupName', otherKey: 'username', });
 
 // Define the statics model
-const Statics = sequelize.define('Statics', {
+const Statistics = sequelize.define('Statistics', {
     // Add userId column as foreign key
     username: {
         type: DataTypes.STRING,
@@ -104,8 +117,8 @@ const Statics = sequelize.define('Statics', {
 })
 
 // Define the relationship between User and Statics
-User.hasOne(Statics, { foreignKey: 'username' });
-Statics.belongsTo(User, { foreignKey: 'username' });
+User.hasOne(Statistics, { foreignKey: 'username' });
+Statistics.belongsTo(User, { foreignKey: 'username' });
 
 // Synchronize the model with the database
 sequelize.sync()
@@ -126,4 +139,4 @@ sequelize
         console.error('Error connecting to the database:', err);
     });
 
-module.exports = { sequelize, User, Group, UserGroup, Statics };
+module.exports = { sequelize, User, Group, UserGroup, Statistics };

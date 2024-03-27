@@ -12,6 +12,8 @@
     "@testing-library/user-event": "^14.5.2",
     "axios": "^1.6.5",
     "react": "^18.2.0",
+    "react-confetti": "^6.1.0",
+    "react-countdown-circle-timer": "^3.2.1",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.1",
     "react-scripts": "5.0.1",
@@ -50,9 +52,9 @@
     "jest-cucumber": "^3.0.1",
     "jest-environment-node": "^29.7.0",
     "mongodb-memory-server": "^9.1.4",
+    "mysql2-promise": "^0.1.4",
     "puppeteer": "^21.7.0",
     "serve": "^14.2.1",
-    "start-server-and-test": "^2.0.3",
-    "mysql2-promise": "^0.1.4"
+    "start-server-and-test": "^2.0.3"
   }
 }

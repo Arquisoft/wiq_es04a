@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { Statics } = require('../models/user-model');
+const { Statistics } = require('../models/user-model');
 
 //Group internal routes
-const apiRoutes = require('../services/statics-api');
+const apiRoutes = require('../services/statistics-api');
 
 // Route for edit the statics of a user
 router.post('/edit', async (req, res) => {
@@ -13,28 +13,28 @@ router.post('/edit', async (req, res) => {
             classic_total_time_played, classic_games_played } = req.body;
 
         // Find the user in the database by their username
-        const staticsUserToUpdate = await Statics.findOne({
+        const statisticsUserToUpdate = await Statistics.findOne({
             where: {
                 username: username
             }
         });
 
         // Check if the user exists
-        if (!staticsUserToUpdate) {
+        if (!statisticsUserToUpdate) {
             return res.status(404).json({ error: 'User not found' });
         }
 
         // Update the user's fields with the provided values
-        staticsUserToUpdate.earned_money = staticsUserToUpdate.earned_money  + earned_money;
-        staticsUserToUpdate.classic_correctly_answered_questions = staticsUserToUpdate.classic_correctly_answered_questions 
+        statisticsUserToUpdate.earned_money = statisticsUserToUpdate.earned_money  + earned_money;
+        statisticsUserToUpdate.classic_correctly_answered_questions = statisticsUserToUpdate.classic_correctly_answered_questions 
         + classic_correctly_answered_questions;
-        staticsUserToUpdate.classic_incorrectly_answered_questions = staticsUserToUpdate.classic_incorrectly_answered_questions 
+        statisticsUserToUpdate.classic_incorrectly_answered_questions = statisticsUserToUpdate.classic_incorrectly_answered_questions 
         + classic_incorrectly_answered_questions;
-        staticsUserToUpdate.classic_total_time_played = staticsUserToUpdate.classic_total_time_played + classic_total_time_played;
-        staticsUserToUpdate.classic_games_played = staticsUserToUpdate.classic_games_played + classic_games_played;
+        statisticsUserToUpdate.classic_total_time_played = statisticsUserToUpdate.classic_total_time_played + classic_total_time_played;
+        statisticsUserToUpdate.classic_games_played = statisticsUserToUpdate.classic_games_played + classic_games_played;
 
         // Save the changes to the database
-        await staticsUserToUpdate.save();
+        await statisticsUserToUpdate.save();
 
         res.json({ message: 'User statics updated successfully' });
     } catch (error) {

@@ -9,6 +9,7 @@ import Homepage from './pages/Homepage';
 import Game from './pages/Game';
 import Groups from './pages/Groups';
 import GroupDetails from './pages/GroupDetails';
+import Statistics from './pages/Statistics';
 import {Route, Routes} from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Box } from '@mui/material';
@@ -45,6 +46,7 @@ function App() {
             <Route path="/game" element={<Game />}/>
             <Route path="/group/menu" element={<Groups />}/>
             <Route path="/group/:groupName" element={<GroupDetails />} />
+            <Route path="/statistics" element={<Statistics />}/>
           </Routes>
         <Footer/>
       </ThemeProvider>
