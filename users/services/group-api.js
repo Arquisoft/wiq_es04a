@@ -11,7 +11,7 @@ router.get('/list', async (req, res) => {
 
         // If the user is null or undefined (no one is logged, return all groups)
         if (username === null || username === undefined) {
-          const allGroups = await Group.findAll();
+          const allGroups = await Group.findAll({ order: [['name', 'ASC']] });
           const groupsJSON = await Promise.all(allGroups.map(async (group) => {
               const userCount = await UserGroup.count({
                   where: {
@@ -35,7 +35,7 @@ router.get('/list', async (req, res) => {
         });
         const userGroupNames = userGroups.map(userGroup => userGroup.groupName);
 
-        const allGroups = await Group.findAll();
+        const allGroups = await Group.findAll({ order: [['name', 'ASC']] });
         const groupsJSON = await Promise.all(allGroups.map(async (group) => {
           const userCount = await UserGroup.count({
               where: {

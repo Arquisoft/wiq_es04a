@@ -15,6 +15,7 @@ const Groups = () => {
     const [page, setPage] = useState(1);
     const [rowsPerPage] = useState(5);
 
+    // Pagination managing function
     const handleChangePage = (event, newPage) => {
       setPage(newPage);
     };
@@ -38,6 +39,7 @@ const Groups = () => {
       fetchData();
     }, [fetchData]);
 
+    // Function that creates a group and shows the posible errors
     const addGroup = async () => {
       try {
         await axios.post(`${apiEndpoint}/group/add`, {
@@ -59,6 +61,7 @@ const Groups = () => {
       setOpenSnackbar(false);
     };
 
+    // Function that makes the user join a group and shows the possible erros when making this
     const addToGroup = async (name) => {
       try {
         await axios.post(`${apiEndpoint}/group/`+name+`/join`, { username });
@@ -75,6 +78,7 @@ const Groups = () => {
 
     const navigate = useNavigate();
 
+    // Function that changes the page to the group details one
     const seeMembers = (groupName) => {
       navigate(`/group/${groupName}`);
     };
@@ -82,6 +86,8 @@ const Groups = () => {
     return (
     <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <Typography variant="h3" sx={{ width: '100%', textAlign: 'center' }}>GROUPS</Typography>
+
+      {/* Container showing the group creation field and button */}
       <Container>
         <Typography component="h1" variant="h5">Create</Typography>
         <Divider style={{ marginBottom:'0.5em'}}/>
@@ -99,6 +105,7 @@ const Groups = () => {
         {error && (<Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />)}
       </Container> 
 
+      {/* Container showing the paginated groups list and its items */}
       <Container sx={{ marginTop:'2em' }}>
         <Typography component="h1" variant="h5">List</Typography>  
         <Divider style={{ marginBottom:'0.5em'}}/>
