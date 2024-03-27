@@ -99,7 +99,7 @@ app.post('/group/add', async (req, res) => {
 app.get('/group/:name', async (req, res) => {
   try {
     const { name } = req.params;
-    const userResponse = await axios.get(`${userServiceUrl}/group/${name}`);
+    const userResponse = await axios.get(`${userServiceUrl}/group/api/${name}`);
     res.json(userResponse.data);
   } catch (error) {
     handleErrors(res, error);

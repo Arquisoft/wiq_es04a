@@ -60,19 +60,16 @@ router.get('/:name', async (req, res) => {
         if (!group) {
             return res.status(404).json({ error: 'Group not found' });
         }
-        
-        const groupUsers = await User.findAll({
-            include: [
-                {
-                    model: UserGroup,
-                    where: { name: groupName }
-                }
-            ]
+
+        const userGroups = await UserGroup.findAll({
+            where: {
+              groupName: groupName
+            }
         });
 
         // Construct JSON response
         const groupJSON = group.toJSON();
-        groupJSON.users = groupUsers.map(user => user.toJSON());
+        groupJSON.users = userGroups.map(userGroup => userGroup.username);
 
         res.json(groupJSON);
     } catch (error) {

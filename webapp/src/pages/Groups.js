@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext, useCallback } from 'react';
 import axios from 'axios';
 import { Container, Typography, List, ListItem, ListItemText, Button, Divider, Snackbar, TextField, Grid, Pagination } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { SessionContext } from '../SessionContext';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
@@ -68,6 +69,12 @@ const Groups = () => {
       }
     };
 
+    const navigate = useNavigate();
+
+    const seeMembers = (groupName) => {
+      navigate(`/group/${groupName}`);
+    };
+
     return (
     <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <Typography variant="h3" sx={{ width: '100%', textAlign: 'center' }}>GROUPS</Typography>
@@ -96,13 +103,16 @@ const Groups = () => {
             <Container>
               <ListItem key={group.name} sx={{ display:'flex', alignContent:'space-between', alignItems:'center' }}>
                 <ListItemText primary={group.name} />
+                <Button variant="contained" color="primary" sx={{ marginRight: '2em' }} onClick={() => seeMembers(group.name)}>
+                  See Members
+                </Button>
                 {group.isMember ? (
                   <Button variant="contained" sx={{ backgroundColor:'#ffffff', color:'#006699', borderColor:'#006699', '&:hover': { backgroundColor: '#ffffff' } }}>
                     JOINED
                   </Button>
                 ):(
                   <Button variant="contained" color="primary" onClick={() => addToGroup(group.name)}>
-                    JOIN IT
+                    JOIN IT!
                   </Button>
                 )}
                 <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="Joined the group successfully" />
