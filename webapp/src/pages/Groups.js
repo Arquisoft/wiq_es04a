@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext, useCallback } from 'react';
 import axios from 'axios';
-import { Container, Typography, List, ListItem, ListItemText, Button, Divider, Snackbar, TextField,Grid } from '@mui/material';
+import { Container, Typography, List, ListItem, ListItemText, Button, Divider, Snackbar, TextField, Grid, Pagination } from '@mui/material';
 import { SessionContext } from '../SessionContext';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
@@ -11,6 +11,16 @@ const Groups = () => {
     const [groups, setGroups] = useState([]);
     const [error, setError] = useState('');
     const [openSnackbar, setOpenSnackbar] = useState(false);
+    const [page, setPage] = useState(1);
+    const [rowsPerPage] = useState(5);
+
+    const handleChangePage = (event, newPage) => {
+      setPage(newPage);
+    };
+
+    const indexOfLastItem = page * rowsPerPage;
+    const indexOfFirstItem = indexOfLastItem - rowsPerPage;
+    const currentItems = groups.slice(indexOfFirstItem, indexOfLastItem);
 
     const { username } = useContext(SessionContext);
 
@@ -36,7 +46,11 @@ const Groups = () => {
         setOpenSnackbar(true);
         fetchData();
       } catch (error) {
-        setError(error.response.data.error);
+        if (error.response && error.response.status === 400) {
+          setError('A group with the same name already exists.');
+        } else {
+          setError(error.response.data.error);
+        }
       }
     };
 
@@ -78,7 +92,7 @@ const Groups = () => {
         <Typography component="h1" variant="h5">List</Typography>  
         <Divider style={{ marginBottom:'0.5em'}}/>
         <List sx={{ margin:'0', width: '100%' }}>
-          {groups.map((group) => (
+          {currentItems.map((group) => (
             <Container>
               <ListItem key={group.name} sx={{ display:'flex', alignContent:'space-between', alignItems:'center' }}>
                 <ListItemText primary={group.name} />
@@ -98,6 +112,14 @@ const Groups = () => {
             </Container>
           ))}
         </List>
+        <Pagination
+          count={Math.ceil(groups.length / rowsPerPage)}
+          page={page}
+          onChange={handleChangePage}
+          boundaryCount={1}
+          siblingCount={1}
+          sx={{ '& ul': { display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1.5em' }}}
+        />
       </Container>
     </Container>
     );
