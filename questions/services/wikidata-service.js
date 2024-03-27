@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 async function getRandomEntity(entity, pos, lang) {
-    const property = entity.properties[pos].property[0];
+    const property = entity.properties[pos].property;
     const filt = entity.properties[pos].filter;
     var filter = '';
     if(filt) {
