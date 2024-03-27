@@ -46,4 +46,31 @@ describe('User Routes', () => {
         const statistics = await Statistics.findOne({ where: { username: newUser.username } });
         expect(statistics).toBeDefined();
     });
+
+    it('should not add a user if username already exists', async () => {
+        const existingUser = {
+            username: 'existinguser',
+            password: 'Test1234',
+            name: 'Existing',
+            surname: 'User'
+        };
+    
+        // Create the existing user in the database
+        await User.create({
+            username: existingUser.username,
+            password: await bcrypt.hash(existingUser.password, 10),
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            name: existingUser.name,
+            surname: existingUser.surname
+        });
+    
+        // Try to add the existing user again
+        const response = await request(app)
+            .post('/user/add')
+            .send(existingUser);
+    
+        expect(response.status).toBe(400);
+        expect(response.body.error).toBe('An account with that username already exists');
+    });
 });
