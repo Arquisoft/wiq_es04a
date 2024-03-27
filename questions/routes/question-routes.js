@@ -22,21 +22,23 @@ async function generateQuestions(n) {
             // get data for selected entity
             const pos = Math.floor(Math.random() * entity.properties.length);
            
-            const instance = entity.instance;
             const property = entity.properties[pos].property;
-            const question = entity.properties[pos].template;
             const categories = entity.properties[pos].category;
             const filter = entity.properties[pos].filter;
+            const lang = 1 ; //english
+            const question = entity.properties[pos].template[lang].question;
+            const language = entity.properties[pos].template[lang].lang;
 
-            let [entityName, searched_property] = await wikidataService.getRandomEntity(instance, property, filter);
-          
+            //let [entityName, searched_property] = await wikidataService.getRandomEntity(instance, property, filter);
+            let [entityName, searched_property] = await wikidataService.getRandomEntity(entity, pos, lang);
+
             if (searched_property !== null) {
                 //This way we can ask questions with different structures
                 const questionText = question.replace('x',entityName.charAt(0).toUpperCase() + entityName.slice(1)) +`?`;
                 let correctAnswer = searched_property;
     
                 // options will contain 3 wrong answers plus the correct one
-                let options = await wikidataService.getProperties(property, filter);
+                let options = await wikidataService.getProperties(property, language, filter);
                 options.push(correctAnswer);
 
                 //If properties are entities
@@ -110,4 +112,4 @@ router.get('/getQuestionsFromDb/:n/:category', async(_req, res) => {
     res.json(questions);
 });
 
-module.exports = router;
+module.exports = router, generateQuestions;
