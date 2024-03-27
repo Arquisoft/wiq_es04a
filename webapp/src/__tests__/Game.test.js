@@ -1,8 +1,10 @@
 import React from 'react';
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
+import { SessionContext } from '../SessionContext'; // Importa el contexto necesario
+import { BrowserRouter as Router } from 'react-router-dom';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import Game from './Game';
+import Game from '../pages/Game';
 
 const mockAxios = new MockAdapter(axios);
 
@@ -10,7 +12,7 @@ describe('Game component', () => {
   beforeEach(() => {
     mockAxios.reset();
     // Mock the axios.post request to simulate a successful response
-    mockAxios.onPost('http://localhost:8000/questions').reply(200, 
+    mockAxios.onGet('http://localhost:8000/questions').reply(200, 
         {
         question: 'Which is the capital of Spain?',
         options: ['Madrid', 'Barcelona', 'Paris', 'London'],
@@ -21,8 +23,17 @@ describe('Game component', () => {
     );
   });
 
-  it('should render question and answers', async () => {
-    render(<Game />);
+  it('should render question, answers and other ', async () => {
+    render( 
+      <SessionContext.Provider value={{ username: 'exampleUser' }}>
+        <Router>
+          <Game />
+        </Router>
+      </SessionContext.Provider>
+    );
+
+    expect(screen.getByRole('progressbar'));
+    expect(screen.findByText('1/3'));
 
     // waits for the question to appear
     await waitFor(() => screen.getByText('Which is the capital of Spain?'));
@@ -32,11 +43,16 @@ describe('Game component', () => {
     expect(screen.findByText('Barcelona'));
     expect(screen.findByText('Paris'));
     expect(screen.findByText('London'));
-
   });
 
   it('should guess correct answer', async () => {
-    render(<Game />);
+    render( 
+      <SessionContext.Provider value={{ username: 'exampleUser' }}>
+        <Router>
+          <Game />
+        </Router>
+      </SessionContext.Provider>
+    );
 
     // waits for the question to appear
     await waitFor(() => screen.getByText('Which is the capital of Spain?'));
@@ -53,8 +69,13 @@ describe('Game component', () => {
 
   
   it('should choose incorrect answer', async () => {
-    render(<Game />);
-
+    render( 
+      <SessionContext.Provider value={{ username: 'exampleUser' }}>
+        <Router>
+          <Game />
+        </Router>
+      </SessionContext.Provider>
+    );
     // waits for the question to appear
     await waitFor(() => screen.getByText('Which is the capital of Spain?'));
     const incorrectAnswer = screen.getByRole('button', { name: 'Barcelona' });
