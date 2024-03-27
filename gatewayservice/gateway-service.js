@@ -40,6 +40,7 @@ app.post('/login', async (req, res) => {
 
 app.post('/user/add', async (req, res) => {
   try {
+    console.log(1);
     // Forward the add user request to the user service
     const userResponse = await axios.post(`${userServiceUrl}/user/add`, req.body);
     res.json(userResponse.data);

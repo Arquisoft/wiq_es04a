@@ -1,18 +1,31 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
+// Function to create Sequelize instance with appropriate configurations
+function createSequelizeInstance() {
+    if (process.env.NODE_ENV === 'test') {
+        // Use SQLite in-memory database for testing
+        return new Sequelize({
+            dialect: 'sqlite',
+            storage: ':memory:'
+        });
+    } else {
+        // Normal database configuration for production
+        return new Sequelize({
+            host: 'mariadb',
+            username: 'root',
+            password: 'R#9aLp2sWu6y',
+            database: 'base_de_datos_de_usuarios',
+            port: 3306,
+            dialect: 'mariadb',
+            dialectOptions: {
+                connectTimeout: 20000
+            }
+        });
+    }
+}
 
 // Database connection configuration
-const sequelize = new Sequelize({
-    host: 'mariadb',
-    username: 'root',
-    password: 'R#9aLp2sWu6y',
-    database: 'base_de_datos_de_usuarios',
-    port: 3306,
-    dialect: 'mariadb',
-    dialectOptions: {
-        connectTimeout: 20000 
-    }
-});
+const sequelize = createSequelizeInstance();
 
 // Define the user model
 const User = sequelize.define('User', {
