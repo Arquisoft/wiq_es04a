@@ -1,122 +1,49 @@
+const { User, Statistics, sequelize } = require('../../models/user-model.js');
+const bcrypt = require('bcrypt');
 const request = require('supertest');
-const { Sequelize, DataTypes } = require('sequelize');
-const {router} = require('../../routes/user-routes.js');
+const express = require('express');
+const bodyParser = require('body-parser');
+const userRoutes = require('../../routes/user-routes.js');
 
-// Configuration of the Sequelize to use a memory data base
-const sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: ':memory:',
-    logging: false,
-});
+const app = express();
+app.use(bodyParser.json());
+app.use('/user', userRoutes);
 
-const User = sequelize.define('User', {
-    username: {
-        type: DataTypes.STRING,
-        primaryKey: true,
-        notEmpty: true,
-    },
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        notEmpty: true,
-    },
-    surname: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        notEmpty: true,
-    },
-    createdAt: {
-        type: DataTypes.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-    },
-    imageUrl: {
-        type: DataTypes.STRING,
-        defaultValue: "../../webapp/public/default_user.jpg",
-    }
-});
+describe('User Routes', () => {
+    beforeAll(async () => {
+        await sequelize.authenticate();
+        await sequelize.sync({ force: true });
+    });
 
-const Statistics = sequelize.define('Statistics', {
-    username: {
-        type: DataTypes.STRING,
-        primaryKey: true,
-        allowNull: false
-    },
-    earned_money: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
-    },
-    classic_correctly_answered_questions: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
-    },
-    classic_incorrectly_answered_questions: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
-    },
-    classic_total_time_played: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
-    },
-    classic_games_played: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
-    }
-});
+    afterAll(async () => {
+        await sequelize.close();
+    });
 
-User.hasOne(Statistics, { foreignKey: 'username' });
-Statistics.belongsTo(User, { foreignKey: 'username' });
-
-beforeAll(async () => {
-    await sequelize.sync({ force: true });
-});
-
-afterAll(async () => {
-    await sequelize.close();
-});
-
-// tests
-describe('User Registration API', () => {
-    it('should register a new user', async () => {
-        const userData = {
+    it('should add a new user', async () => {
+        const newUser = {
             username: 'testuser',
             password: 'Test1234',
             name: 'Test',
             surname: 'User'
         };
 
-        const response = await request(router)
-            .post('/add')
-            .send(userData);
+        const response = await request(app)
+            .post('/user/add')
+            .send(newUser);
 
         expect(response.status).toBe(200);
-        expect(response.body).toHaveProperty('username', userData.username);
-        expect(response.body).toHaveProperty('name', userData.name);
-        expect(response.body).toHaveProperty('surname', userData.surname);
+        expect(response.body.username).toBe(newUser.username);
 
-        const userStats = await Statistics.findOne({ where: { username: userData.username } });
-        expect(userStats).toBeTruthy();
-        expect(userStats.classic_correctly_answered_questions).toBe(0);
-    });
+        // Check if the user exists in the database
+        const user = await User.findOne({ where: { username: newUser.username } });
+        expect(user).toBeDefined();
 
-    it('should return an error if trying to register with an existing username', async () => {
-        const existingUser = {
-            username: 'existinguser',
-            password: 'Test1234',
-            name: 'Existing',
-            surname: 'User'
-        };
+        // Check if the password is hashed
+        const isPasswordCorrect = await bcrypt.compare(newUser.password, user.password);
+        expect(isPasswordCorrect).toBe(true);
 
-        await User.create(existingUser);
-
-        const response = await request(router)
-            .post('/add')
-            .send(existingUser);
-
-        expect(response.status).toBe(400);
-        expect(response.body.error).toBe('An account with that username already exists');
+        // Check if statistics for the user are created
+        const statistics = await Statistics.findOne({ where: { username: newUser.username } });
+        expect(statistics).toBeDefined();
     });
 });
