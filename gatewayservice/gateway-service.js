@@ -84,7 +84,6 @@ app.get('/statistics/:username', async (req, res) => {
 
 app.get('/group/list', async (req, res) => {
   try {
-
     const username = req.query.username;
     const userResponse = await axios.get(userServiceUrl + '/group/api/list',{params: {username: username }});
     res.json(userResponse.data);
