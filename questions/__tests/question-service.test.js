@@ -33,8 +33,8 @@ describe('Question Functions', function() {
             language: "en"
         };
         await questionFunctions.addQuestion(questionData);
-        const question = await Question.findOne({ text: "Which is the capital of Spain?" });
-        assert.strictEqual(question.text, "Which is the capital of Spain?");
+        const questionInDB = await Question.findOne({ question: "Which is the capital of Spain?" });
+        assert.strictEqual(questionInDB.question, "Which is the capital of Spain?");
     });
   });
 
@@ -53,4 +53,7 @@ describe('Question Functions', function() {
         assert.strictEqual(question.text, "Which is the capital of Spain?");
     });
   });
+
+  
+
 });
