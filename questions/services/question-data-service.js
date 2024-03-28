@@ -75,19 +75,9 @@ module.exports = {
         console.log('Required ', n, ' questions and there are ', totalQuestions);
         return;
       }
-  
-      // Obtain n random indexes
-      const randomIndexes = [];
-      while (randomIndexes.length < n) {
-        const randomIndex = Math.floor(Math.random() * totalQuestions);
-        if (!randomIndexes.includes(randomIndex)) {
-          randomIndexes.push(randomIndex);
-        }
-      }
-  
-      // Obtain n random questions
-      const randomQuestions = await Question.find().limit(n).skip(randomIndexes[0]);
-      return randomQuestions;
+      
+      return Question.aggregate([{ $sample: { size: n } }]);
+      
       //console.log('Random questions: ', randomQuestions);
     } catch (error) {
       console.error('Error obtaining random questions: ', error.message);

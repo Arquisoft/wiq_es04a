@@ -89,4 +89,41 @@ describe('Question Functions', function() {
     });
   });
 
+  describe('getRandomQuestions', function() {
+    it('It should return two random questions (out of three in database)', async function() {
+        const questionData = {
+            question: "Which is the capital of Spain?",
+            options: ["Madrid", "Barcelona", "Paris", "London"],
+            correctAnswer: "Madrid",
+            categories: ["Geography"],
+            language: "en"
+        };
+
+        const questionData2 = {
+          question: "Which is the capital of France?",
+          options: ["Madrid", "Barcelona", "Paris", "London"],
+          correctAnswer: "Madrid",
+          categories: ["Geography"],
+          language: "en"
+        };
+
+        const questionData3 = {
+          question: "Which is the capital of UK?",
+          options: ["Madrid", "Barcelona", "Paris", "London"],
+          correctAnswer: "Madrid",
+          categories: ["Geography"],
+          language: "en"
+        };
+
+      await questionFunctions.addQuestion(questionData);
+      await questionFunctions.addQuestion(questionData2);
+      await questionFunctions.addQuestion(questionData3);
+
+      const randomQuestions = await questionFunctions.getRandomQuestions(2);
+        
+      assert.strictEqual(randomQuestions.length, 2);
+    });
+  });
+
+
 });
