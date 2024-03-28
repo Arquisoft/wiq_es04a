@@ -2,8 +2,17 @@ const mongoose = require('mongoose');
 const Question = require('./question-data-model');
 require('dotenv').config();
 
-const uri = process.env.DATABASE_URI || 'mongodb://localhost:27017/questionDB';
-mongoose.connect(uri);
+let uri = '';// = process.env.DATABASE_URI || 'mongodb://localhost:27017/questionDB';
+if (process.env.NODE_ENV === 'test') {
+  uri =  process.env.TEST_DATABASE_URI || '';
+} else {
+  uri = process.env.DATABASE_URI || 'mongodb://localhost:27017/questionDB';
+  mongoose.connect(uri);
+
+}
+
+console.log(uri);
+
 
 module.exports = {
   // Add question to database

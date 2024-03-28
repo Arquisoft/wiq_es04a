@@ -35,8 +35,8 @@ async function addQuestion(questionData) {
 beforeAll(async () => {
   mongoServer = await MongoMemoryServer.create();
   const mongoUri = mongoServer.getUri();
-  //await mongoose.connect(mongoUri);
-  process.env.DATABASE_URI = mongoUri;
+  process.env.TEST_DATABASE_URI = mongoUri;
+  await mongoose.connect(mongoUri);
 
   //Load database with initial conditions
   //await addQuestion(questionData);
