@@ -82,13 +82,7 @@ module.exports = {
         console.log('Required ', n, ' questions and there are ', totalQuestions);
         return;
       }
-      /*var questions = [];
-      for(var i = 0; i < n; i++) {
-        var question = await getQuestion();
-        questions.push(question);
-        deleteQuestionById(question._id);
-
-      }*/
+      
       // Obtain n random indexes
       const randomIndexes = [];
       while (randomIndexes.length < n) {
@@ -111,7 +105,7 @@ module.exports = {
   getRandomQuestionsByCategory : async function(n, category) {
     try {
       // Obtain total number of questions with that category
-      const totalQuestions = await Question.countDocuments({ category });
+      const totalQuestions = await Question.countDocuments(({ categories: category }));
   
       // Check if there are required number of questions
       if (totalQuestions < n) {
@@ -129,7 +123,7 @@ module.exports = {
     }
   
       // Obtain n random questions with that category
-      const randomQuestions = await Question.find({ category }).limit(n).skip(randomIndexes[0]);
+      const randomQuestions = await Question.find(({ categories: category })).limit(n).skip(randomIndexes[0]);
       
       return randomQuestions;
       //console.log('Random questions: ', randomQuestions);
