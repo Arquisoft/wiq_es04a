@@ -125,5 +125,62 @@ describe('Question Functions', function() {
     });
   });
 
+  describe('getRandomQuestionsByCategory', function() {
+    it('It should return two random questions filtered by category', async function() {
+        const questionData = {
+            question: "Which is the capital of Spain?",
+            options: ["Madrid", "Barcelona", "Paris", "London"],
+            correctAnswer: "Madrid",
+            categories: ["Geography"],
+            language: "en"
+        };
+
+        const questionData2 = {
+          question: "Which is the capital of France?",
+          options: ["Madrid", "Barcelona", "Paris", "London"],
+          correctAnswer: "Madrid",
+          categories: ["Geography"],
+          language: "en"
+        };
+
+        const questionData3 = {
+          question: "Which is the capital of UK?",
+          options: ["Madrid", "Barcelona", "Paris", "London"],
+          correctAnswer: "Madrid",
+          categories: ["Geography"],
+          language: "en"
+        };
+
+        const questionData4 = {
+          question: "Which is the currency of Spain?",
+          options: ["Peseta", "Euro", "Duro", "Dollar"],
+          correctAnswer: "Euro",
+          categories: ["Political"],
+          language: "en"
+        };
+
+      await questionFunctions.addQuestion(questionData);
+      await questionFunctions.addQuestion(questionData2);
+      await questionFunctions.addQuestion(questionData3);
+      await questionFunctions.addQuestion(questionData4);
+
+      const randomQuestions = await questionFunctions.getRandomQuestionsByCategory(2, "Geography");
+        
+      assert.strictEqual(randomQuestions.length, 2);
+
+      randomQuestions.forEach(question => {
+        assert.strictEqual(question.categories[0], "Geography");
+      });
+
+      const randomQuestionPolitical = await questionFunctions.getRandomQuestionsByCategory(1, "Political");
+        
+      assert.strictEqual(randomQuestionPolitical.length, 1);
+
+      randomQuestionPolitical.forEach(question => {
+        assert.strictEqual(question.categories[0], "Political");
+      });
+
+    });
+  });
 
 });
