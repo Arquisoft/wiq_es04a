@@ -1,10 +1,10 @@
-const Question = require('../services/question-data-model');
+const Question = require('../../services/question-data-model.js');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const request = require('supertest');
 const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
-const questionRoutes = require('../routes/question-routes.js');
+const questionRoutes = require('../../routes/question-routes.js');
 
 
 let mongoServer;
@@ -19,6 +19,7 @@ const questionData = {
     categories: ["Geography"],
     language: "en"
 };
+
 
 async function addQuestion(questionData) {
   const newQuestion = new Question({
@@ -35,8 +36,13 @@ beforeAll(async () => {
   mongoServer = await MongoMemoryServer.create();
   const mongoUri = mongoServer.getUri();
   //await mongoose.connect(mongoUri);
-  process.env.MONGODB_URI = mongoUri;
+  process.env.DATABASE_URI = mongoUri;
+
   //Load database with initial conditions
+  //await addQuestion(questionData);
+});
+
+beforeEach(async () => {
   await addQuestion(questionData);
 });
 
@@ -63,12 +69,20 @@ beforeAll(async () => {
     });
   });*/
 
-  describe('getQuestion', function() {
+  describe('Question routes', function() {
     it('It should get a question from the database', async function() {
         const response = await request(app).get('/questions/');
-        //expect(response.status).toBe(200);
+        expect(response.status).toBe(200);
+        console.log(response.body);
     }, 10000);
+
+    /*it('It should get n questions from the database', async function() {
+      const response = await request(app).get('/getQuestionsFromDb/1');
+      expect(response.status).toBe(200);
+    }, 10000);*/
   });
+
+
 
 describe('MongoDB Connection', () => {
     it('should connect to the MongoDB server in memory', async () => {
