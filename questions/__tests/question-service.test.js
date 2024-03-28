@@ -54,6 +54,39 @@ describe('Question Functions', function() {
     });
   });
 
-  
+  describe('getQuestionCount', function() {
+    it('It should count number of questions at the database', async function() {
+        const questionData = {
+            question: "Which is the capital of Spain?",
+            options: ["Madrid", "Barcelona", "Paris", "London"],
+            correctAnswer: "Madrid",
+            categories: ["Geography"],
+            language: "en"
+        };
+        const newQuestion = new Question(questionData);
+        await newQuestion.save();
+        
+        assert.strictEqual(await questionFunctions.getQuestionCount(), 1);
+    });
+  });
+
+  describe('deleteQuestionById', function() {
+    it('It should delete an added question from the database', async function() {
+        const questionData = {
+            question: "Which is the capital of Spain?",
+            options: ["Madrid", "Barcelona", "Paris", "London"],
+            correctAnswer: "Madrid",
+            categories: ["Geography"],
+            language: "en"
+        };
+        const newQuestion = new Question(questionData);
+        const savedQuestion = await newQuestion.save();
+        const savedQuestionId = savedQuestion._id;
+        
+        assert.strictEqual(await questionFunctions.getQuestionCount(), 1);
+        await questionFunctions.deleteQuestionById(savedQuestionId);
+        assert.strictEqual(await questionFunctions.getQuestionCount(), 0);
+    });
+  });
 
 });
