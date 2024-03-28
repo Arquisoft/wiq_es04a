@@ -17,6 +17,16 @@ app.use(express.json());
 const metricsMiddleware = promBundle({includeMethod: true});
 app.use(metricsMiddleware);
 
+const handleErrors = (res, error) => {
+  if (error.response && error.response.status) {
+    res.status(error.response.status).json({ error: error.response.data.error });
+  } else if (error.message) {
+    res.status(500).json({ error: error.message });
+  } else {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
 // Health check endpoint
 app.get('/health', (_req, res) => {
   res.json({ status: 'OK' });
@@ -28,36 +38,22 @@ app.post('/login', async (req, res) => {
     const authResponse = await axios.post(`${userServiceUrl}/login`, req.body);
     res.json(authResponse.data);
   } catch (error) {
-    if (error.response && error.response.status) {
-      res.status(error.response.status).json({ error: error.response.data.error });
-    } else if (error.message) {
-      res.status(500).json({ error: error.message });
-    } else {
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
+    handleErrors(res, error);
   }
 });
 
 app.post('/user/add', async (req, res) => {
   try {
-    console.log(1);
     // Forward the add user request to the user service
     const userResponse = await axios.post(`${userServiceUrl}/user/add`, req.body);
     res.json(userResponse.data);
   } catch (error) {
-    if (error.response && error.response.status) {
-      res.status(error.response.status).json({ error: error.response.data.error });
-    } else if (error.message) {
-      res.status(500).json({ error: error.message });
-    } else {
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
+    handleErrors(res, error);
   }
 });
 
 app.get('/questions', async (req, res) => {
   try {
-    // This not even being executed: console.log(process.env.USER_SERVICE_URL);
     const questionsResponse = await axios.get(`${questionGenerationServiceUrl}/questions`);
     res.json(questionsResponse.data);
   } catch (error) {
@@ -71,13 +67,7 @@ app.post('/statistics/edit', async (req, res) => {
     const userResponse = await axios.post(`${userServiceUrl}/statistics/edit`, req.body);
     res.json(userResponse.data);
   } catch (error) {
-    if (error.response && error.response.status) {
-      res.status(error.response.status).json({ error: error.response.data.error });
-    } else if (error.message) {
-      res.status(500).json({ error: error.message });
-    } else {
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
+    handleErrors(res, error);
   }
 });
 
@@ -88,28 +78,17 @@ app.get('/statistics/:username', async (req, res) => {
     const userResponse = await axios.get(`${userServiceUrl}/statistics/api/${username}`, req.body);
     res.json(userResponse.data);
   } catch (error) {
-    if (error.response && error.response.status) {
-      res.status(error.response.status).json({ error: error.response.data.error });
-    } else if (error.message) {
-      res.status(500).json({ error: error.message });
-    } else {
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
+    handleErrors(res, error);
   }
 });
 
 app.get('/group/list', async (req, res) => {
   try {
-    const userResponse = await axios.get(`${userServiceUrl}/group/api/list`);
+    const username = req.query.username;
+    const userResponse = await axios.get(userServiceUrl + '/group/api/list',{params: {username: username }});
     res.json(userResponse.data);
   } catch (error) {
-    if (error.response && error.response.status) {
-      res.status(error.response.status).json({ error: error.response.data.error });
-    } else if (error.message) {
-      res.status(500).json({ error: error.message });
-    } else {
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
+    handleErrors(res, error);
   }
 });
 
@@ -119,12 +98,10 @@ app.post('/group/add', async (req, res) => {
     const userResponse = await axios.post(`${userServiceUrl}/group/add`, req.body);
     res.json(userResponse.data);
   } catch (error) {
-    if (error.response && error.response.status) {
-      res.status(error.response.status).json({ error: error.response.data.error });
-    } else if (error.message) {
-      res.status(500).json({ error: error.message });
-    } else {
-      res.status(500).json({ error: 'Internal Server Error' });
+    if (error.response && error.response.status === 400) {
+      res.status(400).json({ error: error.response.data.error });
+    }else{
+      handleErrors(res, error);
     }
   }
 });
@@ -132,16 +109,10 @@ app.post('/group/add', async (req, res) => {
 app.get('/group/:name', async (req, res) => {
   try {
     const { name } = req.params;
-    const userResponse = await axios.get(`${userServiceUrl}/group/${name}`);
+    const userResponse = await axios.get(`${userServiceUrl}/group/api/${name}`);
     res.json(userResponse.data);
   } catch (error) {
-    if (error.response && error.response.status) {
-      res.status(error.response.status).json({ error: error.response.data.error });
-    } else if (error.message) {
-      res.status(500).json({ error: error.message });
-    } else {
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
+    handleErrors(res, error);
   }
 });
 
@@ -151,12 +122,10 @@ app.post('/group/:name/join', async (req, res) => {
     const userResponse = await axios.post(`${userServiceUrl}/group/${name}/join`, req.body);
     res.json(userResponse.data);
   } catch (error) {
-    if (error.response && error.response.status) {
-      res.status(error.response.status).json({ error: error.response.data.error });
-    } else if (error.message) {
-      res.status(500).json({ error: error.message });
-    } else {
-      res.status(500).json({ error: 'Internal Server Error' });
+    if (error.response && error.response.status === 400) {
+      res.status(400).json({ error: error.response.data.error });
+    }else{
+      handleErrors(res, error);
     }
   }
 });
