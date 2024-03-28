@@ -37,13 +37,10 @@ beforeAll(async () => {
   const mongoUri = mongoServer.getUri();
   process.env.TEST_DATABASE_URI = mongoUri;
   await mongoose.connect(mongoUri);
-
-  //Load database with initial conditions
-  //await addQuestion(questionData);
 });
 
 beforeEach(async () => {
-
+  //Load database with initial conditions
   await mongoose.connection.dropDatabase();
   for(var i = 0; i < 10; i++) {
     await addQuestion(questionData);
@@ -51,11 +48,9 @@ beforeEach(async () => {
 });
 
   afterAll(async () => {
-    //await mongoose.disconnect();
-    //app.close();
+    // Disconnect testing database after all tests
+    await mongoose.disconnect();
     await mongoServer.stop();
-    // Desconectar de la base de datos de prueba después de todas las pruebas
-    //await mongoose.disconnect();
   });
 
   describe('Question routes', function() {
@@ -64,7 +59,6 @@ beforeEach(async () => {
         await expect(response.status).toBe(200);
         await expect(response.body.question).toBe('Which is the capital of Spain?');
     });
-
 
     it('It should get n questions from the database', async function() {
       const response = await request(app).get('/questions/getQuestionsFromDb/2');
@@ -91,8 +85,6 @@ beforeEach(async () => {
     });
 
   });
-
-
 
 describe('MongoDB Connection', () => {
     it('should connect to the MongoDB server in memory', async () => {
