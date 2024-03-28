@@ -49,8 +49,8 @@ describe('Question Functions', function() {
         };
         const newQuestion = new Question(questionData);
         await newQuestion.save();
-        const question = await questionFunctions.getQuestion({ text: "Which is the capital of Spain?"});
-        assert.strictEqual(question.text, "Which is the capital of Spain?");
+        const questionInDB = await questionFunctions.getQuestion({ question: "Which is the capital of Spain?"});
+        assert.strictEqual(questionInDB.question, "Which is the capital of Spain?");
     });
   });
 
