@@ -82,8 +82,8 @@ const UserGroup = sequelize.define('UserGroup', {
     }
 });
 
-User.belongsToMany(Group, { through: UserGroup });
-Group.belongsToMany(User, { through: UserGroup });
+User.belongsToMany(Group, { through: {model: UserGroup,timestamps: false}, foreignKey: 'username', otherKey: 'groupName' });
+Group.belongsToMany(User, { through: {model: UserGroup,timestamps: false}, foreignKey: 'groupName', otherKey: 'username', });
 
 // Define the statics model
 const Statistics = sequelize.define('Statistics', {

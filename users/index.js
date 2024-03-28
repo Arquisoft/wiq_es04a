@@ -8,7 +8,7 @@ const userRoutes = require('./routes/user-routes.js');
 const groupRoutes = require('./routes/group-routes.js');
 const staticsRoutes = require('./routes/statistics-routes.js');
 
-// App definition and
+// App and users port definition 
 const app = express();
 const port = 8001;
 
