@@ -8,10 +8,7 @@ if (process.env.NODE_ENV === 'test') {
 } else {
   uri = process.env.DATABASE_URI || 'mongodb://localhost:27017/questionDB';
   mongoose.connect(uri);
-
 }
-
-console.log(uri);
 
 
 module.exports = {
@@ -19,6 +16,7 @@ module.exports = {
   addQuestion : async function(questionData) {
     try {
       const newQuestion = new Question(questionData);
+      console.log(newQuestion);
       await newQuestion.save();
       console.log(`Question ${newQuestion._id} saved successfully in DB`);
     } catch (error) {
@@ -84,7 +82,13 @@ module.exports = {
         console.log('Required ', n, ' questions and there are ', totalQuestions);
         return;
       }
-  
+      /*var questions = [];
+      for(var i = 0; i < n; i++) {
+        var question = await getQuestion();
+        questions.push(question);
+        deleteQuestionById(question._id);
+
+      }*/
       // Obtain n random indexes
       const randomIndexes = [];
       while (randomIndexes.length < n) {
@@ -111,7 +115,7 @@ module.exports = {
   
       // Check if there are required number of questions
       if (totalQuestions < n) {
-        console.log('Required ', n, ' questions and there are ', totalQuestions);
+        console.log('Required ', n, ' questions and there are ', totalQuestions, ' of ', category);
         return;
       }
   
