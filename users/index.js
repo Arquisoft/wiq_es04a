@@ -1,10 +1,12 @@
 // Imports (express syntax)
 const express = require('express');
 
+
 // Routes:
 const authRoutes = require('./routes/auth-routes.js');
 const userRoutes = require('./routes/user-routes.js');
 const groupRoutes = require('./routes/group-routes.js');
+const staticsRoutes = require('./routes/statics-routes.js');
 
 // App definition and
 const app = express();
@@ -17,6 +19,7 @@ app.use(express.json());
 app.use('/user', userRoutes);
 app.use('/login', authRoutes);
 app.use('/group', groupRoutes);
+app.use('/statistics', staticsRoutes);
 
 // Start the service
 const server = app.listen(port, () => {

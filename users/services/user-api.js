@@ -74,20 +74,4 @@ router.get('/ranking', async (req,res) => {
 });
 
 
-
-
-//Get Groups
-
-//Get group by name
-
-
-
-
-
-
-
-
-
-
-
 module.exports = router;

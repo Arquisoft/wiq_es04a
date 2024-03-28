@@ -13,7 +13,7 @@ const Home = () => {
                 <Typography align="center" variant="h5" sx={{ fontWeight: "bold",  color: theme.palette.primary.main }}> QUEST </Typography>
             </Box>
             <Typography variant="body1" textAlign="center" fontWeight="700" marginTop="4em" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)', fontSize: '150%' }}>
-            WELCOME TO WIQ, WHERE INFINITE KNOWLEDGE AWAITS POWERED BY WIKIDATA.<br/>PLAY MINI-GAMES BASED ON 'SABER Y GANAR' TO BECOME THE ULTIMATE CHAMPION.<br/><br/>HAPPYSOFTWARE WISHES YOU LUCK ON YOUR QUEST TO THE TOP!
+            WELCOME TO WIQ, WHERE INFINITE KNOWLEDGE AWAITS POWERED BY WIKIDATA.<br/><br/>LOG IN AND START PLAYING MINI-GAMES BASED ON 'SABER Y GANAR' TO BECOME THE ULTIMATE CHAMPION. HAPPYSOFTWARE WISHES YOU LUCK ON YOUR QUEST TO THE TOP!
             </Typography>
         </Box>
     );

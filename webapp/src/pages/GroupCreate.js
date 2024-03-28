@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar, Box, Divider } from '@mui/material';
+import { SessionContext } from '../SessionContext';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -9,11 +10,13 @@ const AddGroup = () => {
   const [error, setError] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
+  const { username } = useContext(SessionContext);
+
   const addGroup = async () => {
     try {
       await axios.post(`${apiEndpoint}/group/add`, {
-        name
-        // Need also the logged user
+        name:name,
+        username:username
       });
       setOpenSnackbar(true);
     } catch (error) {

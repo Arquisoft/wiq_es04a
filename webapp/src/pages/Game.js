@@ -1,12 +1,20 @@
 import * as React from 'react';
-import { Container, Button, CssBaseline, Grid, Typography, CircularProgress } from '@mui/material';
-import CheckIcon from '@mui/icons-material/Check';
-import ClearIcon from '@mui/icons-material/Clear';
-import questions from "../data/__questions.json"; //static questions battery, we have to change it
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+import { Container, Button, CssBaseline, Grid, Typography, CircularProgress } from '@mui/material';
+import { PlayArrow, Pause } from '@mui/icons-material';
+import CheckIcon from '@mui/icons-material/Check';
+import ClearIcon from '@mui/icons-material/Clear';
+import { useNavigate } from 'react-router-dom';
+import { SessionContext } from '../SessionContext';
+import { useContext } from 'react';
+import Confetti from 'react-confetti';
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
+
 
 const Game = () => {
     const navigate = useNavigate();
@@ -14,52 +22,74 @@ const Game = () => {
     const SUCCESS_SOUND_ROUTE = "/sounds/success_sound.mp3";
     const FAILURE_SOUND_ROUTE = "/sounds/wrong_sound.mp3";
 
+    //sesion information
+    const {username} = useContext(SessionContext);
+
     // state initialization
     const [round, setRound] = React.useState(1);
     const [questionData, setQuestionData] = React.useState(null);
     const [buttonStates, setButtonStates] = React.useState([]);
     const [answered, setAnswered] = React.useState(false);
     const [shouldRedirect, setShouldRedirect] = React.useState(false);
-    const [userData, setUserData] = React.useState({
-        username: "Samu11", //change it
-        total_score: 0,
-        correctly_answered_questions: 0,
-        incorrectly_answered_questions: 0,
-        total_time_played: 0, 
-        games_played: 1,
-    }); 
+    const [totalScore, setTotalScore] = React.useState(0);
+    const [correctlyAnsweredQuestions, setCorrectlyAnsweredQuestions] = React.useState(0);
+    const [incorrectlyAnsweredQuestions, setIncorrectlyAnsweredQuestions] = React.useState(0);
+    const [totalTimePlayed, setTotalTimePlayed] = React.useState(0);
     const [timerRunning, setTimerRunning] = React.useState(true); // indicate if the timer is working
+    const [showConfetti, setShowConfetti] = React.useState(false); //indicates if the confetti must appear
+    const [questionCountdownKey, setQuestionCountdownKey] = React.useState(15); //key to update question timer
+    const [questionCountdownRunning, setQuestionCountdownRunning] = React.useState(false); //property to start and stop question timer
 
-    // hook to iniciate timer
+    const [questionHistorial, setQuestionHistorial] = React.useState(Array(MAX_ROUNDS).fill(null));
+
+
     React.useEffect(() => {
         let timer;
         if (timerRunning) {
             timer = setInterval(() => {
-                setUserData((prevUserData) => ({
-                    ...prevUserData,
-                    total_time_played: prevUserData.total_time_played + 1
-                }));
-            }, 1000); 
+                setTotalTimePlayed((prevTotalTime) => prevTotalTime + 1);
+            }, 1000);
         }
-        return () => clearInterval(timer); 
+    
+        return () => clearInterval(timer);
     }, [timerRunning]);
 
     // hook to initiating new rounds if the current number of rounds is less than or equal to 3 
     React.useEffect(() => {
         if (round <= MAX_ROUNDS) {
             startNewRound();
+            setQuestionCountdownRunning(true);
+            setQuestionCountdownKey(questionCountdownKey => questionCountdownKey + 1); //code to reset countdown timer
         } else {
             setTimerRunning(false);
             setShouldRedirect(true);
+            setQuestionCountdownRunning(false);
         }
     }, [round]);
 
-    // selects a random question from the data and initializes button states for the selected question
-    const startNewRound = () => {
+    // stablish if the confetti must show or not
+    React.useEffect(() => {
+        if (correctlyAnsweredQuestions > incorrectlyAnsweredQuestions) {
+          setShowConfetti(true);
+        } else {
+          setShowConfetti(false);
+        }
+      }, [correctlyAnsweredQuestions, incorrectlyAnsweredQuestions]);
+    
+
+    // gets a random question from the database and initializes button states to null
+    const startNewRound = async () => {
         setAnswered(false);
-        const randomIndex = Math.floor(Math.random() * questions.length);
-        setQuestionData(questions[randomIndex]);
-        setButtonStates(new Array(questions[randomIndex].options.length).fill(null));
+        // It works deploying using git repo from machine with: axios.get(`http://20.80.235.188:8000/questions`)
+        axios.get(`${apiEndpoint}/questions`)
+        .then(quest => {
+            // every new round it gets a new question from db
+            setQuestionData(quest.data);    
+            setButtonStates(new Array(quest.data.options.length).fill(null));
+        }).catch(error => {
+            console.error(error);
+        }); 
+        
     };
 
     // this function is called when a user selects a response. 
@@ -67,17 +97,20 @@ const Game = () => {
         setAnswered(true);
         const newButtonStates = [...buttonStates];
 
+        setQuestionCountdownRunning(false);
+
         //check answer
         if (response === questionData.correctAnswer) {
             newButtonStates[index] = "success"
             const sucessSound = new Audio(SUCCESS_SOUND_ROUTE);
             sucessSound.volume = 0.40;
             sucessSound.play();
-            setUserData((prevUserData) => ({
-                ...prevUserData,
-                correctly_answered_questions: prevUserData.correctly_answered_questions + 1,
-                total_score: prevUserData.total_score + 20,
-            }));
+            setCorrectlyAnsweredQuestions(correctlyAnsweredQuestions + 1);
+            setTotalScore(totalScore + 20);
+
+            const newQuestionHistorial = [...questionHistorial];
+            newQuestionHistorial[round-1] = true;
+            setQuestionHistorial(newQuestionHistorial);
         } else {
             newButtonStates[index] = "failure";
             const failureSound = new Audio(FAILURE_SOUND_ROUTE);
@@ -88,10 +121,11 @@ const Game = () => {
                     newButtonStates[i] = "success";
                 }
             }
-            setUserData(prevUserData => ({
-                ...prevUserData,
-                incorrectly_answered_questions: prevUserData.incorrectly_answered_questions + 1,
-            }));
+            setIncorrectlyAnsweredQuestions(incorrectlyAnsweredQuestions + 1);
+
+            const newQuestionHistorial = [...questionHistorial];
+            newQuestionHistorial[round-1] = false;
+            setQuestionHistorial(newQuestionHistorial);
         }
 
         setButtonStates(newButtonStates);
@@ -99,7 +133,14 @@ const Game = () => {
         if (round >= 3) {
             // Update user data before redirecting
             try {
-                await axios.post(`${apiEndpoint}/user/edit`, userData);
+                await axios.post(`${apiEndpoint}/statistics/edit`, {
+                    username:username,
+                    earned_money:totalScore,
+                    classic_correctly_answered_questions:correctlyAnsweredQuestions,
+                    classic_incorrectly_answered_questions:incorrectlyAnsweredQuestions,
+                    classic_total_time_played:totalTimePlayed,
+                    classic_games_played:1
+                  });
               } catch (error) {
                 console.error("Error:", error);
               }
@@ -110,6 +151,34 @@ const Game = () => {
             setButtonStates([]);
         }, 2000);
     };
+
+    const questionHistorialBar = () => {
+        return questionHistorial.map((isCorrect, index) => (
+        <Card 
+          key={index + 1}
+          variant="outlined"
+          style={{ 
+            width: `${100 / MAX_ROUNDS}%`,
+            marginRight: '0.6em',
+            backgroundColor: isCorrect === null ? 'gray' : isCorrect ? 'lightgreen' : 'salmon',
+          }}
+        >
+          <CardContent>{index + 1}</CardContent>
+        </Card>
+        ));
+      };    
+
+    const togglePause = () => {
+        setTimerRunning(!timerRunning);
+        setQuestionCountdownRunning(!timerRunning);
+        if (timerRunning) {
+            // Si el juego estaba en marcha y se pausa, deshabilitar los botones
+            setButtonStates(new Array(questionData.options.length).fill(true));
+        } else {
+            // Si el juego estaba pausado y se reanuda, habilitar los botones
+            setButtonStates(new Array(questionData.options.length).fill(null));
+        }
+    }
 
 
     // circular loading
@@ -138,6 +207,7 @@ if (shouldRedirect) {
         navigate('/homepage');
     }, 4000);
 
+//
     return (
         <Container
             sx={{
@@ -153,20 +223,21 @@ if (shouldRedirect) {
             <Typography 
             variant="h4" 
             sx={{
-                color: userData.correctly_answered_questions > userData.incorrectly_answered_questions ? 'green' : 'red',
+                color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? 'green' : 'red',
                 fontSize: '4rem', // Tamaño de fuente
                 marginTop: '20px', // Espaciado superior
                 marginBottom: '50px', // Espaciado inferior
             }}
         >
-            {userData.correctly_answered_questions > userData.incorrectly_answered_questions ? "Great Job!" : "Game Over"}
+            {correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? "Great Job!" : "Game Over"}
         </Typography>
             <div>
-                <Typography variant="h6">Correct Answers: {userData.correctly_answered_questions}</Typography>
-                <Typography variant="h6">Incorrect Answers: {userData.incorrectly_answered_questions}</Typography>
-                <Typography variant="h6">Total money: {userData.total_score}</Typography>
-                <Typography variant="h6">Time: {userData.total_time_played} seconds</Typography>
+                <Typography variant="h6">Correct Answers: {correctlyAnsweredQuestions}</Typography>
+                <Typography variant="h6">Incorrect Answers: {incorrectlyAnsweredQuestions}</Typography>
+                <Typography variant="h6">Total money: {totalScore}</Typography>
+                <Typography variant="h6">Game time: {totalTimePlayed} seconds</Typography>
             </div>
+            {showConfetti && <Confetti />}
         </Container>
     );
 }
@@ -182,22 +253,68 @@ if (shouldRedirect) {
             }}
         >
             <CssBaseline />
+            
             <Typography
                 variant="h6"
                 sx={{
                     position: 'absolute',
                     top: '10%', 
-                    right: '5%', 
+                    right: '5%',
                 }}
             >
-                Time: {userData.total_time_played} s
+                Game time: {totalTimePlayed} s
+      
             </Typography>
+
+            <Button variant="contained"
+                    onClick={() => togglePause()}
+                    disabled={answered}>
+
+                {timerRunning ? <Pause /> : <PlayArrow />}
+                {timerRunning ? 'Pause' : 'Play'}
+            </Button>
+
+            <Container
+            sx={{
+                position: 'absolute',
+                top: '10%', 
+                right: '20%', 
+            }}>
+                <Container
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                    }}
+                >
+                    {questionHistorialBar()}
+                </Container>
+            </Container>
+
             <Typography variant='h6' >
                 {round} / {MAX_ROUNDS}
             </Typography>
-            <Typography variant="h5" mb={2}>
-                {questionData.question}
+            <Typography variant="h5" mb={4} fontWeight="bold" style={{ display: 'flex', alignItems: 'center' }}>
+            <span style={{ marginRight: '1em' }}>{questionData.question}</span>
+                <CountdownCircleTimer
+                  key={questionCountdownKey}
+                  isPlaying = {questionCountdownRunning}
+                  duration={15}
+                  colors={["#0bfc03", "#F7B801", "#f50707", "#A30000"]}
+                  size={100}
+                  colorsTime={[10, 6, 3, 0]}
+                  onComplete={() => selectResponse(0, "FAILED")} //when time ends always fail question
+                >
+                  {({ remainingTime }) => {
+                    return (
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <div style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{remainingTime}</div>
+                      </div>
+                    );
+                  }}
+                </CountdownCircleTimer>
             </Typography>
+
             <Grid container spacing={2}>
                 {questionData.options.map((option, index) => (
                     <Grid item xs={12} key={index}>

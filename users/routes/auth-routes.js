@@ -1,17 +1,27 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const { User } = require('../models/user-model');
+
+
+require('dotenv').config();
 
 router.post('/', async (req, res) => {
     try {
-  
+
       const { username, password } = req.body;
   
       // Check if required fields are present in the request body
       if (!username || !password) {
         throw new Error('Missing required fields');
+      }
+
+      // Fields length validation, no more validations needed because of the register validations
+      if (!username.trim()) {
+        throw new Error('The username cannot contain only spaces');
+      }
+      if (!password.trim()) {
+        throw new Error('The password cannot contain only spaces');
       }
   
       // Find the user by username in the database
@@ -20,15 +30,22 @@ router.post('/', async (req, res) => {
   
       // Check if the user exists and verify the password
       if (user && user.username === username && await bcrypt.compare(password, user.password)) {
-        // Generate a JWT token
-        const token = jwt.sign({ userId: user.id }, 'your-secret-key', { expiresIn: '1h' });
-        // Respond with the token and user information
-        return res.json({ token, username, createdAt: user.createdAt });
+
+        // Respond with the user information
+        return res.status(200).json({ username, createdAt: user.createdAt });
+
       } else {
         return res.status(401).json({ error: 'Invalid credentials' });
       }
     } catch (error) {
-      return res.status(500).json({ error: 'Internal Server Error' });
+      if (error.name === 'SequelizeValidationError') {
+          // validation errors
+          const validationErrors = error.errors.map(err => err.message);
+          res.status(400).json({ error: 'Error de validación', details: validationErrors });
+      } else {
+          // Other errors
+          res.status(400).json({ error: error.message });
+      }
     }
   });
 

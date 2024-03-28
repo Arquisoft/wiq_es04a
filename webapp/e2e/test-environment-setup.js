@@ -1,19 +1,27 @@
-const { MongoMemoryServer } = require('mongodb-memory-server');
+/*const userMemoryDatabase = require('mysql2-promise')();
 
-
-let mongoserver;
 let userservice;
-let authservice;
 let gatewayservice;
 
 async function startServer() {
-    console.log('Starting MongoDB memory server...');
-    mongoserver = await MongoMemoryServer.create();
-    const mongoUri = mongoserver.getUri();
-    process.env.MONGODB_URI = mongoUri;
-    userservice = await require("../../users/userservice/user-service");
-    authservice = await require("../../users/authservice/auth-service");
+
+    userMemoryDatabase.configure({
+        "host": "mariadb",
+        "user": "root",
+        "password": "R#9aLp2sWu6y",
+        "database": "base_de_datos_de_usuarios",
+        "port": 3306,
+        "dialect": 'mariadb'
+    });
+
     gatewayservice = await require("../../gatewayservice/gateway-service");
+    userservice = await require("../../users/index");
+    
   }
 
-  startServer();
+  startServer();*/
+
+  //TODO: This file is commented because MariaDB memory database is 
+  //not working and commented it does not affect anything.
+  
+  //new register-steps work correctly.

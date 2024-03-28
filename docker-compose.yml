@@ -1,7 +1,7 @@
 version: '3'
 services:
   mongodb:
-    container_name: mongodb-${teamname:-defaultASW}
+    container_name: mongodb
     image: mongo
     profiles: ["dev", "prod"]
     volumes:
@@ -12,7 +12,7 @@ services:
       - mynetwork
 
   mariadb:
-    container_name: mariadb-${teamname:-defaultASW}
+    container_name: mariadb
     image: mariadb
     profiles: ["dev", "prod"]
     volumes:
@@ -26,7 +26,7 @@ services:
       - mynetwork
 
   users:
-    container_name: users-${teamname:-defaultASW}
+    container_name: users
     image: ghcr.io/arquisoft/wiq_es04a/users:latest
     profiles: ["dev", "prod"]
     build: ./users
@@ -39,34 +39,53 @@ services:
     environment:
       DATABASE_URL: mariadb:3306/userdb
 
+  questions:
+      container_name: questions
+      image: ghcr.io/arquisoft/wiq_es04a/questions:latest
+      profiles: ["dev", "prod"]
+      build: ./questions
+      depends_on:
+        - mongodb
+      ports:
+        - "8010:8010"
+      networks:
+        - mynetwork
+      environment:
+        DATABASE_URI: mongodb://mongodb:27017/questionDB
+
   gatewayservice:
-    container_name: gatewayservice-${teamname:-defaultASW}
-    image: ghcr.io/arquisoft/wiq_0/gatewayservice:latest
+    container_name: gatewayservice
+    image: ghcr.io/arquisoft/wiq_es04a/gatewayservice:latest
     profiles: ["dev", "prod"]
     build: ./gatewayservice
     depends_on:
-      - mariadb
       - users
+      - questions
     ports:
       - "8000:8000"
     networks:
       - mynetwork
     environment:
       USER_SERVICE_URL: http://users:8001
+      QUESTION_SERVICE_URL: http://questions:8010
 
   webapp:
-    container_name: webapp-${teamname:-defaultASW}
-    image: ghcr.io/arquisoft/wiq_0/webapp:latest
+    container_name: webapp
+    image: ghcr.io/arquisoft/wiq_es04a/webapp:latest
     profiles: ["dev", "prod"]
     build: ./webapp
     depends_on:
       - gatewayservice
     ports:
       - "3000:3000" 
+    networks:
+      - mynetwork
+    environment:
+      REACT_APP_API_ENDPOINT: http://gatewayservice:8000
 
   prometheus:
     image: prom/prometheus
-    container_name: prometheus-${teamname:-defaultASW}
+    container_name: prometheus
     profiles: ["dev"]
     networks:
       - mynetwork
@@ -80,7 +99,7 @@ services:
       
   grafana:
     image: grafana/grafana
-    container_name: grafana-${teamname:-defaultASW}
+    container_name: grafana
     profiles: ["dev"]
     networks:
       - mynetwork
@@ -96,7 +115,6 @@ services:
       - "9091:9091"
     depends_on: 
       - prometheus
-
 
 volumes:
   mariadb_data:
