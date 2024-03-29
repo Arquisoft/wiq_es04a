@@ -1,0 +1,19 @@
+{
+  "name": "multiplayer",
+  "version": "1.0.0",
+  "description": "Service to support multiplayer games",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "jest"
+  },
+  "author": "wiq-es04a",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.0"
+  }
+}
