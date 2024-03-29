@@ -83,6 +83,20 @@ services:
     environment:
       REACT_APP_API_ENDPOINT: http://gatewayservice:8000
 
+  multiplayer:
+    container_name: multiplayer
+    image: ghcr.io/arquisoft/wiq_es04a/multiplayer:latest
+    profiles: ["dev", "prod"]
+    build: ./multiplayer
+    depends_on:
+      - questions
+    ports:
+      - "5010:5010"
+    networks:
+      - mynetwork
+    environment:
+      WEBAPP_ENDPOINT: http://webapp:3000
+
   prometheus:
     image: prom/prometheus
     container_name: prometheus
