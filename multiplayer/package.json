@@ -10,7 +10,9 @@
   "author": "wiq-es04a",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "http": "^0.0.1-security",
+    "socket.io": "^4.7.5"
   },
   "devDependencies": {
     "jest": "^29.7.0",
