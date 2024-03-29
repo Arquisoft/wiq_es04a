@@ -143,8 +143,7 @@ Decomposition of the level 1 system. It shows the routes, model and services whi
 
 Contained Building Blocks::
 * **Routes**: Contains route handlers for the users.
-* **Model**: Define the MariaDB database schema.
-* **Services**: Contains MiddleWares and APIs.
+* **Services**: Contains data logic.
 * **MariaDB**: MariaDB database.
 
 ==== White Box Question Generation Service
@@ -153,10 +152,12 @@ image:05_level2_questionGenerationService.png["Diagram 05.2 Question Generation 
 
 Motivation::
 
-Decomposition of the level 1 system. It shows the mariaDB module.
+Decomposition of the level 1 system. It shows the routes, model and services white boxes.
 
 Contained Building Blocks::
-* **MongoDB**: database.
+* **Routes**: Contains route handlers for the questions.
+* **Services**: Contains data logic.
+* **MariaDB**: MongoDB database.
 
 
 
