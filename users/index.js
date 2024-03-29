@@ -11,9 +11,16 @@ const staticsRoutes = require('./routes/statistics-routes.js');
 // App and users port definition 
 const app = express();
 const port = 8001;
+let expressSession = require('express-session');
 
 // Middlewares added to the application
 app.use(express.json());
+
+app.use(expressSession({
+ secret: 'abcdefg', //put in environment vars or secrets
+ resave: true,
+ saveUninitialized: true
+}));
 
 // Routes middlewares to be used
 app.use('/user', userRoutes);
