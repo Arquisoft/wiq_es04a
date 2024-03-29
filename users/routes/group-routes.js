@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { Group,UserGroup } = require('../models/user-model');
+const { Group,UserGroup } = require('../services/user-model');
 
 //Group internal routes
-const apiRoutes = require('../services/group-api');
+const apiRoutes = require('../routes/group-routes-api');
 
 // Adding a group to the database and creating the relationship with the creator
 router.post('/add', async (req, res) => {

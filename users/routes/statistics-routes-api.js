@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Statistics } = require('../models/user-model');
+const { Statistics } = require('../services/user-model');
 
 //Get user statics by username
 router.get('/:username', async (req,res) => {
