@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { Statistics } = require('../models/user-model');
+const { Statistics } = require('../services/user-model');
 
 //Group internal routes
-const apiRoutes = require('../services/statistics-api');
+const apiRoutes = require('../routes/statistics-routes-api');
 
 // Route for edit the statics of a user
 router.post('/edit', async (req, res) => {
