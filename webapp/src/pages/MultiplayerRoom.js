@@ -14,10 +14,13 @@ const MultiplayerRoom = () => {
     const [writtenCode, setWrittenCode] = useState('');
     const [roomPlayers, setRoomPlayers] = useState([]);
     const {username} = useContext(SessionContext);
+    const [gameReady, setGameReady] = useState(false);
+    const [roomCreator, setRoomCreator] = useState(false);
 
     const handleCreateRoom = () => {
       const code = generateRoomCode();
-     
+      setRoomCreator(true);
+
       socket.on('connection', () => {
         
       });
@@ -31,7 +34,7 @@ const MultiplayerRoom = () => {
         setSocket(newSocket);
 
         newSocket.on('game-ready', () => {
-            console.log("Game is ready!");
+            setGameReady(true);
         });
 
         newSocket.on('update-players', (roomPlayers) => {
@@ -45,6 +48,7 @@ const MultiplayerRoom = () => {
     }, []);
   
     const handleJoinRoom = () => {
+      setRoomCreator(false);
       setRoomCode(writtenCode);
       socket.emit('join-room', writtenCode, username);
     };
@@ -86,6 +90,9 @@ const MultiplayerRoom = () => {
                     </ListItem>
                     ))}
                   </List>
+                  <Button variant="contained" disabled={!gameReady || !roomCreator} style={{ marginTop: '10px' }}>
+                    Start game
+                  </Button>
                 </>
               ) : (
                 <>
