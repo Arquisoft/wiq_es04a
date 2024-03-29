@@ -10,7 +10,7 @@ const socketIO = require('socket.io');
 const app = express();
 const server = http.createServer(app);
 const io = socketIO(server, {
-    cors: {
+    cors: { //permit connections from webapp
         origin: process.env.WEBAPP_ENDPOINT || "http://localhost:3000",
         methods: ["GET", "POST"]
     }
@@ -27,11 +27,17 @@ app.use(express.json());
 // Handle new connections
 io.on('connection', (socket) => {
     console.log('New client connected');
-    socket.emit("hello", "world");
-    socket.on('join-game', (roomID) => {
-        socket.join(roomID); 
-        console.log(`El cliente se ha unido a la partida ${roomID}`);
-      
+    
+    socket.on('join-room', (roomCode) => {
+        socket.join(roomCode); 
+        console.log(`Client has joined game ${roomCode}`);
+        
+        const room = io.sockets.adapter.rooms.get(roomCode); // Obtener the room
+
+        if(room && room.size === 2) {
+            console.log("Game is ready");
+            io.to(roomCode).emit("game-ready", "ready"); // emit event only to room clients
+        }
       });
     
   });

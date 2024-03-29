@@ -9,39 +9,42 @@ const MultiplayerRoom = () => {
     const [roomCode, setRoomCode] = useState('');
     const [error, setError] = useState('');
     const [socket, setSocket] = useState(null);
+    const [writtenCode, setWrittenCode] = useState('');
+
+    if (socket) {
+        socket.on('game-ready', () => {
+            console.log("Game is ready!");
+        });
+    }
 
     const handleCreateRoom = () => {
-      generateRoomCode();
-      
-      
+      const code = generateRoomCode();
+    
+      socket.on('connection', () => {
+        
+      });
+
+      socket.emit('join-room', code);
+
     };
 
     useEffect(() => {
         const newSocket = io(socketEndpoint);
         setSocket(newSocket);
 
-        newSocket.on('hello', (arg) => {
-            console.log("hello" + arg)
-            
-          });
-
-        newSocket.on('connection', () => {
-            console.log("Trying to connect")
-            
-          });
-
         // clean at component dismount
         return () => {
-        newSocket.disconnect();
+            newSocket.disconnect();
         };
     }, []);
   
     const handleJoinRoom = () => {
-      socket.emit('joinRoom', roomCode, (error) => {
+      socket.emit('join-room', writtenCode, (error) => {
         if (error) {
           setError(error);
         }
       });
+
     };
 
     const generateRoomCode = () => {
@@ -54,6 +57,8 @@ const MultiplayerRoom = () => {
             code += characters[randomIndex];
         }
         setRoomCode(code);
+
+        return code;
     }
   
     return (
@@ -84,6 +89,7 @@ const MultiplayerRoom = () => {
                     label="Room code"
                     variant="outlined"
                     fullWidth
+                    onChange={(e) => setWrittenCode(e.target.value)}
                     style={{ marginTop: '10px' }}
                   />
                   <Button variant="contained" onClick={handleJoinRoom} style={{ marginTop: '10px' }}>
