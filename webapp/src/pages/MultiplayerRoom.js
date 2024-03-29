@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 import { useContext } from 'react';
 import { SessionContext } from '../SessionContext';
 
-import { Link, useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 //TODO add this to docker yml
 const socketEndpoint = process.env.MULTIPLAYER_ENDPOINT || 'ws://localhost:5010';
 
@@ -19,7 +19,8 @@ const MultiplayerRoom = () => {
     const [roomCreator, setRoomCreator] = useState(false);
     const [gameQuestions, setGameQuestions] = useState(null);
     const [loadingQuestions, setLoadingQuestions] = useState(false);
-    const history = useHistory();
+    const navigate = useNavigate();
+
     useEffect(() => {
         const newSocket = io(socketEndpoint);
         setSocket(newSocket);
@@ -35,7 +36,8 @@ const MultiplayerRoom = () => {
         newSocket.on('questions-ready', (questions) => {
             setGameQuestions(questions);
             setLoadingQuestions(false);
-           
+           //TODO refactor
+           navigate('/multiplayerGame', { state: {questions} });
         });
 
         // clean at component dismount
@@ -78,7 +80,6 @@ const MultiplayerRoom = () => {
 
     const startGame = () => {
         setLoadingQuestions(true);
-        const button = document.getElementById('playBtn');
         setGameReady(false);
     }
   

@@ -12,6 +12,7 @@ import Confetti from 'react-confetti';
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import { useLocation } from 'react-router-dom';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -39,10 +40,11 @@ const Game = () => {
     const [showConfetti, setShowConfetti] = React.useState(false); //indicates if the confetti must appear
     const [questionCountdownKey, setQuestionCountdownKey] = React.useState(15); //key to update question timer
     const [questionCountdownRunning, setQuestionCountdownRunning] = React.useState(false); //property to start and stop question timer
-
     const [questionHistorial, setQuestionHistorial] = React.useState(Array(MAX_ROUNDS).fill(null));
 
-
+    const location = useLocation();
+    const { questions } = location.state;
+    
     React.useEffect(() => {
         let timer;
         if (timerRunning) {
