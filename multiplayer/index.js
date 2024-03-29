@@ -24,20 +24,32 @@ app.use(express.json());
 // Routes middlewares to be used
 //app.use('/multiplayer', multiplayerRoutes);
 
+const gameRooms = {};
+
 // Handle new connections
 io.on('connection', (socket) => {
     console.log('New client connected');
+
     
-    socket.on('join-room', (roomCode) => {
+
+    socket.on('join-room', (roomCode, username) => {
         socket.join(roomCode); 
         console.log(`Client has joined game ${roomCode}`);
         
+        if (!gameRooms[roomCode]) {
+            gameRooms[roomCode] = [username];
+        } else {
+            gameRooms[roomCode].push(username);
+        }
+
         const room = io.sockets.adapter.rooms.get(roomCode); // Obtener the room
 
         if(room && room.size === 2) {
             console.log("Game is ready");
             io.to(roomCode).emit("game-ready", "ready"); // emit event only to room clients
         }
+
+        io.to(roomCode).emit("update-players", gameRooms[roomCode]);
       });
     
   });

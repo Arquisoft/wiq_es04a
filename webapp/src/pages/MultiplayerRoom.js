@@ -10,27 +10,30 @@ const MultiplayerRoom = () => {
     const [error, setError] = useState('');
     const [socket, setSocket] = useState(null);
     const [writtenCode, setWrittenCode] = useState('');
-
-    if (socket) {
-        socket.on('game-ready', () => {
-            console.log("Game is ready!");
-        });
-    }
+    const [roomPlayers, setRoomPlayers] = useState([]);
 
     const handleCreateRoom = () => {
       const code = generateRoomCode();
-    
+      //setRoomPlayers(roomPlayers => [...roomPlayers, "nuevoUser"]);
       socket.on('connection', () => {
         
       });
-
-      socket.emit('join-room', code);
+      //TODO refactor to use session user
+      socket.emit('join-room', code, "thisUser");
 
     };
 
     useEffect(() => {
         const newSocket = io(socketEndpoint);
         setSocket(newSocket);
+
+        newSocket.on('game-ready', () => {
+            console.log("Game is ready!");
+        });
+
+        newSocket.on('update-players', (roomPlayers) => {
+            setRoomPlayers(roomPlayers);
+        });
 
         // clean at component dismount
         return () => {
@@ -39,12 +42,7 @@ const MultiplayerRoom = () => {
     }, []);
   
     const handleJoinRoom = () => {
-      socket.emit('join-room', writtenCode, (error) => {
-        if (error) {
-          setError(error);
-        }
-      });
-
+      socket.emit('join-room', writtenCode, "joinedUser");
     };
 
     const generateRoomCode = () => {
@@ -72,6 +70,13 @@ const MultiplayerRoom = () => {
                   </Typography>
                   <Typography variant="h5" gutterBottom style={{ marginTop: '10px' }}>
                     {roomCode}
+                  </Typography>
+
+                  <Typography variant="h4" gutterBottom>
+                    Participants:
+                  </Typography>
+                  <Typography variant="h5" gutterBottom style={{ marginTop: '10px' }}>
+                    {roomPlayers}
                   </Typography>
                 </>
               ) : (
