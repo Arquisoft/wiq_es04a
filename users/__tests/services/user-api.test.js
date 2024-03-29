@@ -27,7 +27,12 @@ describe('Api User Routes', () => {
             surname: 'User'
         };
 
-    
+        const newUser2 = {
+            username: 'testuser2',
+            password: 'Test1234', 
+            name: 'Test2',
+            surname: 'User2'
+        };
     
         // Create user for the statistics
         await User.create(newUser);
@@ -40,6 +45,8 @@ describe('Api User Routes', () => {
         expect(response.status).toBe(200);
         expect(response.body.users.length).toBe(1);
 
-      
+        const usernames = response.body.users.map(user => user.username);
+        expect(usernames).toContain(newUser.username);
+        expect(usernames).toContain(newUser2.username);
     });
 });
