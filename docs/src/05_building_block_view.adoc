@@ -100,7 +100,7 @@ Please prefer relevance over completeness. Specify important, surprising, risky,
 Leave out normal, simple, boring or standardized parts of your system
 ****
 
-==== White Box WIQ
+==== White Box Wikidata Infinite Quest
 
 [role="arc42help"]
 ****
@@ -117,7 +117,7 @@ Contained Building Blocks::
 * **Web App**: It is the main module of the application. 
 * **Gateway Service**: Handle the communication between the user service and question service modules with the web app service.
 * **Question Generation Service**: Gets questions from Wikidata and handles their loading into the database.
-* **User Service**: Handles the registration and login of users.
+* **User Service**: Handles the users management.
 
 === Level 2
 
@@ -128,7 +128,7 @@ Here you can specify the inner structure of (some) building blocks from level 1 
 When you need more detailed levels of your architecture please copy this
 part of arc42 for additional levels.
 ****
-==== White Box Users Management
+==== White Box Users Service
 
 [role="arc42help"]
 ****
@@ -139,10 +139,15 @@ image:05_level2_userService.png["Diagram 05.2 User service: Level2"]
 
 Motivation::
 
-Decomposition of the level 1 system. It shows the mongoDB module.
+Decomposition of the level 1 system. It shows the routes, model and services white boxes.
 
 Contained Building Blocks::
-* **MariaDB**: database.
+* **Routes**: Contains route handlers for the users.
+* **Model**: Define the MariaDB database schema.
+* **Services**: Contains MiddleWares and APIs.
+* **MariaDB**: MariaDB database.
+
+==== White Box Question Generation Service
 
 image:05_level2_questionGenerationService.png["Diagram 05.2 Question Generation service: Level2"]
 

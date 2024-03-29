@@ -1,5 +1,8 @@
 flowchart TD
-    subgraph Whitebox Question Generation Service
-    db2[(MariaDb)]
+    subgraph Whitebox User Service
+    sis2(routes)
+    sis3(services)
+    sis3 -.->|Insert/delete/get questions| db1[(MongoDB)]
+    sis2 -.->|Get/delete questions| sis3
     end
-    sis1(Gateway Service) -.-> |Get questions| db2
+    sis1(Gateway service) -.->|Get questions| sis2
