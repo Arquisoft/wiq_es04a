@@ -58,6 +58,8 @@ describe('Api Group Routes', () => {
 
     });
 
+    //TODO: Write a test for successful group search by name
+
 
 
 });

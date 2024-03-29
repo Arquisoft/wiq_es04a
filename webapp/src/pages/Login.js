@@ -20,14 +20,6 @@ const Login = () => {
     try {
       await axios.post(`${apiEndpoint}/login`, { username, password });
 
-      axios.get(`${apiEndpoint}/user/session`)
-      .then(response => {
-        console.log(response.data); 
-      })
-      .catch(error => {
-        // Manejo de errores
-        console.error('Hubo un problema al obtener la sesión del usuario:', error);
-      });
 
       setOpenSnackbar(true);
       createSession(username);
