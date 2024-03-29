@@ -70,7 +70,6 @@ io.on('connection', (socket) => {
                 io.to(roomCode).emit("questions-ready", questionList); // emit event only to room clients
             })
 
-            
         }
 
         io.to(roomCode).emit("update-players", gameRooms[roomCode]);
