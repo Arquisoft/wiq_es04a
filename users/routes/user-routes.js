@@ -75,6 +75,11 @@ router.post('/add', async (req, res) => {
     }
 });
 
+
+router.get('/session', async (req, res) => {
+    res.json({ session: req.session });
+});
+
 //Api middleware
 router.use('/api', apiRoutes);
 
