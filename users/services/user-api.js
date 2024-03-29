@@ -48,15 +48,11 @@ router.get('/user/:username', async (req,res) => {
 router.get('/ranking', async (req,res) => {
     try {
 
-        const username = req.params.username;
 
         // Querying using sequelize findOne method
         const usersSortedByCorrectAnswers = await User.findAll({
             order: [['correctly_answered_questions', 'DESC']]
         });
-
-
-        console.log(usersSortedByCorrectAnswers);
 
         // Converting each user to a JSON object
         const sortedUsersJSON = usersSortedByCorrectAnswers.map(user => user.toJSON());
