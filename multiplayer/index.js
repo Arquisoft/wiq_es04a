@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const http = require('http');
 const socketIO = require('socket.io');
+const axios = require('axios');
 
 // Routes: TODO maybe dont needed
 //const multiplayerRoutes = require('./routes/question-routes.js');
@@ -17,6 +18,8 @@ const io = socketIO(server, {
 });
 const port = 5010;
 
+const apiEndpoint = process.env.GATEWAY_SERVICE_ENDPOINT || 'http://localhost:8000';
+
 // Middlewares added to the application
 app.use(cors());
 app.use(express.json());
@@ -26,15 +29,21 @@ app.use(express.json());
 
 const gameRooms = {};
 
+const getQuestion = () => {
+    return axios.get(`${apiEndpoint}/questions`)
+      .then(response => response.data)
+      .catch(error => {
+        console.error('Error getting question from question service ', error);
+      });
+  };
+
 // Handle new connections
 io.on('connection', (socket) => {
     console.log('New client connected');
 
-    
-
     socket.on('join-room', (roomCode, username) => {
         socket.join(roomCode); 
-        console.log(`Client has joined game ${roomCode}`);
+        console.log(`${username} has joined game ${roomCode}`);
         
         if (!gameRooms[roomCode]) {
             gameRooms[roomCode] = [username];
@@ -42,11 +51,26 @@ io.on('connection', (socket) => {
             gameRooms[roomCode].push(username);
         }
 
-        const room = io.sockets.adapter.rooms.get(roomCode); // Obtener the room
+        const room = io.sockets.adapter.rooms.get(roomCode); // Obtain the room
 
         if(room && room.size === 2) {
             console.log("Game is ready");
-            io.to(roomCode).emit("game-ready", "ready"); // emit event only to room clients
+
+            const questionList = [];
+
+            io.to(roomCode).emit("game-ready", "ready");
+
+            // tree questions -> this should be refactored in future
+            Promise.all([getQuestion(), getQuestion(), getQuestion()])
+            .then(questions => {
+                questions.forEach(question => {
+                questionList.push(question);
+                });
+
+                io.to(roomCode).emit("questions-ready", questionList); // emit event only to room clients
+            })
+
+            
         }
 
         io.to(roomCode).emit("update-players", gameRooms[roomCode]);

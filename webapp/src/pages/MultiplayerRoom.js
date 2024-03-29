@@ -1,5 +1,5 @@
 import React, { useState, useEffect  } from 'react';
-import { Button, TextField, Typography, Grid, Paper, List, ListItem } from '@mui/material';
+import { Button, TextField, Typography, Grid, Paper, List, ListItem, CircularProgress } from '@mui/material';
 import io from 'socket.io-client';
 import { useContext } from 'react';
 import { SessionContext } from '../SessionContext';
@@ -16,18 +16,8 @@ const MultiplayerRoom = () => {
     const {username} = useContext(SessionContext);
     const [gameReady, setGameReady] = useState(false);
     const [roomCreator, setRoomCreator] = useState(false);
-
-    const handleCreateRoom = () => {
-      const code = generateRoomCode();
-      setRoomCreator(true);
-
-      socket.on('connection', () => {
-        
-      });
-     
-      socket.emit('join-room', code, username);
-
-    };
+    const [gameQuestions, setGameQuestions] = useState({});
+    const [loadingQuestions, setLoadingQuestions] = useState(false);
 
     useEffect(() => {
         const newSocket = io(socketEndpoint);
@@ -41,11 +31,28 @@ const MultiplayerRoom = () => {
             setRoomPlayers(roomPlayers);
         });
 
+        newSocket.on('questions-ready', (questions) => {
+            setGameQuestions(questions);
+            setLoadingQuestions(false);
+        });
+
         // clean at component dismount
         return () => {
             newSocket.disconnect();
         };
     }, []);
+
+    const handleCreateRoom = () => {
+        const code = generateRoomCode();
+        setRoomCreator(true);
+  
+        socket.on('connection', () => {
+          
+        });
+       
+        socket.emit('join-room', code, username);
+  
+      };
   
     const handleJoinRoom = () => {
       setRoomCreator(false);
@@ -65,6 +72,12 @@ const MultiplayerRoom = () => {
         setRoomCode(code);
 
         return code;
+    }
+
+    const startGame = () => {
+        setLoadingQuestions(true);
+        const button = document.getElementById('playBtn');
+        setGameReady(false);
     }
   
     return (
@@ -90,9 +103,14 @@ const MultiplayerRoom = () => {
                     </ListItem>
                     ))}
                   </List>
-                  <Button variant="contained" disabled={!gameReady || !roomCreator} style={{ marginTop: '10px' }}>
+                  <Button id="playBtn" variant="contained" disabled={!gameReady || !roomCreator} onClick={startGame} style={{ marginTop: '10px' }}>
                     Start game
                   </Button>
+                  {loadingQuestions && (
+                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
+                        <CircularProgress />
+                    </div>
+                )}
                 </>
               ) : (
                 <>

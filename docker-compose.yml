@@ -90,12 +90,14 @@ services:
     build: ./multiplayer
     depends_on:
       - questions
+      - gatewayservice
     ports:
       - "5010:5010"
     networks:
       - mynetwork
     environment:
       WEBAPP_ENDPOINT: http://webapp:3000
+      GATEWAY_SERVICE_ENDPOINT: http://gatewayservice:8000
 
   prometheus:
     image: prom/prometheus
