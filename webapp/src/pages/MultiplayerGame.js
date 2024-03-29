@@ -83,15 +83,11 @@ const Game = () => {
     const startNewRound = async () => {
         setAnswered(false);
         // It works deploying using git repo from machine with: axios.get(`http://20.80.235.188:8000/questions`)
-        axios.get(`${apiEndpoint}/questions`)
-        .then(quest => {
-            // every new round it gets a new question from db
-            setQuestionData(quest.data);    
-            setButtonStates(new Array(quest.data.options.length).fill(null));
-        }).catch(error => {
-            console.error(error);
-        }); 
+        const quest = questions[round-1]
         
+        setQuestionData(quest);    
+        setButtonStates(new Array(quest.options.length).fill(null));
+          
     };
 
     // this function is called when a user selects a response. 
