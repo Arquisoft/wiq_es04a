@@ -9,7 +9,12 @@ const socketIO = require('socket.io');
 // App definition
 const app = express();
 const server = http.createServer(app);
-const io = socketIO(server);
+const io = socketIO(server, {
+    cors: {
+        origin: process.env.WEBAPP_ENDPOINT || "http://localhost:3000",
+        methods: ["GET", "POST"]
+    }
+});
 const port = 5010;
 
 // Middlewares added to the application
@@ -19,10 +24,15 @@ app.use(express.json());
 // Routes middlewares to be used
 //app.use('/multiplayer', multiplayerRoutes);
 
-// handle new connections
+// Handle new connections
 io.on('connection', (socket) => {
-    console.log('Nuevo cliente conectado');
-  
+    console.log('New client connected');
+    socket.emit("hello", "world");
+    socket.on('join-game', (roomID) => {
+        socket.join(roomID); 
+        console.log(`El cliente se ha unido a la partida ${roomID}`);
+      
+      });
     
   });
 

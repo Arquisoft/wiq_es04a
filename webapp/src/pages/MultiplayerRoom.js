@@ -1,23 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
 import { Button, TextField, Typography, Grid, Paper } from '@mui/material';
 import io from 'socket.io-client';
 
 //TODO add this to docker yml
-const socketEndpoint = process.env.MULTIPLAYER_ENDPOINT || 'http://localhost:5010';
-
-const socket = io(socketEndpoint);
+const socketEndpoint = process.env.MULTIPLAYER_ENDPOINT || 'ws://localhost:5010';
 
 const MultiplayerRoom = () => {
     const [roomCode, setRoomCode] = useState('');
     const [error, setError] = useState('');
-  
+    const [socket, setSocket] = useState(null);
+
     const handleCreateRoom = () => {
       generateRoomCode();
-      socket.emit('createRoom', (roomCode) => {
-        
-      });
+      
       
     };
+
+    useEffect(() => {
+        const newSocket = io(socketEndpoint);
+        setSocket(newSocket);
+
+        newSocket.on('hello', (arg) => {
+            console.log("hello" + arg)
+            
+          });
+
+        newSocket.on('connection', () => {
+            console.log("Trying to connect")
+            
+          });
+
+        // clean at component dismount
+        return () => {
+        newSocket.disconnect();
+        };
+    }, []);
   
     const handleJoinRoom = () => {
       socket.emit('joinRoom', roomCode, (error) => {
