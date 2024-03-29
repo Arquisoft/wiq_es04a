@@ -43,10 +43,29 @@ describe('Api User Routes', () => {
             .get(`/api/allUsers`);
     
         expect(response.status).toBe(200);
-        expect(response.body.users.length).toBe(1);
+        expect(response.body.users.length).toBe(2);
 
         const usernames = response.body.users.map(user => user.username);
         expect(usernames).toContain(newUser.username);
         expect(usernames).toContain(newUser2.username);
+    });
+
+
+    it('should get a user by username', async () => {
+        const newUser = {
+            username: 'testuser3',
+            password: 'Test1234', 
+            name: 'Test',
+            surname: 'User'
+        };
+
+        // Crear un usuario para la prueba
+        await User.create(newUser);
+
+        const response = await request(app)
+            .get(`/api/user/${newUser.username}`);
+
+        expect(response.status).toBe(200);
+        expect(response.body.username).toBe(newUser.username);
     });
 });
