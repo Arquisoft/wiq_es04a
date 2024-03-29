@@ -31,24 +31,84 @@ const Statistics = () => {
             </Typography>
             <Box>
                 <Typography variant="h5" align="center" gutterBottom>
-                    Classic Game
+                    The Challenge
                 </Typography>
                 <List sx={{ width: '100%', maxWidth: 360, margin: 'auto' }}>
                     <Divider style={{ marginTop:'3%'}}/>
                     <ListItem>
-                        <ListItemText primary={`Earned Money: ${userStatics.earned_money}€`} />
+                        <ListItemText primary={`Earned Money: ${userStatics.the_callenge_earned_money}€`} />
                     </ListItem>
                     <ListItem>
-                        <ListItemText primary={`Correctly Answered Questions: ${userStatics.classic_correctly_answered_questions}`} />
+                        <ListItemText primary={`Correctly Answered Questions: ${userStatics.the_callenge_correctly_answered_questions}`} />
                     </ListItem>
                     <ListItem>
-                        <ListItemText primary={`Incorrectly Answered Questions: ${userStatics.classic_incorrectly_answered_questions}`} />
+                        <ListItemText primary={`Incorrectly Answered Questions: ${userStatics.the_callenge_incorrectly_answered_questions}`} />
                     </ListItem>
                     <ListItem>
-                        <ListItemText primary={`Total Time Played: ${userStatics.classic_total_time_played}''`} />
+                        <ListItemText primary={`Total Time Played: ${userStatics.the_callenge_total_time_played}''`} />
                     </ListItem>
                     <ListItem>
-                        <ListItemText primary={`Games Played: ${userStatics.classic_games_played}`} />
+                        <ListItemText primary={`Games Played: ${userStatics.the_callenge_games_played}`} />
+                    </ListItem>
+                    <Divider style={{ marginTop:'3%'}}/>
+                </List>
+                <Typography variant="h5" align="center" gutterBottom>
+                    Wise Men Stack
+                </Typography>
+                <List sx={{ width: '100%', maxWidth: 360, margin: 'auto' }}>
+                    <Divider style={{ marginTop:'3%'}}/>
+                    <ListItem>
+                        <ListItemText primary={`Earned Money: ${userStatics.wise_men_stack_earned_money}€`} />
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText primary={`Correctly Answered Questions: ${userStatics.wise_men_stack_correctly_answered_questions}`} />
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText primary={`Incorrectly Answered Questions: ${userStatics.wise_men_stack_incorrectly_answered_questions}`} />
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText primary={`Games Played: ${userStatics.wise_men_stack_games_played}`} />
+                    </ListItem>
+                    <Divider style={{ marginTop:'3%'}}/>
+                </List>
+                <Typography variant="h5" align="center" gutterBottom>
+                    Warm Question
+                </Typography>
+                <List sx={{ width: '100%', maxWidth: 360, margin: 'auto' }}>
+                    <Divider style={{ marginTop:'3%'}}/>
+                    <ListItem>
+                        <ListItemText primary={`Earned Money: ${userStatics.warm_question_earned_money}€`} />
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText primary={`Correctly Answered Questions: ${userStatics.warm_question_correctly_answered_questions}`} />
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText primary={`Incorrectly Answered Questions: ${userStatics.warm_question_incorrectly_answered_questions}`} />
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText primary={`Passed Questions: ${userStatics.warm_question_passed_questions}`} />
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText primary={`Games Played: ${userStatics.warm_question_games_played}`} />
+                    </ListItem>
+                    <Divider style={{ marginTop:'3%'}}/>
+                </List>
+                <Typography variant="h5" align="center" gutterBottom>
+                    Discovering Cities
+                </Typography>
+                <List sx={{ width: '100%', maxWidth: 360, margin: 'auto' }}>
+                    <Divider style={{ marginTop:'3%'}}/>
+                    <ListItem>
+                        <ListItemText primary={`Earned Money: ${userStatics.discovering_cities_earned_money}€`} />
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText primary={`Correctly Answered Cities: ${userStatics.discovering_cities_correctly_answered_questions}`} />
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText primary={`Incorrectly Answered Cities: ${userStatics.discovering_cities_incorrectly_answered_questions}`} />
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText primary={`Games Played: ${userStatics.discovering_cities_games_played}`} />
                     </ListItem>
                     <Divider style={{ marginTop:'3%'}}/>
                 </List>

@@ -93,27 +93,78 @@ const Statistics = sequelize.define('Statistics', {
         primaryKey: true,
         allowNull: false
     },
-    earned_money: {
+    the_callenge_earned_money: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
     },
-    classic_correctly_answered_questions: {
+    the_callenge_correctly_answered_questions: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
     },
-    classic_incorrectly_answered_questions: {
+    the_callenge_incorrectly_answered_questions: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
     },
-    classic_total_time_played: {
+    the_callenge_total_time_played: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
     },
-    classic_games_played: {
+    the_callenge_games_played: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    wise_men_stack_earned_money: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    wise_men_stack_correctly_answered_questions: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    wise_men_stack_incorrectly_answered_questions: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    wise_men_stack_games_played: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    warm_question_earned_money: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    warm_question_correctly_answered_questions: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    warm_question_incorrectly_answered_questions: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    warm_question_passed_questions: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    warm_question_games_played: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    discovering_cities_earned_money: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    discovering_cities_correctly_answered_questions: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    discovering_cities_incorrectly_answered_questions: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    discovering_cities_games_played: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
     }
-    //we have to add more statics for more games
 })
 
 // Define the relationship between User and Statics

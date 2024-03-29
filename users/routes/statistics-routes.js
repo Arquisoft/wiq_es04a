@@ -25,13 +25,13 @@ router.post('/edit', async (req, res) => {
         }
 
         // Update the user's fields with the provided values
-        statisticsUserToUpdate.earned_money = statisticsUserToUpdate.earned_money  + earned_money;
-        statisticsUserToUpdate.classic_correctly_answered_questions = statisticsUserToUpdate.classic_correctly_answered_questions 
+        statisticsUserToUpdate.the_callenge_earned_money = statisticsUserToUpdate.the_callenge_earned_money  + earned_money;
+        statisticsUserToUpdate.the_callenge_correctly_answered_questions = statisticsUserToUpdate.the_callenge_correctly_answered_questions 
         + classic_correctly_answered_questions;
-        statisticsUserToUpdate.classic_incorrectly_answered_questions = statisticsUserToUpdate.classic_incorrectly_answered_questions 
+        statisticsUserToUpdate.the_callenge_incorrectly_answered_questions = statisticsUserToUpdate.the_callenge_incorrectly_answered_questions 
         + classic_incorrectly_answered_questions;
-        statisticsUserToUpdate.classic_total_time_played = statisticsUserToUpdate.classic_total_time_played + classic_total_time_played;
-        statisticsUserToUpdate.classic_games_played = statisticsUserToUpdate.classic_games_played + classic_games_played;
+        statisticsUserToUpdate.the_callenge_total_time_played = statisticsUserToUpdate.the_callenge_total_time_played + classic_total_time_played;
+        statisticsUserToUpdate.the_callenge_games_played = statisticsUserToUpdate.the_callenge_games_played + classic_games_played;
 
         // Save the changes to the database
         await statisticsUserToUpdate.save();
