@@ -1,6 +1,8 @@
 import React, { useState, useEffect  } from 'react';
 import { Button, TextField, Typography, Grid, Paper, List, ListItem } from '@mui/material';
 import io from 'socket.io-client';
+import { useContext } from 'react';
+import { SessionContext } from '../SessionContext';
 
 //TODO add this to docker yml
 const socketEndpoint = process.env.MULTIPLAYER_ENDPOINT || 'ws://localhost:5010';
@@ -11,6 +13,7 @@ const MultiplayerRoom = () => {
     const [socket, setSocket] = useState(null);
     const [writtenCode, setWrittenCode] = useState('');
     const [roomPlayers, setRoomPlayers] = useState([]);
+    const {username} = useContext(SessionContext);
 
     const handleCreateRoom = () => {
       const code = generateRoomCode();
@@ -18,8 +21,8 @@ const MultiplayerRoom = () => {
       socket.on('connection', () => {
         
       });
-      //TODO refactor to use session user
-      socket.emit('join-room', code, "thisUser");
+     
+      socket.emit('join-room', code, username);
 
     };
 
@@ -43,7 +46,7 @@ const MultiplayerRoom = () => {
   
     const handleJoinRoom = () => {
       setRoomCode(writtenCode);
-      socket.emit('join-room', writtenCode, "joinedUser");
+      socket.emit('join-room', writtenCode, username);
     };
 
     const generateRoomCode = () => {
@@ -79,7 +82,7 @@ const MultiplayerRoom = () => {
                   <List>
                     {roomPlayers.map((player, index) => (
                     <ListItem key={index}>
-                        <Typography variant='h4'>{player}</Typography>
+                        <Typography variant='h5'>{player}</Typography>
                     </ListItem>
                     ))}
                   </List>
