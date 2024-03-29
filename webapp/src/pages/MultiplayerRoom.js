@@ -12,9 +12,11 @@ const MultiplayerRoom = () => {
     const [error, setError] = useState('');
   
     const handleCreateRoom = () => {
+      generateRoomCode();
       socket.emit('createRoom', (roomCode) => {
-        setRoomCode(roomCode);
+        
       });
+      
     };
   
     const handleJoinRoom = () => {
@@ -24,40 +26,63 @@ const MultiplayerRoom = () => {
         }
       });
     };
+
+    const generateRoomCode = () => {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        const codeLength = 5;
+
+        let code = '';
+        for (let i = 0; i < codeLength; i++) {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            code += characters[randomIndex];
+        }
+        setRoomCode(code);
+    }
   
     return (
-      <Grid container justifyContent="center" alignItems="center" style={{ height: '100vh' }}>
-        <Grid item xs={6}>
-          <Paper elevation={3} style={{ padding: '20px' }}>
-            <Typography variant="h4" gutterBottom>
-              Sala de Chat
-            </Typography>
-            <Button variant="contained" onClick={handleCreateRoom}>
-              Crear Sala
-            </Button>
-            <Typography variant="subtitle1" gutterBottom style={{ marginTop: '20px' }}>
-              o
-            </Typography>
-            <TextField
-              label="Código de Sala"
-              variant="outlined"
-              value={roomCode}
-              onChange={(e) => setRoomCode(e.target.value)}
-              fullWidth
-              style={{ marginTop: '10px' }}
-            />
-            <Button variant="contained" onClick={handleJoinRoom} style={{ marginTop: '10px' }}>
-              Unirse a Sala
-            </Button>
-            {error && (
-              <Typography variant="subtitle1" gutterBottom style={{ marginTop: '10px', color: 'red' }}>
-                {error}
-              </Typography>
-            )}
-          </Paper>
+        <Grid container justifyContent="center" alignItems="center" style={{ height: '100vh' }}>
+          <Grid item xs={6}>
+            <Paper elevation={3} style={{ padding: '20px' }}>
+              {roomCode ? (
+                <>
+                  <Typography variant="h4" gutterBottom>
+                    Room Code:
+                  </Typography>
+                  <Typography variant="h5" gutterBottom style={{ marginTop: '10px' }}>
+                    {roomCode}
+                  </Typography>
+                </>
+              ) : (
+                <>
+                  <Typography variant="h4" gutterBottom>
+                    Create room
+                  </Typography>
+                  <Button variant="contained" onClick={handleCreateRoom}>
+                    Create room
+                  </Button>
+                  <Typography variant="h4" gutterBottom style={{ marginTop: '20px' }}>
+                    Join room
+                  </Typography>
+                  <TextField
+                    label="Room code"
+                    variant="outlined"
+                    fullWidth
+                    style={{ marginTop: '10px' }}
+                  />
+                  <Button variant="contained" onClick={handleJoinRoom} style={{ marginTop: '10px' }}>
+                    Join room
+                  </Button>
+                  {error && (
+                    <Typography variant="subtitle1" gutterBottom style={{ marginTop: '10px', color: 'red' }}>
+                      {error}
+                    </Typography>
+                  )}
+                </>
+              )}
+            </Paper>
+          </Grid>
         </Grid>
-      </Grid>
-    );
+      );
   }
-  
+
 export default MultiplayerRoom;

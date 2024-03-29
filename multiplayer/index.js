@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const http = require('http');
-const socketIo = require('socket.io');
+const socketIO = require('socket.io');
 
 // Routes: TODO maybe dont needed
 //const multiplayerRoutes = require('./routes/question-routes.js');
