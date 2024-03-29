@@ -20,10 +20,9 @@ const Login = () => {
     try {
       await axios.post(`${apiEndpoint}/login`, { username, password });
 
-      axios.get('/user/session')
+      axios.get(`${apiEndpoint}/user/session`)
       .then(response => {
-        // Manejo de la respuesta exitosa
-        console.log(response.data); // Aquí puedes acceder a los datos de la sesión del usuario
+        console.log(response.data); 
       })
       .catch(error => {
         // Manejo de errores
