@@ -4,6 +4,7 @@ const express = require('express');
 
 // Routes:
 const authRoutes = require('./routes/auth-routes.js');
+const logoutAuthRoutes = require('./routes/auth-routes-logout.js');
 const userRoutes = require('./routes/user-routes.js');
 const groupRoutes = require('./routes/group-routes.js');
 const staticsRoutes = require('./routes/statistics-routes.js');
@@ -25,6 +26,8 @@ app.use(expressSession({
 // Routes middlewares to be used
 app.use('/user', userRoutes);
 app.use('/login', authRoutes);
+app.use('/logout', logoutAuthRoutes)
+
 app.use('/group', groupRoutes);
 app.use('/statistics', staticsRoutes);
 
