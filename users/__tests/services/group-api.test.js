@@ -47,5 +47,17 @@ describe('Api Group Routes', () => {
     });
 
 
+    it('should show an error if group doesnt exist', async () => {
+
+        const response = await request(app)
+        .get(`/api/nonexistentGroup`);
+
+        expect(response.status).toBe(404);
+        expect(response.type).toMatch(/json/);
+        expect(response.body).toHaveProperty('error');
+
+    });
+
+
 
 });
