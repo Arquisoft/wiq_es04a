@@ -19,6 +19,17 @@ const Login = () => {
   const loginUser = async () => {
     try {
       await axios.post(`${apiEndpoint}/login`, { username, password });
+
+      axios.get('/user/session')
+      .then(response => {
+        // Manejo de la respuesta exitosa
+        console.log(response.data); // Aquí puedes acceder a los datos de la sesión del usuario
+      })
+      .catch(error => {
+        // Manejo de errores
+        console.error('Hubo un problema al obtener la sesión del usuario:', error);
+      });
+
       setOpenSnackbar(true);
       createSession(username);
       navigate('/homepage');
