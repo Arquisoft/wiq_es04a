@@ -1,5 +1,5 @@
 import React, { useState, useEffect  } from 'react';
-import { Button, TextField, Typography, Grid, Paper } from '@mui/material';
+import { Button, TextField, Typography, Grid, Paper, List, ListItem } from '@mui/material';
 import io from 'socket.io-client';
 
 //TODO add this to docker yml
@@ -14,7 +14,7 @@ const MultiplayerRoom = () => {
 
     const handleCreateRoom = () => {
       const code = generateRoomCode();
-      //setRoomPlayers(roomPlayers => [...roomPlayers, "nuevoUser"]);
+     
       socket.on('connection', () => {
         
       });
@@ -42,6 +42,7 @@ const MultiplayerRoom = () => {
     }, []);
   
     const handleJoinRoom = () => {
+      setRoomCode(writtenCode);
       socket.emit('join-room', writtenCode, "joinedUser");
     };
 
@@ -75,9 +76,13 @@ const MultiplayerRoom = () => {
                   <Typography variant="h4" gutterBottom>
                     Participants:
                   </Typography>
-                  <Typography variant="h5" gutterBottom style={{ marginTop: '10px' }}>
-                    {roomPlayers}
-                  </Typography>
+                  <List>
+                    {roomPlayers.map((player, index) => (
+                    <ListItem key={index}>
+                        <Typography variant='h4'>{player}</Typography>
+                    </ListItem>
+                    ))}
+                  </List>
                 </>
               ) : (
                 <>
