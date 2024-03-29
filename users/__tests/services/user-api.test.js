@@ -68,4 +68,39 @@ describe('Api User Routes', () => {
         expect(response.status).toBe(200);
         expect(response.body.username).toBe(newUser.username);
     });
+
+
+    it('should get a user by username', async () => {
+        const newUser = {
+            username: 'testuser4',
+            password: 'Test1234', 
+            name: 'Test',
+            surname: 'User'
+        };
+        const newUser2 = {
+            username: 'testuser5',
+            password: 'Test1234', 
+            name: 'Test',
+            surname: 'User'
+        };const newUser3 = {
+            username: 'testuser6',
+            password: 'Test1234', 
+            name: 'Test',
+            surname: 'User'
+        };   
+        await User.create(newUser);
+        await User.create(newUser2);
+        await User.create(newUser3);
+
+        const response = await request(app)
+        .get('/api/ranking');
+        // Verificar el status de la respuesta
+        expect(response.status).toBe(200);
+
+        // Verificar que la respuesta sea en formato JSON
+        expect(response.type).toMatch(/json/);
+
+        // Verificar que la respuesta contenga la propiedad 'users'
+        expect(response.body).toHaveProperty('users');
+    });
 });
