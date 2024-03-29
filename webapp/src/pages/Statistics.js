@@ -30,7 +30,7 @@ const Statistics = () => {
                 Statistics
             </Typography>
             <Box>
-                <Typography variant="h5" align="center" gutterBottom>
+                <Typography variant="h5" align="center" gutterBottom style={{ marginTop: '20px'}}>
                     The Challenge
                 </Typography>
                 <List sx={{ width: '100%', maxWidth: 360, margin: 'auto' }}>
@@ -50,9 +50,8 @@ const Statistics = () => {
                     <ListItem>
                         <ListItemText primary={`Games Played: ${userStatics.the_callenge_games_played}`} />
                     </ListItem>
-                    <Divider style={{ marginTop:'3%'}}/>
                 </List>
-                <Typography variant="h5" align="center" gutterBottom>
+                <Typography variant="h5" align="center" gutterBottom style={{ marginTop: '20px'}}>
                     Wise Men Stack
                 </Typography>
                 <List sx={{ width: '100%', maxWidth: 360, margin: 'auto' }}>
@@ -69,9 +68,8 @@ const Statistics = () => {
                     <ListItem>
                         <ListItemText primary={`Games Played: ${userStatics.wise_men_stack_games_played}`} />
                     </ListItem>
-                    <Divider style={{ marginTop:'3%'}}/>
                 </List>
-                <Typography variant="h5" align="center" gutterBottom>
+                <Typography variant="h5" align="center" gutterBottom style={{ marginTop: '20px'}}>
                     Warm Question
                 </Typography>
                 <List sx={{ width: '100%', maxWidth: 360, margin: 'auto' }}>
@@ -91,9 +89,8 @@ const Statistics = () => {
                     <ListItem>
                         <ListItemText primary={`Games Played: ${userStatics.warm_question_games_played}`} />
                     </ListItem>
-                    <Divider style={{ marginTop:'3%'}}/>
                 </List>
-                <Typography variant="h5" align="center" gutterBottom>
+                <Typography variant="h5" align="center" gutterBottom style={{ marginTop: '20px'}}>
                     Discovering Cities
                 </Typography>
                 <List sx={{ width: '100%', maxWidth: 360, margin: 'auto' }}>
@@ -110,7 +107,6 @@ const Statistics = () => {
                     <ListItem>
                         <ListItemText primary={`Games Played: ${userStatics.discovering_cities_games_played}`} />
                     </ListItem>
-                    <Divider style={{ marginTop:'3%'}}/>
                 </List>
             </Box>
         </Container>
