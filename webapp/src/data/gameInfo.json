@@ -7,17 +7,17 @@
     },
     {
       "nombre": "WARM QUESTION",
-      "descripcion": "It consists of ten topics of varied themes. For each correct answer, €100 is earned, and €10 are lost if the contestant passes, does not respond, or answers incorrectly. After this challenge, the contestant with the lowest score moves to the rest area, with the possibility of avoiding the challenge thanks to the Last Call test.",
+      "descripcion": "It consists of ten topics of varied themes. For each correct answer, €100 is earned, and €10 are lost if the contestant passes, does not respond, or answers incorrectly.",
       "foto": "../gameImg/foto1.jpg"
     },
     {
       "nombre": "DISCOVERING CITIES",
-      "descripcion": "Through photographs and clues provided by Pilar Vázquez, the contestants must guess the city proposed by the program that day. The contestant who goes first after the 'Warm question' will have the right to answer first and for 300 points. If they guess it correctly, they earn the points; if not, there will be a rebound, an additional clue, and a reduction of 100 points for each contestant.",
+      "descripcion": "In the 'Discovering Cities' game mode, the contestant will face a challenge where they will be repeatedly asked questions referring to different cities around the world. To successfully overcome the challenge, the contestant must answer as many questions as possible correctly throughout the test..",
       "foto": "../gameImg/foto2.png"
     },
     {
       "nombre": "THE CHALLENGE",
-      "descripcion": "In the early days of the program, there was no challenge, so after the hot question, there was always an elimination. This challenge was incorporated in 1998. It is one of the audience's favorite challenges, despite being an elimination round. The contestant with the lowest score after the last call (previously, the contestant with the lowest score after the hot question) gains access to this challenge. The contestant is presented with seven words, of which they only know the first three letters, and with Elisenda Roca's definitions, they must guess all the words in less than 50 seconds. If they guess them correctly, they will participate in the next program; otherwise, their participation ends. In both cases, the points earned that day are added to the total.",
+      "descripcion": "The 'Challenge' game mode is the quintessential game mode, as it allows you to customize the match to your liking. This game mode is tailored for those who wish to practice certain game formats before engaging in our various other game modes.",
       "foto": "../gameImg/foto3.jpg"
     }
   ]
