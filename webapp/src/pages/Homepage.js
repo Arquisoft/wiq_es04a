@@ -52,7 +52,7 @@ const styles = {
 
 const Homepage = () => {
 
-    //List of games on this page
+    // List of games on this page
     const [games, setGames] = React.useState(null);
 
     // Game to show info about and the comp with the info
@@ -60,6 +60,9 @@ const Homepage = () => {
 
     // Whole information about games
     const [info, setInfo] = React.useState(null);
+
+    // Link to each game page
+    const [gameLink, setGameLink] = React.useState("");
 
     //Update the game information
     React.useEffect(() => {
@@ -80,13 +83,25 @@ const Homepage = () => {
     const handlePageChange = (event, page) => {
         displayGames(info, page, (page-1)*4, (page*4),0);
         displayGamePhoto((page-1)*4);
+        changeGameLink((page-1)*4)
     };
 
     // Update the selected page number, page games and game photo
     const handleButtonClick = (index, first, page) => {
         displayGames(info, page, (page-1)*4, (page*4), index);
         displayGamePhoto(index+first);
+        changeGameLink(index+first);
     };
+
+    //if online mode -> change link to go to online room
+    const changeGameLink = (index) => {
+        if(info[index].nombre == "ONLINE MODE") {
+            setGameLink("/multiplayerRoom")
+        } else {
+            setGameLink("/game")
+        }
+    }
+
 
     // Responsible for generating the buttons with the names of the games and the pagination element
     const displayGames = (info, page, first, last, activeIndex) => {
@@ -123,7 +138,7 @@ const Homepage = () => {
                 {games}
                 {gamePhoto}
             </Box>
-            <Button variant='conteined' href="/game" sx={styles.playButton}> PLAY </Button>
+            <Button variant='conteined' href={gameLink} sx={styles.playButton}> PLAY </Button>
         </Container>
     );
 };

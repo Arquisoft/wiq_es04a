@@ -19,5 +19,10 @@
       "nombre": "THE CHALLENGE",
       "descripcion": "The 'Challenge' game mode is the quintessential game mode, as it allows you to customize the match to your liking. This game mode is tailored for those who wish to practice certain game formats before engaging in our various other game modes.",
       "foto": "../gameImg/foto3.jpg"
+    },
+    {
+      "nombre": "ONLINE MODE",
+      "descripcion": "Create a room for other player to join and play 1vs1",
+      "foto": "../gameImg/foto3.jpg"
     }
   ]

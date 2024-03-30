@@ -82,6 +82,22 @@ services:
       - mynetwork
     environment:
       REACT_APP_API_ENDPOINT: http://gatewayservice:8000
+      MULTIPLAYER_ENDPOINT: ws://multiplayer:5010
+
+  multiplayer:
+    container_name: multiplayer
+    image: ghcr.io/arquisoft/wiq_es04a/multiplayer:latest
+    profiles: ["dev", "prod"]
+    build: ./multiplayer
+    depends_on:
+      - gatewayservice
+    ports:
+      - "5010:5010"
+    networks:
+      - mynetwork
+    environment:
+      WEBAPP_ENDPOINT: http://webapp:3000
+      GATEWAY_SERVICE_ENDPOINT: http://gatewayservice:8000
 
   prometheus:
     image: prom/prometheus
