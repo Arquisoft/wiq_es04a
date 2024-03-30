@@ -4,10 +4,7 @@ const express = require('express');
 
 // Routes:
 const authRoutes = require('./routes/auth-routes.js');
-const logoutAuthRoutes = require('./routes/auth-routes-logout.js');
 const userRoutes = require('./routes/user-routes.js');
-const groupRoutes = require('./routes/group-routes.js');
-const staticsRoutes = require('./routes/statistics-routes.js');
 
 // App and users port definition 
 const app = express();
