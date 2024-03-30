@@ -347,7 +347,24 @@ router.get('/get/:username', async (req,res) => {
 
 router.get('/ranking', async (req, res) => {
     try {
-   
+        const usersSortedByScore = await Statistics.findAll({
+            attributes: [
+                'username',
+                [
+                    sequelize.literal(`
+                        the_callenge_correctly_answered_questions +
+                        wise_men_stack_correctly_answered_questions +
+                        warm_question_correctly_answered_questions +
+                        discovering_cities_correctly_answered_questions
+                    `),
+                    'totalScore'
+                ]
+            ],
+            order: [['totalScore', 'DESC']]
+        });
+
+        const resp = {rank: usersSortedByScore};
+        res.json(resp);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }

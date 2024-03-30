@@ -61,7 +61,7 @@ describe('Api Group Routes', () => {
     //TODO: Write a test for successful group search by name
 
     it('should find an existing group', async () => {
-        
+
         const newGroup = {
             name: 'testgroup3',
             creator: 'Test1234', 
@@ -74,6 +74,9 @@ describe('Api Group Routes', () => {
 
         expect(response.status).toBe(200);
         expect(response.type).toMatch(/json/);
+        expect(response.body.name).toBe("testgroup3");
+        expect(response.body.creator).toBe("Test1234");
+        
 
     });
 
