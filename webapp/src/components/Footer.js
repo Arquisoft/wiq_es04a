@@ -6,6 +6,7 @@ const Footer = () => {
       <AppBar component="footer" position="static" sx={{ backgroundColor: "primary", color: "white", bottom: 0, left: 0, width: '100%', zIndex: 1000 }}>
         <Toolbar>
           <Typography sx={{ margin: 'auto' }}>
+            <Link href='/questionsapi' target="_blank" color="inherit">Questions API doc</Link>
             <Link href="https://github.com/Arquisoft/wiq_es04a" target="_blank" rel="noopener" color="inherit">
               © WIQ-ES04A
             </Link>
