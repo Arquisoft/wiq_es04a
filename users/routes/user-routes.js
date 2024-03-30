@@ -179,6 +179,110 @@ router.get('/:name', async (req, res) => {
     }
 });
 
+// Adding a group to the database and creating the relationship with the creator
+router.post('/add', async (req, res) => {
+    try {
+        const { name,username } = req.body;
+
+        const existingGroup = await Group.findOne({ where: { name:name } });
+        if (existingGroup) {
+            return res.status(400).json({ error: 'A group with the same name already exists.' });
+        }
+
+        const newGroup = await Group.create({
+            name: name,
+            creator: username,
+            createdAt: new Date()
+        });
+
+        await UserGroup.create({
+            username: username,
+            groupName: name,
+            enteredAt: new Date()
+        });
+
+        res.json(newGroup);
+    } catch (error) {
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Adding a new relationship in the database between a group and a user when this one joins it
+router.post('/:name/join', async (req, res) => {
+    try {
+        const groupName = req.params.name;
+        const { username } = req.body;
+
+        const userCount = await UserGroup.count({
+            where: {
+                groupName: groupName
+            }
+        });
+
+        if (userCount >= 20) {
+            return res.status(400).json({ error: 'Group is already full' });
+        }
+
+        const newUserGroup = await UserGroup.create({
+            username: username,
+            groupName: groupName,
+            enteredAt: new Date()
+        });
+
+        res.json(newUserGroup);
+    } catch (error) {
+       return res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+// Route for edit the statics of a user
+router.post('/edit', async (req, res) => {
+    try {
+
+        const { username, earned_money, classic_correctly_answered_questions, classic_incorrectly_answered_questions, 
+            classic_total_time_played, classic_games_played } = req.body;
+
+        // Find the user in the database by their username
+        const statisticsUserToUpdate = await Statistics.findOne({
+            where: {
+                username: username
+            }
+        });
+
+        // Check if the user exists
+        if (!statisticsUserToUpdate) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Update the user's fields with the provided values
+        statisticsUserToUpdate.the_callenge_earned_money = statisticsUserToUpdate.the_callenge_earned_money  + earned_money;
+        statisticsUserToUpdate.the_callenge_correctly_answered_questions = statisticsUserToUpdate.the_callenge_correctly_answered_questions 
+        + classic_correctly_answered_questions;
+        statisticsUserToUpdate.the_callenge_incorrectly_answered_questions = statisticsUserToUpdate.the_callenge_incorrectly_answered_questions 
+        + classic_incorrectly_answered_questions;
+        statisticsUserToUpdate.the_callenge_total_time_played = statisticsUserToUpdate.the_callenge_total_time_played + classic_total_time_played;
+        statisticsUserToUpdate.the_callenge_games_played = statisticsUserToUpdate.the_callenge_games_played + classic_games_played;
+
+        // Save the changes to the database
+        await statisticsUserToUpdate.save();
+
+        res.json({ message: 'User statics updated successfully' });
+    } catch (error) {
+        console.error('Error updating user:', error);
+
+        if (error.name === 'SequelizeValidationError') {
+            // Validation errors
+            const validationErrors = error.errors.map(err => err.message);
+            res.status(400).json({ error: 'Validation error', details: validationErrors });
+        } else {
+            // Other errors
+            res.status(500).json({ error: 'Internal Server Error', details: error.message });
+        }
+    }
+});
+
+
 
 //Api middleware
 router.use('/api', apiRoutes);
