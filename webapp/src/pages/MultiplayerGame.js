@@ -13,6 +13,7 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { useLocation } from 'react-router-dom';
+import io from 'socket.io-client';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -43,7 +44,7 @@ const Game = () => {
     const [questionHistorial, setQuestionHistorial] = React.useState(Array(MAX_ROUNDS).fill(null));
 
     const location = useLocation();
-    const { questions } = location.state;
+    const { questions, roomCode} = location.state;
     
     React.useEffect(() => {
         let timer;
@@ -82,7 +83,6 @@ const Game = () => {
     // gets a random question from the database and initializes button states to null
     const startNewRound = async () => {
         setAnswered(false);
-        // It works deploying using git repo from machine with: axios.get(`http://20.80.235.188:8000/questions`)
         const quest = questions[round-1]
         
         setQuestionData(quest);    
@@ -312,7 +312,7 @@ if (shouldRedirect) {
                   }}
                 </CountdownCircleTimer>
             </Typography>
-
+                
             <Grid container spacing={2}>
                 {questionData.options.map((option, index) => (
                     <Grid item xs={12} key={index}>

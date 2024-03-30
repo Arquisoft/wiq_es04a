@@ -67,7 +67,7 @@ io.on('connection', (socket) => {
                 questionList.push(question);
                 });
 
-                io.to(roomCode).emit("questions-ready", questionList); // emit event only to room clients
+                io.to(roomCode).emit("questions-ready", questionList, roomCode); // emit event only to room clients
             })
 
         }

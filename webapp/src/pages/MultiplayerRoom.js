@@ -9,10 +9,10 @@ import { useNavigate } from 'react-router-dom';
 const socketEndpoint = process.env.MULTIPLAYER_ENDPOINT || 'ws://localhost:5010';
 
 const MultiplayerRoom = () => {
-    const [roomCode, setRoomCode] = useState('');
+    const [roomCode, setRoomCode] = useState("");
     const [error, setError] = useState('');
     const [socket, setSocket] = useState(null);
-    const [writtenCode, setWrittenCode] = useState('');
+    const [writtenCode, setWrittenCode] = useState("");
     const [roomPlayers, setRoomPlayers] = useState([]);
     const {username} = useContext(SessionContext);
     const [gameReady, setGameReady] = useState(false);
@@ -20,7 +20,7 @@ const MultiplayerRoom = () => {
     const [gameQuestions, setGameQuestions] = useState(null);
     const [loadingQuestions, setLoadingQuestions] = useState(false);
     const navigate = useNavigate();
-
+  
     useEffect(() => {
         const newSocket = io(socketEndpoint);
         setSocket(newSocket);
@@ -33,11 +33,12 @@ const MultiplayerRoom = () => {
             setRoomPlayers(roomPlayers);
         });
 
-        newSocket.on('questions-ready', (questions) => {
+        newSocket.on('questions-ready', (questions, roomCode) => {
             setGameQuestions(questions);
             setLoadingQuestions(false);
-           //TODO refactor
-           navigate('/multiplayerGame', { state: {questions} });
+            
+            //TODO refactor
+            navigate('/multiplayerGame', { state: {questions, roomCode} });
         });
 
         // clean at component dismount
@@ -45,11 +46,11 @@ const MultiplayerRoom = () => {
             newSocket.disconnect();
         };
     }, []);
-
+    
     const handleCreateRoom = () => {
         const code = generateRoomCode();
         setRoomCreator(true);
-  
+        
         socket.on('connection', () => {
           
         });
