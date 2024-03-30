@@ -88,6 +88,13 @@ router.get('/', async (req, res) => {
 //Get random questions from db: http://localhost:8010/questions/getQuestionsFromDb/3
 router.get('/getQuestionsFromDb/:n', async(_req, res) => {
     const n = parseInt(_req.params.n, 10);
+
+    if (await dbService.getQuestionCount() < n) {
+        //Must generate 2 questions
+        await generateQuestions(2);
+        //Do not wait to generate the others
+        generateQuestions(8);
+    }
  
     //Verify is n is a correct number
     if (isNaN(n) || n <= 0) {
@@ -102,6 +109,13 @@ router.get('/getQuestionsFromDb/:n', async(_req, res) => {
 router.get('/getQuestionsFromDb/:n/:category', async(_req, res) => {
     const n = parseInt(_req.params.n, 10);
     const category = _req.params.category;
+    
+    if (await dbService.getQuestionCount() < n) {
+        //Must generate 2 questions
+        await generateQuestions(2);
+        //Do not wait to generate the others
+        generateQuestions(8);
+    }
 
     //Verify is n is a correct number
     if (isNaN(n) || n <= 0) {

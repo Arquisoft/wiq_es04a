@@ -64,6 +64,21 @@ module.exports = {
     }
   },
 
+  /**
+   * Returns a the number of questions in the db.
+   * @returns {int} The question count
+   */
+  getQuestionCountByCategory : async function(wantedCategory) {
+    try {
+      // Obtain total number of questions in database
+      const totalQuestions = await Question.countDocuments({ categories: wantedCategory });
+      return totalQuestions;
+
+    } catch (error) {
+      console.error('Error obtaining the number of questions for category ',wantedCategory,': ', error.message);
+    }
+  },
+
 
   // Get random questions  TODO: refactor to use common code with get questions by category
   getRandomQuestions : async function(n) {
