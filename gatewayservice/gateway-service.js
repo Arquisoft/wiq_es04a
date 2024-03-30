@@ -113,7 +113,7 @@ app.post('/statistics/edit', async (req, res) => {
   }
 });
 
-app.get('/statistics/:username', async (req, res) => {
+app.get('/user/statistics/:username', async (req, res) => {
   try {
     const username = req.params.username;
     // Forward the user statics edit request to the user service
@@ -124,7 +124,7 @@ app.get('/statistics/:username', async (req, res) => {
   }
 });
 
-app.get('/group/list', async (req, res) => {
+app.get('/user/group/list', async (req, res) => {
   try {
     const username = req.query.username;
     const userResponse = await axios.get(userServiceUrl + '/user/group/list',{params: {username: username }});
