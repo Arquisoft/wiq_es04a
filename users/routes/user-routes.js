@@ -76,6 +76,16 @@ router.post('/add', async (req, res) => {
 });
 
 
+router.post('/logout', async (req, res) => {
+    try {
+
+      req.session.username = null;
+    } catch (error) {
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+
+
 router.get('/session', async (req, res) => {
     res.json({ session: req.session });
 });
