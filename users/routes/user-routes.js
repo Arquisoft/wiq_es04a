@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const { User, Statistics } = require('../models/user-model');
+const { User, Statistics } = require('../services/user-model');
 
 //User internal routes
-const apiRoutes = require('../services/user-api');
+const apiRoutes = require('../routes/user-routes-api');
 
 // Route for add a user
 router.post('/add', async (req, res) => {

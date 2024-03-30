@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Group,User,UserGroup } = require('../models/user-model');
+const { Group,User,UserGroup } = require('../services/user-model');
 
 
 // Getting the list of groups in the database
