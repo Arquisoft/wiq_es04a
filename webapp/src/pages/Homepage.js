@@ -83,6 +83,7 @@ const Homepage = () => {
     const handlePageChange = (event, page) => {
         displayGames(info, page, (page-1)*4, (page*4),0);
         displayGamePhoto((page-1)*4);
+        changeGameLink((page-1)*4)
     };
 
     // Update the selected page number, page games and game photo
