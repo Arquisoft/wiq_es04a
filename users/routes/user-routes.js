@@ -94,7 +94,7 @@ router.get('/session', async (req, res) => {
 
 
 // Getting the list of groups in the database
-router.get('/list', async (req, res) => {
+router.get('/group/list', async (req, res) => {
     try {
 
         const username = req.query.username;
@@ -149,7 +149,7 @@ router.get('/list', async (req, res) => {
 
 
 // Getting a group by its name
-router.get('/:name', async (req, res) => {
+router.get('/group/:name', async (req, res) => {
     try {
         const groupName = req.params.name;
 
@@ -180,7 +180,7 @@ router.get('/:name', async (req, res) => {
 });
 
 // Adding a group to the database and creating the relationship with the creator
-router.post('/add', async (req, res) => {
+router.post('/group/add', async (req, res) => {
     try {
         const { name,username } = req.body;
 
@@ -208,7 +208,7 @@ router.post('/add', async (req, res) => {
 });
 
 // Adding a new relationship in the database between a group and a user when this one joins it
-router.post('/:name/join', async (req, res) => {
+router.post('/group/:name/join', async (req, res) => {
     try {
         const groupName = req.params.name;
         const { username } = req.body;
@@ -237,7 +237,7 @@ router.post('/:name/join', async (req, res) => {
 
 
 // Route for edit the statics of a user
-router.post('/edit', async (req, res) => {
+router.post('/statistics/edit', async (req, res) => {
     try {
 
         const { username, earned_money, classic_correctly_answered_questions, classic_incorrectly_answered_questions, 
@@ -284,8 +284,99 @@ router.post('/edit', async (req, res) => {
 
 
 
-//Api middleware
-router.use('/api', apiRoutes);
+//Get user statics by username
+router.get('/statistics/:username', async (req,res) => {
+    try {
+        
+        const username = req.params.username;
+
+        // Querying using sequelize findOne method
+        const user = await Statistics.findOne({
+            where: {
+                username: username
+            }
+        });
+        
+        const userJSON = user.toJSON();
+        res.json(userJSON);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+
+});
+
+
+
+//Get all users
+router.get('/allUsers', async (req,res) => {
+
+    try {
+
+        const allUsers = await User.findAll();
+
+        // Converting each user to a JSON object
+        const usersJSON = allUsers.map(user => user.toJSON());
+
+        // Returned object in response, it contains a list of JSON objects (each user)
+        const allUsersJSON = {
+            users: usersJSON
+        };
+
+        res.json(allUsersJSON);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
+
+//Get user by username
+router.get('/get/:username', async (req,res) => {
+    try {
+
+        const username = req.params.username;
+
+        // Querying using sequelize findOne method
+        const user = await User.findOne({
+            where: {
+                username: username
+            }
+        });
+        
+        const userJSON = user.toJSON();
+        res.json(userJSON);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+
+});
+
+//Get users ordered by correct answers
+router.get('/ranking', async (req,res) => {
+    try {
+
+
+        // Querying using sequelize findOne method
+        const usersSortedByCorrectAnswers = await User.findAll({
+            order: [['correctly_answered_questions', 'DESC']]
+        });
+
+        // Converting each user to a JSON object
+        const sortedUsersJSON = usersSortedByCorrectAnswers.map(user => user.toJSON());
+
+        // Returned object in response, it contains a list of JSON objects (each user)
+        const allSortedUsersJSON = {
+            users: sortedUsersJSON
+        };
+
+        res.json(allSortedUsersJSON);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+
+});
+
+
+
+
 
 
 module.exports = router;

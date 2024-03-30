@@ -27,8 +27,7 @@ app.use(expressSession({
 app.use('/user', userRoutes);
 app.use('/login', authRoutes);
 
-app.use('/group', groupRoutes);
-app.use('/statistics', staticsRoutes);
+
 
 // Start the service
 const server = app.listen(port, () => {
