@@ -1,4 +1,4 @@
-const { User, Statistics, sequelize } = require('../../services/user-model.js');
+const { User, Statistics, Group, sequelize } = require('../../services/user-model.js');
 const bcrypt = require('bcrypt');
 const request = require('supertest');
 const express = require('express');
@@ -132,7 +132,7 @@ describe('User Routes', () => {
         };
 
         const response = await request(app)
-            .post('/statistics/edit')
+            .post('/user/statistics/edit')
             .send(nonExistingUserStatistics);
 
         expect(response.status).toBe(404);
@@ -192,7 +192,7 @@ describe('User Routes', () => {
     
     
         const response = await request(app)
-            .get(`/allUsers`);
+            .get(`/user/allUsers`);
     
         expect(response.status).toBe(200);
         expect(response.body.users.length).toBe(2);
@@ -215,7 +215,7 @@ describe('User Routes', () => {
         await User.create(newUser);
 
         const response = await request(app)
-            .get(`/get/${newUser.username}`);
+            .get(`/user/get/${newUser.username}`);
 
         expect(response.status).toBe(200);
         expect(response.body.username).toBe(newUser.username);
@@ -245,7 +245,7 @@ describe('User Routes', () => {
         await User.create(newUser3);
 
         const response = await request(app)
-         .get(`/ranking`);
+         .get(`/user/ranking`);
         // expect(response.status).toBe(200);
         // expect(response.type).toMatch(/json/);
         // expect(response.body).toHaveProperty('users');
@@ -267,7 +267,7 @@ describe('User Routes', () => {
         await Group.create(newGroup);
         await Group.create(newGroup2);
         const response = await request(app)
-        .get(`/group/list`);
+        .get(`/user/group/list`);
 
         expect(response.status).toBe(200);
         expect(response.type).toMatch(/json/);
@@ -282,7 +282,7 @@ describe('User Routes', () => {
     it('should show an error if group doesnt exist', async () => {
 
         const response = await request(app)
-        .get(`/group/nonexistentGroup`);
+        .get(`/user/group/nonexistentGroup`);
 
         expect(response.status).toBe(404);
         expect(response.type).toMatch(/json/);

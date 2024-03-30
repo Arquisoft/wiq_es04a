@@ -236,8 +236,8 @@ router.post('/group/:name/join', async (req, res) => {
 router.post('/statistics/edit', async (req, res) => {
     try {
 
-        const { username, earned_money, classic_correctly_answered_questions, classic_incorrectly_answered_questions, 
-            classic_total_time_played, classic_games_played } = req.body;
+        const { username, the_callenge_earned_money, the_callenge_correctly_answered_questions, the_callenge_incorrectly_answered_questions, 
+            the_callenge_total_time_played, the_callenge_games_played } = req.body;
 
         // Find the user in the database by their username
         const statisticsUserToUpdate = await Statistics.findOne({
@@ -252,13 +252,13 @@ router.post('/statistics/edit', async (req, res) => {
         }
 
         // Update the user's fields with the provided values
-        statisticsUserToUpdate.the_callenge_earned_money = statisticsUserToUpdate.the_callenge_earned_money  + earned_money;
+        statisticsUserToUpdate.the_callenge_earned_money = statisticsUserToUpdate.the_callenge_earned_money  + the_callenge_earned_money;
         statisticsUserToUpdate.the_callenge_correctly_answered_questions = statisticsUserToUpdate.the_callenge_correctly_answered_questions 
-        + classic_correctly_answered_questions;
+        + the_callenge_correctly_answered_questions;
         statisticsUserToUpdate.the_callenge_incorrectly_answered_questions = statisticsUserToUpdate.the_callenge_incorrectly_answered_questions 
-        + classic_incorrectly_answered_questions;
-        statisticsUserToUpdate.the_callenge_total_time_played = statisticsUserToUpdate.the_callenge_total_time_played + classic_total_time_played;
-        statisticsUserToUpdate.the_callenge_games_played = statisticsUserToUpdate.the_callenge_games_played + classic_games_played;
+        + the_callenge_incorrectly_answered_questions;
+        statisticsUserToUpdate.the_callenge_total_time_played = statisticsUserToUpdate.the_callenge_total_time_played + the_callenge_total_time_played;
+        statisticsUserToUpdate.the_callenge_games_played = statisticsUserToUpdate.the_callenge_games_played + the_callenge_games_played;
 
         // Save the changes to the database
         await statisticsUserToUpdate.save();
