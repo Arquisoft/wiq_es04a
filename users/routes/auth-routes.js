@@ -31,6 +31,9 @@ router.post('/', async (req, res) => {
       // Check if the user exists and verify the password
       if (user && user.username === username && await bcrypt.compare(password, user.password)) {
 
+
+        req.session.username = user.username;
+
         // Respond with the user information
         return res.status(200).json({ username, createdAt: user.createdAt });
 
