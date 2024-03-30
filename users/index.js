@@ -6,8 +6,9 @@ const express = require('express');
 const authRoutes = require('./routes/auth-routes.js');
 const userRoutes = require('./routes/user-routes.js');
 const groupRoutes = require('./routes/group-routes.js');
+const staticsRoutes = require('./routes/statistics-routes.js');
 
-// App definition and
+// App and users port definition 
 const app = express();
 const port = 8001;
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use('/user', userRoutes);
 app.use('/login', authRoutes);
 app.use('/group', groupRoutes);
+app.use('/statistics', staticsRoutes);
 
 // Start the service
 const server = app.listen(port, () => {

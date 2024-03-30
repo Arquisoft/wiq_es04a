@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Question = require('./question-data-model');
 require('dotenv').config();
 
-const uri = process.env.DATABASE_URI || 'mongodb://localhost:27017/questionDB';
+let uri = process.env.DATABASE_URI || 'mongodb://localhost:27017/questionDB';
 mongoose.connect(uri);
 
 module.exports = {
@@ -10,6 +10,7 @@ module.exports = {
   addQuestion : async function(questionData) {
     try {
       const newQuestion = new Question(questionData);
+      console.log(newQuestion);
       await newQuestion.save();
       console.log(`Question ${newQuestion._id} saved successfully in DB`);
     } catch (error) {
@@ -75,54 +76,33 @@ module.exports = {
         console.log('Required ', n, ' questions and there are ', totalQuestions);
         return;
       }
-  
-      // Obtain n random indexes
-      const randomIndexes = [];
-      while (randomIndexes.length < n) {
-        const randomIndex = Math.floor(Math.random() * totalQuestions);
-        if (!randomIndexes.includes(randomIndex)) {
-          randomIndexes.push(randomIndex);
-        }
-      }
-  
-      // Obtain n random questions
-      const randomQuestions = await Question.find().limit(n).skip(randomIndexes[0]);
-      return randomQuestions;
-      //console.log('Random questions: ', randomQuestions);
+
+      return Question.aggregate([{ $sample: { size: n } }]);
+      
     } catch (error) {
       console.error('Error obtaining random questions: ', error.message);
     }
   },
 
   // Obtaing random questions filtered by category
-  getRandomQuestionsByCategory : async function(n, category) {
+  getRandomQuestionsByCategory : async function(n, wantedCategory) {
     try {
       // Obtain total number of questions with that category
-      const totalQuestions = await Question.countDocuments({ category });
+      const totalQuestions = await Question.countDocuments({ categories: wantedCategory });
   
       // Check if there are required number of questions
       if (totalQuestions < n) {
         console.log('Required ', n, ' questions and there are ', totalQuestions);
         return;
       }
-  
-    // Obtain n random indexes
-    const randomIndexes = [];
-    while (randomIndexes.length < n) {
-      const randomIndex = Math.floor(Math.random() * totalQuestions);
-      if (!randomIndexes.includes(randomIndex)) {
-        randomIndexes.push(randomIndex);
-      }
-    }
-  
-      // Obtain n random questions with that category
-      const randomQuestions = await Question.find({ category }).limit(n).skip(randomIndexes[0]);
       
-      return randomQuestions;
-      //console.log('Random questions: ', randomQuestions);
+    return Question.aggregate([
+      { $match: { categories: wantedCategory } }, 
+      { $sample: { size: n } }
+      ]);
+      
     } catch (error) {
       console.error('Error obtaining random questions (with category): ', error.message);
     }
   },
-
 };

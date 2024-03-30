@@ -1,20 +1,30 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcrypt');
-const { Group,User,UserGroup } = require('../models/user-model');
+const { Group,UserGroup } = require('../services/user-model');
 
 //Group internal routes
-const apiRoutes = require('../services/group-api');
+const apiRoutes = require('../routes/group-routes-api');
 
-// Adding a group to the database
+// Adding a group to the database and creating the relationship with the creator
 router.post('/add', async (req, res) => {
     try {
         const { name,username } = req.body;
+
+        const existingGroup = await Group.findOne({ where: { name:name } });
+        if (existingGroup) {
+            return res.status(400).json({ error: 'A group with the same name already exists.' });
+        }
 
         const newGroup = await Group.create({
             name: name,
             creator: username,
             createdAt: new Date()
+        });
+
+        await UserGroup.create({
+            username: username,
+            groupName: name,
+            enteredAt: new Date()
         });
 
         res.json(newGroup);
@@ -29,11 +39,20 @@ router.post('/:name/join', async (req, res) => {
         const groupName = req.params.name;
         const { username } = req.body;
 
-        // Need to be tested
+        const userCount = await UserGroup.count({
+            where: {
+                groupName: groupName
+            }
+        });
+
+        if (userCount >= 20) {
+            return res.status(400).json({ error: 'Group is already full' });
+        }
+
         const newUserGroup = await UserGroup.create({
-            name: groupName,
             username: username,
-            createdAt: new Date()
+            groupName: groupName,
+            enteredAt: new Date()
         });
 
         res.json(newUserGroup);
