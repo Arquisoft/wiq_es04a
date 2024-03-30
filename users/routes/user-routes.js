@@ -4,10 +4,6 @@ const bcrypt = require('bcrypt');
 const { User, Statistics, Group, UserGroup } = require('../services/user-model');
 const {  } = require('../services/user-model');
 
-
-//User internal routes
-const apiRoutes = require('../routes/user-routes-api');
-
 // Route for add a user
 router.post('/add', async (req, res) => {
     try {
@@ -373,10 +369,5 @@ router.get('/ranking', async (req,res) => {
     }
 
 });
-
-
-
-
-
 
 module.exports = router;
