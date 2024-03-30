@@ -3,6 +3,7 @@ const cors = require('cors');
 const http = require('http');
 const socketIO = require('socket.io');
 const axios = require('axios');
+const e = require('express');
 
 // Routes: TODO maybe dont needed
 //const multiplayerRoutes = require('./routes/question-routes.js');
@@ -28,7 +29,7 @@ app.use(express.json());
 //app.use('/multiplayer', multiplayerRoutes);
 
 const gameRooms = {};
-//const gameResults = {};
+const gameResults = {};
 
 const getQuestion = () => {
     return axios.get(`${apiEndpoint}/questions`)
@@ -46,12 +47,15 @@ io.on('connection', (socket) => {
         socket.join(roomCode); 
         console.log(`${username} has joined game ${roomCode}`);
         
-        if (!gameRooms[roomCode]) {
+        if (gameRooms[roomCode] === undefined) {
             gameRooms[roomCode] = [username];
-        } else if (! gameRooms[roomCode][username]) {
+            gameResults[roomCode] = {};
+            gameResults[roomCode][username] = {};
+        } else if (!gameRooms[roomCode].includes(username)) {
             gameRooms[roomCode].push(username);
+            gameResults[roomCode][username] = {};
         }
-
+        
         const room = io.sockets.adapter.rooms.get(roomCode); // Obtain the room
 
         if(room && room.size === 2) {
@@ -77,22 +81,27 @@ io.on('connection', (socket) => {
 
         socket.on('finished-game', (username, correctAnswers, elapsedTime) => {
             // Store the correct answers and the player's time in the game room
-            gameRooms[roomCode][username] = { correctAnswers, elapsedTime };
-
-            // Check if all players finished game
-            const allPlayersFinished = Object.keys(gameRooms[roomCode]).every(player => gameRooms[roomCode][player].correctAnswers !== undefined);
+            gameResults[roomCode][username] = { username, correctAnswers, elapsedTime };
+            console.log(username, " has correctly answered ", correctAnswers, " questions in ", elapsedTime, "s")
             
+            // Check if all players finished game
+            const allPlayersFinished = Object.keys(gameResults[roomCode]).every(player => gameResults[roomCode][player].correctAnswers !== undefined);
+            
+            console.log(gameResults[roomCode])
+            if(allPlayersFinished) 
+                console.log("All players finished")
+
             if (allPlayersFinished) {
                 let winner = null;
                 let highestCorrectAnswers = -1;
                 let lowestElapsedTime = Infinity;
 
-                Object.keys(gameRooms[roomCode]).forEach(player => {
-                    const { correctAnswers, elapsedTime } = gameRooms[roomCode][player];
+                Object.keys(gameResults[roomCode]).forEach(player => {
+                    const { username, correctAnswers, elapsedTime } = gameResults[roomCode][player];
                     
                     if (correctAnswers > highestCorrectAnswers ||
                         (correctAnswers === highestCorrectAnswers && elapsedTime < lowestElapsedTime)) {
-                    winner = player;
+                    winner = username;
                     highestCorrectAnswers = correctAnswers;
                     lowestElapsedTime = elapsedTime;
                     }

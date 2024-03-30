@@ -206,12 +206,12 @@ const Game = () => {
     }
 
     // redirect to / if game over 
-if (false) {//TODO--------------------------------------------------------
+if (shouldRedirect) {
     // Redirect after 3 seconds
-    setTimeout(() => {
+    /*setTimeout(() => {
         navigate('/homepage');
-    }, 4000);
-
+    }, 4000);*/
+    socket.emit("finished-game", username, correctlyAnsweredQuestions, totalTimePlayed);
 //
     return (
         <Container
