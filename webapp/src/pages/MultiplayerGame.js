@@ -48,14 +48,18 @@ const Game = () => {
     const [socket, setSocket] = React.useState(null);
 
     const[winnerPlayer, setWinnerPlayer] = React.useState("");
+    const[winnerCorrect, setWinnerCorrect] = React.useState(0);
+    const[winnerTime, setWinnerTime] = React.useState(0);
     
     React.useEffect(() => {
         const newSocket = io(socketEndpoint);
         setSocket(newSocket);
         newSocket.emit('join-room', roomCode, username);
 
-        newSocket.on("winner-player", (winner => {
+        newSocket.on("winner-player", ((winner, winnerCorrect, winnerTime) => {
             setWinnerPlayer(winner);
+            setWinnerCorrect(winnerCorrect);
+            setWinnerTime(winnerTime);
         }))
     }, []);
 
@@ -248,7 +252,7 @@ if (shouldRedirect) {
                 <Typography variant="h6">Total money: {totalScore}</Typography>
                 <Typography variant="h6">Game time: {totalTimePlayed} seconds</Typography>
 
-                <Typography variant="h6">Player winner of the game: {winnerPlayer}</Typography>
+                <Typography variant="h6">Player winner of the game: {winnerPlayer} with {winnerCorrect} answers in {winnerTime}s</Typography>
             </div>
             {showConfetti && <Confetti />}
         </Container>

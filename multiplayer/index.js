@@ -87,10 +87,6 @@ io.on('connection', (socket) => {
             // Check if all players finished game
             const allPlayersFinished = Object.keys(gameResults[roomCode]).every(player => gameResults[roomCode][player].correctAnswers !== undefined);
             
-            console.log(gameResults[roomCode])
-            if(allPlayersFinished) 
-                console.log("All players finished")
-
             if (allPlayersFinished) {
                 let winner = null;
                 let highestCorrectAnswers = -1;
@@ -106,9 +102,9 @@ io.on('connection', (socket) => {
                     lowestElapsedTime = elapsedTime;
                     }
                 });
-                socket.emit("winner-player", winner);
+                io.to(roomCode).emit("winner-player", winner, highestCorrectAnswers, lowestElapsedTime);
             } else {
-                socket.emit("waiting-players-end", "waiting");
+                io.to(roomCode).emit("waiting-players-end", "waiting");
             }
 
             });
