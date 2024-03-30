@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon app.js",
-    "test": "cross-env NODE_ENV=test jest"
+    "test": "jest"
   },
   "author": "wiq-es04a",
   "license": "ISC",
