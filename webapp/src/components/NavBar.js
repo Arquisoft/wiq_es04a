@@ -11,7 +11,6 @@ import { SessionContext } from '../SessionContext';
 const pages = [
   // Inicio not appearing as WIQ logo is used for that
   { path: '/homepage', text: 'Play' },
-  { path: '/multiplayerRoom', text: 'Play online' },
   { path: '/statistics', text: 'Statistics' },
   { path: '/instructions', text: 'Instructions' },
   { path: '/group/menu', text: 'Groups' }
