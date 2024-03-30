@@ -19,6 +19,8 @@ const Login = () => {
   const loginUser = async () => {
     try {
       await axios.post(`${apiEndpoint}/login`, { username, password });
+
+
       setOpenSnackbar(true);
       createSession(username);
       navigate('/homepage');
