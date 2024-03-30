@@ -10,7 +10,8 @@ app.use(bodyParser.json());
 app.use('/user', userRoutes);
 
 describe('User Routes', () => {
-    beforeAll(async () => {
+
+    beforeEach(async () => {
         await sequelize.authenticate();
         await sequelize.sync({ force: true });
     });
@@ -161,7 +162,7 @@ describe('User Routes', () => {
         await Statistics.create({ username: newUser.username, ...initialStatistics });
     
         const response = await request(app)
-            .get(`/statistics/${newUser.username}`);
+            .get(`/user/statistics/${newUser.username}`);
     
         expect(response.status).toBe(200);
         expect(response.body.the_callenge_earned_money).toEqual(initialStatistics.the_callenge_earned_money);
@@ -221,7 +222,6 @@ describe('User Routes', () => {
         expect(response.body.username).toBe(newUser.username);
     });
 
-    //TODO: make work this test
     it('should get user ranking', async () => {
         const newUser = {
             username: 'testuser4',
