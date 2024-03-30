@@ -1,4 +1,4 @@
-const { User, Statistics, sequelize } = require('../../models/user-model.js');
+const { User, Statistics, sequelize } = require('../../services/user-model.js');
 const bcrypt = require('bcrypt');
 const request = require('supertest');
 const express = require('express');

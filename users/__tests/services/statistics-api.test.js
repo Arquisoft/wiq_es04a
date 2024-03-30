@@ -3,7 +3,7 @@ const request = require('supertest');
 const express = require('express');
 const bodyParser = require('body-parser');
 const statisticsRoutes = require('../../routes/statistics-routes.js');
-const { User } = require('../../models/user-model.js');
+const { User } = require('../../services/user-model.js');
 
 const app = express();
 app.use(bodyParser.json());
