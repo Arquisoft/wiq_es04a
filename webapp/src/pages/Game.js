@@ -64,6 +64,7 @@ const Game = () => {
             setTimerRunning(false);
             setShouldRedirect(true);
             setQuestionCountdownRunning(false);
+            updateStatistics();
         }
     }, [round]);
 
@@ -91,6 +92,21 @@ const Game = () => {
         }); 
         
     };
+
+    const updateStatistics = async() => {
+        try {
+            await axios.post(`${apiEndpoint}/statistics/edit`, {
+                username:username,
+                earned_money:totalScore,
+                classic_correctly_answered_questions:correctlyAnsweredQuestions,
+                classic_incorrectly_answered_questions:incorrectlyAnsweredQuestions,
+                classic_total_time_played:totalTimePlayed,
+                classic_games_played:1
+            });
+        } catch (error) {
+            console.error("Error:", error);
+        };
+    }
 
     // this function is called when a user selects a response. 
     const selectResponse = async (index, response) => {
@@ -130,26 +146,10 @@ const Game = () => {
 
         setButtonStates(newButtonStates);
 
-        if (round >= 3) {
-            // Update user data before redirecting
-            try {
-                await axios.post(`${apiEndpoint}/statistics/edit`, {
-                    username:username,
-                    earned_money:totalScore,
-                    classic_correctly_answered_questions:correctlyAnsweredQuestions,
-                    classic_incorrectly_answered_questions:incorrectlyAnsweredQuestions,
-                    classic_total_time_played:totalTimePlayed,
-                    classic_games_played:1
-                  });
-              } catch (error) {
-                console.error("Error:", error);
-              }
-        }
-
-        setTimeout(() => {
+        setTimeout(async() => {
             setRound(round + 1);
             setButtonStates([]);
-        }, 2000);
+        }, 4000);
     };
 
     const questionHistorialBar = () => {
