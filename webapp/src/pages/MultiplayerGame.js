@@ -283,14 +283,6 @@ if (shouldRedirect) {
       
             </Typography>
 
-            <Button variant="contained"
-                    onClick={() => togglePause()}
-                    disabled={answered}>
-
-                {timerRunning ? <Pause /> : <PlayArrow />}
-                {timerRunning ? 'Pause' : 'Play'}
-            </Button>
-
             <Container
             sx={{
                 position: 'absolute',
