@@ -21,12 +21,12 @@ This is a repo for the [Software Architecture course](http://arquisoft.github.io
 
 This repo is an application composed of several components.
 
-- **Webapp**. React web application that uses the gateway service to allow people register and enjoy playing different modes.
 - **Gateway service**. Express service that is exposed to the public and serves as a proxy to the two previous ones.
-- **Users**. Express service that handles the managment of the users and their groups in the system.
-- **Questions**. Express service that handles the management of the questions generated for the game in the system.
+- **Users service**. Express service that handles the insertion and authentication of users in the system.
+- **Webapp**. React web application that uses the gateway service to allow basic login and new user features.
+- **Questions service**. Express service that generates questions for the game and has an api to get questions.
 
-The Users service uses a MariaDB DBMS accesed with sequelizer and questions service uses MongoDB accesed with mongoose.
+Questions service uses a Mongo database and Users service uses MariaDB database.
 
 ## Quick start guide
 

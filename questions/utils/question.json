@@ -1,46 +1,18 @@
 [
     {
-        "name": "country",
-        "instance": "Q6256",
+        "name": "city",
+        "instance": "Q515",
         "properties": [
             {   
                 "property": "P1082",
-                "template": 
-                    [{
-                    "lang": "es",
-                    "question": "Cuál es la población de x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "What is the population of x"
-                    }],
+                "template": "What is the population of x",
                 "filter": ">1000000",
                 "category": ["Geography"]
             },
             {   
-                "property": "P36",
-                "template": [{
-                    "lang": "es",
-                    "question": "Cuál es la capital de x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "What is the capital of x"
-                    }],
+                "property": "P1376",
+                "template": "What country is x the capital of",
                 "category": ["Geography"]
-            },
-            {   
-                "property": "P38",
-                "template": 
-                    [{
-                    "lang": "es",
-                    "question": "Que moneda tiene x"
-                    },
-                    {
-                    "lang": "en",
-                    "question":  "What currency x has"
-                    }],
-                "category": ["Political"]
             }
         ]
     },
@@ -50,29 +22,24 @@
         "properties": [
             {   
                 "property": "P115",
-                "template": 
-                    [{
-                    "lang": "es",
-                    "question": "Cuál es el estadio del equipo x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "What is the stadium of x team"
-                    }],
+                "template": "What is the stadium of x team",
                 "category": ["Sports"]
             },
             {
                 "property": "P17",
-                "template": 
-                    [{
-                    "lang": "es",
-                    "question": "Cuál es el pais del equipo x"
-                    },
-                    {
-                    "lang": "en",
-                    "question":  "What is the country of x team"
-                    }],
+                "template": "What is the country of x team",
                 "category": ["Sports", "Geography"]
+            }
+        ]
+    },
+    {
+        "name": "currency",
+        "instance": "Q6256",
+        "properties": [
+            {   
+                "property": "P38",
+                "template": "What currency x has",
+                "category": ["Political"]
             }
         ]
     },
@@ -82,15 +49,7 @@
         "properties": [
             {   
                 "property": "P205",
-                "template": 
-                    [{
-                    "lang": "es",
-                    "question": "En qué país está el río x"
-                    },
-                    {
-                    "lang": "en",
-                    "question":  "What country is x river in"
-                    }],
+                "template": "What country river x is in",
                 "category": ["Geography"]
             }
         ]

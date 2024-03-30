@@ -1,22 +1,18 @@
 const axios = require('axios');
 
-async function getRandomEntity(entity, pos, lang) {
-    const property = entity.properties[pos].property;
-    const filt = entity.properties[pos].filter;
+async function getRandomEntity(instance, property, filt) {
     var filter = '';
     if(filt) {
         filter = `FILTER(?property${filt})`;
     }
-    const language = entity.properties[pos].template[lang].lang;
-    const instance = entity.instance;
-
+   
     const consultaSparql = `
         SELECT ?entity ?entityLabel ?property
         WHERE {
             ?entity wdt:P31 wd:${instance};   
                 wdt:${property} ?property.   
             ?entity rdfs:label ?entityLabel.  
-            FILTER(LANG(?entityLabel) = "${language}")
+            FILTER(LANG(?entityLabel) = "es")
             ${filter}
     }
     `;
@@ -57,7 +53,7 @@ async function getRandomEntity(entity, pos, lang) {
 }
 
 
-async function getProperties(property, language, filt) {
+async function getProperties(property, filt) {
     var filter = '';
     if(filt) {
         filter = `FILTER(?property${filt})`;
@@ -66,8 +62,6 @@ async function getProperties(property, language, filt) {
         SELECT DISTINCT ?property
         WHERE {
             ?entity wdt:${property} ?property. 
-            ?entity rdfs:label ?entityLabel. 
-            FILTER(LANG(?entityLabel) = "${language}")
             ${filter}  
         }
         LIMIT 400

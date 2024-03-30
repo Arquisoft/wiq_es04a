@@ -11,7 +11,7 @@ defineFeature(feature, test => {
   beforeAll(async () => {
     browser = process.env.GITHUB_ACTIONS
       ? await puppeteer.launch()
-      : await puppeteer.launch({ headless: false, slowMo: 40 });
+      : await puppeteer.launch({ headless: false, slowMo: 100 });
     page = await browser.newPage();
     //Way of setting up the timeout
     setDefaultOptions({ timeout: 10000 })
@@ -27,32 +27,17 @@ defineFeature(feature, test => {
     
     let username;
     let password;
-    let name;
-    let surname;
 
     given('An unregistered user', async () => {
-      username = "usuarioNuevo"
-      password = "12345678mM."
-      name = "Jordi"
-      surname = "Hurtado"
-    
-      const [loginLink] = await page.$x('//*[@id="root"]/div/header/div/a[2]');
-
-      if (loginLink) {
-        await loginLink.click();
-      } else {
-        throw new Error('Cannot find link "LOG IN"');
-      }
-
-      await expect(page).toClick("a", { text: "Don't have an account? Register here." });
+      username = "pablo"
+      password = "pabloasw"
+      await expect(page).toClick("button", { text: "Don't have an account? Register here." });
     });
 
     when('I fill the data in the form and press submit', async () => {
       await expect(page).toFill('input[name="username"]', username);
       await expect(page).toFill('input[name="password"]', password);
-      await expect(page).toFill('input[name="name"]', name);
-      await expect(page).toFill('input[name="surname"]', surname);
-      await expect(page).toClick('button', { text: 'Sign Up' })
+      await expect(page).toClick('button', { text: 'Add User' })
     });
 
     then('A confirmation message should be shown in the screen', async () => {
