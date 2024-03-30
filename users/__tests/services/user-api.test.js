@@ -1,12 +1,16 @@
-const { User, sequelize } = require('../../models/user-model.js');
+const { User, Sequelize, sequelize } = require('../../services/user-model.js');
 const request = require('supertest');
 const express = require('express');
 const bodyParser = require('body-parser');
-const apiUserRoutes = require('../../services/user-api.js');
+const userRoutes = require('../../routes/user-routes.js');
+
 
 const app = express();
 app.use(bodyParser.json());
-app.use('/api', apiUserRoutes);
+app.use('', userRoutes);
+
+
+
 
 describe('Api User Routes', () => {
 
@@ -40,7 +44,7 @@ describe('Api User Routes', () => {
     
     
         const response = await request(app)
-            .get(`/api/allUsers`);
+            .get(`/allUsers`);
     
         expect(response.status).toBe(200);
         expect(response.body.users.length).toBe(2);
@@ -63,7 +67,7 @@ describe('Api User Routes', () => {
         await User.create(newUser);
 
         const response = await request(app)
-            .get(`/api/user/${newUser.username}`);
+            .get(`/get/${newUser.username}`);
 
         expect(response.status).toBe(200);
         expect(response.body.username).toBe(newUser.username);
@@ -93,9 +97,10 @@ describe('Api User Routes', () => {
         await User.create(newUser3);
 
         const response = await request(app)
-         .get(`/api/ranking`);
-        // expect(response.status).toBe(200);
-        // expect(response.type).toMatch(/json/);
-        // expect(response.body).toHaveProperty('users');
+         .get(`/ranking`);
+        expect(response.status).toBe(200);
+        expect(response.type).toMatch(/json/);
+        expect(response.body).toHaveProperty("rank");
+
     });
 });
