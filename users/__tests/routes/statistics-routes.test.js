@@ -1,4 +1,4 @@
-const { Statistics, sequelize } = require('../../models/user-model.js');
+const { Statistics, sequelize } = require('../../services/user-model.js');
 const request = require('supertest');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -32,22 +32,22 @@ describe('Statistics Routes', () => {
 
         const initialStatistics = {
             username: 'testuser',
-            earned_money: 100,
-            classic_correctly_answered_questions: 5,
-            classic_incorrectly_answered_questions: 2,
-            classic_total_time_played: 3600,
-            classic_games_played: 3
+            the_callenge_earned_money: 100,
+            the_callenge_correctly_answered_questions: 5,
+            the_callenge_incorrectly_answered_questions: 2,
+            the_callenge_total_time_played: 3600,
+            the_callenge_games_played: 3
         };
 
         await Statistics.create(initialStatistics);
 
         const updatedStatistics = {
             username: 'testuser',
-            earned_money: 50,
-            classic_correctly_answered_questions: 3,
-            classic_incorrectly_answered_questions: 1,
-            classic_total_time_played: 1800,
-            classic_games_played: 2
+            the_callenge_earned_money: 50,
+            the_callenge_correctly_answered_questions: 3,
+            the_callenge_incorrectly_answered_questions: 1,
+            the_callenge_total_time_played: 1800,
+            the_callenge_games_played: 2
         };
 
         const response = await request(app)
@@ -60,11 +60,11 @@ describe('Statistics Routes', () => {
         // Check if the statistics are updated in the database
         const userStatistics = await Statistics.findOne({ where: { username: updatedStatistics.username } });
 
-        expect(userStatistics.earned_money).toBe(initialStatistics.earned_money + updatedStatistics.earned_money);
-        expect(userStatistics.classic_correctly_answered_questions).toBe(initialStatistics.classic_correctly_answered_questions + updatedStatistics.classic_correctly_answered_questions);
-        expect(userStatistics.classic_incorrectly_answered_questions).toBe(initialStatistics.classic_incorrectly_answered_questions + updatedStatistics.classic_incorrectly_answered_questions);
-        expect(userStatistics.classic_total_time_played).toBe(initialStatistics.classic_total_time_played + updatedStatistics.classic_total_time_played);
-        expect(userStatistics.classic_games_played).toBe(initialStatistics.classic_games_played + updatedStatistics.classic_games_played);
+        expect(userStatistics.the_callenge_earned_money).toBe(initialStatistics.the_callenge_earned_money + updatedStatistics.the_callenge_earned_money);
+        expect(userStatistics.the_callenge_correctly_answered_questions).toBe(initialStatistics.the_callenge_correctly_answered_questions + updatedStatistics.the_callenge_correctly_answered_questions);
+        expect(userStatistics.the_callenge_incorrectly_answered_questions).toBe(initialStatistics.the_callenge_incorrectly_answered_questions + updatedStatistics.the_callenge_incorrectly_answered_questions);
+        expect(userStatistics.the_callenge_total_time_played).toBe(initialStatistics.the_callenge_total_time_played + updatedStatistics.the_callenge_total_time_played);
+        expect(userStatistics.the_callenge_games_played).toBe(initialStatistics.the_callenge_games_played + updatedStatistics.the_callenge_games_played);
     });
 
     it('should return error if user not found', async () => {

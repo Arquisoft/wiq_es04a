@@ -1,4 +1,4 @@
-const { Statistics, sequelize } = require('../../models/user-model.js');
+const { Statistics, sequelize } = require('../../services/user-model.js');
 const request = require('supertest');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -31,11 +31,11 @@ describe('Statistics Routes', () => {
         await User.create(newUser);
     
         const initialStatistics = {
-            earned_money: 100,
-            classic_correctly_answered_questions: 5,
-            classic_incorrectly_answered_questions: 2,
-            classic_total_time_played: 3600,
-            classic_games_played: 3
+            the_callenge_earned_money: 100,
+            the_callenge_correctly_answered_questions: 5,
+            the_callenge_incorrectly_answered_questions: 2,
+            the_callenge_total_time_played: 3600,
+            the_callenge_games_played: 3
         };
     
         await Statistics.create({ username: newUser.username, ...initialStatistics });
@@ -44,10 +44,10 @@ describe('Statistics Routes', () => {
             .get(`/statistics/api/${newUser.username}`);
     
         expect(response.status).toBe(200);
-        expect(response.body.earned_money).toEqual(initialStatistics.earned_money);
-        expect(response.body.classic_correctly_answered_questions).toEqual(initialStatistics.classic_correctly_answered_questions);
-        expect(response.body.classic_incorrectly_answered_questions).toEqual(initialStatistics.classic_incorrectly_answered_questions);
-        expect(response.body.classic_total_time_played).toEqual(initialStatistics.classic_total_time_played);
-        expect(response.body.classic_games_played).toEqual(initialStatistics.classic_games_played);
+        expect(response.body.the_callenge_earned_money).toEqual(initialStatistics.the_callenge_earned_money);
+        expect(response.body.the_callenge_correctly_answered_questions).toEqual(initialStatistics.the_callenge_correctly_answered_questions);
+        expect(response.body.the_callenge_incorrectly_answered_questions).toEqual(initialStatistics.the_callenge_incorrectly_answered_questions);
+        expect(response.body.the_callenge_total_time_played).toEqual(initialStatistics.the_callenge_total_time_played);
+        expect(response.body.the_callenge_games_played).toEqual(initialStatistics.the_callenge_games_played);
     });
 });

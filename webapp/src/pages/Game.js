@@ -97,11 +97,11 @@ const Game = () => {
         try {
             await axios.post(`${apiEndpoint}/statistics/edit`, {
                 username:username,
-                earned_money:totalScore,
-                classic_correctly_answered_questions:correctlyAnsweredQuestions,
-                classic_incorrectly_answered_questions:incorrectlyAnsweredQuestions,
-                classic_total_time_played:totalTimePlayed,
-                classic_games_played:1
+                the_callenge_earned_money:totalScore,
+                the_callenge_correctly_answered_questions:correctlyAnsweredQuestions,
+                the_callenge_incorrectly_answered_questions:incorrectlyAnsweredQuestions,
+                the_callenge_total_time_played:totalTimePlayed,
+                the_callenge_games_played:1
             });
         } catch (error) {
             console.error("Error:", error);
