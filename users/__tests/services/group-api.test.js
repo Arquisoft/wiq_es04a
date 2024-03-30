@@ -1,12 +1,12 @@
-const { Group, Sequelize, sequelize } = require('../../models/user-model.js');
+const { Group, Sequelize, sequelize } = require('../../services/user-model.js');
 const request = require('supertest');
 const express = require('express');
 const bodyParser = require('body-parser');
-const apiGroupRoutes = require('../../services/group-api.js');
+const userRoutes = require('../../routes/user-routes.js');
 
 const app = express();
 app.use(bodyParser.json());
-app.use('/api', apiGroupRoutes);
+app.use('', userRoutes);
 
 describe('Api Group Routes', () => {
 
@@ -35,7 +35,7 @@ describe('Api Group Routes', () => {
         await Group.create(newGroup);
         await Group.create(newGroup2);
         const response = await request(app)
-        .get(`/api/list`);
+        .get(`/group/list`);
 
         expect(response.status).toBe(200);
         expect(response.type).toMatch(/json/);
@@ -50,7 +50,7 @@ describe('Api Group Routes', () => {
     it('should show an error if group doesnt exist', async () => {
 
         const response = await request(app)
-        .get(`/api/nonexistentGroup`);
+        .get(`/group/nonexistentGroup`);
 
         expect(response.status).toBe(404);
         expect(response.type).toMatch(/json/);
@@ -60,6 +60,21 @@ describe('Api Group Routes', () => {
 
     //TODO: Write a test for successful group search by name
 
+    it('should find an existing group', async () => {
+        
+        const newGroup = {
+            name: 'testgroup3',
+            creator: 'Test1234', 
+        };
 
+        await Group.create(newGroup);
+
+        const response = await request(app)
+        .get(`/group/testgroup3`);
+
+        expect(response.status).toBe(200);
+        expect(response.type).toMatch(/json/);
+
+    });
 
 });

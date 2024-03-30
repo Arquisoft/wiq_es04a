@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const { User, Statistics, Group, UserGroup } = require('../services/user-model');
+const { User, Statistics, Group, UserGroup, sequelize } = require('../services/user-model');
 const {  } = require('../services/user-model');
 
 // Route for add a user
@@ -345,29 +345,12 @@ router.get('/get/:username', async (req,res) => {
 
 });
 
-//Get users ordered by correct answers
-router.get('/ranking', async (req,res) => {
+router.get('/ranking', async (req, res) => {
     try {
-
-
-        // Querying using sequelize findOne method
-        const usersSortedByCorrectAnswers = await User.findAll({
-            order: [['correctly_answered_questions', 'DESC']]
-        });
-
-        // Converting each user to a JSON object
-        const sortedUsersJSON = usersSortedByCorrectAnswers.map(user => user.toJSON());
-
-        // Returned object in response, it contains a list of JSON objects (each user)
-        const allSortedUsersJSON = {
-            users: sortedUsersJSON
-        };
-
-        res.json(allSortedUsersJSON);
+   
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
-
 });
 
 
