@@ -1,0 +1,180 @@
+---
+openapi: 3.0.0
+info:
+  title: Questionservice API
+  description: Question OpenAPI specification
+  version: 0.1.0
+servers:
+- url: http://localhost:8000/questions
+  description: Development server
+- url: http://20.19.89.97:8000/questions
+  description: Production server
+paths:
+  /:
+    get:
+      summary: Gests a question from the database.
+      description: "Gests a question from the database. If there are not enough questions, it asks wikidata for more"
+      operationId: questions
+      responses:
+        "200":
+          description: Returned question succesfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+        "400":
+          description: Failed to get question
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_500'
+  /getQuestionsFromDb/{n}:
+    get:
+      summary: Gests n questions from the database.
+      description: Gests n questions from the database.
+      operationId: nQuestions
+      parameters:
+      - name: "n"
+        in: path
+        description: Number of questions to retrieve
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+        example: 2
+      responses:
+        "200":
+          description: Returned questions succesfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/inline_response_200_1'
+        "400":
+          description: Failed to get n questions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400_1'
+        "500":
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_500'
+  /getQuestionsFromDb/{n}/{category}:
+    get:
+      summary: Gests n questions of a specific category.
+      description: Gests n questions of a specific category
+      operationId: categoryQuestions
+      parameters:
+      - name: "n"
+        in: path
+        description: Number of questions to retrieve
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+        example: 2
+      - name: category
+        in: path
+        description: Category of the questions to retrieve
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+        example: Geography
+      responses:
+        "200":
+          description: Returned questions succesfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/inline_response_200_1'
+        "400":
+          description: Failed to get questions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400_1'
+        "500":
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_500'
+components:
+  schemas:
+    inline_response_200:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Unique identification
+          example: 660549daa56f92f15a73f89c
+        question:
+          type: string
+        options:
+          type: array
+          items:
+            type: string
+        correctAnswer:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+        language:
+          type: string
+    inline_response_400:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error while getting a question.
+    inline_response_500:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error information.
+          example: Internal Server Error
+    inline_response_200_1:
+      type: object
+      properties:
+        _id:
+          type: object
+          description: Unique identification
+          example: ObjectId('660549daa56f92f15a73f89c')
+        question:
+          type: string
+        options:
+          type: array
+          items:
+            type: string
+        correctAnswer:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+        language:
+          type: string
+    inline_response_400_1:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error while getting questions.
