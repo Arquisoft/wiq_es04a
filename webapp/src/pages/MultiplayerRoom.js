@@ -3,9 +3,8 @@ import { Button, TextField, Typography, Grid, Paper, List, ListItem, CircularPro
 import io from 'socket.io-client';
 import { useContext } from 'react';
 import { SessionContext } from '../SessionContext';
-
 import { useNavigate } from 'react-router-dom';
-//TODO add this to docker yml
+
 const socketEndpoint = process.env.MULTIPLAYER_ENDPOINT || 'ws://localhost:5010';
 
 const MultiplayerRoom = () => {
@@ -45,8 +44,8 @@ const MultiplayerRoom = () => {
         return () => {
             newSocket.disconnect();
         };
-    }, []);
-    
+    }, [navigate]);
+
     const handleCreateRoom = () => {
         const code = generateRoomCode();
         setRoomCreator(true);
@@ -56,7 +55,6 @@ const MultiplayerRoom = () => {
         });
        
         socket.emit('join-room', code, username);
-  
       };
   
     const handleJoinRoom = () => {

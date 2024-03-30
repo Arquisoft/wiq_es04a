@@ -28,6 +28,7 @@ app.use(express.json());
 //app.use('/multiplayer', multiplayerRoutes);
 
 const gameRooms = {};
+//const gameResults = {};
 
 const getQuestion = () => {
     return axios.get(`${apiEndpoint}/questions`)
@@ -47,7 +48,7 @@ io.on('connection', (socket) => {
         
         if (!gameRooms[roomCode]) {
             gameRooms[roomCode] = [username];
-        } else {
+        } else if (! gameRooms[roomCode][username]) {
             gameRooms[roomCode].push(username);
         }
 
@@ -73,6 +74,35 @@ io.on('connection', (socket) => {
         }
 
         io.to(roomCode).emit("update-players", gameRooms[roomCode]);
+
+        socket.on('finished-game', (username, correctAnswers, elapsedTime) => {
+            // Store the correct answers and the player's time in the game room
+            gameRooms[roomCode][username] = { correctAnswers, elapsedTime };
+
+            // Check if all players finished game
+            const allPlayersFinished = Object.keys(gameRooms[roomCode]).every(player => gameRooms[roomCode][player].correctAnswers !== undefined);
+            
+            if (allPlayersFinished) {
+                let winner = null;
+                let highestCorrectAnswers = -1;
+                let lowestElapsedTime = Infinity;
+
+                Object.keys(gameRooms[roomCode]).forEach(player => {
+                    const { correctAnswers, elapsedTime } = gameRooms[roomCode][player];
+                    
+                    if (correctAnswers > highestCorrectAnswers ||
+                        (correctAnswers === highestCorrectAnswers && elapsedTime < lowestElapsedTime)) {
+                    winner = player;
+                    highestCorrectAnswers = correctAnswers;
+                    lowestElapsedTime = elapsedTime;
+                    }
+                });
+                socket.emit("winner-player", winner);
+            } else {
+                socket.emit("waiting-players-end", "waiting");
+            }
+
+            });
       });
     
   });

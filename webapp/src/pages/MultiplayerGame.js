@@ -16,7 +16,7 @@ import { useLocation } from 'react-router-dom';
 import io from 'socket.io-client';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
-
+const socketEndpoint = process.env.MULTIPLAYER_ENDPOINT || 'ws://localhost:5010';
 
 const Game = () => {
     const navigate = useNavigate();
@@ -45,7 +45,14 @@ const Game = () => {
 
     const location = useLocation();
     const { questions, roomCode} = location.state;
+    const [socket, setSocket] = React.useState(null);
     
+    React.useEffect(() => {
+        const newSocket = io(socketEndpoint);
+        setSocket(newSocket);
+        newSocket.emit('join-room', roomCode, username);
+    }, []);
+
     React.useEffect(() => {
         let timer;
         if (timerRunning) {
@@ -199,7 +206,7 @@ const Game = () => {
     }
 
     // redirect to / if game over 
-if (shouldRedirect) {
+if (false) {//TODO--------------------------------------------------------
     // Redirect after 3 seconds
     setTimeout(() => {
         navigate('/homepage');
