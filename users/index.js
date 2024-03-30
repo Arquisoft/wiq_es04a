@@ -26,7 +26,6 @@ app.use(expressSession({
 // Routes middlewares to be used
 app.use('/user', userRoutes);
 app.use('/login', authRoutes);
-app.use('/logout', logoutAuthRoutes)
 
 app.use('/group', groupRoutes);
 app.use('/statistics', staticsRoutes);
