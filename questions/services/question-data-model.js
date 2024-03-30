@@ -5,8 +5,7 @@ const questionSchema = new mongoose.Schema({
     question: String,
     options: [String],
     correctAnswer: String,
-    categories: [String],
-    language: String
+    categories: [String]
 });
 
 //Auto generated id

@@ -1,5 +1,7 @@
 import * as React from "react";
-import { Button, Typography, Grid, Container, CssBaseline } from "@mui/material";
+import { Container } from "@mui/material";
+import CssBaseline from "@mui/material/CssBaseline";
+import { Button, Typography, Grid } from "@mui/material";
 import data from "../data/gameInfo.json";
 
 
@@ -28,8 +30,9 @@ const Instructions = () => {
                     <Grid item xs={2}>
                         <img src={info[index].foto} alt="Foto del minijuego" style={{ maxWidth: "100%", border: "2px solid #006699", borderRadius: "5px"}}/>
                     </Grid>
+                    
                     <Grid item xs={2} sx={{ display: "flex", flexDirection: "column", justifyContent: "space-evenly" }}>
-                        <Typography variant="h3" align="center" fontWeight="bold"> {info[index].nombre} </Typography>
+                        <Typography variant="h3" align="center" > {info[index].nombre} </Typography>
                         <Typography  variant="body1" align="center" sx={{ textAlign: "justify", background: "none" }}> {info[index].descripcion} </Typography>
                     </Grid>
                 </Grid>
@@ -39,15 +42,15 @@ const Instructions = () => {
     };
 
     if (!info) {
-        return <div>Loading...</div>; // Shows a loading message while the information is being obtained
+        return <div>Cargando...</div>; // Muestra un mensaje de carga mientras se obtienen los info
     }
 
     return (
-        <Container sx={{ display: "flex", flexDirection: "column", justifyContent: "center", flexGrow: 1, gap: "2em", padding:"6vh"}}>
+        <Container sx={{ display: "flex", flexDirection: "column", justifyContent: "center", flexGrow: 1, gap: "2em" }}>
             <CssBaseline />
             <Grid container spacing={{ xs: 2, md: 4 }} columns={{ xs: 2, sm: 3, md: 4 }} >
                 <Grid item xs={2} sm={3} md={4}>
-                    <Typography variant="h3" align="center" fontWeight="bold">GAME MODES</Typography>
+                    <Typography variant="h3" align="center">GAME MODES</Typography>
                 </Grid>
                 {info.map((option, index) => (
                     <Grid item xs={1} key={option.nombre} >
