@@ -58,7 +58,6 @@ describe('Api Group Routes', () => {
 
     });
 
-    //TODO: Write a test for successful group search by name
 
     it('should find an existing group', async () => {
 
