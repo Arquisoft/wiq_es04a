@@ -4,7 +4,7 @@ const request = require('supertest');
 const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
-const questionRoutes = require('../../routes/question-routes.js');
+const questionRoutes = require('../../routes/question-routes-api.js');
 
 
 let mongoServer;
