@@ -13,7 +13,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server, {
     cors: { //permit connections from webapp
-        origin: process.env.WEBAPP_ENDPOINT || "http://localhost:3000",
+        origin: [process.env.WEBAPP_ENDPOINT, "http://localhost:3000"],
         methods: ["GET", "POST"]
     }
 });
