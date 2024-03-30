@@ -146,6 +146,33 @@ router.get('/group/list', async (req, res) => {
     }
 });
 
+// Adding a group to the database and creating the relationship with the creator
+router.post('/group/add', async (req, res) => {
+    try {
+        const { name,username } = req.body;
+
+        const existingGroup = await Group.findOne({ where: { name:name } });
+        if (existingGroup) {
+            return res.status(400).json({ error: 'A group with the same name already exists.' });
+        }
+
+        const newGroup = await Group.create({
+            name: name,
+            creator: username,
+            createdAt: new Date()
+        });
+
+        await UserGroup.create({
+            username: username,
+            groupName: name,
+            enteredAt: new Date()
+        });
+
+        res.json(newGroup);
+    } catch (error) {
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 
 // Getting a group by its name
@@ -179,33 +206,6 @@ router.get('/group/:name', async (req, res) => {
     }
 });
 
-// Adding a group to the database and creating the relationship with the creator
-router.post('/group/add', async (req, res) => {
-    try {
-        const { name,username } = req.body;
-
-        const existingGroup = await Group.findOne({ where: { name:name } });
-        if (existingGroup) {
-            return res.status(400).json({ error: 'A group with the same name already exists.' });
-        }
-
-        const newGroup = await Group.create({
-            name: name,
-            creator: username,
-            createdAt: new Date()
-        });
-
-        await UserGroup.create({
-            username: username,
-            groupName: name,
-            enteredAt: new Date()
-        });
-
-        res.json(newGroup);
-    } catch (error) {
-      return res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
 
 // Adding a new relationship in the database between a group and a user when this one joins it
 router.post('/group/:name/join', async (req, res) => {
