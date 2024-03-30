@@ -89,12 +89,12 @@ const Game = () => {
 
     // stablish if the confetti must show or not
     React.useEffect(() => {
-        if (correctlyAnsweredQuestions > incorrectlyAnsweredQuestions) {
+        if (winnerPlayer == username) {
           setShowConfetti(true);
         } else {
           setShowConfetti(false);
         }
-      }, [correctlyAnsweredQuestions, incorrectlyAnsweredQuestions]);
+      }, [winnerPlayer]);
     
 
     // gets a random question from the database and initializes button states to null
@@ -238,13 +238,13 @@ if (shouldRedirect) {
             <Typography 
             variant="h4" 
             sx={{
-                color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? 'green' : 'red',
+                color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? 'black' : 'black',
                 fontSize: '4rem', // Tamaño de fuente
                 marginTop: '20px', // Espaciado superior
                 marginBottom: '50px', // Espaciado inferior
             }}
         >
-            {correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? "Great Job!" : "Game Over"}
+            {winnerPlayer == "" ? "Waiting for players end..." : "Game Over"}
         </Typography>
             <div>
                 <Typography variant="h6">Correct Answers: {correctlyAnsweredQuestions}</Typography>
@@ -252,7 +252,7 @@ if (shouldRedirect) {
                 <Typography variant="h6">Total money: {totalScore}</Typography>
                 <Typography variant="h6">Game time: {totalTimePlayed} seconds</Typography>
 
-                <Typography variant="h6">Player winner of the game: {winnerPlayer} with {winnerCorrect} answers in {winnerTime}s</Typography>
+                <Typography variant="h5">Player winner of the game: {winnerPlayer} with {winnerCorrect} answers in {winnerTime}s</Typography>
             </div>
             {showConfetti && <Confetti />}
         </Container>
