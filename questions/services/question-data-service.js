@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Question = require('./question-data-model');
 require('dotenv').config();
 
-const uri = process.env.DATABASE_URI || 'mongodb://localhost:27017/questionDB';
+let uri = process.env.DATABASE_URI || 'mongodb://localhost:27017/questionDB';
 mongoose.connect(uri);
 
 module.exports = {
@@ -10,6 +10,7 @@ module.exports = {
   addQuestion : async function(questionData) {
     try {
       const newQuestion = new Question(questionData);
+      console.log(newQuestion);
       await newQuestion.save();
       console.log(`Question ${newQuestion._id} saved successfully in DB`);
     } catch (error) {
@@ -63,6 +64,21 @@ module.exports = {
     }
   },
 
+  /**
+   * Returns a the number of questions in the db.
+   * @returns {int} The question count
+   */
+  getQuestionCountByCategory : async function(wantedCategory) {
+    try {
+      // Obtain total number of questions in database
+      const totalQuestions = await Question.countDocuments({ categories: wantedCategory });
+      return totalQuestions;
+
+    } catch (error) {
+      console.error('Error obtaining the number of questions for category ',wantedCategory,': ', error.message);
+    }
+  },
+
 
   // Get random questions  TODO: refactor to use common code with get questions by category
   getRandomQuestions : async function(n) {
@@ -92,7 +108,7 @@ module.exports = {
       // Check if there are required number of questions
       if (totalQuestions < n) {
         console.log('Required ', n, ' questions and there are ', totalQuestions);
-        return {};
+        return;
       }
       
     return Question.aggregate([

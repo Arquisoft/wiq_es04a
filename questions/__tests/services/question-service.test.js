@@ -1,7 +1,7 @@
 const assert = require('assert');
 const mongoose = require('mongoose');
-const Question = require('../services/question-data-model');
-const questionFunctions = require('../services/question-data-service');
+const Question = require('../../services/question-data-model');
+const questionFunctions = require('../../services/question-data-service');
 
 describe('Question Functions', function() {
   beforeAll(async function() {
