@@ -10,11 +10,12 @@ module.exports = {
   addQuestion : async function(questionData) {
     try {
       const newQuestion = new Question(questionData);
-      console.log(newQuestion);
+      //console.log(newQuestion);
       await newQuestion.save();
       console.log(`Question ${newQuestion._id} saved successfully in DB`);
     } catch (error) {
       console.error('Error adding the question: ', error.message);
+      return error.message;
     }
   },
 
@@ -32,6 +33,7 @@ module.exports = {
 
     } catch (error) {
       console.error('Error obtaining the question', error.message);
+      return error.message;
     }
   },
 
@@ -46,6 +48,7 @@ module.exports = {
 
     } catch (error) {
         console.error('Error deleting question:', error.message);
+        return error.message;
     }
   },
 
@@ -61,6 +64,7 @@ module.exports = {
 
     } catch (error) {
       console.error('Error obtaining the number of questions: ', error.message);
+      return error.message;
     }
   },
 
@@ -75,7 +79,8 @@ module.exports = {
       return totalQuestions;
 
     } catch (error) {
-      console.error('Error obtaining the number of questions for category ',wantedCategory,': ', error.message);
+      console.error('Error obtaining the number of questions for category ', wantedCategory,': ', error.message);
+      return error.message;
     }
   },
 
@@ -89,13 +94,14 @@ module.exports = {
       // Check if there are required number of questions
       if (totalQuestions < n) {
         console.log('Required ', n, ' questions and there are ', totalQuestions);
-        return;
+        return 'Required ' + n + ' questions and there are ' + totalQuestions;
       }
 
       return Question.aggregate([{ $sample: { size: n } }]);
       
     } catch (error) {
       console.error('Error obtaining random questions: ', error.message);
+      return error.message;
     }
   },
 
@@ -108,7 +114,7 @@ module.exports = {
       // Check if there are required number of questions
       if (totalQuestions < n) {
         console.log('Required ', n, ' questions and there are ', totalQuestions);
-        return;
+        return 'Required ' + n + ' questions and there are ' + totalQuestions;
       }
       
     return Question.aggregate([
@@ -118,6 +124,7 @@ module.exports = {
       
     } catch (error) {
       console.error('Error obtaining random questions (with category): ', error.message);
+      return error.message;
     }
   },
 };
