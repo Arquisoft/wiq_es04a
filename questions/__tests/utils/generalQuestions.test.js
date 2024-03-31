@@ -10,15 +10,14 @@ describe('Shuffle array', function() {
 });
 
 describe('Read from file', function() {
-    it('It read information from a file', async function() {
-        const response = await generalQuestions.readFromFile("../../questions/utils/question.json");
-        console.log(response);
+    it('It reads information from a file', async function() {
+        const response = await generalQuestions.readFromFile("../questions/utils/question.json");
+        await expect(Array.isArray(response)).toBe(true);
     });
 
     it('It cannot read information from a file', async function() {
         console.error = jest.fn();
         const response = await generalQuestions.readFromFile("../../questions/utils/question_error.json");
-        console.log(response);
         await expect(response).toBe(null);
         await expect(console.error).toHaveBeenCalledTimes(1);
     });
