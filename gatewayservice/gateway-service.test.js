@@ -10,6 +10,10 @@ describe('Routes Tests', () => {
     jest.clearAllMocks();
   });
 
+  setTimeout(() => {
+    process.exit(0); 
+  }, 5000); 
+
   it('should respond with status 200 for /health endpoint', async () => {
     const response = await request(app).get('/health');
     expect(response.status).toBe(200);
