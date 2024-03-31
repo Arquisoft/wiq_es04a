@@ -22,9 +22,9 @@ describe('Question Functions', function() {
     // Limpiar la colección de preguntas antes de cada prueba
     await Question.deleteMany({});
 
-    mongoServer = await MongoMemoryServer.create();
+    /*mongoServer = await MongoMemoryServer.create();
     const mongoURI = mongoServer.getUri();
-    process.env.DATABASE_URI = mongoURI;
+    process.env.DATABASE_URI = mongoURI;*/
 
   });
 
@@ -37,7 +37,7 @@ describe('Question Functions', function() {
     // Desconectar de la base de datos de prueba después de todas las pruebas
     await mongoose.disconnect();
     
-    await mongoServer.stop();
+    //await mongoServer.stop();
   });
 
   describe('addQuestion', function() {
