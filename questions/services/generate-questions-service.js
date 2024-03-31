@@ -57,9 +57,6 @@ async function generateQuestions(n) {
 
                 dbService.addQuestion(newQuestion);
 
-                //This code was here and it crashed the generator after first iteration
-                //randomIndex = Math.floor(Math.random() * json.length);
-                //entity = json[randomIndex];
             }
         }
     } catch (error) {

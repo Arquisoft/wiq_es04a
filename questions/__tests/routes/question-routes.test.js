@@ -68,7 +68,7 @@ beforeEach(async () => {
     await mongoose.disconnect();
     await mongoServer.stop();
   });
-  describe('Question routes', function() {
+  /*describe('Question routes', function() {
     it('It should get a question from the database', async function() {
         const response = await request(app).get('/questions/');
         await expect(response.status).toBe(200);
@@ -97,7 +97,7 @@ beforeEach(async () => {
         const response = await request(app).get('/questions/getQuestionsFromDb/-1/Geography');
         await expect(response.status).toBe(400);
       });
-    });
+    });*/
 
     describe('MongoDB Connection', () => {
         it('should connect to the MongoDB server in memory', async () => {

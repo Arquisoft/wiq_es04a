@@ -38,6 +38,7 @@ async function getRandomEntity(entity, pos, lang) {
             headers: headers,
           });
   
+        console.log(response);
         const data = await response.data
         const entities = data.results.bindings;
   
