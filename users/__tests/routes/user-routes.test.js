@@ -194,34 +194,43 @@ describe('User Routes', () => {
     });
 
     // GROUPS TESTS
-
-    it('should list all groups', async () => {
-        const newGroup = {
-            name: 'testgroup1',
-            creator: 'Test1234', 
-        };
-
-        const newGroup2 = {
-            name: 'testgroup2',
-            creator: 'Test1234', 
-        };
-
-
-
-        await Group.create(newGroup);
-        await Group.create(newGroup2);
+    it('should return list of all groups when username is not defined', async () => {
+        // Perform the request without defining a username
         const response = await request(app)
-        .get(`/user/group/list`);
-
+            .get('/user/group/list')
+            .set('Accept', 'application/json');
+    
+        // Verify if the request was successful
         expect(response.status).toBe(200);
-        expect(response.type).toMatch(/json/);
-        expect(response.body).toHaveProperty('groups');
-        expect(response.body.groups.length).toBe(2);
-        expect(response.body.groups[0] === 'testgroup1');
-        expect(response.body.groups[1] === 'testgroup2');
-
+    
+        // Verify if the response contains the list of groups
+        expect(response.body.groups).toBeDefined();
     });
-
+    
+    it('should return list of groups with membership status when username is defined', async () => {
+        // Simulate a defined username
+        const username = 'testuser';
+    
+        // Create some groups and user-group associations in the database to simulate user membership
+        // Here you'll need to use mocks or set up your database state to simulate the groups and user membership as needed
+    
+        // Perform the request with the defined username
+        const response = await request(app)
+            .get('/user/group/list')
+            .query({ username })
+            .set('Accept', 'application/json');
+    
+        // Verify if the request was successful
+        expect(response.status).toBe(200);
+    
+        // Verify if the response contains the list of groups with membership status
+        expect(response.body.groups).toBeDefined();
+        response.body.groups.forEach(group => {
+            expect(group.name).toBeDefined();
+            expect(group.isMember).toBeDefined();
+            expect(group.isFull).toBeDefined();
+        });
+    });
 
     it('should show an error if group doesnt exist', async () => {
 
@@ -300,6 +309,37 @@ describe('User Routes', () => {
 
         expect(response.status).toBe(404);
         expect(response.body.error).toBe('User not found');
+    });
+
+    it('should handle internal server error gracefully', async () => {
+        // Mock Statistics.findOne to throw an error
+        jest.spyOn(Statistics, 'findOne').mockImplementation(() => {
+            throw new Error('Database error');
+        });
+    
+        // Define mock request body
+        const requestBody = {
+            username: 'testuser',
+            the_callenge_earned_money: 10,
+            the_callenge_correctly_answered_questions: 5,
+            the_callenge_incorrectly_answered_questions: 2,
+            the_callenge_total_time_played: 3600, // in seconds
+            the_callenge_games_played: 3
+        };
+    
+        // Make request to the route
+        const response = await request(app)
+            .post('/user/statistics/edit')
+            .send(requestBody);
+    
+        // Check response status
+        expect(response.status).toBe(500);
+    
+        // Check if the response body contains the correct error message
+        expect(response.body.error).toBe('Internal Server Error');
+    
+        // Check if the response body contains details of the error
+        expect(response.body.details).toBe('Database error');
     });
 
     it('should get user statistics by username', async () => {

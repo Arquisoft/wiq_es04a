@@ -257,16 +257,7 @@ router.post('/statistics/edit', async (req, res) => {
 
         res.json({ message: 'User statics updated successfully' });
     } catch (error) {
-        console.error('Error updating user:', error);
-
-        if (error.name === 'SequelizeValidationError') {
-            // Validation errors
-            const validationErrors = error.errors.map(err => err.message);
-            res.status(400).json({ error: 'Validation error', details: validationErrors });
-        } else {
-            // Other errors
-            res.status(500).json({ error: 'Internal Server Error', details: error.message });
-        }
+        res.status(500).json({ error: 'Internal Server Error', details: error.message });
     }
 });
 
