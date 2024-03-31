@@ -73,7 +73,6 @@ describe('Api User Routes', () => {
         expect(response.body.username).toBe(newUser.username);
     });
 
-    //TODO: make work this test
     it('should get user ranking', async () => {
         const newUser = {
             username: 'testuser4',

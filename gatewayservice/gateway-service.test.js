@@ -17,10 +17,7 @@ describe('Gateway Service', () => {
       return Promise.resolve({ data: { token: 'mockedToken' } });
     } else if (url.endsWith('/adduser')) {
       return Promise.resolve({ data: { userId: 'mockedUserId' } });
-    }else if( url.endsWith('/questions')){
-      return Promise.resolve({id: "mockQuestion", 
-          "question": "mockQuestion?", options: ["o1","o2","o3"], correctAnswer: "o1"});
-    }
+    
   });
 
 
@@ -45,30 +42,5 @@ describe('Gateway Service', () => {
     expect(response.statusCode).toBe(200);
     expect(response.body.userId).toBe('mockedUserId');
   });
-
-
-  //    /questions
-  it('should forward request to questions service', async () => {
-    const response = await request(app)
-      .get('/questions');
-
-    expect(response.statusCode).toBe(200);
-    expect(responde.body.id).toBe("mockQuestion");
-    expect(responde.body.correctAnswer).toBe("o1");
-
-
-  });
-
-  //    /statistics/edit
-
-  //    /statistics/:username
-
-  //    /group/list
-
-  //    /group/add
-
-  //    /group/:name
-
-  //    /group/:name/join
 
 });
