@@ -5,12 +5,13 @@ const { MongoMemoryServer } = require('mongodb-memory-server');
 
 let mongoServer;
 let questionFunctions;
+let mongoURI;
 
 describe('Question Functions', function() {
   beforeAll(async function() {
     //Init a mongo memory server for the tests
     mongoServer = await MongoMemoryServer.create();
-    const mongoURI = mongoServer.getUri();
+    mongoURI = mongoServer.getUri();
     process.env.DATABASE_URI = mongoURI;
     await mongoose.connect(mongoURI);
     questionFunctions = require('../../services/question-data-service');
@@ -40,6 +41,13 @@ describe('Question Functions', function() {
         const questionInDB = await Question.findOne({ question: "Which is the capital of Spain?" });
         assert.strictEqual(questionInDB.question, "Which is the capital of Spain?");
     });
+
+    it('It should get an error message', async function() {
+      await mongoose.disconnect();
+      const errorMsg = await questionFunctions.addQuestion({});
+      assert.strictEqual(errorMsg, "Client must be connected before running operations");
+      await mongoose.connect(mongoURI);
+    });
   });
 
   describe('getQuestion', function() {
@@ -56,6 +64,8 @@ describe('Question Functions', function() {
         const questionInDB = await questionFunctions.getQuestion({ question: "Which is the capital of Spain?"});
         assert.strictEqual(questionInDB.question, "Which is the capital of Spain?");
     });
+
+    
   });
 
   describe('getQuestionCount', function() {
