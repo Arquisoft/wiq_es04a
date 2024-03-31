@@ -18,7 +18,7 @@ describe('Question Functions', function() {
     await mongoose.disconnect();
     // Conectar a la base de datos de prueba
     //const uri = 'mongodb://mongodb:27017/test';
-    await mongoose.connect("mongodb://mongodb:27017/test");
+    await mongoose.connect(uri);
     // Limpiar la colección de preguntas antes de cada prueba
     await Question.deleteMany({});
 
@@ -26,12 +26,12 @@ describe('Question Functions', function() {
     const mongoURI = mongoServer.getUri();
     process.env.DATABASE_URI = mongoURI;*/
 
-  });
+  }, 10000);
 
   afterEach(async function() {
     // Limpiar la colección de preguntas después de cada prueba
     await Question.deleteMany({});
-  });
+  }, 10000);
 
   afterAll(async function() {
     // Desconectar de la base de datos de prueba después de todas las pruebas
