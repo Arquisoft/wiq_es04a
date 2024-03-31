@@ -41,12 +41,12 @@ describe('Question generation', function() {
         const questions = [entity];
         generalQuestions.readFromFile.mockResolvedValue(questions);
 
-        const entityName = 'Madrid';
+        const entityName = 'http:Madrid';
         const searched_property = 'P18';
         wikidataService.getRandomEntity.mockResolvedValue([entityName, searched_property]);
     
         wikidataService.getProperties.mockResolvedValue(['Barcelona', 'Paris', 'London']);
-        wikidataService.convertUrlsToLabels.mockResolvedValue(['Barcelona', 'Paris', 'London']);
+        wikidataService.convertUrlsToLabels.mockResolvedValue(['Barcelona', 'Paris', 'London','Madrid']);
 
         generalQuestions.shuffleArray.mockResolvedValue(['Barcelona', 'Paris', 'London','Madrid'])
     

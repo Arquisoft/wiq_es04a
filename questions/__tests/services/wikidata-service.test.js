@@ -86,7 +86,7 @@ describe('Get properties from wikidata', function() {
             }
             }
         );
-        const response = await wikidataService.getProperties('P31', 1);
+        const response = await wikidataService.getProperties('P31', 1, ">1000000");
         await expect(response[0]).toBe('P31');
         await expect(response[1]).toBe('P31');
         await expect(response[2]).toBe('P31');
