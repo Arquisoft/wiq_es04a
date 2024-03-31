@@ -1,4 +1,4 @@
-const { User, Statistics, Group, sequelize } = require('../../services/user-model.js');
+const { User, Statistics, Group, sequelize, UserGroup } = require('../../services/user-model.js');
 const bcrypt = require('bcrypt');
 const request = require('supertest');
 const express = require('express');
@@ -312,6 +312,101 @@ describe('User Routes', () => {
         expect(res.body.groupName).toBe(groupName);
     });
 
+    it('should return an error if required parameters are missing (username)', async () => {
+        // Missing username in request body
+        const groupName = 'TestGroup';
+
+        // Making POST request to join the group
+        const res = await request(app)
+            .post(`/user/group/${groupName}/join`)
+            .expect(500); // Expecting an internal server error response with status code 500
+
+        // Verifying if the correct error message is returned
+        expect(res.body.error).toBe('Internal Server Error');
+    });
+
+    it('should return an error in case of internal server error (user and group doesn´t exist)', async () => {
+        // Simulate internal server error by sending a malformed request
+        const groupName = 'InvalidGroup';
+        const username = 'TestUser';
+
+        // Making POST request to join the group
+        const res = await request(app)
+            .post(`/user/group/${groupName}/join`)
+            .send({ username })
+            .expect(500); // Expecting an internal server error response with status code 500
+
+        // Verifying if the correct error message is returned
+        expect(res.body.error).toBe('Internal Server Error');
+    });
+
+
+    it('should return an error when attempting to join a full group', async () => {
+
+        // //Creating the baseGroup
+        // ////////
+        // const newUser = {
+        //     username: 'testuserGroupJoinFull0',
+        //     password: 'Test1234',
+        //     name: 'Test',
+        //     surname: 'User'
+        // };
+        
+        // response = await request(app)
+        //     .post('/user/add')
+        //     .send(newUser).expect(200);
+
+        // const newGroup = {
+        //     name: 'testgroupJoinFull',
+        //     creator: 'testuserGroupJoinFull0', 
+        // };
+
+        // // Making POST request to the endpoint
+        // const resAdd = await request(app)
+        // .post('/user/group/add')
+        // .send(newGroup)
+        // .expect(200); // Expecting a successful response with status code 200
+
+        // //////////////
+        // /////////////
+        
+        // const groupName = 'testgroupJoinFull';
+
+        // for (let i = 0; i < 19; i++) {
+
+        //     let username =  `testuserGroupJoinFull0${i}`;
+        //     let newUser = {
+        //         username: username,
+        //         password: 'Test1234',
+        //         name: 'Test',
+        //         surname: 'User'
+        //     };
+        //     const response = await request(app)
+        //         .post('/user/add')
+        //         .send(newUser);
+
+        //     await request(app)
+        //         .post(`/user/group/${groupName}/join`)
+        //         .send({ username })
+        //         .expect(200); // Expecting a successful response with status code 200
+        // }
+ 
+
+        // let errUser = {
+        //     username: `testuserGroupJoinFull0${i}ERROR`,
+        //     password: 'Test1234',
+        //     name: 'Test',
+        //     surname: 'User'
+        // };
+
+        // const resError =  await request(app).post('/user/add').send(errUser);
+
+        // expect(resError.body.error).toBe('Group is already full');
+
+    
+        
+
+    });
     // STATISTICS TESTS
 
     it('should update user statistics', async () => {
