@@ -268,7 +268,6 @@ describe('Routes Tests', () => {
     expect(response.body).toEqual(mockUserData);
   });
   
-  // Error handling test for /group/:name/join endpoint
   it('should handle errors for /group/:name/join endpoint and respond with appropriate status and message', async () => {
     const groupName = 'Test Group';
     const errorMessage = 'Error joining group';
@@ -282,7 +281,6 @@ describe('Routes Tests', () => {
     expect(response.body.error).toBe(errorMessage);
   });
   
-  // Test for /group/:name endpoint
   it('should respond with status 200 for /group/:name endpoint', async () => {
     const groupName = 'Test Group';
     const mockGroupData = { name: groupName, members: ['user1', 'user2'] };
@@ -295,7 +293,6 @@ describe('Routes Tests', () => {
     expect(response.body).toEqual(mockGroupData);
   });
   
-  // Error handling test for /group/:name endpoint
   it('should handle errors for /group/:name endpoint and respond with appropriate status and message', async () => {
     const groupName = 'Test Group';
     const errorMessage = 'Error retrieving group data';
