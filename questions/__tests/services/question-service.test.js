@@ -96,6 +96,30 @@ describe('Question Functions', function() {
     });
   });
 
+  describe('getQuestionCountByCategory', function() {
+    it('It should count number of questions at the database filtered by category', async function() {
+        const questionData = {
+            question: "Which is the capital of Spain?",
+            options: ["Madrid", "Barcelona", "Paris", "London"],
+            correctAnswer: "Madrid",
+            categories: ["Geography"],
+            language: "en"
+        };
+        const newQuestion = new Question(questionData);
+        await newQuestion.save();
+        
+        assert.strictEqual(await questionFunctions.getQuestionCountByCategory("Geography"), 1);
+        assert.strictEqual(await questionFunctions.getQuestionCountByCategory("Political"), 0);
+    });
+
+    it('It should get an error message', async function() {
+      await mongoose.disconnect();
+      const errorMsg = await questionFunctions.getQuestionCountByCategory();
+      assert.strictEqual(errorMsg, "Client must be connected before running operations");
+      await mongoose.connect(mongoURI);
+    });
+  });
+
   describe('deleteQuestionById', function() {
     it('It should delete an added question from the database', async function() {
         const questionData = {
@@ -222,6 +246,15 @@ describe('Question Functions', function() {
         assert.strictEqual(question.categories[0], "Political");
       });
 
+    });
+
+    it('It should get two error messages', async function() {
+      const errorMsgSize = await questionFunctions.getRandomQuestionsByCategory(40000, "Geography");
+      assert.strictEqual(errorMsgSize, 'Required 40000 questions and there are 0');
+      await mongoose.disconnect();
+      const errorMsg = await questionFunctions.getRandomQuestionsByCategory(1);
+      assert.strictEqual(errorMsg, "Client must be connected before running operations");
+      await mongoose.connect(mongoURI);
     });
   });
 
