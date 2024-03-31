@@ -1,30 +1,34 @@
 const assert = require('assert');
 const mongoose = require('mongoose');
 const Question = require('../../services/question-data-model');
-const questionFunctions = require('../../services/question-data-service');
+const { MongoMemoryServer } = require('mongodb-memory-server');
+
+let mongoServer;
+let questionFunctions;
 
 describe('Question Functions', function() {
   beforeAll(async function() {
-    await mongoose.disconnect();
-    // Conectar a la base de datos de prueba
-    const uri = 'mongodb://localhost:27017/test';
-    await mongoose.connect(uri);
-    // Limpiar la colección de preguntas antes de cada prueba
-    await Question.deleteMany({});
+    //Init a mongo memory server for the tests
+    mongoServer = await MongoMemoryServer.create();
+    const mongoURI = mongoServer.getUri();
+    process.env.DATABASE_URI = mongoURI;
+    await mongoose.connect(mongoURI);
+    questionFunctions = require('../../services/question-data-service');
   });
 
   afterEach(async function() {
-    // Limpiar la colección de preguntas después de cada prueba
+    // Clean database after each test
     await Question.deleteMany({});
   });
 
   afterAll(async function() {
-    // Desconectar de la base de datos de prueba después de todas las pruebas
+    // Disconnect at end
     await mongoose.disconnect();
+    await mongoServer.stop();
   });
 
   describe('addQuestion', function() {
-    it('It should add a question to de database', async function() {
+    it('It should add a question to the database', async function() {
         const questionData = {
             question: "Which is the capital of Spain?",
             options: ["Madrid", "Barcelona", "Paris", "London"],

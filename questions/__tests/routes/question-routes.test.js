@@ -28,7 +28,6 @@ const questionData2 = {
   language: "en"
 };
 
-
 async function addQuestion(questionData) {
   const newQuestion = new Question({
     question: questionData.question,
@@ -81,7 +80,7 @@ beforeEach(async () => {
 
     });
 
-    it('It should not get n questions from the database', async function() {
+   it('It should not get n questions from the database', async function() {
       await mongoose.connection.dropDatabase();
       const response = await request(app).get('/questions/getQuestionsFromDb/2');
       await expect(response.status).toBe(200);
