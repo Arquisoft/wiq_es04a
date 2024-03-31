@@ -1,5 +1,4 @@
 const axios = require('axios');
-const express = require('express');
 const request = require('supertest');
 const app = require('./gateway-service.js');
 
@@ -15,7 +14,7 @@ describe('Routes Tests', () => {
     const response = await request(app).get('/health');
     expect(response.status).toBe(200);
     expect(response.body.status).toBe('OK');
-  });
+  })
 
   it('should respond with status 200 for /login endpoint', async () => {
     const mockUserData = { username: 'testuser', token: 'mocktoken' };
@@ -112,7 +111,7 @@ describe('Routes Tests', () => {
 
     const response = await request(app).get(`/user/get/${username}`);
 
-    expect(axios.get).toHaveBeenCalledWith(expect.stringContaining(`/user/get/${username}`));
+    expect(axios.get).toHaveBeenCalledWith(`http://localhost:8001/user/get/${username}`, {});
     expect(response.status).toBe(200);
     expect(response.body).toEqual(mockUserData);
   });
@@ -124,9 +123,9 @@ describe('Routes Tests', () => {
 
     const response = await request(app).get(`/user/get/${username}`);
 
-    expect(axios.get).toHaveBeenCalledWith(expect.stringContaining(`/user/get/${username}`));
+    expect(axios.get).toHaveBeenCalledWith(`http://localhost:8001/user/get/${username}`, {});
     expect(response.status).toBe(500);
-    expect(response.body.error).toBe('Internal Server Error');
+    expect(response.body.error).toBe('Error fetching user data');
   });
 
   it('should respond with status 200 for /user/add endpoint', async () => {
@@ -150,6 +149,6 @@ describe('Routes Tests', () => {
 
     expect(axios.post).toHaveBeenCalledWith(expect.stringContaining('/user/add'), requestBody);
     expect(response.status).toBe(500);
-    expect(response.body.error).toBe('Internal Server Error');
+    expect(response.body.error).toBe('Error adding user');
   });
 });
