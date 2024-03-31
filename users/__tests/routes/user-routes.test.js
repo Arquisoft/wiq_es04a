@@ -225,17 +225,14 @@ describe('User Routes', () => {
     });
 
     //group by name
-
     it('should find an existing group', async () => {
-        
-
         const newGroup = {
             name: 'testgroup3',
             creator: 'Test1234', 
         };
         await Group.create(newGroup);
         const response = await request(app)
-        .get(`/group/testgroup3`);
+        .get(`/user/group/testgroup3`);
 
         expect(response.status).toBe(200);
         expect(response.type).toMatch(/json/);
@@ -247,8 +244,73 @@ describe('User Routes', () => {
 
 
     //group add test
+    it('should add a new group', async () => {
+
+        //I have to add the user first to make the post work
+        const newUser = {
+            username: 'testuserGroup',
+            password: 'Test1234',
+            name: 'Test',
+            surname: 'User'
+        };
+
+        const response = await request(app)
+            .post('/user/add')
+            .send(newUser);
+
+
+        const groupData = {
+            name: "testGroup4",
+            username: "testuserGroup"
+        };
+
+        // Making POST request to the endpoint
+        const res = await request(app)
+            .post('/user/group/add')
+            .send(groupData)
+            .expect(200); // Expecting a successful response with status code 200
+
+        // Verifying if the group has been created correctly
+        expect(res.body.name).toBe(groupData.name);
+        expect(res.body.creator).toBe(groupData.username);
+    });
 
     //group join
+
+    it('should allow a user to join a group successfully when the group is not full', async () => {
+        
+         //I have to add the user first to make the post work
+         const newUser = {
+            username: 'testuserGroupJoin',
+            password: 'Test1234',
+            name: 'Test',
+            surname: 'User'
+        };
+        const response = await request(app)
+            .post('/user/add')
+            .send(newUser);
+        const newGroup = {
+            name: 'testgroupUserSuccessfulJoin',
+            creator: 'Test1234', 
+            };
+        await Group.create(newGroup);
+        
+        
+        
+        // Assuming group is not full
+        const groupName = 'testgroupUserSuccessfulJoin';
+        const username = 'testuserGroupJoin';
+
+        // Making POST request to join the group
+        const res = await request(app)
+            .post(`/user/group/${groupName}/join`)
+            .send({ username })
+            .expect(200); // Expecting a successful response with status code 200
+
+        // Verifying if the user has joined the group
+        expect(res.body.username).toBe(username);
+        expect(res.body.groupName).toBe(groupName);
+    });
 
     // STATISTICS TESTS
 
