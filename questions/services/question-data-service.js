@@ -94,7 +94,7 @@ module.exports = {
       // Check if there are required number of questions
       if (totalQuestions < n) {
         console.log('Required ', n, ' questions and there are ', totalQuestions);
-        return;
+        return 'Required ' + n + ' questions and there are ' + totalQuestions;
       }
 
       return Question.aggregate([{ $sample: { size: n } }]);
