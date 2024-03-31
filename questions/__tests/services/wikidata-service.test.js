@@ -54,13 +54,7 @@ const entity = {
 
 describe('Get entity from wikidata', function() {
         it('It should get an entity', async function() {
-            mockAxios.onGet(urlApiWikidata, {
-                params: {
-                  query: consultaSparql,
-                  format: 'json' // Debe ser una cadena
-                },
-                headers: headers,
-            }).reply(200, 
+            mockAxios.onGet(urlApiWikidata).reply(200, 
                 { 
                     results: {
                     bindings: [{
@@ -79,26 +73,14 @@ describe('Get entity from wikidata', function() {
             await expect(response[1]).toBe('P18');
           });
     it('It should fail when accessing wikidata', async function() {
-            mockAxios.onGet(urlApiWikidata, {
-                params: {
-                  query: consultaSparql,
-                  format: 'json' // Debe ser una cadena
-                },
-                headers: headers,
-            }).reply(400,"Error not found");
+            mockAxios.onGet(urlApiWikidata).reply(400,"Error not found");
 
             const response = await wikidataService.getRandomEntity(entity, 0, 1);
             await expect(response).toBe(null);
     });
 
     it('It should fail when generating a question', async function() {
-        mockAxios.onGet(urlApiWikidata, {
-            params: {
-              query: consultaSparql,
-              format: 'json' // Debe ser una cadena
-            },
-            headers: headers,
-        }).reply(200, 
+        mockAxios.onGet(urlApiWikidata).reply(200, 
             { 
                 results: {
                 bindings: []
@@ -136,24 +118,14 @@ describe('Get properties from wikidata', function() {
         await expect(response[2]).toBe('P31');
       });*/
     it('It should fail when accessing wikidata getting properties', async function() {
-        mockAxios.onGet(urlApiWikidata, {
-            params: {
-                query: consultaSparqlProperties,
-                format: 'json' // Debe ser una cadena
-              }
-        }).reply(400,"Error not found");
+        mockAxios.onGet(urlApiWikidata).reply(400,"Error not found");
 
         const response = await wikidataService.getProperties('P18', 0);
         await expect(response).toBe(null);
     });
 
     it('It should fail when getting properties', async function() {
-    mockAxios.onGet(urlApiWikidata, {
-        params: {
-            query: consultaSparqlProperties,
-            format: 'json' // Debe ser una cadena
-          }
-    }).reply(200, 
+    mockAxios.onGet(urlApiWikidata).reply(200, 
         { 
             results: {
             bindings: []
