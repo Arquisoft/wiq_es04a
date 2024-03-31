@@ -41,8 +41,8 @@ describe('Question generation', function() {
         const questions = [entity];
         generalQuestions.readFromFile.mockResolvedValue(questions);
 
-        const entityName = 'http:Madrid';
-        const searched_property = 'P18';
+        const entityName = 'Madrid';
+        const searched_property = 'http://P18';
         wikidataService.getRandomEntity.mockResolvedValue([entityName, searched_property]);
     
         wikidataService.getProperties.mockResolvedValue(['Barcelona', 'Paris', 'London']);
