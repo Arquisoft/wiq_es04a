@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
 const questionRoutes = require('../../routes/question-routes.js');
-const questionFunctions = require('../../services/question-data-service');
+const questionFunctions = require('../../services/question-data-service.js');
 
 //let mongoServer;
 let app = express();
