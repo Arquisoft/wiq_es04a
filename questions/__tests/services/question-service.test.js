@@ -18,7 +18,7 @@ describe('Question Functions', function() {
     await mongoose.disconnect();
     // Conectar a la base de datos de prueba
     //const uri = 'mongodb://mongodb:27017/test';
-    await mongoose.connect(uri);
+    await mongoose.connect("mongodb://mongodb:27017/test");
     // Limpiar la colección de preguntas antes de cada prueba
     await Question.deleteMany({});
 
