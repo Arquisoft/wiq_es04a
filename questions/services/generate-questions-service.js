@@ -1,5 +1,6 @@
 const utils = require('../utils/generalQuestions');
 const wikidataService = require('./wikidata-service');
+const dbService = require('./question-data-service')
 
 /**
  * Asynchronously generates a specified number of questions using data from the JSON file and stores them in the DB.

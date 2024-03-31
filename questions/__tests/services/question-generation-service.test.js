@@ -2,51 +2,64 @@ const request = require('supertest');
 const axios = require('axios');
 const generator = require('../../services/generate-questions-service');
 const MockAdapter = require('axios-mock-adapter');
+const dbService = require('../../services/question-data-service');
+const wikidataService = require('../../services/wikidata-service');
+const generalQuestions = require('../../utils/generalQuestions');
 
-const mockAxios = new MockAdapter(axios);
+jest.mock('../../utils/generalQuestions');
+jest.mock('../../services/wikidata-service');
 
-const urlApiWikidata = 'https://query.wikidata.org/sparql';
-const headers = {
-    'User-Agent': 'QuestionGeneration/1.0',
-    'Accept': 'application/json',
-};
-const consultaSparql = `
-        SELECT ?entity ?entityLabel ?property
-        WHERE {
-            ?entity wdt:P31 wd:Q6256;   
-                wdt:P1082 ?property.   
-            ?entity rdfs:label ?entityLabel.  
-            FILTER(LANG(?entityLabel) = "en")
-    }
-    `;
 
-describe('Question generation', function() {
-    it('It should generate a question', async function() {
-        mockAxios.reset();
+jest.mock('../../services/question-data-service', () => ({
+    addQuestion: jest.fn(), // Mockear la función addQuestion para que no haga nada
+}));
 
-        mockAxios.onGet(urlApiWikidata, {
-            params: {
-              query: consultaSparql,
-              format: 'json' // Debe ser una cadena
-            },
-            headers: headers,
-        }).reply(200, 
-            { 
-                results: {
-                bindings: [{
-                    entityLabel: {
-                        value: 'Madrid'
+const entity = {
+        "name": "country",
+        "instance": "Q6256",
+        "properties": [
+            {   
+                "property": "P1082",
+                "template": 
+                    [{
+                    "lang": "es",
+                    "question": "Cuál es la población de x"
                     },
-                    property: {
-                        value: 'P18'
-                    }
-                }]
+                    {
+                    "lang": "en",
+                    "question": "What is the population of x"
+                    }],
+                "filter": ">1000000",
+                "category": ["Geography"]
             }
-            }
-        );
-        const response = await generator.generateQuestions(1);
-        console.log(response);
-        //await expect(response.).toBe(200);
-        //await expect(response.body.question).toBe('Which is the capital of Spain?');*/
+        ]
+};
+
+    
+beforeEach(() => {
+    // Reinicia el estado de los mocks antes de cada prueba
+    jest.clearAllMocks();
+});
+describe('Question generation', function() {
+      it('should generate questions', async () => {
+        // Configura los mocks de las dependencias según sea necesario para tus pruebas
+        const questions = [entity];
+        generalQuestions.readFromFile.mockResolvedValue(questions);
+
+        const entityName = 'Madrid';
+        const searched_property = 'P18';
+        wikidataService.getRandomEntity.mockResolvedValue([entityName, searched_property]);
+    
+        wikidataService.getProperties.mockResolvedValue(['Barcelona', 'Paris', 'London']);
+        wikidataService.convertUrlsToLabels.mockResolvedValue(['Barcelona', 'Paris', 'London']);
+
+        generalQuestions.shuffleArray.mockResolvedValue(['Barcelona', 'Paris', 'London','Madrid'])
+    
+        dbService.addQuestion.mockResolvedValue();
+        // Llama a la función que deseas probar
+        await generator.generateQuestions(1);
+    
+        // Verifica que la función haya realizado las operaciones esperadas
+        expect(dbService.addQuestion).toHaveBeenCalledTimes(1);
       });
 });
