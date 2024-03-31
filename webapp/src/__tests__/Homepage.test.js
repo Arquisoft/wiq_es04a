@@ -12,15 +12,29 @@ describe('Homepage component', () => {
     mockAxios.reset();
   });
 
-  it('should appear "Play" button', async () => {
+  it('should render elements', async () => {
     render(
       <Router>
         <Homepage />
       </Router>
     );
 
-    const playLink = screen.getByRole('link', { name: /Play/i });
-    expect(playLink).toBeInTheDocument();
-   
+    await waitFor(() => screen.getByText(/Play/i));
+
+    const playLink = screen.getByRole('button', { name: /Play/i });
+    await expect(playLink).toBeInTheDocument();
+
+    const game1 = screen.getByRole('button', { name: /Wise men stack/i});
+    await expect(game1).toBeInTheDocument();
+
+    const game2 = screen.getByRole('button', { name: /The challenge/i});
+    await expect(game2).toBeInTheDocument();
+
+    const game3 = screen.getByRole('button', { name: /Discovering cities/i});
+    await expect(game3).toBeInTheDocument();
+
+    const game4 = screen.getByRole('button', { name: /Warm question/i});
+    await expect(game4).toBeInTheDocument();
+
   });
 });

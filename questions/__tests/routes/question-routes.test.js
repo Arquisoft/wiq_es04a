@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
 
-
 let mongoServer;
 let questionFunctions;
 let questionRoutes;
@@ -29,7 +28,7 @@ const questionData2 = {
   language: "en"
 };
 
-async function addQuestion(questionData) {
+async function addingQuestion(questionData) {
   const newQuestion = new Question({
     question: questionData.question,
     options: questionData.options,
@@ -40,6 +39,7 @@ async function addQuestion(questionData) {
   //await newQuestion.save();
   await questionFunctions.addQuestion(newQuestion);
 }
+
 
 beforeAll(async () => {
   mongoServer = await MongoMemoryServer.create();
@@ -58,8 +58,8 @@ beforeEach(async () => {
   //await mongoose.connection.dropDatabase();
   await Question.deleteMany({});
   for(var i = 0; i < 5; i++) {
-    await addQuestion(questionData1);
-    await addQuestion(questionData2);
+    await addingQuestion(questionData1);
+    await addingQuestion(questionData2);
   }
 });
 
@@ -68,12 +68,15 @@ beforeEach(async () => {
     await mongoose.disconnect();
     await mongoServer.stop();
   });
-  describe('Question routes', function() {
+
+  
+describe('Question routes', function() {
     it('It should get a question from the database', async function() {
         const response = await request(app).get('/questions/');
         await expect(response.status).toBe(200);
         await expect(response.body.question).toBe('Which is the capital of Spain?');
       });
+    
 
       it('It should get n questions from the database', async function() {
         const response = await request(app).get('/questions/getQuestionsFromDb/3');
