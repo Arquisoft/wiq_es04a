@@ -28,7 +28,7 @@ describe('Question Functions', function() {
   });
 
   describe('addQuestion', function() {
-    /*it('It should add a question to the database', async function() {
+    it('It should add a question to the database', async function() {
         const questionData = {
             question: "Which is the capital of Spain?",
             options: ["Madrid", "Barcelona", "Paris", "London"],
@@ -40,7 +40,7 @@ describe('Question Functions', function() {
         const questionInDB = await Question.findOne({ question: "Which is the capital of Spain?" });
         assert.strictEqual(questionInDB.question, "Which is the capital of Spain?");
     });
-  });*/
+  });
 
   describe('getQuestion', function() {
     it('It should get a question from the database', async function() {
@@ -58,7 +58,7 @@ describe('Question Functions', function() {
     });
   });
 
-  /*describe('getQuestionCount', function() {
+  describe('getQuestionCount', function() {
     it('It should count number of questions at the database', async function() {
         const questionData = {
             question: "Which is the capital of Spain?",
@@ -184,7 +184,7 @@ describe('Question Functions', function() {
         assert.strictEqual(question.categories[0], "Political");
       });
 
-    });*/
+    });
   });
 
 });

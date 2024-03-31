@@ -22,6 +22,8 @@ const consultaSparql = `
 
 describe('Question generation', function() {
     it('It should generate a question', async function() {
+        mockAxios.reset();
+
         mockAxios.onGet(urlApiWikidata, {
             params: {
               query: consultaSparql,
@@ -29,22 +31,22 @@ describe('Question generation', function() {
             },
             headers: headers,
         }).reply(200, 
-            { results: {
-                bindings: {
+            { 
+                results: {
+                bindings: [{
                     entityLabel: {
                         value: 'Madrid'
                     },
                     property: {
                         value: 'P18'
                     }
-                }
+                }]
             }
             }
         );
         const response = await generator.generateQuestions(1);
         console.log(response);
-        /*const response = await request(app).get('/questions/');
-        await expect(response.status).toBe(200);
-        await expect(response.body.question).toBe('Which is the capital of Spain?');*/
+        //await expect(response.).toBe(200);
+        //await expect(response.body.question).toBe('Which is the capital of Spain?');*/
       });
 });
