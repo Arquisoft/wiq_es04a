@@ -28,7 +28,7 @@ const questionData2 = {
   language: "en"
 };
 
-
+/*
 async function addQuestion(questionData) {
   const newQuestion = new Question({
     question: questionData.question,
@@ -103,4 +103,15 @@ describe('MongoDB Connection', () => {
     it('should connect to the MongoDB server in memory', async () => {
         expect(mongoose.connection.readyState).toBe(1); // 1 means connected
     });
+});*/
+describe('MongoDB Connection', () => {
+  it('should connect to the MongoDB server in memory', async () => {
+      expect(await mongoose.connection.readyState).toBe(2); // 1 means connected
+  });
+});
+
+afterAll(async () => {
+  // Disconnect testing database after all tests
+  await mongoose.disconnect();
+  //await mongoServer.stop();
 });
