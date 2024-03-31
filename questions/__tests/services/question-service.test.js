@@ -8,6 +8,7 @@ let questionFunctions;
 
 describe('Question Functions', function() {
   beforeAll(async function() {
+    //Init a mongo memory server for the tests
     mongoServer = await MongoMemoryServer.create();
     const mongoURI = mongoServer.getUri();
     process.env.DATABASE_URI = mongoURI;
@@ -16,12 +17,12 @@ describe('Question Functions', function() {
   });
 
   afterEach(async function() {
-    // Limpiar la colección de preguntas después de cada prueba
+    // Clean database after each test
     await Question.deleteMany({});
   });
 
   afterAll(async function() {
-    // Desconectar de la base de datos de prueba después de todas las pruebas
+    // Disconnect at end
     await mongoose.disconnect();
     await mongoServer.stop();
   });
