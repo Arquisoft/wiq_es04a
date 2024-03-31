@@ -6,19 +6,6 @@ const promBundle = require('express-prom-bundle');
 const app = express();
 const port = 8000;
 
-//A different por to the tests
-const testPort = 8002; 
-
-jest.mock('./gateway-service.js', () => {
-  const express = require('express');
-  const app = express();
-  const port = testPort; 
-  const server = app.listen(port, () => {
-    console.log(`Gateway Service listening at http://localhost:${port}`);
-  });
-  return server;
-});
-
 const userServiceUrl = process.env.USER_SERVICE_URL || 'http://localhost:8001';
 
 const questionGenerationServiceUrl = process.env.QUESTION_SERVICE_URL || 'http://localhost:8010';
