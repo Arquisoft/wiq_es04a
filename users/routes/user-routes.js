@@ -261,8 +261,6 @@ router.post('/statistics/edit', async (req, res) => {
     }
 });
 
-
-
 //Get user statics by username
 router.get('/statistics/:username', async (req,res) => {
     try {

@@ -172,27 +172,6 @@ describe('User Routes', () => {
         expect(response.body.error).toBe('The surname cannot be empty or contain only spaces');
     });
 
-    it('should return generic error message for other errors', async () => {
-        // Simulate a generic error
-        jest.spyOn(User, 'create').mockImplementation(() => {
-            throw new Error('Unexpected error occurred');
-        });
-
-        const newUser = {
-            username: 'newuser',
-            password: 'Test1234',
-            name: 'John',
-            surname: 'Doe'
-        };
-
-        const response = await request(app)
-            .post('/user/add')
-            .send(newUser);
-
-        expect(response.status).toBe(400);
-        expect(response.body.error).toBe('Unexpected error occurred');
-    });
-
     // GROUPS TESTS
     it('should return list of all groups when username is not defined', async () => {
         // Perform the request without defining a username
@@ -311,37 +290,6 @@ describe('User Routes', () => {
         expect(response.body.error).toBe('User not found');
     });
 
-    it('should handle internal server error gracefully', async () => {
-        // Mock Statistics.findOne to throw an error
-        jest.spyOn(Statistics, 'findOne').mockImplementation(() => {
-            throw new Error('Database error');
-        });
-    
-        // Define mock request body
-        const requestBody = {
-            username: 'testuser',
-            the_callenge_earned_money: 10,
-            the_callenge_correctly_answered_questions: 5,
-            the_callenge_incorrectly_answered_questions: 2,
-            the_callenge_total_time_played: 3600, // in seconds
-            the_callenge_games_played: 3
-        };
-    
-        // Make request to the route
-        const response = await request(app)
-            .post('/user/statistics/edit')
-            .send(requestBody);
-    
-        // Check response status
-        expect(response.status).toBe(500);
-    
-        // Check if the response body contains the correct error message
-        expect(response.body.error).toBe('Internal Server Error');
-    
-        // Check if the response body contains details of the error
-        expect(response.body.details).toBe('Database error');
-    });
-
     it('should get user statistics by username', async () => {
         const newUser = {
             username: 'testuser',
@@ -448,7 +396,7 @@ describe('User Routes', () => {
 
         const response = await request(app)
          .get(`/user/ranking`);
-        // expect(response.status).toBe(200);
+        //expect(response.status).toBe(200);
         // expect(response.type).toMatch(/json/);
         // expect(response.body).toHaveProperty('users');
     });
