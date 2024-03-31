@@ -115,9 +115,10 @@ First decomposition of the system. It shows the webapp, gateway service, user se
 
 Contained Building Blocks::
 * **Web App**: It is the main module of the application. 
-* **Gateway Service**: Handle the communication between the user service and question service modules with the web app service.
+* **Gateway Service**: Handles the communication between the user service and question service modules with the web app service.
 * **Question Generation Service**: Gets questions from Wikidata and handles their loading into the database.
-* **User Service**: Handles the users management.
+* **User Service**: Users management handles.
+* **Multiplayer Service**: Multiplayer management handles.
 
 === Level 2
 

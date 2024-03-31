@@ -3,6 +3,8 @@ flowchart TD
     sis1 -.->|Get/post| sis3(Gateway Service)
     sis3 -.->|Get/post| sis4(User service)
     sis3 -.->|Get| sis5(Question Generation Service)
+    sis1 -.-> sis7(Multiplayer Service)
+    sis7 -.->|Get| sis3
     end
     el1(User) -.->|Interacts with| sis1(Web App)
     sis5 -.-> |Search for questions| sis6(WikiData)
