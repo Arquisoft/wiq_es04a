@@ -28,15 +28,6 @@ const questionData2 = {
   language: "en"
 };
 
-let uri;
-
-if (process.env.DATABASE_URI) {
-  uri = 'mongodb://mongodb:27017/test';
-} else {
-  uri = 'mongodb://localhost:27017/test';
-}
-
-
 async function addQuestion(questionData) {
   const newQuestion = new Question({
     question: questionData.question,
@@ -52,7 +43,7 @@ async function addQuestion(questionData) {
 beforeAll(async () => {
    await mongoose.disconnect();
     // Conectar a la base de datos de prueba
-    //const uri = 'mongodb://localhost:27017/test';
+    const uri = 'mongodb://localhost:27017/test';
     await mongoose.connect(uri);
     // Limpiar la colección de preguntas antes de cada prueba
     await Question.deleteMany({});
@@ -68,7 +59,6 @@ beforeEach(async () => {
 });
 
   afterAll(async () => {
-    await Question.deleteMany({});
     // Disconnect testing database after all tests
     await mongoose.disconnect();
     //await mongoServer.stop();
@@ -90,12 +80,12 @@ beforeEach(async () => {
 
     });
 
-   /* it('It should not get n questions from the database', async function() {
+   it('It should not get n questions from the database', async function() {
       await mongoose.connection.dropDatabase();
       const response = await request(app).get('/questions/getQuestionsFromDb/2');
       await expect(response.status).toBe(200);
       await expect(response.body).toBe('');
-    });*/
+    });
 
     it('It should get n questions of certain category from the database', async function() {
       const response = await request(app).get('/questions/getQuestionsFromDb/2/Geography');
