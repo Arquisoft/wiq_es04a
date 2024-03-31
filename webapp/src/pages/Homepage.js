@@ -108,7 +108,7 @@ const Homepage = () => {
         setGames(
             <Box sx={{ display: 'flex', flexDirection: "column", justifyContent: "center", alignItems: 'center', width: '50%', flexGrow: 1,}}>
                 {info.slice(first, last).map((option, index) => (
-                    <Button variant="outlined" sx={activeIndex === index ? styles.buttonClicked : styles.buttonNormal} onClick={() => handleButtonClick(index, first,page)}>
+                    <Button key={'game'+index} variant="outlined" sx={activeIndex === index ? styles.buttonClicked : styles.buttonNormal} onClick={() => handleButtonClick(index, first,page)}>
                         {option.nombre}
                     </Button>
                 ))}
@@ -127,6 +127,7 @@ const Homepage = () => {
                         src={info[index].foto}
                         alt="Foto del juego"
                     />
+                    
                 </Box>
             );
         }
