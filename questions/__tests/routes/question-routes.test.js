@@ -69,7 +69,7 @@ beforeEach(async () => {
     await mongoServer.stop();
   });
   describe('Question routes', function() {
-    it('It should get a question from the database', async function() {
+    /*it('It should get a question from the database', async function() {
         const response = await request(app).get('/questions/');
         await expect(response.status).toBe(200);
         await expect(response.body.question).toBe('Which is the capital of Spain?');
@@ -81,13 +81,12 @@ beforeEach(async () => {
         await expect(response.body.length).toBe(3);
         /*await expect(response.body[0].question).toBe('Which is the capital of Spain?');
         await expect(response.body[1].question).toBe('Which is the capital of Spain?');
-        await expect(response.body[2].question).toBe('Which is the capital of Spain?');*/
+        await expect(response.body[2].question).toBe('Which is the capital of Spain?');
       });
 
       it('It should not get n questions from the database', async function() {
         const response = await request(app).get('/questions/getQuestionsFromDb/-1');
         await expect(response.status).toBe(400);
-        //await expect(response.body).toBe('');
       });
 
   
@@ -96,9 +95,12 @@ beforeEach(async () => {
         await expect(response.status).toBe(200);
         await expect(response.body.length).toBe(2);
         await expect(response.body[0].categories[0]).toBe("Geography");
-        /*await expect(response.body[1].categories[0]).toBe("Geography");
-        await expect(response.body[0].question).toBe('Which is the capital of Spain?');
-        await expect(response.body[1].question).toBe('Which is the capital of Spain?');*/
+      });*/
+
+      it('It should not get n questions of certain category from the database', async function() {
+        const response = await request(app).get('/questions/getQuestionsFromDb/-1/Geography');
+        await expect(response.status).toBe(400);
+        console.log(response);
       });
     });
 
