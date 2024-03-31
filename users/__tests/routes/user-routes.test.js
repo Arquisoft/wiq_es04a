@@ -211,6 +211,8 @@ describe('User Routes', () => {
         });
     });
 
+   
+
     it('should show an error if group doesnt exist', async () => {
 
         const response = await request(app)
@@ -221,6 +223,32 @@ describe('User Routes', () => {
         expect(response.body).toHaveProperty('error');
 
     });
+
+    //group by name
+
+    it('should find an existing group', async () => {
+        
+
+        const newGroup = {
+            name: 'testgroup3',
+            creator: 'Test1234', 
+        };
+        await Group.create(newGroup);
+        const response = await request(app)
+        .get(`/group/testgroup3`);
+
+        expect(response.status).toBe(200);
+        expect(response.type).toMatch(/json/);
+        expect(response.body.name).toBe("testgroup3");
+        expect(response.body.creator).toBe("Test1234");
+
+
+    });
+
+
+    //group add test
+
+    //group join
 
     // STATISTICS TESTS
 
