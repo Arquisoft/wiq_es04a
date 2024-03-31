@@ -52,6 +52,10 @@ const entity = {
     ]
 };
 
+beforeEach(() => {
+    mockAxios.reset();
+    
+  });
 describe('Get entity from wikidata', function() {
         it('It should get an entity', async function() {
             mockAxios.onGet(urlApiWikidata).reply(200, 
@@ -111,7 +115,6 @@ describe('Get properties from wikidata', function() {
             }
             }
         );
-        const lang = ["en"];
         const response = await wikidataService.getProperties('P31', 1);
         await expect(response[0]).toBe('P31');
         await expect(response[1]).toBe('P31');

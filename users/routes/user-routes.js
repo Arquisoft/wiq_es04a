@@ -7,7 +7,6 @@ const {  } = require('../services/user-model');
 // Route for add a user
 router.post('/add', async (req, res) => {
     try {
-        console.log(1);
         const { username, password, name, surname } = req.body;
 
         const user = await User.findOne({ where: { username } });
@@ -62,14 +61,7 @@ router.post('/add', async (req, res) => {
 
         res.json(newUser);
     } catch (error) {
-        if (error.name === 'SequelizeValidationError') {
-            // validation errors
-            const validationErrors = error.errors.map(err => err.message);
-            res.status(400).json({ error: 'Error de validación', details: validationErrors });
-        } else {
-            // Other errors
-            res.status(400).json({ error: error.message });
-        }
+        res.status(400).json({ error: error.message });
     }
 });
 
@@ -265,20 +257,9 @@ router.post('/statistics/edit', async (req, res) => {
 
         res.json({ message: 'User statics updated successfully' });
     } catch (error) {
-        console.error('Error updating user:', error);
-
-        if (error.name === 'SequelizeValidationError') {
-            // Validation errors
-            const validationErrors = error.errors.map(err => err.message);
-            res.status(400).json({ error: 'Validation error', details: validationErrors });
-        } else {
-            // Other errors
-            res.status(500).json({ error: 'Internal Server Error', details: error.message });
-        }
+        res.status(500).json({ error: 'Internal Server Error', details: error.message });
     }
 });
-
-
 
 //Get user statics by username
 router.get('/statistics/:username', async (req,res) => {
