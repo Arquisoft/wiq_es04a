@@ -82,7 +82,7 @@ describe('Question generation', function() {
         expect(dbService.addQuestion).toHaveBeenCalledTimes(0);
 
         // Verifica si console.error fue llamado con el mensaje de error específico
-    expect(console.error).toHaveBeenCalledWith("Error generating questions: ","Cannot read properties of undefined (reading 'properties')");
+        expect(console.error).toHaveBeenCalledWith("Error generating questions: ","Cannot read properties of undefined (reading 'properties')");
       });
 
 });
