@@ -69,7 +69,7 @@ image:05_scope_and_context.png["Diagram 05.1: Scope And Context"]
 
 Motivation::
 
-This is a general overview of the application. Here it can be seen the external services that will be used.
+This is a general overview of the application.
 
 [role="arc42help"]
 ****
@@ -111,23 +111,20 @@ image:05_level1.png["Diagram 05.2: Level1"]
 
 Motivation::
 
-First decomposition of the system. It shows the webapp, gateway service, user service and question generation service modules as blackboxes.
+First decomposition of the system.
 
 Contained Building Blocks::
 * **Web App**: It is the main module of the application. 
 * **Gateway Service**: Handles the communication between the user service and question service modules with the web app service.
 * **Question Generation Service**: Gets questions from Wikidata and handles their loading into the database.
-* **User Service**: Users management handles.
-* **Multiplayer Service**: Multiplayer management handles.
+* **User Service**: Handles the user management.
+* **Multiplayer Service**: Handles the multiplayer management.
 
 === Level 2
 
 [role="arc42help"]
 ****
 Here you can specify the inner structure of (some) building blocks from level 1 as white boxes.
-
-When you need more detailed levels of your architecture please copy this
-part of arc42 for additional levels.
 ****
 ==== White Box Users Service
 
@@ -140,7 +137,7 @@ image:05_level2_userService.png["Diagram 05.2 User service: Level2"]
 
 Motivation::
 
-Decomposition of the level 1 system. It shows the routes, model and services white boxes.
+Decomposition of the User Service black box from level 1 system.
 
 Contained Building Blocks::
 * **Routes**: Contains route handlers for the users.
@@ -153,12 +150,35 @@ image:05_level2_questionGenerationService.png["Diagram 05.2 Question Generation 
 
 Motivation::
 
-Decomposition of the level 1 system. It shows the routes, model and services white boxes.
+Decomposition of the Question Generation Service black box from level 1 system.
 
 Contained Building Blocks::
 * **Routes**: Contains route handlers for the questions.
 * **Services**: Contains data logic.
 * **MariaDB**: MongoDB database.
+
+=== Level 3
+
+[role="arc42help"]
+****
+Here you can specify the inner structure of (some) building blocks from level 2 as white boxes.
+****
+==== White Box routes from Users Service
+
+[role="arc42help"]
+****
+Specifies the internal structure of _building block services_.
+****
+
+image:05_level3_routesUserService.png["Diagram 05.2 User service: Level2"]
+
+Motivation::
+
+Decomposition of the black box routes from User Service white box from level 2 system.
+
+Contained Building Blocks::
+* **user-routes**: Contains route handlers for the register, ranking,groups management and statistics management.
+* **auth-routes**: Contains route handlers for the login.
 
 
 
