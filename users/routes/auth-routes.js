@@ -3,8 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const { User } = require('../services/user-model');
 
-
-require('dotenv').config();
+//require('dotenv').config();
 
 router.post('/', async (req, res) => {
     try {

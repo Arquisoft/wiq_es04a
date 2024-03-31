@@ -7,7 +7,6 @@ const {  } = require('../services/user-model');
 // Route for add a user
 router.post('/add', async (req, res) => {
     try {
-        console.log(1);
         const { username, password, name, surname } = req.body;
 
         const user = await User.findOne({ where: { username } });
@@ -62,14 +61,7 @@ router.post('/add', async (req, res) => {
 
         res.json(newUser);
     } catch (error) {
-        if (error.name === 'SequelizeValidationError') {
-            // validation errors
-            const validationErrors = error.errors.map(err => err.message);
-            res.status(400).json({ error: 'Error de validación', details: validationErrors });
-        } else {
-            // Other errors
-            res.status(400).json({ error: error.message });
-        }
+        res.status(400).json({ error: error.message });
     }
 });
 

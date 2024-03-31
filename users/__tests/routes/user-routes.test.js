@@ -20,6 +20,7 @@ describe('User Routes', () => {
         await sequelize.close();
     });
 
+    // ADD TESTS
     it('should add a new user', async () => {
         const newUser = {
             username: 'testuser',
@@ -74,6 +75,167 @@ describe('User Routes', () => {
         expect(response.status).toBe(400);
         expect(response.body.error).toBe('An account with that username already exists');
     });
+
+    it('should return error if username is less than 4 characters long', async () => {
+        const newUser = {
+            username: 'abc',
+            password: 'Test1234',
+            name: 'John',
+            surname: 'Doe'
+        };
+
+        const response = await request(app)
+            .post('/user/add')
+            .send(newUser);
+
+        expect(response.status).toBe(400);
+        expect(response.body.error).toBe('The username must be at least 4 characters long');
+    });
+
+    it('should return error if password is less than 8 characters long', async () => {
+        const newUser = {
+            username: 'newuser',
+            password: 'Short1', // Short password
+            name: 'John',
+            surname: 'Doe'
+        };
+
+        const response = await request(app)
+            .post('/user/add')
+            .send(newUser);
+
+        expect(response.status).toBe(400);
+        expect(response.body.error).toBe('The password must be at least 8 characters long');
+    });
+
+    it('should return error if password does not contain numeric character', async () => {
+        const newUser = {
+            username: 'newuser',
+            password: 'PasswordWithoutNumber',
+            name: 'John',
+            surname: 'Doe'
+        };
+
+        const response = await request(app)
+            .post('/user/add')
+            .send(newUser);
+
+        expect(response.status).toBe(400);
+        expect(response.body.error).toBe('The password must contain at least one numeric character');
+    });
+
+    it('should return error if password does not contain uppercase letter', async () => {
+        const newUser = {
+            username: 'newuser',
+            password: 'passwordwithoutuppercase1',
+            name: 'John',
+            surname: 'Doe'
+        };
+
+        const response = await request(app)
+            .post('/user/add')
+            .send(newUser);
+
+        expect(response.status).toBe(400);
+        expect(response.body.error).toBe('The password must contain at least one uppercase letter');
+    });
+
+    it('should return error if name is empty or contains only spaces', async () => {
+        const newUser = {
+            username: 'newuser',
+            password: 'Test1234',
+            name: '', // Empty name
+            surname: 'Doe'
+        };
+
+        const response = await request(app)
+            .post('/user/add')
+            .send(newUser);
+
+        expect(response.status).toBe(400);
+        expect(response.body.error).toBe('The name cannot be empty or contain only spaces');
+    });
+
+    it('should return error if surname is empty or contains only spaces', async () => {
+        const newUser = {
+            username: 'newuser',
+            password: 'Test1234',
+            name: 'John',
+            surname: ' ' // Surname with only spaces
+        };
+
+        const response = await request(app)
+            .post('/user/add')
+            .send(newUser);
+
+        expect(response.status).toBe(400);
+        expect(response.body.error).toBe('The surname cannot be empty or contain only spaces');
+    });
+
+    it('should return generic error message for other errors', async () => {
+        // Simulate a generic error
+        jest.spyOn(User, 'create').mockImplementation(() => {
+            throw new Error('Unexpected error occurred');
+        });
+
+        const newUser = {
+            username: 'newuser',
+            password: 'Test1234',
+            name: 'John',
+            surname: 'Doe'
+        };
+
+        const response = await request(app)
+            .post('/user/add')
+            .send(newUser);
+
+        expect(response.status).toBe(400);
+        expect(response.body.error).toBe('Unexpected error occurred');
+    });
+
+    // GROUPS TESTS
+
+    it('should list all groups', async () => {
+        const newGroup = {
+            name: 'testgroup1',
+            creator: 'Test1234', 
+        };
+
+        const newGroup2 = {
+            name: 'testgroup2',
+            creator: 'Test1234', 
+        };
+
+
+
+        await Group.create(newGroup);
+        await Group.create(newGroup2);
+        const response = await request(app)
+        .get(`/user/group/list`);
+
+        expect(response.status).toBe(200);
+        expect(response.type).toMatch(/json/);
+        expect(response.body).toHaveProperty('groups');
+        expect(response.body.groups.length).toBe(2);
+        expect(response.body.groups[0] === 'testgroup1');
+        expect(response.body.groups[1] === 'testgroup2');
+
+    });
+
+
+    it('should show an error if group doesnt exist', async () => {
+
+        const response = await request(app)
+        .get(`/user/group/nonexistentGroup`);
+
+        expect(response.status).toBe(404);
+        expect(response.type).toMatch(/json/);
+        expect(response.body).toHaveProperty('error');
+
+    });
+
+    // STATISTICS TESTS
+
     it('should update user statistics', async () => {
         const newUser = {
             username: 'testuser',
@@ -249,44 +411,5 @@ describe('User Routes', () => {
         // expect(response.status).toBe(200);
         // expect(response.type).toMatch(/json/);
         // expect(response.body).toHaveProperty('users');
-    });
-
-    it('should list all groups', async () => {
-        const newGroup = {
-            name: 'testgroup1',
-            creator: 'Test1234', 
-        };
-
-        const newGroup2 = {
-            name: 'testgroup2',
-            creator: 'Test1234', 
-        };
-
-
-
-        await Group.create(newGroup);
-        await Group.create(newGroup2);
-        const response = await request(app)
-        .get(`/user/group/list`);
-
-        expect(response.status).toBe(200);
-        expect(response.type).toMatch(/json/);
-        expect(response.body).toHaveProperty('groups');
-        expect(response.body.groups.length).toBe(2);
-        expect(response.body.groups[0] === 'testgroup1');
-        expect(response.body.groups[1] === 'testgroup2');
-
-    });
-
-
-    it('should show an error if group doesnt exist', async () => {
-
-        const response = await request(app)
-        .get(`/user/group/nonexistentGroup`);
-
-        expect(response.status).toBe(404);
-        expect(response.type).toMatch(/json/);
-        expect(response.body).toHaveProperty('error');
-
     });
 });
