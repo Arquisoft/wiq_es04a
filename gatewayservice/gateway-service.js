@@ -42,6 +42,48 @@ app.post('/login', async (req, res) => {
   }
 });
 
+// Método para obtener la sesión del usuario
+app.get('/user/session', async (req, res) => {
+  try {
+    const response = await axios.get(`${userServiceUrl}/user/session`);
+    res.json(response.data); // Enviar solo los datos de la respuesta
+  } catch (error) {
+    console.error("Error al obtener la sesión del usuario:", error);
+    res.status(500).json({ error: "Error al obtener la sesión del usuario" });
+  }
+});
+
+app.get('/user/allUsers', async (req, res) => {
+  try {
+    const response = await axios.get(`${userServiceUrl}/user/allUsers`);
+    res.json(response.data); // Enviar solo los datos de la respuesta
+  } catch (error) {
+    console.error("Error al obtener la sesión del usuario:", error);
+    res.status(500).json({ error: "Error al obtener la sesión del usuario" });
+  }
+});
+
+app.get('/user/ranking', async (req, res) => {
+  try {
+    const response = await axios.get(`${userServiceUrl}/user/ranking`);
+    res.json(response.data); // Enviar solo los datos de la respuesta
+  } catch (error) {
+    console.error("Error al obtener la sesión del usuario:", error);
+    res.status(500).json({ error: "Error al obtener la sesión del usuario" });
+  }
+});
+
+app.get('/user/get/:username', async (req, res) => {
+  try {
+    const username = req.params.username;
+    // Forward the user statics edit request to the user service
+    const userResponse = await axios.get(`${userServiceUrl}/user/get/${username}`, req.body);
+    res.json(userResponse.data);
+  } catch (error) {
+    handleErrors(res, error);
+  }
+});
+
 app.post('/user/add', async (req, res) => {
   try {
     // Forward the add user request to the user service
@@ -64,28 +106,28 @@ app.get('/questions', async (req, res) => {
 app.post('/statistics/edit', async (req, res) => {
   try {
     // Forward the user statics edit request to the user service
-    const userResponse = await axios.post(`${userServiceUrl}/statistics/edit`, req.body);
+    const userResponse = await axios.post(`${userServiceUrl}/user/statistics/edit`, req.body);
     res.json(userResponse.data);
   } catch (error) {
     handleErrors(res, error);
   }
 });
 
-app.get('/statistics/:username', async (req, res) => {
+app.get('/user/statistics/:username', async (req, res) => {
   try {
     const username = req.params.username;
     // Forward the user statics edit request to the user service
-    const userResponse = await axios.get(`${userServiceUrl}/statistics/api/${username}`, req.body);
+    const userResponse = await axios.get(`${userServiceUrl}/user/statistics/${username}`, req.body);
     res.json(userResponse.data);
   } catch (error) {
     handleErrors(res, error);
   }
 });
 
-app.get('/group/list', async (req, res) => {
+app.get('/user/group/list', async (req, res) => {
   try {
     const username = req.query.username;
-    const userResponse = await axios.get(userServiceUrl + '/group/api/list',{params: {username: username }});
+    const userResponse = await axios.get(userServiceUrl + '/user/group/list',{params: {username: username }});
     res.json(userResponse.data);
   } catch (error) {
     handleErrors(res, error);
@@ -95,7 +137,7 @@ app.get('/group/list', async (req, res) => {
 
 app.post('/group/add', async (req, res) => {
   try {
-    const userResponse = await axios.post(`${userServiceUrl}/group/add`, req.body);
+    const userResponse = await axios.post(`${userServiceUrl}/user/group/add`, req.body);
     res.json(userResponse.data);
   } catch (error) {
     if (error.response && error.response.status === 400) {
@@ -109,7 +151,7 @@ app.post('/group/add', async (req, res) => {
 app.get('/group/:name', async (req, res) => {
   try {
     const { name } = req.params;
-    const userResponse = await axios.get(`${userServiceUrl}/group/api/${name}`);
+    const userResponse = await axios.get(`${userServiceUrl}/user/group/${name}`);
     res.json(userResponse.data);
   } catch (error) {
     handleErrors(res, error);
@@ -119,7 +161,7 @@ app.get('/group/:name', async (req, res) => {
 app.post('/group/:name/join', async (req, res) => {
   try {
     const { name } = req.params;
-    const userResponse = await axios.post(`${userServiceUrl}/group/${name}/join`, req.body);
+    const userResponse = await axios.post(`${userServiceUrl}/user/group/${name}/join`, req.body);
     res.json(userResponse.data);
   } catch (error) {
     if (error.response && error.response.status === 400) {

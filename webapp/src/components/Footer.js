@@ -8,6 +8,9 @@ const Footer = () => {
         <Toolbar>
         <Typography sx={{ margin: 'auto' }}>
             <Link href='https://app.swaggerhub.com/apis-docs/UO288347_1/questions-api/1.0.0' target="_blank" color="inherit">Questions API doc</Link>
+        </Typography>
+        <Typography sx={{ margin: 'auto' }}>
+            <Link href='https://app.swaggerhub.com/apis-docs/UO289689_1/users-api/1.0.0' target="_blank" color="inherit">Users API doc</Link>
           </Typography>
           <Typography sx={{ margin: 'auto' }}>
             <Link href="https://github.com/Arquisoft/wiq_es04a" target="_blank" rel="noopener" color="inherit">

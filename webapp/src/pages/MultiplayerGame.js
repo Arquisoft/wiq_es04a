@@ -12,9 +12,11 @@ import Confetti from 'react-confetti';
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import { useLocation } from 'react-router-dom';
+import io from 'socket.io-client';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
-
+const socketEndpoint = process.env.MULTIPLAYER_ENDPOINT || 'ws://localhost:5010';
 
 const Game = () => {
     const navigate = useNavigate();
@@ -39,9 +41,27 @@ const Game = () => {
     const [showConfetti, setShowConfetti] = React.useState(false); //indicates if the confetti must appear
     const [questionCountdownKey, setQuestionCountdownKey] = React.useState(15); //key to update question timer
     const [questionCountdownRunning, setQuestionCountdownRunning] = React.useState(false); //property to start and stop question timer
-
     const [questionHistorial, setQuestionHistorial] = React.useState(Array(MAX_ROUNDS).fill(null));
 
+    const location = useLocation();
+    const { questions, roomCode} = location.state;
+    const [socket, setSocket] = React.useState(null);
+
+    const[winnerPlayer, setWinnerPlayer] = React.useState("");
+    const[winnerCorrect, setWinnerCorrect] = React.useState(0);
+    const[winnerTime, setWinnerTime] = React.useState(0);
+    
+    React.useEffect(() => {
+        const newSocket = io(socketEndpoint);
+        setSocket(newSocket);
+        newSocket.emit('join-room', roomCode, username);
+
+        newSocket.on("winner-player", ((winner, winnerCorrect, winnerTime) => {
+            setWinnerPlayer(winner);
+            setWinnerCorrect(winnerCorrect);
+            setWinnerTime(winnerTime);
+        }))
+    }, []);
 
     React.useEffect(() => {
         let timer;
@@ -64,49 +84,28 @@ const Game = () => {
             setTimerRunning(false);
             setShouldRedirect(true);
             setQuestionCountdownRunning(false);
-            updateStatistics();
         }
     }, [round]);
 
     // stablish if the confetti must show or not
     React.useEffect(() => {
-        if (correctlyAnsweredQuestions > incorrectlyAnsweredQuestions) {
+        if (winnerPlayer == username) {
           setShowConfetti(true);
         } else {
           setShowConfetti(false);
         }
-      }, [correctlyAnsweredQuestions, incorrectlyAnsweredQuestions]);
+      }, [winnerPlayer]);
     
 
     // gets a random question from the database and initializes button states to null
     const startNewRound = async () => {
         setAnswered(false);
-        // It works deploying using git repo from machine with: axios.get(`http://20.80.235.188:8000/questions`)
-        axios.get(`${apiEndpoint}/questions`)
-        .then(quest => {
-            // every new round it gets a new question from db
-            setQuestionData(quest.data);    
-            setButtonStates(new Array(quest.data.options.length).fill(null));
-        }).catch(error => {
-            console.error(error);
-        }); 
+        const quest = questions[round-1]
         
+        setQuestionData(quest);    
+        setButtonStates(new Array(quest.options.length).fill(null));
+          
     };
-
-    const updateStatistics = async() => {
-        try {
-            await axios.post(`${apiEndpoint}/statistics/edit`, {
-                username:username,
-                the_callenge_earned_money:totalScore,
-                the_callenge_correctly_answered_questions:correctlyAnsweredQuestions,
-                the_callenge_incorrectly_answered_questions:incorrectlyAnsweredQuestions,
-                the_callenge_total_time_played:totalTimePlayed,
-                the_callenge_games_played:1
-            });
-        } catch (error) {
-            console.error("Error:", error);
-        };
-    }
 
     // this function is called when a user selects a response. 
     const selectResponse = async (index, response) => {
@@ -146,10 +145,26 @@ const Game = () => {
 
         setButtonStates(newButtonStates);
 
-        setTimeout(async() => {
+        if (round >= 3) {
+            // Update user data before redirecting
+            try {
+                await axios.post(`${apiEndpoint}/statistics/edit`, {
+                    username:username,
+                    earned_money:totalScore,
+                    classic_correctly_answered_questions:correctlyAnsweredQuestions,
+                    classic_incorrectly_answered_questions:incorrectlyAnsweredQuestions,
+                    classic_total_time_played:totalTimePlayed,
+                    classic_games_played:1
+                  });
+              } catch (error) {
+                console.error("Error:", error);
+              }
+        }
+
+        setTimeout(() => {
             setRound(round + 1);
             setButtonStates([]);
-        }, 4000);
+        }, 2000);
     };
 
     const questionHistorialBar = () => {
@@ -203,10 +218,10 @@ const Game = () => {
     // redirect to / if game over 
 if (shouldRedirect) {
     // Redirect after 3 seconds
-    setTimeout(() => {
+    /*setTimeout(() => {
         navigate('/homepage');
-    }, 4000);
-
+    }, 4000);*/
+    socket.emit("finished-game", username, correctlyAnsweredQuestions, totalTimePlayed);
 //
     return (
         <Container
@@ -223,19 +238,21 @@ if (shouldRedirect) {
             <Typography 
             variant="h4" 
             sx={{
-                color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? 'green' : 'red',
+                color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? 'black' : 'black',
                 fontSize: '4rem', // Tamaño de fuente
                 marginTop: '20px', // Espaciado superior
                 marginBottom: '50px', // Espaciado inferior
             }}
         >
-            {correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? "Great Job!" : "Game Over"}
+            {winnerPlayer == "" ? "Waiting for players end..." : "Game Over"}
         </Typography>
             <div>
                 <Typography variant="h6">Correct Answers: {correctlyAnsweredQuestions}</Typography>
                 <Typography variant="h6">Incorrect Answers: {incorrectlyAnsweredQuestions}</Typography>
                 <Typography variant="h6">Total money: {totalScore}</Typography>
                 <Typography variant="h6">Game time: {totalTimePlayed} seconds</Typography>
+
+                <Typography variant="h5">Player winner of the game: {winnerPlayer} with {winnerCorrect} answers in {winnerTime}s</Typography>
             </div>
             {showConfetti && <Confetti />}
         </Container>
@@ -265,14 +282,6 @@ if (shouldRedirect) {
                 Game time: {totalTimePlayed} s
       
             </Typography>
-
-            <Button variant="contained"
-                    onClick={() => togglePause()}
-                    disabled={answered}>
-
-                {timerRunning ? <Pause /> : <PlayArrow />}
-                {timerRunning ? 'Pause' : 'Play'}
-            </Button>
 
             <Container
             sx={{
@@ -314,7 +323,7 @@ if (shouldRedirect) {
                   }}
                 </CountdownCircleTimer>
             </Typography>
-
+                
             <Grid container spacing={2}>
                 {questionData.options.map((option, index) => (
                     <Grid item xs={12} key={index}>
