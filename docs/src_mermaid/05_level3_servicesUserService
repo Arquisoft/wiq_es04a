@@ -1,0 +1,9 @@
+flowchart TD
+    subgraph Whitebox routes
+    sis2(user-model)
+    sis3(authVerifyMiddleWare)
+    end
+    sis1(routes) -.-> sis2
+    sis2 -.->|Insert/get user| db1[(MariaDB)]
+    sis2 -.->|Insert/get/edit group| db1
+    sis2 -.->|Insert/get/edit statistics| db1
