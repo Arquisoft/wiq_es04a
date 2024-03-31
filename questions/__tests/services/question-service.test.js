@@ -2,15 +2,23 @@ const assert = require('assert');
 const mongoose = require('mongoose');
 const Question = require('../../services/question-data-model');
 const questionFunctions = require('../../services/question-data-service');
+const { MongoMemoryServer } = require('mongodb-memory-server');
+
+let mongoServer;
 
 describe('Question Functions', function() {
   beforeAll(async function() {
-    await mongoose.disconnect();
+    /*await mongoose.disconnect();
     // Conectar a la base de datos de prueba
     const uri = 'mongodb://localhost:27017/test';
     await mongoose.connect(uri);
     // Limpiar la colección de preguntas antes de cada prueba
-    await Question.deleteMany({});
+    await Question.deleteMany({});*/
+
+    mongoServer = await MongoMemoryServer.create();
+    const mongoURI = mongoServer.getUri();
+    process.env.DATABASE_URI = mongoURI;
+
   });
 
   afterEach(async function() {
@@ -20,7 +28,9 @@ describe('Question Functions', function() {
 
   afterAll(async function() {
     // Desconectar de la base de datos de prueba después de todas las pruebas
-    await mongoose.disconnect();
+    //await mongoose.disconnect();
+    
+    await mongoServer.stop();
   });
 
   describe('addQuestion', function() {
