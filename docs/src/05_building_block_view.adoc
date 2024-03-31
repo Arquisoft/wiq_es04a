@@ -142,7 +142,6 @@ Decomposition of the User Service black box from level 1 system.
 Contained Building Blocks::
 * **Routes**: Contains route handlers for the users.
 * **Services**: Contains data logic.
-* **MariaDB**: MariaDB database.
 
 ==== White Box Question Generation Service
 
@@ -155,7 +154,6 @@ Decomposition of the Question Generation Service black box from level 1 system.
 Contained Building Blocks::
 * **Routes**: Contains route handlers for the questions.
 * **Services**: Contains data logic.
-* **MariaDB**: MongoDB database.
 
 === Level 3
 
@@ -194,7 +192,7 @@ Motivation::
 Decomposition of the black box services from User Service white box from level 2 system.
 
 Contained Building Blocks::
-* **user-model**: Define the User, Statistics and Groups database schemas.
+* **user-model**: Define the User, Statistics and Group database schemas.
 * **authVerifyMiddleWare**: Authentication Middleware.
 
 ==== White Box routes from Question Generation Service
@@ -218,5 +216,16 @@ Contained Building Blocks::
 ****
 Specifies the internal structure of _building block services_.
 ****
+
+image:05_level3_servicesQuestionGenerationService.png["Diagram 05.7 services Level3"]
+
+Motivation::
+
+Decomposition of the black box routes from Question Generation Service white box from level 2 system.
+
+Contained Building Blocks::
+* **question-data-model**: Define the Question database schema.
+* **question-data-service**: Responsible for managing questions in the database.
+* **wikidata-service**: Responsible for getting questions from Wikidata.
 
 
