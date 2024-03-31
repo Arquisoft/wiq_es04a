@@ -21,6 +21,16 @@ const consultaSparql = `
     }
     `;
 
+const consultaSparqlProperties = `
+    SELECT DISTINCT ?property
+    WHERE {
+        ?entity wdt:P18 ?property. 
+        ?entity rdfs:label ?entityLabel. 
+        FILTER(LANG(?entityLabel) = "en")
+    }
+    LIMIT 400
+`;
+
 const entity = {
     "name": "country",
     "instance": "Q6256",
@@ -43,7 +53,7 @@ const entity = {
 };
 
 describe('Get entity from wikidata', function() {
-        it('It should generate a question', async function() {
+        it('It should get an entity', async function() {
             mockAxios.onGet(urlApiWikidata, {
                 params: {
                   query: consultaSparql,
@@ -102,13 +112,12 @@ describe('Get entity from wikidata', function() {
 });
 
 describe('Get properties from wikidata', function() {
-    it('It should generate a question', async function() {
+    it('It should get a list of properties', async function() {
         mockAxios.onGet(urlApiWikidata, {
             params: {
-              query: consultaSparql,
+              query: consultaSparqlProperties,
               format: 'json' // Debe ser una cadena
-            },
-            headers: headers,
+            }
         }).reply(200, 
             { 
                 results: {
@@ -121,6 +130,7 @@ describe('Get properties from wikidata', function() {
             }
         );
         const response = await wikidataService.getProperties('P18', 0);
+        console.log(response);
         await expect(response[0]).toBe('P18');
         await expect(response[1]).toBe('P18');
         await expect(response[2]).toBe('P18');
@@ -128,23 +138,21 @@ describe('Get properties from wikidata', function() {
 it('It should fail when accessing wikidata', async function() {
         mockAxios.onGet(urlApiWikidata, {
             params: {
-              query: consultaSparql,
-              format: 'json' // Debe ser una cadena
-            },
-            headers: headers,
+                query: consultaSparqlProperties,
+                format: 'json' // Debe ser una cadena
+              }
         }).reply(400,"Error not found");
 
-        const response = await wikidataService.getRandomEntity(entity, 0, 1);
+        const response = await wikidataService.getProperties('P18', 0);
         await expect(response).toBe(null);
 });
 
 it('It should fail when generating a question', async function() {
     mockAxios.onGet(urlApiWikidata, {
         params: {
-          query: consultaSparql,
-          format: 'json' // Debe ser una cadena
-        },
-        headers: headers,
+            query: consultaSparqlProperties,
+            format: 'json' // Debe ser una cadena
+          }
     }).reply(200, 
         { 
             results: {
@@ -152,7 +160,7 @@ it('It should fail when generating a question', async function() {
         }
         }
     );
-    const response = await wikidataService.getRandomEntity(entity, 0, 1);
+    const response = await wikidataService.getProperties('P18', 0);
     await expect(response).toBe(null);
   });
 
