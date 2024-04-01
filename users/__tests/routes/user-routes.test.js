@@ -174,7 +174,35 @@ describe('User Routes', () => {
 
     // GROUPS TESTS
     it('should return list of all groups when username is not defined', async () => {
-        // Perform the request without defining a username
+
+        // Create a user in the database to create the groups
+        await User.create({
+            username: 'existinguser',
+            password: await bcrypt.hash('Test1234', 10),
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            name: 'Existing',
+            surname: 'User'
+        });
+
+        // We create some example groups
+        for(let i=0;i<5;i++){
+            const newGroup = {
+                name: 'Testing '+i,
+                username: 'existinguser'
+            };
+        
+            // We now make each request so that it creates the group and associates it to the user
+            const response = await request(app)
+                .post('/user/group/add')
+                .send(newGroup);
+
+            // Verify if the request was successful
+            expect(response.status).toBe(200);
+        }
+
+
+        // Perform the request without defining a username to see the previously created groups
         const response = await request(app)
             .get('/user/group/list')
             .set('Accept', 'application/json');
@@ -187,16 +215,36 @@ describe('User Routes', () => {
     });
     
     it('should return list of groups with membership status when username is defined', async () => {
-        // Simulate a defined username
-        const username = 'testuser';
-    
-        // Create some groups and user-group associations in the database to simulate user membership
-        // Here you'll need to use mocks or set up your database state to simulate the groups and user membership as needed
+        // Create a user in the database to create the groups
+        await User.create({
+            username: 'existinguser',
+            password: await bcrypt.hash('Test1234', 10),
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            name: 'Existing',
+            surname: 'User'
+        });
+
+        // We create some example groups
+        for(let i=0;i<5;i++){
+            const newGroup = {
+                name: 'Testing '+i,
+                username: 'existinguser'
+            };
+        
+            // We now make each request so that it creates the group and associates it to the user
+            const response = await request(app)
+                .post('/user/group/add')
+                .send(newGroup);
+
+            // Verify if the request was successful
+            expect(response.status).toBe(200);
+        }
     
         // Perform the request with the defined username
         const response = await request(app)
             .get('/user/group/list')
-            .query({ username })
+            .query({ username: 'existinguser' })
             .set('Accept', 'application/json');
     
         // Verify if the request was successful
@@ -223,21 +271,15 @@ describe('User Routes', () => {
     });
 
     it('should add a new group', async () => {
-        const existingUser = {
-            username: 'existinguser',
-            password: 'Test1234',
-            name: 'Existing',
-            surname: 'User'
-        };
     
         // Create the existing user in the database
         await User.create({
-            username: existingUser.username,
-            password: await bcrypt.hash(existingUser.password, 10),
+            username: 'existinguser',
+            password: await bcrypt.hash('Test1234', 10),
             createdAt: new Date(),
             updatedAt: new Date(),
-            name: existingUser.name,
-            surname: existingUser.surname
+            name: 'Existing',
+            surname: 'User'
         });
 
         // We create a new example group
@@ -259,6 +301,8 @@ describe('User Routes', () => {
         const group = await Group.findOne({ where: { name: newGroup.name } });
         expect(group).toBeDefined();
     });
+
+    
 
     // STATISTICS TESTS
 
