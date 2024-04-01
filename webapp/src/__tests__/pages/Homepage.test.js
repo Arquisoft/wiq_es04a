@@ -3,7 +3,7 @@ import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import Homepage from '../pages/Homepage.js';
+import Homepage from '../../pages/Homepage.js';
 
 const mockAxios = new MockAdapter(axios);
 
