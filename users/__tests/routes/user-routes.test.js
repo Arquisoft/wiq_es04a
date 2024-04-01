@@ -224,6 +224,7 @@ describe('User Routes', () => {
 
     });
 
+
     //group by name
     it('should find an existing group', async () => {
         const newGroup = {
@@ -273,6 +274,20 @@ describe('User Routes', () => {
         // Verifying if the group has been created correctly
         expect(res.body.name).toBe(groupData.name);
         expect(res.body.creator).toBe(groupData.username);
+    });
+
+
+    
+    //group add fail test
+    it('shouldn´t add a new group', async () => {
+
+        // Making POST request to the endpoint
+        const res = await request(app)
+            .post('/user/group/add')
+            .send({})
+            .expect(500); // Expecting a successful response with status code 200
+
+    
     });
 
     //group join
@@ -342,71 +357,75 @@ describe('User Routes', () => {
 
 
     it('should return an error when attempting to join a full group', async () => {
+        //Creating the group creator user
+        const baseUser = {
+            username: 'testuserGroupJoinFull',
+            password: 'Test1234',
+            name: 'Test',
+            surname: 'User'
+        };
+        await request(app)
+            .post('/user/add')
+            .send(baseUser)
+            .expect(200);
 
-        // //Creating the baseGroup
-        // ////////
-        // const newUser = {
-        //     username: 'testuserGroupJoinFull0',
-        //     password: 'Test1234',
-        //     name: 'Test',
-        //     surname: 'User'
-        // };
-        
-        // response = await request(app)
-        //     .post('/user/add')
-        //     .send(newUser).expect(200);
-
-        // const newGroup = {
-        //     name: 'testgroupJoinFull',
-        //     creator: 'testuserGroupJoinFull0', 
-        // };
-
-        // // Making POST request to the endpoint
-        // const resAdd = await request(app)
-        // .post('/user/group/add')
-        // .send(newGroup)
-        // .expect(200); // Expecting a successful response with status code 200
-
-        // //////////////
-        // /////////////
-        
-        // const groupName = 'testgroupJoinFull';
-
-        // for (let i = 0; i < 19; i++) {
-
-        //     let username =  `testuserGroupJoinFull0${i}`;
-        //     let newUser = {
-        //         username: username,
-        //         password: 'Test1234',
-        //         name: 'Test',
-        //         surname: 'User'
-        //     };
-        //     const response = await request(app)
-        //         .post('/user/add')
-        //         .send(newUser);
-
-        //     await request(app)
-        //         .post(`/user/group/${groupName}/join`)
-        //         .send({ username })
-        //         .expect(200); // Expecting a successful response with status code 200
-        // }
- 
-
-        // let errUser = {
-        //     username: `testuserGroupJoinFull0${i}ERROR`,
-        //     password: 'Test1234',
-        //     name: 'Test',
-        //     surname: 'User'
-        // };
-
-        // const resError =  await request(app).post('/user/add').send(errUser);
-
-        // expect(resError.body.error).toBe('Group is already full');
+        // Creating the baseGroup
+        const groupName = "testFullGroup";
+        const groupData = {
+            name: groupName,
+            username: "testuserGroupJoinFull"
+        };
+        let response = await request(app)
+            .post('/user/group/add')
+            .send(groupData)
+            .expect(200);
+    
+        // Creating 20 users and adding them to the group
+        for (let i = 0; i < 19; i++) {
+            let newUser = {
+                username: `testuserGroupJoinFull${i}`,
+                password: 'Test1234',
+                name: 'Test',
+                surname: 'User'
+            };
+            await request(app)
+                .post('/user/add')
+                .send(newUser)
+                .expect(200);
+    
+            // Adding the user to the group
+            await request(app)
+                .post(`/user/group/${groupName}/join`)
+                .send({ username: newUser.username })
+                .expect(200);
+        }
+    
+        // Trying to add a 21st user to the group
+        const newUser = {
+            username: 'testuserGroupJoinFull20',
+            password: 'Test1234',
+            name: 'Test',
+            surname: 'User'
+        };
+    
+        // Adding the user
+        await request(app)
+            .post('/user/add')
+            .send(newUser)
+            .expect(200);
+    
+        // Trying to add the user to the group, which should fail because the group is full
+        const res = await request(app)
+            .post(`/user/group/${groupName}/join`)
+            .send({ username: newUser.username })
+            .expect(400); // Expecting a 'Bad Request' response with status code 400
+    
+        // Verifying if the correct error message is returned
+        expect(res.body.error).toBe('Group is already full');
+    });
 
     
-        
 
-    });
     // STATISTICS TESTS
 
     it('should update user statistics', async () => {
