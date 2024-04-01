@@ -222,6 +222,44 @@ describe('User Routes', () => {
 
     });
 
+    it('should add a new group', async () => {
+        const existingUser = {
+            username: 'existinguser',
+            password: 'Test1234',
+            name: 'Existing',
+            surname: 'User'
+        };
+    
+        // Create the existing user in the database
+        await User.create({
+            username: existingUser.username,
+            password: await bcrypt.hash(existingUser.password, 10),
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            name: existingUser.name,
+            surname: existingUser.surname
+        });
+
+        // We create a new example group
+        const newGroup = {
+            name: 'Testing',
+            username: 'existinguser'
+        };
+    
+        // We now make the request
+        const response = await request(app)
+            .post('/user/group/add')
+            .send(newGroup);
+    
+        // We verify that it was succesful and includes the created and saved new group
+        expect(response.status).toBe(200);
+        expect(response.body.name).toBe(newGroup.name);
+    
+        // We confirm that the group exists in the database
+        const group = await Group.findOne({ where: { name: newGroup.name } });
+        expect(group).toBeDefined();
+    });
+
     // STATISTICS TESTS
 
     it('should update user statistics', async () => {
