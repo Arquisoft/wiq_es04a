@@ -59,7 +59,7 @@ In the best case you will get away with examples or simple signatures.
 
 ****
 
-image:05_scope_and_context.png["Diagram 05.1: Scope And Context"]
+image:05_scope_and_context.png["Diagram Whitebox Overall System"]
 
 Motivation::
 
@@ -101,7 +101,7 @@ Leave out normal, simple, boring or standardized parts of your system
 ...describes the internal structure of _building block WIQ_.
 ****
 
-image:05_level1.png["Diagram 05.2: Level1"]
+image:05_level1.png["Diagram White Box Wikidata Infinite Quest"]
 
 Motivation::
 
@@ -113,6 +113,8 @@ Contained Building Blocks::
 * **Question Generation Service**: Gets questions from Wikidata and handles their loading into the database.
 * **User Service**: Handles the user management.
 * **Multiplayer Service**: Handles the multiplayer management.
+* **MongoDB**: MongoDB database.
+* **MariaDB**: MaiaDB database.
 
 Other Important Interfaces::
 * **Docs**: Contains the application documentation.
@@ -125,7 +127,7 @@ Here you can specify the inner structure of (some) building blocks from level 1 
 ****
 ==== White Box Users Service
 
-image:05_level2_userService.png["Diagram 05.3 User service: Level2"]
+image:05_level2_userService.png["Diagram White Box Users Service"]
 
 Motivation::
 
@@ -140,7 +142,7 @@ Other Important Interfaces::
 
 ==== White Box Question Generation Service
 
-image:05_level2_questionGenerationService.png["Diagram 05.4 Question Generation service: Level2"]
+image:05_level2_questionGenerationService.png["Diagram White Box Question Generation Service"]
 
 Motivation::
 
@@ -156,7 +158,7 @@ Other Important Interfaces::
 
 ==== White Box Web App
 
-image:05_level2_webApp.png["Diagram 05.4 Question Generation service: Level2"]
+image:05_level2_webApp.png["Diagram White Box Web App"]
 
 Motivation::
 
@@ -168,7 +170,7 @@ Contained Building Blocks::
 
 ==== White Box GatewayService Service
 
-image:05_level2_gatewayService.png["Diagram 05.4 Question Generation service: Level2"]
+image:05_level2_gatewayService.png["Diagram White Box GatewayService Service"]
 
 Motivation::
 
@@ -182,7 +184,7 @@ Other Important Interfaces::
 
 ==== White Box Multiplayer Service
 
-image:05_level2_multiplayerService.png["Diagram 05.4 Question Generation service: Level2"]
+image:05_level2_multiplayerService.png["Diagram White Box Multiplayer Service"]
 
 Motivation::
 
@@ -199,7 +201,7 @@ Here you can specify the inner structure of (some) building blocks from level 2 
 ****
 ==== White Box routes from User Service
 
-image:05_level3_routesUserService.png["Diagram 05.5 routes Level3"]
+image:05_level3_routesUserService.png["Diagram White Box routes from User Service"]
 
 Motivation::
 
@@ -211,7 +213,7 @@ Contained Building Blocks::
 
 ==== White Box services from User Service
 
-image:05_level3_servicesUserService.png["Diagram 05.6 services Level3"]
+image:05_level3_servicesUserService.png["Diagram White Box services from User Service"]
 
 Motivation::
 
@@ -223,7 +225,7 @@ Contained Building Blocks::
 
 ==== White Box routes from Question Generation Service
 
-image:05_level3_routesQuestionGenerationService.png["Diagram 05.7 services Level3"]
+image:05_level3_routesQuestionGenerationService.png["Diagram White Box routes from Question Generation Service"]
 
 Motivation::
 
@@ -234,7 +236,7 @@ Contained Building Blocks::
 
 ==== White Box services from Question Generation Service
 
-image:05_level3_servicesQuestionGenerationService.png["Diagram 05.7 services Level3"]
+image:05_level3_servicesQuestionGenerationService.png["Diagram White Box services from Question Generation Service"]
 
 Motivation::
 
@@ -244,5 +246,21 @@ Contained Building Blocks::
 * **question-data-model**: Define the Question database schema.
 * **question-data-service**: Responsible for managing questions in the database.
 * **wikidata-service**: Responsible for getting questions from Wikidata.
+
+==== White Box src from Web App
+
+image:05_level3_srcWebApp.png["Diagram White Box src from Web App"]
+
+Motivation::
+
+Decomposition of the black box src from Web App white box from level 2 system.
+
+Contained Building Blocks::
+* **components**: Defines common elements in the pages like the nav-bar, footer, etc. 
+* **pages**: Defines the different screens of the application.
+* **data**:  It contains the data used by the pages.
+
+Other Important Interfaces::
+* **index**: Define the entry point of the Web app.
 
 
