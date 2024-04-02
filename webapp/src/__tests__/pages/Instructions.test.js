@@ -61,5 +61,28 @@ describe('Instructions component', () => {
     expect(gameNames[0]).toHaveTextContent("WISE MEN STACK");
   });
 
+  it('Hides game information when the same game button is clicked again', async () => {
+    render(
+      <Router>
+        <Instructions />
+      </Router>
+    );
+
+    const gameButton = screen.getAllByRole('button')[0]; //Selecciona el primer boton
+    fireEvent.click(gameButton); // Hace click en el boton indicado
+
+    const gameNames = await screen.findAllByText("WISE MEN STACK"); //Finds all components that have the indicated text
+    expect(gameNames).toHaveLength(2); // Check the expected number of matches
+
+    fireEvent.click(gameButton); // Hide info
+
+    const gameNames2 = await screen.findAllByText("WISE MEN STACK"); //Finds all components that have the indicated text
+    expect(gameNames2).toHaveLength(1); // Check the expected number of matches
+
+    await waitFor(() => {
+      expect(screen.queryByText(/The player chooses a topic from five available options/)).not.toBeInTheDocument();
+    });
+  });
+
   
 });
