@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const { User, Statistics, Group, UserGroup, sequelize } = require('../services/user-model');
-const {  } = require('../services/user-model');
 
 // Route for add a user
 router.post('/add', async (req, res) => {
