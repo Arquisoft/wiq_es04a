@@ -46,5 +46,20 @@ describe('Instructions component', () => {
     expect(screen.getAllByRole('button').length).toBe(5); // Assuming there are 5 games in your mocked data, check that the buttons are there.
   });
 
+  it('Displays game information when a game button is clicked', async () => {
+    render(
+      <Router>
+        <Instructions />
+      </Router>
+    );
+
+    fireEvent.click(screen.getAllByRole('button')[0]); // Click the first game button
+
+    const gameNames = await screen.findAllByText("WISE MEN STACK"); //Look for the text "WISE MEN STACK"
+    expect(gameNames).toHaveLength(2); // Check the expected number of matches
+
+    expect(gameNames[0]).toHaveTextContent("WISE MEN STACK");
+  });
+
   
 });
