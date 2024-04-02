@@ -107,5 +107,47 @@ describe('Instructions component', () => {
     });
   });
 
-  
+  const mockGameData = [
+    {
+      nombre: "WISE MEN STACK",
+      descripcion: "The player chooses a topic from five available options and must answer a battery of questions related to it within 60 seconds. For each question, the host provides two options. If the contestant guesses correctly, they win €20; otherwise, they move on to the next question (as the correct answer would be the other option). If the time runs out before the question is fully asked and both possible answers are provided, the contestant may still answer it; however, if the statement hasn't been completed (or the options weren't provided), they cannot answer.",
+      foto: "../gameImg/foto0.png"
+    },
+    {
+      nombre: "WARM QUESTION",
+      descripcion: "It consists of ten topics of varied themes. For each correct answer, €100 is earned, and €10 are lost if the contestant passes, does not respond, or answers incorrectly.",
+      foto: "../gameImg/foto1.jpg"
+    },
+    {
+      nombre: "DISCOVERING CITIES",
+      descripcion: "In the 'Discovering Cities' game mode, the contestant will face a challenge where they will be repeatedly asked questions referring to different cities around the world. To successfully overcome the challenge, the contestant must answer as many questions as possible correctly throughout the test.",
+      foto: "../gameImg/foto2.png"
+    },
+    {
+      nombre: "THE CHALLENGE",
+      descripcion: "The 'Challenge' game mode is the quintessential game mode, as it allows you to customize the match to your liking. This game mode is tailored for those who wish to practice certain game formats before engaging in our various other game modes.",
+      foto: "../gameImg/foto3.jpg"
+    },
+    {
+      nombre: "ONLINE MODE",
+      descripcion: "Create a room for other player to join and play 1vs1",
+      foto: "../gameImg/foto3.jpg"
+    }
+  ];
+
+  mockGameData.forEach((game, index) => {
+    it(`Displays information for ${game.nombre} when its button is clicked`, async () => {
+      render(<Router><Instructions /></Router>);
+
+      // Haz clic en el botón del juego
+      fireEvent.click(screen.getAllByRole('button')[index]);
+
+      // Verifica que el nombre y la descripción del juego estén en el documento
+      const gameName = await screen.findAllByText(game.nombre);
+      expect(gameName).toHaveLength(2); // Check the expected number of matches
+
+      const gameDescription = await screen.findByText(game.descripcion);
+      expect(gameDescription).toBeInTheDocument();
+    });
+  });
 });
