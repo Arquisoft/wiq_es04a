@@ -1,4 +1,4 @@
-const { User, Statistics, Group, sequelize } = require('../../services/user-model.js');
+const { User, Statistics, Group, sequelize, UserGroup } = require('../../services/user-model.js');
 const bcrypt = require('bcrypt');
 const request = require('supertest');
 const express = require('express');
@@ -259,6 +259,8 @@ describe('User Routes', () => {
         });
     });
 
+   
+
     it('should show an error if group doesnt exist', async () => {
 
         const response = await request(app)
@@ -270,36 +272,204 @@ describe('User Routes', () => {
 
     });
 
-    it('should add a new group', async () => {
-    
-        // Create the existing user in the database
-        await User.create({
-            username: 'existinguser',
-            password: await bcrypt.hash('Test1234', 10),
-            createdAt: new Date(),
-            updatedAt: new Date(),
-            name: 'Existing',
-            surname: 'User'
-        });
 
-        // We create a new example group
+    //group by name
+    it('should find an existing group', async () => {
         const newGroup = {
-            name: 'Testing',
-            username: 'existinguser'
+            name: 'testgroup3',
+            creator: 'Test1234', 
+        };
+        await Group.create(newGroup);
+        const response = await request(app)
+        .get(`/user/group/testgroup3`);
+
+        expect(response.status).toBe(200);
+        expect(response.type).toMatch(/json/);
+        expect(response.body.name).toBe("testgroup3");
+        expect(response.body.creator).toBe("Test1234");
+
+
+    });
+
+
+    //group add test
+    it('should add a new group', async () => {
+
+        //I have to add the user first to make the post work
+        const newUser = {
+            username: 'testuserGroup',
+            password: 'Test1234',
+            name: 'Test',
+            surname: 'User'
+        };
+
+        const response = await request(app)
+            .post('/user/add')
+            .send(newUser);
+
+
+        const groupData = {
+            name: "testGroup4",
+            username: "testuserGroup"
+        };
+
+        // Making POST request to the endpoint
+        const res = await request(app)
+            .post('/user/group/add')
+            .send(groupData)
+            .expect(200); // Expecting a successful response with status code 200
+
+        // Verifying if the group has been created correctly
+        expect(res.body.name).toBe(groupData.name);
+        expect(res.body.creator).toBe(groupData.username);
+    });
+
+
+    
+    //group add fail test
+    it('shouldn´t add a new group', async () => {
+
+        // Making POST request to the endpoint
+        const res = await request(app)
+            .post('/user/group/add')
+            .send({})
+            .expect(500); // Expecting a successful response with status code 200
+
+    
+    });
+
+    //group join
+
+    it('should allow a user to join a group successfully when the group is not full', async () => {
+        
+         //I have to add the user first to make the post work
+         const newUser = {
+            username: 'testuserGroupJoin',
+            password: 'Test1234',
+            name: 'Test',
+            surname: 'User'
+        };
+        const response = await request(app)
+            .post('/user/add')
+            .send(newUser);
+        const newGroup = {
+            name: 'testgroupUserSuccessfulJoin',
+            creator: 'Test1234', 
+            };
+        await Group.create(newGroup);
+        
+        
+        
+        // Assuming group is not full
+        const groupName = 'testgroupUserSuccessfulJoin';
+        const username = 'testuserGroupJoin';
+
+        // Making POST request to join the group
+        const res = await request(app)
+            .post(`/user/group/${groupName}/join`)
+            .send({ username })
+            .expect(200); // Expecting a successful response with status code 200
+
+        // Verifying if the user has joined the group
+        expect(res.body.username).toBe(username);
+        expect(res.body.groupName).toBe(groupName);
+    });
+
+    it('should return an error if required parameters are missing (username)', async () => {
+        // Missing username in request body
+        const groupName = 'TestGroup';
+
+        // Making POST request to join the group
+        const res = await request(app)
+            .post(`/user/group/${groupName}/join`)
+            .expect(500); // Expecting an internal server error response with status code 500
+
+        // Verifying if the correct error message is returned
+        expect(res.body.error).toBe('Internal Server Error');
+    });
+
+    it('should return an error in case of internal server error (user and group doesn´t exist)', async () => {
+        // Simulate internal server error by sending a malformed request
+        const groupName = 'InvalidGroup';
+        const username = 'TestUser';
+
+        // Making POST request to join the group
+        const res = await request(app)
+            .post(`/user/group/${groupName}/join`)
+            .send({ username })
+            .expect(500); // Expecting an internal server error response with status code 500
+
+        // Verifying if the correct error message is returned
+        expect(res.body.error).toBe('Internal Server Error');
+    });
+
+
+    it('should return an error when attempting to join a full group', async () => {
+        //Creating the group creator user
+        const baseUser = {
+            username: 'testuserGroupJoinFull',
+            password: 'Test1234',
+            name: 'Test',
+            surname: 'User'
+        };
+        await request(app)
+            .post('/user/add')
+            .send(baseUser)
+            .expect(200);
+
+        // Creating the baseGroup
+        const groupName = "testFullGroup";
+        const groupData = {
+            name: groupName,
+            username: "testuserGroupJoinFull"
+        };
+        let response = await request(app)
+            .post('/user/group/add')
+            .send(groupData)
+            .expect(200);
+    
+        // Creating 20 users and adding them to the group
+        for (let i = 0; i < 19; i++) {
+            let newUser = {
+                username: `testuserGroupJoinFull${i}`,
+                password: 'Test1234',
+                name: 'Test',
+                surname: 'User'
+            };
+            await request(app)
+                .post('/user/add')
+                .send(newUser)
+                .expect(200);
+    
+            // Adding the user to the group
+            await request(app)
+                .post(`/user/group/${groupName}/join`)
+                .send({ username: newUser.username })
+                .expect(200);
+        }
+    
+        // Trying to add a 21st user to the group
+        const newUser = {
+            username: 'testuserGroupJoinFull20',
+            password: 'Test1234',
+            name: 'Test',
+            surname: 'User'
         };
     
-        // We now make the request
-        const response = await request(app)
-            .post('/user/group/add')
-            .send(newGroup);
+        // Adding the user
+        await request(app)
+            .post('/user/add')
+            .send(newUser)
+            .expect(200);
     
-        // We verify that it was succesful and includes the created and saved new group
-        expect(response.status).toBe(200);
-        expect(response.body.name).toBe(newGroup.name);
+        // Trying to add the user to the group, which should fail because the group is full
+        const res = await request(app)
+            .post(`/user/group/${groupName}/join`)
+            .send({ username: newUser.username })
+            .expect(400); // Expecting a 'Bad Request' response with status code 400
     
-        // We confirm that the group exists in the database
-        const group = await Group.findOne({ where: { name: newGroup.name } });
-        expect(group).toBeDefined();
+        // Verifying if the correct error message is returned
+        expect(res.body.error).toBe('Group is already full');
     });
 
     
