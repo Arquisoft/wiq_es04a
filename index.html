@@ -479,6 +479,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_whitebox_overall_system">5.1. Whitebox Overall System</a></li>
 <li><a href="#_level_1">5.2. Level 1</a></li>
 <li><a href="#_level_2">5.3. Level 2</a></li>
+<li><a href="#_level_3">5.4. Level 3</a></li>
 </ul>
 </li>
 <li><a href="#section-runtime-view">6. Runtime View</a>
@@ -1247,7 +1248,7 @@ To merge the code to the develop branch we are going to use Pull Requests in ord
 <h2 id="section-building-block-view">5. Building Block View</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The building block view shows in a graphic way a decomposition of the system.</p>
+<p>The building block view presents, in a graphical manner, a decomposition of the most important parts of the system.</p>
 </div>
 <div class="sidebarblock arc42help">
 <div class="content">
@@ -1313,18 +1314,7 @@ Thus it contains the white box description of selected building blocks of level 
 <p>a motivation for the decomposition</p>
 </li>
 <li>
-<p>black box descriptions of the contained building blocks. For these we offer you alternatives:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>use <em>one</em> table for a short and pragmatic overview of all contained building blocks and their interfaces</p>
-</li>
-<li>
-<p>use a list of black box descriptions of the building blocks according to the black box template (see below).
-Depending on your choice of tool this list could be sub-chapters (in text files), sub-pages (in a Wiki) or nested elements (in a modeling tool).</p>
-</li>
-</ul>
-</div>
+<p>black box descriptions of the contained building blocks.</p>
 </li>
 <li>
 <p>(optional:) important interfaces, that are not explained in the black box templates of a building block, but are very important for understanding the white box.
@@ -1338,13 +1328,13 @@ In the best case you will get away with examples or simple signatures.</p>
 </div>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="./images/05_scope_and_context.png" alt="Diagram 05.1: Scope And Context"></span></p>
+<p><span class="image"><img src="./images/05_scope_and_context.png" alt="Diagram Whitebox Overall System"></span></p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Motivation</dt>
 <dd>
-<p>This is a general overview of the application. Here it can be seen the external services that will be used.</p>
+<p>This is a general overview of the application.</p>
 </dd>
 </dl>
 </div>
@@ -1411,7 +1401,7 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_white_box_wiq">5.2.1. White Box WIQ</h4>
+<h4 id="_white_box_wikidata_infinite_quest">5.2.1. White Box Wikidata Infinite Quest</h4>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -1420,13 +1410,13 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 </div>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="./images/05_level1.png" alt="Diagram 05.2: Level1"></span></p>
+<p><span class="image"><img src="./images/05_level1.png" alt="Diagram White Box Wikidata Infinite Quest"></span></p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Motivation</dt>
 <dd>
-<p>First decomposition of the system. It shows the webapp, gateway service, user service and question generation service modules as blackboxes.</p>
+<p>First decomposition of the system.</p>
 </dd>
 <dt class="hdlist1">Contained Building Blocks</dt>
 <dd>
@@ -1436,13 +1426,32 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 <p><strong>Web App</strong>: It is the main module of the application.</p>
 </li>
 <li>
-<p><strong>Gateway Service</strong>: Handle the communication between the user service and question service modules with the web app service.</p>
+<p><strong>Gateway Service</strong>: Handles the communication between the user service and question service modules with the web app service.</p>
 </li>
 <li>
 <p><strong>Question Generation Service</strong>: Gets questions from Wikidata and handles their loading into the database.</p>
 </li>
 <li>
-<p><strong>User Service</strong>: Handles the registration and login of users.</p>
+<p><strong>User Service</strong>: Handles the user management.</p>
+</li>
+<li>
+<p><strong>Multiplayer Service</strong>: Handles the multiplayer management.</p>
+</li>
+<li>
+<p><strong>MongoDB</strong>: MongoDB database.</p>
+</li>
+<li>
+<p><strong>MariaDB</strong>: MaiaDB database.</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Other Important Interfaces</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Docs</strong>: Contains the application documentation.</p>
 </li>
 </ul>
 </div>
@@ -1458,57 +1467,321 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 <div class="paragraph">
 <p>Here you can specify the inner structure of (some) building blocks from level 1 as white boxes.</p>
 </div>
-<div class="paragraph">
-<p>When you need more detailed levels of your architecture please copy this
-part of arc42 for additional levels.</p>
-</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_white_box_users_management">5.3.1. White Box Users Management</h4>
-<div class="sidebarblock arc42help">
-<div class="content">
+<h4 id="_white_box_users_service">5.3.1. White Box Users Service</h4>
 <div class="paragraph">
-<p>Specifies the internal structure of <em>building block Users Management</em>.</p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="./images/05_level2_userService.png" alt="Diagram 05.2 User service: Level2"></span></p>
+<p><span class="image"><img src="./images/05_level2_userService.png" alt="Diagram White Box Users Service"></span></p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Motivation</dt>
 <dd>
-<p>Decomposition of the level 1 system. It shows the mongoDB module.</p>
+<p>Decomposition of the User Service black box from level 1 system.</p>
 </dd>
 <dt class="hdlist1">Contained Building Blocks</dt>
 <dd>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>MariaDB</strong>: database.</p>
+<p><strong>Routes</strong>: Contains route handlers for the users.</p>
+</li>
+<li>
+<p><strong>Services</strong>: Contains data logic.</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Other Important Interfaces</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>index</strong>: Define the entry point of the User Service.</p>
 </li>
 </ul>
 </div>
 </dd>
 </dl>
 </div>
+</div>
+<div class="sect3">
+<h4 id="_white_box_question_generation_service">5.3.2. White Box Question Generation Service</h4>
 <div class="paragraph">
-<p><span class="image"><img src="./images/05_level2_questionGenerationService.png" alt="Diagram 05.2 Question Generation service: Level2"></span></p>
+<p><span class="image"><img src="./images/05_level2_questionGenerationService.png" alt="Diagram White Box Question Generation Service"></span></p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Motivation</dt>
 <dd>
-<p>Decomposition of the level 1 system. It shows the mariaDB module.</p>
+<p>Decomposition of the Question Generation Service black box from level 1 system.</p>
 </dd>
 <dt class="hdlist1">Contained Building Blocks</dt>
 <dd>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>MongoDB</strong>: database.</p>
+<p><strong>Routes</strong>: Contains route handlers for the questions.</p>
+</li>
+<li>
+<p><strong>Services</strong>: Contains data logic.</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Other Important Interfaces</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>index</strong>: Define the entry point of the Question Generation Service.</p>
+</li>
+<li>
+<p><strong>utils</strong>: Define auxiliar functions and questions structure.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_white_box_web_app">5.3.3. White Box Web App</h4>
+<div class="paragraph">
+<p><span class="image"><img src="./images/05_level2_webApp.png" alt="Diagram White Box Web App"></span></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Motivation</dt>
+<dd>
+<p>Decomposition of the Web App black box from level 1 system.</p>
+</dd>
+<dt class="hdlist1">Contained Building Blocks</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>public</strong>: Contains image and audio files.</p>
+</li>
+<li>
+<p><strong>src</strong>: Contains the components, pages and data of the front-end application.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_white_box_gatewayservice_service">5.3.4. White Box GatewayService Service</h4>
+<div class="paragraph">
+<p><span class="image"><img src="./images/05_level2_gatewayService.png" alt="Diagram White Box GatewayService Service"></span></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Motivation</dt>
+<dd>
+<p>Decomposition of the Gateway Service black box from level 1 system.</p>
+</dd>
+<dt class="hdlist1">Contained Building Blocks</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>gateway-service</strong>: Define the routes for handling the communication between the user service and question service modules with the web app service.</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Other Important Interfaces</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>monitoring</strong>: Uses Grafana and Prometheus to monitor the application.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_white_box_multiplayer_service">5.3.5. White Box Multiplayer Service</h4>
+<div class="paragraph">
+<p><span class="image"><img src="./images/05_level2_multiplayerService.png" alt="Diagram White Box Multiplayer Service"></span></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Motivation</dt>
+<dd>
+<p>Decomposition of the Multiplayer Service black box from level 1 system.</p>
+</dd>
+<dt class="hdlist1">Contained Building Blocks</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>index</strong>: Handles the multiplayer management.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_level_3">5.4. Level 3</h3>
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<p>Here you can specify the inner structure of (some) building blocks from level 2 as white boxes.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_white_box_routes_from_user_service">5.4.1. White Box routes from User Service</h4>
+<div class="paragraph">
+<p><span class="image"><img src="./images/05_level3_routesUserService.png" alt="Diagram White Box routes from User Service"></span></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Motivation</dt>
+<dd>
+<p>Decomposition of the black box routes from User Service white box from level 2 system.</p>
+</dd>
+<dt class="hdlist1">Contained Building Blocks</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>user-routes</strong>: Contains route handlers for the register, ranking,groups management and statistics management.</p>
+</li>
+<li>
+<p><strong>auth-routes</strong>: Contains route handlers for the login.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_white_box_services_from_user_service">5.4.2. White Box services from User Service</h4>
+<div class="paragraph">
+<p><span class="image"><img src="./images/05_level3_servicesUserService.png" alt="Diagram White Box services from User Service"></span></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Motivation</dt>
+<dd>
+<p>Decomposition of the black box services from User Service white box from level 2 system.</p>
+</dd>
+<dt class="hdlist1">Contained Building Blocks</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>user-model</strong>: Define the User, Statistics and Group database schemas.</p>
+</li>
+<li>
+<p><strong>authVerifyMiddleWare</strong>: Authentication Middleware.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_white_box_routes_from_question_generation_service">5.4.3. White Box routes from Question Generation Service</h4>
+<div class="paragraph">
+<p><span class="image"><img src="./images/05_level3_routesQuestionGenerationService.png" alt="Diagram White Box routes from Question Generation Service"></span></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Motivation</dt>
+<dd>
+<p>Decomposition of the black box routes from Question Generation Service white box from level 2 system.</p>
+</dd>
+<dt class="hdlist1">Contained Building Blocks</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>question-routes</strong>: Contains route handlers for the questions management.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_white_box_services_from_question_generation_service">5.4.4. White Box services from Question Generation Service</h4>
+<div class="paragraph">
+<p><span class="image"><img src="./images/05_level3_servicesQuestionGenerationService.png" alt="Diagram White Box services from Question Generation Service"></span></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Motivation</dt>
+<dd>
+<p>Decomposition of the black box routes from Question Generation Service white box from level 2 system.</p>
+</dd>
+<dt class="hdlist1">Contained Building Blocks</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>question-data-model</strong>: Define the Question database schema.</p>
+</li>
+<li>
+<p><strong>question-data-service</strong>: Responsible for managing questions in the database.</p>
+</li>
+<li>
+<p><strong>wikidata-service</strong>: Responsible for getting questions from Wikidata.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_white_box_src_from_web_app">5.4.5. White Box src from Web App</h4>
+<div class="paragraph">
+<p><span class="image"><img src="./images/05_level3_srcWebApp.png" alt="Diagram White Box src from Web App"></span></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Motivation</dt>
+<dd>
+<p>Decomposition of the black box src from Web App white box from level 2 system.</p>
+</dd>
+<dt class="hdlist1">Contained Building Blocks</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>components</strong>: Defines common elements in the pages like the nav-bar, footer, etc.</p>
+</li>
+<li>
+<p><strong>pages</strong>: Defines the different screens of the application.</p>
+</li>
+<li>
+<p><strong>data</strong>:  It contains the data used by the pages.</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Other Important Interfaces</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>index</strong>: Define the entry point of the Web app.</p>
 </li>
 </ul>
 </div>
@@ -2466,7 +2739,7 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2024-02-28 10:29:41 +0100
+Last updated 2024-03-03 08:25:16 +0100
 </div>
 </div>
 </body>
