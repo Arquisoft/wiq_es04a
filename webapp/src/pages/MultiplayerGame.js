@@ -4,7 +4,6 @@ import axios from 'axios';
 import { Container, Button, CssBaseline, Grid, Typography, CircularProgress } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
-import { useNavigate } from 'react-router-dom';
 import { SessionContext } from '../SessionContext';
 import { useContext } from 'react';
 import Confetti from 'react-confetti';
@@ -84,7 +83,7 @@ const Game = () => {
             setShouldRedirect(true);
             setQuestionCountdownRunning(false);
         }
-    }, [round, startNewRound]);
+    }, [round]);
 
     // stablish if the confetti must show or not
     React.useEffect(() => {
