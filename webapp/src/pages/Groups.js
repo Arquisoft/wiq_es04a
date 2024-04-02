@@ -31,7 +31,7 @@ const Groups = () => {
         const response = await axios.get(`${apiEndpoint}/group/list`, { params: { username: username } });
         setGroups(response.data.groups);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        setError('Unsuccesful data fetching');
       }
     }, [username]);
   
@@ -111,7 +111,7 @@ const Groups = () => {
         <Divider style={{ marginBottom:'0.5em'}}/>
         <List sx={{ margin:'0', width: '100%' }}>
           {currentItems.map((group) => (
-            <Container>
+            <Container key={group.name+"_container"}>
               <ListItem key={group.name} sx={{ display:'flex', alignContent:'space-between', alignItems:'center' }}>
                 <ListItemText primary={group.name} />
                 <Button variant="contained" color="primary" sx={{ marginRight: '2em' }} onClick={() => seeMembers(group.name)}>
