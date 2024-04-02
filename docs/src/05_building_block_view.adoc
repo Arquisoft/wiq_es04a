@@ -155,6 +155,18 @@ Contained Building Blocks::
 * **Routes**: Contains route handlers for the questions.
 * **Services**: Contains data logic.
 
+==== White Box Web App
+
+image:05_level2_webApp.png["Diagram 05.4 Question Generation service: Level2"]
+
+Motivation::
+
+Decomposition of the Web App black box from level 1 system.
+
+Contained Building Blocks::
+* **public**: Contains image and audio files.
+* **src**: Contains the components, pages and data of the front-end application.
+
 === Level 3
 
 [role="arc42help"]
