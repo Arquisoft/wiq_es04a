@@ -167,6 +167,23 @@ Contained Building Blocks::
 * **public**: Contains image and audio files.
 * **src**: Contains the components, pages and data of the front-end application.
 
+==== White Box GatewayService Service
+
+image:05_level2_gatewayService.png["Diagram 05.4 Question Generation service: Level2"]
+
+
+
+Motivation::
+
+Decomposition of the Web App black box from level 1 system.
+
+Contained Building Blocks::
+* **gateway-service**: Define the routes for handling the communication between the user service and question service modules with the web app service.
+
+==== White Box Multiplayer Service
+
+
+
 === Level 3
 
 [role="arc42help"]

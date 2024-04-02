@@ -1,0 +1,7 @@
+flowchart TD
+    subgraph Whitebox Gateway Service
+    sis2(gateway-service)
+ 
+    end
+    sis1(Web app) -.->|Get/post| sis2
+    sis3(Multiplayer Service) -.->|Get| sis2
