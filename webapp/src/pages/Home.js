@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Box, Button, Grid, Typography, useTheme} from "@mui/material";
+import {Box, Button, Typography, useTheme} from "@mui/material";
 
 const Home = () => {
     const theme = useTheme();
