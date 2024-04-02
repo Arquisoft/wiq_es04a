@@ -35,5 +35,16 @@ jest.mock('../../data/gameInfo.json', () => ({
 }));
 
 describe('Instructions component', () => {
+  it('renders initial UI elements', () => {
+    render(
+      <Router>
+        <Instructions />
+      </Router>
+    );
+
+    expect(screen.getByText('GAME MODES')).toBeInTheDocument(); //Check that the title is there
+    expect(screen.getAllByRole('button').length).toBe(5); // Assuming there are 5 games in your mocked data, check that the buttons are there.
+  });
+
   
 });
