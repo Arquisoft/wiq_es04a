@@ -66,7 +66,7 @@ const Game = () => {
             setQuestionCountdownRunning(false);
             updateStatistics();
         }
-    }, [round, updateStatistics]);
+    }, [round]);
 
     // stablish if the confetti must show or not
     React.useEffect(() => {
