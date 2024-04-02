@@ -26,6 +26,10 @@ const Statistics = () => {
     }, [username]);
 
     const renderStatistics = () => {
+        const formatStats = (param) => {
+            return (param === null || param === undefined)?'0':param;
+        };
+
         switch (selectedMode) {
             case 'The Challenge':
                 return (
@@ -34,23 +38,23 @@ const Statistics = () => {
                             <TableBody>
                                 <TableRow>
                                     <TableCell>Earned Money:</TableCell>
-                                    <TableCell>{userStatics.the_callenge_earned_money}€</TableCell>
+                                    <TableCell>{formatStats(userStatics.the_callenge_earned_money)} €</TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>Correctly Answered Questions:</TableCell>
-                                    <TableCell>{userStatics.the_callenge_correctly_answered_questions}</TableCell>
+                                    <TableCell>{formatStats(userStatics.the_callenge_correctly_answered_questions)}</TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>Incorrectly Answered Questions:</TableCell>
-                                    <TableCell>{userStatics.the_callenge_incorrectly_answered_questions}</TableCell>
+                                    <TableCell>{formatStats(userStatics.the_callenge_incorrectly_answered_questions)}</TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>Total Time Played:</TableCell>
-                                    <TableCell>{userStatics.the_callenge_total_time_played}''</TableCell>
+                                    <TableCell>{formatStats(userStatics.the_callenge_total_time_played)} ''</TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>Games Played:</TableCell>
-                                    <TableCell>{userStatics.the_callenge_games_played}</TableCell>
+                                    <TableCell>{formatStats(userStatics.the_callenge_games_played)}</TableCell>
                                 </TableRow>
                             </TableBody>
                         </Table>
@@ -63,19 +67,19 @@ const Statistics = () => {
                             <TableBody>
                                 <TableRow>
                                     <TableCell>Earned Money:</TableCell>
-                                    <TableCell>{userStatics.wise_men_stack_earned_money}€</TableCell>
+                                    <TableCell>{formatStats(userStatics.wise_men_stack_earned_money)} €</TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>Correctly Answered Questions:</TableCell>
-                                    <TableCell>{userStatics.wise_men_stack_correctly_answered_questions}</TableCell>
+                                    <TableCell>{formatStats(userStatics.wise_men_stack_correctly_answered_questions)}</TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>Incorrectly Answered Questions:</TableCell>
-                                    <TableCell>{userStatics.wise_men_stack_incorrectly_answered_questions}</TableCell>
+                                    <TableCell>{formatStats(userStatics.wise_men_stack_incorrectly_answered_questions)}</TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>Games Played:</TableCell>
-                                    <TableCell>{userStatics.wise_men_stack_games_played}</TableCell>
+                                    <TableCell>{formatStats(userStatics.wise_men_stack_games_played)}</TableCell>
                                 </TableRow>
                             </TableBody>
                         </Table>
@@ -88,23 +92,23 @@ const Statistics = () => {
                             <TableBody>
                                 <TableRow>
                                     <TableCell>Earned Money:</TableCell>
-                                    <TableCell>{userStatics.warm_question_earned_money}€</TableCell>
+                                    <TableCell>{formatStats(userStatics.warm_question_earned_money)} €</TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>Correctly Answered Questions:</TableCell>
-                                    <TableCell>{userStatics.warm_question_correctly_answered_questions}</TableCell>
+                                    <TableCell>{formatStats(userStatics.warm_question_correctly_answered_questions)}</TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>Incorrectly Answered Questions:</TableCell>
-                                    <TableCell>{userStatics.warm_question_incorrectly_answered_questions}</TableCell>
+                                    <TableCell>{formatStats(userStatics.warm_question_incorrectly_answered_questions)}</TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>Passed Questions:</TableCell>
-                                    <TableCell>{userStatics.warm_question_passed_questions}</TableCell>
+                                    <TableCell>{formatStats(userStatics.warm_question_passed_questions)}</TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>Games Played:</TableCell>
-                                    <TableCell>{userStatics.warm_question_games_played}</TableCell>
+                                    <TableCell>{formatStats(userStatics.warm_question_games_played)}</TableCell>
                                 </TableRow>
                             </TableBody>
                         </Table>
@@ -117,19 +121,19 @@ const Statistics = () => {
                             <TableBody>
                                 <TableRow>
                                     <TableCell>Earned Money:</TableCell>
-                                    <TableCell>{userStatics.discovering_cities_earned_money}€</TableCell>
+                                    <TableCell>{formatStats(userStatics.discovering_cities_earned_money)} €</TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>Correctly Answered Cities:</TableCell>
-                                    <TableCell>{userStatics.discovering_cities_correctly_answered_questions}</TableCell>
+                                    <TableCell>{formatStats(userStatics.discovering_cities_correctly_answered_questions)}</TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>Incorrectly Answered Cities:</TableCell>
-                                    <TableCell>{userStatics.discovering_cities_incorrectly_answered_questions}</TableCell>
+                                    <TableCell>{formatStats(userStatics.discovering_cities_incorrectly_answered_questions)}</TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>Games Played:</TableCell>
-                                    <TableCell>{userStatics.discovering_cities_games_played}</TableCell>
+                                    <TableCell>{formatStats(userStatics.discovering_cities_games_played)}</TableCell>
                                 </TableRow>
                             </TableBody>
                         </Table>
@@ -143,17 +147,14 @@ const Statistics = () => {
     return (
         <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <Typography variant="h3" align="center" gutterBottom>
-                Statistics
+                STATISTICS
             </Typography>
             <Box>
-                <Typography variant="h5" align="center" gutterBottom style={{ marginTop: '20px' }}>
-                    Game Mode
-                </Typography>
                 <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-                    <Button onClick={() => setSelectedMode('The Challenge')} variant="contained" style={{ marginRight: '10px', backgroundColor:'#006699', color:'#ffffff', borderColor:'#006699', '&:hover': { backgroundColor: '#ffffff' } }}>The Challenge</Button>
-                    <Button onClick={() => setSelectedMode('Wise Men Stack')} variant="contained" style={{ marginRight: '10px', backgroundColor:'#006699', color:'#ffffff', borderColor:'#006699', '&:hover': { backgroundColor: '#ffffff' } }}>Wise Men Stack</Button>
-                    <Button onClick={() => setSelectedMode('Warm Question')} variant="contained" style={{ marginRight: '10px', backgroundColor:'#006699', color:'#ffffff', borderColor:'#006699', '&:hover': { backgroundColor: '#ffffff' } }}>Warm Question</Button>
-                    <Button onClick={() => setSelectedMode('Discovering Cities')} variant="contained" style={{ backgroundColor:'#006699', color:'#ffffff', borderColor:'#006699', '&:hover': { backgroundColor: '#ffffff' }  }}>Discovering Cities</Button>
+                    <Button onClick={() => setSelectedMode('The Challenge')} variant="contained" sx={{ marginRight: '10px', backgroundColor:'#006699', color:'#ffffff', borderColor:'#006699', '&:hover': { backgroundColor: '#ffffff', color:'#006699', borderColor:'#006699' } }}>The Challenge</Button>
+                    <Button onClick={() => setSelectedMode('Wise Men Stack')} variant="contained" sx={{ marginRight: '10px', backgroundColor:'#006699', color:'#ffffff', borderColor:'#006699', '&:hover': { backgroundColor: '#ffffff', color:'#006699', borderColor:'#006699' } }}>Wise Men Stack</Button>
+                    <Button onClick={() => setSelectedMode('Warm Question')} variant="contained" sx={{ marginRight: '10px', backgroundColor:'#006699', color:'#ffffff', borderColor:'#006699', '&:hover': { backgroundColor: '#ffffff', color:'#006699', borderColor:'#006699' } }}>Warm Question</Button>
+                    <Button onClick={() => setSelectedMode('Discovering Cities')} variant="contained" sx={{ backgroundColor:'#006699', color:'#ffffff', borderColor:'#006699', '&:hover': { backgroundColor: '#ffffff', color:'#006699', borderColor:'#006699' }  }}>Discovering Cities</Button>
                 </div>
                 {renderStatistics()}
             </Box>
