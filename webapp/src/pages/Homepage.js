@@ -95,7 +95,7 @@ const Homepage = () => {
 
     //if online mode -> change link to go to online room
     const changeGameLink = (index) => {
-        if(info[index].nombre == "ONLINE MODE") {
+        if(info[index].nombre === "ONLINE MODE") {
             setGameLink("/multiplayerRoom")
         } else {
             setGameLink("/game")
