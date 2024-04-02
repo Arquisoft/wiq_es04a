@@ -1,5 +1,5 @@
 flowchart TD
-    subgraph Whitebox routes
+    subgraph Whitebox services
     sis2(user-model)
     sis3(authVerifyMiddleWare)
     end

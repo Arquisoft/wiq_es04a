@@ -1,0 +1,6 @@
+flowchart TD
+    subgraph Whitebox Multiplayer Service
+    sis2(index)
+ 
+    end
+    sis1(Web app) -.-> sis2

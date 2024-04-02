@@ -3,7 +3,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-building-block-view]]
 
 == Building Block View
-The building block view shows in a graphic way a decomposition of the system. 
+The building block view presents, in a graphical manner, a decomposition of the most important parts of the system.
 
 [role="arc42help"]
 ****
@@ -50,13 +50,7 @@ Here you describe the decomposition of the overall system using the following wh
 
  * an overview diagram
  * a motivation for the decomposition
- * black box descriptions of the contained building blocks. For these we offer you alternatives:
-
-   ** use _one_ table for a short and pragmatic overview of all contained building blocks and their interfaces
-   ** use a list of black box descriptions of the building blocks according to the black box template (see below).
-   Depending on your choice of tool this list could be sub-chapters (in text files), sub-pages (in a Wiki) or nested elements (in a modeling tool).
-
-
+ * black box descriptions of the contained building blocks. 
  * (optional:) important interfaces, that are not explained in the black box templates of a building block, but are very important for understanding the white box.
 Since there are so many ways to specify interfaces why do not provide a specific template for them.
  In the worst case you have to specify and describe syntax, semantics, protocols, error handling,
@@ -120,6 +114,9 @@ Contained Building Blocks::
 * **User Service**: Handles the user management.
 * **Multiplayer Service**: Handles the multiplayer management.
 
+Other Important Interfaces::
+* **Docs**: Contains the application documentation.
+
 === Level 2
 
 [role="arc42help"]
@@ -127,11 +124,6 @@ Contained Building Blocks::
 Here you can specify the inner structure of (some) building blocks from level 1 as white boxes.
 ****
 ==== White Box Users Service
-
-[role="arc42help"]
-****
-Specifies the internal structure of _building block Users Management_.
-****
 
 image:05_level2_userService.png["Diagram 05.3 User service: Level2"]
 
@@ -142,6 +134,9 @@ Decomposition of the User Service black box from level 1 system.
 Contained Building Blocks::
 * **Routes**: Contains route handlers for the users.
 * **Services**: Contains data logic.
+
+Other Important Interfaces::
+* **index**: Define the entry point of the User Service.
 
 ==== White Box Question Generation Service
 
@@ -154,6 +149,10 @@ Decomposition of the Question Generation Service black box from level 1 system.
 Contained Building Blocks::
 * **Routes**: Contains route handlers for the questions.
 * **Services**: Contains data logic.
+
+Other Important Interfaces::
+* **index**: Define the entry point of the Question Generation Service.
+* **utils**: Define auxiliar functions and questions structure.
 
 ==== White Box Web App
 
@@ -171,18 +170,26 @@ Contained Building Blocks::
 
 image:05_level2_gatewayService.png["Diagram 05.4 Question Generation service: Level2"]
 
-
-
 Motivation::
 
-Decomposition of the Web App black box from level 1 system.
+Decomposition of the Gateway Service black box from level 1 system.
 
 Contained Building Blocks::
 * **gateway-service**: Define the routes for handling the communication between the user service and question service modules with the web app service.
 
+Other Important Interfaces::
+* **monitoring**: Uses Grafana and Prometheus to monitor the application.
+
 ==== White Box Multiplayer Service
 
+image:05_level2_multiplayerService.png["Diagram 05.4 Question Generation service: Level2"]
 
+Motivation::
+
+Decomposition of the Multiplayer Service black box from level 1 system.
+
+Contained Building Blocks::
+* **index**: Handles the multiplayer management.
 
 === Level 3
 
@@ -191,11 +198,6 @@ Contained Building Blocks::
 Here you can specify the inner structure of (some) building blocks from level 2 as white boxes.
 ****
 ==== White Box routes from User Service
-
-[role="arc42help"]
-****
-Specifies the internal structure of _building block routes_.
-****
 
 image:05_level3_routesUserService.png["Diagram 05.5 routes Level3"]
 
@@ -209,11 +211,6 @@ Contained Building Blocks::
 
 ==== White Box services from User Service
 
-[role="arc42help"]
-****
-Specifies the internal structure of _building block services_.
-****
-
 image:05_level3_servicesUserService.png["Diagram 05.6 services Level3"]
 
 Motivation::
@@ -226,10 +223,6 @@ Contained Building Blocks::
 
 ==== White Box routes from Question Generation Service
 
-[role="arc42help"]
-****
-Specifies the internal structure of _building block routes_.
-****
 image:05_level3_routesQuestionGenerationService.png["Diagram 05.7 services Level3"]
 
 Motivation::
@@ -240,11 +233,6 @@ Contained Building Blocks::
 * **question-routes**: Contains route handlers for the questions management.
 
 ==== White Box services from Question Generation Service
-
-[role="arc42help"]
-****
-Specifies the internal structure of _building block services_.
-****
 
 image:05_level3_servicesQuestionGenerationService.png["Diagram 05.7 services Level3"]
 
