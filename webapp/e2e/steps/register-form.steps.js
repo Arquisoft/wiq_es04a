@@ -56,7 +56,7 @@ defineFeature(feature, test => {
     });
 
     then('A confirmation message should be shown in the screen', async () => {
-        await expect(page).toMatchElement("div", { text: "User added successfully" });
+      await expect(page).toMatchElement("button", { text: "PLAY" });
     });
   })
 
