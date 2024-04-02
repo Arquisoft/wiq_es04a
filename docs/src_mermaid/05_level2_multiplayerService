@@ -4,3 +4,4 @@ flowchart TD
  
     end
     sis1(Web app) -.-> sis2
+    sis2 -.->|Get| sis3(GatewayService)
