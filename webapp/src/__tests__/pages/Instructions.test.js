@@ -84,5 +84,28 @@ describe('Instructions component', () => {
     });
   });
 
+  it('Switches displayed information when a different game button is clicked', async () => {
+    render(
+      <Router>
+        <Instructions />
+      </Router>
+    );
+
+    fireEvent.click(screen.getAllByRole('button')[0]); // Display first game info
+
+    const gameNames = await screen.findAllByText("WISE MEN STACK"); //Finds all components that have the indicated text
+    expect(gameNames).toHaveLength(2); // Check the expected number of matches
+
+    fireEvent.click(screen.getAllByRole('button')[1]); // Switch to second game info
+
+    const gameName = await screen.findAllByText("WARM QUESTION");  //Finds all components that have the indicated text
+    expect(gameName).toHaveLength(2); // Check the expected number of matches
+
+    await waitFor(() => {
+      const gameDescription = screen.getByText(/It consists of ten topics of varied themes/);
+      expect(gameDescription).toBeInTheDocument();
+    });
+  });
+
   
 });
