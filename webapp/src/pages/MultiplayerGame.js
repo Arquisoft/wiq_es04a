@@ -83,6 +83,7 @@ const Game = () => {
             setShouldRedirect(true);
             setQuestionCountdownRunning(false);
         }
+        // eslint-disable-next-line
     }, [round]);
 
     // stablish if the confetti must show or not
