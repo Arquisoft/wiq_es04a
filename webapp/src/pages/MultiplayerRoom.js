@@ -16,9 +16,10 @@ const MultiplayerRoom = () => {
     const {username} = useContext(SessionContext);
     const [gameReady, setGameReady] = useState(false);
     const [roomCreator, setRoomCreator] = useState(false);
-    const [, setGameQuestions] = useState(null);
+    const [gameQuestions, setGameQuestions] = useState(null);
     const [loadingQuestions, setLoadingQuestions] = useState(false);
     const navigate = useNavigate();
+    const [gameLoaded, setGameLoaded] = useState(false);
   
     useEffect(() => {
         const newSocket = io(socketEndpoint);
@@ -26,6 +27,7 @@ const MultiplayerRoom = () => {
 
         newSocket.on('game-ready', () => {
             setGameReady(true);
+            setLoadingQuestions(true);
         });
 
         newSocket.on('update-players', (roomPlayers) => {
@@ -35,9 +37,7 @@ const MultiplayerRoom = () => {
         newSocket.on('questions-ready', (questions, roomCode) => {
             setGameQuestions(questions);
             setLoadingQuestions(false);
-            
-            //TODO refactor
-            navigate('/multiplayerGame', { state: {questions, roomCode} });
+            setGameLoaded(true);
         });
 
         // clean at component dismount
@@ -78,8 +78,8 @@ const MultiplayerRoom = () => {
     }
 
     const startGame = () => {
-        setLoadingQuestions(true);
         setGameReady(false);
+        navigate('/multiplayerGame', { state: {gameQuestions, roomCode} });
     }
   
     return (
@@ -105,7 +105,7 @@ const MultiplayerRoom = () => {
                     </ListItem>
                     ))}
                   </List>
-                  <Button id="playBtn" variant="contained" disabled={!gameReady || !roomCreator} onClick={startGame} style={{ marginTop: '10px' }}>
+                  <Button id="playBtn" variant="contained" disabled={!gameReady || !roomCreator || !gameLoaded} onClick={startGame} style={{ marginTop: '10px' }}>
                     Start game
                   </Button>
                   {loadingQuestions && (

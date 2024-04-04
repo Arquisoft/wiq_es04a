@@ -42,7 +42,7 @@ const Game = () => {
     const [questionHistorial, setQuestionHistorial] = React.useState(Array(MAX_ROUNDS).fill(null));
 
     const location = useLocation();
-    const { questions, roomCode} = location.state;
+    const { gameQuestions, roomCode} = location.state;
     const [socket, setSocket] = React.useState(null);
 
     const[winnerPlayer, setWinnerPlayer] = React.useState("");
@@ -99,7 +99,7 @@ const Game = () => {
     // gets a random question from the database and initializes button states to null
     const startNewRound = async () => {
         setAnswered(false);
-        const quest = questions[round-1]
+        const quest = gameQuestions[round-1]
         
         setQuestionData(quest);    
         setButtonStates(new Array(quest.options.length).fill(null));
