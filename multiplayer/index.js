@@ -70,8 +70,6 @@ io.on('connection', (socket) => {
         if(room && room.size === 2) {
             console.log("Game is ready");
 
-            const questionList = [];
-
             io.to(roomCode).emit("game-ready", "ready");
 
             // three questions -> this should be refactored in future
