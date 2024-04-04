@@ -9,14 +9,14 @@ const socketEndpoint = process.env.MULTIPLAYER_ENDPOINT || 'ws://localhost:5010'
 
 const MultiplayerRoom = () => {
     const [roomCode, setRoomCode] = useState("");
-    const [error, setError] = useState('');
+    const [error, ] = useState('');
     const [socket, setSocket] = useState(null);
     const [writtenCode, setWrittenCode] = useState("");
     const [roomPlayers, setRoomPlayers] = useState([]);
     const {username} = useContext(SessionContext);
     const [gameReady, setGameReady] = useState(false);
     const [roomCreator, setRoomCreator] = useState(false);
-    const [gameQuestions, setGameQuestions] = useState(null);
+    const [, setGameQuestions] = useState(null);
     const [loadingQuestions, setLoadingQuestions] = useState(false);
     const navigate = useNavigate();
   
