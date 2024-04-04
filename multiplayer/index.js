@@ -128,17 +128,7 @@ io.on('connection', (socket) => {
 
 
 
-
-
-
-
-
-
-
 // Start the service 
-//TODO refactor names
-const server2 = server.listen(port, () => {
-  console.log(`Multiplayer Service listening at http://localhost:${port}`);
+server.listen(port, () => {
+  console.log(`Multiplayer Service listening at port ${port}`);
 });
-
-module.exports = server2
