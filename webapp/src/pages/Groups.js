@@ -101,8 +101,8 @@ const Groups = () => {
             </Button>
           </Grid>
         </Grid>
-        <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="Group created successfully" />
-        {error && (<Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />)}
+        <Snackbar open={openSnackbar} autoHideDuration={4500} onClose={handleCloseSnackbar} message="Group created successfully" />
+        {error && (<Snackbar open={!!error} autoHideDuration={4500} onClose={() => setError('')} message={`Error: ${error}`} />)}
       </Container> 
 
       {/* Container showing the paginated groups list and its items */}
@@ -130,8 +130,8 @@ const Groups = () => {
                     JOIN IT!
                   </Button>
                 )}
-                <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="Joined the group successfully" />
-                {error && (<Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />)}
+                <Snackbar open={openSnackbar} autoHideDuration={4500} onClose={handleCloseSnackbar} message="Joined the group successfully" />
+                {error && (<Snackbar open={!!error} autoHideDuration={4500} onClose={() => setError('')} message={`Error: ${error}`} />)}
               </ListItem>
               <Divider/>
             </Container>

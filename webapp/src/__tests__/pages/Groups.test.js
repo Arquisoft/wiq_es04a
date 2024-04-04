@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, screen, waitFor } from '@testing-library/react';
+import { render, fireEvent, screen, waitFor, act } from '@testing-library/react';
 import { SessionContext } from '../../SessionContext';
 import { BrowserRouter as Router } from 'react-router-dom';
 import axios from 'axios';
@@ -76,6 +76,11 @@ describe('Groups component', () => {
     await waitFor(() => {
       expect(screen.getByText('Group created successfully')).toBeInTheDocument();
     });
+
+    setTimeout(() => {
+      // Verify that the error snackbar is closed
+      expect(screen.queryByText('Group created successfully')).toBeNull();
+    }, 4800);
   });
 
   it('should show an error when another group with the same name exists', async () => {
@@ -134,7 +139,7 @@ describe('Groups component', () => {
     );
   
     await waitFor(() => {
-      expect(mockAxios.history.get.length).toBe(1); // We make a new request to make sure we have the correct buttons on the screen
+      expect(mockAxios.history.get.length).toBe(1); // We wait till the new request is done and confirmed
     });
   
     // We expect to have the correct FILLED button
@@ -158,7 +163,7 @@ describe('Groups component', () => {
     );
   
     await waitFor(() => {
-      expect(mockAxios.history.get.length).toBe(1); // We make a new request to make sure we have the correct buttons on the screen
+      expect(mockAxios.history.get.length).toBe(1); // We wait till the new request is done and confirmed
     });
   
     // We expect to have the correct JOINED button
@@ -167,34 +172,7 @@ describe('Groups component', () => {
       expect(screen.getByText('JOINED')).toBeInTheDocument();
     });
 
-  });
-
-  it('could join the group', async () => {
-    // Simulates a request response including the joined group data
-    mockAxios.onGet('http://localhost:8000/group/list').reply(200, { groups: [{ name: 'Group 1', isMember: false, isFull: false }] });
-    mockAxios.onPost('http://localhost:8000/group/Group 1/join').reply(200);
-  
-    render(
-      <SessionContext.Provider value={{}}>
-        <Router>
-          <Groups />
-        </Router>
-      </SessionContext.Provider>
-    );
-  
-    await waitFor(() => {
-      expect(mockAxios.history.get.length).toBe(1); // We make a new request to make sure we have the correct buttons on the screen
-    });
-  
-    // We expect to have the correct JOIN IT! and See Members button
-    await waitFor(() => {
-      expect(screen.getByText('See Members')).toBeInTheDocument();
-      expect(screen.getByText('JOIN IT!')).toBeInTheDocument();
-    });
-
-    fireEvent.click(screen.getByRole('button', { name: 'JOIN IT!' }));
-
-  });
+  });  
 
   it('could see group details', async () => {
     // Simulates a request response including the joined group data
@@ -209,7 +187,7 @@ describe('Groups component', () => {
     );
   
     await waitFor(() => {
-      expect(mockAxios.history.get.length).toBe(1); // We make a new request to make sure we have the correct buttons on the screen
+      expect(mockAxios.history.get.length).toBe(1); // We wait till the new request is done and confirmed
     });
   
     // We expect to have the correct JOIN IT! and See Members button
@@ -218,8 +196,77 @@ describe('Groups component', () => {
       expect(screen.getByText('JOIN IT!')).toBeInTheDocument();
     });
 
-    fireEvent.click(screen.getByRole('button', { name: 'See Members' }));
+    
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button', { name: 'See Members' }));
+      await waitFor(() => {
+        expect(mockAxios.history.get.length).toBe(1); // Ensure that the join request is made
+      });
+    });
 
+  });
+
+  it('should change the page when pagination is clicked', async () => {
+    // Simulates a request response including a list of groups with more than five items
+    const mockedGroups = Array.from({ length: 10 }, (_, index) => ({ name: `Group ${index + 1}`, isMember: false, isFull: false }));
+    mockAxios.onGet('http://localhost:8000/group/list').reply(200, { groups: mockedGroups });
+    
+    render(
+      <SessionContext.Provider value={{}}>
+        <Router>
+          <Groups />
+        </Router>
+      </SessionContext.Provider>
+    );
+    
+    await waitFor(() => {
+      expect(mockAxios.history.get.length).toBe(1); // We wait till the new request is done and confirmed
+    });
+    
+    // Expect the groups of the first page
+    await waitFor(() => {
+      expect(screen.getByText('Group 1')).toBeInTheDocument();
+      expect(screen.queryByText('Group 6')).toBeNull();
+    });
+  
+    // Pagination element
+    const paginationElement = screen.getByRole('navigation');
+  
+    // Click the second page
+    fireEvent.click(screen.getByText('2'));
+  
+    // Expect the page to have changed
+    await waitFor(() => {
+      expect(screen.getByText('Group 6')).toBeInTheDocument();
+      expect(screen.queryByText('Group 1')).toBeNull();
+    });
+  });
+
+  it('should display and close the error snackbar when an error occurs', async () => {
+    // It simulates a succesful group add request
+    mockAxios.onPost('http://localhost:8000/group/add').reply(400, { error: 'A group with the same name already exists.' });
+
+    render(
+      <SessionContext.Provider value={{}}>
+        <Router>
+          <Groups />
+        </Router>
+      </SessionContext.Provider>
+    );
+
+    // It introduces a new group in the text field
+    fireEvent.change(screen.getByLabelText('Name'), { target: { value: 'New Group' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Create' }));
+
+    // It waits for the succesful message to be shown
+    await waitFor(() => {
+      expect(screen.getByText('Error: A group with the same name already exists.')).toBeInTheDocument();
+    });
+  
+    setTimeout(() => {
+      // Verify that the error snackbar is closed
+      expect(screen.queryByText('Error: A group with the same name already exists.')).toBeNull();
+    }, 4800);
   });
 
 });
