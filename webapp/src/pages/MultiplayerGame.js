@@ -251,7 +251,11 @@ if (shouldRedirect) {
                 <Typography variant="h6">Total money: {totalScore}</Typography>
                 <Typography variant="h6">Game time: {totalTimePlayed} seconds</Typography>
 
-                <Typography variant="h5">Player winner of the game: {winnerPlayer} with {winnerCorrect} answers in {winnerTime}s</Typography>
+                {winnerPlayer === "" ? (
+                    <Typography variant="h5">Waiting for winner info</Typography>
+                ) : (
+                    <Typography variant="h5">Player winner of the game: {winnerPlayer} with {winnerCorrect} correct answers in {winnerTime}s</Typography>
+                )}
             </div>
             {showConfetti && <Confetti />}
         </Container>

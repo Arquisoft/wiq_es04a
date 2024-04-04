@@ -3,10 +3,6 @@ const cors = require('cors');
 const http = require('http');
 const socketIO = require('socket.io');
 const axios = require('axios');
-const e = require('express');
-
-// Routes: TODO maybe dont needed
-//const multiplayerRoutes = require('./routes/question-routes.js');
 
 // App definition
 const app = express();
@@ -17,16 +13,14 @@ const io = socketIO(server, {
         methods: ["GET", "POST"]
     }
 });
+
 const port = 5010;
 
 const apiEndpoint = process.env.GATEWAY_SERVICE_ENDPOINT || 'http://localhost:8000';
 
 // Middlewares added to the application
-app.use(cors());
+//app.use(cors()); commented because was used previously
 app.use(express.json());
-
-// Routes middlewares to be used
-//app.use('/multiplayer', multiplayerRoutes);
 
 const gameRooms = {};
 const gameResults = {};
@@ -65,7 +59,7 @@ io.on('connection', (socket) => {
 
             io.to(roomCode).emit("game-ready", "ready");
 
-            // tree questions -> this should be refactored in future
+            // three questions -> this should be refactored in future
             Promise.all([getQuestion(), getQuestion(), getQuestion()])
             .then(questions => {
                 questions.forEach(question => {
