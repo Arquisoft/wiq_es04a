@@ -33,6 +33,21 @@ const getQuestion = () => {
       });
   };
 
+  function getAndEmitQuestions(roomCode) {
+    const questionList = [];
+    const getQuestionSequentially = async () => {
+        for (let i = 0; i < 3; i++) {
+            const question = await getQuestion();
+            questionList.push(question);
+        }
+        io.to(roomCode).emit("questions-ready", questionList, roomCode);
+    };
+
+    getQuestionSequentially().catch(error => {
+        console.error("Error obtaining question list:", error);
+    });
+}
+
 // Handle new connections
 io.on('connection', (socket) => {
     console.log('New client connected');
@@ -60,14 +75,15 @@ io.on('connection', (socket) => {
             io.to(roomCode).emit("game-ready", "ready");
 
             // three questions -> this should be refactored in future
-            Promise.all([getQuestion(), getQuestion(), getQuestion()])
+            /*Promise.all([getQuestion(), getQuestion(), getQuestion()])
             .then(questions => {
                 questions.forEach(question => {
                 questionList.push(question);
                 });
                 
                 io.to(roomCode).emit("questions-ready", questionList, roomCode); // emit event only to room clients
-            })
+            })*/
+            getAndEmitQuestions(roomCode);
 
         }
 
