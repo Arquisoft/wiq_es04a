@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const { User, Statistics, Group, UserGroup, sequelize } = require('../services/user-model');
-const {  } = require('../services/user-model');
 
 // Route for add a user
 router.post('/add', async (req, res) => {
@@ -66,19 +65,19 @@ router.post('/add', async (req, res) => {
 });
 
 
-router.post('/logout', async (req, res) => {
-    try {
+// router.post('/logout', async (req, res) => {
+//     try {
 
-      req.session.username = null;
-    } catch (error) {
-      return res.status(500).json({ error: 'Internal Server Error' });
-    }
-  });
+//       req.session.username = null;
+//     } catch (error) {
+//       return res.status(500).json({ error: 'Internal Server Error' });
+//     }
+//   });
 
 
-router.get('/session', async (req, res) => {
-    res.json({ session: req.session });
-});
+// router.get('/session', async (req, res) => {
+//     res.json({ session: req.session });
+// });
 
 
 // Getting the list of groups in the database
