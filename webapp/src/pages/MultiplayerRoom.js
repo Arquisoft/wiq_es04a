@@ -117,8 +117,9 @@ const MultiplayerRoom = () => {
                     Start game
                   </Button>
                   {loadingQuestions && (
-                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px', flexDirection: "column", alignItems: "center" }}>
                         <CircularProgress />
+                        <Typography variant='h5' style={{ marginTop: '1em'}}>Loading questions...</Typography>
                     </div>
                 )}
                 </>

@@ -65,7 +65,7 @@ io.on('connection', (socket) => {
                 questions.forEach(question => {
                 questionList.push(question);
                 });
-
+                
                 io.to(roomCode).emit("questions-ready", questionList, roomCode); // emit event only to room clients
             })
 
