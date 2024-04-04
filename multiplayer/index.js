@@ -73,6 +73,10 @@ io.on('connection', (socket) => {
 
         io.to(roomCode).emit("update-players", gameRooms[roomCode]);
 
+        socket.on('started-game', () => {
+            io.to(roomCode).emit("btn-start-pressed");
+        })
+
         socket.on('finished-game', (username, correctAnswers, elapsedTime) => {
             // Store the correct answers and the player's time in the game room
             gameResults[roomCode][username] = { username, correctAnswers, elapsedTime };

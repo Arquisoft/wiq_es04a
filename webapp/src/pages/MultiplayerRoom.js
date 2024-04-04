@@ -46,6 +46,14 @@ const MultiplayerRoom = () => {
         };
     }, [navigate]);
 
+    useEffect(() => {
+      if(socket !== null) {
+        socket.on('btn-start-pressed', () => {
+          navigate('/multiplayerGame', { state: {gameQuestions, roomCode} });
+        });
+      }
+    }, [socket, navigate, gameQuestions, roomCode])
+
     const handleCreateRoom = () => {
         const code = generateRoomCode();
         setRoomCreator(true);
@@ -79,7 +87,7 @@ const MultiplayerRoom = () => {
 
     const startGame = () => {
         setGameReady(false);
-        navigate('/multiplayerGame', { state: {gameQuestions, roomCode} });
+        socket.emit("started-game", true);
     }
   
     return (
