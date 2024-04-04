@@ -29,12 +29,16 @@ router.get('/getQuestionsFromDb/:n', async(_req, res) => {
 
     if (await dbService.getQuestionCount() < n) {
         //Must generate n questions
-        await generateQuestionsService.generateQuestions(n);
+        await generateQuestionsService.generateQuestions(n + 1);
         //Do not wait to generate the others
-        generateQuestionsService.generateQuestions(n);
+        generateQuestionsService.generateQuestions(n * 5);
     }
 
     questions = await dbService.getRandomQuestions(n);
+    if(questions != null)
+        questions.map(question => {
+            dbService.deleteQuestionById(question._id);
+        })
     res.json(questions);
 });
 
