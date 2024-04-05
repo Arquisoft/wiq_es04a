@@ -2,10 +2,8 @@ import * as React from 'react';
 import axios from 'axios';
 
 import { Container, Button, CssBaseline, Grid, Typography, CircularProgress } from '@mui/material';
-import { PlayArrow, Pause } from '@mui/icons-material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
-import { useNavigate } from 'react-router-dom';
 import { SessionContext } from '../SessionContext';
 import { useContext } from 'react';
 import Confetti from 'react-confetti';
@@ -19,7 +17,7 @@ const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000
 const socketEndpoint = process.env.MULTIPLAYER_ENDPOINT || 'ws://localhost:5010';
 
 const Game = () => {
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
     const MAX_ROUNDS = 3;
     const SUCCESS_SOUND_ROUTE = "/sounds/success_sound.mp3";
     const FAILURE_SOUND_ROUTE = "/sounds/wrong_sound.mp3";
@@ -44,7 +42,7 @@ const Game = () => {
     const [questionHistorial, setQuestionHistorial] = React.useState(Array(MAX_ROUNDS).fill(null));
 
     const location = useLocation();
-    const { questions, roomCode} = location.state;
+    const { gameQuestions, roomCode} = location.state;
     const [socket, setSocket] = React.useState(null);
 
     const[winnerPlayer, setWinnerPlayer] = React.useState("");
@@ -61,7 +59,7 @@ const Game = () => {
             setWinnerCorrect(winnerCorrect);
             setWinnerTime(winnerTime);
         }))
-    }, []);
+    }, [roomCode, username]);
 
     React.useEffect(() => {
         let timer;
@@ -85,22 +83,23 @@ const Game = () => {
             setShouldRedirect(true);
             setQuestionCountdownRunning(false);
         }
+        // eslint-disable-next-line
     }, [round]);
 
     // stablish if the confetti must show or not
     React.useEffect(() => {
-        if (winnerPlayer == username) {
+        if (winnerPlayer === username) {
           setShowConfetti(true);
         } else {
           setShowConfetti(false);
         }
-      }, [winnerPlayer]);
+      }, [winnerPlayer, username]);
     
 
     // gets a random question from the database and initializes button states to null
     const startNewRound = async () => {
         setAnswered(false);
-        const quest = questions[round-1]
+        const quest = gameQuestions[round-1]
         
         setQuestionData(quest);    
         setButtonStates(new Array(quest.options.length).fill(null));
@@ -183,7 +182,7 @@ const Game = () => {
         ));
       };    
 
-    const togglePause = () => {
+    /*const togglePause = () => {
         setTimerRunning(!timerRunning);
         setQuestionCountdownRunning(!timerRunning);
         if (timerRunning) {
@@ -193,7 +192,7 @@ const Game = () => {
             // Si el juego estaba pausado y se reanuda, habilitar los botones
             setButtonStates(new Array(questionData.options.length).fill(null));
         }
-    }
+    }*/
 
 
     // circular loading
@@ -244,7 +243,7 @@ if (shouldRedirect) {
                 marginBottom: '50px', // Espaciado inferior
             }}
         >
-            {winnerPlayer == "" ? "Waiting for players end..." : "Game Over"}
+            {winnerPlayer === "" ? "Waiting for players end..." : "Game Over"}
         </Typography>
             <div>
                 <Typography variant="h6">Correct Answers: {correctlyAnsweredQuestions}</Typography>
@@ -252,7 +251,11 @@ if (shouldRedirect) {
                 <Typography variant="h6">Total money: {totalScore}</Typography>
                 <Typography variant="h6">Game time: {totalTimePlayed} seconds</Typography>
 
-                <Typography variant="h5">Player winner of the game: {winnerPlayer} with {winnerCorrect} answers in {winnerTime}s</Typography>
+                {winnerPlayer === "" ? (
+                    <Typography variant="h5">Waiting for winner info</Typography>
+                ) : (
+                    <Typography variant="h5">Player winner of the game: {winnerPlayer} with {winnerCorrect} correct answers in {winnerTime}s</Typography>
+                )}
             </div>
             {showConfetti && <Confetti />}
         </Container>
