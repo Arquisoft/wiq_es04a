@@ -3,10 +3,6 @@ const cors = require('cors');
 const http = require('http');
 const socketIO = require('socket.io');
 const axios = require('axios');
-const e = require('express');
-
-// Routes: TODO maybe dont needed
-//const multiplayerRoutes = require('./routes/question-routes.js');
 
 // App definition
 const app = express();
@@ -17,16 +13,14 @@ const io = socketIO(server, {
         methods: ["GET", "POST"]
     }
 });
+
 const port = 5010;
 
 const apiEndpoint = process.env.GATEWAY_SERVICE_ENDPOINT || 'http://localhost:8000';
 
 // Middlewares added to the application
-app.use(cors());
+//app.use(cors()); commented because was used previously
 app.use(express.json());
-
-// Routes middlewares to be used
-//app.use('/multiplayer', multiplayerRoutes);
 
 const gameRooms = {};
 const gameResults = {};
@@ -38,6 +32,21 @@ const getQuestion = () => {
         console.error('Error getting question from question service ', error);
       });
   };
+
+  function getAndEmitQuestions(roomCode) {
+    const questionList = [];
+    const getQuestionSequentially = async () => {
+        for (let i = 0; i < 3; i++) {
+            const question = await getQuestion();
+            questionList.push(question);
+        }
+        io.to(roomCode).emit("questions-ready", questionList, roomCode);
+    };
+
+    getQuestionSequentially().catch(error => {
+        console.error("Error obtaining question list:", error);
+    });
+}
 
 // Handle new connections
 io.on('connection', (socket) => {
@@ -61,23 +70,26 @@ io.on('connection', (socket) => {
         if(room && room.size === 2) {
             console.log("Game is ready");
 
-            const questionList = [];
-
             io.to(roomCode).emit("game-ready", "ready");
 
-            // tree questions -> this should be refactored in future
-            Promise.all([getQuestion(), getQuestion(), getQuestion()])
+            // three questions -> this should be refactored in future
+            /*Promise.all([getQuestion(), getQuestion(), getQuestion()])
             .then(questions => {
                 questions.forEach(question => {
                 questionList.push(question);
                 });
-
+                
                 io.to(roomCode).emit("questions-ready", questionList, roomCode); // emit event only to room clients
-            })
+            })*/
+            getAndEmitQuestions(roomCode);
 
         }
 
         io.to(roomCode).emit("update-players", gameRooms[roomCode]);
+
+        socket.on('started-game', () => {
+            io.to(roomCode).emit("btn-start-pressed");
+        })
 
         socket.on('finished-game', (username, correctAnswers, elapsedTime) => {
             // Store the correct answers and the player's time in the game room
@@ -114,17 +126,7 @@ io.on('connection', (socket) => {
 
 
 
-
-
-
-
-
-
-
 // Start the service 
-//TODO refactor names
-const server2 = server.listen(port, () => {
-  console.log(`Multiplayer Service listening at http://localhost:${port}`);
+server.listen(port, () => {
+  console.log(`Multiplayer Service listening at port ${port}`);
 });
-
-module.exports = server2
