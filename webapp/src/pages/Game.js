@@ -109,14 +109,14 @@ const Game = () => {
         };
     }
 
-    const updateQuestionsRecord = async() => {
+    const updateQuestionsRecord = async(responseAnswer) => {
         try {
             await axios.post(`${apiEndpoint}/user/questionsRecord`, {
                 question: questionData.question,
                 options: questionData.options,
                 correctAnswer: questionData.correctAnswer,
                 username: username,
-                responseAnswer: buttonStates.find((state) => state !== null),
+                responseAnswer: responseAnswer,
                 gameMode: "the_challenge"
             });
         } catch (error) {
@@ -133,7 +133,7 @@ const Game = () => {
 
         //check answer
         if (response === questionData.correctAnswer) {
-            updateQuestionsRecord();
+            updateQuestionsRecord(response);
             newButtonStates[index] = "success"
             const sucessSound = new Audio(SUCCESS_SOUND_ROUTE);
             sucessSound.volume = 0.40;
@@ -145,7 +145,7 @@ const Game = () => {
             newQuestionHistorial[round-1] = true;
             setQuestionHistorial(newQuestionHistorial);
         } else {
-            updateQuestionsRecord();
+            updateQuestionsRecord(response);
             newButtonStates[index] = "failure";
             const failureSound = new Audio(FAILURE_SOUND_ROUTE);
             failureSound.volume = 0.40;
