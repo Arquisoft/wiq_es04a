@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const { User, Statistics, Group, UserGroup, QuestionRecord, sequelize } = require('../services/user-model');
+const { User, Statistics, Group, UserGroup, QuestionsRecord, sequelize } = require('../services/user-model');
 
 // Route for add a question to historial
 router.post('/questionsRecord', async (req, res) => {
@@ -9,7 +9,7 @@ router.post('/questionsRecord', async (req, res) => {
         const { username, question, options, correctAnswer, gameMode, responseAnswer } = req.body;
 
         // Create new question 
-        const newQuestionRecord = await QuestionRecord.create({
+        const newQuestionRecord = await QuestionsRecord.create({
             question,
             options,
             correctAnswer,
