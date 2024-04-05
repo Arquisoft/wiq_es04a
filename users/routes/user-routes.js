@@ -1,7 +1,27 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const { User, Statistics, Group, UserGroup, sequelize } = require('../services/user-model');
+const { User, Statistics, Group, UserGroup, QuestionsRecord, sequelize } = require('../services/user-model');
+
+// Route for add a question to historial
+router.post('/questionRecord', async (req, res) => {
+    try {
+        const { username, question, options, correctAnswer, gameMode } = req.body;
+
+        // Create new question 
+        const newQuestionRecord = await QuestionsRecord.create({
+            question,
+            options,
+            correctAnswer,
+            username,
+            gameMode,
+        });
+
+        res.json(newQuestionRecord);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
 
 // Route for add a user
 router.post('/add', async (req, res) => {
@@ -47,8 +67,6 @@ router.post('/add', async (req, res) => {
         const newUser = await User.create({
             username,
             password: hashedPassword,
-            createdAt: new Date(),
-            updatedAt: new Date(),
             name,
             surname
         });
