@@ -109,6 +109,21 @@ const Game = () => {
         };
     }
 
+    const updateQuestionsRecord = async() => {
+        try {
+            await axios.post(`${apiEndpoint}/user/questionsRecord`, {
+                question: questionData.question,
+                options: questionData.options,
+                correctAnswer: questionData.correctAnswer,
+                username: username,
+                responseAnswer: buttonStates.find((state) => state !== null),
+                gameMode: "the_challenge"
+            });
+        } catch (error) {
+            console.error("Error:", error);
+        };
+    }
+
     // this function is called when a user selects a response. 
     const selectResponse = async (index, response) => {
         setAnswered(true);
@@ -116,17 +131,9 @@ const Game = () => {
 
         setQuestionCountdownRunning(false);
 
-        await axios.post(`${apiEndpoint}/user/questionsRecord`, {
-            question: questionData.question,
-            options: questionData.options,
-            correctAnswer: questionData.correctAnswer,
-            username: username,
-            response: response,
-            gameMode: "the_challenge"
-        });
-
         //check answer
         if (response === questionData.correctAnswer) {
+            updateQuestionsRecord();
             newButtonStates[index] = "success"
             const sucessSound = new Audio(SUCCESS_SOUND_ROUTE);
             sucessSound.volume = 0.40;
@@ -138,6 +145,7 @@ const Game = () => {
             newQuestionHistorial[round-1] = true;
             setQuestionHistorial(newQuestionHistorial);
         } else {
+            updateQuestionsRecord();
             newButtonStates[index] = "failure";
             const failureSound = new Audio(FAILURE_SOUND_ROUTE);
             failureSound.volume = 0.40;

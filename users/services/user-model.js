@@ -193,7 +193,7 @@ const QuestionsRecord = sequelize.define('QuestionsRecord', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    response: {
+    responseAnswar: {
         type: DataTypes.STRING,
         allowNull: false,
     }
