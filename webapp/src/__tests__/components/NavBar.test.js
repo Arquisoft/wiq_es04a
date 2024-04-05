@@ -1,8 +1,7 @@
 import React from 'react';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { BrowserRouter } from 'react-router-dom';
-import NavBar from '../../components/NavBar'; // Make sure to import your NavBar component
+import { BrowserRouter, useHistory  } from 'react-router-dom';
+import NavBar from '../../components/NavBar';
 import { SessionContext } from '../../SessionContext';
 
 describe('NavBar component', () => {
@@ -73,7 +72,7 @@ describe('NavBar component', () => {
 
   });
 
-  it('should open navigation menu on mobile', async () => {
+  it('should render username logged and its menu', async () => {
     const username = "El menda"
     render(
       <SessionContext.Provider value={{ username: username, isLoggedIn: true }}>
@@ -85,9 +84,26 @@ describe('NavBar component', () => {
     const menuButton = screen.getByLabelText('account of current user');
     fireEvent.click(menuButton); // Simulate clicking the menu button
 
-    await waitFor(() => screen.getByText(username)); // Wait for the menu to open
-    // Add more assertions for other menu items as needed
+    const userDisplayed = screen.getByText(username);
+    await expect(userDisplayed).toBeInTheDocument();
   });
 
-  // Add more tests as needed to cover different functionalities of your NavBar component
+  it('should call handleLogout function when logout button is clicked', async () => {
+    // Render the NavBar component with the mocked handleLogout function
+    render(
+      <SessionContext.Provider value={{ isLoggedIn: true, destroySession: () => {} }}>
+        <BrowserRouter>
+          <NavBar />
+        </BrowserRouter>
+      </SessionContext.Provider>
+    );
+  
+    // Find the logout button using data-testid
+    const logoutButton = screen.getByTestId('logout-button');
+    await expect(logoutButton).toBeInTheDocument();
+  
+    // Simulate a click on the logout button
+    fireEvent.click(logoutButton);
+    expect(window.location.pathname).toBe('/');
+  });
 });
