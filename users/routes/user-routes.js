@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const { User, Statistics, Group, UserGroup, QuestionsRecord, sequelize } = require('../services/user-model');
 
 // Route for add a question to historial
-router.post('/questionRecord', async (req, res) => {
+router.post('/questionsRecord', async (req, res) => {
     try {
         const { username, question, options, correctAnswer, gameMode } = req.body;
 

@@ -196,7 +196,7 @@ const QuestionsRecord = sequelize.define('QuestionsRecord', {
 });
 
 // Synchronize the model with the database
-sequelize.sync()
+sequelize.sync({force:true})
     .then(() => {
         console.log('Model synchronized successfully with the database');
     })
