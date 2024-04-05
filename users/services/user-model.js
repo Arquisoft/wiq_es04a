@@ -192,11 +192,15 @@ const QuestionsRecord = sequelize.define('QuestionsRecord', {
     gameMode: {
         type: DataTypes.STRING,
         allowNull: false,
+    },
+    response: {
+        type: DataTypes.STRING,
+        allowNull: false,
     }
 });
 
 // Synchronize the model with the database
-sequelize.sync({force:true})
+sequelize.sync()
     .then(() => {
         console.log('Model synchronized successfully with the database');
     })

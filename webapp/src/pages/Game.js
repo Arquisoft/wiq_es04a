@@ -116,6 +116,15 @@ const Game = () => {
 
         setQuestionCountdownRunning(false);
 
+        await axios.post(`${apiEndpoint}/user/questionsRecord`, {
+            question: questionData.question,
+            options: questionData.options,
+            correctAnswer: questionData.correctAnswer,
+            username: username,
+            response: response,
+            gameMode: "the_challenge"
+        });
+
         //check answer
         if (response === questionData.correctAnswer) {
             newButtonStates[index] = "success"
