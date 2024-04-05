@@ -13,6 +13,11 @@ describe('ParticlesComponent', () => {
     });
   });
 
-
+  // Prueba para verificar la aplicación correcta de estilos
+  it('applies correct styles to the container', async () => {
+    render(<ParticlesComponent />);
+    const particlesContainer = await screen.findByTestId('tsparticles');
+    expect(particlesContainer).toHaveStyle('zIndex: -1');
+  });
 
 });
