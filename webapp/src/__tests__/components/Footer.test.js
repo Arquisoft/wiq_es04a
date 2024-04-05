@@ -1,15 +1,11 @@
 import React from 'react';
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { render, screen, waitFor } from '@testing-library/react';
 import Footer from '../../components/Footer.js';
 
 describe('Footer component', () => {
   beforeEach(() => {
     render(
-      <Router>
         <Footer />
-      </Router>
     );
   });
 

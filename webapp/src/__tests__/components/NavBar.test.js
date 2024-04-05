@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
-import { BrowserRouter, useHistory  } from 'react-router-dom';
+import { BrowserRouter  } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
 import { SessionContext } from '../../SessionContext';
 
@@ -82,14 +82,13 @@ describe('NavBar component', () => {
       </SessionContext.Provider>
     );
     const menuButton = screen.getByLabelText('account of current user');
-    fireEvent.click(menuButton); // Simulate clicking the menu button
+    fireEvent.click(menuButton);
 
     const userDisplayed = screen.getByText(username);
     await expect(userDisplayed).toBeInTheDocument();
   });
 
   it('should call handleLogout function when logout button is clicked', async () => {
-    // Render the NavBar component with the mocked handleLogout function
     render(
       <SessionContext.Provider value={{ isLoggedIn: true, destroySession: () => {} }}>
         <BrowserRouter>
@@ -102,7 +101,8 @@ describe('NavBar component', () => {
     const logoutButton = screen.getByTestId('logout-button');
     await expect(logoutButton).toBeInTheDocument();
   
-    // Simulate a click on the logout button
+    // Simulate a click on the logout button and check final route
+    //TODO - check call to destroysession
     fireEvent.click(logoutButton);
     expect(window.location.pathname).toBe('/');
   });
