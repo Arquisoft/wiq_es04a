@@ -66,6 +66,7 @@ const Game = () => {
             setQuestionCountdownRunning(false);
             updateStatistics();
         }
+        // eslint-disable-next-line
     }, [round]);
 
     // stablish if the confetti must show or not
