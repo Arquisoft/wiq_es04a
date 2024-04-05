@@ -139,10 +139,10 @@ describe('Instructions component', () => {
     it(`Displays information for ${game.nombre} when its button is clicked`, async () => {
       render(<Router><Instructions /></Router>);
 
-      // Haz clic en el botón del juego
+      // Click in the game button
       fireEvent.click(screen.getAllByRole('button')[index]);
 
-      // Verifica que el nombre y la descripción del juego estén en el documento
+      // Verify that the game name and description are in the document
       const gameName = await screen.findAllByText(game.nombre);
       expect(gameName).toHaveLength(2); // Check the expected number of matches
 
