@@ -313,7 +313,7 @@ if (shouldRedirect) {
                 {round} / {MAX_ROUNDS}
             </Typography>
             <Typography variant="h5" mb={4} fontWeight="bold" style={{ display: 'flex', alignItems: 'center' }}>
-            <span style={{ marginRight: '1em' }}>{questionData.question}</span>
+            <span data-testId="question" style={{ marginRight: '1em' }}>{questionData.question}</span>
                 <CountdownCircleTimer
                   key={questionCountdownKey}
                   isPlaying = {questionCountdownRunning}
@@ -337,6 +337,7 @@ if (shouldRedirect) {
                 {questionData.options.map((option, index) => (
                     <Grid item xs={12} key={index}>
                         <Button
+                            data-testId="answer"
                             variant="contained"
                             onClick={() => selectResponse(index, option)}
                             disabled={buttonStates[index] !== null || answered} // before, you could still press more than one button
