@@ -8,7 +8,7 @@ const styles = {
         width: "60%",
         height: "3rem",
         margin: '0.7vh',
-        '&:hover': { backgroundColor: '#990000', color: '#fff',},
+        '&:hover': { backgroundColor: '#006699', color: '#fff',},
     },
 
     // Constant that stores the styles of the button when it is clicked
@@ -19,7 +19,8 @@ const styles = {
         backgroundColor: '#339966',
         color: '#fff',
         transition: 'width 0.1s ease-in-out, height 0.1s ease-in-out',
-        '&:hover': { backgroundColor: '#339966',},
+        borderColor:'#339966',
+        '&:hover': { backgroundColor: '#339966', borderColor:'#339966',},
     },
 
     // Constant that stores the styles of the images

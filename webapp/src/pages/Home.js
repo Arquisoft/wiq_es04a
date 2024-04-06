@@ -13,14 +13,14 @@ const Home = () => {
             fontSize:'1.5rem',
             fontFamily: 'Arial Black, sans-serif',
 
-            color: '#990000',
+            color: '#339966',
             backgroundColor: 'transparent',
-            border: '2px solid #990000',
+            border: '2px solid #339966',
             transition: 'background-color 0.3s ease',
 
             '&:hover': {
-              backgroundColor: '#990000',
-              color: '#fff',
+            backgroundColor: '#339966',
+            color: '#fff',
             }
         },
 
