@@ -42,6 +42,17 @@ app.post('/login', async (req, res) => {
   }
 });
 
+app.post('/user/questionsRecord', async (req, res) => {
+  try {
+    console.log(1);
+    const response = await axios.post(`${userServiceUrl}/user/questionsRecord`, req.body);
+    res.json(response.data); 
+  } catch (error) {
+    console.error("Error al actualizar el historial de preguntas:", error);
+    res.status(500).json({ error: "Error al actualizar el historial de preguntas" });
+  }
+});
+
 // Método para obtener la sesión del usuario
 app.get('/user/session', async (req, res) => {
   try {

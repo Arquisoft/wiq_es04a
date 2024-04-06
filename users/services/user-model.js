@@ -13,7 +13,7 @@ function createSequelizeInstance() {
         return new Sequelize({
             host: 'mariadb',
             username: 'root',
-            password: 'R#9aLp2sWu6y',
+            password: 'R#9aLp2sWu6y', //sesitive
             database: 'base_de_datos_de_usuarios',
             port: 3306,
             dialect: 'mariadb',
@@ -171,8 +171,36 @@ const Statistics = sequelize.define('Statistics', {
 User.hasOne(Statistics, { foreignKey: 'username' });
 Statistics.belongsTo(User, { foreignKey: 'username' });
 
+// Define the Questions model
+const QuestionsRecord = sequelize.define('QuestionsRecord', {
+    question: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    options: {
+        type: DataTypes.JSON,
+        allowNull: false,
+    },
+    correctAnswer: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    gameMode: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    responseAnswer: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    }
+});
+
 // Synchronize the model with the database
-sequelize.sync()
+sequelize.sync({force:true})
     .then(() => {
         console.log('Model synchronized successfully with the database');
     })
@@ -190,4 +218,4 @@ sequelize
         console.error('Error connecting to the database:', err);
     });
 
-module.exports = { sequelize, User, Group, UserGroup, Statistics };
+module.exports = { sequelize, User, Group, UserGroup, Statistics, QuestionsRecord };
