@@ -70,6 +70,31 @@ describe('MultiplayerRoom component', () => {
 
   });
 
-  
+  test('joins a room', async () => {
+    const room =
+    <SessionContext.Provider value={{ username: 'otherUser' }}>
+        <Router>
+            <MultiplayerRoom/>
+        </Router>
+    </SessionContext.Provider>
+    
+    render(room);
+
+    //Write room code AAAAA
+    const input = screen.getByRole('textbox');
+    fireEvent.change(input, { target: { value: 'AAAAA' } });
+   
+    // Click on Create Room button
+    fireEvent.click(await screen.getByTestId("btn-join-room"));
+
+    await waitFor(() => {
+        expect(screen.getByText("Start game")).toBeInTheDocument();
+    });
+
+    await waitFor(() => {
+        expect(screen.getByText("AAAAA")).toBeInTheDocument();
+    });
+
+  });
 
 });
