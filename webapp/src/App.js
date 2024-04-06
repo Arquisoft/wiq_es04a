@@ -52,7 +52,7 @@ function App() {
             <Route path="/group/menu" element={<Groups />}/>
             <Route path="/group/:groupName" element={<GroupDetails />} />
             <Route path="/statistics" element={<Statistics />}/>
-            <Route path="/ranking" element={<Ranking />}/>
+            <Route path="/ranking" element={<Ranking/>}/>
           </Routes>
         <Footer/>
       </ThemeProvider>
