@@ -1,21 +1,46 @@
 import React from "react";
-import { render } from "@testing-library/react";
-import Home from "../pages/Home";
+import { render, screen, fireEvent } from "@testing-library/react";
+import Home from "../../pages/Home.js";
 
 describe("Home Component", () => {
-    it("renders without error", () => {
+
+
+    it('renders Typography components', () => {
         render(<Home />);
+        const typographyWikidata = screen.getByText('wikidata');
+        const typographyInfinite = screen.getByText('infinite');
+        const typographyQuest = screen.getByText('quest');
+        expect(typographyWikidata).toBeInTheDocument();
+        expect(typographyInfinite).toBeInTheDocument();
+        expect(typographyQuest).toBeInTheDocument();
+      });
+
+    
+      it('renders play button', () => {
+        render(<Home />);
+        const playButton = screen.getByText('Play');
+        expect(playButton).toBeInTheDocument();
     });
 
-    it("displays the correct title", () => {
-        const { getByText } = render(<Home />);
-        const titleElement = getByText("Welcome to the Home Page");
-        expect(titleElement).toBeInTheDocument();
-    });
+    it('play button has correct styles', () => {
+        render(<Home />);
+        const playButton = screen.getByText('Play');
+        expect(playButton).toHaveStyle(`
+          height: 4rem;
+          width: 13rem;
+          marginTop: 5vh;
+          fontSize: 1.5rem;
+          fontFamily: Arial Black, sans-serif;
+          color: #339966;
+          backgroundColor: transparent;
+          border: 2px solid #339966;
+          transition: background-color 0.3s ease;
+        `);
+      });
 
-    it("applies the correct theme", () => {
-        const { container } = render(<Home />);
-        const homeContainer = container.firstChild;
-        expect(homeContainer).toHaveStyle("background-color: #f0f0f0");
-    });
+    it('play button links to correct path', () => {
+        render(<Home />);
+        const playButton = screen.getByText('PLAY');
+        expect(playButton).toHaveAttribute('href', '/login');
+    });  
 });
