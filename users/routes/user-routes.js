@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const { User, Statistics, Group, UserGroup, QuestionsRecord, sequelize } = require('../services/user-model');
 
-// Route for add a question to historial
+// Route for add a question to questions record
 router.post('/questionsRecord', async (req, res) => {
     try {
         const { username, questions, gameMode} = req.body;
@@ -18,6 +18,29 @@ router.post('/questionsRecord', async (req, res) => {
         res.json(newQuestionRecord);
     } catch (error) {
         res.status(400).json({ error: error.message });
+    }
+});
+
+// Getting a questions record by username
+router.get('/questionsRecord/:username/:gameMode', async (req, res) => {
+    try {
+        const username = req.params.username;
+        const gameMode = req.params.gameMode;
+
+        // Need also to get the group members
+        const record = await QuestionsRecord.findOne({
+            where: {
+                usrname: username,
+                gameMode: gameMode
+            }
+        });
+        if (!record) {
+            return res.status(404).json({ error: 'Group not found' });
+        }
+
+        res.json(record);
+    } catch (error) {
+        return res.status(400).json({ error: error.message });
     }
 });
 
