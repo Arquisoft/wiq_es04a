@@ -39,6 +39,7 @@ const Game = () => {
     const [showConfetti, setShowConfetti] = React.useState(false); //indicates if the confetti must appear
     const [questionCountdownKey, setQuestionCountdownKey] = React.useState(15); //key to update question timer
     const [questionCountdownRunning, setQuestionCountdownRunning] = React.useState(false); //property to start and stop question timer
+    const [userResponses, setUserResponses] = React.useState([]);
 
     const [questionHistorial, setQuestionHistorial] = React.useState(Array(MAX_ROUNDS).fill(null));
 
@@ -65,6 +66,7 @@ const Game = () => {
             setShouldRedirect(true);
             setQuestionCountdownRunning(false);
             updateStatistics();
+            updateQuestionsRecord();
         }
         // eslint-disable-next-line
     }, [round]);
@@ -109,6 +111,18 @@ const Game = () => {
         };
     }
 
+    const updateQuestionsRecord = async() => {
+        try {
+            await axios.post(`${apiEndpoint}/user/questionsRecord`, {
+                questions: userResponses,
+                username: username,
+                gameMode: "The Challenge"
+            });
+        } catch (error) {
+            console.error("Error:", error);
+        };
+    }
+
     // this function is called when a user selects a response. 
     const selectResponse = async (index, response) => {
         setAnswered(true);
@@ -118,6 +132,14 @@ const Game = () => {
 
         //check answer
         if (response === questionData.correctAnswer) {
+            const userResponse = {
+                question: questionData.question,
+                response: response,
+                options: questionData.options,
+                correctAnswer: questionData.correctAnswer
+            };
+            setUserResponses(prevResponses => [...prevResponses, userResponse]);
+
             newButtonStates[index] = "success"
             const sucessSound = new Audio(SUCCESS_SOUND_ROUTE);
             sucessSound.volume = 0.40;
@@ -129,6 +151,13 @@ const Game = () => {
             newQuestionHistorial[round-1] = true;
             setQuestionHistorial(newQuestionHistorial);
         } else {
+            const userResponse = {
+                question: questionData.question,
+                response: response,
+                options: questionData.options,
+                correctAnswer: questionData.correctAnswer
+            };
+            setUserResponses(prevResponses => [...prevResponses, userResponse]);
             newButtonStates[index] = "failure";
             const failureSound = new Audio(FAILURE_SOUND_ROUTE);
             failureSound.volume = 0.40;

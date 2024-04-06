@@ -42,6 +42,28 @@ app.post('/login', async (req, res) => {
   }
 });
 
+app.get('/user/questionsRecord/:username/:gameMode', async (req, res) => {
+  try {
+    const username = req.params.username;
+    const gameMode = req.params.gameMode;
+    // Forward the user statics edit request to the user service
+    const userResponse = await axios.get(`${userServiceUrl}/user/questionsRecord/${username}/${gameMode}`, req.body);
+    res.json(userResponse.data);
+  } catch (error) {
+    handleErrors(res, error);
+  }
+});
+
+app.post('/user/questionsRecord', async (req, res) => {
+  try {
+    const response = await axios.post(`${userServiceUrl}/user/questionsRecord`, req.body);
+    res.json(response.data); 
+  } catch (error) {
+    console.error("Error al actualizar el historial de preguntas:", error);
+    res.status(500).json({ error: "Error al actualizar el historial de preguntas" });
+  }
+});
+
 // Método para obtener la sesión del usuario
 app.get('/user/session', async (req, res) => {
   try {
