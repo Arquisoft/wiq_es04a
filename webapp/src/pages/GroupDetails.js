@@ -17,7 +17,7 @@ const GroupDetails = () => {
             const response = await axios.get(`${apiEndpoint}/group/${groupName}`);
             setGroupInfo(response.data);
         } catch (error) {
-            setError(error.response.data.error || 'Error fetching group information');
+            setError('Error fetching group information');
         }
     }, [groupName]);
 
@@ -25,8 +25,13 @@ const GroupDetails = () => {
         fetchGroupInfo();
     }, [fetchGroupInfo]);
 
-    if (error) return <p>Error: {error}</p>;
-    if (!groupInfo) return null;
+    if (error || !groupInfo) {
+        return (
+            <Container sx={{ margin: '0 auto auto' }}>
+                <Typography variant="h5" sx={{ textAlign:'center' }}>{error}</Typography>
+            </Container>
+        )
+    }
 
     // Constants indicating the maximum number of users and the actual users of the group
     const totalMembers = groupInfo.users.length;

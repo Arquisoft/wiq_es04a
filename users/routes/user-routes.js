@@ -1,7 +1,25 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const { User, Statistics, Group, UserGroup, sequelize } = require('../services/user-model');
+const { User, Statistics, Group, UserGroup, QuestionsRecord, sequelize } = require('../services/user-model');
+
+// Route for add a question to historial
+router.post('/questionsRecord', async (req, res) => {
+    try {
+        const { username, questions, gameMode} = req.body;
+
+        // Create new question 
+        const newQuestionRecord = await QuestionsRecord.create({
+            questions,
+            username,
+            gameMode,
+        });
+
+        res.json(newQuestionRecord);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
 
 // Route for add a user
 router.post('/add', async (req, res) => {
@@ -47,8 +65,6 @@ router.post('/add', async (req, res) => {
         const newUser = await User.create({
             username,
             password: hashedPassword,
-            createdAt: new Date(),
-            updatedAt: new Date(),
             name,
             surname
         });
@@ -88,21 +104,21 @@ router.get('/group/list', async (req, res) => {
 
         // If the user is null or undefined (no one is logged, return all groups)
         if (username === null || username === undefined) {
-          const allGroups = await Group.findAll({ order: [['name', 'ASC']] });
-          const groupsJSON = await Promise.all(allGroups.map(async (group) => {
-              const userCount = await UserGroup.count({
-                  where: {
-                      groupName: group.name
-                  }
-              });
-              return {
-                  name: group.name,
-                  isMember: false,
-                  isFull: userCount === 20
-              };
-          }));
-          return res.json({ groups: groupsJSON });
-      }
+            const allGroups = await Group.findAll({ order: [['name', 'ASC']] });
+            const groupsJSON = await Promise.all(allGroups.map(async (group) => {
+                const userCount = await UserGroup.count({
+                    where: {
+                        groupName: group.name
+                    }
+                });
+                return {
+                    name: group.name,
+                    isMember: false,
+                    isFull: userCount === 20
+                };
+            }));
+            return res.json({ groups: groupsJSON });
+        }
 
         // If someone is logged, return the groups indicating which one the user has joined
         const userGroups = await UserGroup.findAll({
@@ -114,18 +130,18 @@ router.get('/group/list', async (req, res) => {
 
         const allGroups = await Group.findAll({ order: [['name', 'ASC']] });
         const groupsJSON = await Promise.all(allGroups.map(async (group) => {
-          const userCount = await UserGroup.count({
-              where: {
-                  groupName: group.name
-              }
-          });
-          return {
-              name: group.name,
-              isMember: userGroupNames.includes(group.name),
-              isFull: userCount === 20
-          };
+            const userCount = await UserGroup.count({
+                where: {
+                    groupName: group.name
+                }
+            });
+            return {
+                name: group.name,
+                isMember: userGroupNames.includes(group.name),
+                isFull: userCount === 20
+            };
         }));
-
+        
         res.json({ groups: groupsJSON });
 
     } catch (error) {

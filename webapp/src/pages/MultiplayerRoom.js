@@ -9,7 +9,7 @@ const socketEndpoint = process.env.MULTIPLAYER_ENDPOINT || 'ws://localhost:5010'
 
 const MultiplayerRoom = () => {
     const [roomCode, setRoomCode] = useState("");
-    const [error, setError] = useState('');
+    const [error, ] = useState('');
     const [socket, setSocket] = useState(null);
     const [writtenCode, setWrittenCode] = useState("");
     const [roomPlayers, setRoomPlayers] = useState([]);
@@ -19,6 +19,7 @@ const MultiplayerRoom = () => {
     const [gameQuestions, setGameQuestions] = useState(null);
     const [loadingQuestions, setLoadingQuestions] = useState(false);
     const navigate = useNavigate();
+    const [gameLoaded, setGameLoaded] = useState(false);
   
     useEffect(() => {
         const newSocket = io(socketEndpoint);
@@ -26,6 +27,7 @@ const MultiplayerRoom = () => {
 
         newSocket.on('game-ready', () => {
             setGameReady(true);
+            setLoadingQuestions(true);
         });
 
         newSocket.on('update-players', (roomPlayers) => {
@@ -35,9 +37,7 @@ const MultiplayerRoom = () => {
         newSocket.on('questions-ready', (questions, roomCode) => {
             setGameQuestions(questions);
             setLoadingQuestions(false);
-            
-            //TODO refactor
-            navigate('/multiplayerGame', { state: {questions, roomCode} });
+            setGameLoaded(true);
         });
 
         // clean at component dismount
@@ -45,6 +45,14 @@ const MultiplayerRoom = () => {
             newSocket.disconnect();
         };
     }, [navigate]);
+
+    useEffect(() => {
+      if(socket !== null) {
+        socket.on('btn-start-pressed', () => {
+          navigate('/multiplayerGame', { state: {gameQuestions, roomCode} });
+        });
+      }
+    }, [socket, navigate, gameQuestions, roomCode])
 
     const handleCreateRoom = () => {
         const code = generateRoomCode();
@@ -78,8 +86,8 @@ const MultiplayerRoom = () => {
     }
 
     const startGame = () => {
-        setLoadingQuestions(true);
         setGameReady(false);
+        socket.emit("started-game", true);
     }
   
     return (
@@ -105,12 +113,13 @@ const MultiplayerRoom = () => {
                     </ListItem>
                     ))}
                   </List>
-                  <Button id="playBtn" variant="contained" disabled={!gameReady || !roomCreator} onClick={startGame} style={{ marginTop: '10px' }}>
+                  <Button id="playBtn" variant="contained" disabled={!gameReady || !roomCreator || !gameLoaded} onClick={startGame} style={{ marginTop: '10px' }}>
                     Start game
                   </Button>
                   {loadingQuestions && (
-                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px', flexDirection: "column", alignItems: "center" }}>
                         <CircularProgress />
+                        <Typography variant='h5' style={{ marginTop: '1em'}}>Loading questions...</Typography>
                     </div>
                 )}
                 </>

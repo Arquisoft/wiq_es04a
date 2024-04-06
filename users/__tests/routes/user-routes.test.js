@@ -20,6 +20,38 @@ describe('User Routes', () => {
         await sequelize.close();
     });
 
+    //QUESTIONS RECORD
+    it('should add a new question record', async () => {
+        const newQuestionRecord = {
+            username: 'testuser',
+            questions: ['Question 1', 'Question 2'],
+            gameMode: 'classic'
+        };
+
+        const response = await request(app)
+            .post('/user/questionsRecord')
+            .send(newQuestionRecord);
+
+        expect(response.status).toBe(200);
+        expect(response.body.username).toBe(newQuestionRecord.username);
+        expect(response.body.questions).toEqual(newQuestionRecord.questions);
+        expect(response.body.gameMode).toBe(newQuestionRecord.gameMode);
+    });
+
+    it('should return an error if required fields are missing', async () => {
+        const invalidQuestionRecord = {
+            gameMode: 'classic'
+        };
+
+        const response = await request(app)
+            .post('/user/questionsRecord')
+            .send(invalidQuestionRecord);
+
+        expect(response.status).toBe(400);
+        expect(response.body).toHaveProperty('error');
+    });
+
+
     // ADD TESTS
     it('should add a new user', async () => {
         const newUser = {
