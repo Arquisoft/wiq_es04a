@@ -5,12 +5,16 @@ import io from 'socket.io-client';
 import { SessionContext } from '../../SessionContext';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+//mock some socket behaviour
 jest.mock('socket.io-client', () => {
-  const onMock = jest.fn();
   const emitMock = jest.fn();
-
+  const mockPlayersData = ['exampleUser'];
   return () => ({
-    on: onMock,
+    on: (event, callback) => {
+        if (event === 'update-players') {
+          callback(mockPlayersData);
+        }
+      },
     emit: emitMock,
     disconnect: jest.fn(),
   });
@@ -27,9 +31,12 @@ describe('MultiplayerRoom component', () => {
     //socket.disconnect();
   });
 
-  test('creates a room and joins it', async () => {
+  test('creates a room', async () => {
 
-    const generateRoomCodeMock = jest.fn().mockReturnValue('AAAAA');
+    jest.mock('../../pages/MultiplayerRoom', () => ({
+        ...jest.requireActual('../../pages/MultiplayerRoom'),
+        generateRoomCode: jest.fn().mockReturnValue('AAAAA'),
+    }));
 
     // Render the component
     const room =
@@ -38,35 +45,31 @@ describe('MultiplayerRoom component', () => {
             <MultiplayerRoom/>
         </Router>
     </SessionContext.Provider>
+    
     render(room);
-
-    // Mock functions
-   /* socket.emit.mockImplementationOnce((event, code, username) => {
-      expect(event).toBe('join-room');
-      expect(code).toBeTruthy(); 
-      expect(username).toBeTruthy(); 
-    });*/
 
     // Click on Create Room button
     fireEvent.click(await screen.getByTestId("btn-create-room"));
-
-    // Wait for room code to appear
-   /* await waitFor(() => {
-        expect(screen.getByText("AAAAA")).toBeInTheDocument();
-    });*/
 
     await waitFor(() => {
         expect(screen.getByText("Start game")).toBeInTheDocument();
     });
 
-    // Fill in room code
-  //  fireEvent.change(screen.getByLabelText('Room code'), { target: { value: 'ABCDE' } });
+    //Sent to socket username and roomCode
+    await waitFor(() => {
+        expect(socket.emit).toHaveBeenCalledWith(
+          'join-room',
+          expect.any(String),
+          'exampleUser'  
+        );
+    });
 
-    // Click on Join Room button
-   // fireEvent.click(screen.getByText('Join room'));
+    await waitFor(() => { //the user in the participant list
+        expect(screen.getByText('exampleUser')).toBeInTheDocument();
+    });
 
-    // Expect join-room to be called with the written code
-   // expect(socket.emit).toHaveBeenCalledWith('join-room', 'ABCDE', expect.any(String));
   });
+
+  
 
 });
