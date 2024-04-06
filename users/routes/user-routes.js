@@ -30,12 +30,12 @@ router.get('/questionsRecord/:username/:gameMode', async (req, res) => {
         // Need also to get the group members
         const record = await QuestionsRecord.findOne({
             where: {
-                usrname: username,
+                username: username,
                 gameMode: gameMode
             }
         });
         if (!record) {
-            return res.status(404).json({ error: 'Group not found' });
+            return res.status(404).json({ error: 'No record found' });
         }
 
         res.json(record);
