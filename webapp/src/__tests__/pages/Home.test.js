@@ -1,47 +1,40 @@
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import Home from '../../pages/Home';
+import { BrowserRouter  } from 'react-router-dom';
+import { SessionContext } from '../../SessionContext';
+import userEvent from '@testing-library/user-event';
 
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import Home from "../../pages/Home.js";
+describe('NavBar component', () => {
 
-describe("Home Component", () => {
-
-
-    it('renders Typography components', () => {
-        render(<Home />);
-        const typographyWikidata = screen.getByText('wikidata');
-        const typographyInfinite = screen.getByText('infinite');
-        const typographyQuest = screen.getByText('quest');
-        expect(typographyWikidata).toBeInTheDocument();
-        expect(typographyInfinite).toBeInTheDocument();
-        expect(typographyQuest).toBeInTheDocument();
-      });
-
-    
-      it('renders play button', () => {
-        render(<Home />);
-        const playButton = screen.getByText('Play');
-        expect(playButton).toBeInTheDocument();
+    beforeEach(() => {
+        render(
+            <SessionContext.Provider value={{}}>
+                <BrowserRouter>
+                    <Home/>
+                </BrowserRouter>
+            </SessionContext.Provider>
+        );
     });
 
-    it('play button has correct styles', () => {
-        render(<Home />);
-        const playButton = screen.getByText('Play');
-        expect(playButton).toHaveStyle(`
-          height: 4rem;
-          width: 13rem;
-          marginTop: 5vh;
-          fontSize: 1.5rem;
-          fontFamily: Arial Black, sans-serif;
-          color: #339966;
-          backgroundColor: transparent;
-          border: 2px solid #339966;
-          transition: background-color 0.3s ease;
-        `);
-      });
+    it('should render components', async () => {
+        const logo = screen.getByAltText('Logo');
+        await expect(logo).toBeInTheDocument();
 
-    it('play button links to correct path', () => {
-        render(<Home />);
+        const name1 = screen.getByText('WIKIDATA');
+        const name2 = screen.getByText('INFINITE');
+        const name3 = screen.getByText('QUEST');
+        await expect(name1).toBeInTheDocument();
+        await expect(name2).toBeInTheDocument();
+        await expect(name3).toBeInTheDocument();
+    });
+
+    it('button play functions as expected', async () => {
         const playButton = screen.getByText('PLAY');
-        expect(playButton).toHaveAttribute('href', '/login');
-    });  
+        await expect(playButton).toBeInTheDocument();
+
+        userEvent.click(playButton);
+        expect(window.location.pathname).toBe('/');
+    });
 });
+
