@@ -6,16 +6,13 @@ const { User, Statistics, Group, UserGroup, QuestionsRecord, sequelize } = requi
 // Route for add a question to historial
 router.post('/questionsRecord', async (req, res) => {
     try {
-        const { username, question, options, correctAnswer, gameMode, responseAnswer } = req.body;
+        const { username, questions, gameMode} = req.body;
 
         // Create new question 
         const newQuestionRecord = await QuestionsRecord.create({
-            question,
-            options,
-            correctAnswer,
+            questions,
             username,
             gameMode,
-            responseAnswer
         });
 
         res.json(newQuestionRecord);
