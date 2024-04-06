@@ -42,6 +42,18 @@ app.post('/login', async (req, res) => {
   }
 });
 
+app.get('/user/questionsRecord/:username/:gameMode', async (req, res) => {
+  try {
+    const username = req.params.username;
+    const gameMode = req.params.gameMode;
+    // Forward the user statics edit request to the user service
+    const userResponse = await axios.get(`${userServiceUrl}/user/questionsRecord/${username}/${gameMode}`, req.body);
+    res.json(userResponse.data);
+  } catch (error) {
+    handleErrors(res, error);
+  }
+});
+
 app.post('/user/questionsRecord', async (req, res) => {
   try {
     const response = await axios.post(`${userServiceUrl}/user/questionsRecord`, req.body);
