@@ -37,4 +37,33 @@ describe('Homepage component', () => {
     await expect(game4).toBeInTheDocument();
 
   });
+  
+  it('should change game selection page', async () => {
+    
+    render(
+      <Homepage />
+    );
+
+    fireEvent.click(screen.getByText('2'));
+
+    await waitFor(() => {
+      expect(screen.queryByText('ONLINE MODE')).toBeInTheDocument();
+    });
+  });
+
+
+  it('should select a game mode', async () => {
+    
+    render(
+      <Homepage />
+    );
+    
+    fireEvent.click(screen.getByText('WISE MEN STACK'));
+
+    await waitFor(() => {
+      expect(screen.getByAltText('WISE MEN STACK')).toBeInTheDocument();
+    });
+
+
+  });
 });
