@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useContext, useCallback } from 'react';
 import axios from 'axios';
-import { Container, Typography, List, ListItem, ListItemText, Button, Divider, Snackbar, TextField, Grid, Pagination } from '@mui/material';
+import { Container, Typography, List, ListItem, ListItemText, Button, Divider, Snackbar, TextField, Grid, Pagination, useTheme } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { SessionContext } from '../SessionContext';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const Groups = () => {
+    const theme = useTheme();
 
     const [name, setName] = useState('');
     const [groups, setGroups] = useState([]);
@@ -118,11 +119,11 @@ const Groups = () => {
                   See Members
                 </Button>
                 {group.isMember ? (
-                  <Button variant="contained" sx={{ backgroundColor:'#ffffff', color:'#006699', borderColor:'#006699', '&:hover': { backgroundColor: '#ffffff' } }}>
+                  <Button variant="contained" sx={{ backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main } }}>
                     JOINED
                   </Button>
                 ) : group.isFull ? (
-                  <Button variant="contained" sx={{ backgroundColor:'#ffffff', color:'#FF0000', borderColor:'#FF0000', '&:hover': { backgroundColor: '#ffffff' } }}>
+                  <Button variant="contained" sx={{ backgroundColor: theme.palette.error.main, color: theme.palette.error.main, borderColor: theme.palette.error.main, '&:hover': { backgroundColor: theme.palette.secondary.main } }}>
                     FILLED
                   </Button>
                 ) : (
