@@ -44,7 +44,6 @@ app.post('/login', async (req, res) => {
 
 app.post('/user/questionsRecord', async (req, res) => {
   try {
-    console.log(1);
     const response = await axios.post(`${userServiceUrl}/user/questionsRecord`, req.body);
     res.json(response.data); 
   } catch (error) {

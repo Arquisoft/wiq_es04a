@@ -14,6 +14,41 @@ describe('Routes Tests', () => {
     process.exit(0); 
   }, 5000); 
 
+  it('should respond with status 200 for /user/questionsRecord endpoint', async () => {
+    const mockRequestData = { userId: 'testuser', questions: ['question1', 'question2'] };
+    const mockResponseData = { success: true };
+
+    axios.post.mockResolvedValueOnce({ data: mockResponseData });
+
+    const response = await request(app)
+      .post('/user/questionsRecord')
+      .send(mockRequestData);
+
+    expect(axios.post).toHaveBeenCalledWith(
+      expect.stringContaining('/user/questionsRecord'),
+      mockRequestData
+    );
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual(mockResponseData);
+  });
+
+  it('should handle /user/questionsRecord errors and respond with appropriate status and message', async () => {
+    const mockRequestData = { userId: 'testuser', questions: ['question1', 'question2'] };
+    const errorMessage = 'Error updating questions record';
+    axios.post.mockRejectedValueOnce(new Error(errorMessage));
+
+    const response = await request(app)
+      .post('/user/questionsRecord')
+      .send(mockRequestData);
+
+    expect(axios.post).toHaveBeenCalledWith(
+      expect.stringContaining('/user/questionsRecord'),
+      mockRequestData
+    );
+    expect(response.status).toBe(500);
+    expect(response.body.error).toBe('Error al actualizar el historial de preguntas');
+  });
+
   it('should respond with status 200 for /health endpoint', async () => {
     const response = await request(app).get('/health');
     expect(response.status).toBe(200);

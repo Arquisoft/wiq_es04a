@@ -173,16 +173,8 @@ Statistics.belongsTo(User, { foreignKey: 'username' });
 
 // Define the Questions model
 const QuestionsRecord = sequelize.define('QuestionsRecord', {
-    question: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    options: {
+    questions: {
         type: DataTypes.JSON,
-        allowNull: false,
-    },
-    correctAnswer: {
-        type: DataTypes.STRING,
         allowNull: false,
     },
     username: {
@@ -193,14 +185,10 @@ const QuestionsRecord = sequelize.define('QuestionsRecord', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    responseAnswer: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    }
 });
 
 // Synchronize the model with the database
-sequelize.sync({force:true})
+sequelize.sync()
     .then(() => {
         console.log('Model synchronized successfully with the database');
     })
