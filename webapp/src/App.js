@@ -10,6 +10,7 @@ import Game from './pages/Game';
 import Groups from './pages/Groups';
 import GroupDetails from './pages/GroupDetails';
 import Statistics from './pages/Statistics';
+import Ranking from './pages/Ranking'
 import MultiplayerRoom from './pages/MultiplayerRoom';
 import MultiplayerGame from './pages/MultiplayerGame';
 import {Route, Routes} from 'react-router-dom';
@@ -51,6 +52,7 @@ function App() {
             <Route path="/group/menu" element={<Groups />}/>
             <Route path="/group/:groupName" element={<GroupDetails />} />
             <Route path="/statistics" element={<Statistics />}/>
+            <Route path="/ranking" element={<Ranking />}/>
           </Routes>
         <Footer/>
       </ThemeProvider>
