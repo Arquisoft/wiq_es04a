@@ -128,7 +128,7 @@ const MultiplayerRoom = () => {
                   <Typography variant="h4" gutterBottom>
                     Create room
                   </Typography>
-                  <Button variant="contained" onClick={handleCreateRoom}>
+                  <Button variant="contained" onClick={handleCreateRoom} data-testid="btn-create-room">
                     Create room
                   </Button>
                   <Typography variant="h4" gutterBottom style={{ marginTop: '20px' }}>
