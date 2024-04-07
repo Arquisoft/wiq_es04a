@@ -7,9 +7,8 @@ WORKDIR /app
 RUN npm install
 
 ARG API_URI="http://localhost:8000"
-ARG ONLINE_URI="ws://localhost:5010"
+ARG MULTIPLAYER_ENDPOINT
 ENV REACT_APP_API_ENDPOINT=$API_URI
-ENV MULTIPLAYER_ENDPOINT=$ONLINE_URI
 
 #Create an optimized version of the webapp
 RUN npm run build
