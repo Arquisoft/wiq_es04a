@@ -83,7 +83,7 @@ services:
       - mynetwork
     environment:
       REACT_APP_API_ENDPOINT: http://gatewayservice:8000
-      MULTIPLAYER_ENDPOINT: http://multiplayer:5010
+      MULTIPLAYER_ENDPOINT: ws://multiplayer:5010
 
   multiplayer:
     container_name: multiplayer
