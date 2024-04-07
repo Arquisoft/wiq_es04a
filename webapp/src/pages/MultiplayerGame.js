@@ -17,7 +17,7 @@ const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000
 const socketEndpoint = process.env.MULTIPLAYER_ENDPOINT || 'ws://localhost:5010';
 
 const Game = () => {
-    //const navigate = useNavigate();
+    
     const MAX_ROUNDS = 3;
     const SUCCESS_SOUND_ROUTE = "/sounds/success_sound.mp3";
     const FAILURE_SOUND_ROUTE = "/sounds/wrong_sound.mp3";
@@ -182,19 +182,6 @@ const Game = () => {
         ));
       };    
 
-    /*const togglePause = () => {
-        setTimerRunning(!timerRunning);
-        setQuestionCountdownRunning(!timerRunning);
-        if (timerRunning) {
-            // Si el juego estaba en marcha y se pausa, deshabilitar los botones
-            setButtonStates(new Array(questionData.options.length).fill(true));
-        } else {
-            // Si el juego estaba pausado y se reanuda, habilitar los botones
-            setButtonStates(new Array(questionData.options.length).fill(null));
-        }
-    }*/
-
-
     // circular loading
     if (!questionData) {
         return (
@@ -214,14 +201,9 @@ const Game = () => {
         );
     }
 
-    // redirect to / if game over 
 if (shouldRedirect) {
-    // Redirect after 3 seconds
-    /*setTimeout(() => {
-        navigate('/homepage');
-    }, 4000);*/
     socket.emit("finished-game", username, correctlyAnsweredQuestions, totalTimePlayed);
-//
+
     return (
         <Container
             sx={{
