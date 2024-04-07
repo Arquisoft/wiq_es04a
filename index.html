@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.20">
-<title>Wikidata Infinite Quest</title>
+<meta name="generator" content="Asciidoctor 2.0.18">
+<title>Introduction and Goals</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -208,10 +208,13 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
 .sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
-.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
-.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
 .literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
 @media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
 @media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
@@ -390,7 +393,7 @@ b.conum *{color:inherit!important}
 dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
 h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
 p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
-p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
+p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
 .exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
@@ -435,14 +438,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1><span class="image"><img src="./images/arc42-logo.png" alt="arc42"></span> Wikidata Infinite Quest</h1>
-<div class="details">
-<span id="revnumber">version 8.2 EN,</span>
-<span id="revdate">January 2023</span>
-<br><span id="revremark">(based upon AsciiDoc version)</span>
-</div>
 <div id="toc" class="toc">
-<div id="toctitle">Table of Contents</div>
+<div id="toctitle">table of contents</div>
 <ul class="sectlevel1">
 <li><a href="#section-introduction-and-goals">1. Introduction and Goals</a>
 <ul class="sectlevel2">
@@ -503,7 +500,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#section-design-decisions">9. Architecture Decisions</a>
 <ul class="sectlevel2">
 <li><a href="#_team_working_methodology">9.1. Team Working Methodology</a></li>
-<li><a href="#_technology">9.2. Technology</a></li>
+<li><a href="#_design_and_decisions">9.2. Design and Decisions</a></li>
+<li><a href="#_technology">9.3. Technology</a></li>
 </ul>
 </li>
 <li><a href="#section-quality-scenarios">10. Quality Requirements</a>
@@ -529,8 +527,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div id="content">
-<div id="preamble">
-<div class="sectionbody">
+<div class="paragraph">
+<p><span class="image"><img src="./images/logo_wiq.png" alt="WIQ Logo"></span>
+= <span class="image"><img src="./images/arc42-logo.png" alt="arc42"></span> Wikidata Infinite Quest
+:revnumber: 8.2 EN
+:revdate: January 2023
+:revremark: (based upon AsciiDoc version)
+:toc-title: Table of Contents</p>
+</div>
 <style>
 .arc42help {font-size:small; width: 14px; height: 16px; overflow: hidden; position: absolute; right: 0; padding: 2px 0 3px 2px;}
 .arc42help::before {content: "?";}
@@ -547,7 +551,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>arc42, the template for documentation of software and system architecture.</p>
 </div>
 <div class="paragraph">
-<p>Template Version 8.2 EN. (based upon AsciiDoc version), January 2023</p>
+<p>Template Version {revnumber}. {revremark}, {revdate}</p>
 </div>
 <div class="paragraph">
 <p>Created, maintained and &#169; by Dr. Peter Hruschka, Dr. Gernot Starke and contributors.
@@ -575,8 +579,6 @@ For documentation of your own system you use better the <em>plain</em> version.<
 </div>
 </div>
 <div style="page-break-after: always;"></div>
-</div>
-</div>
 <div class="sect1">
 <h2 id="section-introduction-and-goals">1. Introduction and Goals</h2>
 <div class="sectionbody">
@@ -2228,11 +2230,24 @@ There you will find links and examples about ADR.</p>
 <li>
 <p><a href="https://github.com/Arquisoft/wiq_es04a/wiki/ADR-01-‐-Usage-of-A-Succesful-Branching-Model">ADR 01</a> - Usage of A Succesful Branching Model</p>
 </li>
+<li>
+<p><a href="https://github.com/Arquisoft/wiq_es04a/wiki/ADR-07-‐-Usage-of-Trunk-Based-Development">ADR 07</a> - Usage of Trunk Based Development</p>
+</li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_technology">9.2. Technology</h3>
+<h3 id="_design_and_decisions">9.2. Design and Decisions</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/Arquisoft/wiq_es04a/wiki/ADR-08-‐-Questions-Database-Functioning">ADR 08</a> - Questions Database Functioning</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_technology">9.3. Technology</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -2240,6 +2255,15 @@ There you will find links and examples about ADR.</p>
 </li>
 <li>
 <p><a href="https://github.com/Arquisoft/wiq_es04a/wiki/ADR-03-‐-Frontend-in-React">ADR 03</a> - Front-end in React</p>
+</li>
+<li>
+<p><a href="https://github.com/Arquisoft/wiq_es04a/wiki/ADR-04-‐-Users-and-Groups-with-MariaDB">ADR 04</a> - Users and Groups with MariaDB</p>
+</li>
+<li>
+<p><a href="https://github.com/Arquisoft/wiq_es04a/wiki/ADR-05-‐-Question-generation-in-Node.js">ADR 05</a> - Question generation in Node.js</p>
+</li>
+<li>
+<p><a href="https://github.com/Arquisoft/wiq_es04a/wiki/ADR-06-‐-MongoDB-for-questions-database">ADR 06</a> - MongoDB for questions database</p>
 </li>
 </ul>
 </div>
@@ -2738,8 +2762,7 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 8.2 EN<br>
-Last updated 2024-03-03 08:25:16 +0100
+Last updated 2024-04-07 14:07:25 +0200
 </div>
 </div>
 </body>
