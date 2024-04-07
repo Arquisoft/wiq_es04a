@@ -23,6 +23,7 @@ const MultiplayerRoom = () => {
   
     useEffect(() => {
       console.log("SOCKET ENDPOINT URL: ", socketEndpoint)
+      console.log("process.env.MULTIPLAYER_ENDPOINT: ", process.env.MULTIPLAYER_ENDPOINT);
         const newSocket = io(socketEndpoint);
         setSocket(newSocket);
 
