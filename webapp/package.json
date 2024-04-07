@@ -12,10 +12,12 @@
     "@tsparticles/engine": "^3.3.0",
     "@tsparticles/react": "^3.0.0",
     "axios": "^1.6.5",
+    "i18next": "^23.10.1",
     "react": "^18.2.0",
     "react-confetti": "^6.1.0",
     "react-countdown-circle-timer": "^3.2.1",
     "react-dom": "^18.2.0",
+    "react-i18next": "^14.1.0",
     "react-router-dom": "^6.22.3",
     "react-scripts": "5.0.1",
     "react-tsparticles": "^2.12.2",
@@ -50,8 +52,8 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/react": "^14.2.2",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@testing-library/react": "^14.2.2",
     "axios-mock-adapter": "^1.22.0",
     "expect-puppeteer": "^9.0.2",
     "jest": "^29.7.0",
