@@ -52,7 +52,7 @@ defineFeature(feature, test => {
       .catch(() => {});
   });
 
-  test('Answering a question', ({given,when,then}) => {
+  test('Answering a question correctly', ({given,when,then}) => {
 
     given('A question', async () => {
         //await expect(page.findByText('Which is the capital of Spain?'));
@@ -64,12 +64,12 @@ defineFeature(feature, test => {
         expect(answers.length).toBe(4);
     });
 
-    when('I click on an answer button', async () => {
+    when('I click on the correct answer button', async () => {
         const answers = await page.$x('(//*[@data-testId="answer"])[1]');
         await answers[0].click();
     });
 
-    then('The button is not blue anymore', async () => {
+    then('The button turns green', async () => {
         const answerButton = await page.$x('(//*[@data-testId="answer"])[1]');
         const textoBoton = await page.evaluate(button => button.innerText, answerButton[0]);
         await expect(textoBoton).toMatch(/Madrid/i);
