@@ -4,9 +4,17 @@ import { SessionContext } from '../../SessionContext'; // Importa el contexto ne
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 //import { MemoryRouter, useLocation } from 'react-router-dom';
-import MultiplayerGame from '../../pages/MultiplayerGame';
 
+//import { BrowserRouter } from 'react-router-dom'; 
 const mockAxios = new MockAdapter(axios);
+import { BrowserRouter, useLocation } from 'react-router-dom'; 
+import MultiplayerGame from '../../pages/MultiplayerGame';
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useLocation: jest.fn()
+}));
+
+
 
 describe('Game component', () => {
 
@@ -26,34 +34,61 @@ describe('Game component', () => {
         return questionArray;
     };
 
-    const roomCode = 'ABC123';
-    const gameQuestions = generateQuestionArray(questionObject, 3);
+    const mockgameQuestions = generateQuestionArray(questionObject, 3);
+// state: { gameQuestions: mockgameQuestions, roomCode: mockroomCode}
+   /* jest.mock('react-router-dom', () => ({
+        ...jest.requireActual('react-router-dom'),
+        useLocation: jest.fn(() => ({
+          state: { gameQuestions: mockgameQuestions, roomCode: mockroomCode}
+        })),
+    }));*/
 
-    const mockLocationState = {
-        gameQuestions: gameQuestions,
-        roomCode: roomCode
-    };
+   
 
-    jest.mock('react-router-dom', () => {
-        return {
-          ...jest.requireActual('react-router-dom'),
-          useLocation: jest.fn(() => ({state : mockLocationState})),
-        };
-    });
-
-    const Router = require('react-router-dom');
+  //  const Router = require('react-router-dom');
 
   it('should render recieved room code, question, answers and other ', async () => {
 
-   render( 
+   /*render( 
       <SessionContext.Provider value={{ username: 'exampleUser' }}>
         <Router.MemoryRouter initialEntries = {['/multiplayerGame'] }>
         <Router.Routes>
-          <Router.Route path="multiplayerGame" element={<MultiplayerGame />}/>
+          <Router.Route path="/multiplayerGame" element={<MultiplayerGame />}/>
         </Router.Routes>
       </Router.MemoryRouter>
       </SessionContext.Provider>
-    );
+    );*/
+
+   /* render(
+        <SessionContext.Provider value={{ username: 'exampleUser' }}>
+            <Router.BrowserRouter>
+                <MultiplayerGame />
+            </Router.BrowserRouter>
+        </SessionContext.Provider>
+    )*/
+
+   /* render(
+        <SessionContext.Provider value={{ username: 'exampleUser' }}>
+          <Router.MemoryRouter initialEntries={['/multiplayerGame']}>
+            <MultiplayerGame />
+          </Router.MemoryRouter>
+        </SessionContext.Provider>
+      );*/
+      
+      useLocation.mockReturnValue({
+        state: {
+          gameQuestions: mockgameQuestions,
+          roomCode: roomCode,
+        },
+      })
+
+      render(
+      <SessionContext.Provider value={{ username: 'exampleUser' }}>
+        <BrowserRouter>
+            <MultiplayerGame />
+        </BrowserRouter>
+      </SessionContext.Provider>
+      );
 
     expect(screen.getByRole('progressbar'));
     expect(screen.findByText('1'));
