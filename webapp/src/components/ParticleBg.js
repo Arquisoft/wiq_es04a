@@ -1,17 +1,14 @@
-import React from 'react';
-import particles from "../data/particles.json";
 import { useEffect, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
-import { loadFull } from "tsparticles"; // if you are going to use `loadFull`, install the "tsparticles" package too.
+import particles from "../data/particles.json";
+import { loadSlim } from "@tsparticles/slim";
 
 const ParticlesComponent = () => {
   const [init, setInit] = useState(false);
 
-  // this should be run only once per application lifetime
   useEffect(() => {
     initParticlesEngine(async (engine) => {
-
-      await loadFull(engine);
+      await loadSlim(engine);
     }).then(() => {
       setInit(true);
     });
@@ -19,7 +16,7 @@ const ParticlesComponent = () => {
 
   if (init) {
     return (
-      <div style={{ zIndex: -1 }}>
+      <div data-testid="tsparticles" style={{ zIndex: -1 }}>
         <Particles
           id="tsparticles"
           options={particles}
@@ -30,4 +27,5 @@ const ParticlesComponent = () => {
 
   return <></>;
 };
+
 export default ParticlesComponent;

@@ -44,6 +44,10 @@ describe('Game component', () => {
     expect(screen.findByText('Barcelona'));
     expect(screen.findByText('Paris'));
     expect(screen.findByText('London'));
+    
+    expect(screen.getByRole('button', { name: /Pause/i }));
+    expect(screen.getByText(/Game time:/i)).toBeInTheDocument();
+
   });
 
   it('should guess correct answer', async () => {

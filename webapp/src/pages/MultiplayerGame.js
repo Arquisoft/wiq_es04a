@@ -42,7 +42,7 @@ const Game = () => {
     const [questionHistorial, setQuestionHistorial] = React.useState(Array(MAX_ROUNDS).fill(null));
 
     const location = useLocation();
-    const { questions, roomCode} = location.state;
+    const { gameQuestions, roomCode} = location.state;
     const [socket, setSocket] = React.useState(null);
 
     const[winnerPlayer, setWinnerPlayer] = React.useState("");
@@ -99,7 +99,7 @@ const Game = () => {
     // gets a random question from the database and initializes button states to null
     const startNewRound = async () => {
         setAnswered(false);
-        const quest = questions[round-1]
+        const quest = gameQuestions[round-1]
         
         setQuestionData(quest);    
         setButtonStates(new Array(quest.options.length).fill(null));
@@ -251,7 +251,11 @@ if (shouldRedirect) {
                 <Typography variant="h6">Total money: {totalScore}</Typography>
                 <Typography variant="h6">Game time: {totalTimePlayed} seconds</Typography>
 
-                <Typography variant="h5">Player winner of the game: {winnerPlayer} with {winnerCorrect} answers in {winnerTime}s</Typography>
+                {winnerPlayer === "" ? (
+                    <Typography variant="h5">Waiting for winner info</Typography>
+                ) : (
+                    <Typography variant="h5">Player winner of the game: {winnerPlayer} with {winnerCorrect} correct answers in {winnerTime}s</Typography>
+                )}
             </div>
             {showConfetti && <Confetti />}
         </Container>

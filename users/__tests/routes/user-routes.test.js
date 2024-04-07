@@ -1,4 +1,4 @@
-const { User, Statistics, Group, sequelize, UserGroup } = require('../../services/user-model.js');
+const { User, Statistics, Group, sequelize, UserGroup, QuestionsRecord } = require('../../services/user-model.js');
 const bcrypt = require('bcrypt');
 const request = require('supertest');
 const express = require('express');
@@ -19,6 +19,88 @@ describe('User Routes', () => {
     afterAll(async () => {
         await sequelize.close();
     });
+
+    //QUESTIONS RECORD
+    it('should add a new question record', async () => {
+        const newQuestionRecord = {
+            username: 'testuser',
+            questions: ['Question 1', 'Question 2'],
+            gameMode: 'classic'
+        };
+
+        const response = await request(app)
+            .post('/user/questionsRecord')
+            .send(newQuestionRecord);
+
+        expect(response.status).toBe(200);
+        expect(response.body.username).toBe(newQuestionRecord.username);
+        expect(response.body.questions).toEqual(newQuestionRecord.questions);
+        expect(response.body.gameMode).toBe(newQuestionRecord.gameMode);
+    });
+
+    it('should return an error if required fields are missing', async () => {
+        const invalidQuestionRecord = {
+            gameMode: 'classic'
+        };
+
+        const response = await request(app)
+            .post('/user/questionsRecord')
+            .send(invalidQuestionRecord);
+
+        expect(response.status).toBe(400);
+        expect(response.body).toHaveProperty('error');
+    });
+
+    it('should get questions record for a user in a specific game mode', async () => {
+        const username = 'testuser';
+        const gameMode = 'classic';
+    
+        // Ahora, creamos el registro de preguntas para el usuario
+        await QuestionsRecord.create({
+            username: username,
+            questions: ['Question 1', 'Question 2'],
+            gameMode: gameMode,
+            createdAt: new Date(),
+            updatedAt: new Date()
+        });
+    
+        // Luego, hacemos la solicitud GET al endpoint
+        const response = await request(app)
+            .get(`/user/questionsRecord/${username}/${gameMode}`);
+    
+        // Verificamos que se haya realizado correctamente y que los datos sean correctos
+        expect(response.status).toBe(200);
+        expect(response.body.username).toBe(username);
+        expect(response.body.gameMode).toBe(gameMode);
+        expect(response.body.questions).toEqual(['Question 1', 'Question 2']);
+    });
+    it('should return 400 if questions record not found for user in a specific game mode', async () => {
+        const username = 'nonexistentuser';
+        const gameMode = 'classic';
+
+        const response = await request(app)
+            .get(`/user/questionsRecord/${username}/${gameMode}`);
+
+        expect(response.status).toBe(404);
+        expect(response.body.error).toBe('No record found');
+    });
+
+    it('should return 400 if an error occurs while retrieving questions record', async () => {
+        // Mock an error occurring during database query
+        jest.spyOn(QuestionsRecord, 'findOne').mockImplementationOnce(() => {
+            throw new Error('Database error');
+        });
+
+        const username = 'testuser';
+        const gameMode = 'classic';
+
+        const response = await request(app)
+            .get(`/user/questionsRecord/${username}/${gameMode}`);
+
+        expect(response.status).toBe(400);
+        expect(response.body.error).toBe('Database error');
+    });
+
 
     // ADD TESTS
     it('should add a new user', async () => {
