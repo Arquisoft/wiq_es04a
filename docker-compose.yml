@@ -77,7 +77,6 @@ services:
     build: ./webapp
     depends_on:
       - gatewayservice
-      - multiplayer
     ports:
       - "3000:3000" 
     networks:
