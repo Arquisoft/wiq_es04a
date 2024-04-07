@@ -9,7 +9,8 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server, {
     cors: { //permit connections from webapp
-        origin: [process.env.WEBAPP_ENDPOINT, "http://localhost:3000"],
+        //origin: [process.env.WEBAPP_ENDPOINT, "http://localhost:3000"],
+        origin: "*", //this should be changed to improve security
         methods: ["GET", "POST"]
     }
 });
@@ -19,7 +20,6 @@ const port = 5010;
 const apiEndpoint = process.env.GATEWAY_SERVICE_ENDPOINT || 'http://localhost:8000';
 
 // Middlewares added to the application
-//app.use(cors()); commented because was used previously
 app.use(express.json());
 
 const gameRooms = {};
