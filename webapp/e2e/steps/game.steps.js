@@ -2,22 +2,46 @@ const puppeteer = require('puppeteer');
 const { defineFeature, loadFeature }=require('jest-cucumber');
 const setDefaultOptions = require('expect-puppeteer').setDefaultOptions
 const feature = loadFeature('./features/game.feature');
-const axios = require('axios');
-const MockAdapter = require('axios-mock-adapter');
+
+//const dbService = require('../../../questions/services/question-data-service');
 //import MockAdapter from 'axios-mock-adapter';
 
 let page;
 let browser;
 let answer;
-const mockAxios = new MockAdapter(axios);
+
 
 defineFeature(feature, test => {
 
   beforeAll(async () => {
+      
       browser = process.env.GITHUB_ACTIONS
       ? await puppeteer.launch()
       : await puppeteer.launch({ headless: false, slowMo: 40 });
     page = await browser.newPage();
+
+    await page.setRequestInterception(true);
+
+    page.on('request', (req) => {
+      if(req.url().endsWith('/questions')) {
+        req.respond({
+          status: 200,
+          headers: {
+            'Access-Control-Allow-Origin': '*'
+          },
+          contentType: 'application/json',
+          body: JSON.stringify({
+            question: 'Which is the capital of Spain?',
+            options: ['Madrid', 'Barcelona', 'Paris', 'London'],
+            correctAnswer: 'Madrid',
+            categories: ['Geography'],
+            language: 'en'
+          })
+        });
+      } else {
+        req.continue();
+      }
+    });
     //Way of setting up the timeout
     setDefaultOptions({ timeout: 10000 })
 
@@ -33,6 +57,7 @@ defineFeature(feature, test => {
     given('A question', async () => {
         //await expect(page.findByText('Which is the capital of Spain?'));
         const question = await page.$['data-testId="question"'];
+        await expect(page).toMatchElement("div", { text: 'Which is the capital of Spain?'});
         expect(question).not.toBeNull();
         
         const answers = await page.$x('//*[@data-testId="answer"]');
@@ -46,13 +71,9 @@ defineFeature(feature, test => {
 
     then('The button is not blue anymore', async () => {
         const answerButton = await page.$x('(//*[@data-testId="answer"])[1]');
-
-        const style = await (await answerButton[0].getProperty('style')).jsonValue();
-        console.log(style);
-        expect(style.backgroundColor).not.toEqual('blue');
-        //await expect(answer).toHaveStyle({ color: 'green' });
-        //await expect(page).toMatchElement("div", { text: 'Madrid'}).toHaveStyle({ color: 'green' });
-
+        const textoBoton = await page.evaluate(button => button.innerText, answerButton[0]);
+        await expect(textoBoton).toMatch(/Madrid/i);
+        await expect(page).toMatchElement("button", { style: { color: 'green' } });
     });
   })
 
