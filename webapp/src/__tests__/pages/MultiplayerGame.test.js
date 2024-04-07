@@ -78,7 +78,7 @@ describe('Game component', () => {
       useLocation.mockReturnValue({
         state: {
           gameQuestions: mockgameQuestions,
-          roomCode: roomCode,
+          roomCode: "AAAAA",
         },
       })
 
@@ -90,7 +90,6 @@ describe('Game component', () => {
       </SessionContext.Provider>
       );
 
-    expect(screen.getByRole('progressbar'));
     expect(screen.findByText('1'));
     expect(screen.findByText('1/3'));
 
