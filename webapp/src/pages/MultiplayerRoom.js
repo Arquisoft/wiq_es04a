@@ -128,7 +128,7 @@ const MultiplayerRoom = () => {
                   <Typography variant="h4" gutterBottom>
                     Create room
                   </Typography>
-                  <Button variant="contained" onClick={handleCreateRoom}>
+                  <Button variant="contained" onClick={handleCreateRoom} data-testid="btn-create-room">
                     Create room
                   </Button>
                   <Typography variant="h4" gutterBottom style={{ marginTop: '20px' }}>
@@ -141,7 +141,7 @@ const MultiplayerRoom = () => {
                     onChange={(e) => setWrittenCode(e.target.value)}
                     style={{ marginTop: '10px' }}
                   />
-                  <Button variant="contained" onClick={handleJoinRoom} style={{ marginTop: '10px' }}>
+                  <Button variant="contained" onClick={handleJoinRoom} style={{ marginTop: '10px' }} data-testid="btn-join-room">
                     Join room
                   </Button>
                   {error && (
