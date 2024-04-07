@@ -11,7 +11,8 @@ const io = socketIO(server, {
     cors: { //permit connections from webapp
         //origin: [process.env.WEBAPP_ENDPOINT, "http://localhost:3000"],
         origin: "*", //this should be changed to improve security
-        methods: ["GET", "POST"]
+        methods: ["GET", "POST"],
+        allowedHeaders: "*"
     }
 });
 
