@@ -22,6 +22,7 @@ const MultiplayerRoom = () => {
     const [gameLoaded, setGameLoaded] = useState(false);
   
     useEffect(() => {
+      console.log("SOCKET ENDPOINT URL: ", socketEndpoint)
         const newSocket = io(socketEndpoint);
         setSocket(newSocket);
 

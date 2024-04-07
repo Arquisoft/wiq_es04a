@@ -1,8 +1,12 @@
 import * as React from "react";
 import { Box, Button, Typography, useTheme } from "@mui/material";
+import { useContext } from 'react';
+import { SessionContext } from '../SessionContext';
 
 const Home = () => {
     const theme = useTheme();
+
+    const {username} = useContext(SessionContext);
 
     const styles = {
         // Constant that stores the styles of the play button
@@ -34,7 +38,7 @@ const Home = () => {
                     <Typography align="center" sx={{fontSize: { xs:'1rem', sm: '1.2rem', md: '1.5rem',}, fontWeight: "bold",  color: theme.palette.success.main }}> INFINITE </Typography>
                     <Typography align="center" sx={{fontSize: { xs:'1rem', sm: '1.2rem', md: '1.5rem',}, fontWeight: "bold",  color: theme.palette.primary.main }}> QUEST </Typography>
                 </Box>
-                <Button variant='conteined' href={"/login"} sx={styles.playButton}> PLAY </Button>
+                <Button variant='conteined' href={username ? "/homepage" : "/login"} sx={styles.playButton}> PLAY </Button>
             </Box>
         </Box>
     );
