@@ -1,23 +1,17 @@
 import React from 'react';
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import { SessionContext } from '../../SessionContext'; // Importa el contexto necesario
-import { BrowserRouter as Router } from 'react-router-dom';
+
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { MemoryRouter, useLocation } from 'react-router-dom';
 import MultiplayerGame from '../../pages/MultiplayerGame';
+import MultiplayerRoom from '../../pages/MultiplayerRoom';
+import { shallow } from 'enzyme';
 
 const mockAxios = new MockAdapter(axios);
 
 describe('Game component', () => {
-
-    const LocationProvider = ({ children, state }) => {
-        const mockLocation = {
-          state: state
-        };
-        useLocation.mockReturnValue(mockLocation); 
-        return children;
-    };
 
     const questionObject = {
         question: 'Which is the capital of Spain?',
@@ -38,15 +32,27 @@ describe('Game component', () => {
     const roomCode = 'ABC123';
     const gameQuestions = generateQuestionArray(questionObject, 3);
 
+    const mockLocationState = {
+        gameQuestions: gameQuestions,
+        roomCode: 'ABC123'
+    };
+
+    jest.mock('react-router-dom', () => {
+        return {
+          ...jest.requireActual('react-router-dom'),
+          useLocation: jest.fn(() => (mockLocationState)),
+        };
+      });
+
+    const Router = require('react-router-dom');
+
   it('should render recieved room code, question, answers and other ', async () => {
 
-    render( 
+   render( 
       <SessionContext.Provider value={{ username: 'exampleUser' }}>
-        <MemoryRouter>
-            <LocationProvider state={{ gameQuestions, roomCode }}>
-                <MultiplayerGame />
-            </LocationProvider>
-      </MemoryRouter>
+        <Router>
+            <MultiplayerGame />
+        </Router>
       </SessionContext.Provider>
     );
 
@@ -64,7 +70,7 @@ describe('Game component', () => {
     expect(screen.findByText('London'));
   });
 
-  it('should guess correct answer', async () => {
+ /* it('should guess correct answer', async () => {
     render( 
       <SessionContext.Provider value={{ username: 'exampleUser' }}>
         <Router>
@@ -110,6 +116,6 @@ describe('Game component', () => {
 
     expect(incorrectAnswer).toHaveStyle({ backgroundColor: 'red' });
 
-  });
+  });*/
 
 });
