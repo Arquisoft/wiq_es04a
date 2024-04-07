@@ -129,4 +129,6 @@ io.on('connection', (socket) => {
 // Start the service 
 server.listen(port, () => {
   console.log(`Multiplayer Service listening at port ${port}`);
+  console.log("WEBAPP_ENDPOINT: ", process.env.WEBAPP_ENDPOINT);
+  console.log("apiEndpoint: ", apiEndpoint);
 });
