@@ -237,7 +237,7 @@ if (shouldRedirect) {
         navigate('/homepage');
     }, 4000);
 
-//
+
     return (
         <Container
             sx={{
@@ -251,6 +251,7 @@ if (shouldRedirect) {
         >
             <CssBaseline />
             <Typography 
+            data-testid="end-game-message"
             variant="h4" 
             sx={{
                 color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? 'green' : 'red',
@@ -321,12 +322,13 @@ if (shouldRedirect) {
                 </Container>
             </Container>
 
-            <Typography variant='h6' >
+            <Typography variant='h6' data-testid="numRound">
                 {round} / {MAX_ROUNDS}
             </Typography>
             <Typography variant="h5" mb={4} fontWeight="bold" style={{ display: 'flex', alignItems: 'center' }}>
-            <span style={{ marginRight: '1em' }}>{questionData.question}</span>
+            <span data-testid="question" style={{ marginRight: '1em' }}>{questionData.question}</span>
                 <CountdownCircleTimer
+                  data-testid="circleTimer"
                   key={questionCountdownKey}
                   isPlaying = {questionCountdownRunning}
                   duration={15}
@@ -349,6 +351,7 @@ if (shouldRedirect) {
                 {questionData.options.map((option, index) => (
                     <Grid item xs={12} key={index}>
                         <Button
+                            data-testid="answer"
                             variant="contained"
                             onClick={() => selectResponse(index, option)}
                             disabled={buttonStates[index] !== null || answered} // before, you could still press more than one button
