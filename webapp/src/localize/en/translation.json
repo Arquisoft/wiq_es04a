@@ -1,0 +1,16 @@
+{
+    "NavBar":{
+        "play": "Play",
+        "statistics": "Statistics",
+        "instructions": "Instructions",
+        "groups": "Groups",
+        "languages": {
+            "en": "English",
+            "es": "Spanish"
+        }
+    },
+    "Footer": {
+        "api_questions": "QUESTIONS API DOC",
+        "api_users": "USERS API DOC"
+    }
+}
