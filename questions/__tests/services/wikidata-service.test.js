@@ -111,3 +111,62 @@ describe('Get properties from wikidata', function() {
    });
 
 });
+
+describe('Get label from entities', function() {
+    it('Should get the entitys label in spanish', async function() {
+        const entity = [
+            'https://url/Q28'
+        ];
+        mockAxios.onGet('https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&ids=Q28').reply(200,{
+                entities: {
+                    Q28: {
+                        labels: {
+                            es: {
+                                value: 'Madrid'
+                            }
+                        }
+                    }
+                }
+        });
+        const response = await wikidataService.convertUrlsToLabels(entity);
+        await expect(response[0]).toBe('Madrid');
+    });
+
+    it('Should get the entitys label in english', async function() {
+        const entity = [
+            'https://url/Q28'
+        ];
+        mockAxios.onGet('https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&ids=Q28').reply(200,{
+                entities: {
+                    Q28: {
+                        labels: {
+                            en: {
+                                value: 'Madrid'
+                            }
+                        }
+                    }
+                }
+        });
+        const response = await wikidataService.convertUrlsToLabels(entity);
+        await expect(response[0]).toBe('Madrid');
+    });
+
+    it('Should not get any entitys label', async function() {
+        const entity = [
+            'https://url/Q28'
+        ];
+        mockAxios.onGet('https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&ids=Q28').reply(200,{
+                entities: {
+                    Q28: {
+                        labels: {
+                            fr: {
+                                value: 'Madrid'
+                            }
+                        }
+                    }
+                }
+        });
+        const response = await wikidataService.convertUrlsToLabels(entity);
+        await expect(response[0]).toBe("no label (TEST)");
+    });
+});

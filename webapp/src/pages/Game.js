@@ -251,6 +251,7 @@ if (shouldRedirect) {
         >
             <CssBaseline />
             <Typography 
+            data-testid="end-game-message"
             variant="h4" 
             sx={{
                 color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? 'green' : 'red',
@@ -321,7 +322,7 @@ if (shouldRedirect) {
                 </Container>
             </Container>
 
-            <Typography variant='h6' >
+            <Typography variant='h6' data-testid="numRound">
                 {round} / {MAX_ROUNDS}
             </Typography>
             <Typography variant="h5" mb={4} fontWeight="bold" style={{ display: 'flex', alignItems: 'center' }}>

@@ -3,13 +3,8 @@ const { defineFeature, loadFeature }=require('jest-cucumber');
 const setDefaultOptions = require('expect-puppeteer').setDefaultOptions
 const feature = loadFeature('./features/game.feature');
 
-//const dbService = require('../../../questions/services/question-data-service');
-//import MockAdapter from 'axios-mock-adapter';
-
 let page;
 let browser;
-let answer;
-
 
 defineFeature(feature, test => {
 
