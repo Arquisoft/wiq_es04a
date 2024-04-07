@@ -1,13 +1,10 @@
 import React from 'react';
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import { SessionContext } from '../../SessionContext'; // Importa el contexto necesario
-
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { MemoryRouter, useLocation } from 'react-router-dom';
+//import { MemoryRouter, useLocation } from 'react-router-dom';
 import MultiplayerGame from '../../pages/MultiplayerGame';
-import MultiplayerRoom from '../../pages/MultiplayerRoom';
-import { shallow } from 'enzyme';
 
 const mockAxios = new MockAdapter(axios);
 
@@ -34,15 +31,15 @@ describe('Game component', () => {
 
     const mockLocationState = {
         gameQuestions: gameQuestions,
-        roomCode: 'ABC123'
+        roomCode: roomCode
     };
 
     jest.mock('react-router-dom', () => {
         return {
           ...jest.requireActual('react-router-dom'),
-          useLocation: jest.fn(() => (mockLocationState)),
+          useLocation: jest.fn(() => ({state : mockLocationState})),
         };
-      });
+    });
 
     const Router = require('react-router-dom');
 
@@ -50,9 +47,11 @@ describe('Game component', () => {
 
    render( 
       <SessionContext.Provider value={{ username: 'exampleUser' }}>
-        <Router>
-            <MultiplayerGame />
-        </Router>
+        <Router.MemoryRouter initialEntries = {['/multiplayerGame'] }>
+        <Router.Routes>
+          <Router.Route path="multiplayerGame" element={<MultiplayerGame />}/>
+        </Router.Routes>
+      </Router.MemoryRouter>
       </SessionContext.Provider>
     );
 
