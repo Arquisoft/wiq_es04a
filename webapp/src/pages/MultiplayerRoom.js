@@ -5,8 +5,8 @@ import { useContext } from 'react';
 import { SessionContext } from '../SessionContext';
 import { useNavigate } from 'react-router-dom';
 
-//const socketEndpoint = process.env.MULTIPLAYER_ENDPOINT || 'ws://localhost:5010';  
-const socketEndpoint = process.env.MULTIPLAYER_ENDPOINT || 'ws://20.19.89.97/:5010';  
+const socketEndpoint = process.env.MULTIPLAYER_ENDPOINT || 'ws://localhost:5010';  
+//const socketEndpoint = process.env.MULTIPLAYER_ENDPOINT || 'ws://20.19.89.97/:5010';  do not work 
 
 const MultiplayerRoom = () => {
     const [roomCode, setRoomCode] = useState("");
