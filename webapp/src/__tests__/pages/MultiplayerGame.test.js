@@ -1,22 +1,30 @@
 import React from 'react';
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
-import { SessionContext } from '../../SessionContext'; // Importa el contexto necesario
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
-//import { MemoryRouter, useLocation } from 'react-router-dom';
-
-//import { BrowserRouter } from 'react-router-dom'; 
-const mockAxios = new MockAdapter(axios);
+import { SessionContext } from '../../SessionContext'; 
 import { BrowserRouter, useLocation } from 'react-router-dom'; 
 import MultiplayerGame from '../../pages/MultiplayerGame';
+import io from 'socket.io-client';
+
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
     useLocation: jest.fn()
 }));
 
-
+jest.mock('socket.io-client', () => {
+    const emitMock = jest.fn();
+    return () => ({
+      on: jest.fn(),
+      emit: emitMock,
+      disconnect: jest.fn(),
+    });
+});
 
 describe('Game component', () => {
+    let socket;
+    
+    beforeEach(() => {
+        socket = io();
+    });
 
     const questionObject = {
         question: 'Which is the capital of Spain?',
@@ -35,46 +43,10 @@ describe('Game component', () => {
     };
 
     const mockgameQuestions = generateQuestionArray(questionObject, 3);
-// state: { gameQuestions: mockgameQuestions, roomCode: mockroomCode}
-   /* jest.mock('react-router-dom', () => ({
-        ...jest.requireActual('react-router-dom'),
-        useLocation: jest.fn(() => ({
-          state: { gameQuestions: mockgameQuestions, roomCode: mockroomCode}
-        })),
-    }));*/
 
-   
-
-  //  const Router = require('react-router-dom');
-
-  it('should render recieved room code, question, answers and other ', async () => {
-
-   /*render( 
-      <SessionContext.Provider value={{ username: 'exampleUser' }}>
-        <Router.MemoryRouter initialEntries = {['/multiplayerGame'] }>
-        <Router.Routes>
-          <Router.Route path="/multiplayerGame" element={<MultiplayerGame />}/>
-        </Router.Routes>
-      </Router.MemoryRouter>
-      </SessionContext.Provider>
-    );*/
-
-   /* render(
-        <SessionContext.Provider value={{ username: 'exampleUser' }}>
-            <Router.BrowserRouter>
-                <MultiplayerGame />
-            </Router.BrowserRouter>
-        </SessionContext.Provider>
-    )*/
-
-   /* render(
-        <SessionContext.Provider value={{ username: 'exampleUser' }}>
-          <Router.MemoryRouter initialEntries={['/multiplayerGame']}>
-            <MultiplayerGame />
-          </Router.MemoryRouter>
-        </SessionContext.Provider>
-      );*/
+  it('should render with recieved room code and questions ', async () => {
       
+    //mock info that room sent to the game
       useLocation.mockReturnValue({
         state: {
           gameQuestions: mockgameQuestions,
@@ -103,15 +75,24 @@ describe('Game component', () => {
     expect(screen.findByText('London'));
   });
 
- /* it('should guess correct answer', async () => {
-    render( 
+  //bellow tests fail because of sounds -> commented while find solution
+
+ /*it('should guess correct answer', async () => {
+
+    useLocation.mockReturnValue({
+        state: {
+          gameQuestions: mockgameQuestions,
+          roomCode: "AAAAA",
+        },
+      })
+
+      render(
       <SessionContext.Provider value={{ username: 'exampleUser' }}>
-        <Router>
-            <MultiplayerGame />,
-            {{ state: { gameQuestions, roomCode } }}
-        </Router>
+        <BrowserRouter>
+            <MultiplayerGame />
+        </BrowserRouter>
       </SessionContext.Provider>
-    );
+      );
 
     // waits for the question to appear
     await waitFor(() => screen.getByText('Which is the capital of Spain?'));
@@ -122,22 +103,28 @@ describe('Game component', () => {
     //selects correct answer
     fireEvent.click(correctAnswer);
 
-    //expect(screen.findByText('1')).toHaveStyle({ backgroundColor: 'lightgreen' });
-
     expect(correctAnswer).toHaveStyle({ backgroundColor: 'green' });
 
   });
 
   
   it('should choose incorrect answer', async () => {
-    render( 
+
+    useLocation.mockReturnValue({
+        state: {
+          gameQuestions: mockgameQuestions,
+          roomCode: "AAAAA",
+        },
+      })
+
+      render(
       <SessionContext.Provider value={{ username: 'exampleUser' }}>
-        <Router>
-            <MultiplayerGame />,
-            {{ state: { gameQuestions, roomCode } }}
-        </Router>
+        <BrowserRouter>
+            <MultiplayerGame />
+        </BrowserRouter>
       </SessionContext.Provider>
-    );
+      );
+
     // waits for the question to appear
     await waitFor(() => screen.getByText('Which is the capital of Spain?'));
     const incorrectAnswer = screen.getByRole('button', { name: 'Barcelona' });
@@ -145,7 +132,7 @@ describe('Game component', () => {
     expect(incorrectAnswer).not.toHaveStyle({ backgroundColor: 'red' });
 
     //selects correct answer
-    fireEvent.click(incorrectAnswer);
+    fireEvent.click(incorrectAnswer); 
 
     expect(incorrectAnswer).toHaveStyle({ backgroundColor: 'red' });
 
