@@ -237,7 +237,7 @@ if (shouldRedirect) {
         navigate('/homepage');
     }, 4000);
 
-//
+
     return (
         <Container
             sx={{
@@ -325,8 +325,9 @@ if (shouldRedirect) {
                 {round} / {MAX_ROUNDS}
             </Typography>
             <Typography variant="h5" mb={4} fontWeight="bold" style={{ display: 'flex', alignItems: 'center' }}>
-            <span data-testId="question" style={{ marginRight: '1em' }}>{questionData.question}</span>
+            <span data-testid="question" style={{ marginRight: '1em' }}>{questionData.question}</span>
                 <CountdownCircleTimer
+                  data-testid="circleTimer"
                   key={questionCountdownKey}
                   isPlaying = {questionCountdownRunning}
                   duration={15}
@@ -349,7 +350,7 @@ if (shouldRedirect) {
                 {questionData.options.map((option, index) => (
                     <Grid item xs={12} key={index}>
                         <Button
-                            data-testId="answer"
+                            data-testid="answer"
                             variant="contained"
                             onClick={() => selectResponse(index, option)}
                             disabled={buttonStates[index] !== null || answered} // before, you could still press more than one button

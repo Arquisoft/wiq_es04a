@@ -61,21 +61,21 @@ defineFeature(feature, test => {
 
     given('A question', async () => {
         //await expect(page.findByText('Which is the capital of Spain?'));
-        const question = await page.$['data-testId="question"'];
+        const question = await page.$['data-testid="question"'];
         await expect(page).toMatchElement("div", { text: 'Which is the capital of Spain?'});
         expect(question).not.toBeNull();
         
-        const answers = await page.$x('//*[@data-testId="answer"]');
+        const answers = await page.$x('//*[@data-testid="answer"]');
         expect(answers.length).toBe(4);
     });
 
     when('I click on the correct answer button', async () => {
-        const answers = await page.$x('(//*[@data-testId="answer"])[1]');
+        const answers = await page.$x('(//*[@data-testid="answer"])[1]');
         await answers[0].click();
     });
 
     then('The button turns green', async () => {
-        const answerButton = await page.$x('(//*[@data-testId="answer"])[1]');
+        const answerButton = await page.$x('(//*[@data-testid="answer"])[1]');
         const textoBoton = await page.evaluate(button => button.innerText, answerButton[0]);
         await expect(textoBoton).toMatch(/Madrid/i);
         await expect(page).toMatchElement("button", { style: { color: 'green' } });
@@ -86,21 +86,21 @@ defineFeature(feature, test => {
 
     given('A question', async () => {
         //await expect(page.findByText('Which is the capital of Spain?'));
-        const question = await page.$['data-testId="question"'];
+        const question = await page.$['data-testid="question"'];
         await expect(page).toMatchElement("div", { text: 'Which is the capital of Spain?'});
         expect(question).not.toBeNull();
         
-        const answers = await page.$x('//*[@data-testId="answer"]');
+        const answers = await page.$x('//*[@data-testid="answer"]');
         expect(answers.length).toBe(4);
     });
 
     when('I click on an incorrect answer button', async () => {
-        const answers = await page.$x('(//*[@data-testId="answer"])[2]');
+        const answers = await page.$x('(//*[@data-testid="answer"])[2]');
         await answers[0].click();
     });
 
     then('The button turns red', async () => {
-        const answerButton = await page.$x('(//*[@data-testId="answer"])[2]');
+        const answerButton = await page.$x('(//*[@data-testid="answer"])[2]');
         const textoBoton = await page.evaluate(button => button.innerText, answerButton[0]);
         await expect(textoBoton).toMatch(/Barcelona/i);
         await expect(page).toMatchElement("button", { style: { color: 'red' } });
