@@ -1,56 +1,57 @@
 import * as React from 'react';
-import { Container, Button, Box, Pagination} from '@mui/material';
+import { Container, Button, Box, Pagination, useTheme } from '@mui/material';
 import data from "../data/gameInfo.json";
 
-const styles = {
-    // Object that stores the button styles in normal state
-    buttonNormal : {
-        width: "60%",
-        height: "3rem",
-        margin: '0.7vh',
-        '&:hover': { backgroundColor: '#990000', color: '#fff',},
-    },
-
-    // Constant that stores the styles of the button when it is clicked
-    buttonClicked : {
-        width: "70%",
-        height: "3rem",
-        margin: '0.5vh',
-        backgroundColor: '#339966',
-        color: '#fff',
-        transition: 'width 0.1s ease-in-out, height 0.1s ease-in-out',
-        '&:hover': { backgroundColor: '#339966',},
-    },
-
-    // Constant that stores the styles of the images
-    img : {
-        boxShadow: `-50px -50px 0 -30px #990000, 50px 50px 0 -30px #006699`,
-        border:' 4px solid black',
-        width: '50%',
-    },
-
-    // Constant that stores the styles of the play button
-    playButton : {
-        height: "4rem",
-        width: "10rem",
-        marginTop:'7vh',
-        fontSize:'1.5rem',
-        fontFamily: 'Arial Black, sans-serif',
-
-        color: '#339966',
-        backgroundColor: 'transparent',
-        border: '2px solid #339966',
-        transition: 'background-color 0.3s ease',
-
-        '&:hover': {
-          backgroundColor: '#339966',
-          color: '#fff',
-        }
-    },
-
-}
-
 const Homepage = () => {
+    const theme = useTheme();
+    const styles = {
+        // Object that stores the button styles in normal state
+        buttonNormal : {
+            width: "60%",
+            height: "3rem",
+            margin: '0.7vh',
+            '&:hover': { backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main,},
+        },
+    
+        // Constant that stores the styles of the button when it is clicked
+        buttonClicked : {
+            width: "70%",
+            height: "3rem",
+            margin: '0.5vh',
+            backgroundColor: theme.palette.success.main,
+            color: theme.palette.secondary.main,
+            transition: 'width 0.1s ease-in-out, height 0.1s ease-in-out',
+            borderColor:theme.palette.success.main,
+            '&:hover': { backgroundColor: theme.palette.success.main, borderColor:theme.palette.success.main,},
+        },
+    
+        // Constant that stores the styles of the images
+        img : {
+            boxShadow: `-50px -50px 0 -30px ${theme.palette.error.main}, 50px 50px 0 -30px ${theme.palette.primary.main}`,
+            border:' 4px solid black',
+            width: '50%',
+        },
+    
+        // Constant that stores the styles of the play button
+        playButton : {
+            height: "4rem",
+            width: "10rem",
+            marginTop:'7vh',
+            fontSize:'1.5rem',
+            fontFamily: 'Arial Black, sans-serif',
+    
+            color: theme.palette.success.main,
+            backgroundColor: 'transparent',
+            border: `2px solid ${theme.palette.success.main}`,
+            transition: 'background-color 0.3s ease',
+    
+            '&:hover': {
+              backgroundColor: theme.palette.success.main,
+              color: theme.palette.secondary.main,
+            }
+        },
+    
+    }
 
     // List of games on this page
     const [games, setGames] = React.useState(null);
