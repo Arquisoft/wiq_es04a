@@ -103,7 +103,7 @@ jobs:
       uses: elgohr/Publish-Docker-Github-Action@v5
       env:
         API_URI: http://${{ secrets.DEPLOY_HOST }}:8000
-        ONLINE_URI: ws://${{ secrets.DEPLOY_HOST }}:5010
+        ONLINE_URI: http://${{ secrets.DEPLOY_HOST }}:5010
       with:
           name: arquisoft/wiq_es04a/webapp
           username: ${{ github.actor }}
