@@ -75,9 +75,7 @@ describe('Game component', () => {
     expect(screen.findByText('London'));
   });
 
-  //bellow tests fail because of sounds -> commented while find solution
-
- /*it('should guess correct answer', async () => {
+ it('should guess correct answer', async () => {
 
     useLocation.mockReturnValue({
         state: {
@@ -136,6 +134,6 @@ describe('Game component', () => {
 
     expect(incorrectAnswer).toHaveStyle({ backgroundColor: 'red' });
 
-  });*/
+  });
 
 });
