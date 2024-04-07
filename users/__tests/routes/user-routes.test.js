@@ -4,7 +4,7 @@ const request = require('supertest');
 const express = require('express');
 const bodyParser = require('body-parser');
 const userRoutes = require('../../routes/user-routes.js');
-const config = require('../../test-config.js');
+const config = require('../test-config.js');
 
 const app = express();
 app.use(bodyParser.json());
