@@ -472,9 +472,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#section-solution-strategy">4. Solution Strategy</a>
 <ul class="sectlevel2">
 <li><a href="#_technology_decisions">4.1. Technology decisions</a></li>
-<li><a href="#_decisions_about_the_top_level_decomposition_of_the_system">4.2. Decisions about the top-level decomposition of the system</a></li>
-<li><a href="#_decisions_on_how_to_achieve_key_quality_goals">4.3. Decisions on how to achieve key quality goals</a></li>
-<li><a href="#_relevant_organizational_decisions">4.4. Relevant organizational decisions</a></li>
+<li><a href="#_implementation_design">4.2. Implementation design</a></li>
+<li><a href="#_decisions_about_the_top_level_decomposition_of_the_system">4.3. Decisions about the top-level decomposition of the system</a></li>
+<li><a href="#_decisions_on_how_to_achieve_key_quality_goals">4.4. Decisions on how to achieve key quality goals</a></li>
+<li><a href="#_relevant_organizational_decisions">4.5. Relevant organizational decisions</a></li>
 </ul>
 </li>
 <li><a href="#section-building-block-view">5. Building Block View</a>
@@ -1192,14 +1193,81 @@ One of the main disadvantages is that we had to learn it, because our main langu
 </div>
 </div>
 <div class="sect2">
-<h3 id="_decisions_about_the_top_level_decomposition_of_the_system">4.2. Decisions about the top-level decomposition of the system</h3>
+<h3 id="_implementation_design">4.2. Implementation design</h3>
+<div class="sect3">
+<h4 id="_question_generation_strategy">4.2.1. Question generation strategy</h4>
+<div class="paragraph">
+<p>For the question generation process, we consult Wikidata using one of the question generation structures available in a JSON, and enrich it usually with properties more likely to be succesfuly queried from Wikidata.</p>
+</div>
+<div class="paragraph">
+<p>The JSON structure allows us to select the desired categories for the questions requested if necessary, and, in the future, the language of the question. From there, we construct the query in Wikidata and convert it into a question object. Here&#8217;s an example of a category element in the JSON:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+    "name": "football",
+    "instance": "Q476028",
+    "properties": [
+        {
+            "property": "P115",
+            "template":
+                [{
+                "lang": "es",
+                "question": "Cuál es el estadio del equipo x"
+                },
+                {
+                "lang": "en",
+                "question": "What is the stadium of x team"
+                }],
+            "category": ["Sports"]
+        },
+        ...
+    ]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This structure allows us to select multiple and varying questions from a given category or for a given item, varying the properties depending on the type of element we are querying within a category (i.e., a Wikidata Item).</p>
+</div>
+<div class="paragraph">
+<p>This process allows us to dynamically generate questions based on specific categories and properties, ensuring a diverse set of questions for users across different topics and languages.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_question_service_functionality">4.2.2. Question service functionality</h4>
+<div class="paragraph">
+<p>For the question service implementation, as explained in <a href="https://github.com/Arquisoft/wiq_es04a/wiki/ADR-08-‐-Questions-Database-Functioning">ADR 08</a> - Questions Database Functioning, we&#8217;ve devised a strategy to ensure a seamless experience with minimal question repetition.</p>
+</div>
+<div class="paragraph">
+<p>The question request route will manage its service by removing questions from the database, preventing redundancy. We&#8217;ve established two thresholds for the questions stored count:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A high threshold to maintain a minimum number of stored questions</p>
+</li>
+<li>
+<p>A low threshold to avoid depleting the collection entirely.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In cases where no questions are available, a pair of questions will be synchronously generated before asynchronously replenishing to reach the high threshold, which will be the usual behavior whenever the high threshold is surpassed.</p>
+</div>
+<div class="paragraph">
+<p>This approach ensures continuous question availability while mitigating repetition risks. Additionally, we aim to explore the feasibility of generating questions during periods of service inactivity or low request volume for further optimization.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_decisions_about_the_top_level_decomposition_of_the_system">4.3. Decisions about the top-level decomposition of the system</h3>
 <div class="paragraph">
 <p>We decided to use a microservices arquitecture, having different modules for each functionality.
 For example, we will use a microservice to generate the questions.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_decisions_on_how_to_achieve_key_quality_goals">4.3. Decisions on how to achieve key quality goals</h3>
+<h3 id="_decisions_on_how_to_achieve_key_quality_goals">4.4. Decisions on how to achieve key quality goals</h3>
 <div class="paragraph">
 <p>Quality goals are explained in detail in point 10.</p>
 </div>
@@ -1235,7 +1303,7 @@ For example, we will use a microservice to generate the questions.</p>
 </table>
 </div>
 <div class="sect2">
-<h3 id="_relevant_organizational_decisions">4.4. Relevant organizational decisions</h3>
+<h3 id="_relevant_organizational_decisions">4.5. Relevant organizational decisions</h3>
 <div class="paragraph">
 <p>Our framework will be based on working every week with two weekly meetings, one will be held during lab time in order to assign tasks and make minor decisions.
 On the other hand, the weekend meeting will be intended for more thorough reviews as well as more significant decisions.</p>
