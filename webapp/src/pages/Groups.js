@@ -50,11 +50,7 @@ const Groups = () => {
         setOpenSnackbar(true);
         fetchData();
       } catch (error) {
-        if (error.response && error.response.status === 400) {
-          setError('A group with the same name already exists.');
-        } else {
-          setError(error.response.data.error);
-        }
+        setError(error.response.data.error);
       }
     };
 

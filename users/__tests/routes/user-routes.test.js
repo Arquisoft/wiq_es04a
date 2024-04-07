@@ -407,21 +407,34 @@ describe('User Routes', () => {
     });
 
 
+    // group add fail test because of not accepted group name
+    it('should return error 400 if group name is too short', async () => {
+        const groupData = {
+            name: "t",
+            username: "testuserGroup"
+        };
+    
+        const res = await request(app)
+            .post('/user/group/add')
+            .send(groupData)
+            .expect(400);
+    
+        expect(res.body.error).toBe('Group name must be at least 4 characters long.');
+    });
+
     
     //group add fail test
-    it('shouldn´t add a new group', async () => {
+    it('shouldn`t add a new group', async () => {
 
         // Making POST request to the endpoint
         const res = await request(app)
             .post('/user/group/add')
             .send({})
             .expect(500); // Expecting a successful response with status code 200
-
     
     });
 
     //group join
-
     it('should allow a user to join a group successfully when the group is not full', async () => {
         
          //I have to add the user first to make the post work
