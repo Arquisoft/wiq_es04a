@@ -39,6 +39,7 @@ jobs:
     - run: npm --prefix gatewayservice install
     - run: npm --prefix webapp install
     - run: npm --prefix webapp run build
+    - run: npm --prefix webapp run test:e2e
   docker-push-users:
     name: Push users Docker Image to GitHub Packages
     runs-on: ubuntu-latest
