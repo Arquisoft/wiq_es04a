@@ -1,9 +1,11 @@
 import * as React from "react";
-import { Button, Typography, Grid, Container, CssBaseline } from "@mui/material";
+import { Button, Typography, Grid, Container, CssBaseline, useTheme } from "@mui/material";
 import data from "../data/gameInfo.json";
 
 
 const Instructions = () => {
+    const theme = useTheme();
+
     // Whole information about games
     const [info, setInfo] = React.useState(null);
 
@@ -26,7 +28,7 @@ const Instructions = () => {
             setGameInfo(
                 <Grid container spacing={{ xs: 2, md: 4 }} columns={{ xs: 2, md: 4 }} >
                     <Grid item xs={2}>
-                        <img src={info[index].foto} alt="Foto del minijuego" style={{ maxWidth: "100%", border: "2px solid #006699", borderRadius: "5px"}}/>
+                        <img src={info[index].foto} alt="Foto del minijuego" style={{ maxWidth: "100%", border: `2px solid ${theme.palette.primary.main}`, borderRadius: "5px"}}/>
                     </Grid>
                     <Grid item xs={2} sx={{ display: "flex", flexDirection: "column", justifyContent: "space-evenly" }}>
                         <Typography variant="h3" align="center" fontWeight="bold"> {info[index].nombre} </Typography>
