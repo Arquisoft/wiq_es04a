@@ -10,6 +10,9 @@ COPY package*.json ./
 # Install app dependencies
 RUN npm install
 
+ARG API_URI="http://localhost:5010"
+ENV MULTIPLAYER_ENDPOINT=$API_URI
+
 # Copy the app source code to the working directory
 COPY . .
 
