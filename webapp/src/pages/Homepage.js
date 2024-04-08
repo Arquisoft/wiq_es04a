@@ -126,9 +126,9 @@ const Homepage = () => {
                     <img
                         style={styles.img}
                         src={info[index].foto}
-                        alt="Foto del juego"
+                        alt={data[index].nombre}
                     />
-
+                    
                 </Box>
             );
         }

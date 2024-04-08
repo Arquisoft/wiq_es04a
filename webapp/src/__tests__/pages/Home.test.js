@@ -37,3 +37,4 @@ describe('NavBar component', () => {
         expect(window.location.pathname).toBe('/');
     });
 });
+
