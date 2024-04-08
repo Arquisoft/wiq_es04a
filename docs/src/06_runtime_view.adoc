@@ -70,3 +70,8 @@ image:06_join_a_group_seq.png["Group Joining Sequence"]
 ==== Group Details
 
 image:06_group_details_seq.png["Group Details Sequence"]
+
+
+=== Play Games
+
+image:06_play_seq.svg["Play Games Sequence"]
