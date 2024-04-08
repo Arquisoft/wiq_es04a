@@ -37,8 +37,8 @@ const getQuestion = () => {
 
   //TODO REMOVE
   app.get("/test", (req, res) => {
-    const q = getQuestion();
-    res.json({ test: q });
+    console.log("/test")
+    res.json({ test: "OK" });
   });
 
 
