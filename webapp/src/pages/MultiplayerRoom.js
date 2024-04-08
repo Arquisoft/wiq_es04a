@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import { SessionContext } from '../SessionContext';
 import { useNavigate } from 'react-router-dom';
 
-const socketEndpoint = process.env.MULTIPLAYER_ENDPOINT || 'http://localhost:5010';  
+const socketEndpoint = process.env.REACT_APP_MULTIPLAYER_ENDPOINT || 'http://localhost:5010';  
 //const socketEndpoint = process.env.MULTIPLAYER_ENDPOINT || 'ws://20.19.89.97/:5010';  do not work 
 
 const MultiplayerRoom = () => {
@@ -24,7 +24,7 @@ const MultiplayerRoom = () => {
   
     useEffect(() => {
       console.log("SOCKET ENDPOINT URL: ", socketEndpoint)
-      console.log("process.env.MULTIPLAYER_ENDPOINT: ", process.env.MULTIPLAYER_ENDPOINT);
+      console.log("process.env.REACT_APP_MULTIPLAYER_ENDPOINT: ", process.env.MULTIPLAYER_ENDPOINT);
         const newSocket = io(socketEndpoint);
         setSocket(newSocket);
 
