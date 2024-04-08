@@ -5,9 +5,9 @@ sequenceDiagram
     Webapp ->> Gateway Service: axios.post('/user/add')
     Gateway Service ->> Users: axios.post('/user/add')
 
-    Users ->> MariaDB: router.post(/user/add)
-    MariaDB -->> Users: 
+    Users ->> MariaDB: router.post('/user/add')
+    MariaDB -->> Users: JSON response
 
     Users -->> Gateway Service: 
     Gateway Service -->> Webapp: 
-    Webapp -->>- User: show register confirm
+    Webapp -->>- User: show homepage

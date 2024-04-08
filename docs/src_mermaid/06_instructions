@@ -1,0 +1,12 @@
+sequenceDiagram
+    Note over User,Webapp: User must be logged in
+    User ->>+ Webapp: click INSTRUCTIONS navbar button
+    Webapp ->> Webapp: setInfo
+    Webapp -->>- User: show game modes buttons
+
+
+    loop See gamemodes instructions
+        User ->>+ Webapp: click any mode instructions button
+        Webapp -->>- User: display game info
+    end
+    

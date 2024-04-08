@@ -1,13 +1,13 @@
 sequenceDiagram
-    User ->>+ Webapp: click login link
+    User ->>+ Webapp: click login link or play button
     Webapp -->>- User: redirect to login view
     User ->>+ Webapp: complete form and click
     Webapp ->> Gateway Service: axios.post('/login')
     Gateway Service ->> Users: axios.post('/login')
 
-    Users ->> MariaDB: router.post(/login)
-    MariaDB -->> Users: 
+    Users ->> MariaDB: router.post('/login')
+    MariaDB -->> Users: JSON response
 
     Users -->> Gateway Service: 
     Gateway Service -->> Webapp: 
-    Webapp -->>- User: show login confirm
+    Webapp -->>- User: show homepage
