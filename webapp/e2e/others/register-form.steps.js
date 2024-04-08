@@ -7,7 +7,7 @@ let page;
 let browser;
 
 defineFeature(feature, test => {
-  
+
   beforeAll(async () => {
     browser = process.env.GITHUB_ACTIONS
       ? await puppeteer.launch()
@@ -24,7 +24,7 @@ defineFeature(feature, test => {
   });
 
   test('The user is not registered in the site', ({given,when,then}) => {
-    
+
     let username;
     let password;
     let name;
@@ -35,7 +35,7 @@ defineFeature(feature, test => {
       password = "12345678mM."
       name = "Jordi"
       surname = "Hurtado"
-    
+
       const [loginLink] = await page.$x('//*[@id="root"]/div/header/div/a[2]');
 
       if (loginLink) {
@@ -56,7 +56,7 @@ defineFeature(feature, test => {
     });
 
     then('A confirmation message should be shown in the screen', async () => {
-      await expect(page).toMatchElement("button", { text: "PLAY" });
+      await expect(page).toMatchElement("link", { text: "PLAY" });
     });
   })
 
