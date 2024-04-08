@@ -76,9 +76,14 @@ describe('Routes Tests', () => {
     const mockUserData = { username: 'testuser', token: 'mocktoken' };
     axios.post.mockResolvedValueOnce({ data: mockUserData });
 
-    const response = await request(app).post('/login').send({ username: 'testuser', password: 'testpassword' });
+    const response = await request(app).post('/login').send({ 
+      username: 'testuser', 
+      password: 'testpassword' //NOSONAR
+    }); 
 
-    expect(axios.post).toHaveBeenCalledWith(expect.stringContaining('/login'), { username: 'testuser', password: 'testpassword' });
+    expect(axios.post).toHaveBeenCalledWith(expect.stringContaining('/login'), { username: 'testuser', 
+      password: 'testpassword' //NOSONAR
+    });
     expect(response.status).toBe(200);
     expect(response.body).toEqual(mockUserData);
   });
@@ -87,9 +92,13 @@ describe('Routes Tests', () => {
     const errorMessage = 'Login failed';
     axios.post.mockRejectedValueOnce({ response: { status: 401, data: { error: errorMessage } } });
 
-    const response = await request(app).post('/login').send({ username: 'testuser', password: 'testpassword' });
+    const response = await request(app).post('/login').send({ username: 'testuser', 
+      password: 'testpassword' //NOSONAR
+      });
 
-    expect(axios.post).toHaveBeenCalledWith(expect.stringContaining('/login'), { username: 'testuser', password: 'testpassword' });
+    expect(axios.post).toHaveBeenCalledWith(expect.stringContaining('/login'), { username: 'testuser', 
+      password: 'testpassword' //NOSONAR
+    });
     expect(response.status).toBe(401);
     expect(response.body.error).toBe(errorMessage);
   });
@@ -188,7 +197,9 @@ describe('Routes Tests', () => {
     const mockUserData = { username: 'testuser', email: 'testuser@example.com' };
     axios.post.mockResolvedValueOnce({ data: mockUserData });
 
-    const requestBody = { username: 'testuser', password: 'testpassword', email: 'testuser@example.com' };
+    const requestBody = { username: 'testuser', 
+      password: 'testpassword', //NOSONAR
+      email: 'testuser@example.com' };
     const response = await request(app).post('/user/add').send(requestBody);
 
     expect(axios.post).toHaveBeenCalledWith(expect.stringContaining('/user/add'), requestBody);
@@ -200,7 +211,9 @@ describe('Routes Tests', () => {
     const errorMessage = 'Error adding user';
     axios.post.mockRejectedValueOnce(new Error(errorMessage));
 
-    const requestBody = { username: 'testuser', password: 'testpassword', email: 'testuser@example.com' };
+    const requestBody = { username: 'testuser', 
+      password: 'testpassword', //NOSONAR
+      email: 'testuser@example.com' };
     const response = await request(app).post('/user/add').send(requestBody);
 
     expect(axios.post).toHaveBeenCalledWith(expect.stringContaining('/user/add'), requestBody);
