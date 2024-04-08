@@ -6,16 +6,35 @@ const router = express.Router();
 
 //Get random question from db and deleting it, adding questions if there are less than 10: http://localhost:8010/questions
 router.get('/', async (req, res) => {
-    if (await dbService.getQuestionCount() < 10) {
-        //Must generate 2 questions
-        await generateQuestionsService.generateQuestions(2);
-        //Do not wait to generate the others
-        generateQuestionsService.generateQuestions(8);
-    }
-    const question = await dbService.getQuestion();
-    res.json(question);
+    const questionCount = await dbService.getQuestionCount();
 
-    dbService.deleteQuestionById(question._id);
+    // 0: Await till it creates 2, creates 50 async and do not delete
+    if (questionCount == 0) {
+        await generateQuestionsService.generateQuestions(2);
+        generateQuestionsService.generateQuestions(50);
+        const question = await dbService.getQuestion();
+        res.json(question);
+        
+    // < 50: async creates 10 and do not delete
+    } else if (questionCount < 50) {
+        //Do not wait to generate the others
+        generateQuestionsService.generateQuestions(10);
+        const question = await dbService.getQuestion();
+        res.json(question);
+
+    // < 100: async creates 5 and delete
+    } else if (questionCount < 100) {
+        generateQuestionsService.generateQuestions(10);
+        const question = await dbService.getQuestion();
+        res.json(question);
+        dbService.deleteQuestionById(question._id);
+
+    // >= 100: do not create and delete
+    } else {
+        const question = await dbService.getQuestion();
+        res.json(question);
+        dbService.deleteQuestionById(question._id);
+    }
 });
 
 //Get random questions from db: http://localhost:8010/questions/getQuestionsFromDb/3
