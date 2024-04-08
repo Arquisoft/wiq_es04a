@@ -66,12 +66,23 @@ Some important concepts need to be taken into account so as to a better understa
 Next, each category will be detailed.
 
 === Domain concepts
-At the moment, nothing has been definitively decided or implemented to support the following outline. This simply illustrates how a preliminary version of the structure of our application could look like.
+At the moment, the application follows this schema:
 
-image::08_domain_model.png["Initial version of the domain model"]
+image::08_domain_model_1.png["Current version of the domain model"]
+
+* **User**: it is the person that uses the application. There can be multiple Users at the same time using the app. 
+* **Contest**: The contest is the part that the User can see. It contains everything the user can do, such as play games o look for rankings and statistics.
+* **Game**: The User can play different games, including _The Challenge_, _Wise Men Stack_ or even a multiplayer mode, which enables various Users to play together. Games consist of several questions to which users have to answer. Down below there is an schema that show the different game modes that will we available.
+* **Question**: Each question has different answers but only one of them is correct. Answering correctly to the questions rewards users with _money_.
+* **Statistics**: Each user has statistics that show different aspects of their profile, such as the time they invested on each game mode, correct and incorrect questions, etc.
+* **Profile**: User's profile has data such as their username and the amount on _money_ they have earned.
+* **Group**: Users are able to join or create groups, that way the can get to a groups ranking.
+
+image::08_domain_model_2.png["Current version of the game modes"]
+
 
 === User Experience (UX)
-* https://arquisoft.github.io/wiq_es04a/#_technical_terms[**Frontend**]: the frontend of this application consists of a web app which will be deployed. Now, the user can register and log in with accounts already created on an intuitive page.
+* https://arquisoft.github.io/wiq_es04a/#_technical_terms[**Frontend**]: the frontend of this application consists of a deployed web app which will be deployed. Now, the user can register and log in with accounts already created on an intuitive page.
 * https://arquisoft.github.io/wiq_es04a/#_technical_terms[**Internationalization**] The application will likely be available in various languages, including English as the main language. This would provide a better user experience as users could better tailor the application to their personal preferences.
 
 === Operation Concepts
