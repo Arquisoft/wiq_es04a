@@ -1,6 +1,6 @@
 const config = {
   users: {
-    password: 'testpassword'
+    password: 'testpassword' //NOSONAR
   }
 };
 
