@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useContext, useCallback } from 'react';
 import axios from 'axios';
-import { Container, Typography, List, ListItem, ListItemText, Button, Divider, Snackbar, TextField, Grid, Pagination } from '@mui/material';
+import { Container, Typography, List, ListItem, ListItemText, Button, Divider, Snackbar, TextField, Grid, Pagination, useTheme } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { SessionContext } from '../SessionContext';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const Groups = () => {
+    const theme = useTheme();
 
     const [name, setName] = useState('');
     const [groups, setGroups] = useState([]);
@@ -28,10 +29,10 @@ const Groups = () => {
 
     const fetchData = useCallback(async () => {
       try {
-        const response = await axios.get(`${apiEndpoint}/group/list`, { params: { username: username } });
+        const response = await axios.get(`${apiEndpoint}/user/group/list`, { params: { username: username } });
         setGroups(response.data.groups);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        setError('Unsuccesful data fetching');
       }
     }, [username]);
   
@@ -101,8 +102,8 @@ const Groups = () => {
             </Button>
           </Grid>
         </Grid>
-        <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="Group created successfully" />
-        {error && (<Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />)}
+        <Snackbar open={openSnackbar} autoHideDuration={4500} onClose={handleCloseSnackbar} message="Group created successfully" />
+        {error && (<Snackbar open={!!error} autoHideDuration={4500} onClose={() => setError('')} message={`Error: ${error}`} />)}
       </Container> 
 
       {/* Container showing the paginated groups list and its items */}
@@ -111,18 +112,18 @@ const Groups = () => {
         <Divider style={{ marginBottom:'0.5em'}}/>
         <List sx={{ margin:'0', width: '100%' }}>
           {currentItems.map((group) => (
-            <Container>
+            <Container key={group.name+"_container"}>
               <ListItem key={group.name} sx={{ display:'flex', alignContent:'space-between', alignItems:'center' }}>
                 <ListItemText primary={group.name} />
                 <Button variant="contained" color="primary" sx={{ marginRight: '2em' }} onClick={() => seeMembers(group.name)}>
                   See Members
                 </Button>
                 {group.isMember ? (
-                  <Button variant="contained" sx={{ backgroundColor:'#ffffff', color:'#006699', borderColor:'#006699', '&:hover': { backgroundColor: '#ffffff' } }}>
+                  <Button variant="contained" sx={{ backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main } }}>
                     JOINED
                   </Button>
                 ) : group.isFull ? (
-                  <Button variant="contained" sx={{ backgroundColor:'#ffffff', color:'#FF0000', borderColor:'#FF0000', '&:hover': { backgroundColor: '#ffffff' } }}>
+                  <Button variant="contained" sx={{ backgroundColor: theme.palette.error.main, color: theme.palette.error.main, borderColor: theme.palette.error.main, '&:hover': { backgroundColor: theme.palette.secondary.main } }}>
                     FILLED
                   </Button>
                 ) : (
@@ -130,8 +131,8 @@ const Groups = () => {
                     JOIN IT!
                   </Button>
                 )}
-                <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="Joined the group successfully" />
-                {error && (<Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />)}
+                <Snackbar open={openSnackbar} autoHideDuration={4500} onClose={handleCloseSnackbar} message="Joined the group successfully" />
+                {error && (<Snackbar open={!!error} autoHideDuration={4500} onClose={() => setError('')} message={`Error: ${error}`} />)}
               </ListItem>
               <Divider/>
             </Container>
@@ -148,6 +149,7 @@ const Groups = () => {
       </Container>
     </Container>
     );
+    
 
 }
 

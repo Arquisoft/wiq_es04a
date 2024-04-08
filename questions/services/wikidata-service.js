@@ -105,10 +105,11 @@ async function getEntityLabel(entityUrl) {
     const response = await axios.get(apiUrl);
     const entity = response.data.entities[entityUrl];
 
+    if(entity.labels.en)  {
+        return entity.labels.en.value;
+    }
     if(entity.labels.es) {
         return entity.labels.es.value;
-    } if(entity.labels.en)  {
-        return entity.labels.en.value;
     }
     
     return "no label (TEST)";

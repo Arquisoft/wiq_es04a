@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const { defineFeature, loadFeature }=require('jest-cucumber');
 const setDefaultOptions = require('expect-puppeteer').setDefaultOptions
-const feature = loadFeature('./features/register-form.feature');
+const feature = loadFeature('./features/login-form.feature');
 
 let page;
 let browser;
@@ -56,10 +56,13 @@ defineFeature(feature, test => {
     });
 
     when('I fill the data in the form and press login', async () => {
-      clickLink('//*[@id="root"]/div/header/div/a[2]');
+      await clickLink('//*[@id="root"]/div/header/div/div[3]/button');
+      await clickLink('//*[@id="root"]/div/header/div/a[2]');
 
       await expect(page).toFill('input[name="username"]', username);
       await expect(page).toFill('input[name="password"]', password);
+
+      await clickLink('//*[@id="root"]/div/main/div/div/button');
     });
 
     then('Home page should be shown in the screen', async () => {

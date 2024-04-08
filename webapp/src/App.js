@@ -19,12 +19,17 @@ import { Box } from '@mui/material';
 const theme = createTheme({
   palette: {
     mode: 'light',
+    // Azul
     primary: {
       main: '#006699',
     },
     secondary: {
+      main: '#FFFFFF',
+    },
+    success: {
       main: '#339966',
     },
+    // Rojo
     error: {
       main: '#990000',
     },

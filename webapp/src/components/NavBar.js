@@ -121,7 +121,7 @@ function NavBar() {
                 <Avatar src="/default_user.jpg" alt="Profile pic" sx={{ width: 33, height: 33 }} />
               </IconButton>
             </Button>
-            <IconButton onClick={handleLogout} sx={{ color: 'white', '&:hover': { backgroundColor: '#5f7e94' } }}>
+            <IconButton onClick={handleLogout} sx={{ color: 'white', '&:hover': { backgroundColor: '#5f7e94' }}} data-testid="logout-button">
               <LogoutIcon />
             </IconButton>
           </Box>

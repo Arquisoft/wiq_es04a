@@ -45,7 +45,7 @@ describe('Login component', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Log In' }));
 
     await waitFor(() => {
-      expect(mockAxios.history.post.length).toBe(1); // Ensure two POST requests are made
+      expect(mockAxios.history.post.length).toBe(1); // Ensure one POST request is made
     });
   });
 

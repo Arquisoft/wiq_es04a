@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Typography, Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button } from '@mui/material';
+import { Container, Typography, Box, Table, TableBody, TableCell, TableContainer, TableRow, Button, useTheme } from '@mui/material';
 
 import { SessionContext } from '../SessionContext';
 import { useContext } from 'react';
@@ -8,6 +8,8 @@ import { useContext } from 'react';
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const Statistics = () => {
+    const theme = useTheme();
+
     const [userStatics, setUserStatics] = useState([]);
     const [selectedMode, setSelectedMode] = useState('The Challenge'); 
     const { username } = useContext(SessionContext);
@@ -151,10 +153,10 @@ const Statistics = () => {
             </Typography>
             <Box>
                 <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-                    <Button onClick={() => setSelectedMode('The Challenge')} variant="contained" sx={{ marginRight: '10px', backgroundColor:'#006699', color:'#ffffff', borderColor:'#006699', '&:hover': { backgroundColor: '#ffffff', color:'#006699', borderColor:'#006699' } }}>The Challenge</Button>
-                    <Button onClick={() => setSelectedMode('Wise Men Stack')} variant="contained" sx={{ marginRight: '10px', backgroundColor:'#006699', color:'#ffffff', borderColor:'#006699', '&:hover': { backgroundColor: '#ffffff', color:'#006699', borderColor:'#006699' } }}>Wise Men Stack</Button>
-                    <Button onClick={() => setSelectedMode('Warm Question')} variant="contained" sx={{ marginRight: '10px', backgroundColor:'#006699', color:'#ffffff', borderColor:'#006699', '&:hover': { backgroundColor: '#ffffff', color:'#006699', borderColor:'#006699' } }}>Warm Question</Button>
-                    <Button onClick={() => setSelectedMode('Discovering Cities')} variant="contained" sx={{ backgroundColor:'#006699', color:'#ffffff', borderColor:'#006699', '&:hover': { backgroundColor: '#ffffff', color:'#006699', borderColor:'#006699' }  }}>Discovering Cities</Button>
+                    <Button onClick={() => setSelectedMode('The Challenge')} variant="contained" sx={{ marginRight: '10px', backgroundColor:theme.palette.primary.main, color:theme.palette.secondary.main, borderColor:theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color:theme.palette.primary.main, borderColor:theme.palette.primary.main } }}>The Challenge</Button>
+                    <Button onClick={() => setSelectedMode('Wise Men Stack')} variant="contained" sx={{ marginRight: '10px', backgroundColor:theme.palette.primary.main, color:theme.palette.secondary.main, borderColor:theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color:theme.palette.primary.main, borderColor:theme.palette.primary.main } }}>Wise Men Stack</Button>
+                    <Button onClick={() => setSelectedMode('Warm Question')} variant="contained" sx={{ marginRight: '10px', backgroundColor:theme.palette.primary.main, color:theme.palette.secondary.main, borderColor:theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color:theme.palette.primary.main, borderColor:theme.palette.primary.main } }}>Warm Question</Button>
+                    <Button onClick={() => setSelectedMode('Discovering Cities')} variant="contained" sx={{ backgroundColor:theme.palette.primary.main, color:theme.palette.secondary.main, borderColor:theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color:theme.palette.primary.main, borderColor:theme.palette.primary.main }  }}>Discovering Cities</Button>
                 </div>
                 {renderStatistics()}
             </Box>
