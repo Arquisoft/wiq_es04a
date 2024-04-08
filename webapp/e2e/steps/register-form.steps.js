@@ -56,7 +56,7 @@ defineFeature(feature, test => {
     });
 
     then('A confirmation message should be shown in the screen', async () => {
-      await expect(page).toMatchElement("button", { text: "PLAY" });
+      await expect(page).toMatchElement("link", { text: "PLAY" });
     });
   })
 
