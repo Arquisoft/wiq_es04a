@@ -1,18 +1,22 @@
 const axios = require('axios');
 
-async function getRandomEntity(instance, property, filt) {
+async function getRandomEntity(entity, pos, lang) {
+    const property = entity.properties[pos].property;
+    const filt = entity.properties[pos].filter;
     var filter = '';
     if(filt) {
         filter = `FILTER(?property${filt})`;
     }
-   
+    const language = entity.properties[pos].template[lang].lang;
+    const instance = entity.instance;
+
     const consultaSparql = `
         SELECT ?entity ?entityLabel ?property
         WHERE {
             ?entity wdt:P31 wd:${instance};   
                 wdt:${property} ?property.   
             ?entity rdfs:label ?entityLabel.  
-            FILTER(LANG(?entityLabel) = "es")
+            FILTER(LANG(?entityLabel) = "${language}")
             ${filter}
     }
     `;
@@ -53,7 +57,7 @@ async function getRandomEntity(instance, property, filt) {
 }
 
 
-async function getProperties(property, filt) {
+async function getProperties(property, language, filt) {
     var filter = '';
     if(filt) {
         filter = `FILTER(?property${filt})`;
@@ -62,6 +66,8 @@ async function getProperties(property, filt) {
         SELECT DISTINCT ?property
         WHERE {
             ?entity wdt:${property} ?property. 
+            ?entity rdfs:label ?entityLabel. 
+            FILTER(LANG(?entityLabel) = "${language}")
             ${filter}  
         }
         LIMIT 400
@@ -99,10 +105,11 @@ async function getEntityLabel(entityUrl) {
     const response = await axios.get(apiUrl);
     const entity = response.data.entities[entityUrl];
 
+    if(entity.labels.en)  {
+        return entity.labels.en.value;
+    }
     if(entity.labels.es) {
         return entity.labels.es.value;
-    } if(entity.labels.en)  {
-        return entity.labels.en.value;
     }
     
     return "no label (TEST)";
