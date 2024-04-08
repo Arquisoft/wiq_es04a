@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.18">
+<meta name="generator" content="Asciidoctor 2.0.20">
 <title>Wikidata Infinite Quest</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -208,13 +208,10 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
-.exampleblock>.content>:first-child{margin-top:0}
-.exampleblock>.content>:last-child{margin-bottom:0}
 .sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
-.sidebarblock>:first-child{margin-top:0}
-.sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
-.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
 .literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
 @media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
 @media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
@@ -393,7 +390,7 @@ b.conum *{color:inherit!important}
 dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
 h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
 p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
-p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
 .exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
@@ -488,9 +485,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#section-runtime-view">6. Runtime View</a>
 <ul class="sectlevel2">
-<li><a href="#_register_scenario">6.1. Register Scenario</a></li>
-<li><a href="#_login_scenario">6.2. Login Scenario</a></li>
-<li><a href="#_tbd">6.3. TBD</a></li>
+<li><a href="#_register">6.1. Register</a></li>
+<li><a href="#_login">6.2. Login</a></li>
+<li><a href="#_see_user_statistics">6.3. See User Statistics</a></li>
+<li><a href="#_see_games_instrucions">6.4. See Games Instrucions</a></li>
+<li><a href="#_groups">6.5. Groups</a></li>
+<li><a href="#_play_games">6.6. Play Games</a></li>
 </ul>
 </li>
 <li><a href="#section-deployment-view">7. Deployment View</a></li>
@@ -1252,7 +1252,7 @@ One of the main disadvantages is that we had to learn it, because our main langu
 </ul>
 </div>
 <div class="paragraph">
-<p>In cases where no questions are available, a pair of questions will be synchronously generated before asynchronously replenishing to reach the high threshold, which will be the usual behavior whenever the high threshold is surpassed.</p>
+<p>In exceptional cases where no questions are available, a pair of questions will be synchronously generated before asynchronously replenishing to reach the high threshold, which will be the usual behavior whenever the high threshold is surpassed.</p>
 </div>
 <div class="paragraph">
 <p>This approach ensures continuous question availability while mitigating repetition risks. Additionally, we aim to explore the feasibility of generating questions during periods of service inactivity or low request volume for further optimization.</p>
@@ -1934,19 +1934,55 @@ You will mainly capture scenarios in your documentation to communicate your arch
 </div>
 </div>
 <div class="sect2">
-<h3 id="_register_scenario">6.1. Register Scenario</h3>
+<h3 id="_register">6.1. Register</h3>
 <div class="paragraph">
 <p><span class="image"><img src="./images/06_register_seq.png" alt="Register Sequence"></span></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_login_scenario">6.2. Login Scenario</h3>
+<h3 id="_login">6.2. Login</h3>
 <div class="paragraph">
 <p><span class="image"><img src="./images/06_login_seq.png" alt="Login Sequence"></span></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_tbd">6.3. TBD</h3>
+<h3 id="_see_user_statistics">6.3. See User Statistics</h3>
+<div class="paragraph">
+<p><span class="image"><img src="./images/06_statistics_seq.png" alt="See User Statistics Sequence"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_see_games_instrucions">6.4. See Games Instrucions</h3>
+<div class="paragraph">
+<p><span class="image"><img src="./images/06_instructions_seq.png" alt="See Games Instrucions Sequence"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_groups">6.5. Groups</h3>
+<div class="sect3">
+<h4 id="_group_list_and_creation">6.5.1. Group List and Creation</h4>
+<div class="paragraph">
+<p><span class="image"><img src="./images/06_create_a_group_seq.png" alt="Group Creation Sequence"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_group_joining">6.5.2. Group Joining</h4>
+<div class="paragraph">
+<p><span class="image"><img src="./images/06_join_a_group_seq.png" alt="Group Joining Sequence"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_group_details">6.5.3. Group Details</h4>
+<div class="paragraph">
+<p><span class="image"><img src="./images/06_group_details_seq.png" alt="Group Details Sequence"></span></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_play_games">6.6. Play Games</h3>
+<div class="paragraph">
+<p><span class="image"><img src="./images/06_play_seq.svg" alt="Play Games Sequence"></span></p>
+</div>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -2833,7 +2869,7 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2024-04-07 14:23:10 +0200
+Last updated 2024-04-08 16:05:54 +0200
 </div>
 </div>
 </body>
