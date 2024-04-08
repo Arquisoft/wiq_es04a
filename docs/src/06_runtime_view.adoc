@@ -46,4 +46,6 @@ image:06_register_seq.png["Register Sequence"]
 
 image:06_login_seq.png["Login Sequence"]
 
-=== TBD
+=== See User Statistics
+
+image:06_statistics_seq.png["See User Statistics"]
