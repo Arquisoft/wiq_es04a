@@ -22,6 +22,7 @@ const apiEndpoint = process.env.GATEWAY_SERVICE_ENDPOINT || 'http://localhost:80
 
 // Middlewares added to the application
 app.use(express.json());
+app.use(cors()); 
 
 const gameRooms = {};
 const gameResults = {};
