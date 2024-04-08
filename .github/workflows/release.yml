@@ -111,7 +111,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
           workdir: webapp
-          buildargs: API_URI
+          buildargs: |
+            API_URI
+            ONLINE_URI
   docker-push-multiplayer:
     name: Push multiplayer service Docker Image to GitHub Packages
     runs-on: ubuntu-latest
