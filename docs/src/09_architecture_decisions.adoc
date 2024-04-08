@@ -49,6 +49,7 @@ The architectural decisions are completely documented in our https://github.com/
 - https://github.com/Arquisoft/wiq_es04a/wiki/ADR-04-‐-Users-and-Groups-with-MariaDB[ADR 04] - Users and Groups with MariaDB
 - https://github.com/Arquisoft/wiq_es04a/wiki/ADR-05-‐-Question-generation-in-Node.js[ADR 05] - Question generation in Node.js
 - https://github.com/Arquisoft/wiq_es04a/wiki/ADR-06-‐-MongoDB-for-questions-database[ADR 06] - MongoDB for questions database
+- https://github.com/Arquisoft/wiq_es04a/wiki/ADR-09-‐-Multiplayer-technology[ADR 09] - Multiplayer technology
 
 _TBC when more architecture decisions are taken_
 
