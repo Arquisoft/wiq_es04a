@@ -8,9 +8,9 @@ let browser;
 
 async function registerUser(username, password, name, surname) {
     clickLink('//*[@id="root"]/div/header/div/a[2]');
-  
+
     await expect(page).toClick("a", { text: "Don't have an account? Register here." });
-  
+
     await expect(page).toFill('input[name="username"]', username);
     await expect(page).toFill('input[name="password"]', password);
     await expect(page).toFill('input[name="name"]', name);
@@ -28,7 +28,7 @@ if (link) {
 }
 
 defineFeature(feature, test => {
-  
+
   beforeAll(async () => {
     browser = process.env.GITHUB_ACTIONS
       ? await puppeteer.launch()
