@@ -13,7 +13,7 @@ describe('Statistics component', () => {
   beforeAll(async () => {
     mockAxios.onPost('http://localhost:8000/user/add').reply(200, {
       username: 'testuser',
-      password: 'test123',
+      password: 'test123', //NOSONAR
       name: 'Test',
       surname: 'User'
     });

@@ -177,6 +177,10 @@ router.post('/group/add', async (req, res) => {
     try {
         const { name,username } = req.body;
 
+        if (name.trim().length < 4) {
+            return res.status(400).json({ error: 'Group name must be at least 4 characters long.' });
+        }
+
         const existingGroup = await Group.findOne({ where: { name:name } });
         if (existingGroup) {
             return res.status(400).json({ error: 'A group with the same name already exists.' });

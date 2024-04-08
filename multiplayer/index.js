@@ -9,8 +9,10 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server, {
     cors: { //permit connections from webapp
-        origin: [process.env.WEBAPP_ENDPOINT, "http://localhost:3000"],
-        methods: ["GET", "POST"]
+        //origin: [process.env.WEBAPP_ENDPOINT, "http://localhost:3000"],
+        origin: "*", //this should be changed to improve security
+        methods: ["GET", "POST"],
+        allowedHeaders: "*" //this should be changed to improve security
     }
 });
 
@@ -19,8 +21,8 @@ const port = 5010;
 const apiEndpoint = process.env.GATEWAY_SERVICE_ENDPOINT || 'http://localhost:8000';
 
 // Middlewares added to the application
-//app.use(cors()); commented because was used previously
 app.use(express.json());
+app.use(cors()); 
 
 const gameRooms = {};
 const gameResults = {};
@@ -129,4 +131,6 @@ io.on('connection', (socket) => {
 // Start the service 
 server.listen(port, () => {
   console.log(`Multiplayer Service listening at port ${port}`);
+  console.log("WEBAPP_ENDPOINT: ", process.env.WEBAPP_ENDPOINT);
+  console.log("apiEndpoint: ", apiEndpoint);
 });
