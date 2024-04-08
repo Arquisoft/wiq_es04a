@@ -735,7 +735,7 @@ describe('User Routes', () => {
             surname: 'User'
         };const newUser3 = {
             username: 'testuser6',
-            password: 'Test1234', 
+            password: password, 
             name: 'Test',
             surname: 'User'
         };   
