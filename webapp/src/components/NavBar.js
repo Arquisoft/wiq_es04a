@@ -13,7 +13,8 @@ const pages = [
   { path: '/homepage', text: 'Play' },
   { path: '/statistics', text: 'Statistics' },
   { path: '/instructions', text: 'Instructions' },
-  { path: '/group/menu', text: 'Groups' }
+  { path: '/group/menu', text: 'Groups' },
+  { path: '/ranking', text: 'Ranking' }
   // Add an object for each new page
 ];
 

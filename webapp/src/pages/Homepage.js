@@ -96,7 +96,7 @@ const Homepage = () => {
 
     //if online mode -> change link to go to online room
     const changeGameLink = (index) => {
-        if(info[index].nombre === "ONLINE MODE") {
+        if(info[index].nombre == "ONLINE MODE") {
             setGameLink("/multiplayerRoom")
         } else {
             setGameLink("/game")
@@ -126,9 +126,9 @@ const Homepage = () => {
                     <img
                         style={styles.img}
                         src={info[index].foto}
-                        alt="Foto del juego"
+                        alt={data[index].nombre}
                     />
-
+                    
                 </Box>
             );
         }
