@@ -34,6 +34,13 @@ const getQuestion = () => {
       });
   };
 
+  //TODO REMOVE
+  app.get("/test", (req, res) => {
+    const q = getQuestion();
+    res.json({ test: q });
+  });
+
+
   function getAndEmitQuestions(roomCode) {
     const questionList = [];
     const getQuestionSequentially = async () => {

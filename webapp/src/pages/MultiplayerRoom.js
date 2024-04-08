@@ -22,7 +22,7 @@ const MultiplayerRoom = () => {
     const navigate = useNavigate();
     const [gameLoaded, setGameLoaded] = useState(false);
   
-    useEffect(() => {
+    useEffect(() => { //TODO REMOVE
       console.log("SOCKET ENDPOINT URL: ", socketEndpoint)
       console.log("process.env.REACT_APP_MULTIPLAYER_ENDPOINT: ", process.env.MULTIPLAYER_ENDPOINT);
         const newSocket = io(socketEndpoint);
