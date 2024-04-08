@@ -614,7 +614,7 @@ These include</p>
 </div>
 <div class="paragraph">
 <p>The aim of this project is to create a version of the famous quiz show "Saber y Ganar". In the quiz you have to
-answer different questions about various topics (chosing topic will be possible), winning a reward for each correct answer.
+answer different questions about various topics, winning a reward for each correct answer.
 One of the most relevant requirement is that the questions are generated from WikiData so there will always be different questions.</p>
 </div>
 <div class="paragraph">
@@ -2211,11 +2211,41 @@ on this list.</p>
 <div class="sect2">
 <h3 id="_domain_concepts">8.1. Domain concepts</h3>
 <div class="paragraph">
-<p>At the moment, nothing has been definitively decided or implemented to support the following outline. This simply illustrates how a preliminary version of the structure of our application could look like.</p>
+<p>At the moment, the application follows this schema:</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="./images/08_domain_model.png" alt="Initial version of the domain model">
+<img src="./images/08_domain_model_1.png" alt="Current version of the domain model">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>User</strong>: it is the person that uses the application. There can be multiple Users at the same time using the app.</p>
+</li>
+<li>
+<p><strong>Contest</strong>: The contest is the part that the User can see. It contains everything the user can do, such as play games o look for rankings and statistics.</p>
+</li>
+<li>
+<p><strong>Game</strong>: The User can play different games, including <em>The Challenge</em>, <em>Wise Men Stack</em> or even a multiplayer mode, which enables various Users to play together. Games consist of several questions to which users have to answer. Down below there is an schema that show the different game modes that will we available.</p>
+</li>
+<li>
+<p><strong>Question</strong>: Each question has different answers but only one of them is correct. Answering correctly to the questions rewards users with <em>money</em>.</p>
+</li>
+<li>
+<p><strong>Statistics</strong>: Each user has statistics that show different aspects of their profile, such as the time they invested on each game mode, correct and incorrect questions, etc.</p>
+</li>
+<li>
+<p><strong>Profile</strong>: User&#8217;s profile has data such as their username and the amount on <em>money</em> they have earned.</p>
+</li>
+<li>
+<p><strong>Group</strong>: Users are able to join or create groups, that way the can get to a groups ranking.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/08_domain_model_2.png" alt="Current version of the game modes">
 </div>
 </div>
 </div>
@@ -2224,8 +2254,18 @@ on this list.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://arquisoft.github.io/wiq_es04a/#_technical_terms"><strong>Frontend</strong></a>: the frontend of this application consists of a web app which will be deployed. Now, the user can register and log in with accounts already created on an intuitive page.</p>
+<p><a href="https://arquisoft.github.io/wiq_es04a/#_technical_terms"><strong>Frontend</strong></a>: the frontend of this application consists of a deployed web app which will be deployed. The user can register and log in with accounts already created on an intuitive page. They can also play different game modes and to consult their historial record, statistics, and even a ranking.
+As it can be seen down below, the homepage is bright and appealing, which leads to a better user experience. Users can easily choose the game mode they prefer and play.</p>
 </li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/08_homepage.png" alt="Current homepage window">
+</div>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p><a href="https://arquisoft.github.io/wiq_es04a/#_technical_terms"><strong>Internationalization</strong></a> The application will likely be available in various languages, including English as the main language. This would provide a better user experience as users could better tailor the application to their personal preferences.</p>
 </li>
@@ -2237,7 +2277,7 @@ on this list.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Usability</strong>: The application should be easy to use. For this reason, we will probably some various people to try our application. This way we can know its strengths and weaknesses and improve them. Usability affects User Experience as well, so it is an important aspect of the application.</p>
+<p><strong>Usability</strong>: The application should be easy to use. For this reason, we had some people try our application. This way we can know its strengths and weaknesses and improve them. Usability affects User Experience as well, so it is an important aspect of the application. Up to this moment, usability testing has helped with the color palette chosen the application.</p>
 </li>
 </ul>
 </div>
@@ -2245,7 +2285,7 @@ on this list.</p>
 <div class="sect2">
 <h3 id="_security">8.4. Security</h3>
 <div class="paragraph">
-<p>At the moment, there are no security mechanisms implemented, but decisions regarding this aspect will be taken as progress is made.</p>
+<p>At the moment, security mechanisms are not the main focus of the application, but some decisions have already been made and will be implemented soon.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2253,7 +2293,9 @@ on this list.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://arquisoft.github.io/wiq_es04a/#_technical_terms"><strong>Microservice</strong></a>: In this application there are some microservices such as the User Management, which involves signing up, logging in and everything related to the points and timing of the user. Microservices provide an easy way of creating a complex application composed by independent systems.</p>
+<p><a href="https://arquisoft.github.io/wiq_es04a/#_technical_terms"><strong>Microservice</strong></a>: In this application there are some microservices such as the User Management, which involves signing up, logging in and everything related to the points and timing of the user. Microservices provide an easy way of creating a complex application composed by independent systems.
+Another important microservice is the questions generation system. It creates infinite questions related to varios topics. Thats to this, users can never get bored of the game, as questions do not repeat themselves.
+The webapp microservice includes everything related to the graphic interface. Users are able to communicate with the application thats to this service.</p>
 </li>
 </ul>
 </div>
@@ -2263,10 +2305,10 @@ on this list.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Testing</strong>: Numerous use-cases will be studied so as to provide a solid and easy-to-use application. For the moment, there is some testing in e2e folder referring to how accounts are created and how to log in the application.</p>
+<p><strong>Testing</strong>: Numerous use-cases are studied so as to provide a solid and easy-to-use application. There are unitary tests related to every functionality of the project, as well as e2e tests regarding the main game.</p>
 </li>
 <li>
-<p><a href="https://arquisoft.github.io/wiq_es04a/#_acronyms"><strong>CI/CD</strong></a>: The application will be in continuous integration and deployment. Team members commit frequently into the repository where the proyect is stored. This makes it easier when assembling project parts involving collaboration from different team members.</p>
+<p><a href="https://arquisoft.github.io/wiq_es04a/#_acronyms"><strong>CI/CD</strong></a>: The application is in continuous integration and deployment. Team members commit frequently into the repository where the project is stored. This makes it easier when assembling project parts involving collaboration from different team members.</p>
 </li>
 </ul>
 </div>
@@ -2648,6 +2690,10 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <td class="tableblock halign-left valign-top"><p class="tableblock">Low-quality code</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The use of new technologies and languages can lead to poorly written or poorly designed code. To address this issue, we will use pull requests to ensure that the code is reviewed by multiple team members.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deployment issues</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Having not worked with Docker and other deployment tools before may cause problems when deploying the application. For this reason, we are trying to put our best into learning these new technologies.</p></td>
+</tr>
 </tbody>
 </table>
 <div style="page-break-after: always;"></div>
@@ -2844,7 +2890,7 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2024-04-08 16:05:54 +0200
+Last updated 2024-04-08 20:11:45 +0200
 </div>
 </div>
 </body>
