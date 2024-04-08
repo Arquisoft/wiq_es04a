@@ -14,7 +14,7 @@
                     "lang": "en",
                     "question": "What is the population of x"
                     }],
-                "filter": ">1000000",
+                "filter": ">4000000",
                 "category": ["Geography"]
             },
             {   

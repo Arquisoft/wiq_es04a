@@ -63,7 +63,7 @@ const Homepage = () => {
     const [info, setInfo] = React.useState(null);
 
     // Link to each game page
-    const [gameLink, setGameLink] = React.useState("");
+    const [gameLink, setGameLink] = React.useState("/game");
 
     //Update the game information
     React.useEffect(() => {

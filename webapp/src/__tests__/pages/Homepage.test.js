@@ -21,7 +21,7 @@ describe('Homepage component', () => {
 
     await waitFor(() => screen.getByText(/Play/i));
 
-    const playLink = screen.getByRole('button', { name: /Play/i });
+    const playLink = screen.getByRole('link', { name: /PLAY/i });
     await expect(playLink).toBeInTheDocument();
 
     const game1 = screen.getByRole('button', { name: /Wise men stack/i});

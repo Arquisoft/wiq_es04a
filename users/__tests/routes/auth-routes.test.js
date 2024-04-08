@@ -16,6 +16,8 @@ describe('Auth Routes', () => {
     beforeEach(async () => {
         await sequelize.authenticate();
         await sequelize.sync({ force: true });
+
+
     });
 
     afterAll(async () => {
@@ -27,7 +29,7 @@ describe('Auth Routes', () => {
         // Create the existing user in the database
         await User.create({
             username: 'existinguser',
-            password: await bcrypt.hash('Test1234', 10),
+            password: await bcrypt.hash('Test1234', 10), //NOSONAR
             createdAt: new Date(),
             updatedAt: new Date(),
             name: 'Existing',
@@ -37,7 +39,9 @@ describe('Auth Routes', () => {
         // We make the wrong login request
         const response = await request(app)
             .post('/login')
-            .send({ username: '   ', password: 'Test1234' });
+            .send({ username: '   ', 
+                password: 'Test1234' //NOSONAR
+            });
 
         // We now need to check that the response is correct and it shows the error
         expect(response.statusCode).toBe(400);
@@ -49,7 +53,7 @@ describe('Auth Routes', () => {
         // Create the existing user in the database
         await User.create({
             username: 'existinguser',
-            password: await bcrypt.hash('Test1234', 10),
+            password: await bcrypt.hash('Test1234', 10), //NOSONAR
             createdAt: new Date(),
             updatedAt: new Date(),
             name: 'Existing',
@@ -59,7 +63,9 @@ describe('Auth Routes', () => {
         // We make the wrong login request
         const response = await request(app)
             .post('/login')
-            .send({ username: 'existinguser', password: '    ' });
+            .send({ username: 'existinguser', 
+                password: '    ' //NOSONAR
+            });
 
         // We now need to check that the response is correct and it shows the error
         expect(response.statusCode).toBe(400);
@@ -71,7 +77,7 @@ describe('Auth Routes', () => {
         // Create the existing user in the database
         await User.create({
             username: 'existinguser',
-            password: await bcrypt.hash('Test1234', 10),
+            password: await bcrypt.hash('Test1234', 10), //NOSONAR
             createdAt: new Date(),
             updatedAt: new Date(),
             name: 'Existing',
@@ -93,7 +99,7 @@ describe('Auth Routes', () => {
         // Create the existing user in the database
         await User.create({
             username: 'existinguser',
-            password: await bcrypt.hash('Test1234', 10),
+            password: await bcrypt.hash('Test1234', 10), //NOSONAR
             createdAt: new Date(),
             updatedAt: new Date(),
             name: 'Existing',
@@ -103,7 +109,9 @@ describe('Auth Routes', () => {
         // We make the wrong login request
         const response = await request(app)
             .post('/login')
-            .send({ username: 'notexistinguser', password: 'Test1234' });
+            .send({ username: 'notexistinguser', 
+                password: 'Test1234' //NOSONAR
+            });
 
         // We now need to check that the response is correct and it shows the error
         expect(response.statusCode).toBe(401);
@@ -115,7 +123,7 @@ describe('Auth Routes', () => {
         // Create the existing user in the database
         await User.create({
             username: 'existinguser',
-            password: await bcrypt.hash('Test1234', 10),
+            password: await bcrypt.hash('Test1234', 10), //NOSONAR
             createdAt: new Date(),
             updatedAt: new Date(),
             name: 'Existing',
@@ -125,7 +133,9 @@ describe('Auth Routes', () => {
         // We make the wrong login request
         const response = await request(app)
             .post('/login')
-            .send({ username: 'existinguser', password: 'WrongPassword' });
+            .send({ username: 'existinguser', 
+                password: 'WrongPassword' //NOSONAR
+            });
 
         // We now need to check that the response is correct and it shows the error
         expect(response.statusCode).toBe(401);
@@ -137,7 +147,7 @@ describe('Auth Routes', () => {
         // Create the existing user in the database
         await User.create({
             username: 'existinguser',
-            password: await bcrypt.hash('Test1234', 10),
+            password: await bcrypt.hash('Test1234', 10), //NOSONAR
             createdAt: new Date(),
             updatedAt: new Date(),
             name: 'Existing',
@@ -147,7 +157,9 @@ describe('Auth Routes', () => {
         // We make the login request
         const response = await request(app)
             .post('/login')
-            .send({ username: 'existinguser', password: 'Test1234' });
+            .send({ username: 'existinguser', 
+                password: 'Test1234' //NOSONAR
+            });
 
         // We now need to check that the response is correct
         expect(response.statusCode).toBe(200);

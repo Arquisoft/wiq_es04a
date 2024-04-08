@@ -14,7 +14,7 @@ import { useLocation } from 'react-router-dom';
 import io from 'socket.io-client';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
-const socketEndpoint = process.env.MULTIPLAYER_ENDPOINT || 'ws://localhost:5010';
+const socketEndpoint = process.env.REACT_APP_MULTIPLAYER_ENDPOINT || 'ws://localhost:5010';
 
 const Game = () => {
     
