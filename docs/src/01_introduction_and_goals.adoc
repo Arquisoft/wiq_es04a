@@ -16,7 +16,7 @@ These include
 ****
 
 The aim of this project is to create a version of the famous quiz show "Saber y Ganar". In the quiz you have to 
-answer different questions about various topics (chosing topic will be possible), winning a reward for each correct answer. 
+answer different questions about various topics, winning a reward for each correct answer. 
 One of the most relevant requirement is that the questions are generated from WikiData so there will always be different questions.
 
 To do the game we are going to develop a web application that will be available to enter from any device with internet connection.
