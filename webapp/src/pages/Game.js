@@ -16,9 +16,7 @@ import CardContent from '@mui/material/CardContent';
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 
-const Game = () => {//TODO REMOVE
-    console.log("apiEndpoint: ", apiEndpoint)
-    console.log("process.env.REACT_APP_API_ENDPOINT: ", process.env.REACT_APP_API_ENDPOINT)
+const Game = () => {
     const navigate = useNavigate();
     const MAX_ROUNDS = 3;
     const SUCCESS_SOUND_ROUTE = "/sounds/success_sound.mp3";
