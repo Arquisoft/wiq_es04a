@@ -12,6 +12,7 @@
     "@tsparticles/engine": "^3.3.0",
     "@tsparticles/react": "^3.0.0",
     "axios": "^1.6.5",
+    "cross-env": "^7.0.3",
     "express": "^4.19.2",
     "react": "^18.2.0",
     "react-confetti": "^6.1.0",
@@ -31,7 +32,7 @@
     "build": "react-scripts build",
     "prod": "serve -s build",
     "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!axios)/'",
-    "test:e2e": "start-server-and-test 'node e2e/test-environment-setup.js' http://localhost:8000/health prod 3000 \"cd e2e && jest\"",
+    "test:e2e": "start-server-and-test 'node e2e/test-environment-setup.js' http://localhost:8000/health prod 3000 \"cd e2e && jest\" ",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

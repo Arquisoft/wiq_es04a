@@ -13,9 +13,8 @@ async function startServer() {
         questionservice = await require("../../questions/services/question-data-service");
     
         await sequelize.authenticate();
-        await sequelize.sync({ force: true });
-    
-        
+        await sequelize.sync({force:true});
+            
     } catch (error) {
         console.error('Error starting server:', error);
     }
