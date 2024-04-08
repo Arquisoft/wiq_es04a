@@ -12,7 +12,7 @@ const io = socketIO(server, {
         //origin: [process.env.WEBAPP_ENDPOINT, "http://localhost:3000"],
         origin: "*", //this should be changed to improve security
         methods: ["GET", "POST"],
-        allowedHeaders: "*"
+        allowedHeaders: "*" //this should be changed to improve security
     }
 });
 
@@ -34,13 +34,6 @@ const getQuestion = () => {
         console.error('Error getting question from question service ', error);
       });
   };
-
-  //TODO REMOVE
-  app.get("/test", (req, res) => {
-    const q = getQuestion();
-    res.json({ test: q });
-  });
-
 
   function getAndEmitQuestions(roomCode) {
     const questionList = [];
