@@ -38,18 +38,35 @@ See https://docs.arc42.org/section-6/[Runtime View] in the arc42 documentation.
 
 ****
 
-=== Register Scenario
+=== Register
 
 image:06_register_seq.png["Register Sequence"]
 
-=== Login Scenario
+
+=== Login
 
 image:06_login_seq.png["Login Sequence"]
 
+
 === See User Statistics
 
-image:06_statistics_seq.png["See User Statistics"]
+image:06_statistics_seq.png["See User Statistics Sequence"]
+
 
 === See Games Instrucions
 
-image:06_instructions_seq.png["See Games Instrucions"]
+image:06_instructions_seq.png["See Games Instrucions Sequence"]
+
+
+=== Groups
+==== Group List and Creation
+
+image:06_create_a_group_seq.png["Group Creation Sequence"]
+
+==== Group Joining
+
+image:06_join_a_group_seq.png["Group Joining Sequence"]
+
+==== Group Details
+
+image:06_group_details_seq.png["Group Details Sequence"]
