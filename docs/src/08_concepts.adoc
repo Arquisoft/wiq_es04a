@@ -82,14 +82,18 @@ image::08_domain_model_2.png["Current version of the game modes"]
 
 
 === User Experience (UX)
-* https://arquisoft.github.io/wiq_es04a/#_technical_terms[**Frontend**]: the frontend of this application consists of a deployed web app which will be deployed. Now, the user can register and log in with accounts already created on an intuitive page.
+* https://arquisoft.github.io/wiq_es04a/#_technical_terms[**Frontend**]: the frontend of this application consists of a deployed web app which will be deployed. The user can register and log in with accounts already created on an intuitive page. They can also play different game modes and to consult their historial record, statistics, and even a ranking.
+As it can be seen down below, the homepage is bright and appealing, which leads to a better user experience. Users can easily choose the game mode they prefer and play.
+
+image::08_homepage.png["Current homepage window"]
+
 * https://arquisoft.github.io/wiq_es04a/#_technical_terms[**Internationalization**] The application will likely be available in various languages, including English as the main language. This would provide a better user experience as users could better tailor the application to their personal preferences.
 
 === Operation Concepts
-* **Usability**: The application should be easy to use. For this reason, we will probably some various people to try our application. This way we can know its strengths and weaknesses and improve them. Usability affects User Experience as well, so it is an important aspect of the application.
+* **Usability**: The application should be easy to use. For this reason, we had some people try our application. This way we can know its strengths and weaknesses and improve them. Usability affects User Experience as well, so it is an important aspect of the application. Up to this moment, usability testing has helped with the color palette chosen the application.
 
 === Security
-At the moment, there are no security mechanisms implemented, but decisions regarding this aspect will be taken as progress is made.
+At the moment, security mechanisms are not the main focus of the application, but some decisions have already been made and will be implemented soon.
 
 === Architecture and Design Patterns
 * https://arquisoft.github.io/wiq_es04a/#_technical_terms[**Microservice**]: In this application there are some microservices such as the User Management, which involves signing up, logging in and everything related to the points and timing of the user. Microservices provide an easy way of creating a complex application composed by independent systems.
