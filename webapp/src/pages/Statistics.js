@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { Container, Typography, Box, Table, TableBody, TableCell, TableContainer, TableRow, Button, useTheme, Grid } from '@mui/material';
 import { SessionContext } from '../SessionContext';
+import CheckIcon from '@mui/icons-material/Check';
+import ClearIcon from '@mui/icons-material/Clear';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -163,12 +165,17 @@ const Statistics = () => {
         }
     };
 
+    const formatCreatedAt = (createdAt) => {
+        const date = new Date(createdAt);
+        return date.toLocaleString('en-US', { timeZone: 'UTC', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false });
+    };
+
     const renderQuestions = () => {
         if (showQuestionsRecord) {
             return questionsRecord.map((record, index) => (
                 <div key={index}>
                     <Typography variant="h5" gutterBottom>
-                        Questions Record {record.createdAt}
+                        Record {formatCreatedAt(record.createdAt)}
                     </Typography>
     
                     <Grid container spacing={2}>
@@ -176,9 +183,11 @@ const Statistics = () => {
                             <Grid item xs={12} key={questionIndex}>
                                 <Box sx={{ bgcolor: '#f0f0f0', borderRadius: '20px', padding: '10px' }}>
                                     <Typography variant="body1" gutterBottom>
+                                        {question.correctAnswer === question.response?<CheckIcon />:<ClearIcon />}
                                         {question.question}
                                     </Typography>
                                     {question.options.map((option, optionIndex) => (
+                                        
                                         <Box
                                             key={optionIndex}
                                             sx={{
@@ -189,6 +198,7 @@ const Statistics = () => {
                                                 marginTop: '5px',
                                             }}
                                         >
+                                            {option === question.correctAnswer? <CheckIcon />: option === question.response? <ClearIcon /> : null}
                                             {option}
                                         </Box>
                                     ))}
