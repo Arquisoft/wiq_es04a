@@ -1,0 +1,10 @@
+flowchart TD
+    subgraph Whitebox services
+    sis2(question-data-model)
+    sis4(wikidata-service)
+    sis6(question-data-service) -.->|Get/insert questions| sis2
+    end
+    sis1(routes) -.->|Get/insert questions| sis6
+    sis1 -.->|Get questions| sis4
+    sis2 -.->|Get/insert questions| sis3[(MongoDB)]
+    sis4 -.->|Search for questions| sis5(Wikidata)

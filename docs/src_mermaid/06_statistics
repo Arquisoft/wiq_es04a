@@ -1,0 +1,18 @@
+sequenceDiagram
+    Note over User,Webapp: User must be logged in
+    User ->>+ Webapp: click STATISTICS navbar button
+    Webapp ->> Gateway Service: axios.get('/user/statistics/${username}');
+    Gateway Service ->> Users: axios.get('/user/statistics/${username}');
+
+    Users ->> MariaDB: router.get('/user/statistics/:username')
+    MariaDB -->> Users: JSON response
+
+    Users -->> Gateway Service: 
+    Gateway Service -->> Webapp: 
+    Webapp -->>- User: show user statistics
+
+    opt See other gamemode statistics
+        User ->>+ Webapp: click other mode statistics button
+        Webapp -->>- User: show the other mode statistics stored
+    end
+    
