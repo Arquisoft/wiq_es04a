@@ -129,8 +129,8 @@ function NavBar() {
         <Box sx={{'&:hover': { backgroundColor: '#5f7e94' }}}>
           <TranslateIcon />
           <Select value={lang} autoWidth onChange={(e) => handleChangeLang(e.target.value)} sx={{ color: 'white' }} data-testid="select-lang">
-            <MenuItem value={"en"}>{t("NavBar.languages.en")}</MenuItem>
-            <MenuItem value={"es"}>{t("NavBar.languages.es")}</MenuItem>
+            <MenuItem value={"en"} data-testid="en_selector">{t("NavBar.languages.en")}</MenuItem>
+            <MenuItem value={"es"} data-testid="es_selector">{t("NavBar.languages.es")}</MenuItem>
           </Select>
         </Box>
 

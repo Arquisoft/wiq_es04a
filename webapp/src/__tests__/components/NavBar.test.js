@@ -107,4 +107,33 @@ describe('NavBar component', () => {
     fireEvent.click(logoutButton);
     expect(window.location.pathname).toBe('/');
   });
+
+  it('should render language options and change as expected', async () => {
+    render(
+      <SessionContext.Provider value={{ isLoggedIn: true }}>
+        <BrowserRouter>
+          <NavBar />
+        </BrowserRouter>
+      </SessionContext.Provider>
+    );
+
+    // Checks select menu is in the nav
+    const selectLang = screen.getByText("English");
+    await expect(selectLang).toBeInTheDocument();
+  
+    // Click on it and check both options are there:
+    fireEvent.mouseDown(selectLang);
+    const selectLangEn = screen.getAllByText("English")[1];
+    await expect(selectLangEn).toBeInTheDocument();
+    const selectLangEs = screen.getByText("Spanish");
+    await expect(selectLang).toBeInTheDocument();
+
+    // Click on spanish element
+    fireEvent.click(selectLangEs);
+    
+    // Check lang has changed for the menu and the navigation
+    const playOptionEs = screen.getAllByText("Jugar");
+    await expect(playOptionEs[0]).toBeInTheDocument();
+    await expect(playOptionEs[1]).toBeInTheDocument();
+  });
 });
