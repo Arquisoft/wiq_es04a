@@ -188,42 +188,51 @@ const Statistics = () => {
             const indexOfFirstItem = indexOfLastItem - itemsPerPage;
             const currentItems = questionsRecord.slice(indexOfFirstItem, indexOfLastItem);
     
-            return currentItems.map((record, index) => (
-                <div key={index}>
-                    <Typography variant="h5" gutterBottom>
-                        Record {formatCreatedAt(record.createdAt)}
-                    </Typography>
-    
-                    <Grid container spacing={2}>
-                        {record.questions.map((question, questionIndex) => (
-                            <Grid item xs={12} key={questionIndex}>
-                                <Box sx={{ bgcolor: '#f0f0f0', borderRadius: '20px', padding: '10px' }}>
-                                    <Typography variant="body1" gutterBottom>
-                                        {question.correctAnswer === question.response ? <CheckIcon style={{color: 'green', fontSize: 'bold'}} /> : <ClearIcon style={{color: 'red', fontSize: 'bold'}} />}
-                                        {question.question}
-                                    </Typography>
-                                    {question.options.map((option, optionIndex) => (
-                                        <Box
-                                            key={optionIndex}
-                                            sx={{
-                                                bgcolor: option === question.correctAnswer ? 'green' : question.response === option ? 'red' : '#ffffff',
-                                                color: option === question.correctAnswer || option === question.response ? '#ffffff' : 'inherit', 
-                                                borderRadius: '20px',
-                                                padding: '10px',
-                                                border: '1px solid #ccc',
-                                                marginTop: '5px',
-                                            }}
-                                        >
-                                            {option === question.correctAnswer? <CheckIcon />: option === question.response? <ClearIcon /> : null}
-                                            {option}
-                                        </Box>
-                                    ))}
-                                </Box>
-                            </Grid>
-                        ))}
-                    </Grid>
+            return (
+                <div>
+                    {currentItems.map((record, index) => (
+                        <div key={index}>
+                        <Typography variant="h5" gutterBottom>
+                            Game {formatCreatedAt(record.createdAt)}
+                        </Typography>
+
+                        <Grid container spacing={2}>
+                            {record.questions.map((question, questionIndex) => (
+                                <Grid item xs={12} key={questionIndex}>
+                                    <Box sx={{ bgcolor: '#f0f0f0', borderRadius: '20px', padding: '2%' }}>
+                                        <Typography variant="body1" gutterBottom>
+                                            {question.correctAnswer === question.response ? <CheckIcon style={{color: 'green', fontSize: '1.2rem'}} /> : <ClearIcon style={{color: 'red', fontSize: '1.2rem'}} />}
+                                            {question.question}
+                                        </Typography>
+                                        {question.options.map((option, optionIndex) => (
+                                            <Box
+                                                key={optionIndex}
+                                                sx={{
+                                                    bgcolor: option === question.correctAnswer ? 'green' : question.response === option ? 'red' : '#ffffff',
+                                                    color: option === question.correctAnswer || option === question.response ? '#ffffff' : 'inherit', 
+                                                    borderRadius: '20px',
+                                                    padding: '2%',
+                                                    border: '1px solid #ccc',
+                                                    marginTop: '2%',
+                                                }}
+                                >
+                                                {option === question.correctAnswer? <CheckIcon />: option === question.response? <ClearIcon /> : null}
+                                                {option}
+                                            </Box>
+                                        ))}
+                                    </Box>
+                                </Grid>
+                            ))}
+                        </Grid>
+                    </div>
+                ))}
+                <div style={{ marginBottom: '4%', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '2%' }}>
+                    <button onClick={handlePrevPage} disabled={currentPage === 1} style={{ fontSize: '1rem' }}>&lt;</button>
+                    <p style={{ margin: '0 4%', fontSize: '1rem' }}>Page {currentPage} of {totalPages}</p>
+                    <button onClick={handleNextPage} disabled={currentPage === totalPages} style={{ fontSize: '1rem' }}>&gt;</button>
                 </div>
-            ));
+            </div>
+            );
         }
     };
 
@@ -233,23 +242,21 @@ const Statistics = () => {
                 STATISTICS
             </Typography>
             <Box>
-                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-                    <Button onClick={() => setSelectedMode('The Challenge')} variant="contained" sx={{ marginRight: '10px', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>The Challenge</Button>
-                    <Button onClick={() => setSelectedMode('Wise Men Stack')} variant="contained" sx={{ marginRight: '10px', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>Wise Men Stack</Button>
-                    <Button onClick={() => setSelectedMode('Warm Question')} variant="contained" sx={{ marginRight: '10px', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>Warm Question</Button>
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.5em' }}>
+                    <Button onClick={() => setSelectedMode('The Challenge')} variant="contained" sx={{ marginRight: '0.5em', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>The Challenge</Button>
+                    <Button onClick={() => setSelectedMode('Wise Men Stack')} variant="contained" sx={{ marginRight: '0.5em', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>Wise Men Stack</Button>
+                    <Button onClick={() => setSelectedMode('Warm Question')} variant="contained" sx={{ marginRight: '0.5em', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>Warm Question</Button>
                     <Button onClick={() => setSelectedMode('Discovering Cities')} variant="contained" sx={{ backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>Discovering Cities</Button>
                 </div>
                 {renderStatistics()}
                 <Button
                     onClick={() => setShowQuestionsRecord(!showQuestionsRecord)}
                     variant="contained"
-                    sx={{ marginBottom: '20px', marginTop: '20px', backgroundColor: 'green', color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}
+                    sx={{ marginBottom: '0.5em', marginTop: '0.5em', backgroundColor: 'green', color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}
                 >
                     {showQuestionsRecord ? 'Hide Questions Record' : 'Show Questions Record'}
                 </Button>
                 {renderQuestions()}
-                <Button onClick={handlePrevPage} disabled={currentPage === 1}>Previous Page</Button>
-                <Button onClick={handleNextPage} disabled={currentPage === totalPages}>Next Page</Button>
             </Box>
         </Container>
     );
