@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, Platform, StatusBar, SafeAreaView } from 'react-native';
+import { StyleSheet, Platform, StatusBar, SafeAreaView } from 'react-native';
 import { WebView } from 'react-native-webview';
-import Constants from 'expo-constants';
 
 const styles = StyleSheet.create({
   container: {
