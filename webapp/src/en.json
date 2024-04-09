@@ -1,0 +1,12 @@
+{
+    "NavBar":{
+        "play": "Play",
+        "statistics": "Statistics",
+        "instructions": "Instructions",
+        "groups": "Groups",
+        "languages": {
+            "en": "English",
+            "es": "Spanish"
+        }
+    }
+}

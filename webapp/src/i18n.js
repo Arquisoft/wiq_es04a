@@ -1,13 +1,17 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-
+import es_translation from "./es.json";
+import en_translation from "./en.json";
 
 // the translations
 // (tip move them in a JSON file and import them,
 // or even better, manage them separated from your code: https://react.i18next.com/guides/multiple-translation-files)
 const resources = {
   en: {
-    localice: "localiced message"
+    translation: en_translation
+  },
+  es: {
+    translation: es_translation
   }
 };
 
