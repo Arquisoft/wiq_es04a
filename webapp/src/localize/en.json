@@ -1,5 +1,10 @@
 {
     "Home": "Play",
+    "WIQ": {
+        "w": "Wikidata",
+        "i": "Infinite",
+        "q": "Quest"
+    },
 
     "NavBar":{
         "play": "Play",

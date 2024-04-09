@@ -1,6 +1,11 @@
 {
     "Home": "Jugar",
-    
+    "WIQ": {
+        "w": "Wikidatos",
+        "i": "Infinito",
+        "q": "Questionario"
+    },
+
     "NavBar":{
         "play": "Jugar",
         "statistics": "Estadísticas",
