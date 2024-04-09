@@ -1,12 +1,14 @@
 import * as React from 'react';
-import React from 'react';
-import { Container, Button, Select, FormControl, InputLabel, MenuItem, CssBaseline, Grid, Typography } from '@mui/material';
+import axios from 'axios';
 
+import { Container, Button, Select, FormControl, InputLabel, MenuItem, Box, Divider, Snackbar, Typography } from '@mui/material';
+
+const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const Configuration = ({ onSubmit }) =>{
-    const [timePerQuestion, setTimePerQuestion] = useState(15); // Time to answer each question in seconds
-    const [category, setCategory] = useState(null); // Category of questions
-    const [rounds, setRounds] = useState(3); // Number of rounds
+    const [timePerQuestion, setTimePerQuestion] = React.useState(15); // Time to answer each question in seconds
+    const [category, setCategory] = React.useState(null); // Category of questions
+    const [rounds, setRounds] = React.useState(3); // Number of rounds
     const [positivePoints, setPositivePoints] = React.useState(100); // Points earned when guessing a question
     const [negativePoints, setNegativePoints] = React.useState(10); //Points lost when failing a question
   
@@ -19,26 +21,20 @@ const Configuration = ({ onSubmit }) =>{
 
     const saveConfiguration = async () => {
         try {
-          const response = await post(`${apiEndpoint}/challengegame/configuration`, {
-            
+          const response = await axios.post(`${apiEndpoint}/challengegame/configuration`, {
+            timePerQuestion: timePerQuestion,
+            category: category,
+            rounds: rounds
           });
           const data = await response.json();
+          setTimePerQuestion(data.timePerQuestion);
+          setCategory(data.category);
           console.log('Configuración guardada:', data);
           // Procesar la configuración devuelta si es necesario
         } catch (error) {
           console.error('Error al guardar la configuración:', error);
         }
 
-        try {
-            await axios.post(`${apiEndpoint}/statistics/edit`, {
-                username: username,
-                timePerQuestion: timePerQuestion,
-                category: category,
-                rounds: rounds
-            });
-        } catch (error) {
-            console.error("Error:", error);
-        };
       };
 
     const handleTimePerQuestionChange = (event) => {
