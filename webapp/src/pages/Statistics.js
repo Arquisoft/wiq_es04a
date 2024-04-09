@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { Container, Typography, Box, Table, TableBody, TableCell, TableContainer, TableRow, Button, useTheme } from '@mui/material';
-
 import { SessionContext } from '../SessionContext';
-import { useContext } from 'react';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const Statistics = () => {
     const theme = useTheme();
-
-    const [userStatics, setUserStatics] = useState([]);
-    const [selectedMode, setSelectedMode] = useState('The Challenge'); 
     const { username } = useContext(SessionContext);
+    const [userStatics, setUserStatics] = useState([]);
+    const [selectedMode, setSelectedMode] = useState('The Challenge');
+    const [questionsRecord, setQuestionsRecord] = useState([]);
+    const [showQuestionsRecord, setShowQuestionsRecord] = useState(false);
 
     useEffect(() => {
         const fetchUserStatics = async () => {
@@ -27,9 +26,27 @@ const Statistics = () => {
         fetchUserStatics();
     }, [username]);
 
+    useEffect(() => {
+        const fetchQuestionsRecord = async () => {
+            try {
+                const response = await axios.get(`${apiEndpoint}/user/questionsRecord/${username}/${selectedMode}`, {
+                    username: username,
+                    gameMode: selectedMode
+                });
+                console.log('Questions Record:', response.data.questions);
+                console.log('Questions Record:', response.data);
+                setQuestionsRecord(response.data);
+            } catch (error) {
+                console.error('Error fetching questions record:', error);
+            }
+        };
+
+        fetchQuestionsRecord();
+    }, [username, selectedMode]);
+
     const renderStatistics = () => {
         const formatStats = (param) => {
-            return (param === null || param === undefined)?'0':param;
+            return (param === null || param === undefined) ? '0' : param;
         };
 
         switch (selectedMode) {
@@ -146,6 +163,43 @@ const Statistics = () => {
         }
     };
 
+    const renderQuestions = () => {
+        if (showQuestionsRecord) {
+            return questionsRecord.map((record, index) => (
+                <div key={index}>
+                    <Typography variant="h5" gutterBottom>
+                        Questions Record {record.createdAt}
+                    </Typography>
+                    <TableContainer>
+                        <Table sx={{ minWidth: 360 }} aria-label={`Questions Record ${index + 1}`}>
+                            <TableBody>
+                                {record.questions.map((question, questionIndex) => (
+                                    <TableRow key={questionIndex}>
+                                        <TableCell>{question.question}</TableCell>
+                                        <TableCell>
+                                            <ul>
+                                                {question.options.map((option, optionIndex) => (
+                                                    <li
+                                                        key={optionIndex}
+                                                        style={{
+                                                            color: option === question.correctAnswer ? 'green' : question.response === option ? 'red' : 'black',
+                                                        }}
+                                                    >
+                                                        {option}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </div>
+            ));
+        }
+    };
+
     return (
         <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <Typography variant="h3" align="center" gutterBottom>
@@ -153,12 +207,20 @@ const Statistics = () => {
             </Typography>
             <Box>
                 <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-                    <Button onClick={() => setSelectedMode('The Challenge')} variant="contained" sx={{ marginRight: '10px', backgroundColor:theme.palette.primary.main, color:theme.palette.secondary.main, borderColor:theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color:theme.palette.primary.main, borderColor:theme.palette.primary.main } }}>The Challenge</Button>
-                    <Button onClick={() => setSelectedMode('Wise Men Stack')} variant="contained" sx={{ marginRight: '10px', backgroundColor:theme.palette.primary.main, color:theme.palette.secondary.main, borderColor:theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color:theme.palette.primary.main, borderColor:theme.palette.primary.main } }}>Wise Men Stack</Button>
-                    <Button onClick={() => setSelectedMode('Warm Question')} variant="contained" sx={{ marginRight: '10px', backgroundColor:theme.palette.primary.main, color:theme.palette.secondary.main, borderColor:theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color:theme.palette.primary.main, borderColor:theme.palette.primary.main } }}>Warm Question</Button>
-                    <Button onClick={() => setSelectedMode('Discovering Cities')} variant="contained" sx={{ backgroundColor:theme.palette.primary.main, color:theme.palette.secondary.main, borderColor:theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color:theme.palette.primary.main, borderColor:theme.palette.primary.main }  }}>Discovering Cities</Button>
+                    <Button onClick={() => setSelectedMode('The Challenge')} variant="contained" sx={{ marginRight: '10px', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>The Challenge</Button>
+                    <Button onClick={() => setSelectedMode('Wise Men Stack')} variant="contained" sx={{ marginRight: '10px', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>Wise Men Stack</Button>
+                    <Button onClick={() => setSelectedMode('Warm Question')} variant="contained" sx={{ marginRight: '10px', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>Warm Question</Button>
+                    <Button onClick={() => setSelectedMode('Discovering Cities')} variant="contained" sx={{ backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>Discovering Cities</Button>
                 </div>
                 {renderStatistics()}
+                <Button
+                    onClick={() => setShowQuestionsRecord(!showQuestionsRecord)}
+                    variant="contained"
+                    sx={{ marginTop: '10px', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}
+                >
+                    {showQuestionsRecord ? 'Hide Questions Record' : 'Show Questions Record'}
+                </Button>
+                {renderQuestions()}
             </Box>
         </Container>
     );

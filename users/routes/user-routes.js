@@ -28,7 +28,7 @@ router.get('/questionsRecord/:username/:gameMode', async (req, res) => {
         const gameMode = req.params.gameMode;
 
         // Need also to get the group members
-        const record = await QuestionsRecord.findOne({
+        const record = await QuestionsRecord.findAll({
             where: {
                 username: username,
                 gameMode: gameMode
