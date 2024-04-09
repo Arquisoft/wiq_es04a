@@ -14,6 +14,8 @@ const Statistics = () => {
     const [selectedMode, setSelectedMode] = useState('The Challenge');
     const [questionsRecord, setQuestionsRecord] = useState([]);
     const [showQuestionsRecord, setShowQuestionsRecord] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 1;
 
     useEffect(() => {
         const fetchUserStatics = async () => {
@@ -45,6 +47,16 @@ const Statistics = () => {
 
         fetchQuestionsRecord();
     }, [username, selectedMode]);
+
+    const totalPages = Math.ceil(questionsRecord.length / itemsPerPage);
+
+    const handleNextPage = () => {
+        setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
+    };
+
+    const handlePrevPage = () => {
+        setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+    };
 
     const renderStatistics = () => {
         const formatStats = (param) => {
@@ -172,7 +184,11 @@ const Statistics = () => {
 
     const renderQuestions = () => {
         if (showQuestionsRecord) {
-            return questionsRecord.map((record, index) => (
+            const indexOfLastItem = currentPage * itemsPerPage;
+            const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+            const currentItems = questionsRecord.slice(indexOfFirstItem, indexOfLastItem);
+    
+            return currentItems.map((record, index) => (
                 <div key={index}>
                     <Typography variant="h5" gutterBottom>
                         Record {formatCreatedAt(record.createdAt)}
@@ -183,15 +199,15 @@ const Statistics = () => {
                             <Grid item xs={12} key={questionIndex}>
                                 <Box sx={{ bgcolor: '#f0f0f0', borderRadius: '20px', padding: '10px' }}>
                                     <Typography variant="body1" gutterBottom>
-                                        {question.correctAnswer === question.response?<CheckIcon />:<ClearIcon />}
+                                        {question.correctAnswer === question.response ? <CheckIcon style={{color: 'green', fontSize: 'bold'}} /> : <ClearIcon style={{color: 'red', fontSize: 'bold'}} />}
                                         {question.question}
                                     </Typography>
                                     {question.options.map((option, optionIndex) => (
-                                        
                                         <Box
                                             key={optionIndex}
                                             sx={{
                                                 bgcolor: option === question.correctAnswer ? 'green' : question.response === option ? 'red' : '#ffffff',
+                                                color: option === question.correctAnswer || option === question.response ? '#ffffff' : 'inherit', 
                                                 borderRadius: '20px',
                                                 padding: '10px',
                                                 border: '1px solid #ccc',
@@ -227,11 +243,13 @@ const Statistics = () => {
                 <Button
                     onClick={() => setShowQuestionsRecord(!showQuestionsRecord)}
                     variant="contained"
-                    sx={{ marginTop: '10px', backgroundColor: 'green', color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}
+                    sx={{ marginBottom: '20px', marginTop: '20px', backgroundColor: 'green', color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}
                 >
                     {showQuestionsRecord ? 'Hide Questions Record' : 'Show Questions Record'}
                 </Button>
                 {renderQuestions()}
+                <Button onClick={handlePrevPage} disabled={currentPage === 1}>Previous Page</Button>
+                <Button onClick={handleNextPage} disabled={currentPage === totalPages}>Next Page</Button>
             </Box>
         </Container>
     );
