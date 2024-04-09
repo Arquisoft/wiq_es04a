@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import Footer from '../../components/Footer.js';
-import '../../i18n';
+import '../../localize/i18n.js';
 
 describe('Footer component', () => {
   beforeEach(() => {

@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from 'react-router-dom';
 import { SessionProvider } from './SessionContext';
-import './i18n';
+import './localize/i18n';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
