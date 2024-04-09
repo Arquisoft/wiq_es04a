@@ -1,5 +1,5 @@
 import React from 'react';
-import AddUser from './pages/AddUser';
+import Register from './pages/Register';
 import Instructions from './pages/Instructions';
 import Login from './pages/Login';
 import NavBar from './components/NavBar';
@@ -48,7 +48,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />}/>
             <Route path="/login" element={<Login />}/>
-            <Route path="/register" element={<AddUser />}/>
+            <Route path="/register" element={<Register />}/>
             <Route path="/instructions" element={<Instructions />}/>
             <Route path="/homepage" element={<Homepage />}/>
             <Route path="/game" element={<Game />}/>

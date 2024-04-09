@@ -1,10 +1,4 @@
 {
-    "Home": "Jugar",
-    "WIQ": {
-        "w": "Wikidatos",
-        "i": "Infinito",
-        "q": "Questionario"
-    },
 
     "NavBar":{
         "play": "Jugar",
@@ -31,5 +25,15 @@
         "time": "Tiempo de juego (seg)",
         "pause": "Pausa",
         "play": "Jugar"
-    }
+    },
+    
+    "Register": {
+        "title": "Registro",
+        "username": "Nombre de usuario",
+        "password": "Contraseña",
+        "name": "Nombre",
+        "surname": "Apellido",
+        "button": "Registrarse",
+        "login_link": "¿Ya tienes una cuenta? Inicia sesión aquí."
+    }  
 }

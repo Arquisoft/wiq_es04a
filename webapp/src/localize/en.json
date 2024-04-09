@@ -1,10 +1,4 @@
 {
-    "Home": "Play",
-    "WIQ": {
-        "w": "Wikidata",
-        "i": "Infinite",
-        "q": "Quest"
-    },
 
     "NavBar":{
         "play": "Play",
@@ -55,5 +49,15 @@
         "time": "Game Time (sec)",
         "pause": "Pause",
         "play": "Play"
+    },
+
+    "Register": {
+        "title": "Log In",
+        "username": "Username",
+        "password": "Password",
+        "name": "Name",
+        "surname": "Surname",
+        "button": "Sign up",
+        "login_link": "Already have an account? Login here."
     }
 }
