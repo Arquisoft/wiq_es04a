@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import { Container, Typography, Box, Table, TableBody, TableCell, TableContainer, TableRow, Button, useTheme } from '@mui/material';
+import { Container, Typography, Box, Table, TableBody, TableCell, TableContainer, TableRow, Button, useTheme, Grid } from '@mui/material';
 import { SessionContext } from '../SessionContext';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
@@ -170,31 +170,32 @@ const Statistics = () => {
                     <Typography variant="h5" gutterBottom>
                         Questions Record {record.createdAt}
                     </Typography>
-                    <TableContainer>
-                        <Table sx={{ minWidth: 360 }} aria-label={`Questions Record ${index + 1}`}>
-                            <TableBody>
-                                {record.questions.map((question, questionIndex) => (
-                                    <TableRow key={questionIndex}>
-                                        <TableCell>{question.question}</TableCell>
-                                        <TableCell>
-                                            <ul>
-                                                {question.options.map((option, optionIndex) => (
-                                                    <li
-                                                        key={optionIndex}
-                                                        style={{
-                                                            color: option === question.correctAnswer ? 'green' : question.response === option ? 'red' : 'black',
-                                                        }}
-                                                    >
-                                                        {option}
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+    
+                    <Grid container spacing={2}>
+                        {record.questions.map((question, questionIndex) => (
+                            <Grid item xs={12} key={questionIndex}>
+                                <Box sx={{ bgcolor: '#f0f0f0', borderRadius: '20px', padding: '10px' }}>
+                                    <Typography variant="body1" gutterBottom>
+                                        {question.question}
+                                    </Typography>
+                                    {question.options.map((option, optionIndex) => (
+                                        <Box
+                                            key={optionIndex}
+                                            sx={{
+                                                bgcolor: option === question.correctAnswer ? 'green' : question.response === option ? 'red' : '#ffffff',
+                                                borderRadius: '20px',
+                                                padding: '10px',
+                                                border: '1px solid #ccc',
+                                                marginTop: '5px',
+                                            }}
+                                        >
+                                            {option}
+                                        </Box>
+                                    ))}
+                                </Box>
+                            </Grid>
+                        ))}
+                    </Grid>
                 </div>
             ));
         }
@@ -216,7 +217,7 @@ const Statistics = () => {
                 <Button
                     onClick={() => setShowQuestionsRecord(!showQuestionsRecord)}
                     variant="contained"
-                    sx={{ marginTop: '10px', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}
+                    sx={{ marginTop: '10px', backgroundColor: 'green', color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}
                 >
                     {showQuestionsRecord ? 'Hide Questions Record' : 'Show Questions Record'}
                 </Button>
