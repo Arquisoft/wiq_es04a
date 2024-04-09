@@ -9,9 +9,20 @@
             "es": "Español"
         }
     },
+    
     "Footer": {
         "api_questions": "DOCUMENTACIÓN DE LA API DE PREGUNTAS",
         "api_users": "DOCUMENTACIÓN DE LA API DE USUARIOS"
+    },
+
+    "Game": {
+        "win_msg": "¡Buen trabajo!",
+        "lose_msg": "Fin del juego",
+        "correct": "Respuestas correctas",
+        "incorrect": "Respuestas incorrectas",
+        "money": "Dinero final",
+        "time": "Tiempo de juego (seg)",
+        "pause": "Pausa",
+        "play": "Jugar"
     }
-      
 }

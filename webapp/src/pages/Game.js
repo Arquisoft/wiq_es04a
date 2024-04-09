@@ -9,6 +9,7 @@ import { SessionContext } from '../SessionContext';
 import { useContext } from 'react';
 import Confetti from 'react-confetti';
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import { useTranslation } from 'react-i18next';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -21,6 +22,9 @@ const Game = () => {
 
     //sesion information
     const {username} = useContext(SessionContext);
+
+    // Traductions
+    const { t } = useTranslation();
 
     // state initialization
     const [round, setRound] = React.useState(1);
@@ -39,7 +43,6 @@ const Game = () => {
     const [userResponses, setUserResponses] = React.useState([]);
 
     const [questionHistorial, setQuestionHistorial] = React.useState(Array(MAX_ROUNDS).fill(null));
-
 
     React.useEffect(() => {
         let timer;
@@ -257,12 +260,13 @@ if (shouldRedirect) {
                 marginBottom: '50px', // Espaciado inferior
             }}
         >
-            {correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? "Great Job!" : "Game Over"}
+            {correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? t("Game.win_msg") : t("Game.lose_msg") }
         </Typography>
             <div>
-                <Typography variant="h6">Correct Answers: {correctlyAnsweredQuestions}</Typography>
-                <Typography variant="h6">Incorrect Answers: {incorrectlyAnsweredQuestions}</Typography>
-                <Typography variant="h6">Total money: {totalScore}</Typography>
+                <Typography variant="h6">{ t("Game.correct") }: {correctlyAnsweredQuestions}</Typography>
+                <Typography variant="h6">{ t("Game.incorrect") }: {incorrectlyAnsweredQuestions}</Typography>
+                <Typography variant="h6">{ t("Game.money") }: {totalScore}</Typography>
+                <Typography variant="h6">{ t("Game.time") }: {totalTimePlayed}</Typography>
             </div>
             {showConfetti && <Confetti />}
         </Container>
@@ -298,7 +302,7 @@ if (shouldRedirect) {
                     disabled={answered}>
 
                 {timerRunning ? <Pause /> : <PlayArrow />}
-                {timerRunning ? 'Pause' : 'Play'}
+                {timerRunning ? t("Game.pause") : t("Game.play") }
             </Button>
 
             <Container
