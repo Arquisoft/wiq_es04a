@@ -266,7 +266,6 @@ if (shouldRedirect) {
                 <Typography variant="h6">Correct Answers: {correctlyAnsweredQuestions}</Typography>
                 <Typography variant="h6">Incorrect Answers: {incorrectlyAnsweredQuestions}</Typography>
                 <Typography variant="h6">Total money: {totalScore}</Typography>
-                <Typography variant="h6">Game time: {totalTimePlayed} seconds</Typography>
             </div>
             {showConfetti && <Confetti />}
         </Container>
