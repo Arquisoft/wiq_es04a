@@ -8,5 +8,9 @@
             "en": "English",
             "es": "Spanish"
         }
+    },
+    "Footer": {
+        "api_questions": "QUESTIONS API DOC",
+        "api_users": "USERS API DOC"
     }
 }

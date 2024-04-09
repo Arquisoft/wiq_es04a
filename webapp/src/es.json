@@ -8,5 +8,10 @@
             "en": "Inglés",
             "es": "Español"
         }
+    },
+    "Footer": {
+        "api_questions": "DOCUMENTACIÓN DE LA API DE PREGUNTAS",
+        "api_users": "DOCUMENTACIÓN DE LA API DE USUARIOS"
     }
+      
 }
