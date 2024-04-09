@@ -284,19 +284,6 @@ if (shouldRedirect) {
             }}
         >
             <CssBaseline />
-            
-            <Typography
-                variant="h6"
-                sx={{
-                    position: 'absolute',
-                    top: '10%', 
-                    right: '5%',
-                }}
-            >
-                Game time: {totalTimePlayed} s
-      
-            </Typography>
-
             <Button variant="contained"
                     onClick={() => togglePause()}
                     disabled={answered}>
