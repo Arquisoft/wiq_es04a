@@ -22,6 +22,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "permissions":["network"],
       "package": "com.uo288543.wiqinfinitequest"
     },
     "web": {
