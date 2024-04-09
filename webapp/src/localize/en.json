@@ -73,5 +73,9 @@
         "surname": "Surname",
         "button": "Sign up",
         "login_link": "Already have an account? Login here."
+    },
+
+    "Ranking": {
+        "title": "RANKING"
     }
 }

@@ -49,5 +49,9 @@
         "surname": "Apellido",
         "button": "Registrarse",
         "login_link": "¿Ya tienes una cuenta? Inicia sesión aquí."
-    }  
+    },
+
+    "Ranking": {
+        "title": "CLASIFICACIÓN"
+    }
 }

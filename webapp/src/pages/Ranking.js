@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {Container, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const Ranking = () => {
+    const { t } = useTranslation();
 
     const [ranking, setRanking] = useState([]);
 
@@ -33,7 +35,9 @@ const Ranking = () => {
             gap: "2em", 
             padding:"6vh"
         }}>
-            <Typography variant="h3" align="center" fontWeight="bold">RANKING</Typography>
+            <Typography variant="h3" align="center" fontWeight="bold">
+                { t("Ranking.title") }
+            </Typography>
             
             <ol>
                 <strong>
