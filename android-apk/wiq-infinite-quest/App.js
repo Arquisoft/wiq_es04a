@@ -17,7 +17,7 @@ export default function App() {
   return (
     <SafeAreaView style={{flex:1}}>
       <WebView
-        source={{ uri: 'http://20.19.89.97:3000/' }}
+        source={{ uri: 'http://wikiquest.sytes.net' }}
         style={styles.webview}
       />
     </SafeAreaView>
