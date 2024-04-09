@@ -1,4 +1,6 @@
 {
+    "Home": "Play",
+
     "NavBar":{
         "play": "Play",
         "statistics": "Statistics",
@@ -13,6 +15,30 @@
     "Footer": {
         "api_questions": "QUESTIONS API DOC",
         "api_users": "USERS API DOC"
+    },
+
+    "Games": {
+        "wise_men": {
+            "name": "Wise Men Stack",
+            "desc": "The player chooses a topic from five available options and must answer a battery of questions related to it within 60 seconds. For each question, the host provides two options. If the contestant guesses correctly, they win €20; otherwise, they move on to the next question (as the correct answer would be the other option). If the time runs out before the question is fully asked and both possible answers are provided, the contestant may still answer it; however, if the statement hasn't been completed (or the options weren't provided), they cannot answer."
+        },
+        "warm_quest": {
+            "name": "Warm Question",
+            "desc": "It consists of ten topics of varied themes. For each correct answer, €100 is earned, and €10 are lost if the contestant passes, does not respond, or answers incorrectly."
+        },
+        "discover": {
+            "name": "Discovering Cities",
+            "desc": "In the 'Discovering Cities' game mode, the contestant will face a challenge where they will be repeatedly asked questions referring to different cities around the world. To successfully overcome the challenge, the contestant must answer as many questions as possible correctly throughout the test.."
+        },
+        "challenge": {
+            "name": "Challenge",
+            "desc": "The 'Challenge' game mode is the quintessential game mode, as it allows you to customize the match to your liking. This game mode is tailored for those who wish to practice certain game formats before engaging in our various other game modes."
+        },
+        "multiplayer": {
+            "name": "Multiplayer",
+            "desc": "Create a room for other player to join and play 1vs1"
+        }
+
     },
 
     "Game": {
