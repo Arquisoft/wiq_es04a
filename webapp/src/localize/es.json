@@ -1,4 +1,10 @@
 {
+    "Home": "JUGAR",
+    "WIQ": {
+        "w": "WIKIDATOS",
+        "i": "INFINITO",
+        "q": "QUESTIONARIO"
+    },
 
     "NavBar":{
         "play": "Jugar",
@@ -25,6 +31,14 @@
         "time": "Tiempo de juego (seg)",
         "pause": "Pausa",
         "play": "Jugar"
+    },
+
+    "Login": {
+        "title": "Iniciar sesión",
+        "username": "Nombre de usuario",
+        "password": "Contraseña",
+        "button": "Iniciar sesión",
+        "register_link": "¿No tienes una cuenta? Regístrate aquí."
     },
     
     "Register": {
