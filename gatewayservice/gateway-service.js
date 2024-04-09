@@ -6,8 +6,9 @@ const promBundle = require('express-prom-bundle');
 const app = express();
 const port = 8000;
 
-const authServiceUrl = process.env.AUTH_SERVICE_URL || 'http://localhost:8002';
 const userServiceUrl = process.env.USER_SERVICE_URL || 'http://localhost:8001';
+
+const questionGenerationServiceUrl = process.env.QUESTION_SERVICE_URL || 'http://localhost:8010';
 
 app.use(cors());
 app.use(express.json());
@@ -15,6 +16,16 @@ app.use(express.json());
 //Prometheus configuration
 const metricsMiddleware = promBundle({includeMethod: true});
 app.use(metricsMiddleware);
+
+const handleErrors = (res, error) => {
+  if (error.response && error.response.status) {
+    res.status(error.response.status).json({ error: error.response.data.error });
+  } else if (error.message) {
+    res.status(500).json({ error: error.message });
+  } else {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
 
 // Health check endpoint
 app.get('/health', (_req, res) => {
@@ -24,20 +35,164 @@ app.get('/health', (_req, res) => {
 app.post('/login', async (req, res) => {
   try {
     // Forward the login request to the authentication service
-    const authResponse = await axios.post(authServiceUrl+'/login', req.body);
+    const authResponse = await axios.post(`${userServiceUrl}/login`, req.body);
     res.json(authResponse.data);
   } catch (error) {
-    res.status(error.response.status).json({ error: error.response.data.error });
+    handleErrors(res, error);
   }
 });
 
-app.post('/adduser', async (req, res) => {
+app.get('/user/questionsRecord/:username/:gameMode', async (req, res) => {
   try {
-    // Forward the add user request to the user service
-    const userResponse = await axios.post(userServiceUrl+'/adduser', req.body);
+    const username = req.params.username;
+    const gameMode = req.params.gameMode;
+    // Forward the user statics edit request to the user service
+    const userResponse = await axios.get(userServiceUrl+`/user/questionsRecord/`+username+`/`+gameMode, req.body);
     res.json(userResponse.data);
   } catch (error) {
-    res.status(error.response.status).json({ error: error.response.data.error });
+    handleErrors(res, error);
+  }
+});
+
+app.post('/user/questionsRecord', async (req, res) => {
+  try {
+    const response = await axios.post(userServiceUrl+`/user/questionsRecord`, req.body);
+    res.json(response.data); 
+  } catch (error) {
+    console.error("Error al actualizar el historial de preguntas:", error);
+    res.status(500).json({ error: "Error al actualizar el historial de preguntas" });
+  }
+});
+
+// Método para obtener la sesión del usuario
+app.get('/user/session', async (req, res) => {
+  try {
+    const response = await axios.get(`${userServiceUrl}/user/session`);
+    res.json(response.data); // Enviar solo los datos de la respuesta
+  } catch (error) {
+    console.error("Error al obtener la sesión del usuario:", error);
+    res.status(500).json({ error: "Error al obtener la sesión del usuario" });
+  }
+});
+
+app.get('/user/allUsers', async (req, res) => {
+  try {
+    const response = await axios.get(`${userServiceUrl}/user/allUsers`);
+    res.json(response.data); // Enviar solo los datos de la respuesta
+  } catch (error) {
+    console.error("Error al obtener la sesión del usuario:", error);
+    res.status(500).json({ error: "Error al obtener la sesión del usuario" });
+  }
+});
+
+app.get('/user/ranking', async (req, res) => {
+  try {
+    const response = await axios.get(`${userServiceUrl}/user/ranking`);
+    res.json(response.data); // Enviar solo los datos de la respuesta
+  } catch (error) {
+    console.error("Error al obtener la sesión del usuario:", error);
+    res.status(500).json({ error: "Error al obtener la sesión del usuario" });
+  }
+});
+
+app.get('/user/get/:username', async (req, res) => {
+  try {
+    const username = req.params.username;
+    // Forward the user statics edit request to the user service
+    const userResponse = await axios.get(userServiceUrl+'/user/get/'+username, req.body);
+    res.json(userResponse.data);
+  } catch (error) {
+    handleErrors(res, error);
+  }
+});
+
+app.post('/user/add', async (req, res) => {
+  try {
+    // Forward the add user request to the user service
+    const userResponse = await axios.post(`${userServiceUrl}/user/add`, req.body);
+    res.json(userResponse.data);
+  } catch (error) {
+    handleErrors(res, error);
+  }
+});
+
+app.get('/questions', async (req, res) => {
+  try {
+    const questionsResponse = await axios.get(`${questionGenerationServiceUrl}/questions`);
+    res.json(questionsResponse.data);
+  } catch (error) {
+    res.status(error.response).json({ error: error.response });
+  }
+});
+
+app.post('/statistics/edit', async (req, res) => {
+  try {
+    // Forward the user statics edit request to the user service
+    const userResponse = await axios.post(`${userServiceUrl}/user/statistics/edit`, req.body);
+    res.json(userResponse.data);
+  } catch (error) {
+    handleErrors(res, error);
+  }
+});
+
+app.get('/user/statistics/:username', async (req, res) => {
+  try {
+    const username = req.params.username;
+    // Forward the user statics edit request to the user service
+    const userResponse = await axios.get(`${userServiceUrl}/user/statistics/${username}`, req.body);
+    res.json(userResponse.data);
+  } catch (error) {
+    handleErrors(res, error);
+  }
+});
+
+app.get('/user/group/list', async (req, res) => {
+  try {
+    const username = req.query.username;
+    console.log("username: ", username);
+    const userResponse = await axios.get(userServiceUrl + '/user/group/list',{params: {username: username }});
+    console.log("userResponse: ", userResponse);
+    res.json(userResponse.data);
+  } catch (error) {
+    handleErrors(res, error);
+  }
+});
+
+
+app.post('/group/add', async (req, res) => {
+  try {
+    const userResponse = await axios.post(`${userServiceUrl}/user/group/add`, req.body);
+    res.json(userResponse.data);
+  } catch (error) {
+    if (error.response && error.response.status === 400) {
+      res.status(400).json({ error: error.response.data.error });
+    }else{
+      handleErrors(res, error);
+    }
+  }
+});
+
+app.get('/group/:name', async (req, res) => {
+  try {
+    const { name } = req.params;
+    const userResponse = await axios.get(`${userServiceUrl}/user/group/${name}`);
+    res.json(userResponse.data);
+  } catch (error) {
+    handleErrors(res, error);
+  }
+});
+
+app.post('/group/:name/join', async (req, res) => {
+  try {
+    const { name } = req.params;
+    const userResponse = await axios.post(`${userServiceUrl}/user/group/${name}/join`, req.body);
+    res.json(userResponse.data);
+  } catch (error) {
+    if (error.response && error.response.status === 400) {
+      res.status(400).json({ error: error.response.data.error });
+    }else{
+      handleErrors(res, error);
+    }
   }
 });
 

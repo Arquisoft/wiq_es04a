@@ -1,3 +1,5 @@
+# Wikidata Infinite Quest
+🌐 [wikiquest.sytes.net](http://wikiquest.sytes.net/)
 ## 👨‍💻 Contributors:
 
 | Contributor | Contact |
@@ -11,22 +13,21 @@
 | Andina Pailos, Daniel  | <a href="https://github.com/and1na"><img src="https://img.shields.io/badge/and1na-Daniel Andina-violet"></a>  |
 
 
-# wiq_es04a
-
 [![Deploy on release](https://github.com/Arquisoft/wiq_es04a/actions/workflows/release.yml/badge.svg)](https://github.com/Arquisoft/wiq_es04a/actions/workflows/release.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_es04a&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_es04a)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_es04a&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_es04a)
 
-This is a base repo for the [Software Architecture course](http://arquisoft.github.io/) in [2023/2024 edition](https://arquisoft.github.io/course2324.html). 
+This is a repo for the [Software Architecture course](http://arquisoft.github.io/) in [2023/2024 edition](https://arquisoft.github.io/course2324.html). 
 
-This repo is a basic application composed of several components.
+This repo is an application composed of several components.
 
+- **Webapp**. React web application that uses the gateway service to allow people register and enjoy playing different modes.
 - **Gateway service**. Express service that is exposed to the public and serves as a proxy to the two previous ones.
-- **User service**. Express service that handles the insertion of new users in the system.
-- **Auth service**. Express service that handles the authentication of users.
-- **Webapp**. React web application that uses the gateway service to allow basic login and new user features.
+- **Users**. Express service that handles the managment of the users and their groups in the system.
+- **Questions**. Express service that handles the management of the questions generated for the game in the system.
+- **Multiplayer**. Express service that hosts the multiplayer for the react game.
 
-Both the user and auth service share a Mongo database that is accessed with mongoose.
+The Users service uses a MariaDB DBMS accesed with sequelizer and questions service uses MongoDB accesed with mongoose.
 
 ## Quick start guide
 

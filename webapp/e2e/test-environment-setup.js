@@ -1,19 +1,24 @@
-const { MongoMemoryServer } = require('mongodb-memory-server');
-
-
-let mongoserver;
+let sequelize;
 let userservice;
-let authservice;
 let gatewayservice;
+let questionservice;
 
 async function startServer() {
-    console.log('Starting MongoDB memory server...');
-    mongoserver = await MongoMemoryServer.create();
-    const mongoUri = mongoserver.getUri();
-    process.env.MONGODB_URI = mongoUri;
-    userservice = await require("../../users/userservice/user-service");
-    authservice = await require("../../users/authservice/auth-service");
-    gatewayservice = await require("../../gatewayservice/gateway-service");
+    try {
+        process.env.NODE_ENV ='test';
+        console.log('Starting MariaDB Connection...');
+        userservice = await require("../../users/services/user-model");
+        sequelize = userservice.sequelize;
+        gatewayservice = await require("../../gatewayservice/gateway-service");
+        questionservice = await require("../../questions/services/question-data-service");
+    
+        await sequelize.authenticate();
+        await sequelize.sync({force:true});
+            
+    } catch (error) {
+        console.error('Error starting server:', error);
+    }
+   
   }
 
   startServer();

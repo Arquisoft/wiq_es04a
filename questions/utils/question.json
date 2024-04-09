@@ -1,0 +1,98 @@
+[
+    {
+        "name": "country",
+        "instance": "Q6256",
+        "properties": [
+            {   
+                "property": "P1082",
+                "template": 
+                    [{
+                    "lang": "es",
+                    "question": "Cuál es la población de x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "What is the population of x"
+                    }],
+                "filter": ">4000000",
+                "category": ["Geography"]
+            },
+            {   
+                "property": "P36",
+                "template": [{
+                    "lang": "es",
+                    "question": "Cuál es la capital de x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "What is the capital of x"
+                    }],
+                "category": ["Geography"]
+            },
+            {   
+                "property": "P38",
+                "template": 
+                    [{
+                    "lang": "es",
+                    "question": "Que moneda tiene x"
+                    },
+                    {
+                    "lang": "en",
+                    "question":  "What currency x has"
+                    }],
+                "category": ["Political"]
+            }
+        ]
+    },
+    {
+        "name": "football",
+        "instance": "Q476028",
+        "properties": [
+            {   
+                "property": "P115",
+                "template": 
+                    [{
+                    "lang": "es",
+                    "question": "Cuál es el estadio del equipo x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "What is the stadium of x team"
+                    }],
+                "category": ["Sports"]
+            },
+            {
+                "property": "P17",
+                "template": 
+                    [{
+                    "lang": "es",
+                    "question": "Cuál es el pais del equipo x"
+                    },
+                    {
+                    "lang": "en",
+                    "question":  "What is the country of x team"
+                    }],
+                "category": ["Sports", "Geography"]
+            }
+        ]
+    },
+    {
+        "name": "river",
+        "instance": "Q4022",
+        "properties": [
+            {   
+                "property": "P205",
+                "template": 
+                    [{
+                    "lang": "es",
+                    "question": "En qué país está el río x"
+                    },
+                    {
+                    "lang": "en",
+                    "question":  "What country is x river in"
+                    }],
+                "category": ["Geography"]
+            }
+        ]
+    }
+]
