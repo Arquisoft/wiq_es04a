@@ -1,7 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
-
-import { Container, Button, CssBaseline, Grid, Typography, CircularProgress } from '@mui/material';
+import { Container, Button, CssBaseline, Grid, Typography, CircularProgress, Card, CardContent } from '@mui/material';
 import { PlayArrow, Pause } from '@mui/icons-material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -10,8 +9,6 @@ import { SessionContext } from '../SessionContext';
 import { useContext } from 'react';
 import Confetti from 'react-confetti';
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
