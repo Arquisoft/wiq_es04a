@@ -108,5 +108,22 @@
             "cities_corr": "Correctly Answered Cities",
             "cities_incorr": "Incorrectly Answered Cities"
         }
+    },
+
+    "Multiplayer": {
+        "Room": {
+            "code": "Room Code",
+            "participants": "participants",
+            "start": "Start game",
+            "create": "Create room",
+            "join": "Join room"
+        },
+        "Game": {
+            "waiting": "Waiting for winner info",
+            "winner_1": "Player winner of the game",
+            "winner_2": "with",
+            "winner_3": "correct answers in",
+            "winner_4": "seconds"
+        }
     }
 }

@@ -4,6 +4,7 @@ import { SessionContext } from '../../SessionContext';
 import { BrowserRouter, useLocation } from 'react-router-dom'; 
 import MultiplayerGame from '../../pages/MultiplayerGame';
 import io from 'socket.io-client';
+import '../../localize/i18n';
 
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
