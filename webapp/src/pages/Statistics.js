@@ -127,11 +127,11 @@ const Statistics = () => {
                                     <TableCell>{formatStats(userStatics.discovering_cities_earned_money)} €</TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell>Correctly Answered Cities:</TableCell>
+                                    <TableCell>{ t("Statistics.table.cities_corr") }:</TableCell>
                                     <TableCell>{formatStats(userStatics.discovering_cities_correctly_answered_questions)}</TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell>Incorrectly Answered Cities:</TableCell>
+                                    <TableCell>{ t("Statistics.table.cities_incorr") }:</TableCell>
                                     <TableCell>{formatStats(userStatics.discovering_cities_incorrectly_answered_questions)}</TableCell>
                                 </TableRow>
                                 <TableRow>

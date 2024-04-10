@@ -104,7 +104,9 @@
             "questions_incorr": "Incorrectly Answered Questions",
             "questions_pass": "Passed Questions",
             "played_games": "Games Played",
-            "total_time": "Total Time Played"
+            "total_time": "Total Time Played",
+            "cities_corr": "Correctly Answered Cities",
+            "cities_incorr": "Incorrectly Answered Cities"
         }
     }
 }
