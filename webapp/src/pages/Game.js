@@ -210,18 +210,20 @@ const Game = () => {
         }
     }
 
-
     // circular loading
     if (!questionData) {
         return (
             <Container
-                sx={{
-                    display: 'flex',
+                sx={{ 
+                    display: 'flex', 
                     flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    height: '100vh',
+                    justifyContent: 'center', 
+                    alignItems: 'center', 
                     textAlign: 'center',
+                    flex:'1', 
+                    marginTop: '2em', 
+                    marginBottom: '2em',
+                    gap: '2em'
                 }}
             >
                 <CssBaseline />
@@ -231,56 +233,63 @@ const Game = () => {
     }
 
     // redirect to / if game over 
-if (shouldRedirect) {
-    // Redirect after 3 seconds
-    setTimeout(() => {
-        navigate('/homepage');
-    }, 4000);
+    if (shouldRedirect) {
+        // Redirect after 3 seconds
+        setTimeout(() => {
+            navigate('/homepage');
+        }, 4000);
 
+
+        return (
+            <Container
+                sx={{ 
+                    display: 'flex', 
+                    flexDirection: 'column',
+                    justifyContent: 'center', 
+                    alignItems: 'center', 
+                    textAlign: 'center',
+                    flex:'1', 
+                    marginTop: '2em', 
+                    marginBottom: '2em',
+                    gap: '2em'
+                }}
+            >
+                <CssBaseline />
+                <Typography 
+                data-testid="end-game-message"
+                variant="h4" 
+                sx={{
+                    color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? 'green' : 'red',
+                    fontSize: '4rem', // Tamaño de fuente
+                    marginTop: '20px', // Espaciado superior
+                    marginBottom: '50px', // Espaciado inferior
+                }}
+            >
+                {correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? t("Game.win_msg") : t("Game.lose_msg") }
+            </Typography>
+                <div>
+                    <Typography variant="h6">{ t("Game.correct") }: {correctlyAnsweredQuestions}</Typography>
+                    <Typography variant="h6">{ t("Game.incorrect") }: {incorrectlyAnsweredQuestions}</Typography>
+                    <Typography variant="h6">{ t("Game.money") }: {totalScore}</Typography>
+                    <Typography variant="h6">{ t("Game.time") }: {totalTimePlayed}</Typography>
+                </div>
+                {showConfetti && <Confetti />}
+            </Container>
+        );
+    }
 
     return (
         <Container
-            sx={{
-                display: 'flex',
+            sx={{ 
+                display: 'flex', 
                 flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '100vh',
+                justifyContent: 'center', 
+                alignItems: 'center', 
                 textAlign: 'center',
-            }}
-        >
-            <CssBaseline />
-            <Typography 
-            data-testid="end-game-message"
-            variant="h4" 
-            sx={{
-                color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? 'green' : 'red',
-                fontSize: '4rem', // Tamaño de fuente
-                marginTop: '20px', // Espaciado superior
-                marginBottom: '50px', // Espaciado inferior
-            }}
-        >
-            {correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? t("Game.win_msg") : t("Game.lose_msg") }
-        </Typography>
-            <div>
-                <Typography variant="h6">{ t("Game.correct") }: {correctlyAnsweredQuestions}</Typography>
-                <Typography variant="h6">{ t("Game.incorrect") }: {incorrectlyAnsweredQuestions}</Typography>
-                <Typography variant="h6">{ t("Game.money") }: {totalScore}</Typography>
-                <Typography variant="h6">{ t("Game.time") }: {totalTimePlayed}</Typography>
-            </div>
-            {showConfetti && <Confetti />}
-        </Container>
-    );
-}
-    return (
-        <Container
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '100vh',
-                textAlign: 'center',
+                flex:'1', 
+                marginTop: '2em', 
+                marginBottom: '2em',
+                gap: '2em'
             }}
         >
             <CssBaseline />
@@ -292,46 +301,9 @@ if (shouldRedirect) {
                 {timerRunning ? t("Game.pause") : t("Game.play") }
             </Button>
 
-            <Container
-            sx={{
-                position: 'absolute',
-                top: '10%', 
-                right: '20%', 
-            }}>
-                <Container
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                    }}
-                >
-                    {questionHistorialBar()}
-                </Container>
-            </Container>
-
-            <Typography variant='h6' data-testid="numRound">
-                {round} / {MAX_ROUNDS}
-            </Typography>
-            <Typography variant="h5" mb={4} fontWeight="bold" style={{ display: 'flex', alignItems: 'center' }}>
-            <span data-testid="question" style={{ marginRight: '1em' }}>{questionData.question}</span>
-                <CountdownCircleTimer
-                  data-testid="circleTimer"
-                  key={questionCountdownKey}
-                  isPlaying = {questionCountdownRunning}
-                  duration={15}
-                  colors={["#0bfc03", "#F7B801", "#f50707", "#A30000"]}
-                  size={100}
-                  colorsTime={[10, 6, 3, 0]}
-                  onComplete={() => selectResponse(0, "FAILED")} //when time ends always fail question
-                >
-                  {({ remainingTime }) => {
-                    return (
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <div style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{remainingTime}</div>
-                      </div>
-                    );
-                  }}
-                </CountdownCircleTimer>
+            {/* Clock */}
+            <Typography variant="h4" fontWeight="bold" data-testid="question" >
+                {questionData.question.toUpperCase()}
             </Typography>
 
             <Grid container spacing={2}>
@@ -360,6 +332,32 @@ if (shouldRedirect) {
                     </Grid>
                 ))}
             </Grid>
+
+            <CountdownCircleTimer
+                  data-testid="circleTimer"
+                  key={questionCountdownKey}
+                  isPlaying = {questionCountdownRunning}
+                  duration={15}
+                  colors={["#0bfc03", "#F7B801", "#f50707", "#A30000"]}
+                  size={100}
+                  colorsTime={[10, 6, 3, 0]}
+                  onComplete={() => selectResponse(0, "FAILED")} //when time ends always fail question
+                >
+                  {({ remainingTime }) => {
+                    return (
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <div style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{remainingTime}</div>
+                      </div>
+                    );
+                  }}
+            </CountdownCircleTimer>
+
+            {/* Progress Cards */}
+            <Container >
+                <Container sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }} >
+                    {questionHistorialBar()}
+                </Container>
+            </Container>
         </Container>
     );
 };
