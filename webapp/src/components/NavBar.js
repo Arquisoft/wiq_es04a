@@ -125,40 +125,42 @@ function NavBar() {
           <Box></Box>
         )}
 
-        {/* Internacionalization */}
-        <Box sx={{'&:hover': { backgroundColor: '#5f7e94' }}}>
-          <TranslateIcon />
-          <Select value={lang} autoWidth onChange={(e) => handleChangeLang(e.target.value)} sx={{ color: 'white' }} data-testid="select-lang">
-            <MenuItem value={"en"} data-testid="en_selector">{t("NavBar.languages.en")}</MenuItem>
-            <MenuItem value={"es"} data-testid="es_selector">{t("NavBar.languages.es")}</MenuItem>
-          </Select>
-        </Box>
+        <Box sx={{ display: "flex", gap: "2em" }}>
+          {/* Internacionalization */}
+          <Box sx={{'&:hover': { backgroundColor: '#5f7e94' }}}>
+            <TranslateIcon />
+            <Select value={lang} autoWidth onChange={(e) => handleChangeLang(e.target.value)} sx={{ color: 'white' }} data-testid="select-lang">
+              <MenuItem value={"en"} data-testid="en_selector">{t("NavBar.languages.en")}</MenuItem>
+              <MenuItem value={"es"} data-testid="es_selector">{t("NavBar.languages.es")}</MenuItem>
+            </Select>
+          </Box>
 
-        {isLoggedIn ? (
-          <Box sx={{ display:'flex', alignItems:'center' }}>
-            <Button component={Link} to="/profile" sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0, '&:hover': { backgroundColor: '#5f7e94' }}} >
+          {isLoggedIn ? (
+            <Box sx={{ display:'flex', alignItems:'center' }}>
+              <Button component={Link} to="/profile" sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0, '&:hover': { backgroundColor: '#5f7e94' }}} >
+                <Typography variant="body2" sx={{ color: 'white', textDecoration: 'none', paddingLeft:'0.5em' }}>
+                  {username}
+                </Typography>
+                <IconButton>
+                  {/* Need to change the image for the user profile one  */}
+                  <Avatar src="/default_user.jpg" alt="Profile pic" sx={{ width: 33, height: 33 }} />
+                </IconButton>
+              </Button>
+              <IconButton onClick={handleLogout} sx={{ color: 'white', '&:hover': { backgroundColor: '#5f7e94' }}} data-testid="logout-button">
+                <LogoutIcon />
+              </IconButton>
+            </Box>
+          ):(
+            <Button component={Link} to={'/login'} sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0, '&:hover': { backgroundColor: '#5f7e94' }}} >
               <Typography variant="body2" sx={{ color: 'white', textDecoration: 'none', paddingLeft:'0.5em' }}>
-                {username}
+                Log In
               </Typography>
-              <IconButton>
-                {/* Need to change the image for the user profile one  */}
+              <IconButton >
                 <Avatar src="/default_user.jpg" alt="Profile pic" sx={{ width: 33, height: 33 }} />
               </IconButton>
             </Button>
-            <IconButton onClick={handleLogout} sx={{ color: 'white', '&:hover': { backgroundColor: '#5f7e94' }}} data-testid="logout-button">
-              <LogoutIcon />
-            </IconButton>
+          )}        
           </Box>
-        ):(
-          <Button component={Link} to={'/login'} sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0, '&:hover': { backgroundColor: '#5f7e94' }}} >
-            <Typography variant="body2" sx={{ color: 'white', textDecoration: 'none', paddingLeft:'0.5em' }}>
-              Log In
-            </Typography>
-            <IconButton >
-              <Avatar src="/default_user.jpg" alt="Profile pic" sx={{ width: 33, height: 33 }} />
-            </IconButton>
-          </Button>
-        )}        
       </Toolbar>
   </AppBar>
   );
