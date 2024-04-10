@@ -107,5 +107,22 @@
             "cities_corr": "Ciudades Respondidas Correctamente",
             "cities_incorr": "Ciudades Respondidas Incorrectamente"
         }
+    },
+
+    "Multiplayer": {
+        "Room": {
+            "code": "Código de Sala",
+            "participants": "participantes",
+            "start": "Comenzar juego",
+            "create": "Crear sala",
+            "join": "Unirse a sala"
+        },
+        "Game": {
+            "waiting": "Esperando información del ganador",
+            "winner_1": "Jugador ganador del juego",
+            "winner_2": "con",
+            "winner_3": "respuestas correctas en",
+            "winner_4": "segundos"
+        }
     }
 }
