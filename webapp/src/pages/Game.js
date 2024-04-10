@@ -1,6 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
-import { Container, Button, CssBaseline, Grid, Typography, CircularProgress, Card, CardContent } from '@mui/material';
+import { Container, Button, CssBaseline, Grid, Typography, CircularProgress, Card } from '@mui/material';
 import { PlayArrow, Pause } from '@mui/icons-material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -13,7 +13,6 @@ import { useTranslation } from 'react-i18next';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
-
 const Game = () => {
     const navigate = useNavigate();
     const MAX_ROUNDS = 3;
@@ -23,7 +22,7 @@ const Game = () => {
     //sesion information
     const {username} = useContext(SessionContext);
 
-    // Traductions
+    // Translations
     const { t } = useTranslation();
 
     // state initialization
@@ -73,18 +72,13 @@ const Game = () => {
 
     // stablish if the confetti must show or not
     React.useEffect(() => {
-        if (correctlyAnsweredQuestions > incorrectlyAnsweredQuestions) {
-          setShowConfetti(true);
-        } else {
-          setShowConfetti(false);
-        }
+        correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? setShowConfetti(true) : setShowConfetti(false);
       }, [correctlyAnsweredQuestions, incorrectlyAnsweredQuestions]);
     
 
     // gets a random question from the database and initializes button states to null
     const startNewRound = async () => {
         setAnswered(false);
-        // It works deploying using git repo from machine with: axios.get(`http://20.80.235.188:8000/questions`)
         axios.get(`${apiEndpoint}/questions`)
         .then(quest => {
             // every new round it gets a new question from db
@@ -196,30 +190,27 @@ const Game = () => {
 
     const questionHistorialBar = () => {
         return questionHistorial.map((isCorrect, index) => (
-        <Card 
-          key={index + 1}
-          variant="outlined"
-          style={{ 
-            width: `${100 / MAX_ROUNDS}%`,
-            marginRight: '0.6em',
-            backgroundColor: isCorrect === null ? 'gray' : isCorrect ? 'lightgreen' : 'salmon',
-          }}
-        >
-          <CardContent>{index + 1}</CardContent>
-        </Card>
+            <Card sx={{ width: `${100 / MAX_ROUNDS}%`,
+             padding:'0.2em', 
+             margin:'0 0.1em', 
+             backgroundColor: isCorrect===null? 'gray':isCorrect? '#339966':'#990000' }}
+            >
+            </Card>
         ));
       };    
 
     const togglePause = () => {
         setTimerRunning(!timerRunning);
-        setQuestionCountdownRunning(!timerRunning);
-        if (timerRunning) {
-            // Si el juego estaba en marcha y se pausa, deshabilitar los botones
-            setButtonStates(new Array(questionData.options.length).fill(true));
-        } else {
-            // Si el juego estaba pausado y se reanuda, habilitar los botones
-            setButtonStates(new Array(questionData.options.length).fill(null));
-        }
+
+        // INNECESARIO TRAS LOS CAMBIOS, QUITAR AL SOLUCIONARLO
+        // setQuestionCountdownRunning(!timerRunning);
+        // if (timerRunning) {
+        //     // Si el juego estaba en marcha y se pausa, deshabilitar los botones
+        //     setButtonStates(new Array(questionData.options.length).fill(true));
+        // } else {
+        //     // Si el juego estaba pausado y se reanuda, habilitar los botones
+        //     setButtonStates(new Array(questionData.options.length).fill(null));
+        // }
     }
 
     // circular loading
@@ -295,81 +286,79 @@ const Game = () => {
             sx={{ 
                 display: 'flex', 
                 flexDirection: 'column',
-                justifyContent: 'center', 
+                justifyContent: 'space-between',
                 alignItems: 'center', 
                 textAlign: 'center',
-                flex:'1', 
-                marginTop: '2em', 
-                marginBottom: '2em',
-                gap: '2em'
+                flex:'1',
+                gap: '2em',
+                margin: '2em auto 1em',
             }}
         >
             <CssBaseline />
 
-            {/* Clock */}
-            <Typography variant="h4" fontWeight="bold" data-testid="question" >
-                {questionData.question.toUpperCase()}
-            </Typography>
+            <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
+                <Typography variant="h4" data-testid="question" sx={{ fontWeight:'bold', marginBottom:'0.7em' }} >
+                    {questionData.question.toUpperCase()}
+                </Typography>
 
-            <Grid container spacing={2}>
-                {questionData.options.map((option, index) => (
-                    <Grid item xs={12} key={index}>
-                        <Button
-                            data-testid="answer"
-                            variant="contained"
-                            onClick={() => selectResponse(index, option)}
-                            disabled={buttonStates[index] !== null || answered} // before, you could still press more than one button
-                            sx={{
-                                height: "50px", // Ajusta el tamaño según sea necesario
-                                width: "50%", // Ajusta el ancho según sea necesario
-                                borderRadius: "20px", // Ajusta el radio según sea necesario
-                                margin: "5px",
-                                backgroundColor: buttonStates[index] === "success" ? "green" : buttonStates[index] === "failure" ? "red" : null,
-                                "&:disabled": {
-                                    backgroundColor: buttonStates[index] === "success" ? "green" : buttonStates[index] === "failure" ? "red" : "gray",
-                                    color: "white",
-                                },
-                            }}
+                <Grid container spacing={2}>
+                    {questionData.options.map((option, index) => (
+                        <Grid item xs={12} key={index}>
+                            <Button
+                                data-testid="answer"
+                                variant="contained"
+                                onClick={() => selectResponse(index, option)}
+                                disabled={buttonStates[index] !== null || answered} // before, you could still press more than one button
+                                sx={{
+                                    height: "3.3em",
+                                    width: "50%",
+                                    borderRadius: "10px",
+                                    margin: "5px",
+                                    "&:disabled": {
+                                        backgroundColor: buttonStates[index] === "success" ? "#339966" : buttonStates[index] === "failure" ? "#990000" : "gray",
+                                        color: "white",
+                                    },
+                                }}
+                            >
+                                {buttonStates[index] === "success" ? <CheckIcon /> : buttonStates[index] === "failure" ? <ClearIcon /> : null}
+                                {option}
+                            </Button>
+                        </Grid>
+                    ))}
+                </Grid>
+            </Container>
+
+            <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
+                { answered ?
+                    // Pausa
+                    <Button variant="contained" onClick={() => togglePause()} sx={{ marginBottom:'2em ' }}>
+                        {timerRunning ? <Pause /> : <PlayArrow />}
+                        {timerRunning ? t("Game.pause") : t("Game.play") }
+                    </Button>
+                    :
+                    // Cronómetro
+                    <CountdownCircleTimer
+                        data-testid="circleTimer"
+                        key={questionCountdownKey}
+                        isPlaying = {questionCountdownRunning}
+                        duration={15}
+                        colors={["#0bfc03", "#F7B801", "#f50707", "#A30000"]}
+                        size={100}
+                        colorsTime={[10, 6, 3, 0]}
+                        onComplete={() => selectResponse(0, "FAILED")} //when time ends always fail question
                         >
-                            {buttonStates[index] === "success" ? <CheckIcon /> : buttonStates[index] === "failure" ? <ClearIcon /> : null}
-                            {option}
-                        </Button>
-                    </Grid>
-                ))}
-            </Grid>
+                        {({ remainingTime }) => {
+                            return (
+                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                <div style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{remainingTime}</div>
+                            </div>
+                            );
+                        }}
+                    </CountdownCircleTimer>
+                }
 
-
-            { answered ?
-                // Pausa
-                <Button variant="contained" onClick={() => togglePause()}>
-                    {timerRunning ? <Pause /> : <PlayArrow />}
-                    {timerRunning ? t("Game.pause") : t("Game.play") }
-                </Button>
-                :
-                // Cronómetro
-                <CountdownCircleTimer
-                    data-testid="circleTimer"
-                    key={questionCountdownKey}
-                    isPlaying = {questionCountdownRunning}
-                    duration={15}
-                    colors={["#0bfc03", "#F7B801", "#f50707", "#A30000"]}
-                    size={100}
-                    colorsTime={[10, 6, 3, 0]}
-                    onComplete={() => selectResponse(0, "FAILED")} //when time ends always fail question
-                    >
-                    {({ remainingTime }) => {
-                        return (
-                            <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <div style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{remainingTime}</div>
-                        </div>
-                        );
-                    }}
-                </CountdownCircleTimer>
-            }
-
-            {/* Progress Cards */}
-            <Container >
-                <Container sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }} >
+                {/* Progress Cards */}
+                <Container sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop:'2em' }} >
                     {questionHistorialBar()}
                 </Container>
             </Container>
