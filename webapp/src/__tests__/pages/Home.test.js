@@ -4,6 +4,7 @@ import Home from '../../pages/Home';
 import { BrowserRouter  } from 'react-router-dom';
 import { SessionContext } from '../../SessionContext';
 import userEvent from '@testing-library/user-event';
+import '../../localize/i18n';
 
 describe('NavBar component', () => {
 
