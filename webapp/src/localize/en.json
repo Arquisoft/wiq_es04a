@@ -94,5 +94,17 @@
             "date": "Created in",
             "members": "Members"
         }
+    },
+
+    "Statistics": {
+        "title": "STATISTICS",
+        "table": {
+            "money": "Earned Money",
+            "questions_corr": "Correctly Answered Questions",
+            "questions_incorr": "Incorrectly Answered Questions",
+            "questions_pass": "Passed Questions",
+            "played_games": "Games Played",
+            "total_time": "Total Time Played"
+        }
     }
 }

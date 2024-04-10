@@ -6,6 +6,7 @@ import { SessionContext } from '../../SessionContext';
 import { BrowserRouter as Router } from 'react-router-dom';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+import '../../localize/i18n';
 
 const mockAxios = new MockAdapter(axios);
 
