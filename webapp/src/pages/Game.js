@@ -305,13 +305,6 @@ const Game = () => {
             }}
         >
             <CssBaseline />
-            <Button variant="contained"
-                    onClick={() => togglePause()}
-                    disabled={answered}>
-
-                {timerRunning ? <Pause /> : <PlayArrow />}
-                {timerRunning ? t("Game.pause") : t("Game.play") }
-            </Button>
 
             {/* Clock */}
             <Typography variant="h4" fontWeight="bold" data-testid="question" >
@@ -345,24 +338,34 @@ const Game = () => {
                 ))}
             </Grid>
 
-            <CountdownCircleTimer
-                  data-testid="circleTimer"
-                  key={questionCountdownKey}
-                  isPlaying = {questionCountdownRunning}
-                  duration={15}
-                  colors={["#0bfc03", "#F7B801", "#f50707", "#A30000"]}
-                  size={100}
-                  colorsTime={[10, 6, 3, 0]}
-                  onComplete={() => selectResponse(0, "FAILED")} //when time ends always fail question
-                >
-                  {({ remainingTime }) => {
-                    return (
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <div style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{remainingTime}</div>
-                      </div>
-                    );
-                  }}
-            </CountdownCircleTimer>
+
+            { answered ?
+                // Pausa
+                <Button variant="contained" onClick={() => togglePause()}>
+                    {timerRunning ? <Pause /> : <PlayArrow />}
+                    {timerRunning ? t("Game.pause") : t("Game.play") }
+                </Button>
+                :
+                // Cronómetro
+                <CountdownCircleTimer
+                    data-testid="circleTimer"
+                    key={questionCountdownKey}
+                    isPlaying = {questionCountdownRunning}
+                    duration={15}
+                    colors={["#0bfc03", "#F7B801", "#f50707", "#A30000"]}
+                    size={100}
+                    colorsTime={[10, 6, 3, 0]}
+                    onComplete={() => selectResponse(0, "FAILED")} //when time ends always fail question
+                    >
+                    {({ remainingTime }) => {
+                        return (
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <div style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{remainingTime}</div>
+                        </div>
+                        );
+                    }}
+                </CountdownCircleTimer>
+            }
 
             {/* Progress Cards */}
             <Container >
