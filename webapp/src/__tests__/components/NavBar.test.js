@@ -121,7 +121,9 @@ describe('NavBar component', () => {
     const selectLang = screen.getByText("English");
     await expect(selectLang).toBeInTheDocument();
   
-    // Click on it and check both options are there:
+    // Click on it and check both options are there
+    // mouse down para elementos que no son botón: https://stackoverflow.com/questions/55184037/react-testing-library-on-change-for-material-ui-select-component
+    // "uhh, es buena esa"
     fireEvent.mouseDown(selectLang);
     const selectLangEn = screen.getAllByText("English")[1];
     await expect(selectLangEn).toBeInTheDocument();

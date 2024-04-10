@@ -77,5 +77,22 @@
 
     "Ranking": {
         "title": "RANKING"
+    },
+
+    "Groups": {
+        "title": "GROUPS",
+        "create": "Create",
+        "list": "List",
+        "create_button": "Create",
+        "name": "Name",
+        "see_members": "See Members",
+        "joined": "JOINED",
+        "join": "JOIN IT!",
+        "filled": "FILLED",
+        "Details": {
+            "creator": "Creator",
+            "date": "Created in",
+            "members": "Members"
+        }
     }
 }
