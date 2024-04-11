@@ -365,7 +365,8 @@ describe('User Routes', () => {
         };
         await Group.create(newGroup);
         const response = await request(app)
-        .get(`/user/group/testgroup3`);
+            .get(`/user/group/testgroup3`)
+            .query({ username: 'Test1234' });
 
         expect(response.status).toBe(200);
         expect(response.type).toMatch(/json/);
@@ -661,7 +662,8 @@ describe('User Routes', () => {
         await Statistics.create({ username: newUser.username, ...initialStatistics });
     
         const response = await request(app)
-            .get(`/user/statistics/${newUser.username}`);
+            .get(`/user/statistics/${newUser.username}`)
+            .query({ loggedUser: newUser.username });
     
         expect(response.status).toBe(200);
         expect(response.body.the_callenge_earned_money).toEqual(initialStatistics.the_callenge_earned_money);
