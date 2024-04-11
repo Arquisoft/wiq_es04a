@@ -192,6 +192,14 @@ router.post('/group/add', async (req, res) => {
 router.get('/group/:name', async (req, res) => {
     try {
         const groupName = req.params.name;
+        const username = req.query.username;
+
+        const userBelongsToGroup = await UserGroup.findOne({
+            where: {
+                groupName: groupName,
+                username: username
+            }
+        });
 
         // Need also to get the group members
         const group = await Group.findOne({
@@ -212,6 +220,7 @@ router.get('/group/:name', async (req, res) => {
         // Construct JSON response
         const groupJSON = group.toJSON();
         groupJSON.users = userGroups.map(userGroup => userGroup.username);
+        groupJSON.show = !!userBelongsToGroup;
 
         res.json(groupJSON);
     } catch (error) {

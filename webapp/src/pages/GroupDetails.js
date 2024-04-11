@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback,useContext } from 'react';
 import axios from 'axios';
 import { Container, Typography, List, ListItem, ListItemText, Divider, Button } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
+import { SessionContext } from '../SessionContext';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -10,16 +11,17 @@ const GroupDetails = () => {
     const [groupInfo, setGroupInfo] = useState(null);
     const [error, setError] = useState('');
     const { groupName } = useParams();
+    const { username } = useContext(SessionContext);
 
     // Function that gets the group information from the system
     const fetchGroupInfo = useCallback(async () => {
         try {
-            const response = await axios.get(`${apiEndpoint}/group/${groupName}`);
+            const response = await axios.get(`${apiEndpoint}/group/${groupName}`, { params: { username: username } });
             setGroupInfo(response.data);
         } catch (error) {
             setError('Error fetching group information');
         }
-    }, [groupName]);
+    }, [groupName, username]);
 
     useEffect(() => {
         fetchGroupInfo();
@@ -58,9 +60,11 @@ const GroupDetails = () => {
                     <Container key={user+"_container"}>
                         <ListItem key={user} sx={{ display:'flex', alignContent:'space-between', alignItems:'center' }}>
                             <ListItemText primary={user} />
-                            <Button variant="contained" color="primary" onClick={() => seeStatistics(user)}>
-                                See Statistics
-                            </Button>
+                            {groupInfo.show && (
+                                <Button variant="contained" color="primary" onClick={() => seeStatistics(user)}>
+                                    See Statistics
+                                </Button>
+                            )}
                         </ListItem>
                         <Divider/>
                     </Container>

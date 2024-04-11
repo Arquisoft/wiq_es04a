@@ -174,7 +174,8 @@ app.post('/group/add', async (req, res) => {
 app.get('/group/:name', async (req, res) => {
   try {
     const { name } = req.params;
-    const userResponse = await axios.get(`${userServiceUrl}/user/group/${name}`);
+    const username = req.query.username;
+    const userResponse = await axios.get(`${userServiceUrl}/user/group/${name}`,{params: {username: username }});
     res.json(userResponse.data);
   } catch (error) {
     handleErrors(res, error);

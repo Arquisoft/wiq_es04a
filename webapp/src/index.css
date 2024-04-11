@@ -1,5 +1,6 @@
 body {
   background-image: url('../public/hurta2.jpg');
+  backdrop-filter: blur(3px);
   background-size: cover;
   background-repeat: no-repeat;
   margin: 0;

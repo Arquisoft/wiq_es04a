@@ -26,7 +26,7 @@ const Statistics = () => {
         };
 
         fetchUserStatics();
-    }, [user]);
+    }, [user, username]);
 
     const renderStatistics = () => {
         const formatStats = (param) => {
