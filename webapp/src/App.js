@@ -13,6 +13,7 @@ import Statistics from './pages/Statistics';
 import Ranking from './pages/Ranking'
 import MultiplayerRoom from './pages/MultiplayerRoom';
 import MultiplayerGame from './pages/MultiplayerGame';
+import TheChallangeGame from './pages/TheChallangeGame';
 import {Route, Routes} from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Box } from '@mui/material';
@@ -53,6 +54,7 @@ function App() {
             <Route path="/homepage" element={<Homepage />}/>
             <Route path="/game" element={<Game />}/>
             <Route path="/multiplayerRoom" element={<MultiplayerRoom />}/>
+            <Route path="/TheChallangeGame" element={<TheChallangeGame />}/>
             <Route path="/multiplayerGame" element={<MultiplayerGame />}/>
             <Route path="/group/menu" element={<Groups />}/>
             <Route path="/group/:groupName" element={<GroupDetails />} />

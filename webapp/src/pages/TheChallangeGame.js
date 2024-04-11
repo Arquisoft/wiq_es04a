@@ -26,8 +26,8 @@ const Game = () => {
     const {username} = useContext(SessionContext);
 
     // Game configuration state
-    const [numRounds, setNumRounds] = useState(3);
-    const [configModalOpen, setConfigModalOpen] = useState(true);
+    const [numRounds, setNumRounds] = React.useState(3);
+    const [configModalOpen, setConfigModalOpen] = React.useState(true);
 
     // state initialization
     const [round, setRound] = React.useState(1);
@@ -46,26 +46,6 @@ const Game = () => {
     const [userResponses, setUserResponses] = React.useState([]);
 
     const [questionHistorial, setQuestionHistorial] = React.useState(Array(MAX_ROUNDS).fill(null));
-
-
-     
-    // Render the configuration window before starting the game
-    if (configModalOpen) {
-        return (
-            <Container>
-                <Typography variant="h4">Game Configuration</Typography>
-                <label htmlFor="numRounds">Number of rounds:</label>
-                <input type="number" id="numRounds" value={numRounds} onChange={(e) => setNumRounds(e.target.value)} />
-                <label htmlFor="questionTime">Time per question (seconds):</label>
-                <input type="number" id="questionTime" value={questionTime} onChange={(e) => setQuestionCountdownKey(e.target.value)} />
-                <Button onClick={startGame}>Start game</Button>
-            </Container>
-        );
-    }
-
-    const startGame = () => {
-        setConfigModalOpen(false);
-    };
 
     React.useEffect(() => {
         let timer;
@@ -102,8 +82,12 @@ const Game = () => {
           setShowConfetti(false);
         }
       }, [correctlyAnsweredQuestions, incorrectlyAnsweredQuestions]);
-    
+     
 
+    const startGame = () => {
+        setConfigModalOpen(false);
+    };
+    
     // gets a random question from the database and initializes button states to null
     const startNewRound = async () => {
         setAnswered(false);
@@ -231,6 +215,20 @@ const Game = () => {
             // Si el juego estaba pausado y se reanuda, habilitar los botones
             setButtonStates(new Array(questionData.options.length).fill(null));
         }
+    }
+
+    // Render the configuration window before starting the game
+    if (configModalOpen) {
+        return (
+            <Container>
+                <Typography variant="h4">Game Configuration</Typography>
+                <label htmlFor="numRounds">Number of rounds:</label>
+                <input type="number" id="numRounds" value={numRounds} onChange={(e) => setNumRounds(e.target.value)} />
+                <label htmlFor="questionTime">Time per question (seconds):</label>
+                <input type="number" id="questionTime" value={questionCountdownKey} onChange={(e) => setQuestionCountdownKey(e.target.value)} />
+                <Button onClick={() => startGame()}>Start game</Button>
+            </Container>
+        );
     }
 
 
