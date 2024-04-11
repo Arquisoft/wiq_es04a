@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Typography, Box, Table, TableBody, TableCell, TableContainer, TableRow, Button, useTheme } from '@mui/material';
-
-import { SessionContext } from '../SessionContext';
-import { useContext } from 'react';
+import { useParams } from 'react-router-dom';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -11,8 +9,8 @@ const Statistics = () => {
     const theme = useTheme();
 
     const [userStatics, setUserStatics] = useState([]);
-    const [selectedMode, setSelectedMode] = useState('The Challenge'); 
-    const { username } = useContext(SessionContext);
+    const [selectedMode, setSelectedMode] = useState('The Challenge');
+    const { username } = useParams();
 
     useEffect(() => {
         const fetchUserStatics = async () => {

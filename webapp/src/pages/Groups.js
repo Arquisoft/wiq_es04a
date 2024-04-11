@@ -126,7 +126,7 @@ const Groups = () => {
                 </Button>
                 {group.isMember ? (
                   <Button variant="contained" onClick={() => exitFromGroup(group.name)} sx={{ backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main } }}>
-                    EXIT IT!
+                    {group.isCreator ? ('DELETE'):('EXIT IT!')}
                   </Button>
                 ) : group.isFull ? (
                   <Button variant="contained" sx={{ backgroundColor: theme.palette.error.main, color: theme.palette.error.main, borderColor: theme.palette.error.main, '&:hover': { backgroundColor: theme.palette.secondary.main } }}>

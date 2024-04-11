@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
-import { Container, Typography, List, ListItem, ListItemText, Divider } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { Container, Typography, List, ListItem, ListItemText, Divider, Button } from '@mui/material';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -25,6 +25,12 @@ const GroupDetails = () => {
         fetchGroupInfo();
     }, [fetchGroupInfo]);
 
+    const navigate = useNavigate();
+
+    const seeStatistics = (name) => {
+        navigate(`/statistics/${name}`);
+    };
+
     if (error || !groupInfo) {
         return (
             <Container sx={{ margin: '0 auto auto' }}>
@@ -46,15 +52,18 @@ const GroupDetails = () => {
             <Typography variant="h4">Created in: {new Date(groupInfo.createdAt).toLocaleDateString()}</Typography>
             <Divider sx={{ marginBottom: '2em' }}/>
             <Typography variant="h4">Members {`${totalMembers}/${expectedMembers}`}:</Typography>
-            <List>
-                <Divider />
+            <List sx={{ margin:'0', width: '100%' }}>
+                <Divider/>
                 {groupInfo.users.map(user => (
-                    <div key={user}>
-                        <ListItem>
+                    <Container key={user+"_container"}>
+                        <ListItem key={user} sx={{ display:'flex', alignContent:'space-between', alignItems:'center' }}>
                             <ListItemText primary={user} />
+                            <Button variant="contained" color="primary" onClick={() => seeStatistics(user)}>
+                                See Statistics
+                            </Button>
                         </ListItem>
-                        <Divider />
-                    </div>
+                        <Divider/>
+                    </Container>
                 ))}
             </List>
         </Container>

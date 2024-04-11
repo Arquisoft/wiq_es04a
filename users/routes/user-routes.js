@@ -113,15 +113,9 @@ router.get('/group/list', async (req, res) => {
         if (username === null || username === undefined) {
             const allGroups = await Group.findAll({ order: [['name', 'ASC']] });
             const groupsJSON = await Promise.all(allGroups.map(async (group) => {
-                const userCount = await UserGroup.count({
-                    where: {
-                        groupName: group.name
-                    }
-                });
                 return {
                     name: group.name,
-                    isMember: false,
-                    isFull: userCount === 20
+                    isMember: false
                 };
             }));
             return res.json({ groups: groupsJSON });
@@ -145,6 +139,7 @@ router.get('/group/list', async (req, res) => {
             return {
                 name: group.name,
                 isMember: userGroupNames.includes(group.name),
+                isCreator: group.creator === username,
                 isFull: userCount === 20
             };
         }));
