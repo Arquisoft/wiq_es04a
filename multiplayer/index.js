@@ -81,7 +81,7 @@ io.on('connection', (socket) => {
         
         const room = io.sockets.adapter.rooms.get(roomCode); // Obtain the room
 
-        if(room && room.size === 2) {
+        if(room && room.size >= 2) {
             console.log("Game is ready");
 
             io.to(roomCode).emit("game-ready", "ready");
@@ -144,6 +144,4 @@ io.on('connection', (socket) => {
 // Start the service 
 server.listen(port, () => {
   console.log(`Multiplayer Service listening at port ${port}`);
-  console.log("WEBAPP_ENDPOINT: ", process.env.WEBAPP_ENDPOINT);
-  console.log("apiEndpoint: ", apiEndpoint);
 });
