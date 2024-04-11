@@ -1,8 +1,7 @@
 import * as React from 'react';
 import axios from 'axios';
 
-import { Container, Button, CssBaseline, Grid, Typography, CircularProgress } from '@mui/material';
-import { PlayArrow, Pause } from '@mui/icons-material';
+import { Container, Button, CssBaseline, Grid, Typography, CircularProgress, useTheme } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useNavigate } from 'react-router-dom';
@@ -18,15 +17,16 @@ const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000
 
 const Game = () => {
     const navigate = useNavigate();
-    const MAX_ROUNDS = 3;
     const SUCCESS_SOUND_ROUTE = "/sounds/success_sound.mp3";
     const FAILURE_SOUND_ROUTE = "/sounds/wrong_sound.mp3";
 
     //sesion information
     const {username} = useContext(SessionContext);
+    const theme = useTheme();
 
     // Game configuration state
     const [numRounds, setNumRounds] = React.useState(3);
+    const [timerConfig, setTimerConfig] = React.useState(15);
     const [configModalOpen, setConfigModalOpen] = React.useState(true);
 
     // state initialization
@@ -45,7 +45,7 @@ const Game = () => {
     const [questionCountdownRunning, setQuestionCountdownRunning] = React.useState(false); //property to start and stop question timer
     const [userResponses, setUserResponses] = React.useState([]);
 
-    const [questionHistorial, setQuestionHistorial] = React.useState(Array(MAX_ROUNDS).fill(null));
+    const [questionHistorial, setQuestionHistorial] = React.useState(Array(numRounds).fill(null));
 
     React.useEffect(() => {
         let timer;
@@ -195,7 +195,7 @@ const Game = () => {
           key={index + 1}
           variant="outlined"
           style={{ 
-            width: `${100 / MAX_ROUNDS}%`,
+            width: `${100 / numRounds}%`,
             marginRight: '0.6em',
             backgroundColor: isCorrect === null ? 'gray' : isCorrect ? 'lightgreen' : 'salmon',
           }}
@@ -203,30 +203,44 @@ const Game = () => {
           <CardContent>{index + 1}</CardContent>
         </Card>
         ));
-      };    
-
-    const togglePause = () => {
-        setTimerRunning(!timerRunning);
-        setQuestionCountdownRunning(!timerRunning);
-        if (timerRunning) {
-            // Si el juego estaba en marcha y se pausa, deshabilitar los botones
-            setButtonStates(new Array(questionData.options.length).fill(true));
-        } else {
-            // Si el juego estaba pausado y se reanuda, habilitar los botones
-            setButtonStates(new Array(questionData.options.length).fill(null));
-        }
-    }
+    };    
 
     // Render the configuration window before starting the game
     if (configModalOpen) {
-        return (
-            <Container>
-                <Typography variant="h4">Game Configuration</Typography>
-                <label htmlFor="numRounds">Number of rounds:</label>
-                <input type="number" id="numRounds" value={numRounds} onChange={(e) => setNumRounds(e.target.value)} />
-                <label htmlFor="questionTime">Time per question (seconds):</label>
-                <input type="number" id="questionTime" value={questionCountdownKey} onChange={(e) => setQuestionCountdownKey(e.target.value)} />
-                <Button onClick={() => startGame()}>Start game</Button>
+        
+        return(
+            <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <Typography variant="h2" sx={{ marginBottom: '1em' }}>Game Configuration</Typography>
+
+                <div style={{ marginBottom: '1em' }}>
+                    <label style={{ margin: '0.5em' }} htmlFor="numRounds">Number of rounds:</label>
+                    <Button disabled={numRounds === 1} onClick={() => setNumRounds(numRounds - 1)} variant="outlined" >-</Button>
+                    <span style={{ margin: '0.5em' }}>{numRounds}</span>
+                    <Button onClick={() => setNumRounds(numRounds + 1)} variant="outlined">+</Button>
+                </div>
+
+                <div style={{ marginBottom: '1em' }}>
+                    <label style={{ margin: '0.5em' }} htmlFor="questionTime">Time per question (seconds):</label>
+                    <Button disabled={timerConfig === 1} onClick={() => setTimerConfig(timerConfig - 1)} variant="outlined">-</Button>
+                    <span style={{ margin: '0.5em' }}>{timerConfig}</span>
+                    <Button onClick={() => setTimerConfig(timerConfig + 1)} variant="outlined">+</Button>
+                </div>
+
+                <Button
+                    onClick={() => { startGame(); setQuestionHistorial(Array(numRounds).fill(null)) }}
+                    variant="contained"
+                    sx={{
+                        marginBottom: '0.5em',
+                        backgroundColor: theme.palette.primary.main,
+                        color: theme.palette.secondary.main,
+                        '&:hover': {
+                            backgroundColor: theme.palette.secondary.main,
+                            color: theme.palette.primary.main,
+                        }
+                    }}
+                >
+                    Start game
+                </Button>
             </Container>
         );
     }
@@ -305,26 +319,6 @@ if (shouldRedirect) {
             }}
         >
             <CssBaseline />
-            
-            <Typography
-                variant="h6"
-                sx={{
-                    position: 'absolute',
-                    top: '10%', 
-                    right: '5%',
-                }}
-            >
-                Game time: {totalTimePlayed} s
-      
-            </Typography>
-
-            <Button variant="contained"
-                    onClick={() => togglePause()}
-                    disabled={answered}>
-
-                {timerRunning ? <Pause /> : <PlayArrow />}
-                {timerRunning ? 'Pause' : 'Play'}
-            </Button>
 
             <Container
             sx={{
@@ -334,7 +328,7 @@ if (shouldRedirect) {
             }}>
                 <Container
                     sx={{
-                        display: 'flex',
+                        display: 'center',
                         flexDirection: 'row',
                         alignItems: 'center',
                     }}
@@ -344,7 +338,7 @@ if (shouldRedirect) {
             </Container>
 
             <Typography variant='h6' data-testid="numRound">
-                {round} / {MAX_ROUNDS}
+                {round} / {numRounds}
             </Typography>
             <Typography variant="h5" mb={4} fontWeight="bold" style={{ display: 'flex', alignItems: 'center' }}>
             <span data-testid="question" style={{ marginRight: '1em' }}>{questionData.question}</span>
@@ -352,7 +346,7 @@ if (shouldRedirect) {
                   data-testid="circleTimer"
                   key={questionCountdownKey}
                   isPlaying = {questionCountdownRunning}
-                  duration={15}
+                  duration={timerConfig}
                   colors={["#0bfc03", "#F7B801", "#f50707", "#A30000"]}
                   size={100}
                   colorsTime={[10, 6, 3, 0]}
