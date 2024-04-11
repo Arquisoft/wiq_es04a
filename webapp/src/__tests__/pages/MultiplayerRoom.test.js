@@ -61,7 +61,8 @@ describe('MultiplayerRoom component', () => {
         expect(socket.emit).toHaveBeenCalledWith(
           'join-room',
           expect.any(String),
-          'exampleUser'  
+          'exampleUser',
+          expect.any(String)  
         );
     });
 
