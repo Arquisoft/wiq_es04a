@@ -13,6 +13,7 @@ const Groups = () => {
     const [groups, setGroups] = useState([]);
     const [error, setError] = useState('');
     const [openSnackbar, setOpenSnackbar] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
     const [page, setPage] = useState(1);
     const [rowsPerPage] = useState(5);
 
@@ -47,6 +48,7 @@ const Groups = () => {
           name:name,
           username:username
         });
+        setSnackbarMessage('Group created successfully');
         setOpenSnackbar(true);
         fetchData();
       } catch (error) {
@@ -58,10 +60,11 @@ const Groups = () => {
       setOpenSnackbar(false);
     };
 
-    // Function that makes the user join a group and shows the possible erros when making this
+    // Function that makes the user join a group and shows the possible errors when making this
     const addToGroup = async (name) => {
       try {
         await axios.post(`${apiEndpoint}/group/`+name+`/join`, { username });
+        setSnackbarMessage('Joined the group successfully');
         setOpenSnackbar(true);
         fetchData();
       } catch (error) {
@@ -74,6 +77,7 @@ const Groups = () => {
     const exitFromGroup = async (name) => {
       try {
         await axios.post(`${apiEndpoint}/group/`+name+`/exit`, { username });
+        setSnackbarMessage('Left the group successfully');
         setOpenSnackbar(true);
         fetchData();
       } catch (error) {
@@ -106,8 +110,6 @@ const Groups = () => {
             </Button>
           </Grid>
         </Grid>
-        <Snackbar open={openSnackbar} autoHideDuration={4500} onClose={handleCloseSnackbar} message="Group created successfully" />
-        {error && (<Snackbar open={!!error} autoHideDuration={4500} onClose={() => setError('')} message={`Error: ${error}`} />)}
       </Container> 
 
       {/* Container showing the paginated groups list and its items */}
@@ -135,7 +137,7 @@ const Groups = () => {
                     JOIN IT!
                   </Button>
                 )}
-                <Snackbar open={openSnackbar} autoHideDuration={4500} onClose={handleCloseSnackbar} message="Joined the group successfully" />
+                <Snackbar open={openSnackbar} autoHideDuration={4500} onClose={handleCloseSnackbar} message={snackbarMessage} />
                 {error && (<Snackbar open={!!error} autoHideDuration={4500} onClose={() => setError('')} message={`Error: ${error}`} />)}
               </ListItem>
               <Divider/>

@@ -282,20 +282,19 @@ router.post('/group/:name/exit', async (req, res) => {
                 }
             });
         } else {
-            await Promise.all([
-                Group.destroy({
-                    where: {
-                        name: groupName,
-                        creator: username
-                    }
-                }),
-                UserGroup.destroy({
-                    where: {
-                        groupName: groupName
-                    }
-                })
-            ]);
+            await UserGroup.destroy({
+                where: {
+                    groupName: groupName
+                }
+            });
+            await Group.destroy({
+                where: {
+                    name: groupName,
+                    creator: username
+                }
+            });
         }
+        res.sendStatus(200);
     } catch (error) {
        return res.status(500).json({ error: 'Internal Server Error' });
     }
