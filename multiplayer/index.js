@@ -54,7 +54,19 @@ const getQuestion = () => {
 io.on('connection', (socket) => {
     console.log('New client connected');
 
-    socket.on('join-room', (roomCode, username) => {
+    socket.on('join-room', (roomCode, username, action) => {
+
+        if(action === 'join') {
+            console.log("JOIN")
+            if (!gameRooms[roomCode]) {
+                console.log("JOIN IF")
+                socket.emit('join-error', 'Room does not exist');
+                return;
+            } else {
+                socket.emit('join-error', '');
+            }
+        }
+       
         socket.join(roomCode); 
         console.log(`${username} has joined game ${roomCode}`);
         
@@ -74,17 +86,7 @@ io.on('connection', (socket) => {
 
             io.to(roomCode).emit("game-ready", "ready");
 
-            // three questions -> this should be refactored in future
-            /*Promise.all([getQuestion(), getQuestion(), getQuestion()])
-            .then(questions => {
-                questions.forEach(question => {
-                questionList.push(question);
-                });
-                
-                io.to(roomCode).emit("questions-ready", questionList, roomCode); // emit event only to room clients
-            })*/
             getAndEmitQuestions(roomCode);
-
         }
 
         io.to(roomCode).emit("update-players", gameRooms[roomCode]);

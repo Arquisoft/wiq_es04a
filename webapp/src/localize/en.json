@@ -113,7 +113,7 @@
     "Multiplayer": {
         "Room": {
             "code": "Room Code",
-            "participants": "participants",
+            "participants": "Participants",
             "start": "Start game",
             "create": "Create room",
             "join": "Join room"

@@ -12,7 +12,7 @@ const MultiplayerRoom = () => {
     const { t } = useTranslation();
 
     const [roomCode, setRoomCode] = useState("");
-    const [error, ] = useState('');
+    const [error, setError] = useState("");
     const [socket, setSocket] = useState(null);
     const [writtenCode, setWrittenCode] = useState("");
     const [roomPlayers, setRoomPlayers] = useState([]);
@@ -43,6 +43,10 @@ const MultiplayerRoom = () => {
             setGameLoaded(true);
         });
 
+        newSocket.on('join-error', errorMessage => {
+            setError(errorMessage);
+        });
+
         // clean at component dismount
         return () => {
             newSocket.disconnect();
@@ -58,6 +62,7 @@ const MultiplayerRoom = () => {
     }, [socket, navigate, gameQuestions, roomCode])
 
     const handleCreateRoom = () => {
+        setError("");
         const code = generateRoomCode();
         setRoomCreator(true);
         
@@ -65,13 +70,13 @@ const MultiplayerRoom = () => {
           
         });
        
-        socket.emit('join-room', code, username);
+        socket.emit('join-room', code, username, "create");
       };
   
     const handleJoinRoom = () => {
-      setRoomCreator(false);
-      setRoomCode(writtenCode);
-      socket.emit('join-room', writtenCode, username);
+        socket.emit('join-room', writtenCode, username, "join");
+        setRoomCreator(false);
+        setRoomCode(writtenCode);
     };
 
     const generateRoomCode = () => {
@@ -97,7 +102,7 @@ const MultiplayerRoom = () => {
         <Grid container justifyContent="center" alignItems="center" style={{ height: '100vh' }}>
           <Grid item xs={6}>
             <Paper elevation={3} style={{ padding: '20px' }}>
-              {roomCode ? (
+              {roomCode && error === "" ? (
                 <>
                   <Typography variant="h4" gutterBottom>
                     { t("Multiplayer.Room.code") }:

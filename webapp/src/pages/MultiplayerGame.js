@@ -235,7 +235,7 @@ if (shouldRedirect) {
                 {winnerPlayer === "" ? (
                     <Typography variant="h5">{ t("Multiplayer.Game.waiting") }</Typography>
                 ) : (
-                    <Typography variant="h5">{ t("Multiplayer.Game.winner_1") }: {winnerPlayer} { t("Multiplayer.Game.winner_2") } {winnerCorrect} { t("Multiplayer.Game.winner_3") } {winnerTime}{ t("Multiplayer.Game.winner_4") }</Typography>
+                    <Typography variant="h5">{ t("Multiplayer.Game.winner_1") }: {winnerPlayer} { t("Multiplayer.Game.winner_2") } {winnerCorrect} { t("Multiplayer.Game.winner_3") } {winnerTime} { t("Multiplayer.Game.winner_4") }</Typography>
                 )}
             </div>
             {showConfetti && <Confetti />}
