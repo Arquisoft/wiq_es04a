@@ -119,6 +119,7 @@
             "join": "Join room"
         },
         "Game": {
+            "waiting_players_end": "Waiting for players end...",
             "waiting": "Waiting for winner info...",
             "winner_1": "Player winner of the game",
             "winner_2": "with",

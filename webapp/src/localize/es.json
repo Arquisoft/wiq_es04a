@@ -118,6 +118,7 @@
             "join": "Unirse a sala"
         },
         "Game": {
+            "waiting_players_end": "Esperando a que terminen los demás jugadores...",
             "waiting": "Esperando información del ganador...",
             "winner_1": "Jugador ganador del juego",
             "winner_2": "con",

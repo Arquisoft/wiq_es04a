@@ -226,7 +226,7 @@ if (shouldRedirect) {
         >
             
             <Typography variant="h2" gutterBottom sx={{ fontFamily: 'fantasy', color: '#323333' }}>
-            {winnerPlayer === "" ? "Waiting for players end..." : "Game Over"}
+            {winnerPlayer === "" ? t("Multiplayer.Game.waiting_players_end") : "Game Over"}
             </Typography>
         </Typography>
             <div>
