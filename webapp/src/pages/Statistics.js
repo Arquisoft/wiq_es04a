@@ -186,7 +186,6 @@ const Statistics = () => {
         if (showQuestionsRecord) {
             const indexOfLastItem = currentPage * itemsPerPage;
             const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-            console.log('Questions Record:', questionsRecord);
             const currentItems = questionsRecord.slice(indexOfFirstItem, indexOfLastItem);
     
             return (
@@ -227,11 +226,13 @@ const Statistics = () => {
                         </Grid>
                     </div>
                 ))}
-                <div style={{ marginBottom: '4%', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '2%' }}>
-                    <button onClick={handlePrevPage} disabled={currentPage === 1} style={{ fontSize: '1rem' }}>&lt;</button>
-                    <p style={{ margin: '0 4%', fontSize: '1rem' }}>Page {currentPage} of {totalPages}</p>
-                    <button onClick={handleNextPage} disabled={currentPage === totalPages} style={{ fontSize: '1rem' }}>&gt;</button>
-                </div>
+                {currentItems.length > 0 && (
+                    <div style={{ marginBottom: '4%', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '2%' }}>
+                        <button onClick={handlePrevPage} disabled={currentPage === 1} style={{ fontSize: '1rem' }}>&lt;</button>
+                        <p style={{ margin: '0 4%', fontSize: '1rem' }}>Page {currentPage} of {totalPages === 0 ? 1 : totalPages}</p>
+                        <button onClick={handleNextPage} disabled={currentPage === totalPages} style={{ fontSize: '1rem' }}>&gt;</button>
+                    </div>
+                )}
             </div>
             );
         }
