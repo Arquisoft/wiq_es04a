@@ -149,9 +149,7 @@ app.get('/user/statistics/:username', async (req, res) => {
 app.get('/user/group/list', async (req, res) => {
   try {
     const username = req.query.username;
-    console.log("username: ", username);
     const userResponse = await axios.get(userServiceUrl + '/user/group/list',{params: {username: username }});
-    console.log("userResponse: ", userResponse);
     res.json(userResponse.data);
   } catch (error) {
     handleErrors(res, error);
@@ -186,6 +184,20 @@ app.post('/group/:name/join', async (req, res) => {
   try {
     const { name } = req.params;
     const userResponse = await axios.post(`${userServiceUrl}/user/group/${name}/join`, req.body);
+    res.json(userResponse.data);
+  } catch (error) {
+    if (error.response && error.response.status === 400) {
+      res.status(400).json({ error: error.response.data.error });
+    }else{
+      handleErrors(res, error);
+    }
+  }
+});
+
+app.post('/group/:name/exit', async (req, res) => {
+  try {
+    const { name } = req.params;
+    const userResponse = await axios.post(`${userServiceUrl}/user/group/${name}/exit`, req.body);
     res.json(userResponse.data);
   } catch (error) {
     if (error.response && error.response.status === 400) {

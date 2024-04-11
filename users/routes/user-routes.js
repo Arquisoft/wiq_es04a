@@ -52,7 +52,7 @@ router.post('/add', async (req, res) => {
         const user = await User.findOne({ where: { username } });
 
         if (user != null) {
-            throw new Error('An account with that username already exists');
+            throw new Error('Invalid username');
         }
 
         // Email validation
@@ -109,13 +109,8 @@ router.get('/group/list', async (req, res) => {
 
         const username = req.query.username;
 
-        console.log("usernameUsers: "+username);
-
         // If the user is null or undefined (no one is logged, return all groups)
         if (username === null || username === undefined) {
-
-            console.log("username is null or undefined");
-
             const allGroups = await Group.findAll({ order: [['name', 'ASC']] });
             const groupsJSON = await Promise.all(allGroups.map(async (group) => {
                 const userCount = await UserGroup.count({
@@ -141,7 +136,6 @@ router.get('/group/list', async (req, res) => {
         const userGroupNames = userGroups.map(userGroup => userGroup.groupName);
 
         const allGroups = await Group.findAll({ order: [['name', 'ASC']] });
-        console.log("username is not null or undefined");
         const groupsJSON = await Promise.all(allGroups.map(async (group) => {
             const userCount = await UserGroup.count({
                 where: {
@@ -154,11 +148,9 @@ router.get('/group/list', async (req, res) => {
                 isFull: userCount === 20
             };
         }));
-        console.log("groups json"+groupsJSON);
         res.json({ groups: groupsJSON });
 
     } catch (error) {
-      console.log(error);
       return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
@@ -251,6 +243,59 @@ router.post('/group/:name/join', async (req, res) => {
         });
 
         res.json(newUserGroup);
+    } catch (error) {
+       return res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+router.post('/group/:name/exit', async (req, res) => {
+    try {
+        const groupName = req.params.name;
+        const { username } = req.body;
+
+        if (username === null || username === undefined) {
+            return res.status(400).json({ error: 'Need to be logged in an in a group to leave it.' });
+        }
+
+        const userGroup = await UserGroup.findOne({
+            where: {
+                username: username,
+                groupName: groupName
+            }
+        });
+
+        const groupInfo = await Group.findOne({
+            where: {
+                name: groupName
+            }
+        });
+
+        if (!userGroup || !groupInfo) {
+            return res.status(400).json({ error: 'Need to be logged in an in a group to leave it.' });
+        }
+
+        if (groupInfo.creator !== username) {
+            await UserGroup.destroy({
+                where: {
+                    username: username,
+                    groupName: groupName
+                }
+            });
+        } else {
+            await Promise.all([
+                Group.destroy({
+                    where: {
+                        name: groupName,
+                        creator: username
+                    }
+                }),
+                UserGroup.destroy({
+                    where: {
+                        groupName: groupName
+                    }
+                })
+            ]);
+        }
     } catch (error) {
        return res.status(500).json({ error: 'Internal Server Error' });
     }

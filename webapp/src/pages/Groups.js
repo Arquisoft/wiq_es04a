@@ -65,11 +65,19 @@ const Groups = () => {
         setOpenSnackbar(true);
         fetchData();
       } catch (error) {
-        if (error.response && error.response.status === 400) {
-          setError('Group is already full');
-        } else {
-          setError(error.response.data.error);
-        }
+        setError(error.response.data.error);
+      }
+    };
+
+    
+    // Function that makes a member of a group leave it.
+    const exitFromGroup = async (name) => {
+      try {
+        await axios.post(`${apiEndpoint}/group/`+name+`/exit`, { username });
+        setOpenSnackbar(true);
+        fetchData();
+      } catch (error) {
+        setError(error.response.data.error);
       }
     };
 
@@ -115,8 +123,8 @@ const Groups = () => {
                   See Members
                 </Button>
                 {group.isMember ? (
-                  <Button variant="contained" sx={{ backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main } }}>
-                    JOINED
+                  <Button variant="contained" onClick={() => exitFromGroup(group.name)} sx={{ backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main } }}>
+                    EXIT IT!
                   </Button>
                 ) : group.isFull ? (
                   <Button variant="contained" sx={{ backgroundColor: theme.palette.error.main, color: theme.palette.error.main, borderColor: theme.palette.error.main, '&:hover': { backgroundColor: theme.palette.secondary.main } }}>
