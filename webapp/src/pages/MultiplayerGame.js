@@ -218,7 +218,7 @@ if (shouldRedirect) {
             <Typography 
             variant="h4" 
             sx={{
-                color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? 'black' : 'black',
+                color: winnerPlayer === username ? 'green' : 'black',
                 fontSize: '4rem', // Tamaño de fuente
                 marginTop: '20px', // Espaciado superior
                 marginBottom: '50px', // Espaciado inferior
