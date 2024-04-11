@@ -133,6 +133,12 @@ io.on('connection', (socket) => {
                     gameRooms[roomCode].splice(index, 1);
                     delete gameResults[roomCode][username];
                     io.to(roomCode).emit("update-players", gameRooms[roomCode]);
+                    
+                    const room = io.sockets.adapter.rooms.get(roomCode);
+                    if(room && room.size < 2) {
+                        io.to(roomCode).emit("game-ready", "not-ready");
+                    }
+                    
                 }
             });
       });

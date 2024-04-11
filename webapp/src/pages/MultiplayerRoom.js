@@ -28,9 +28,14 @@ const MultiplayerRoom = () => {
         const newSocket = io(socketEndpoint);
         setSocket(newSocket);
 
-        newSocket.on('game-ready', () => {
-            setGameReady(true);
-            setLoadingQuestions(true);
+        newSocket.on('game-ready', (msg) => {
+            if(msg === "ready") {
+              setGameReady(true);
+              setLoadingQuestions(true);
+            } else {
+              setGameReady(false);
+            }
+            
         });
 
         newSocket.on('update-players', (roomPlayers) => {
