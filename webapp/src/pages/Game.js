@@ -116,7 +116,7 @@ const Game = () => {
             await axios.post(`${apiEndpoint}/user/questionsRecord`, {
                 questions: userResponses,
                 username: username,
-                gameMode: "The Challenge"
+                gameMode: "TheChallenge"
             });
         } catch (error) {
             console.error("Error:", error);

@@ -12,7 +12,7 @@ const Statistics = () => {
     const theme = useTheme();
     const { username } = useContext(SessionContext);
     const [userStatics, setUserStatics] = useState([]);
-    const [selectedMode, setSelectedMode] = useState('The Challenge');
+    const [selectedMode, setSelectedMode] = useState('TheChallenge');
     const [questionsRecord, setQuestionsRecord] = useState([]);
     const [showQuestionsRecord, setShowQuestionsRecord] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
@@ -39,8 +39,6 @@ const Statistics = () => {
                     username: username,
                     gameMode: selectedMode
                 });
-                console.log('Questions Record:', response.data.questions);
-                console.log('Questions Record:', response.data);
                 setQuestionsRecord(response.data);
             } catch (error) {
                 console.error('Error fetching questions record:', error);
@@ -66,7 +64,7 @@ const Statistics = () => {
         };
 
         switch (selectedMode) {
-            case 'The Challenge':
+            case 'TheChallenge':
                 return (
                     <TableContainer>
                         <Table sx={{ minWidth: 360 }} aria-label="The Challenge Statistics">
@@ -95,7 +93,7 @@ const Statistics = () => {
                         </Table>
                     </TableContainer>
                 );
-            case 'Wise Men Stack':
+            case 'WiseMenStack':
                 return (
                     <TableContainer>
                         <Table sx={{ minWidth: 360 }} aria-label="Wise Men Stack Statistics">
@@ -120,7 +118,7 @@ const Statistics = () => {
                         </Table>
                     </TableContainer>
                 );
-            case 'Warm Question':
+            case 'WarmQuestion':
                 return (
                     <TableContainer>
                         <Table sx={{ minWidth: 360 }} aria-label="Warm Question Statistics">
@@ -149,7 +147,7 @@ const Statistics = () => {
                         </Table>
                     </TableContainer>
                 );
-            case 'Discovering Cities':
+            case 'DiscoveringCities':
                 return (
                     <TableContainer>
                         <Table sx={{ minWidth: 360 }} aria-label="Discovering Cities Statistics">
@@ -188,6 +186,7 @@ const Statistics = () => {
         if (showQuestionsRecord) {
             const indexOfLastItem = currentPage * itemsPerPage;
             const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+            console.log('Questions Record:', questionsRecord);
             const currentItems = questionsRecord.slice(indexOfFirstItem, indexOfLastItem);
     
             return (
@@ -245,10 +244,10 @@ const Statistics = () => {
             </Typography>
             <Box>
                 <div style={{ display: 'flex', flexDirection: isSmallScreen ? 'column' : 'row', justifyContent: 'center', marginBottom: '0.5em' }}>
-                    <Button onClick={() => setSelectedMode('The Challenge')} variant="contained" sx={{ marginBottom: isSmallScreen ? '0.5em' : '0', marginRight: isSmallScreen ? '0' : '0.5em', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>The Challenge</Button>
-                    <Button onClick={() => setSelectedMode('Wise Men Stack')} variant="contained" sx={{ marginBottom: isSmallScreen ? '0.5em' : '0', marginRight: isSmallScreen ? '0' : '0.5em', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>Wise Men Stack</Button>
-                    <Button onClick={() => setSelectedMode('Warm Question')} variant="contained" sx={{ marginBottom: isSmallScreen ? '0.5em' : '0', marginRight: isSmallScreen ? '0' : '0.5em', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>Warm Question</Button>
-                    <Button onClick={() => setSelectedMode('Discovering Cities')} variant="contained" sx={{ backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>Discovering Cities</Button>
+                    <Button onClick={() => setSelectedMode('TheChallenge')} variant="contained" sx={{ marginBottom: isSmallScreen ? '0.5em' : '0', marginRight: isSmallScreen ? '0' : '0.5em', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>The Challenge</Button>
+                    <Button onClick={() => setSelectedMode('WiseMenStack')} variant="contained" sx={{ marginBottom: isSmallScreen ? '0.5em' : '0', marginRight: isSmallScreen ? '0' : '0.5em', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>Wise Men Stack</Button>
+                    <Button onClick={() => setSelectedMode('WarmQuestion')} variant="contained" sx={{ marginBottom: isSmallScreen ? '0.5em' : '0', marginRight: isSmallScreen ? '0' : '0.5em', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>Warm Question</Button>
+                    <Button onClick={() => setSelectedMode('DiscoveringCities')} variant="contained" sx={{ backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>Discovering Cities</Button>
                 </div>
                 {renderStatistics()}
                 <Button

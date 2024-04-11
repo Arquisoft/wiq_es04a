@@ -17,6 +17,20 @@ describe('Statistics component', () => {
       name: 'Test',
       surname: 'User'
     });
+
+    mockAxios.onGet('http://localhost:8000/user/questionsRecord/testuser/TheChallenge').reply(200, [
+  {
+    createdAt: '2024-04-11T12:00:00Z',
+    questions: [
+      {
+        question: 'What is 1 + 1?',
+        options: ['1', '2', '3', '4'],
+        correctAnswer: '2',
+        response: '2',
+      },
+    ],
+  },
+]);
   });
 
   it('should render Statistics component with correct user statistics', async () => {
@@ -38,6 +52,12 @@ describe('Statistics component', () => {
     expect(screen.getByText(/^0\s''$/)).toBeInTheDocument();
     expect(screen.getByText('Games Played:')).toBeInTheDocument();
     expect(screen.getAllByText('0')).toHaveLength(3);
+
+    fireEvent.click(screen.getByText('Show Questions Record'));
+
+    await screen.findByText('Game 04/11/2024, 12:00');
+    expect(screen.getByText('What is 1 + 1?')).toBeInTheDocument();
+    expect(screen.getByText('2')).toBeInTheDocument();
   });
 
   it('should render Statistics component with correct user statistics for Wise Men Stack mode', async () => {
