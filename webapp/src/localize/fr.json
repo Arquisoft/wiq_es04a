@@ -113,13 +113,13 @@
     "Multiplayer": {
         "Room": {
             "code": "Code de la Salle",
-            "participants": "participants",
+            "participants": "Participants",
             "start": "Démarrer le jeu",
             "create": "Créer une salle",
             "join": "Rejoindre une salle"
         },
         "Game": {
-            "waiting": "En attente des informations du gagnant",
+            "waiting": "En attente des informations du gagnant...",
             "winner_1": "Joueur gagnant de la partie",
             "winner_2": "avec",
             "winner_3": "réponses correctes en",
