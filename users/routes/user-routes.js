@@ -164,9 +164,14 @@ router.post('/group/add', async (req, res) => {
             return res.status(400).json({ error: 'Group name must be at least 4 characters long.' });
         }
 
+        const groupsCreatedByUser = await Group.findAndCountAll({ where: { creator:username } });
+        if (groupsCreatedByUser.count >= 3) {
+            return res.status(400).json({ error: 'You cannot create more than three groups' });
+        }
+
         const existingGroup = await Group.findOne({ where: { name:name } });
         if (existingGroup) {
-            return res.status(400).json({ error: 'A group with the same name already exists.' });
+            return res.status(400).json({ error: 'A group with the same name already exists' });
         }
 
         const newGroup = await Group.create({
