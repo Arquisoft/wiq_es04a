@@ -124,6 +124,17 @@ io.on('connection', (socket) => {
             }
 
             });
+
+            socket.on('disconnect', () => {
+                console.log(`${username} has disconnected`);
+                
+                const index = gameRooms[roomCode].indexOf(username);
+                if (index !== -1) {
+                    gameRooms[roomCode].splice(index, 1);
+                    delete gameResults[roomCode][username];
+                    io.to(roomCode).emit("update-players", gameRooms[roomCode]);
+                }
+            });
       });
     
   });
