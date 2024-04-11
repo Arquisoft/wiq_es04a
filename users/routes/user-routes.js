@@ -343,6 +343,33 @@ router.get('/statistics/:username', async (req,res) => {
     try {
         
         const username = req.params.username;
+        const loggedUser = req.query.loggedUser;
+
+        if(loggedUser === null || loggedUser === undefined){
+            if(!hasCommonGroup){
+                return res.status(403).json({ error: 'You must be logged to see a user statistics' });
+            }
+        }else if(username !== loggedUser){
+            const userGroups = await UserGroup.findAll({
+                where: {
+                  username: username
+                }
+            });
+    
+            const loggedUserGroups = await UserGroup.findAll({
+                where: {
+                  username: loggedUser
+                }
+            });
+    
+            const hasCommonGroup = userGroups.some(userGroup => {
+                return loggedUserGroups.some(loggedUserGroup => loggedUserGroup.groupName === userGroup.groupName);
+            });
+
+            if(!hasCommonGroup){
+                return res.status(403).json({ error: 'You are not allowed to see this user statistics' });
+            }
+        }
 
         // Querying using sequelize findOne method
         const user = await Statistics.findOne({

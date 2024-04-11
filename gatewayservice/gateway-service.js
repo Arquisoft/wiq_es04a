@@ -138,8 +138,9 @@ app.post('/statistics/edit', async (req, res) => {
 app.get('/user/statistics/:username', async (req, res) => {
   try {
     const username = req.params.username;
+    const loggedUser = req.query.loggedUser;
     // Forward the user statics edit request to the user service
-    const userResponse = await axios.get(`${userServiceUrl}/user/statistics/${username}`, req.body);
+    const userResponse = await axios.get(`${userServiceUrl}/user/statistics/${username}`,{params: {loggedUser: loggedUser }});
     res.json(userResponse.data);
   } catch (error) {
     handleErrors(res, error);
