@@ -6,6 +6,7 @@ import { SessionContext } from '../../SessionContext';
 import { BrowserRouter as Router } from 'react-router-dom';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+import '../../localize/i18n';
 
 const mockAxios = new MockAdapter(axios);
 
@@ -13,7 +14,7 @@ describe('Statistics component', () => {
   beforeAll(async () => {
     mockAxios.onPost('http://localhost:8000/user/add').reply(200, {
       username: 'testuser',
-      password: 'test123',
+      password: 'test123', //NOSONAR
       name: 'Test',
       surname: 'User'
     });

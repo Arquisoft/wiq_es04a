@@ -57,7 +57,7 @@ beforeEach(async () => {
   //Load database with initial conditions
   //await mongoose.connection.dropDatabase();
   await Question.deleteMany({});
-  for(var i = 0; i < 5; i++) {
+  for(var i = 0; i < 100; i++) {
     await addingQuestion(questionData1);
     await addingQuestion(questionData2);
   }

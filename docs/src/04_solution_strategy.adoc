@@ -45,6 +45,52 @@ However, JavaScript was the language that adapted better to our requirements due
  focus on agile development that can lead to faster development cycles. 
 One of the main disadvantages is that we had to learn it, because our main language is Java. 
 
+=== Implementation design
+==== Question generation strategy
+For the question generation process, we consult Wikidata using one of the question generation structures available in a JSON, and enrich it usually with properties more likely to be succesfuly queried from Wikidata.
+
+The JSON structure allows us to select the desired categories for the questions requested if necessary, and, in the future, the language of the question. From there, we construct the query in Wikidata and convert it into a question object. Here's an example of a category element in the JSON:
+
+```json
+{
+    "name": "football",
+    "instance": "Q476028",
+    "properties": [
+        {   
+            "property": "P115",
+            "template": 
+                [{
+                "lang": "es",
+                "question": "Cuál es el estadio del equipo x"
+                },
+                {
+                "lang": "en",
+                "question": "What is the stadium of x team"
+                }],
+            "category": ["Sports"]
+        },
+        ...
+    ]
+}
+```
+
+This structure allows us to select multiple and varying questions from a given category or for a given item, varying the properties depending on the type of element we are querying within a category (i.e., a Wikidata Item).
+
+This process allows us to dynamically generate questions based on specific categories and properties, ensuring a diverse set of questions for users across different topics and languages.
+
+==== Question service functionality
+
+For the question service implementation, as explained in https://github.com/Arquisoft/wiq_es04a/wiki/ADR-08-‐-Questions-Database-Functioning[ADR 08] - Questions Database Functioning, we've devised a strategy to ensure a seamless experience with minimal question repetition.
+
+The question request route will manage its service by removing questions from the database, preventing redundancy. We've established two thresholds for the questions stored count: 
+
+- A high threshold to maintain a minimum number of stored questions
+- A low threshold to avoid depleting the collection entirely. 
+
+In exceptional cases where no questions are available, a pair of questions will be synchronously generated before asynchronously replenishing to reach the high threshold, which will be the usual behavior whenever the high threshold is surpassed.
+
+This approach ensures continuous question availability while mitigating repetition risks. Additionally, we aim to explore the feasibility of generating questions during periods of service inactivity or low request volume for further optimization.
+
 === Decisions about the top-level decomposition of the system
 
 We decided to use a microservices arquitecture, having different modules for each functionality. 

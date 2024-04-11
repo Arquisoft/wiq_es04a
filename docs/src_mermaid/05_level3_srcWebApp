@@ -1,0 +1,12 @@
+flowchart TD
+    subgraph Whitebox src
+    sis2(components)
+    sis3(data)
+    sis4(pages)
+    sis2 -.-> sis4
+    sis3 -.-> sis4
+ 
+    end
+    sis1(User) -.->|Interacts with| sis4
+    sis4 -.->|Get/post| sis5(Gateway Service)
+    sis4 -.->|Get| sis6(Multiplayer Service)

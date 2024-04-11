@@ -1,0 +1,18 @@
+sequenceDiagram
+    Note over User,Webapp: User must be logged in and in the group list view
+
+    alt A group is available to join
+        User ->>+ Webapp: search group in list and click JOIN IT! button
+        Webapp ->> Gateway Service: axios.post('/group/${name}/join')
+        Gateway Service ->> Users: axios.post('/user/group/${name}/join')
+
+        Users ->> MariaDB: router.post('/user/group/:name/join')
+        MariaDB -->> Users: JSON response
+
+        Users -->> Gateway Service: 
+        Gateway Service -->> Webapp: 
+        Webapp -->>- User: updating groups view changing button text to JOINED
+    
+    else No group is available to join
+        Note over User,Webapp: Should create a group or wait till one has space
+    end

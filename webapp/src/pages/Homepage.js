@@ -63,7 +63,7 @@ const Homepage = () => {
     const [info, setInfo] = React.useState(null);
 
     // Link to each game page
-    const [gameLink, setGameLink] = React.useState("");
+    const [gameLink, setGameLink] = React.useState("/game");
 
     //Update the game information
     React.useEffect(() => {
@@ -126,9 +126,9 @@ const Homepage = () => {
                     <img
                         style={styles.img}
                         src={info[index].foto}
-                        alt="Foto del juego"
+                        alt={data[index].nombre}
                     />
-
+                    
                 </Box>
             );
         }

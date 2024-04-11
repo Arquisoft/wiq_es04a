@@ -103,30 +103,19 @@ router.post('/add', async (req, res) => {
     }
 });
 
-
-// router.post('/logout', async (req, res) => {
-//     try {
-
-//       req.session.username = null;
-//     } catch (error) {
-//       return res.status(500).json({ error: 'Internal Server Error' });
-//     }
-//   });
-
-
-// router.get('/session', async (req, res) => {
-//     res.json({ session: req.session });
-// });
-
-
 // Getting the list of groups in the database
 router.get('/group/list', async (req, res) => {
     try {
 
         const username = req.query.username;
 
+        console.log("usernameUsers: "+username);
+
         // If the user is null or undefined (no one is logged, return all groups)
         if (username === null || username === undefined) {
+
+            console.log("username is null or undefined");
+
             const allGroups = await Group.findAll({ order: [['name', 'ASC']] });
             const groupsJSON = await Promise.all(allGroups.map(async (group) => {
                 const userCount = await UserGroup.count({
@@ -152,6 +141,7 @@ router.get('/group/list', async (req, res) => {
         const userGroupNames = userGroups.map(userGroup => userGroup.groupName);
 
         const allGroups = await Group.findAll({ order: [['name', 'ASC']] });
+        console.log("username is not null or undefined");
         const groupsJSON = await Promise.all(allGroups.map(async (group) => {
             const userCount = await UserGroup.count({
                 where: {
@@ -164,10 +154,11 @@ router.get('/group/list', async (req, res) => {
                 isFull: userCount === 20
             };
         }));
-        
+        console.log("groups json"+groupsJSON);
         res.json({ groups: groupsJSON });
 
     } catch (error) {
+      console.log(error);
       return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
@@ -176,6 +167,10 @@ router.get('/group/list', async (req, res) => {
 router.post('/group/add', async (req, res) => {
     try {
         const { name,username } = req.body;
+
+        if (name.trim().length < 4) {
+            return res.status(400).json({ error: 'Group name must be at least 4 characters long.' });
+        }
 
         const existingGroup = await Group.findOne({ where: { name:name } });
         if (existingGroup) {

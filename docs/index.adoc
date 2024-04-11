@@ -6,7 +6,7 @@
 // configure EN settings for asciidoc
 include::src/config.adoc[]
 
-= image:arc42-logo.png[arc42] Wikidata Infinite Quest
+= image:logo_wiq.png[WIQ Logo] image:arc42-logo.png[arc42] Wikidata Infinite Quest
 :revnumber: 8.2 EN
 :revdate: January 2023
 :revremark: (based upon AsciiDoc version)

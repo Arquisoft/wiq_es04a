@@ -21,7 +21,7 @@ describe('Homepage component', () => {
 
     await waitFor(() => screen.getByText(/Play/i));
 
-    const playLink = screen.getByRole('button', { name: /Play/i });
+    const playLink = screen.getByRole('link', { name: /PLAY/i });
     await expect(playLink).toBeInTheDocument();
 
     const game1 = screen.getByRole('button', { name: /Wise men stack/i});
@@ -35,6 +35,35 @@ describe('Homepage component', () => {
 
     const game4 = screen.getByRole('button', { name: /Warm question/i});
     await expect(game4).toBeInTheDocument();
+
+  });
+  
+  it('should change game selection page', async () => {
+    
+    render(
+      <Homepage />
+    );
+
+    fireEvent.click(screen.getByText('2'));
+
+    await waitFor(() => {
+      expect(screen.queryByText('ONLINE MODE')).toBeInTheDocument();
+    });
+  });
+
+
+  it('should select a game mode', async () => {
+    
+    render(
+      <Homepage />
+    );
+    
+    fireEvent.click(screen.getByText('WISE MEN STACK'));
+
+    await waitFor(() => {
+      expect(screen.getByAltText('WISE MEN STACK')).toBeInTheDocument();
+    });
+
 
   });
 });

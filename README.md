@@ -25,6 +25,7 @@ This repo is an application composed of several components.
 - **Gateway service**. Express service that is exposed to the public and serves as a proxy to the two previous ones.
 - **Users**. Express service that handles the managment of the users and their groups in the system.
 - **Questions**. Express service that handles the management of the questions generated for the game in the system.
+- **Multiplayer**. Express service that hosts the multiplayer for the react game.
 
 The Users service uses a MariaDB DBMS accesed with sequelizer and questions service uses MongoDB accesed with mongoose.
 
