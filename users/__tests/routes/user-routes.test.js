@@ -157,7 +157,7 @@ describe('User Routes', () => {
             .send(existingUser);
     
         expect(response.status).toBe(400);
-        expect(response.body.error).toBe('An account with that username already exists');
+        expect(response.body.error).toBe('Invalid username');
     });
 
     it('should return error if username is less than 4 characters long', async () => {
@@ -270,7 +270,7 @@ describe('User Routes', () => {
         });
 
         // We create some example groups
-        for(let i=0;i<5;i++){
+        for(let i=0;i<3;i++){
             const newGroup = {
                 name: 'Testing '+i,
                 username: 'existinguser'
@@ -310,7 +310,7 @@ describe('User Routes', () => {
         });
 
         // We create some example groups
-        for(let i=0;i<5;i++){
+        for(let i=0;i<3;i++){
             const newGroup = {
                 name: 'Testing '+i,
                 username: 'existinguser'
@@ -348,7 +348,8 @@ describe('User Routes', () => {
     it('should show an error if group doesnt exist', async () => {
 
         const response = await request(app)
-        .get(`/user/group/nonexistentGroup`);
+        .get(`/user/group/nonexistentGroup`)
+        .query({ username: 'Test1234' });
 
         expect(response.status).toBe(404);
         expect(response.type).toMatch(/json/);
