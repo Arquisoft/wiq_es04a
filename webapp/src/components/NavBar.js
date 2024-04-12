@@ -115,7 +115,7 @@ function NavBar() {
             </Button>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
-                <Button component={Link} to={page.path} key={page.path} sx={{ color: 'white', display: 'block','&:hover': { backgroundColor: '#5f7e94' },}}>
+                <Button component={Link} to={page.path} key={page.path} sx={{ color: 'white', display: 'block', borderRadius: '0.5em', '&:hover': { backgroundColor: '#5f7e94' },}}>
                   {page.text}
                 </Button>
               ))}
@@ -127,9 +127,10 @@ function NavBar() {
 
         <Box sx={{ display: "flex", gap: "2em" }}>
           {/* Internacionalization */}
-          <Box sx={{'&:hover': { backgroundColor: '#5f7e94' }}}>
+          <Box sx={{ borderRadius: '0.5em', '&:hover': { backgroundColor: '#5f7e94' }}}>
             <TranslateIcon />
-            <Select value={lang} autoWidth onChange={(e) => handleChangeLang(e.target.value)} sx={{ color: 'white' }} data-testid="select-lang">
+            <Select value={lang} autoWidth onChange={(e) => handleChangeLang(e.target.value)} data-testid="select-lang"
+                    sx={{ color: 'white', boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }} >
               <MenuItem value={"en"} data-testid="en_selector">{t("NavBar.languages.en")}</MenuItem>
               <MenuItem value={"es"} data-testid="es_selector">{t("NavBar.languages.es")}</MenuItem>
             </Select>
