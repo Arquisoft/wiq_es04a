@@ -64,21 +64,10 @@ app.post('/user/questionsRecord', async (req, res) => {
   }
 });
 
-// Método para obtener la sesión del usuario
-app.get('/user/session', async (req, res) => {
-  try {
-    const response = await axios.get(`${userServiceUrl}/user/session`);
-    res.json(response.data); // Enviar solo los datos de la respuesta
-  } catch (error) {
-    console.error("Error al obtener la sesión del usuario:", error);
-    res.status(500).json({ error: "Error al obtener la sesión del usuario" });
-  }
-});
-
 app.get('/user/allUsers', async (req, res) => {
   try {
     const response = await axios.get(`${userServiceUrl}/user/allUsers`);
-    res.json(response.data); // Enviar solo los datos de la respuesta
+    res.json(response.data); // Send just the response data
   } catch (error) {
     console.error("Error al obtener la sesión del usuario:", error);
     res.status(500).json({ error: "Error al obtener la sesión del usuario" });
@@ -88,7 +77,7 @@ app.get('/user/allUsers', async (req, res) => {
 app.get('/user/ranking', async (req, res) => {
   try {
     const response = await axios.get(`${userServiceUrl}/user/ranking`);
-    res.json(response.data); // Enviar solo los datos de la respuesta
+    res.json(response.data); // Send just the response data
   } catch (error) {
     console.error("Error al obtener la sesión del usuario:", error);
     res.status(500).json({ error: "Error al obtener la sesión del usuario" });

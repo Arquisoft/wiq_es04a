@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {Container, Typography } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const Ranking = () => {
 
-    const [ranking, setRanking] = useState([]);
+    const [rows, setRows] = useState([]);
 
     useEffect(() => {
         const fetchRanking = async () => {
             axios.get(`${apiEndpoint}/user/ranking`)
             .then((response) => {
-              const resp = response.data;
-              setRanking(resp.rank);
+              setRows(response.data.rank);
             })
             .catch((error) => {
               console.error(error);
@@ -22,6 +22,14 @@ const Ranking = () => {
 
         fetchRanking();
     }, []);
+
+    
+    const columns = [
+        { field: 'id', headerName: 'Username' },
+        { field: 'totalMoney', headerName: 'Total Money' },
+        { field: 'totalCorrectAnswers', headerName: 'Correct Answers' },
+        { field: 'totalIncorrectAnswers',headerName: 'Incorrect Answers' }
+    ];
 
     return (
         <Container sx={{ 
@@ -35,15 +43,16 @@ const Ranking = () => {
         }}>
             <Typography variant="h3" align="center" fontWeight="bold">RANKING</Typography>
             
-            <ol>
-                <strong>
-                {ranking.slice(0,10).map((user, index) => ( // Show only the top 10 users
-                    <li key={index}>
-                        {user.username.toUpperCase()}: {user.totalScore}
-                    </li>
-                ))}
-                </strong>
-            </ol>
+            <DataGrid
+            rows={rows}
+            columns={columns}
+            initialState={{
+                pagination: {
+                    paginationModel: { page: 0, pageSize: 5 },
+                },
+            }}
+            pageSizeOptions={[5, 10]}
+        />
         </Container>
     );
 };
