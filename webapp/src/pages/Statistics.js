@@ -37,7 +37,7 @@ const Statistics = () => {
             case 'The Challenge':
                 return (
                     <TableContainer>
-                        <Table sx={{ minWidth: 360 }} aria-label="The Challenge Statistics">
+                        <Table sx={{ minWidth: 360, backgroundColor:'rgba(84,95,95,0.3)', borderRadius:'10px' }} aria-label="The Challenge Statistics">
                             <TableBody>
                                 <TableRow>
                                     <TableCell>Earned Money:</TableCell>
@@ -66,7 +66,7 @@ const Statistics = () => {
             case 'Wise Men Stack':
                 return (
                     <TableContainer>
-                        <Table sx={{ minWidth: 360 }} aria-label="Wise Men Stack Statistics">
+                        <Table sx={{ minWidth: 360, backgroundColor:'rgba(84,95,95,0.3)', borderRadius:'10px' }} aria-label="Wise Men Stack Statistics">
                             <TableBody>
                                 <TableRow>
                                     <TableCell>Earned Money:</TableCell>
@@ -91,7 +91,7 @@ const Statistics = () => {
             case 'Warm Question':
                 return (
                     <TableContainer>
-                        <Table sx={{ minWidth: 360 }} aria-label="Warm Question Statistics">
+                        <Table sx={{ minWidth: 360, backgroundColor:'rgba(84,95,95,0.3)', borderRadius:'10px' }} aria-label="Warm Question Statistics">
                             <TableBody>
                                 <TableRow>
                                     <TableCell>Earned Money:</TableCell>
@@ -120,7 +120,7 @@ const Statistics = () => {
             case 'Discovering Cities':
                 return (
                     <TableContainer>
-                        <Table sx={{ minWidth: 360 }} aria-label="Discovering Cities Statistics">
+                        <Table sx={{ minWidth: 360, backgroundColor:'rgba(84,95,95,0.3)', borderRadius:'10px' }} aria-label="Discovering Cities Statistics">
                             <TableBody>
                                 <TableRow>
                                     <TableCell>Earned Money:</TableCell>
@@ -149,7 +149,7 @@ const Statistics = () => {
 
     return (
         <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Typography variant="h3" align="center" gutterBottom>
+            <Typography variant="h3" align="center" fontWeight="bold" gutterBottom>
                 STATISTICS
             </Typography>
             {error? (

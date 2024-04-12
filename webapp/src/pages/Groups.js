@@ -94,7 +94,7 @@ const Groups = () => {
 
     return (
     <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <Typography variant="h3" sx={{ width: '100%', textAlign: 'center' }}>GROUPS</Typography>
+      <Typography variant="h3" sx={{ width: '100%', textAlign: 'center', fontWeight: 'bold' }}>GROUPS</Typography>
 
       {/* Container showing the group creation field and button */}
       <Container>
@@ -119,7 +119,7 @@ const Groups = () => {
         <List sx={{ margin:'0', width: '100%' }}>
           {currentItems.map((group) => (
             <Container key={group.name+"_container"}>
-              <ListItem key={group.name} sx={{ display:'flex', alignContent:'space-between', alignItems:'center' }}>
+              <ListItem key={group.name} sx={{ display:'flex', alignContent:'space-between', alignItems:'center', width:'85%' }}>
                 <ListItemText primary={group.name} />
                 <Button variant="contained" color="primary" sx={{ marginRight: '2em' }} onClick={() => seeMembers(group.name)}>
                   See Members
