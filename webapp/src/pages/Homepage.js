@@ -100,6 +100,8 @@ const Homepage = () => {
             setGameLink("/multiplayerRoom")
         } else if (info[index].nombre === "DISCOVERING CITIES") {
             setGameLink("/discoveringCitiesGame")
+        } else if (info[index].nombre === "WISE MEN STACK") {
+            setGameLink("/wiseMenStackGame");
         } else {
             setGameLink("/game")
         }

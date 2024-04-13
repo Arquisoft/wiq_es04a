@@ -53,7 +53,8 @@
         "money": "Dinero final",
         "time": "Tiempo de juego (seg)",
         "pause": "Pausa",
-        "play": "Jugar"
+        "play": "Jugar",
+        "round": "Pregunta "
     },
 
     "Login": {

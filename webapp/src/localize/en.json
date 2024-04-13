@@ -54,7 +54,8 @@
         "money": "Final Money",
         "time": "Game Time (sec)",
         "pause": "Pause",
-        "play": "Play"
+        "play": "Play",
+        "round": "Question "
     },
 
     "Login": {

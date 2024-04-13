@@ -54,7 +54,8 @@
         "money": "Argent Final",
         "time": "Temps de Jeu (sec)",
         "pause": "Pause",
-        "play": "Jouer"
+        "play": "Jouer",
+        "round": "Question "
     },
 
     "Login": {
