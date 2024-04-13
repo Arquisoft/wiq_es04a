@@ -125,10 +125,6 @@ io.on('connection', (socket) => {
 
             });
 
-            socket.on('send-message', (message, roomCode, username) => {
-                io.to(roomCode).emit('recieved-message', { username, message });
-            });
-
             socket.on('disconnect', () => {
                 console.log(`${username} has disconnected`);
                 
@@ -146,6 +142,16 @@ io.on('connection', (socket) => {
                 }
             });
       });
+
+      socket.on('join-room-chat', (roomCode, username) => {
+        socket.join(roomCode + "-chat");
+
+        socket.on('send-message', (message, roomCode, username) => {
+            io.to(roomCode + "-chat").emit('recieved-message', { username, message });
+        });
+    
+    
+    });
     
   });
 
