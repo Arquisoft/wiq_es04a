@@ -1,7 +1,7 @@
 import * as React from 'react';
 import axios from 'axios';
 
-import { Container, Button, CssBaseline, Grid, Typography, CircularProgress, useTheme } from '@mui/material';
+import { Container, Button, CssBaseline, Grid, Typography, CircularProgress, useTheme, MenuItem, Select } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useNavigate } from 'react-router-dom';
@@ -28,6 +28,7 @@ const Game = () => {
     const [numRounds, setNumRounds] = React.useState(3);
     const [timerConfig, setTimerConfig] = React.useState(15);
     const [configModalOpen, setConfigModalOpen] = React.useState(true);
+    const [category, setCategory] = React.useState("Geography");
 
     // state initialization
     const [round, setRound] = React.useState(1);
@@ -72,7 +73,7 @@ const Game = () => {
             updateQuestionsRecord();
         }
         // eslint-disable-next-line
-    }, [round, numRounds]);
+    }, [round, numRounds]); 
 
     // stablish if the confetti must show or not
     React.useEffect(() => {
@@ -86,17 +87,20 @@ const Game = () => {
 
     const startGame = () => {
         setConfigModalOpen(false);
+        startNewRound();
     };
     
     // gets a random question from the database and initializes button states to null
     const startNewRound = async () => {
         setAnswered(false);
         // It works deploying using git repo from machine with: axios.get(`http://20.80.235.188:8000/questions`)
-        axios.get(`${apiEndpoint}/questions`)
-        .then(quest => {
+        axios.get(`${apiEndpoint}/questions/1/${category}`) 
+        .then(result => {
+            result.data.map(quest => {
             // every new round it gets a new question from db
-            setQuestionData(quest.data);    
-            setButtonStates(new Array(quest.data.options.length).fill(null));
+            setQuestionData(quest);    
+            setButtonStates(new Array(quest.options.length).fill(null));
+            });
         }).catch(error => {
             console.error(error);
         }); 
@@ -226,8 +230,22 @@ const Game = () => {
                     <Button onClick={() => setTimerConfig(timerConfig + 1)} variant="outlined">+</Button>
                 </div>
 
+                {/* Dropdown for selecting category */}
+                <div style={{ marginBottom: '1em' }}>
+                    <label style={{ margin: '0.5em' }} htmlFor="category">Category:</label>
+                    <Select
+                        value={category}
+                        onChange={(event) => setCategory(event.target.value)}
+                        style={{ minWidth: '120px' }}
+                    >
+                        <MenuItem value="Geography">Geography</MenuItem>
+                        <MenuItem value="Political">Political</MenuItem>
+                        <MenuItem value="Sports">Sports</MenuItem>
+                    </Select>
+                </div>
+
                 <Button
-                    onClick={() => { startGame(); setQuestionHistorial(Array(numRounds).fill(null)) }}
+                    onClick={() => { startGame(); setQuestionHistorial(Array(numRounds).fill(null)); console.log(category) }}
                     variant="contained"
                     sx={{
                         marginBottom: '0.5em',
@@ -322,7 +340,7 @@ if (shouldRedirect) {
 
             <Container
             sx={{
-                position: 'absolute',
+                position: 'center',
                 top: '10%', 
                 right: '20%', 
             }}>

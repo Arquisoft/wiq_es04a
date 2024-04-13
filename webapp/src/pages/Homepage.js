@@ -99,7 +99,7 @@ const Homepage = () => {
         if(info[index].nombre === "ONLINE MODE") {
             setGameLink("/multiplayerRoom")
         }else if(info[index].nombre === "THE CHALLENGE") {
-            setGameLink("/TheChallangeGame")
+            setGameLink("/TheChallengeGame")
         }else {
             setGameLink("/game")
         }
