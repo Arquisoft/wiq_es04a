@@ -31,20 +31,20 @@ const ChatRoom = ({ roomCode, username }) => {
   };
 
   return (
-    <Container style={{ paddingTop: '20px', paddingBottom: '20px', backgroundColor: '#f0f0f0', borderRadius: '10px', boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)' }}>
+    <Container style={{ paddingTop: '20px', paddingBottom: '20px', backgroundColor: '#f0f0f0', borderRadius: '10px', boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', overflow: 'auto', maxHeight: '400px' }}>
       <Typography variant="h4" gutterBottom>
         Chat Room
       </Typography>
-      <Grid container spacing={2}>
+      <div style={{ marginBottom: '10px' }}>
         {messages.map((message, index) => (
-          <Grid item xs={12} key={index} style={{ marginTop: '10px', marginBottom: '10px', padding: '10px', backgroundColor: '#ffffff', borderRadius: '10px', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}>
+          <div key={index} style={{ marginTop: '10px', marginBottom: '10px', padding: '10px', backgroundColor: '#ffffff', borderRadius: '10px', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}>
             <Typography variant="subtitle1" component="div">
               <strong>{message.username}: </strong>
               {message.message}
             </Typography>
-          </Grid>
+          </div>
         ))}
-      </Grid>
+      </div>
       <Grid container spacing={2} style={{ marginTop: '20px' }}>
         <Grid item xs={9}>
           <TextField
