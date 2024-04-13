@@ -219,6 +219,17 @@ describe('Routes Tests', () => {
     expect(response.status).toBe(200);
     expect(response.body).toEqual(mockQuestionsData);
   });
+
+  it('should respond with status 200 for /questions/:category endpoint', async () => {
+    const mockQuestionsData = [{ id: 1, question: 'Sample question 1' }, { id: 2, question: 'Sample question 2' }];
+    axios.get.mockResolvedValueOnce({ data: mockQuestionsData });
+  
+    const response = await request(app).get('/questions/Geography');
+  
+    expect(axios.get).toHaveBeenCalledWith(expect.stringContaining('/questions'));
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual(mockQuestionsData);
+  });
   
   it('should respond with status 200 for /statistics/edit endpoint', async () => {
     const mockUserData = { username: 'testuser', statistics: { points: 100 } };
