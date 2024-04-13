@@ -5,13 +5,6 @@ import { Container, Typography, TextField, Button, Grid } from '@mui/material';
 const socketEndpoint = process.env.REACT_APP_MULTIPLAYER_ENDPOINT || 'http://localhost:5010';
 const socket = io(socketEndpoint);
 
-const useStyles = makeStyles((theme) => ({
-    messageContainer: {
-      marginTop: theme.spacing(2),
-      marginBottom: theme.spacing(2),
-    },
-}));
-
 const ChatRoom = ({ roomCode, username }) => {
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState('');
@@ -25,10 +18,6 @@ const ChatRoom = ({ roomCode, username }) => {
       setMessages([...messages, message]);
     });
 
-    // clean at dismount
-    return () => {
-      socket.disconnect();
-    };
   }, [roomCode, messages, username]);
 
   const sendMessage = () => {
@@ -43,7 +32,7 @@ const ChatRoom = ({ roomCode, username }) => {
       <Typography variant="h4" gutterBottom>
         Chat Room
       </Typography>
-      <Grid container spacing={2} className={classes.messageContainer}>
+      <Grid container spacing={2}>
         {messages.map((message, index) => (
           <Grid item xs={12} key={index}>
             <Typography variant="subtitle1" component="div">

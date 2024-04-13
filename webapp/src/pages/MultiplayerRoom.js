@@ -167,9 +167,11 @@ const MultiplayerRoom = () => {
               )}
             </Paper>
           </Grid>
-          <Grid item xs={6}>
-            <Chat roomCode={roomCode} username={username} />
-          </Grid>
+          {roomCode && error === "" && (
+            <Grid item xs={3}>
+              <Chat roomCode={roomCode} username={username} />
+            </Grid>
+          )}
         </Grid>
       );
   }
