@@ -88,8 +88,6 @@ const Game = () => {
         axios.get(`${apiEndpoint}/questions`)
         .then(quest => {
             // every new round it gets a new question from db
-            console.log("ENTRA GAME: ");
-            console.log(quest.data);
             setQuestionData(quest.data);    
             setButtonStates(new Array(quest.data.options.length).fill(null));
         }).catch(error => {
