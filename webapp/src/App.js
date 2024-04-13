@@ -18,6 +18,7 @@ import TheChallengeGame from './pages/TheChallengeGame';
 import {Route, Routes} from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Box } from '@mui/material';
+import PrivateRoute from './PrivateRoute';
 
 const theme = createTheme({
   palette: {
@@ -40,9 +41,11 @@ const theme = createTheme({
 });
 
 function App() {
+
   React.useEffect(() => {
     document.title = "WIQ - Wikidata Infinite Quest";
   }, []);
+
   return (
     <Box sx={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
       <ThemeProvider theme={theme}>
@@ -53,7 +56,9 @@ function App() {
             <Route path="/register" element={<Register />}/>
             <Route path="/instructions" element={<Instructions />}/>
             <Route path="/homepage" element={<Homepage />}/>
-            <Route path="/game" element={<Game />}/>
+            
+            <Route path="/game" element={<PrivateRoute element={Game} />} />
+
             <Route path="/discoveringCitiesGame" element={<DiscoveringCitiesGame />}/>
             <Route path="/multiplayerRoom" element={<MultiplayerRoom />}/>
             <Route path="/TheChallengeGame" element={<TheChallengeGame />}/>
