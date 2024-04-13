@@ -107,7 +107,7 @@ describe('Statistics component', () => {
 
     fireEvent.click(screen.getByText('Show Questions Record'));
 
-    await screen.findByText('Game 04/11/2024, 12:00');
+    await screen.findByText('Game 04/11/2024, 14:00');
     expect(screen.getByText('What is 1 + 1?')).toBeInTheDocument();
     expect(screen.getByText('2')).toBeInTheDocument();
   });
@@ -137,7 +137,7 @@ describe('Statistics component', () => {
 
     fireEvent.click(screen.getByText('Show Questions Record'));
 
-    await screen.findByText('Game 04/11/2024, 12:00');
+    await screen.findByText('Game 04/11/2024, 14:00');
     expect(screen.getByText('What is 1 + 1?')).toBeInTheDocument();
     expect(screen.getByText('2')).toBeInTheDocument();
   });
@@ -169,7 +169,7 @@ describe('Statistics component', () => {
 
     fireEvent.click(screen.getByText('Show Questions Record'));
 
-    await screen.findByText('Game 04/11/2024, 12:00');
+    await screen.findByText('Game 04/11/2024, 14:00');
     expect(screen.getByText('What is 1 + 1?')).toBeInTheDocument();
     expect(screen.getByText('2')).toBeInTheDocument();
   });
@@ -199,7 +199,7 @@ describe('Statistics component', () => {
 
     fireEvent.click(screen.getByText('Show Questions Record'));
 
-    await screen.findByText('Game 04/11/2024, 12:00');
+    await screen.findByText('Game 04/11/2024, 14:00');
     expect(screen.getByText('What is 1 + 1?')).toBeInTheDocument();
     expect(screen.getByText('2')).toBeInTheDocument();
   });
