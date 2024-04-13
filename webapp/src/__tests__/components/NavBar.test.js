@@ -128,7 +128,9 @@ describe('NavBar component', () => {
     const selectLangEn = screen.getAllByText("English")[1];
     await expect(selectLangEn).toBeInTheDocument();
     const selectLangEs = screen.getByText("Spanish");
-    await expect(selectLang).toBeInTheDocument();
+    await expect(selectLangEs).toBeInTheDocument();
+    const selectLangFr = screen.getByText("French");
+    await expect(selectLangFr).toBeInTheDocument();
 
     // Click on spanish element
     fireEvent.click(selectLangEs);

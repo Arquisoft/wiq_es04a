@@ -16,6 +16,7 @@
     "cross-env": "^7.0.3",
     "express": "^4.19.2",
     "i18next": "^23.11.0",
+    "pupeteer": "^0.0.1",
     "react": "^18.2.0",
     "react-confetti": "^6.1.0",
     "react-countdown-circle-timer": "^3.2.1",
@@ -63,7 +64,7 @@
     "jest-cucumber": "^3.0.1",
     "jest-environment-node": "^29.7.0",
     "mongodb-memory-server": "^9.1.4",
-    "puppeteer": "^21.7.0",
+    "puppeteer": "^21.11.0",
     "serve": "^14.2.1",
     "start-server-and-test": "^2.0.3"
   }
