@@ -54,4 +54,4 @@ This are the different container and their relations:
 
 We are going to use an Azure VM to deploy all this services.
 
-image::DeploymentView.png["Deployment View"]
+image::07_development view["Deployment View"]

@@ -1,8 +1,12 @@
 flowchart TD
     subgraph Whitebox Wikidata Infinite Quest
-    sis1(Web App) -.->|Get questions| sis2(Question Generation Service)
-    sis1 -.->|Authenticate| sis3(Users Management)
-    sis1 -.->|Create user| sis3
+    sis1 -.->|Get/post| sis3(Gateway Service)
+    sis3 -.->|Get/post| sis4(User service)
+    sis3 -.->|Get| sis5(Question Generation Service)
+    sis1 -.-> sis7(Multiplayer Service)
+    sis7 -.->|Get| sis3
+    sis4 -.-> db1[(MariaDB)]
+    sis5 -.-> db2[(MongoDB)]
     end
-    el1(User) -.->|Interacts with| sis1
-    sis2 -.-> sis4(Wikidata)
+    el1(User) -.->|Interacts with| sis1(Web App)
+    sis5 -.-> |Search for questions| sis6(WikiData)

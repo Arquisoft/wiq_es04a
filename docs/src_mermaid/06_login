@@ -1,13 +1,13 @@
 sequenceDiagram
-    User ->>+ App: click login link
-    App -->>- User: show login view
-    User ->>+ App: click login button
-    App ->> Gateway Service: loginUser()
-    Gateway Service ->> User Service: post('/login')
+    User ->>+ Webapp: click login link or play button
+    Webapp -->>- User: redirect to login view
+    User ->>+ Webapp: complete form and click
+    Webapp ->> Gateway Service: axios.post('/login')
+    Gateway Service ->> Users: axios.post('/login')
 
-    User Service ->> Database: validateRequiredFields()
-    Database -->> User Service: 
+    Users ->> MariaDB: router.post('/login')
+    MariaDB -->> Users: JSON response
 
-    User Service -->> Gateway Service: 
-    Gateway Service -->> App: 
-    App -->>- User: 
+    Users -->> Gateway Service: 
+    Gateway Service -->> Webapp: 
+    Webapp -->>- User: show homepage

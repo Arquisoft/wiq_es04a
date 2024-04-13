@@ -4,10 +4,13 @@ import io from 'socket.io-client';
 import { useContext } from 'react';
 import { SessionContext } from '../SessionContext';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const socketEndpoint = process.env.REACT_APP_MULTIPLAYER_ENDPOINT || 'http://localhost:5010';
 
 const MultiplayerRoom = () => {
+    const { t } = useTranslation();
+
     const [roomCode, setRoomCode] = useState("");
     const [error, ] = useState('');
     const [socket, setSocket] = useState(null);
@@ -97,14 +100,14 @@ const MultiplayerRoom = () => {
               {roomCode ? (
                 <>
                   <Typography variant="h4" gutterBottom>
-                    Room Code:
+                    { t("Multiplayer.Room.code") }:
                   </Typography>
                   <Typography variant="h5" gutterBottom style={{ marginTop: '10px' }}>
                     {roomCode}
                   </Typography>
 
                   <Typography variant="h4" gutterBottom>
-                    Participants:
+                    { t("Multiplayer.Room.participants") }:
                   </Typography>
                   <List>
                     {roomPlayers.map((player, index) => (
@@ -114,7 +117,7 @@ const MultiplayerRoom = () => {
                     ))}
                   </List>
                   <Button id="playBtn" variant="contained" disabled={!gameReady || !roomCreator || !gameLoaded} onClick={startGame} style={{ marginTop: '10px' }}>
-                    Start game
+                    { t("Multiplayer.Room.start") }
                   </Button>
                   {loadingQuestions && (
                     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px', flexDirection: "column", alignItems: "center" }}>
@@ -126,13 +129,13 @@ const MultiplayerRoom = () => {
               ) : (
                 <>
                   <Typography variant="h4" gutterBottom>
-                    Create room
+                    { t("Multiplayer.Room.create") }
                   </Typography>
                   <Button variant="contained" onClick={handleCreateRoom} data-testid="btn-create-room">
-                    Create room
+                    { t("Multiplayer.Room.create") }
                   </Button>
                   <Typography variant="h4" gutterBottom style={{ marginTop: '20px' }}>
-                    Join room
+                    { t("Multiplayer.Room.join") }
                   </Typography>
                   <TextField
                     label="Room code"
@@ -142,7 +145,7 @@ const MultiplayerRoom = () => {
                     style={{ marginTop: '10px' }}
                   />
                   <Button variant="contained" onClick={handleJoinRoom} style={{ marginTop: '10px' }} data-testid="btn-join-room">
-                    Join room
+                    { t("Multiplayer.Room.join") }
                   </Button>
                   {error && (
                     <Typography variant="subtitle1" gutterBottom style={{ marginTop: '10px', color: 'red' }}>

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Container, Typography, List, ListItem, ListItemText, Button, Divider, Snackbar, TextField, Grid, Pagination, useTheme } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { SessionContext } from '../SessionContext';
+import { useTranslation } from 'react-i18next';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -15,6 +16,8 @@ const Groups = () => {
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [page, setPage] = useState(1);
     const [rowsPerPage] = useState(5);
+
+    const { t } = useTranslation();
 
     // Pagination managing function
     const handleChangePage = (event, newPage) => {
@@ -82,19 +85,23 @@ const Groups = () => {
 
     return (
     <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <Typography variant="h3" sx={{ width: '100%', textAlign: 'center' }}>GROUPS</Typography>
+      <Typography variant="h3" sx={{ width: '100%', textAlign: 'center' }}>
+        { t("Groups.title") }
+      </Typography>
 
       {/* Container showing the group creation field and button */}
       <Container>
-        <Typography component="h1" variant="h5">Create</Typography>
+        <Typography component="h1" variant="h5">
+        { t("Groups.create") }
+        </Typography>
         <Divider style={{ marginBottom:'0.5em'}}/>
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={9}>
-            <TextField name="name" value={name} label="Name" fullWidth onChange={(e) => setName(e.target.value)} />
+            <TextField name="name" value={name} label={ t("Groups.name") } fullWidth onChange={(e) => setName(e.target.value)} />
           </Grid>
           <Grid item xs={3}>
             <Button variant="contained" color="primary" onClick={addGroup} sx={{ padding:'1.1em' }} fullWidth>
-              Create
+              { t("Groups.create_button") }
             </Button>
           </Grid>
         </Grid>
@@ -104,7 +111,9 @@ const Groups = () => {
 
       {/* Container showing the paginated groups list and its items */}
       <Container sx={{ marginTop:'2em' }}>
-        <Typography component="h1" variant="h5">List</Typography>  
+        <Typography component="h1" variant="h5">
+          { t("Groups.list") }
+        </Typography>  
         <Divider style={{ marginBottom:'0.5em'}}/>
         <List sx={{ margin:'0', width: '100%' }}>
           {currentItems.map((group) => (
@@ -112,19 +121,19 @@ const Groups = () => {
               <ListItem key={group.name} sx={{ display:'flex', alignContent:'space-between', alignItems:'center' }}>
                 <ListItemText primary={group.name} />
                 <Button variant="contained" color="primary" sx={{ marginRight: '2em' }} onClick={() => seeMembers(group.name)}>
-                  See Members
+                  { t("Groups.see_members") }
                 </Button>
                 {group.isMember ? (
                   <Button variant="contained" sx={{ backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main } }}>
-                    JOINED
+                    { t("Groups.joined") }
                   </Button>
                 ) : group.isFull ? (
                   <Button variant="contained" sx={{ backgroundColor: theme.palette.error.main, color: theme.palette.error.main, borderColor: theme.palette.error.main, '&:hover': { backgroundColor: theme.palette.secondary.main } }}>
-                    FILLED
+                    { t("Groups.filled") }
                   </Button>
                 ) : (
                   <Button variant="contained" color="primary" onClick={() => addToGroup(group.name)}>
-                    JOIN IT!
+                    { t("Groups.join") }
                   </Button>
                 )}
                 <Snackbar open={openSnackbar} autoHideDuration={4500} onClose={handleCloseSnackbar} message="Joined the group successfully" />
