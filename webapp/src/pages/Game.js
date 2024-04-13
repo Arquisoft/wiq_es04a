@@ -224,11 +224,7 @@ const Game = () => {
                     flexDirection: 'column',
                     justifyContent: 'center', 
                     alignItems: 'center', 
-                    textAlign: 'center',
-                    flex:'1', 
-                    marginTop: '2em', 
-                    marginBottom: '2em',
-                    gap: '2em'
+                    flex: '1'
                 }}
             >
                 <CssBaseline />
@@ -239,7 +235,7 @@ const Game = () => {
 
     // redirect to / if game over 
     if (shouldRedirect) {
-        // Redirect after 3 seconds
+        // Redirect after 4 seconds
         setTimeout(() => {
             navigate('/homepage');
         }, 4000);
@@ -252,32 +248,22 @@ const Game = () => {
                     flexDirection: 'column',
                     justifyContent: 'center', 
                     alignItems: 'center', 
+                    gap: '5em',
                     textAlign: 'center',
-                    flex:'1', 
-                    marginTop: '2em', 
-                    marginBottom: '2em',
-                    gap: '2em'
+                    flex: '1'
                 }}
             >
                 <CssBaseline />
-                <Typography 
-                data-testid="end-game-message"
-                variant="h4" 
-                sx={{
-                    color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? theme.palette.success.main : theme.palette.error.main,
-                    fontSize: '4rem', // Tamaño de fuente
-                    marginTop: '20px', // Espaciado superior
-                    marginBottom: '50px', // Espaciado inferior
-                }}
-            >
-                {correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? t("Game.win_msg") : t("Game.lose_msg") }
-            </Typography>
-                <div>
-                    <Typography variant="h6">{ t("Game.correct") }: {correctlyAnsweredQuestions}</Typography>
-                    <Typography variant="h6">{ t("Game.incorrect") }: {incorrectlyAnsweredQuestions}</Typography>
-                    <Typography variant="h6">{ t("Game.money") }: {totalScore}</Typography>
-                    <Typography variant="h6">{ t("Game.time") }: {totalTimePlayed}</Typography>
-                </div>
+                <Typography variant="h2" data-testid="end-game-message"
+                        sx={{ color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? theme.palette.success.main : theme.palette.error.main }}>
+                    {correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? t("Game.win_msg") : t("Game.lose_msg") }
+                </Typography>
+                <Container>
+                    <Typography variant="h4">{ t("Game.correct") }: {correctlyAnsweredQuestions}</Typography>
+                    <Typography variant="h4">{ t("Game.incorrect") }: {incorrectlyAnsweredQuestions}</Typography>
+                    <Typography variant="h4">{ t("Game.money") }: {totalScore}</Typography>
+                    <Typography variant="h4">{ t("Game.time") }: {totalTimePlayed}</Typography>
+                </Container>
                 {showConfetti && <Confetti />}
             </Container>
         );
@@ -288,15 +274,45 @@ const Game = () => {
             sx={{ 
                 display: 'flex', 
                 flexDirection: 'column',
-                justifyContent: 'space-between',
+                justifyContent: 'space-around',
                 alignItems: 'center', 
                 textAlign: 'center',
-                flex:'1',
+                flex: '1',
                 gap: '2em',
                 margin: '2em auto 1em',
             }}
         >
             <CssBaseline />
+
+            <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
+                { answered ?
+                    // Pausa
+                    <Button variant="contained" onClick={() => togglePause()} sx={{ marginBottom:'2em ' }}>
+                        {timerRunning ? <Pause /> : <PlayArrow />}
+                        {timerRunning ? t("Game.pause") : t("Game.play") }
+                    </Button>
+                    :
+                    // Cronómetro
+                    <CountdownCircleTimer
+                        data-testid="circleTimer"
+                        key={questionCountdownKey}
+                        isPlaying = {questionCountdownRunning}
+                        duration={15}
+                        colors={[theme.palette.success.main, "#F7B801", "#f50707", theme.palette.error.main]}
+                        size={100}
+                        colorsTime={[10, 6, 3, 0]}
+                        onComplete={() => selectResponse(0, "FAILED")} //when time ends always fail question
+                        >
+                        {({ remainingTime }) => {
+                            return (
+                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                <div style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{remainingTime}</div>
+                            </div>
+                            );
+                        }}
+                    </CountdownCircleTimer>
+                }
+            </Container>
 
             <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
                 <Typography variant="h4" data-testid="question" sx={{ fontWeight:'bold', marginBottom:'0.7em' }} >
@@ -330,39 +346,9 @@ const Game = () => {
                 </Grid>
             </Container>
 
-            <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
-                { answered ?
-                    // Pausa
-                    <Button variant="contained" onClick={() => togglePause()} sx={{ marginBottom:'2em ' }}>
-                        {timerRunning ? <Pause /> : <PlayArrow />}
-                        {timerRunning ? t("Game.pause") : t("Game.play") }
-                    </Button>
-                    :
-                    // Cronómetro
-                    <CountdownCircleTimer
-                        data-testid="circleTimer"
-                        key={questionCountdownKey}
-                        isPlaying = {questionCountdownRunning}
-                        duration={15}
-                        colors={[theme.palette.success.main, "#F7B801", "#f50707", theme.palette.error.main]}
-                        size={100}
-                        colorsTime={[10, 6, 3, 0]}
-                        onComplete={() => selectResponse(0, "FAILED")} //when time ends always fail question
-                        >
-                        {({ remainingTime }) => {
-                            return (
-                                <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <div style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{remainingTime}</div>
-                            </div>
-                            );
-                        }}
-                    </CountdownCircleTimer>
-                }
-
-                {/* Progress Cards */}
-                <Container sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop:'2em' }} >
-                    {questionHistorialBar()}
-                </Container>
+            {/* Progress Cards */}
+            <Container sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop:'2em' }} >
+                {questionHistorialBar()}
             </Container>
         </Container>
     );
