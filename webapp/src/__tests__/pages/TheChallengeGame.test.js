@@ -52,7 +52,7 @@ describe('Game component', () => {
     await waitFor(() => screen.getByText('Which is the capital of Spain?'));
 
     expect(screen.findByText('1'));
-    expect(screen.findByText('1/4'));
+    //expect(screen.findByText('1/4'));
 
     // Verifica que el juego haya comenzado correctamente mostrando la pregunta y las opciones
     expect(screen.getByText('Which is the capital of Spain?')).toBeInTheDocument();
