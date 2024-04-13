@@ -40,7 +40,7 @@ const WiseMenStackGame = () => {
     const [questionCountdownRunning, setQuestionCountdownRunning] = React.useState(false); //property to start and stop question timer
     const [userResponses, setUserResponses] = React.useState([]);
 
-    const [category, setCategory] = React.useState(null);
+    const [category, setCategory] = React.useState('Geography');
     const [possibleAnswers, setPossibleAnswers] = React.useState([]);
 
     const [questionHistorial, setQuestionHistorial] = React.useState(Array(round).fill(null));
@@ -84,21 +84,27 @@ const WiseMenStackGame = () => {
     // gets a random question from the database and initializes button states to null
     const startNewRound = async () => {
         setAnswered(false);
-        let url = `${apiEndpoint}/questions`;
         // It works deploying using git repo from machine with: axios.get(`http://20.80.235.188:8000/questions`)7
-        if(category !== null) {
-            url += `/${category}`;
-        } 
-        axios.get(url)
+
+        axios.get(`${apiEndpoint}/questions/${category}`)
         .then(quest => {
             // every new round it gets a new question from db
-            setQuestionData(quest.data);    
+            setQuestionData(quest.data[0]);    
             setButtonStates(new Array(2).fill(null));
+            shufflePossibleOptions(quest.data[0]);
         }).catch(error => {
             console.error(error);
         }); 
         
     };
+
+    const shufflePossibleOptions = async (question) => {
+        var options = [];
+        options.push(question.correctAnswer);
+        const randomNumber = Math.floor(Math.random() * question.options.length);
+        options.push(question.options[randomNumber]);
+        setPossibleAnswers(options);
+    }
 
     const updateStatistics = async() => {
         try {
@@ -303,7 +309,7 @@ if (shouldRedirect) {
                   data-testid="circleTimer"
                   key={questionCountdownKey}
                   isPlaying = {questionCountdownRunning}
-                  duration={15}
+                  duration={60}
                   colors={["#0bfc03", "#F7B801", "#f50707", "#A30000"]}
                   size={100}
                   colorsTime={[10, 6, 3, 0]}
@@ -320,7 +326,7 @@ if (shouldRedirect) {
             </Typography>
 
             <Grid container spacing={2}>
-                {questionData.options.map((option, index) => (
+                {possibleAnswers.map((option, index) => (
                     <Grid item xs={12} key={index}>
                         <Button
                             data-testid="answer"
