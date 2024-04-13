@@ -301,7 +301,7 @@ const Game = () => {
                         colors={[theme.palette.success.main, "#F7B801", "#f50707", theme.palette.error.main]}
                         size={100}
                         colorsTime={[10, 6, 3, 0]}
-                        onComplete={() => selectResponse(0, "FAILED")} //when time ends always fail question
+                        onComplete={() => selectResponse(-1, "FAILED")} //when time ends always fail question
                         >
                         {({ remainingTime }) => {
                             return (
