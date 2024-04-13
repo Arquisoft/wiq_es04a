@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
-import { Typography, TextField, Grid, Container, Button, List, ListItem } from '@mui/material';
-import { styled } from '@mui/system';
-import { Paper } from '@mui/material';
+import { Typography, TextField, Grid, Container, Button } from '@mui/material';
+
 
 const socketEndpoint = process.env.REACT_APP_MULTIPLAYER_ENDPOINT || 'http://localhost:5010';
 const socket = io(socketEndpoint);
@@ -31,11 +30,11 @@ const ChatRoom = ({ roomCode, username }) => {
   };
 
   return (
-    <Container style={{ paddingTop: '20px', paddingBottom: '20px', backgroundColor: '#f0f0f0', borderRadius: '10px', boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', overflow: 'auto', maxHeight: '400px' }}>
-      <Typography variant="h4" gutterBottom>
-        Chat Room
+    <Container style={{ paddingTop: '20px', paddingBottom: '20px', backgroundColor: '#f0f0f0', borderRadius: '10px', boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)' }}>
+      <Typography variant="h4" gutterBottom style={{ marginBottom: '10px' }}>
+        Chat of the room
       </Typography>
-      <div style={{ marginBottom: '10px' }}>
+      <div style={{ overflow: 'auto', maxHeight: '400px' }}>
         {messages.map((message, index) => (
           <div key={index} style={{ marginTop: '10px', marginBottom: '10px', padding: '10px', backgroundColor: '#ffffff', borderRadius: '10px', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}>
             <Typography variant="subtitle1" component="div">
@@ -45,7 +44,7 @@ const ChatRoom = ({ roomCode, username }) => {
           </div>
         ))}
       </div>
-      <Grid container spacing={2} style={{ marginTop: '20px' }}>
+      <Grid container spacing={2} style={{ marginTop: '20px', position: 'sticky', bottom: '20px' }}>
         <Grid item xs={9}>
           <TextField
             fullWidth
