@@ -1,24 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import { Typography, TextField, Grid, Container, Button } from '@mui/material';
 
 const socketEndpoint = process.env.REACT_APP_MULTIPLAYER_ENDPOINT || 'http://localhost:5010';
 
 const ChatRoom = ({ roomCode, username }) => {
+  const isFirstRender = useRef(true);
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState('');
   const [socket, setSocket] = useState(null);
+
   useEffect(() => {
     const newSocket = io(socketEndpoint);
     setSocket(newSocket);
 
     //join the room
     newSocket.emit('join-room-chat', roomCode, username);
-    
-    newSocket.on('recieved-message', (message) => {
-        setMessages(prevMessages => [...prevMessages, message]);
-    });
 
+    //make sure that only 1 time is executed
+    if(isFirstRender.current) {
+        isFirstRender.current = false;
+       
+        newSocket.on('recieved-message', (message) => {
+            setMessages(prevMessages => [...prevMessages, message]);
+        });
+    }
+    
   }, [roomCode, username]);
 
   useEffect(() => {
