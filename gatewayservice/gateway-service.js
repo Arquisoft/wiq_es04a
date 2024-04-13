@@ -120,7 +120,6 @@ app.get('/questions', async (req, res) => {
   try {
     const questionsResponse = await axios.get(`${questionGenerationServiceUrl}/questions`);
     res.json(questionsResponse.data);
-    console.log("QUESTIONS:",questionsResponse.data);
   } catch (error) {
     res.status(error.response).json({ error: error.response });
   }
@@ -131,7 +130,6 @@ app.get('/questions/:category', async (req, res) => {
     const category = encodeURIComponent(req.params.category);
     const questionsResponse = await axios.get(`${questionGenerationServiceUrl}/questions/getQuestionsFromDb/1/${category}`);
     res.json(questionsResponse.data);
-    console.log("CATEGORY: ",questionsResponse.data);
   } catch (error) {
     res.status(error.response).json({ error: error.response });
   }

@@ -14,13 +14,13 @@ describe('Game component', () => {
     mockAxios.reset();
     // Mock the axios.post request to simulate a successful response
     mockAxios.onGet('http://localhost:8000/questions/Geography').reply(200, 
-        {
+        [{
         question: 'Which is the capital of Spain?',
         options: ['Madrid', 'Barcelona', 'Paris', 'London'],
         correctAnswer: 'Madrid',
         categories: ['Geography'],
         language: 'en'
-        }
+        }]
     );
 
     mockAxios.onPost('http://localhost:8000/statistics/edit').reply(200, { success: true });

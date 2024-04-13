@@ -89,9 +89,9 @@ const DiscovertingCitiesGame = () => {
         .then(quest => {
             // every new round it gets a new question from db
             console.log("ENTRA DISCOVERING");
-            setQuestionData(quest.data); 
+            setQuestionData(quest.data[0]); 
             console.log(quest.data);
-            setButtonStates(new Array(quest.data.options.length).fill(null));
+            setButtonStates(new Array(quest.data[0].options.length).fill(null));
         }).catch(error => {
             console.error(error);
         }); 
