@@ -48,7 +48,8 @@ const Game = () => {
     const[winnerCorrect, setWinnerCorrect] = React.useState(0);
     const[winnerTime, setWinnerTime] = React.useState(0);
 
-    const [userResponses, setUserResponses] = React.useState([]);
+    //const [userResponses, setUserResponses] = React.useState([]);
+    const [, setUserResponses] = React.useState([]);
     
     React.useEffect(() => {
         const newSocket = io(socketEndpoint);
