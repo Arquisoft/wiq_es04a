@@ -88,8 +88,8 @@ const DiscovertingCitiesGame = () => {
         axios.get(`${apiEndpoint}/questions/Geography`)
         .then(quest => {
             // every new round it gets a new question from db
-            setQuestionData(quest.data);    
-            setButtonStates(new Array(quest.data.options.length).fill(null));
+            setQuestionData(quest.data[0]); 
+            setButtonStates(new Array(quest.data[0].options.length).fill(null));
         }).catch(error => {
             console.error(error);
         }); 
