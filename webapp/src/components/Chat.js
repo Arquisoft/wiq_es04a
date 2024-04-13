@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import { Typography, TextField, Grid, Container, Button } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const socketEndpoint = process.env.REACT_APP_MULTIPLAYER_ENDPOINT || 'http://localhost:5010';
 
 const ChatRoom = ({ roomCode, username }) => {
+  const { t } = useTranslation();
+
   const isFirstRender = useRef(true);
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState('');
@@ -48,7 +51,7 @@ const ChatRoom = ({ roomCode, username }) => {
   return (
     <Container style={{ paddingTop: '20px', paddingBottom: '20px', backgroundColor: '#f0f0f0', borderRadius: '10px', boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)' }}>
       <Typography variant="h4" gutterBottom style={{ marginBottom: '10px' }}>
-        Chat of the room
+        {t("Multiplayer.Room.chat_title")}
       </Typography>
       <div style={{ height: '22em', maxHeight: '22em', overflowY: 'auto', marginBottom: '20px' }}>
         {messages.map((message, index) => (
@@ -65,7 +68,7 @@ const ChatRoom = ({ roomCode, username }) => {
           <TextField
             fullWidth
             style={{ backgroundColor: '#ffffff', borderRadius: '5px' }}
-            label="Type your message"
+            label={t("Multiplayer.Room.chat_input_label")}
             variant="outlined"
             value={messageInput}
             onChange={(e) => setMessageInput(e.target.value)}
@@ -80,7 +83,7 @@ const ChatRoom = ({ roomCode, username }) => {
             color="primary"
             onClick={sendMessage}
           >
-            Send
+            {t("Multiplayer.Room.send")}
           </Button>
         </Grid>
       </Grid>

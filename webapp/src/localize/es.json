@@ -115,7 +115,10 @@
             "participants": "Participantes",
             "start": "Comenzar juego",
             "create": "Crear sala",
-            "join": "Unirse a sala"
+            "join": "Unirse a sala",
+            "send": "Enviar",
+            "chat_title": "Chat de la sala",
+            "chat_input_label": "Escribe tu mensaje"
         },
         "Game": {
             "waiting_players_end": "Esperando a que terminen los demás jugadores...",
