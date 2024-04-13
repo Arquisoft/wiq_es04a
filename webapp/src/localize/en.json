@@ -13,7 +13,8 @@
         "groups": "Groups",
         "languages": {
             "en": "English",
-            "es": "Spanish"
+            "es": "Spanish",
+            "fr": "French"
         }
     },
     
@@ -116,7 +117,10 @@
             "participants": "Participants",
             "start": "Start game",
             "create": "Create room",
-            "join": "Join room"
+            "join": "Join room",
+            "send": "Send",
+            "chat_title": "Chat of the room",
+            "chat_input_label": "Type your message"
         },
         "Game": {
             "waiting_players_end": "Waiting for players end...",

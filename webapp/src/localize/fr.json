@@ -13,7 +13,8 @@
         "groups": "Groupes",
         "languages": {
             "en": "Anglais",
-            "es": "Espagnol"
+            "es": "Espagnol",
+            "fr": "Français"
         }
     },
     
@@ -116,7 +117,10 @@
             "participants": "Participants",
             "start": "Démarrer le jeu",
             "create": "Créer une salle",
-            "join": "Rejoindre une salle"
+            "join": "Rejoindre une salle",
+            "send": "Envoyer",
+            "chat_title": "Discussion de la salle",
+            "chat_input_label": "Tape ton message"
         },
         "Game": {
             "waiting_players_end": "En attendant que tous les joueurs finissent...",
