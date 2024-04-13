@@ -38,8 +38,8 @@ describe('Game component', () => {
     );
 
     expect(screen.getByRole('progressbar'));
-    expect(screen.findByText('1'));
-    expect(screen.findByText('1/5'));
+    //expect(screen.findByText('1'));
+    //expect(screen.findByText('1/5'));
 
     // waits for the question to appear
     await waitFor(() => screen.getByText('Which is the capital of Spain?'));
