@@ -19,6 +19,7 @@ import {Route, Routes} from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Box } from '@mui/material';
 import PrivateRoute from './PrivateRoute';
+import NotFound from './pages/NotFound';
 
 const theme = createTheme({
   palette: {
@@ -65,6 +66,8 @@ function App() {
             <Route path="/group/:groupName" element={<PrivateRoute element={GroupDetails}/>} />
             <Route path="/statistics" element={<PrivateRoute element={Statistics }/>}/>
             <Route path="/ranking" element={<PrivateRoute element={Ranking}/>}/>
+
+            <Route path="*" element={<NotFound />} /> 
           </Routes>
         <Footer/>
       </ThemeProvider>
