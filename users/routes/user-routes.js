@@ -34,7 +34,7 @@ router.get('/questionsRecord/:username/:gameMode', async (req, res) => {
                 gameMode: gameMode
             }
         });
-        if (!record) {
+        if (record.length == 0) {
             return res.status(404).json({ error: 'No record found' });
         }
 

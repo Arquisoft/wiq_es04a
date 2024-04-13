@@ -54,6 +54,7 @@ describe('User Routes', () => {
     });
 
     it('should get questions record for a user in a specific game mode', async () => {
+        
         const username = 'testuser';
         const gameMode = 'classic';
     
@@ -65,6 +66,16 @@ describe('User Routes', () => {
             createdAt: new Date(),
             updatedAt: new Date()
         });
+
+        const newQuestionRecord = {
+            username: 'testuser',
+            questions: ['Question 1', 'Question 2'],
+            gameMode: 'classic'
+        };
+
+        await request(app)
+            .post('/user/questionsRecord')
+            .send(newQuestionRecord);
     
         // Luego, hacemos la solicitud GET al endpoint
         const response = await request(app)
@@ -72,9 +83,9 @@ describe('User Routes', () => {
     
         // Verificamos que se haya realizado correctamente y que los datos sean correctos
         expect(response.status).toBe(200);
-        expect(response.body.username).toBe(username);
-        expect(response.body.gameMode).toBe(gameMode);
-        expect(response.body.questions).toEqual(['Question 1', 'Question 2']);
+        expect(response.body[0].username).toBe(username);
+        expect(response.body[0].gameMode).toBe(gameMode);
+        expect(response.body[0].questions).toEqual(['Question 1', 'Question 2']);
     });
     it('should return 400 if questions record not found for user in a specific game mode', async () => {
         const username = 'nonexistentuser';
@@ -89,7 +100,7 @@ describe('User Routes', () => {
 
     it('should return 400 if an error occurs while retrieving questions record', async () => {
         // Mock an error occurring during database query
-        jest.spyOn(QuestionsRecord, 'findOne').mockImplementationOnce(() => {
+        jest.spyOn(QuestionsRecord, 'findAll').mockImplementationOnce(() => {
             throw new Error('Database error');
         });
 
