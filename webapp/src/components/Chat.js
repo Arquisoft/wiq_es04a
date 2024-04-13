@@ -31,10 +31,6 @@ const ChatRoom = ({ roomCode, username }) => {
     
   }, [roomCode, username]);
 
-  useEffect(() => {
-    console.log(messages)
-  }, [messages])
-
   const sendMessage = () => {
     if (messageInput.trim() !== '') {
         socket.emit('send-message', messageInput, roomCode, username);
