@@ -133,6 +133,7 @@ function NavBar() {
                     sx={{ color: 'white', boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }} >
               <MenuItem value={"en"} data-testid="en_selector">{t("NavBar.languages.en")}</MenuItem>
               <MenuItem value={"es"} data-testid="es_selector">{t("NavBar.languages.es")}</MenuItem>
+              <MenuItem value={"fr"} data-testid="fr_selector">{t("NavBar.languages.fr")}</MenuItem>
             </Select>
           </Box>
 
