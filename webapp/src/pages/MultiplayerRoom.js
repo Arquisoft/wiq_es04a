@@ -5,6 +5,7 @@ import { useContext } from 'react';
 import { SessionContext } from '../SessionContext';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import Chat from '../components/Chat';
 
 const socketEndpoint = process.env.REACT_APP_MULTIPLAYER_ENDPOINT || 'http://localhost:5010';
 
@@ -166,6 +167,11 @@ const MultiplayerRoom = () => {
               )}
             </Paper>
           </Grid>
+          {roomCode && error === "" && (
+            <Grid item xs={3} sx={{marginLeft: '2em'}}>
+              <Chat roomCode={roomCode} username={username} />
+            </Grid>
+          )}
         </Grid>
       );
   }
