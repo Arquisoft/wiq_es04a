@@ -37,7 +37,12 @@ const ChatRoom = ({ roomCode, username }) => {
         socket.emit('send-message', messageInput, roomCode, username);
         setMessageInput('');
     }
+  };
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+        sendMessage();
+    }
   };
 
   return (
@@ -45,7 +50,7 @@ const ChatRoom = ({ roomCode, username }) => {
       <Typography variant="h4" gutterBottom style={{ marginBottom: '10px' }}>
         Chat of the room
       </Typography>
-      <div style={{ height: '400px', maxHeight: '400px', overflowY: 'auto', marginBottom: '20px' }}>
+      <div style={{ height: '22em', maxHeight: '22em', overflowY: 'auto', marginBottom: '20px' }}>
         {messages.map((message, index) => (
           <div key={index} style={{ marginTop: '10px', marginBottom: '10px', padding: '10px', backgroundColor: '#ffffff', borderRadius: '10px', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}>
             <Typography variant="subtitle1" component="div">
@@ -64,6 +69,7 @@ const ChatRoom = ({ roomCode, username }) => {
             variant="outlined"
             value={messageInput}
             onChange={(e) => setMessageInput(e.target.value)}
+            onKeyDown={handleKeyPress}
           />
         </Grid>
         <Grid item xs={3}>
