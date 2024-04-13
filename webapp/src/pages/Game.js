@@ -1,6 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
-import { Container, Button, CssBaseline, Grid, Typography, CircularProgress, Card } from '@mui/material';
+import { useTheme, Container, Button, CssBaseline, Grid, Typography, CircularProgress, Card } from '@mui/material';
 import { PlayArrow, Pause } from '@mui/icons-material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -24,6 +24,8 @@ const Game = () => {
 
     // Translations
     const { t } = useTranslation();
+
+    const theme = useTheme();
 
     // state initialization
     const [round, setRound] = React.useState(1);
@@ -193,7 +195,7 @@ const Game = () => {
             <Card sx={{ width: `${100 / MAX_ROUNDS}%`,
              padding:'0.2em', 
              margin:'0 0.1em', 
-             backgroundColor: isCorrect===null? 'gray':isCorrect? '#339966':'#990000' }}
+             backgroundColor: isCorrect === null ? 'gray' : isCorrect ? theme.palette.success.main : theme.palette.error.main }}
             >
             </Card>
         ));
@@ -262,7 +264,7 @@ const Game = () => {
                 data-testid="end-game-message"
                 variant="h4" 
                 sx={{
-                    color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? 'green' : 'red',
+                    color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? theme.palette.success.main : theme.palette.error.main,
                     fontSize: '4rem', // Tamaño de fuente
                     marginTop: '20px', // Espaciado superior
                     marginBottom: '50px', // Espaciado inferior
@@ -315,7 +317,7 @@ const Game = () => {
                                     borderRadius: "10px",
                                     margin: "5px",
                                     "&:disabled": {
-                                        backgroundColor: buttonStates[index] === "success" ? "#339966" : buttonStates[index] === "failure" ? "#990000" : "gray",
+                                        backgroundColor: buttonStates[index] === "success" ? theme.palette.success.main : buttonStates[index] === "failure" ? theme.palette.error.main : "gray",
                                         color: "white",
                                     },
                                 }}
@@ -342,7 +344,7 @@ const Game = () => {
                         key={questionCountdownKey}
                         isPlaying = {questionCountdownRunning}
                         duration={15}
-                        colors={["#0bfc03", "#F7B801", "#f50707", "#A30000"]}
+                        colors={[theme.palette.success.main, "#F7B801", "#f50707", theme.palette.error.main]}
                         size={100}
                         colorsTime={[10, 6, 3, 0]}
                         onComplete={() => selectResponse(0, "FAILED")} //when time ends always fail question
