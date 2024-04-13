@@ -13,7 +13,8 @@
         "groups": "Grupos",
         "languages": {
             "en": "Inglés",
-            "es": "Español"
+            "es": "Español",
+            "fr": "Francés"
         }
     },
     
@@ -112,13 +113,14 @@
     "Multiplayer": {
         "Room": {
             "code": "Código de Sala",
-            "participants": "participantes",
+            "participants": "Participantes",
             "start": "Comenzar juego",
             "create": "Crear sala",
             "join": "Unirse a sala"
         },
         "Game": {
-            "waiting": "Esperando información del ganador",
+            "waiting_players_end": "Esperando a que terminen los demás jugadores...",
+            "waiting": "Esperando información del ganador...",
             "winner_1": "Jugador ganador del juego",
             "winner_2": "con",
             "winner_3": "respuestas correctas en",
