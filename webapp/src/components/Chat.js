@@ -17,16 +17,17 @@ const ChatRoom = ({ roomCode, username }) => {
 
     //manage input messages
     socket.on('recieved-message', (message) => {
-      setMessages([...messages, message]);
+      setMessages(prevMessages => [...prevMessages, message]);
     });
 
-  }, [roomCode, messages, username]);
+  }, [roomCode, username]);
 
   const sendMessage = () => {
     if (messageInput.trim() !== '') {
         socket.emit('send-message', messageInput, roomCode, username);
         setMessageInput('');
     }
+    
   };
 
   return (
@@ -34,7 +35,7 @@ const ChatRoom = ({ roomCode, username }) => {
       <Typography variant="h4" gutterBottom style={{ marginBottom: '10px' }}>
         Chat of the room
       </Typography>
-      <div style={{ overflow: 'auto', maxHeight: '400px' }}>
+      <div style={{ height: '400px', maxHeight: '400px', overflowY: 'auto', marginBottom: '20px' }}>
         {messages.map((message, index) => (
           <div key={index} style={{ marginTop: '10px', marginBottom: '10px', padding: '10px', backgroundColor: '#ffffff', borderRadius: '10px', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}>
             <Typography variant="subtitle1" component="div">
@@ -44,7 +45,7 @@ const ChatRoom = ({ roomCode, username }) => {
           </div>
         ))}
       </div>
-      <Grid container spacing={2} style={{ marginTop: '20px', position: 'sticky', bottom: '20px' }}>
+      <Grid container spacing={2} style={{ position: 'sticky', bottom: '20px' }}>
         <Grid item xs={9}>
           <TextField
             fullWidth
@@ -70,6 +71,7 @@ const ChatRoom = ({ roomCode, username }) => {
     </Container>
   );
 };
+
 
 
 export default ChatRoom;
