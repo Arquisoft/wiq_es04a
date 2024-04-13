@@ -25,13 +25,13 @@ defineFeature(feature, test => {
             'Access-Control-Allow-Origin': '*'
           },
           contentType: 'application/json',
-          body: JSON.stringify({
+          body: JSON.stringify([{
             question: 'Which is the capital of Spain?',
             options: ['Madrid', 'Barcelona', 'Paris', 'London'],
             correctAnswer: 'Madrid',
             categories: ['Geography'],
             language: 'en'
-          })
+          }])
         });
       } else {
         req.continue();
