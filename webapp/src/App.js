@@ -7,8 +7,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Homepage from './pages/Homepage';
 import Game from './pages/Game';
-import ChallengeGame from './pages/ChallengeGame';
-import ConfigurationChallenge from './pages/ConfigurationChallenge';
+import DiscoveringCitiesGame from './pages/DiscoveringCitiesGame';
 import Groups from './pages/Groups';
 import GroupDetails from './pages/GroupDetails';
 import Statistics from './pages/Statistics';
@@ -54,8 +53,7 @@ function App() {
             <Route path="/instructions" element={<Instructions />}/>
             <Route path="/homepage" element={<Homepage />}/>
             <Route path="/game" element={<Game />}/>
-            <Route path="/challengegame/configuration" element={<ConfigurationChallenge />}/>
-            <Route path="/challengegame" element={<ChallengeGame />}/>
+            <Route path="/discoveringCitiesGame" element={<DiscoveringCitiesGame />}/>
             <Route path="/multiplayerRoom" element={<MultiplayerRoom />}/>
             <Route path="/multiplayerGame" element={<MultiplayerGame />}/>
             <Route path="/group/menu" element={<Groups />}/>

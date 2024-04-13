@@ -1,7 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
-
-import { Container, Button, CssBaseline, Grid, Typography, CircularProgress } from '@mui/material';
+import { Container, Button, CssBaseline, Grid, Typography, CircularProgress, Card, CardContent } from '@mui/material';
 import { PlayArrow, Pause } from '@mui/icons-material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -10,19 +9,22 @@ import { SessionContext } from '../SessionContext';
 import { useContext } from 'react';
 import Confetti from 'react-confetti';
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
+import { useTranslation } from 'react-i18next';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
-const ChallengeGame = () => {
+
+const DiscovertingCitiesGame = () => {
     const navigate = useNavigate();
-    const MAX_ROUNDS = 3;
+    const MAX_ROUNDS = 5;
     const SUCCESS_SOUND_ROUTE = "/sounds/success_sound.mp3";
     const FAILURE_SOUND_ROUTE = "/sounds/wrong_sound.mp3";
 
     //sesion information
     const {username} = useContext(SessionContext);
+
+    // Traductions
+    const { t } = useTranslation();
 
     // state initialization
     const [round, setRound] = React.useState(1);
@@ -41,7 +43,6 @@ const ChallengeGame = () => {
     const [userResponses, setUserResponses] = React.useState([]);
 
     const [questionHistorial, setQuestionHistorial] = React.useState(Array(MAX_ROUNDS).fill(null));
-
 
     React.useEffect(() => {
         let timer;
@@ -84,7 +85,7 @@ const ChallengeGame = () => {
     const startNewRound = async () => {
         setAnswered(false);
         // It works deploying using git repo from machine with: axios.get(`http://20.80.235.188:8000/questions`)
-        axios.get(`${apiEndpoint}/questions`)
+        axios.get(`${apiEndpoint}/questions/Geography`)
         .then(quest => {
             // every new round it gets a new question from db
             setQuestionData(quest.data);    
@@ -259,13 +260,13 @@ if (shouldRedirect) {
                 marginBottom: '50px', // Espaciado inferior
             }}
         >
-            {correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? "Great Job!" : "Game Over"}
+            {correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? t("Game.win_msg") : t("Game.lose_msg") }
         </Typography>
             <div>
-                <Typography variant="h6">Correct Answers: {correctlyAnsweredQuestions}</Typography>
-                <Typography variant="h6">Incorrect Answers: {incorrectlyAnsweredQuestions}</Typography>
-                <Typography variant="h6">Total money: {totalScore}</Typography>
-                <Typography variant="h6">Game time: {totalTimePlayed} seconds</Typography>
+                <Typography variant="h6">{ t("Game.correct") }: {correctlyAnsweredQuestions}</Typography>
+                <Typography variant="h6">{ t("Game.incorrect") }: {incorrectlyAnsweredQuestions}</Typography>
+                <Typography variant="h6">{ t("Game.money") }: {totalScore}</Typography>
+                <Typography variant="h6">{ t("Game.time") }: {totalTimePlayed}</Typography>
             </div>
             {showConfetti && <Confetti />}
         </Container>
@@ -283,25 +284,12 @@ if (shouldRedirect) {
             }}
         >
             <CssBaseline />
-            
-            <Typography
-                variant="h6"
-                sx={{
-                    position: 'absolute',
-                    top: '10%', 
-                    right: '5%',
-                }}
-            >
-                Game time: {totalTimePlayed} s
-      
-            </Typography>
-
             <Button variant="contained"
                     onClick={() => togglePause()}
                     disabled={answered}>
 
                 {timerRunning ? <Pause /> : <PlayArrow />}
-                {timerRunning ? 'Pause' : 'Play'}
+                {timerRunning ? t("Game.pause") : t("Game.play") }
             </Button>
 
             <Container
@@ -376,4 +364,4 @@ if (shouldRedirect) {
     );
 };
 
-export default ChallengeGame;
+export default DiscovertingCitiesGame;

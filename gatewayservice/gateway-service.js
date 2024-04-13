@@ -125,6 +125,16 @@ app.get('/questions', async (req, res) => {
   }
 });
 
+app.get('/questions/:category', async (req, res) => {
+  try {
+    const questionsResponse = await axios.get(`${questionGenerationServiceUrl}/questions/getQuestionsFromDb/1/${req.params.category}`);
+    res.json(questionsResponse.data);
+  } catch (error) {
+    res.status(error.response).json({ error: error.response });
+  }
+});
+
+
 app.post('/statistics/edit', async (req, res) => {
   try {
     // Forward the user statics edit request to the user service
