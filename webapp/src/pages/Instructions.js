@@ -53,7 +53,7 @@ const Instructions = () => {
                 </Grid>
                 {info.map((option, index) => (
                     <Grid item xs={1} key={option.nombre} >
-                        <Button width="100%" color={ gameDisplayedIndex === index ? "secondary" : "primary"} size="large" variant="outlined" sx={{ width: "100%", height: "100px"  }} onClick={() => displayGameInfo(index)} >
+                        <Button width="100%" color={ gameDisplayedIndex === index ? "success" : "primary"} size="large" variant="outlined" sx={{ width: "100%", height: "100px"  }} onClick={() => displayGameInfo(index)} >
                             {option.nombre}
                         </Button>
                     </Grid>
