@@ -218,24 +218,45 @@ if (shouldRedirect) {
             <Typography 
             variant="h4" 
             sx={{
-                color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? 'black' : 'black',
+                color: winnerPlayer === username ? 'green' : 'black',
                 fontSize: '4rem', // Tamaño de fuente
                 marginTop: '20px', // Espaciado superior
                 marginBottom: '50px', // Espaciado inferior
             }}
         >
-            {winnerPlayer === "" ? "Waiting for players end..." : "Game Over"}
+            
+            <Typography variant="h2" gutterBottom sx={{ fontFamily: 'fantasy', color: '#323333' }}>
+            {winnerPlayer === "" ? t("Multiplayer.Game.waiting_players_end") : "Game Over"}
+            </Typography>
         </Typography>
             <div>
-            <Typography variant="h6">{ t("Game.correct") }: {correctlyAnsweredQuestions}</Typography>
-                <Typography variant="h6">{ t("Game.incorrect") }: {incorrectlyAnsweredQuestions}</Typography>
-                <Typography variant="h6">{ t("Game.money") }: {totalScore}</Typography>
-                <Typography variant="h6">{ t("Game.time") }: {totalTimePlayed}</Typography>
+            <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                    <Typography variant="h6" gutterBottom sx={{ fontFamily: 'fantasy', color: '#323333' }}>
+                    {t("Game.correct")}: {correctlyAnsweredQuestions}
+                    </Typography>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <Typography variant="h6" gutterBottom sx={{ fontFamily: 'fantasy', color: '#323333' }}>
+                    {t("Game.incorrect")}: {incorrectlyAnsweredQuestions}
+                    </Typography>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <Typography variant="h6" gutterBottom sx={{ fontFamily: 'fantasy', color: '#323333' }}>
+                    {t("Game.money")}: {totalScore}
+                    </Typography>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <Typography variant="h6" gutterBottom sx={{ fontFamily: 'fantasy', color: '#323333' }}>
+                    {t("Game.time")}: {totalTimePlayed}
+                    </Typography>
+                </Grid>
+            </Grid>
 
                 {winnerPlayer === "" ? (
-                    <Typography variant="h5">{ t("Multiplayer.Game.waiting") }</Typography>
+                    <Typography variant="h5" sx={{marginTop: '1em', fontFamily: 'fantasy', color: '#323333'}}>{ t("Multiplayer.Game.waiting") }</Typography>
                 ) : (
-                    <Typography variant="h5">{ t("Multiplayer.Game.winner_1") }: {winnerPlayer} { t("Multiplayer.Game.winner_2") } {winnerCorrect} { t("Multiplayer.Game.winner_3") } {winnerTime}{ t("Multiplayer.Game.winner_4") }</Typography>
+                    <Typography variant="h5" sx={{marginTop: '1em', fontFamily: 'fantasy', color: '#323333'}}>{ t("Multiplayer.Game.winner_1") }: {winnerPlayer} { t("Multiplayer.Game.winner_2") } {winnerCorrect} { t("Multiplayer.Game.winner_3") } {winnerTime} { t("Multiplayer.Game.winner_4") }</Typography>
                 )}
             </div>
             {showConfetti && <Confetti />}
