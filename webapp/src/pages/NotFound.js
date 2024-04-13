@@ -1,13 +1,16 @@
 import React from 'react';
 import { Container, Typography, Button } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const NotFound = () => {
+  const { t } = useTranslation();
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh',  }}>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', margin: '0 auto' }}>
             <Typography variant="h2" gutterBottom style={{  marginBottom: '20px' }}>
-                Página no encontrada
+                {t("NotFound.title")}
             </Typography>
             <Container
             style={{
@@ -22,7 +25,7 @@ const NotFound = () => {
             />
 
             <Button sx={{marginTop: "5em"}} component={RouterLink} to="/" variant="contained" color="primary">
-                Ir a la página principal
+                {t("NotFound.button_msg")}
             </Button>
         </div>      
     </div>
