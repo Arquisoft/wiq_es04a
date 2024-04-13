@@ -125,6 +125,10 @@ io.on('connection', (socket) => {
 
             });
 
+            socket.on('send-message', (message, roomCode, username) => {
+                io.to(roomCode).emit('recieved-message', { username, message });
+            });
+
             socket.on('disconnect', () => {
                 console.log(`${username} has disconnected`);
                 

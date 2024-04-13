@@ -21,7 +21,7 @@ const ChatRoom = ({ roomCode, username }) => {
     socket.emit('join-room', roomCode, username);
 
     //manage input messages
-    socket.on('message', (message) => {
+    socket.on('recieved-message', (message) => {
       setMessages([...messages, message]);
     });
 
