@@ -4,12 +4,15 @@ import io from 'socket.io-client';
 import { useContext } from 'react';
 import { SessionContext } from '../SessionContext';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const socketEndpoint = process.env.REACT_APP_MULTIPLAYER_ENDPOINT || 'http://localhost:5010';
 
 const MultiplayerRoom = () => {
+    const { t } = useTranslation();
+
     const [roomCode, setRoomCode] = useState("");
-    const [error, ] = useState('');
+    const [error, setError] = useState("");
     const [socket, setSocket] = useState(null);
     const [writtenCode, setWrittenCode] = useState("");
     const [roomPlayers, setRoomPlayers] = useState([]);
@@ -25,9 +28,14 @@ const MultiplayerRoom = () => {
         const newSocket = io(socketEndpoint);
         setSocket(newSocket);
 
-        newSocket.on('game-ready', () => {
-            setGameReady(true);
-            setLoadingQuestions(true);
+        newSocket.on('game-ready', (msg) => {
+            if(msg === "ready") {
+              setGameReady(true);
+              setLoadingQuestions(true);
+            } else {
+              setGameReady(false);
+            }
+            
         });
 
         newSocket.on('update-players', (roomPlayers) => {
@@ -38,6 +46,10 @@ const MultiplayerRoom = () => {
             setGameQuestions(questions);
             setLoadingQuestions(false);
             setGameLoaded(true);
+        });
+
+        newSocket.on('join-error', errorMessage => {
+            setError(errorMessage);
         });
 
         // clean at component dismount
@@ -55,6 +67,7 @@ const MultiplayerRoom = () => {
     }, [socket, navigate, gameQuestions, roomCode])
 
     const handleCreateRoom = () => {
+        setError("");
         const code = generateRoomCode();
         setRoomCreator(true);
         
@@ -62,13 +75,13 @@ const MultiplayerRoom = () => {
           
         });
        
-        socket.emit('join-room', code, username);
+        socket.emit('join-room', code, username, "create");
       };
   
     const handleJoinRoom = () => {
-      setRoomCreator(false);
-      setRoomCode(writtenCode);
-      socket.emit('join-room', writtenCode, username);
+        socket.emit('join-room', writtenCode, username, "join");
+        setRoomCreator(false);
+        setRoomCode(writtenCode);
     };
 
     const generateRoomCode = () => {
@@ -94,17 +107,17 @@ const MultiplayerRoom = () => {
         <Grid container justifyContent="center" alignItems="center" style={{ height: '100vh' }}>
           <Grid item xs={6}>
             <Paper elevation={3} style={{ padding: '20px' }}>
-              {roomCode ? (
+              {roomCode && error === "" ? (
                 <>
                   <Typography variant="h4" gutterBottom>
-                    Room Code:
+                    { t("Multiplayer.Room.code") }:
                   </Typography>
                   <Typography variant="h5" gutterBottom style={{ marginTop: '10px' }}>
                     {roomCode}
                   </Typography>
 
                   <Typography variant="h4" gutterBottom>
-                    Participants:
+                    { t("Multiplayer.Room.participants") }:
                   </Typography>
                   <List>
                     {roomPlayers.map((player, index) => (
@@ -114,7 +127,7 @@ const MultiplayerRoom = () => {
                     ))}
                   </List>
                   <Button id="playBtn" variant="contained" disabled={!gameReady || !roomCreator || !gameLoaded} onClick={startGame} style={{ marginTop: '10px' }}>
-                    Start game
+                    { t("Multiplayer.Room.start") }
                   </Button>
                   {loadingQuestions && (
                     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px', flexDirection: "column", alignItems: "center" }}>
@@ -126,13 +139,13 @@ const MultiplayerRoom = () => {
               ) : (
                 <>
                   <Typography variant="h4" gutterBottom>
-                    Create room
+                    { t("Multiplayer.Room.create") }
                   </Typography>
                   <Button variant="contained" onClick={handleCreateRoom} data-testid="btn-create-room">
-                    Create room
+                    { t("Multiplayer.Room.create") }
                   </Button>
                   <Typography variant="h4" gutterBottom style={{ marginTop: '20px' }}>
-                    Join room
+                    { t("Multiplayer.Room.join") }
                   </Typography>
                   <TextField
                     label="Room code"
@@ -142,7 +155,7 @@ const MultiplayerRoom = () => {
                     style={{ marginTop: '10px' }}
                   />
                   <Button variant="contained" onClick={handleJoinRoom} style={{ marginTop: '10px' }} data-testid="btn-join-room">
-                    Join room
+                    { t("Multiplayer.Room.join") }
                   </Button>
                   {error && (
                     <Typography variant="subtitle1" gutterBottom style={{ marginTop: '10px', color: 'red' }}>

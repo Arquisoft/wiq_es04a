@@ -125,16 +125,16 @@ app.get('/questions', async (req, res) => {
   }
 });
 
-app.get('/questions/:n/:category', async (req, res) => {
+app.get('/questions/:category', async (req, res) => {
   try {
-    const n = req.params.n;
-    const category = req.params.category;
-    const questionsResponse = await axios.get(`${questionGenerationServiceUrl}/questions/getQuestionsFromDb/${n}/${category}`);
+    const category = encodeURIComponent(req.params.category);
+    const questionsResponse = await axios.get(`${questionGenerationServiceUrl}/questions/getQuestionsFromDb/1/${category}`);
     res.json(questionsResponse.data);
   } catch (error) {
     res.status(error.response).json({ error: error.response });
   }
 });
+
 
 app.post('/statistics/edit', async (req, res) => {
   try {

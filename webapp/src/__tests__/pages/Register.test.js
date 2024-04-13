@@ -4,11 +4,12 @@ import { SessionContext } from '../../SessionContext';
 import { BrowserRouter as Router } from 'react-router-dom';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import AddUser from '../../pages/AddUser';
+import Register from '../../pages/Register';
+import '../../localize/i18n';
 
 const mockAxios = new MockAdapter(axios);
 
-describe('AddUser component', () => {
+describe('Register component', () => {
   beforeEach(() => {
     mockAxios.reset();
     // Mock the axios.post request to simulate a successful response
@@ -20,7 +21,7 @@ describe('AddUser component', () => {
     render(
       <SessionContext.Provider value={{}}>
         <Router>
-          <AddUser />
+          <Register />
         </Router>
       </SessionContext.Provider>
     );
@@ -29,7 +30,7 @@ describe('AddUser component', () => {
     expect(screen.getByLabelText('Password')).toBeInTheDocument();
     expect(screen.getByLabelText('Name')).toBeInTheDocument();
     expect(screen.getByLabelText('Surname')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Sign Up' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Sign up' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Already have an account? Login here.' })).toBeInTheDocument();
   });
 
@@ -37,7 +38,7 @@ describe('AddUser component', () => {
     render(
       <SessionContext.Provider value={{ createSession: jest.fn() }}>
         <Router>
-          <AddUser />
+          <Register />
         </Router>
       </SessionContext.Provider>
     );
@@ -47,7 +48,7 @@ describe('AddUser component', () => {
     fireEvent.change(screen.getByLabelText('Name'), { target: { value: 'John' } });
     fireEvent.change(screen.getByLabelText('Surname'), { target: { value: 'Doe' } });
 
-    fireEvent.click(screen.getByRole('button', { name: 'Sign Up' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Sign up' }));
 
     await waitFor(() => {
       expect(mockAxios.history.post.length).toBe(2); // Ensure two POST requests are made
@@ -60,12 +61,12 @@ describe('AddUser component', () => {
     render(
       <SessionContext.Provider value={{}}>
         <Router>
-          <AddUser />
+          <Register />
         </Router>
       </SessionContext.Provider>
     );
 
-    fireEvent.click(screen.getByRole('button', { name: 'Sign Up' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Sign up' }));
 
     await waitFor(() => {
       expect(screen.getByText('Error: Username already exists')).toBeInTheDocument();

@@ -14,9 +14,9 @@ import { useTranslation } from 'react-i18next';
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 
-const Game = () => {
+const DiscovertingCitiesGame = () => {
     const navigate = useNavigate();
-    const MAX_ROUNDS = 3;
+    const MAX_ROUNDS = 5;
     const SUCCESS_SOUND_ROUTE = "/sounds/success_sound.mp3";
     const FAILURE_SOUND_ROUTE = "/sounds/wrong_sound.mp3";
 
@@ -85,15 +85,16 @@ const Game = () => {
     const startNewRound = async () => {
         setAnswered(false);
         // It works deploying using git repo from machine with: axios.get(`http://20.80.235.188:8000/questions`)
-        axios.get(`${apiEndpoint}/questions`)
+        axios.get(`${apiEndpoint}/questions/Geography`)
         .then(quest => {
             // every new round it gets a new question from db
-            setQuestionData(quest.data);    
-            setButtonStates(new Array(quest.data.options.length).fill(null));
+            console.log("ENTRA DISCOVERING");
+            setQuestionData(quest.data[0]); 
+            console.log(quest.data);
+            setButtonStates(new Array(quest.data[0].options.length).fill(null));
         }).catch(error => {
             console.error(error);
         }); 
-        
     };
 
     const updateStatistics = async() => {
@@ -116,7 +117,7 @@ const Game = () => {
             await axios.post(`${apiEndpoint}/user/questionsRecord`, {
                 questions: userResponses,
                 username: username,
-                gameMode: "TheChallenge"
+                gameMode: "Discovering Cities"
             });
         } catch (error) {
             console.error("Error:", error);
@@ -364,4 +365,4 @@ if (shouldRedirect) {
     );
 };
 
-export default Game;
+export default DiscovertingCitiesGame;

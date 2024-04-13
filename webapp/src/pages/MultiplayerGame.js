@@ -1,22 +1,21 @@
 import * as React from 'react';
 import axios from 'axios';
-
-import { Container, Button, CssBaseline, Grid, Typography, CircularProgress } from '@mui/material';
+import { Container, Button, CssBaseline, Grid, Typography, CircularProgress, Card, CardContent } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import { SessionContext } from '../SessionContext';
 import { useContext } from 'react';
 import Confetti from 'react-confetti';
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import { useLocation } from 'react-router-dom';
 import io from 'socket.io-client';
+import { useTranslation } from 'react-i18next';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 const socketEndpoint = process.env.REACT_APP_MULTIPLAYER_ENDPOINT || 'ws://localhost:5010';
 
 const Game = () => {
+    const { t } = useTranslation();
     
     const MAX_ROUNDS = 3;
     const SUCCESS_SOUND_ROUTE = "/sounds/success_sound.mp3";
@@ -219,24 +218,45 @@ if (shouldRedirect) {
             <Typography 
             variant="h4" 
             sx={{
-                color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? 'black' : 'black',
+                color: winnerPlayer === username ? 'green' : 'black',
                 fontSize: '4rem', // Tamaño de fuente
                 marginTop: '20px', // Espaciado superior
                 marginBottom: '50px', // Espaciado inferior
             }}
         >
-            {winnerPlayer === "" ? "Waiting for players end..." : "Game Over"}
+            
+            <Typography variant="h2" gutterBottom sx={{ fontFamily: 'fantasy', color: '#323333' }}>
+            {winnerPlayer === "" ? t("Multiplayer.Game.waiting_players_end") : "Game Over"}
+            </Typography>
         </Typography>
             <div>
-                <Typography variant="h6">Correct Answers: {correctlyAnsweredQuestions}</Typography>
-                <Typography variant="h6">Incorrect Answers: {incorrectlyAnsweredQuestions}</Typography>
-                <Typography variant="h6">Total money: {totalScore}</Typography>
-                <Typography variant="h6">Game time: {totalTimePlayed} seconds</Typography>
+            <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                    <Typography variant="h6" gutterBottom sx={{ fontFamily: 'fantasy', color: '#323333' }}>
+                    {t("Game.correct")}: {correctlyAnsweredQuestions}
+                    </Typography>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <Typography variant="h6" gutterBottom sx={{ fontFamily: 'fantasy', color: '#323333' }}>
+                    {t("Game.incorrect")}: {incorrectlyAnsweredQuestions}
+                    </Typography>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <Typography variant="h6" gutterBottom sx={{ fontFamily: 'fantasy', color: '#323333' }}>
+                    {t("Game.money")}: {totalScore}
+                    </Typography>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <Typography variant="h6" gutterBottom sx={{ fontFamily: 'fantasy', color: '#323333' }}>
+                    {t("Game.time")}: {totalTimePlayed}
+                    </Typography>
+                </Grid>
+            </Grid>
 
                 {winnerPlayer === "" ? (
-                    <Typography variant="h5">Waiting for winner info</Typography>
+                    <Typography variant="h5" sx={{marginTop: '1em', fontFamily: 'fantasy', color: '#323333'}}>{ t("Multiplayer.Game.waiting") }</Typography>
                 ) : (
-                    <Typography variant="h5">Player winner of the game: {winnerPlayer} with {winnerCorrect} correct answers in {winnerTime}s</Typography>
+                    <Typography variant="h5" sx={{marginTop: '1em', fontFamily: 'fantasy', color: '#323333'}}>{ t("Multiplayer.Game.winner_1") }: {winnerPlayer} { t("Multiplayer.Game.winner_2") } {winnerCorrect} { t("Multiplayer.Game.winner_3") } {winnerTime} { t("Multiplayer.Game.winner_4") }</Typography>
                 )}
             </div>
             {showConfetti && <Confetti />}
@@ -255,19 +275,6 @@ if (shouldRedirect) {
             }}
         >
             <CssBaseline />
-            
-            <Typography
-                variant="h6"
-                sx={{
-                    position: 'absolute',
-                    top: '10%', 
-                    right: '5%',
-                }}
-            >
-                Game time: {totalTimePlayed} s
-      
-            </Typography>
-
             <Container
             sx={{
                 position: 'absolute',

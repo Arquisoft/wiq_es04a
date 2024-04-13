@@ -94,7 +94,7 @@ const Game = () => {
     const startNewRound = async () => {
         setAnswered(false);
         // It works deploying using git repo from machine with: axios.get(`http://20.80.235.188:8000/questions`)
-        axios.get(`${apiEndpoint}/questions/1/${category}`) 
+        axios.get(`${apiEndpoint}/questions/${category}`) 
         .then(result => {
             result.data.map(quest => {
             // every new round it gets a new question from db
