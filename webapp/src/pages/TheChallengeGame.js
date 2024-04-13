@@ -95,12 +95,10 @@ const Game = () => {
         setAnswered(false);
         // It works deploying using git repo from machine with: axios.get(`http://20.80.235.188:8000/questions`)
         axios.get(`${apiEndpoint}/questions/${category}`) 
-        .then(result => {
-            result.data.map(quest => {
+        .then(quest => {
             // every new round it gets a new question from db
-            setQuestionData(quest);    
-            setButtonStates(new Array(quest.options.length).fill(null));
-            });
+            setQuestionData(quest.data[0]);    
+            setButtonStates(new Array(quest.data[0].options.length).fill(null));
         }).catch(error => {
             console.error(error);
         }); 
