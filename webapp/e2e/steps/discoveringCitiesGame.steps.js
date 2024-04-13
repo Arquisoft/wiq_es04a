@@ -45,7 +45,7 @@ defineFeature(feature, test => {
 
   beforeEach(async () => {
     await page
-    .goto("http://localhost:3000/game", {
+    .goto("http://localhost:3000/discoveringCitiesGame", {
       waitUntil: "networkidle0",
     })
     .catch(() => {});
