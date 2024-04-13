@@ -51,6 +51,9 @@ describe('Game component', () => {
     // Espera a que aparezca la pregunta
     await waitFor(() => screen.getByText('Which is the capital of Spain?'));
 
+    expect(screen.findByText('1'));
+    expect(screen.findByText('1/4'));
+
     // Verifica que el juego haya comenzado correctamente mostrando la pregunta y las opciones
     expect(screen.getByText('Which is the capital of Spain?')).toBeInTheDocument();
     expect(screen.getByText('Madrid')).toBeInTheDocument();
@@ -59,6 +62,101 @@ describe('Game component', () => {
     expect(screen.getByText('London')).toBeInTheDocument();
   });
 
-  // Puedes agregar más pruebas para otras funcionalidades del componente aquí
+  it('should guess correct answer', async () => {
+    render( 
+        <SessionContext.Provider value={{ username: 'exampleUser' }}>
+          <Router>
+            <Game />
+          </Router>
+        </SessionContext.Provider>
+    );
+
+    // Espera a que aparezca la ventana de configuración
+    await waitFor(() => screen.getByText('Game Configuration'));
+
+    // Simula la configuración del juego
+    const increaseButtons = screen.getAllByRole('button', { name: '+' });
+    fireEvent.click(increaseButtons[0]); // Aumenta el número de rondas
+
+    // Inicia el juego
+    fireEvent.click(screen.getByRole('button', { name: 'Start game' }));
+
+    // waits for the question to appear
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
+    const correctAnswer = screen.getByRole('button', { name: 'Madrid' });
+
+    expect(correctAnswer).not.toHaveStyle({ backgroundColor: 'green' });
+
+    //selects correct answer
+    fireEvent.click(correctAnswer);
+
+    //expect(screen.findByText('1')).toHaveStyle({ backgroundColor: 'lightgreen' });
+
+    expect(correctAnswer).toHaveStyle({ backgroundColor: 'green' });
+
+  });
+
+  
+  it('should choose incorrect answer', async () => {
+     render( 
+        <SessionContext.Provider value={{ username: 'exampleUser' }}>
+          <Router>
+            <Game />
+          </Router>
+        </SessionContext.Provider>
+    );
+
+    // Espera a que aparezca la ventana de configuración
+    await waitFor(() => screen.getByText('Game Configuration'));
+
+    // Simula la configuración del juego
+    const increaseButtons = screen.getAllByRole('button', { name: '+' });
+    fireEvent.click(increaseButtons[0]); // Aumenta el número de rondas
+
+    // Inicia el juego
+    fireEvent.click(screen.getByRole('button', { name: 'Start game' }));
+
+    // waits for the question to appear
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
+    const incorrectAnswer = screen.getByRole('button', { name: 'Barcelona' });
+
+    expect(incorrectAnswer).not.toHaveStyle({ backgroundColor: 'red' });
+
+    //selects correct answer
+    fireEvent.click(incorrectAnswer);
+
+    expect(incorrectAnswer).toHaveStyle({ backgroundColor: 'red' });
+    //expect(screen.findByText('1')).toHaveStyle({ backgroundColor: 'salmon' });
+
+  });
+
+  it('should not answer the question', async () => {
+    render( 
+        <SessionContext.Provider value={{ username: 'exampleUser' }}>
+          <Router>
+            <Game />
+          </Router>
+        </SessionContext.Provider>
+    );
+
+    // Espera a que aparezca la ventana de configuración
+    await waitFor(() => screen.getByText('Game Configuration'));
+
+    // Simula la configuración del juego
+    const increaseButtons = screen.getAllByRole('button', { name: '+' });
+    fireEvent.click(increaseButtons[0]); // Aumenta el número de rondas
+
+    // Inicia el juego
+    fireEvent.click(screen.getByRole('button', { name: 'Start game' }));
+
+    // waits for the question to appear
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
+
+    setTimeout(() => {
+      // Comprobamos que el callback ha sido llamado después del tiempo especificado
+      done(); // Llamamos a done para indicar que la prueba ha terminado
+    }, 4000);
+
+  }, 4500);
 
 });
