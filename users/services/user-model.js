@@ -184,10 +184,6 @@ const Statistics = sequelize.define('Statistics', {
     online_games_played: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
-    },
-    online_games_won: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
     }
 })
 

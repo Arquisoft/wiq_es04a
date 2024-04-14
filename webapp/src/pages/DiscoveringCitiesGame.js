@@ -124,7 +124,6 @@ const DiscovertingCitiesGame = () => {
                 online_incorrectly_answered_questions: 0,
                 online_total_time_played: 0,
                 online_games_played: 0,
-                online_games_won: 0
             });
         } catch (error) {
             console.error("Error:", error);

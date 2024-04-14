@@ -199,10 +199,6 @@ const Statistics = () => {
                                     <TableCell>{ t("Statistics.table.played_games") }:</TableCell>
                                     <TableCell>{formatStats(userStatics.online_games_played)}</TableCell>
                                 </TableRow>
-                                <TableRow>
-                                    <TableCell>{ "Won games" }:</TableCell>
-                                    <TableCell>{formatStats(userStatics.online_games_won)}</TableCell>
-                                </TableRow>
                             </TableBody>
                         </Table>
                     </TableContainer>

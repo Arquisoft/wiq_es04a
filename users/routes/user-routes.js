@@ -268,7 +268,7 @@ router.post('/statistics/edit', async (req, res) => {
             wise_men_stack_incorrectly_answered_questions, wise_men_stack_games_played, warm_question_earned_money, warm_question_correctly_answered_questions,
             warm_question_incorrectly_answered_questions, warm_question_passed_questions, warm_question_games_played, discovering_cities_earned_money, 
             discovering_cities_correctly_answered_questions, discovering_cities_incorrectly_answered_questions, discovering_cities_games_played, online_earned_money,
-            online_correctly_answered_questions, online_incorrectly_answered_questions, online_total_time_played, online_games_played, online_games_won} = req.body;
+            online_correctly_answered_questions, online_incorrectly_answered_questions, online_total_time_played, online_games_played} = req.body;
 
         // Find the user in the database by their username
         const statisticsUserToUpdate = await Statistics.findOne({
@@ -310,7 +310,6 @@ router.post('/statistics/edit', async (req, res) => {
         statisticsUserToUpdate.online_incorrectly_answered_questions += online_incorrectly_answered_questions;
         statisticsUserToUpdate.online_total_time_played += online_total_time_played;
         statisticsUserToUpdate.online_games_played += online_games_played;
-        statisticsUserToUpdate.online_games_won += online_games_won;
 
         // Save the changes to the database
         await statisticsUserToUpdate.save();
