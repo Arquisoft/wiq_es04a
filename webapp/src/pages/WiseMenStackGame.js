@@ -92,11 +92,12 @@ const WiseMenStackGame = () => {
         axios.get(`${apiEndpoint}/questions/${category}`)
         .then(quest => {
             // every new round it gets a new question from db
-            setQuestionData(quest.data[0]).then(getPossibleOptions(quest.data[0]));    
+            setQuestionData(quest.data[0]);
             setButtonStates(new Array(2).fill(null));
-            
+            getPossibleOptions(quest.data[0]);
+
         }).catch(error => {
-            console.error(error);
+            console.error("Could not get questions", error);
         }); 
         
     };

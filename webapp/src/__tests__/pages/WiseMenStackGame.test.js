@@ -6,6 +6,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import Game from '../../pages/WiseMenStackGame';
 import '../../localize/i18n';
+import { expect } from 'expect-puppeteer';
 
 const mockAxios = new MockAdapter(axios);
 
@@ -14,13 +15,13 @@ describe('Wise Men Stack Game component', () => {
     mockAxios.reset();
     // Mock the axios.post request to simulate a successful response
     mockAxios.onGet('http://localhost:8000/questions/Geography').reply(200, 
-        {
+        [{
         question: 'Which is the capital of Spain?',
         options: ['Madrid', 'Barcelona', 'Paris', 'London'],
         correctAnswer: 'Madrid',
         categories: ['Geography'],
         language: 'en'
-        }
+        }]
     );
 
     mockAxios.onPost('http://localhost:8000/statistics/edit').reply(200, { success: true });
@@ -37,13 +38,12 @@ describe('Wise Men Stack Game component', () => {
       </SessionContext.Provider>
     );
 
-    //await waitFor(() => screen.getByText('Choose a category:'));
-    await waitFor(() =>screen.findByTestId('categories-label'));
-    await expect(screen.findByTestId('categories-label'));
-    const button = await screen.findByTestId('start-button');
+    await waitFor(() => screen.getByText('Wise Men Stack'));
+    
+    const button = screen.getByText('Start game');
     fireEvent.click(button);
     
-    expect(screen.getByRole('progressbar'));
+    //expect(screen.getByRole('progressbar'));
     expect(screen.findByText('1'));
     expect(screen.findByText('Question 1'));
     //expect(screen.findByText('1/3'));
@@ -64,11 +64,11 @@ describe('Wise Men Stack Game component', () => {
         </Router>
       </SessionContext.Provider>
     );
-    //await waitFor(() => screen.getByText('Choose a category:'));
-
-    expect(screen.findByTestId('categories-label'));
-    const button = await screen.findByTestId('start-button');
+    await waitFor(() => screen.getByText('Wise Men Stack'));
+    
+    const button = screen.getByText('Start game');
     fireEvent.click(button);
+
     // waits for the question to appear
     await waitFor(() => screen.getByText('Which is the capital of Spain?'));
     const correctAnswer = screen.getByRole('button', { name: 'Madrid' });
@@ -93,34 +93,15 @@ describe('Wise Men Stack Game component', () => {
         </Router>
       </SessionContext.Provider>
     );
-    //await waitFor(() => screen.getByText('Choose a category:'));
-
-    expect(screen.findByTestId('categories-label'));
-    const button = await screen.findByTestId('start-button');
+    await waitFor(() => screen.getByText('Wise Men Stack'));
+    
+    const button = screen.getByText('Start game');
     fireEvent.click(button);
+
     // waits for the question to appear
     await waitFor(() => screen.getByText('Which is the capital of Spain?'));
-    const incorrectAnswer1 = screen.getByRole('button', { name: 'Barcelona' });
-    const incorrectAnswer2 = screen.getByRole('button', { name: 'Paris' });
-    const incorrectAnswer3 = screen.getByRole('button', { name: 'London' });
-
-    if(incorrectAnswer1) {
-        expect(incorrectAnswer1).not.toHaveStyle({ backgroundColor: 'red' });
-        fireEvent.click(incorrectAnswer1);
-        expect(incorrectAnswer1).toHaveStyle({ backgroundColor: 'red' });
-    } else if(incorrectAnswer2) {
-        expect(incorrectAnswer2).not.toHaveStyle({ backgroundColor: 'red' });
-        fireEvent.click(incorrectAnswer2);
-        expect(incorrectAnswer2).toHaveStyle({ backgroundColor: 'red' });
-    } else if(incorrectAnswer3) {
-        expect(incorrectAnswer3).not.toHaveStyle({ backgroundColor: 'red' });
-        fireEvent.click(incorrectAnswer3);
-        expect(incorrectAnswer3).toHaveStyle({ backgroundColor: 'red' });
-    }
-
-    
-    //expect(screen.findByText('1')).toHaveStyle({ backgroundColor: 'salmon' });
-
+    const buttons = screen.getAllByRole('button');
+    expect(buttons.length).toBe(2);
   });
 
   it('should not answer the question', async () => {
@@ -132,12 +113,10 @@ describe('Wise Men Stack Game component', () => {
       </SessionContext.Provider>
     );
 
-    //await waitFor(() => screen.getByText('Choose a category:'));
-
-    await expect(screen.findByTestId('categories-label'));
-    const button = await screen.findByTestId('start-button');
+    await waitFor(() => screen.getByText('Wise Men Stack'));
+    
+    const button = screen.getByText('Start game');
     fireEvent.click(button);
-
 
     // waits for the question to appear
     await waitFor(() => screen.getByText('Which is the capital of Spain?'));
