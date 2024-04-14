@@ -59,6 +59,7 @@ defineFeature(feature, test => {
         await button.click();
 
         //await expect(page.findByText('Which is the capital of Spain?'));
+        const question = await page.$['data-testid="question"'];
         await expect(page).toMatchElement("div", { text: 'Which is the capital of Spain?'});
         expect(question).not.toBeNull();
         
