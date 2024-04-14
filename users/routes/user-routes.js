@@ -262,7 +262,11 @@ router.post('/statistics/edit', async (req, res) => {
     try {
 
         const { username, the_callenge_earned_money, the_callenge_correctly_answered_questions, the_callenge_incorrectly_answered_questions, 
-            the_callenge_total_time_played, the_callenge_games_played } = req.body;
+            the_callenge_total_time_played, the_callenge_games_played, wise_men_stack_earned_money, wise_men_stack_correctly_answered_questions, 
+            wise_men_stack_incorrectly_answered_questions, wise_men_stack_games_played, warm_question_earned_money, warm_question_correctly_answered_questions,
+            warm_question_incorrectly_answered_questions, warm_question_passed_questions, warm_question_games_played, discovering_cities_earned_money, 
+            discovering_cities_correctly_answered_questions, discovering_cities_incorrectly_answered_questions, discovering_cities_games_played, online_earned_money,
+            online_correctly_answered_questions, online_incorrectly_answered_questions, online_total_time_played, online_games_played, online_games_won} = req.body;
 
         // Find the user in the database by their username
         const statisticsUserToUpdate = await Statistics.findOne({
@@ -277,13 +281,34 @@ router.post('/statistics/edit', async (req, res) => {
         }
 
         // Update the user's fields with the provided values
-        statisticsUserToUpdate.the_callenge_earned_money = statisticsUserToUpdate.the_callenge_earned_money  + the_callenge_earned_money;
-        statisticsUserToUpdate.the_callenge_correctly_answered_questions = statisticsUserToUpdate.the_callenge_correctly_answered_questions 
-        + the_callenge_correctly_answered_questions;
-        statisticsUserToUpdate.the_callenge_incorrectly_answered_questions = statisticsUserToUpdate.the_callenge_incorrectly_answered_questions 
-        + the_callenge_incorrectly_answered_questions;
-        statisticsUserToUpdate.the_callenge_total_time_played = statisticsUserToUpdate.the_callenge_total_time_played + the_callenge_total_time_played;
-        statisticsUserToUpdate.the_callenge_games_played = statisticsUserToUpdate.the_callenge_games_played + the_callenge_games_played;
+        statisticsUserToUpdate.the_callenge_earned_money += the_callenge_earned_money;
+        statisticsUserToUpdate.the_callenge_correctly_answered_questions += the_callenge_correctly_answered_questions;
+        statisticsUserToUpdate.the_callenge_incorrectly_answered_questions += the_callenge_incorrectly_answered_questions;
+        statisticsUserToUpdate.the_callenge_total_time_played += the_callenge_total_time_played;
+        statisticsUserToUpdate.the_callenge_games_played += the_callenge_games_played;
+
+        statisticsUserToUpdate.wise_men_stack_earned_money += wise_men_stack_earned_money;
+        statisticsUserToUpdate.wise_men_stack_correctly_answered_questions += wise_men_stack_correctly_answered_questions;
+        statisticsUserToUpdate.wise_men_stack_incorrectly_answered_questions += wise_men_stack_incorrectly_answered_questions;
+        statisticsUserToUpdate.wise_men_stack_games_played += wise_men_stack_games_played;
+
+        statisticsUserToUpdate.warm_question_earned_money += warm_question_earned_money;
+        statisticsUserToUpdate.warm_question_correctly_answered_questions += warm_question_correctly_answered_questions;
+        statisticsUserToUpdate.warm_question_incorrectly_answered_questions += warm_question_incorrectly_answered_questions;
+        statisticsUserToUpdate.warm_question_passed_questions += warm_question_passed_questions;
+        statisticsUserToUpdate.warm_question_games_played += warm_question_games_played;
+
+        statisticsUserToUpdate.discovering_cities_earned_money += discovering_cities_earned_money;
+        statisticsUserToUpdate.discovering_cities_correctly_answered_questions += discovering_cities_correctly_answered_questions;
+        statisticsUserToUpdate.discovering_cities_incorrectly_answered_questions += discovering_cities_incorrectly_answered_questions;
+        statisticsUserToUpdate.discovering_cities_games_played += discovering_cities_games_played;
+
+        statisticsUserToUpdate.online_earned_money += online_earned_money;
+        statisticsUserToUpdate.online_correctly_answered_questions += online_correctly_answered_questions;
+        statisticsUserToUpdate.online_incorrectly_answered_questions += online_incorrectly_answered_questions;
+        statisticsUserToUpdate.online_total_time_played += online_total_time_played;
+        statisticsUserToUpdate.online_games_played += online_games_played;
+        statisticsUserToUpdate.online_games_won += online_games_won;
 
         // Save the changes to the database
         await statisticsUserToUpdate.save();
