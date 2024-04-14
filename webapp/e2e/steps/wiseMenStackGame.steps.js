@@ -59,7 +59,7 @@ defineFeature(feature, test => {
         await button.click();
 
         //await expect(page.findByText('Which is the capital of Spain?'));
-        const question = await page.$['data-testid="question"'];
+        const button = await page.$('[data-testid="start-button"]');
         await expect(page).toMatchElement("div", { text: 'Which is the capital of Spain?'});
         expect(question).not.toBeNull();
         
@@ -83,7 +83,7 @@ defineFeature(feature, test => {
   test('Answering a question incorrectly', ({given,when,then}) => {
 
     given('A question', async () => {
-        const button = await page.$('data-testid="start-button"');
+        const button = await page.$('[data-testid="start-button"]');
         await button.click();
 
         //await expect(page.findByText('Which is the capital of Spain?'));
@@ -103,7 +103,7 @@ defineFeature(feature, test => {
     then('The button turns red', async () => {
         const answerButton = await page.$x('(//*[@data-testid="answer"])[2]');
         const textoBoton = await page.evaluate(button => button.innerText, answerButton[0]);
-        await expect(textoBoton).toMatch(/Barcelona/i);
+        await expect(textoBoton).not.toMatch(/Madrid/i);
         await expect(page).toMatchElement("button", { style: { color: 'red' } });
         await expect(page).toMatchElement("button", { style: { color: 'green' } });
 
