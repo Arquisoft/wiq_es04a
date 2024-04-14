@@ -113,7 +113,26 @@ const Game = () => {
                 the_callenge_correctly_answered_questions:correctlyAnsweredQuestions,
                 the_callenge_incorrectly_answered_questions:incorrectlyAnsweredQuestions,
                 the_callenge_total_time_played:totalTimePlayed,
-                the_callenge_games_played:1
+                the_callenge_games_played:1,
+                wise_men_stack_earned_money: 0,
+                wise_men_stack_correctly_answered_questions: 0,
+                wise_men_stack_incorrectly_answered_questions: 0,
+                wise_men_stack_games_played: 0,
+                warm_question_earned_money: 0,
+                warm_question_correctly_answered_questions: 0,
+                warm_question_incorrectly_answered_questions: 0,
+                warm_question_passed_questions: 0,
+                warm_question_games_played: 0,
+                discovering_cities_earned_money: 0,
+                discovering_cities_correctly_answered_questions: 0,
+                discovering_cities_incorrectly_answered_questions: 0,
+                discovering_cities_games_played: 0,
+                online_earned_money: 0,
+                online_correctly_answered_questions: 0,
+                online_incorrectly_answered_questions: 0,
+                online_total_time_played: 0,
+                online_games_played: 0,
+                online_games_won: 0
             });
         } catch (error) {
             console.error("Error:", error);
