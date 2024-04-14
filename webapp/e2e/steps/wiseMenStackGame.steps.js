@@ -64,7 +64,7 @@ defineFeature(feature, test => {
         expect(question).not.toBeNull();
         
         const answers = await page.$x('//*[@data-testid="answer"]');
-        expect(answers.length).toBe(4);
+        expect(answers.length).toBe(2);
     });
 
     when('I click on the correct answer button', async () => {
@@ -92,7 +92,7 @@ defineFeature(feature, test => {
         expect(question).not.toBeNull();
         
         const answers = await page.$x('//*[@data-testid="answer"]');
-        expect(answers.length).toBe(4);
+        expect(answers.length).toBe(2);
     });
 
     when('I click on an incorrect answer button', async () => {
@@ -106,7 +106,6 @@ defineFeature(feature, test => {
         await expect(textoBoton).not.toMatch(/Madrid/i);
         await expect(page).toMatchElement("button", { style: { color: 'red' } });
         await expect(page).toMatchElement("button", { style: { color: 'green' } });
-
     });
   })
 
