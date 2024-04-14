@@ -55,11 +55,10 @@ defineFeature(feature, test => {
   test('Answering a question correctly', ({given,when,then}) => {
 
     given('A question', async () => {
-        const button = await page.$('data-testid="start-button"');
+        const button = await page.$('[data-testid="start-button"]');
         await button.click();
 
         //await expect(page.findByText('Which is the capital of Spain?'));
-        const button = await page.$('[data-testid="start-button"]');
         await expect(page).toMatchElement("div", { text: 'Which is the capital of Spain?'});
         expect(question).not.toBeNull();
         
