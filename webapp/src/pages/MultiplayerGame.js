@@ -148,11 +148,30 @@ const Game = () => {
             try {
                 await axios.post(`${apiEndpoint}/statistics/edit`, {
                     username:username,
-                    earned_money:totalScore,
-                    classic_correctly_answered_questions:correctlyAnsweredQuestions,
-                    classic_incorrectly_answered_questions:incorrectlyAnsweredQuestions,
-                    classic_total_time_played:totalTimePlayed,
-                    classic_games_played:1
+                    the_callenge_earned_money:0,
+                    the_callenge_correctly_answered_questions:0,
+                    the_callenge_incorrectly_answered_questions:0,
+                    the_callenge_total_time_played:0,
+                    the_callenge_games_played:0,
+                    wise_men_stack_earned_money: 0,
+                    wise_men_stack_correctly_answered_questions: 0,
+                    wise_men_stack_incorrectly_answered_questions: 0,
+                    wise_men_stack_games_played: 0,
+                    warm_question_earned_money: 0,
+                    warm_question_correctly_answered_questions: 0,
+                    warm_question_incorrectly_answered_questions: 0,
+                    warm_question_passed_questions: 0,
+                    warm_question_games_played: 0,
+                    discovering_cities_earned_money: 0,
+                    discovering_cities_correctly_answered_questions: 0,
+                    discovering_cities_incorrectly_answered_questions: 0,
+                    discovering_cities_games_played: 0,
+                    online_earned_money: totalScore,
+                    online_correctly_answered_questions: correctlyAnsweredQuestions,
+                    online_incorrectly_answered_questions: incorrectlyAnsweredQuestions,
+                    online_total_time_played: totalTimePlayed,
+                    online_games_played: 1,
+                    online_games_won: (winnerPlayer == username? 1:0)
                   });
               } catch (error) {
                 console.error("Error:", error);
