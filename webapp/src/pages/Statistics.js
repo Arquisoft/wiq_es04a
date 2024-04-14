@@ -174,6 +174,39 @@ const Statistics = () => {
                         </Table>
                     </TableContainer>
                 );
+                case 'OnlineMode':
+                return (
+                    <TableContainer>
+                        <Table sx={{ minWidth: 360 }} aria-label="The Challenge Statistics">
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell>{ t("Statistics.table.money") }:</TableCell>
+                                    <TableCell>{formatStats(userStatics.online_earned_money)} €</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>{ t("Statistics.table.questions_corr") }:</TableCell>
+                                    <TableCell>{formatStats(userStatics.online_correctly_answered_questions)}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>{ t("Statistics.table.questions_incorr") }:</TableCell>
+                                    <TableCell>{formatStats(userStatics.online_incorrectly_answered_questions)}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>{ t("Statistics.table.total_time") }:</TableCell>
+                                    <TableCell>{formatStats(userStatics.online_total_time_played)} ''</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>{ t("Statistics.table.played_games") }:</TableCell>
+                                    <TableCell>{formatStats(userStatics.online_games_played)}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>{ "Won games" }:</TableCell>
+                                    <TableCell>{formatStats(userStatics.online_games_won)}</TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                );
             default:
                 return null;
         }
@@ -258,6 +291,9 @@ const Statistics = () => {
                     </Button>
                     <Button onClick={() => setSelectedMode('DiscoveringCities')} variant="contained" sx={{ marginBottom: isSmallScreen ? '0.5em' : '0', marginRight: isSmallScreen ? '0' : '0.5em', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>
                         { t("Games.discover.name") }
+                    </Button>
+                    <Button onClick={() => setSelectedMode('OnlineMode')} variant="contained" sx={{ marginBottom: isSmallScreen ? '0.5em' : '0', marginRight: isSmallScreen ? '0' : '0.5em', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>
+                        { "Online Mode" }
                     </Button>
                 </div>
                 {renderStatistics()}
