@@ -1,6 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
-import { Container, Button, CssBaseline, Grid, Typography, CircularProgress, Card, CardContent } from '@mui/material';
+import { Container, Button, CssBaseline, Grid, Typography, CircularProgress, Card, CardContent, Select, MenuItem, useTheme } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useNavigate } from 'react-router-dom';
@@ -20,6 +20,8 @@ const WiseMenStackGame = () => {
 
     //sesion information
     const {username} = useContext(SessionContext);
+    const theme = useTheme();
+
 
     // Traductions
     const { t } = useTranslation();
@@ -36,12 +38,13 @@ const WiseMenStackGame = () => {
     const [totalTimePlayed, setTotalTimePlayed] = React.useState(0);
     const [timerRunning, setTimerRunning] = React.useState(true); // indicate if the timer is working
     const [showConfetti, setShowConfetti] = React.useState(false); //indicates if the confetti must appear
-    const [questionCountdownKey, setQuestionCountdownKey] = React.useState(60); //key to update question timer
+    const [questionCountdownKey, ] = React.useState(60); //key to update question timer
     const [questionCountdownRunning, setQuestionCountdownRunning] = React.useState(false); //property to start and stop question timer
     const [userResponses, setUserResponses] = React.useState([]);
 
     const [category, setCategory] = React.useState('Geography');
     const [possibleAnswers, setPossibleAnswers] = React.useState([]);
+    const [isConfigured, setConfiguration] = React.useState(false);
 
     const [questionHistorial, setQuestionHistorial] = React.useState(Array(round).fill(null));
 
@@ -91,30 +94,42 @@ const WiseMenStackGame = () => {
             // every new round it gets a new question from db
             setQuestionData(quest.data[0]);    
             setButtonStates(new Array(2).fill(null));
-            shufflePossibleOptions(quest.data[0]);
+            getPossibleOptions(quest.data[0]);
         }).catch(error => {
             console.error(error);
         }); 
         
     };
 
-    const shufflePossibleOptions = async (question) => {
+    // It puts 2 possible answers into an array making sure that the correct answer is not repeated
+    const getPossibleOptions = async (question) => {
         var options = [];
         options.push(question.correctAnswer);
-        const randomNumber = Math.floor(Math.random() * question.options.length);
+        let randomNumber ;
+        do {
+           randomNumber = Math.floor(Math.random() * question.options.length);
+        } while (question.options[randomNumber] === question.correctAnswer);
         options.push(question.options[randomNumber]);
+        options = shuffleArray(options);
         setPossibleAnswers(options);
     }
+
+    // Shuffles array
+    function shuffleArray(array) {
+        const random = Math.random();
+        const randomFactor = random < 0.5 ? -1 : 1;
+        return array.sort(() => randomFactor);
+    }
+      
 
     const updateStatistics = async() => {
         try {
             await axios.post(`${apiEndpoint}/statistics/edit`, {
                 username:username,
-                the_callenge_earned_money:totalScore,
-                the_callenge_correctly_answered_questions:correctlyAnsweredQuestions,
-                the_callenge_incorrectly_answered_questions:incorrectlyAnsweredQuestions,
-                the_callenge_total_time_played:60,
-                the_callenge_games_played:1
+                wise_men_stack_earned_money:totalScore,
+                wise_men_stack_correctly_answered_questions:correctlyAnsweredQuestions,
+                wise_men_stack_incorrectly_answered_questions:incorrectlyAnsweredQuestions,
+                wise_men_stack_games_played:1
             });
         } catch (error) {
             console.error("Error:", error);
@@ -126,7 +141,7 @@ const WiseMenStackGame = () => {
             await axios.post(`${apiEndpoint}/user/questionsRecord`, {
                 questions: userResponses,
                 username: username,
-                gameMode: "Wise Men Stack"
+                gameMode: "WiseMenStack"
             });
         } catch (error) {
             console.error("Error:", error);
@@ -138,7 +153,7 @@ const WiseMenStackGame = () => {
         setAnswered(true);
         const newButtonStates = [...buttonStates];
 
-        setQuestionCountdownRunning(false);
+        //setQuestionCountdownRunning(false);
 
         //check answer
         if (response === questionData.correctAnswer) {
@@ -189,7 +204,7 @@ const WiseMenStackGame = () => {
         setTimeout(async() => {
             setRound(round + 1);
             setButtonStates([]);
-        }, 4000);
+        }, 2000);
     };
 
     const questionHistorialBar = () => {
@@ -227,6 +242,50 @@ const WiseMenStackGame = () => {
             </Container>
         );
     }
+
+if(!isConfigured) {
+    return (
+        <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <Typography variant="h2" sx={{ marginBottom: '1em' }}>Wise Men Stack</Typography>
+                <Typography variant="h3" sx={{ marginBottom: '1em' }}>{t("Wise_Men.instructions")}</Typography>
+
+                {/* Dropdown for selecting category */}
+                <div style={{ marginBottom: '1em' }}>
+                    <label variant='h6' style={{ margin: '0.5em' }} htmlFor="category">{t("Wise_Men.category")}</label>
+                    <Select
+                        value={category}
+                        onChange={(event) => setCategory(event.target.value)}
+                        style={{ minWidth: '120px' }}
+                    >
+                        <MenuItem value="Geography">{t("Wise_Men.geography")}</MenuItem>
+                        <MenuItem value="Political">{t("Wise_Men.political")}</MenuItem>
+                        <MenuItem value="Sports">{t("Wise_Men.sports")}</MenuItem>
+                    </Select>
+                </div>
+
+                <Button
+                    onClick={() => { 
+                        setConfiguration(true);
+                        startNewRound(); 
+                        setQuestionHistorial(Array(round).fill(null)); 
+                        console.log(category) 
+                    }}
+                    variant="contained"
+                    sx={{
+                        marginBottom: '0.5em',
+                        backgroundColor: theme.palette.primary.main,
+                        color: theme.palette.secondary.main,
+                        '&:hover': {
+                            backgroundColor: theme.palette.secondary.main,
+                            color: theme.palette.primary.main,
+                        }
+                    }}
+                >
+                    {t("Game.start")}
+                </Button>
+            </Container>
+    );
+}    
 
     // redirect to / if game over 
 if (shouldRedirect) {

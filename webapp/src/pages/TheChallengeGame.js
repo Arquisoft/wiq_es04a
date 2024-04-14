@@ -11,6 +11,7 @@ import Confetti from 'react-confetti';
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import { useTranslation } from 'react-i18next';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -23,6 +24,8 @@ const Game = () => {
     //sesion information
     const {username} = useContext(SessionContext);
     const theme = useTheme();
+
+    const { t } = useTranslation();
 
     // Game configuration state
     const [numRounds, setNumRounds] = React.useState(3);
@@ -255,7 +258,7 @@ const Game = () => {
                         }
                     }}
                 >
-                    Start game
+                    {t("Game.start")}
                 </Button>
             </Container>
         );

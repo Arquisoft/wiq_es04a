@@ -101,11 +101,11 @@ const DiscovertingCitiesGame = () => {
         try {
             await axios.post(`${apiEndpoint}/statistics/edit`, {
                 username:username,
-                the_callenge_earned_money:totalScore,
-                the_callenge_correctly_answered_questions:correctlyAnsweredQuestions,
-                the_callenge_incorrectly_answered_questions:incorrectlyAnsweredQuestions,
-                the_callenge_total_time_played:totalTimePlayed,
-                the_callenge_games_played:1
+                discovering_cities_earned_money:totalScore,
+                discovering_cities_correctly_answered_questions:correctlyAnsweredQuestions,
+                discovering_cities_incorrectly_answered_questions:incorrectlyAnsweredQuestions,
+                //the_callenge_total_time_played:totalTimePlayed,
+                discovering_cities_games_played:1
             });
         } catch (error) {
             console.error("Error:", error);
@@ -117,7 +117,7 @@ const DiscovertingCitiesGame = () => {
             await axios.post(`${apiEndpoint}/user/questionsRecord`, {
                 questions: userResponses,
                 username: username,
-                gameMode: "Discovering Cities"
+                gameMode: "DiscoveringCities"
             });
         } catch (error) {
             console.error("Error:", error);
