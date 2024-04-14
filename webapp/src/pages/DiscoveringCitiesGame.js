@@ -136,7 +136,7 @@ const DiscovertingCitiesGame = () => {
             await axios.post(`${apiEndpoint}/user/questionsRecord`, {
                 questions: userResponses,
                 username: username,
-                gameMode: "Discovering Cities"
+                gameMode: "DiscoveringCities"
             });
         } catch (error) {
             console.error("Error:", error);

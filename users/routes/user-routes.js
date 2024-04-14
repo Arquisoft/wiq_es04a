@@ -23,6 +23,7 @@ router.post('/questionsRecord', async (req, res) => {
 
 // Getting a questions record by username
 router.get('/questionsRecord/:username/:gameMode', async (req, res) => {
+    console.log(2)
     try {
         const username = req.params.username;
         const gameMode = req.params.gameMode;
@@ -34,9 +35,10 @@ router.get('/questionsRecord/:username/:gameMode', async (req, res) => {
                 gameMode: gameMode
             }
         });
+        /*
         if (record.length == 0) {
             return res.status(404).json({ error: 'No record found' });
-        }
+        }*/
 
         res.json(record);
     } catch (error) {
