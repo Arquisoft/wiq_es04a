@@ -142,6 +142,18 @@ io.on('connection', (socket) => {
                 }
             });
       });
+
+      socket.on('join-room-chat', (roomCode, username) => {
+        socket.join(roomCode + "-chat");
+
+        socket.removeAllListeners('send-message');
+
+        socket.on('send-message', (message, roomCode, username) => {
+            io.to(roomCode + "-chat").emit('recieved-message', { username, message });
+        });
+    
+    
+    });
     
   });
 

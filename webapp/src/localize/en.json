@@ -13,7 +13,8 @@
         "groups": "Groups",
         "languages": {
             "en": "English",
-            "es": "Spanish"
+            "es": "Spanish",
+            "fr": "French"
         }
     },
     
@@ -55,7 +56,16 @@
         "time": "Game Time (sec)",
         "pause": "Pause",
         "play": "Play",
-        "round": "Question "
+        "round": "Question ",
+        "start": "Start game"
+    },
+
+    "Wise_Men": {
+        "instructions": "Choose a category:",
+        "category":"Categories: ",
+        "geography": "Geography",
+        "political":"Political",
+        "sports":"Sports"
     },
 
     "Login": {
@@ -117,7 +127,10 @@
             "participants": "Participants",
             "start": "Start game",
             "create": "Create room",
-            "join": "Join room"
+            "join": "Join room",
+            "send": "Send",
+            "chat_title": "Chat of the room",
+            "chat_input_label": "Type your message"
         },
         "Game": {
             "waiting_players_end": "Waiting for players end...",
