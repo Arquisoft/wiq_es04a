@@ -42,6 +42,8 @@ const Game = () => {
     const [questionCountdownKey, setQuestionCountdownKey] = React.useState(15); //key to update question timer
     const [questionCountdownRunning, setQuestionCountdownRunning] = React.useState(false); //property to start and stop question timer
     const [userResponses, setUserResponses] = React.useState([]);
+    const [paused, setPaused] = React.useState(false);
+    const [passNewRound, setPassNewRound] = React.useState(false);
 
     const [questionHistorial, setQuestionHistorial] = React.useState(Array(MAX_ROUNDS).fill(null));
 
@@ -65,7 +67,7 @@ const Game = () => {
         } else {
             setTimerRunning(false);
             setShouldRedirect(true);
-            setQuestionCountdownRunning(false);
+            setQuestionCountdownRunning(false); // Isnt this redundant as it is stablished when answering?
             updateStatistics();
             updateQuestionsRecord();
         }
@@ -75,8 +77,16 @@ const Game = () => {
     // stablish if the confetti must show or not
     React.useEffect(() => {
         correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? setShowConfetti(true) : setShowConfetti(false);
-      }, [correctlyAnsweredQuestions, incorrectlyAnsweredQuestions]);
-    
+    }, [correctlyAnsweredQuestions, incorrectlyAnsweredQuestions]);
+
+    React.useEffect(() => {
+        if (passNewRound && !paused) {
+            setRound(prevRound => {
+                return prevRound + 1;
+            });
+            setButtonStates([]);
+        }
+    }, [paused, passNewRound]);
 
     // gets a random question from the database and initializes button states to null
     const startNewRound = async () => {
@@ -185,8 +195,7 @@ const Game = () => {
         setButtonStates(newButtonStates);
 
         setTimeout(async() => {
-            setRound(round + 1);
-            setButtonStates([]);
+            setPassNewRound(true);
         }, 4000);
     };
 
@@ -199,20 +208,11 @@ const Game = () => {
             >
             </Card>
         ));
-      };    
+    };    
 
     const togglePause = () => {
         setTimerRunning(!timerRunning);
-
-        // INNECESARIO TRAS LOS CAMBIOS, QUITAR AL SOLUCIONARLO
-        // setQuestionCountdownRunning(!timerRunning);
-        // if (timerRunning) {
-        //     // Si el juego estaba en marcha y se pausa, deshabilitar los botones
-        //     setButtonStates(new Array(questionData.options.length).fill(true));
-        // } else {
-        //     // Si el juego estaba pausado y se reanuda, habilitar los botones
-        //     setButtonStates(new Array(questionData.options.length).fill(null));
-        // }
+        setPaused(!paused);
     }
 
     // circular loading
@@ -288,8 +288,8 @@ const Game = () => {
                 { answered ?
                     // Pausa
                     <Button variant="contained" onClick={() => togglePause()} sx={{ marginBottom:'2em ' }}>
-                        {timerRunning ? <Pause /> : <PlayArrow />}
-                        {timerRunning ? t("Game.pause") : t("Game.play") }
+                        { paused ? <PlayArrow /> : <Pause /> }
+                        { paused ? t("Game.play") : t("Game.pause") }
                     </Button>
                     :
                     // Cronómetro
