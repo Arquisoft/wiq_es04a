@@ -1,69 +1,106 @@
 import * as React from 'react';
-import { Container, Button, Box, Pagination, useTheme } from '@mui/material';
+import { Button, Box, Grid } from '@mui/material';
 import data from "../data/gameInfo.json";
+import CardComponent from "../components/CardComponent.js";
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 
 const Homepage = () => {
-    const theme = useTheme();
+    const xxl = useMediaQuery('(min-width:1920px)');
     const styles = {
-        // Object that stores the button styles in normal state
-        buttonNormal : {
-            width: "60%",
-            height: "3rem",
-            margin: '0.7vh',
-            '&:hover': { backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main,},
+
+        cardButton:{
+            width: {
+                xs: '7.2rem',
+                sm: '10..4rem',
+                md: '9.6rem',
+                lg: '12rem',
+                xl: '16rem',
+            },
+            height: {
+                xs: '9rem',
+                sm: '13rem',
+                md: '12rem',
+                lg: '15rem',
+                xl: '20rem',
+            },
+            marginLeft: '1.5rem',
+            marginRight:'1.5rem',
+            marginTop:'1.5rem'
         },
-    
-        // Constant that stores the styles of the button when it is clicked
-        buttonClicked : {
-            width: "70%",
-            height: "3rem",
-            margin: '0.5vh',
-            backgroundColor: theme.palette.success.main,
-            color: theme.palette.secondary.main,
-            transition: 'width 0.1s ease-in-out, height 0.1s ease-in-out',
-            borderColor:theme.palette.success.main,
-            '&:hover': { backgroundColor: theme.palette.success.main, borderColor:theme.palette.success.main,},
+
+        cardButtonMax:{
+            width: '17rem',
+            height: '25rem',
+            marginLeft: '1.5rem',
+            marginRight:'1.5rem',
         },
-    
-        // Constant that stores the styles of the images
-        img : {
-            boxShadow: `-50px -50px 0 -30px ${theme.palette.error.main}, 50px 50px 0 -30px ${theme.palette.primary.main}`,
-            border:' 4px solid black',
-            width: '50%',
-        },
-    
-        // Constant that stores the styles of the play button
+
         playButton : {
-            height: "4rem",
-            width: "10rem",
-            marginTop:'7vh',
-            fontSize:'1.5rem',
+            height: {
+                xs: '2.5rem', // Tamaño para dispositivos extra pequeños
+                sm: '3rem', // Tamaño para dispositivos pequeños
+                md: '3.5rem', // Tamaño para dispositivos medianos
+                lg: '4rem', // Tamaño para dispositivos grandes
+                xl: '6rem' // Tamaño para dispositivos extra grandes
+            },
+            width: {
+                xs: '10rem',
+                sm: '12rem',
+                md: '13.5rem',
+                lg: '14.5rem',
+                xl: '20rem'
+            },
+            fontSize: {
+                xs: '0.8rem',
+                sm: '0.9rem',
+                md: '1rem',
+                lg: '1.1rem',
+                xl: '1.2rem'
+            },
+
+            marginTop:'3rem',
+            marginBottom:'3rem',
             fontFamily: 'Arial Black, sans-serif',
-    
-            color: theme.palette.success.main,
-            backgroundColor: 'transparent',
-            border: `2px solid ${theme.palette.success.main}`,
+
+            color: 'rgba(0,0,0,0.8)',
+            backgroundColor: 'rgba(255,255,255,0.5)',
+            border: `2px solid ${'white'}`,
             transition: 'background-color 0.3s ease',
-    
+
             '&:hover': {
-              backgroundColor: theme.palette.success.main,
-              color: theme.palette.secondary.main,
+              backgroundColor: 'white',
+              color: 'black',
             }
         },
-    
+
+        container:{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: 'center',
+            flexGrow: 1,
+            backgroundImage: 'url(\'.//BackgroundApagado.jpg\')',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+
+        },
     }
 
     // List of games on this page
     const [games, setGames] = React.useState(null);
 
-    // Game to show info about and the comp with the info
-    const [gamePhoto, setGamePhoto] = React.useState(null);
 
     // Whole information about games
     const [info, setInfo] = React.useState(null);
 
     // Link to each game page
     const [gameLink, setGameLink] = React.useState("");
+
+    //Selected index
+    const [activeIndex, setActiveIndex] = React.useState(0); // Nuevo estado para el índice activo
+
 
     //Update the game information
     React.useEffect(() => {
@@ -73,75 +110,68 @@ const Homepage = () => {
     //Does the initial loading of the page elements
     React.useEffect(() => {
         // If game information (info) has been loaded and there is no game information currently displayed
-        if (info !== null && gamePhoto === null) {
+        if (info !== null) {
             // Show the information of the first game
-            displayGames(info, 1,0,4,0)
-            displayGamePhoto(0);
+            displayGames(info)
         }
     });
 
-    // Update the selected page number, page games and game photo
-    const handlePageChange = (event, page) => {
-        displayGames(info, page, (page-1)*4, (page*4),0);
-        displayGamePhoto((page-1)*4);
-        changeGameLink((page-1)*4)
-    };
 
     // Update the selected page number, page games and game photo
-    const handleButtonClick = (index, first, page) => {
-        displayGames(info, page, (page-1)*4, (page*4), index);
-        displayGamePhoto(index+first);
-        changeGameLink(index+first);
+    const handleButtonClick = (index) => {
+        setActiveIndex(index)
+        changeGameLink(index);
     };
 
     //if online mode -> change link to go to online room
     const changeGameLink = (index) => {
-        if(info[index].nombre === "ONLINE MODE") {
-            setGameLink("/multiplayerRoom")
-        } else {
-            setGameLink("/game")
+        switch (info[index].nombre) {
+            case "WISE MEN STACK":
+                setGameLink("/game");
+                break;
+            case "WARM QUESTION":
+                setGameLink("/game");
+                break;
+            case "DISCOVERING CITIES":
+                setGameLink("/game");
+                break;
+            case "THE CHALLENGE":
+                setGameLink("/game");
+                break;
+            case "ONLINE MODE":
+                setGameLink("/multiplayerRoom");
+                break;
+            default:
+                setGameLink("/game");
+                break;
         }
     }
 
 
     // Responsible for generating the buttons with the names of the games and the pagination element
-    const displayGames = (info, page, first, last, activeIndex) => {
+    const displayGames = (info) => {
         setGames(
-            <Box sx={{ display: 'flex', flexDirection: "column", justifyContent: "center", alignItems: 'center', width: '50%', flexGrow: 1,}}>
-                {info.slice(first, last).map((option, index) => (
-                    <Button key={'game'+index} variant="outlined" sx={activeIndex === index ? styles.buttonClicked : styles.buttonNormal} onClick={() => handleButtonClick(index, first,page)}>
-                        {option.nombre}
-                    </Button>
+            <Grid container spacing={2} justifyContent="center" alignItems="center">
+                {info.map((option, index) => (
+                    <Grid item xs={index < 3 ? 4 : 6} sm={index < 3 ? 4 : 6} md={2} lg={2} xl={2} key={'game-' + index} sx={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center',}}>
+                        <Button sx={xxl ? styles.cardButtonMax : styles.cardButton} onClick={() => handleButtonClick(index)}>
+                            <CardComponent
+                                imageUrl={option.cardFoto}
+                                title={option.nombre}
+                                isActive={index === activeIndex}
+                            />
+                        </Button>
+                    </Grid>
                 ))}
-                <Pagination count={info ? Math.ceil(info.length / 4) : 1} color="primary" size='medium' page={page} onChange={handlePageChange}  sx={{marginTop:'20px',}}/>
-            </Box>
+            </Grid>
         );
     };
 
-    //Update component that has the photo of the selected game
-    const displayGamePhoto = (index) => {
-        if (info !== null) {
-            setGamePhoto(
-                <Box sx={{display:{xs:'none', md:'flex'}, flexGrow:1, flexDirection: "row", justifyContent: "center", alignItems:'center', width:'50%',}}>
-                    <img
-                        style={styles.img}
-                        src={info[index].foto}
-                        alt="Foto del juego"
-                    />
-
-                </Box>
-            );
-        }
-    };
-
     return (
-        <Container sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center', flexGrow: 1, paddingTop: "4vh", marginTop:'3vh', paddingBottom: "4vh", marginBottom:'2vh'}}>
-            <Box sx={{ display: 'flex', flexDirection: "row", justifyContent: "center", alignItems: 'center', width: '100%'}}>
-                {games}
-                {gamePhoto}
-            </Box>
+        <Box sx={{...styles.container }}>
+            {games}
             <Button variant='conteined' href={gameLink} sx={styles.playButton}> PLAY </Button>
-        </Container>
+        </Box>
     );
 };
 
