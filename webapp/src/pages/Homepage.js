@@ -98,7 +98,11 @@ const Homepage = () => {
     const changeGameLink = (index) => {
         if(info[index].nombre === "ONLINE MODE") {
             setGameLink("/multiplayerRoom")
-        } else {
+        } else if (info[index].nombre === "DISCOVERING CITIES") {
+            setGameLink("/discoveringCitiesGame")
+        }else if(info[index].nombre === "THE CHALLENGE") {
+            setGameLink("/TheChallengeGame")
+        }else {
             setGameLink("/game")
         }
     }

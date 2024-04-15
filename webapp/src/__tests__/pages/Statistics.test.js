@@ -12,12 +12,77 @@ const mockAxios = new MockAdapter(axios);
 
 describe('Statistics component', () => {
   beforeAll(async () => {
-    mockAxios.onPost('http://localhost:8000/user/add').reply(200, {
-      username: 'testuser',
-      password: 'test123', //NOSONAR
-      name: 'Test',
-      surname: 'User'
+    mockAxios.onGet('http://localhost:8000/user/statistics/testuser').reply(200, {
+      wise_men_stack_earned_money: 50,
+      wise_men_stack_correctly_answered_questions: 8,
+      wise_men_stack_incorrectly_answered_questions: 12,
+      wise_men_stack_games_played: 15,
+      warm_question_earned_money: 75,
+      warm_question_correctly_answered_questions: 15,
+      warm_question_incorrectly_answered_questions: 3,
+      warm_question_passed_questions: 12,
+      warm_question_games_played: 10,
+      discovering_cities_earned_money: 90,
+      discovering_cities_correctly_answered_questions: 18,
+      discovering_cities_incorrectly_answered_questions: 6,
+      discovering_cities_games_played: 12,
     });
+    
+    mockAxios.onGet('http://localhost:8000/user/questionsRecord/testuser/TheChallenge').reply(200, [
+      {
+        createdAt: '2024-04-11T12:00:00Z',
+        questions: [
+        {
+          question: 'What is 1 + 1?',
+          options: ['1', '2', '3', '4'],
+          correctAnswer: '2',
+          response: '2',
+        },
+        ],
+      },
+    ]);
+
+    mockAxios.onGet('http://localhost:8000/user/questionsRecord/testuser/WiseMenStack').reply(200, [
+      {
+        createdAt: '2024-04-11T12:00:00Z',
+        questions: [
+        {
+          question: 'What is 1 + 1?',
+          options: ['1', '2', '3', '4'],
+          correctAnswer: '2',
+          response: '2',
+        },
+        ],
+      },
+    ]);
+
+    mockAxios.onGet('http://localhost:8000/user/questionsRecord/testuser/WarmQuestion').reply(200, [
+      {
+        createdAt: '2024-04-11T12:00:00Z',
+        questions: [
+        {
+          question: 'What is 1 + 1?',
+          options: ['1', '2', '3', '4'],
+          correctAnswer: '2',
+          response: '2',
+        },
+        ],
+      },
+    ]);
+
+    mockAxios.onGet('http://localhost:8000/user/questionsRecord/testuser/DiscoveringCities').reply(200, [
+      {
+        createdAt: '2024-04-11T12:00:00Z',
+        questions: [
+        {
+          question: 'What is 1 + 1?',
+          options: ['1', '2', '3', '4'],
+          correctAnswer: '2',
+          response: '2',
+        },
+        ],
+      },
+    ]);
   });
 
   it('should render Statistics component with correct user statistics', async () => {
@@ -39,6 +104,12 @@ describe('Statistics component', () => {
     expect(screen.getByText(/^0\s''$/)).toBeInTheDocument();
     expect(screen.getByText('Games Played:')).toBeInTheDocument();
     expect(screen.getAllByText('0')).toHaveLength(3);
+
+    fireEvent.click(screen.getByText('Show Questions Record'));
+
+    await screen.findByText('Game 04/11/2024, 14:00');
+    expect(screen.getByText('What is 1 + 1?')).toBeInTheDocument();
+    expect(screen.getByText('2')).toBeInTheDocument();
   });
 
   it('should render Statistics component with correct user statistics for Wise Men Stack mode', async () => {
@@ -56,11 +127,19 @@ describe('Statistics component', () => {
 
     expect(screen.getByText('Wise Men Stack')).toBeInTheDocument();
     expect(screen.getByText('Earned Money:')).toBeInTheDocument();
-    expect(screen.getByText('0 €')).toBeInTheDocument();
+    expect(screen.getByText('50 €')).toBeInTheDocument();
     expect(screen.getByText('Correctly Answered Questions:')).toBeInTheDocument();
+    expect(screen.getAllByText('8'));
     expect(screen.getByText('Incorrectly Answered Questions:')).toBeInTheDocument();
+    expect(screen.getAllByText('12'));
     expect(screen.getByText('Games Played:')).toBeInTheDocument();
-    expect(screen.getAllByText('0')).toHaveLength(3);
+    expect(screen.getAllByText('15'));
+
+    fireEvent.click(screen.getByText('Show Questions Record'));
+
+    await screen.findByText('Game 04/11/2024, 14:00');
+    expect(screen.getByText('What is 1 + 1?')).toBeInTheDocument();
+    expect(screen.getByText('2')).toBeInTheDocument();
   });
 
   it('should render Statistics component with correct user statistics for Warm Question mode', async () => {
@@ -78,12 +157,21 @@ describe('Statistics component', () => {
 
     expect(screen.getByText('Warm Question')).toBeInTheDocument();
     expect(screen.getByText('Earned Money:')).toBeInTheDocument();
-    expect(screen.getByText('0 €')).toBeInTheDocument();
+    expect(screen.getByText('75 €')).toBeInTheDocument();
     expect(screen.getByText('Correctly Answered Questions:')).toBeInTheDocument();
+    expect(screen.getAllByText('15'));
     expect(screen.getByText('Incorrectly Answered Questions:')).toBeInTheDocument();
+    expect(screen.getAllByText('3'));
     expect(screen.getByText('Passed Questions:')).toBeInTheDocument();
+    expect(screen.getAllByText('12'));
     expect(screen.getByText('Games Played:')).toBeInTheDocument();
-    expect(screen.getAllByText('0')).toHaveLength(4);
+    expect(screen.getAllByText('10'));
+
+    fireEvent.click(screen.getByText('Show Questions Record'));
+
+    await screen.findByText('Game 04/11/2024, 14:00');
+    expect(screen.getByText('What is 1 + 1?')).toBeInTheDocument();
+    expect(screen.getByText('2')).toBeInTheDocument();
   });
 
   it('should render Statistics component with correct user statistics for Discovering Cities mode', async () => {
@@ -101,10 +189,18 @@ describe('Statistics component', () => {
 
     expect(screen.getByText('Discovering Cities')).toBeInTheDocument();
     expect(screen.getByText('Earned Money:')).toBeInTheDocument();
-    expect(screen.getByText('0 €')).toBeInTheDocument();
+    expect(screen.getByText('90 €')).toBeInTheDocument();
     expect(screen.getByText('Correctly Answered Cities:')).toBeInTheDocument();
+    expect(screen.getByText('18')).toBeInTheDocument();
     expect(screen.getByText('Incorrectly Answered Cities:')).toBeInTheDocument();
+    expect(screen.getByText('6')).toBeInTheDocument();
     expect(screen.getByText('Games Played:')).toBeInTheDocument();
-    expect(screen.getAllByText('0')).toHaveLength(3);
+    expect(screen.getAllByText('12'));
+
+    fireEvent.click(screen.getByText('Show Questions Record'));
+
+    await screen.findByText('Game 04/11/2024, 14:00');
+    expect(screen.getByText('What is 1 + 1?')).toBeInTheDocument();
+    expect(screen.getByText('2')).toBeInTheDocument();
   });
 });

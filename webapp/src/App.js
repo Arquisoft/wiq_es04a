@@ -7,12 +7,14 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Homepage from './pages/Homepage';
 import Game from './pages/Game';
+import DiscoveringCitiesGame from './pages/DiscoveringCitiesGame';
 import Groups from './pages/Groups';
 import GroupDetails from './pages/GroupDetails';
 import Statistics from './pages/Statistics';
 import Ranking from './pages/Ranking'
 import MultiplayerRoom from './pages/MultiplayerRoom';
 import MultiplayerGame from './pages/MultiplayerGame';
+import TheChallengeGame from './pages/TheChallengeGame';
 import {Route, Routes} from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Box } from '@mui/material';
@@ -52,7 +54,9 @@ function App() {
             <Route path="/instructions" element={<Instructions />}/>
             <Route path="/homepage" element={<Homepage />}/>
             <Route path="/game" element={<Game />}/>
+            <Route path="/discoveringCitiesGame" element={<DiscoveringCitiesGame />}/>
             <Route path="/multiplayerRoom" element={<MultiplayerRoom />}/>
+            <Route path="/TheChallengeGame" element={<TheChallengeGame />}/>
             <Route path="/multiplayerGame" element={<MultiplayerGame />}/>
             <Route path="/group/menu" element={<Groups />}/>
             <Route path="/group/:groupName" element={<GroupDetails />} />
