@@ -498,12 +498,59 @@ router.get('/ranking', async (req, res) => {
 
 router.get('/group/ranking', async (req, res) => {
     try {
-       
-        
-
-
-
-
+        const groupStatistics = await Groups.findAll({
+            attributes: [
+                'name',
+                [
+                    sequelize.literal(`
+                        SUM(statistics.the_callenge_earned_money +
+                        statistics.wise_men_stack_earned_money +
+                        statistics.warm_question_earned_money +
+                        statistics.discovering_cities_earned_money)
+                    `),
+                    'totalMoney'
+                ],
+                [
+                    sequelize.literal(`
+                        SUM(statistics.the_callenge_correctly_answered_questions +
+                        statistics.wise_men_stack_correctly_answered_questions +
+                        statistics.warm_question_correctly_answered_questions +
+                        statistics.discovering_cities_correctly_answered_questions)
+                    `),
+                    'totalCorrectAnswers'
+                ],
+                [
+                    sequelize.literal(`
+                        SUM(statistics.the_callenge_incorrectly_answered_questions +
+                        statistics.wise_men_stack_incorrectly_answered_questions +
+                        statistics.warm_question_incorrectly_answered_questions +
+                        statistics.discovering_cities_incorrectly_answered_questions)
+                    `),
+                    'totalIncorrectAnswers'
+                ],
+                [
+                    sequelize.literal(`
+                        SUM(statistics.the_callenge_games_played +
+                        statistics.wise_men_stack_games_played +
+                        statistics.warm_question_games_played +
+                        statistics.discovering_cities_games_played)
+                    `),
+                    'totalTimePlayed'
+                ]
+            ],
+            include: [{
+                model: UserGroup,
+                attributes: [],
+                include: [{
+                    model: Statistics,
+                    attributes: [],
+                    required: true
+                }]
+            }],
+            group: ['Group.name'],
+            order: [['totalMoney', 'DESC']]
+        });
+        res.json({ rank: groupStatistics });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }

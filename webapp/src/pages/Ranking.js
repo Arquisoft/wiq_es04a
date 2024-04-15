@@ -16,15 +16,15 @@ const Ranking = () => {
         //   setRows(response.data.rank);
 
         setRows( [
-            { id: "alberto"             , totalGames: 5, totalMoney: 1, totalCorrectAnswers:1, totalIncorrectAnswers:6},
-            { id: "momazos piolu"       , totalGames: 4, totalMoney: 2, totalCorrectAnswers:2, totalIncorrectAnswers:5},
-            { id: "de la uz"            , totalGames: 3, totalMoney: 3, totalCorrectAnswers:15, totalIncorrectAnswers:4},
-            { id: "de la cal"           , totalGames: 2, totalMoney: 4, totalCorrectAnswers:6, totalIncorrectAnswers:3},
-            { id: "muerte a los moros"  , totalGames: 1, totalMoney: 5, totalCorrectAnswers:7, totalIncorrectAnswers:2},
-            { id: "mohamed muerete", totalGames: 0, totalMoney: 6, totalCorrectAnswers:3, totalIncorrectAnswers:1},
-            { id: "de la cal2"           , totalGames: 2, totalMoney: 4, totalCorrectAnswers:6, totalIncorrectAnswers:3},
-            { id: "muerte a los moros2"  , totalGames: 1, totalMoney: 5, totalCorrectAnswers:7, totalIncorrectAnswers:2},
-            { id: "mohamed muerete2", totalGames: 0, totalMoney: 6, totalCorrectAnswers:3, totalIncorrectAnswers:1}
+            { id: "alberto"      , totalGames: 5, totalMoney: 1, totalCorrectAnswers:1, totalIncorrectAnswers:6},
+            { id: "momazos piolu", totalGames: 4, totalMoney: 2, totalCorrectAnswers:2, totalIncorrectAnswers:5},
+            { id: "de la uz"     , totalGames: 3, totalMoney: 3, totalCorrectAnswers:15, totalIncorrectAnswers:4},
+            { id: "de la cal"    , totalGames: 2, totalMoney: 4, totalCorrectAnswers:6, totalIncorrectAnswers:3},
+            { id: "moros"        , totalGames: 1, totalMoney: 5, totalCorrectAnswers:7, totalIncorrectAnswers:2},
+            { id: "mohamed"      , totalGames: 0, totalMoney: 6, totalCorrectAnswers:3, totalIncorrectAnswers:1},
+            { id: "de la cal2"   , totalGames: 2, totalMoney: 4, totalCorrectAnswers:6, totalIncorrectAnswers:3},
+            { id: "moros2"       , totalGames: 1, totalMoney: 5, totalCorrectAnswers:7, totalIncorrectAnswers:2},
+            { id: "mohamed2"     , totalGames: 0, totalMoney: 6, totalCorrectAnswers:3, totalIncorrectAnswers:1}
         ]);
 
         // })
@@ -34,17 +34,17 @@ const Ranking = () => {
     };
 
     const fetchGroupsRanking = async () => {
-        // axios.get(`${apiEndpoint}/user/ranking`)
+        // axios.get(`${apiEndpoint}/user/group/ranking`)
         // .then((response) => {
         //   setRows(response.data.rank);
 
-        setRows( [
-            { id: "alberto"             , totalGames: 5, totalMoney: 1, totalCorrectAnswers:1, totalIncorrectAnswers:6},
-            { id: "momazos piolu"       , totalGames: 4, totalMoney: 2, totalCorrectAnswers:2, totalIncorrectAnswers:5},
-            { id: "de la uz"            , totalGames: 3, totalMoney: 3, totalCorrectAnswers:15, totalIncorrectAnswers:4},
-            { id: "de la cal"           , totalGames: 2, totalMoney: 4, totalCorrectAnswers:6, totalIncorrectAnswers:3},
-            { id: "muerte a los moros"  , totalGames: 1, totalMoney: 5, totalCorrectAnswers:7, totalIncorrectAnswers:2},
-        ]);
+        // setRows( [
+        //     { id: "alberto"      , totalGames: 5, totalMoney: 1, totalCorrectAnswers:1, totalIncorrectAnswers:6},
+        //     { id: "momazos piolu", totalGames: 4, totalMoney: 2, totalCorrectAnswers:2, totalIncorrectAnswers:5},
+        //     { id: "de la uz"     , totalGames: 3, totalMoney: 3, totalCorrectAnswers:15, totalIncorrectAnswers:4},
+        //     { id: "de la cal"    , totalGames: 2, totalMoney: 4, totalCorrectAnswers:6, totalIncorrectAnswers:3},
+        //     { id: "moros"        , totalGames: 1, totalMoney: 5, totalCorrectAnswers:7, totalIncorrectAnswers:2},
+        // ]);
 
         // })
         // .catch((error) => {
@@ -57,7 +57,7 @@ const Ranking = () => {
     }, []);
     
     const columns = [
-        { field: 'id', headerName: 'USERNAME', flex: 1, align: 'center', headerAlign: 'center'},
+        { field: 'id', headerName: 'NAME', flex: 1, align: 'center', headerAlign: 'center'},
         { field: 'totalGames', headerName: 'TOTAL GAMES', flex: 1, align: 'center', headerAlign: 'center'  },
         { field: 'totalMoney', headerName: 'TOTAL MONEY', flex: 1, align: 'center', headerAlign: 'center'  },
         { field: 'totalCorrectAnswers', headerName: 'CORRECT ANSWERS', flex: 1, align: 'center', headerAlign: 'center'  },
@@ -88,10 +88,10 @@ const Ranking = () => {
             columns={columns}
             initialState={{
                 pagination: {
-                    paginationModel: { page: 0, pageSize: 6 },
+                    paginationModel: { page: 0, pageSize: 5 },
                 },
             }} 
-            pageSizeOptions={[6, 10, 20]}
+            pageSizeOptions={[5, 10, 20]}
             sx={{ 
                 width: '100%',
                 backgroundColor: 'rgba(84,95,95,0.3)',

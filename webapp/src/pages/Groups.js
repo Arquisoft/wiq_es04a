@@ -125,11 +125,17 @@ const Groups = () => {
                   See Members
                 </Button>
                 {group.isMember ? (
-                  <Button variant="contained" onClick={() => exitFromGroup(group.name)} sx={{ backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main } }}>
-                    {group.isCreator ? ('DELETE'):('EXIT IT!')}
-                  </Button>
+                  group.isCreator ? (
+                    <Button variant="contained" onClick={() => exitFromGroup(group.name)} sx={{ backgroundColor: '#FFFFFF', color: theme.palette.error.main, borderColor: theme.palette.error.main, '&:hover': { backgroundColor: theme.palette.secondary.main } }}>
+                      DELETE
+                    </Button>
+                  ):(
+                    <Button variant="contained" onClick={() => exitFromGroup(group.name)} sx={{ backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main } }}>
+                      EXIT IT!
+                    </Button>
+                    )
                 ) : group.isFull ? (
-                  <Button variant="contained" sx={{ backgroundColor: theme.palette.error.main, color: theme.palette.error.main, borderColor: theme.palette.error.main, '&:hover': { backgroundColor: theme.palette.secondary.main } }}>
+                  <Button variant="contained" sx={{ backgroundColor: theme.palette.secondary.main, color: '#FFFFFF', borderColor: theme.palette.error.main, '&:hover': { backgroundColor: theme.palette.secondary.main } }}>
                     FILLED
                   </Button>
                 ) : (
@@ -155,8 +161,6 @@ const Groups = () => {
       </Container>
     </Container>
     );
-    
-
 }
 
 export default Groups;

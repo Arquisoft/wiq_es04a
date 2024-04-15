@@ -146,6 +146,14 @@ app.get('/user/group/list', async (req, res) => {
   }
 });
 
+app.get('/user/group/ranking', async (req, res) => {
+  try {
+    const groupResponse = await axios.get(`${userServiceUrl}/user/group/ranking`);
+    res.json(groupResponse.data);
+  } catch (error) {
+    handleErrors(res, error);
+  }
+});
 
 app.post('/group/add', async (req, res) => {
   try {
