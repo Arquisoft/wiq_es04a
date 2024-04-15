@@ -415,9 +415,7 @@ router.get('/statistics/:username', async (req,res) => {
         const loggedUser = req.query.loggedUser;
 
         if(loggedUser === null || loggedUser === undefined){
-            if(!hasCommonGroup){
-                return res.status(403).json({ error: 'You must be logged to see a user statistics' });
-            }
+            return res.status(403).json({ error: 'You must be logged to see a user statistics' });
         }else if(username !== loggedUser){
             const userGroups = await UserGroup.findAll({
                 where: {

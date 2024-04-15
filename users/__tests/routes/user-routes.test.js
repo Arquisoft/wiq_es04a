@@ -794,6 +794,7 @@ describe('User Routes', () => {
             };
             await Statistics.create(initialStatistics);
 
+
             const newUser2 = {
                 username: 'testuser2',
                 password: password,
@@ -850,6 +851,122 @@ describe('User Routes', () => {
             expect(secondGroup.id).toBe("testgroup3");
             expect(secondGroup.totalMoney).toBe(300);
         });
+    });
+
+    it('should allow a user to exit a group', async () => {
+        await User.create({
+            username: 'testuser',
+            password: 'password',
+            name: 'Test',
+            surname: 'User'
+        });
+
+        await Group.create({
+            name: 'testgroup',
+            creator: 'testuser'
+        });
+
+        await UserGroup.create({
+            username: 'testuser',
+            groupName: 'testgroup'
+        });
+
+        const response = await request(app)
+            .post('/user/group/testgroup/exit')
+            .send({ username: 'testuser' })
+            .expect(200);
+
+        expect(response.status).toBe(200);
+
+        const userGroup = await UserGroup.findOne({
+            where: {
+                username: 'testuser',
+                groupName: 'testgroup'
+            }
+        });
+
+        expect(userGroup).toBeNull();
+    });
+
+    it('should allow viewing statistics of a user if logged in user has common group', async () => {
+        await User.create({
+            username: 'testuser1',
+            password: 'password1',
+            name: 'Test1',
+            surname: 'User1'
+        });
+
+        await User.create({
+            username: 'testuser2',
+            password: 'password2',
+            name: 'Test2',
+            surname: 'User2'
+        });
+
+        await Group.create({
+            name: 'testgroup',
+            creator: 'testuser1'
+        });
+
+        await UserGroup.create({
+            username: 'testuser1',
+            groupName: 'testgroup'
+        });
+
+        await UserGroup.create({
+            username: 'testuser2',
+            groupName: 'testgroup'
+        });
+
+        await Statistics.create({
+            username: 'testuser2',
+            the_callenge_earned_money: 100,
+            the_callenge_correctly_answered_questions: 5,
+            the_callenge_incorrectly_answered_questions: 2,
+            the_callenge_total_time_played: 3600,
+            the_callenge_games_played: 3
+        });
+
+        const response = await request(app)
+            .get('/user/statistics/testuser2')
+            .query({ loggedUser: 'testuser1' })
+            .expect(200);
+
+        expect(response.body).toHaveProperty('username', 'testuser2');
+        expect(response.body).toHaveProperty('the_callenge_earned_money', 100);
+        expect(response.body).toHaveProperty('the_callenge_correctly_answered_questions', 5);
+        expect(response.body).toHaveProperty('the_callenge_incorrectly_answered_questions', 2);
+        expect(response.body).toHaveProperty('the_callenge_total_time_played', 3600);
+        expect(response.body).toHaveProperty('the_callenge_games_played', 3);
+    });
+
+    it('should return an error if user is not logged in or has no common group', async () => {
+        await User.create({
+            username: 'testuser1',
+            password: 'password1',
+            name: 'Test1',
+            surname: 'User1'
+        });
+
+        await User.create({
+            username: 'testuser2',
+            password: 'password2',
+            name: 'Test2',
+            surname: 'User2'
+        });
+
+        const responseWithoutLoggedUser = await request(app)
+            .get('/user/statistics/testuser2')
+            .expect(403);
+
+        expect(responseWithoutLoggedUser.body).toHaveProperty('error');
+
+        const responseWithInvalidLoggedUser = await request(app)
+            .get('/user/statistics/testuser2')
+            .query({ loggedUser: 'testuser1' })
+            .expect(403);
+
+        expect(responseWithInvalidLoggedUser.body).toHaveProperty('error');
     });
 
 });
