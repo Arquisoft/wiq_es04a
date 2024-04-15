@@ -1,10 +1,49 @@
 import * as React from "react";
-import { Button, Typography, Grid, Container, CssBaseline, useTheme } from "@mui/material";
+import { Button, Typography, Grid, Box ,CssBaseline } from "@mui/material";
 import data from "../data/gameInfo.json";
 
 
 const Instructions = () => {
-    const theme = useTheme();
+
+    const styles = {
+
+        button:{
+            color: 'black',
+            backgroundColor:'transparent',
+            width: "100%",
+            height: "100px",
+            border: '2px solid black',
+            borderRadius: '5px',
+        },
+
+        selectedButton:{
+
+            color: 'black',
+            backgroundColor:'rgba(255,255,255,0.6)',
+            width: "100%",
+            height: "100px",
+            border: '2px solid black',
+            borderRadius: '5px'
+        },
+
+        fullScreen: {
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: 'center',
+            flex: 1,
+            width: '100vw',
+            height: '100vh',
+            margin: 0,
+            padding: 0,
+        },
+
+        game:{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: 'center',
+        },
+    };
 
     // Whole information about games
     const [info, setInfo] = React.useState(null);
@@ -26,15 +65,13 @@ const Instructions = () => {
         }
         else {
             setGameInfo(
-                <Grid container spacing={{ xs: 2, md: 4 }} columns={{ xs: 2, md: 4 }} >
-                    <Grid item xs={2}>
-                        <img src={info[index].foto} alt="Foto del minijuego" style={{ maxWidth: "100%", border: `2px solid ${theme.palette.primary.main}`, borderRadius: "5px"}}/>
-                    </Grid>
-                    <Grid item xs={2} sx={{ display: "flex", flexDirection: "column", justifyContent: "space-evenly" }}>
+                <Box sx={{...styles.game, flexDirection:'row',gap:'2rem', paddingTop:'2rem'}}>
+                    <img src={info[index].foto} alt="Foto del minijuego" style={{ width: "25%", border: `2px solid black`, borderRadius: "5px", marginTop:'2rem'}}/>
+                    <Box sx={{...styles.game, flexDirection: "column", width:'50%'}}>
                         <Typography variant="h3" align="center" fontWeight="bold"> {info[index].nombre} </Typography>
-                        <Typography  variant="body1" align="center" sx={{ textAlign: "justify", background: "none" }}> {info[index].descripcion} </Typography>
-                    </Grid>
-                </Grid>
+                        <Typography  variant="body1" align="center" sx={{ textAlign: "justify", background: "none", paddingTop:'2rem', width:'80%'}}> {info[index].descripcion} </Typography>
+                    </Box>
+                </Box>
             );
             setGameDisplayed(index);
         }
@@ -45,23 +82,29 @@ const Instructions = () => {
     }
 
     return (
-        <Container sx={{ display: "flex", flexDirection: "column", justifyContent: "center", flexGrow: 1, gap: "2em", padding:"6vh"}}>
+        <Box sx={styles.fullScreen}>
+            <video autoPlay muted loop style={{ position: "fixed", width: "100vw", height: "100vh", objectFit: "cover", zIndex:'-1', userSelect:'none', pointerEvents: 'none', top:'0', left:'0'}}>
+                <source src="../instructions/background.mp4" type="video/mp4" />
+            </video>
             <CssBaseline />
-            <Grid container spacing={{ xs: 2, md: 4 }} columns={{ xs: 2, sm: 3, md: 4 }} >
-                <Grid item xs={2} sm={3} md={4}>
-                    <Typography variant="h3" align="center" fontWeight="bold">GAME MODES</Typography>
-                </Grid>
-                {info.map((option, index) => (
-                    <Grid item xs={1} key={option.nombre} >
-                        <Button width="100%" color={ gameDisplayedIndex === index ? "secondary" : "primary"} size="large" variant="outlined" sx={{ width: "100%", height: "100px"  }} onClick={() => displayGameInfo(index)} >
-                            {option.nombre}
-                        </Button>
-                    </Grid>
-                ))}
-            </Grid>
 
-            {gameInfo}
-        </Container>
+            <Box sx={{...styles.fullScreen, width:'80%', margin:'1rem'}}>
+                <Grid container spacing={{ xs: 2, md: 4 }} columns={{ xs: 2, sm: 3, md: 3, lg: 5, xl:5 }}>
+                    <Grid item xs={2} sm={3} md={5}>
+                        <Typography variant="h3" align="center" fontWeight="bold" sx={{paddingTop:'2rem'}}>GAME MODES</Typography>
+                    </Grid>
+                    {info.map((option, index) => (
+                        <Grid item xs={1} key={option.nombre} >
+                            <Button width="100%"  size="large" variant="outlined" sx={ (gameDisplayedIndex === index)  ? styles.selectedButton : styles.button } onClick={() => displayGameInfo(index)} >
+                                {option.nombre}
+                            </Button>
+                        </Grid>
+                    ))}
+                </Grid>
+                {gameInfo}
+            </Box>
+
+        </Box>
     )
 };
 
