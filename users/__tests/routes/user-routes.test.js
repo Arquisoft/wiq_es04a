@@ -748,8 +748,108 @@ describe('User Routes', () => {
 
         const response = await request(app)
          .get(`/user/ranking`);
-        //expect(response.status).toBe(200);
-        // expect(response.type).toMatch(/json/);
-        // expect(response.body).toHaveProperty('users');
     });
+
+    describe('Group Ranking Routes', () => {
+        it('should return group ranking sorted by total money earned', async () => {
+            const newUser = {
+                username: 'testuser',
+                password: password,
+                name: 'Test',
+                surname: 'User'
+            };        
+            await User.create(newUser);
+            const newGroup = {
+                name: 'testgroup3',
+                creator: 'testuser', 
+            };
+            await Group.create(newGroup);
+            await UserGroup.create({
+                username: 'testuser',
+                groupName: 'testgroup3',
+                enteredAt: new Date()
+            });
+            const initialStatistics = {
+                username: 'testuser',
+                the_callenge_earned_money: 100,
+                the_callenge_correctly_answered_questions: 5,
+                the_callenge_incorrectly_answered_questions: 2,
+                the_callenge_total_time_played: 3600,
+                the_callenge_games_played: 3,
+                wise_men_stack_earned_money: 50,
+                wise_men_stack_correctly_answered_questions: 3,
+                wise_men_stack_incorrectly_answered_questions: 1,
+                wise_men_stack_total_time_played: 1800,
+                wise_men_stack_games_played: 2,
+                warm_question_earned_money: 80,
+                warm_question_correctly_answered_questions: 4,
+                warm_question_incorrectly_answered_questions: 1,
+                warm_question_total_time_played: 2700,
+                warm_question_games_played: 2,
+                discovering_cities_earned_money: 70,
+                discovering_cities_correctly_answered_questions: 4,
+                discovering_cities_incorrectly_answered_questions: 1,
+                discovering_cities_total_time_played: 3000,
+                discovering_cities_games_played: 3
+            };
+            await Statistics.create(initialStatistics);
+
+            const newUser2 = {
+                username: 'testuser2',
+                password: password,
+                name: 'Test2',
+                surname: 'User2'
+            };
+            await User.create(newUser2);
+            const newGroup2 = {
+                name: 'testgroup4',
+                creator: 'testuser2', 
+            };
+            await Group.create(newGroup2);
+            await UserGroup.create({
+                username: 'testuser2',
+                groupName: 'testgroup4',
+                enteredAt: new Date()
+            });
+            const initialStatistics2 = {
+                username: 'testuser2',
+                the_callenge_earned_money: 200,
+                the_callenge_correctly_answered_questions: 6,
+                the_callenge_incorrectly_answered_questions: 1,
+                the_callenge_total_time_played: 4000,
+                the_callenge_games_played: 4,
+                wise_men_stack_earned_money: 100,
+                wise_men_stack_correctly_answered_questions: 5,
+                wise_men_stack_incorrectly_answered_questions: 2,
+                wise_men_stack_total_time_played: 2500,
+                wise_men_stack_games_played: 3,
+                warm_question_earned_money: 120,
+                warm_question_correctly_answered_questions: 6,
+                warm_question_incorrectly_answered_questions: 2,
+                warm_question_total_time_played: 3200,
+                warm_question_games_played: 3,
+                discovering_cities_earned_money: 80,
+                discovering_cities_correctly_answered_questions: 5,
+                discovering_cities_incorrectly_answered_questions: 2,
+                discovering_cities_total_time_played: 3500,
+                discovering_cities_games_played: 4
+            };
+            await Statistics.create(initialStatistics2);
+
+
+            const response = await request(app)
+            .get('/user/group/ranking')
+            .expect(200);
+
+            expect(response.body).toHaveProperty('rank');
+            expect(response.body.rank).toHaveLength(2);
+
+            const [firstGroup, secondGroup] = response.body.rank;
+            expect(firstGroup.id).toBe("testgroup4");
+            expect(firstGroup.totalMoney).toBe(500);
+            expect(secondGroup.id).toBe("testgroup3");
+            expect(secondGroup.totalMoney).toBe(300);
+        });
+    });
+
 });
