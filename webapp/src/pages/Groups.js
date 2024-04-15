@@ -119,7 +119,7 @@ const Groups = () => {
         <List sx={{ margin:'0', width: '100%' }}>
           {currentItems.map((group) => (
             <Container key={group.name+"_container"}>
-              <ListItem key={group.name} sx={{ display:'flex', alignContent:'space-between', alignItems:'center', width:'85%' }}>
+              <ListItem key={group.name} sx={{ display:'flex', alignContent:'space-between', alignItems:'center' }}>
                 <ListItemText primary={group.name} />
                 <Button variant="contained" color="primary" sx={{ marginRight: '2em' }} onClick={() => seeMembers(group.name)}>
                   See Members
