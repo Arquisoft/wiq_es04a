@@ -26,9 +26,6 @@ describe('Game component', () => {
     mockAxios.onPost('http://localhost:8000/statistics/edit').reply(200, { success: true });
     mockAxios.onPost('http://localhost:8000/user/questionsRecord').reply(200, { success: true });
 
-  });
-
-  it('should render question, answers and other ', async () => {
     render( 
       <SessionContext.Provider value={{ username: 'exampleUser' }}>
         <Router>
@@ -36,7 +33,9 @@ describe('Game component', () => {
         </Router>
       </SessionContext.Provider>
     );
+  });
 
+  it('should render question, answers and other ', async () => {
     expect(screen.getByRole('progressbar'));
     expect(screen.findByText('1'));
     //expect(screen.findByText('1/3'));
@@ -53,14 +52,6 @@ describe('Game component', () => {
   });
 
   it('should guess correct answer', async () => {
-    render( 
-      <SessionContext.Provider value={{ username: 'exampleUser' }}>
-        <Router>
-          <Game />
-        </Router>
-      </SessionContext.Provider>
-    );
-
     // waits for the question to appear
     await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
     const correctAnswer = screen.getByRole('button', { name: 'Madrid' });
@@ -76,13 +67,6 @@ describe('Game component', () => {
 
   
   it('should choose incorrect answer', async () => {
-    render( 
-      <SessionContext.Provider value={{ username: 'exampleUser' }}>
-        <Router>
-          <Game />
-        </Router>
-      </SessionContext.Provider>
-    );
     // waits for the question to appear
     await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
     const incorrectAnswer = screen.getByRole('button', { name: 'Barcelona' });
@@ -97,14 +81,6 @@ describe('Game component', () => {
   });
 
   it('should not answer the question', async () => {
-    render( 
-      <SessionContext.Provider value={{ username: 'exampleUser' }}>
-        <Router>
-          <Game />
-        </Router>
-      </SessionContext.Provider>
-    );
-
     // waits for the question to appear
     await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
 
@@ -114,7 +90,5 @@ describe('Game component', () => {
     }, 4000);
 
   }, 4500);
-
-  
 
 });
