@@ -53,17 +53,17 @@ const styles = {
     },
 };
 
-function CardComponent({ imageUrl, title, subtitle }) {
+function CardComponent({ imageUrl, title, isActive }) {
     const [hovered, setHovered] = useState(false);
 
     return (
         <div
-            style={{ ...styles.card, ...(hovered ? styles.cardHovered : {}) }}
+            style={{ ...styles.card, ...(hovered ? styles.cardHovered : {}), ...(isActive ? styles.cardHovered : {})}}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
         >
-            <img src={imageUrl} alt={title} style={{ ...styles.img, ...(hovered ? styles.imgHovered : {}) }} />
-            <div style={{ ...styles.textBox, ...(hovered ? styles.textBoxHovered : {}) }}>
+            <img src={imageUrl} alt={title} style={{ ...styles.img, ...(hovered ? styles.imgHovered : {}), ...(isActive ? styles.imgHovered : {})}} />
+            <div style={{ ...styles.textBox, ...(hovered ? styles.textBoxHovered : {}), ...(isActive ? styles.textBoxHovered : {})}}>
                 <p style={{ ...styles.text, ...styles.head }}>{title}</p>
             </div>
         </div>
