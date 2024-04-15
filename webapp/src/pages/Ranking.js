@@ -11,32 +11,35 @@ const Ranking = () => {
     const [rows, setRows] = useState([]);
 
     const fetchUserRanking = async () => {
-        // axios.get(`${apiEndpoint}/user/ranking`)
-        // .then((response) => {
-        //   setRows(response.data.rank);
+        axios.get(`${apiEndpoint}/user/ranking`)
+        .then((response) => {
+          setRows(response.data.rank);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
 
-        setRows( [
-            { id: "alberto"      , totalGames: 5, totalMoney: 1, totalCorrectAnswers:1, totalIncorrectAnswers:6},
-            { id: "momazos piolu", totalGames: 4, totalMoney: 2, totalCorrectAnswers:2, totalIncorrectAnswers:5},
-            { id: "de la uz"     , totalGames: 3, totalMoney: 3, totalCorrectAnswers:15, totalIncorrectAnswers:4},
-            { id: "de la cal"    , totalGames: 2, totalMoney: 4, totalCorrectAnswers:6, totalIncorrectAnswers:3},
-            { id: "moros"        , totalGames: 1, totalMoney: 5, totalCorrectAnswers:7, totalIncorrectAnswers:2},
-            { id: "mohamed"      , totalGames: 0, totalMoney: 6, totalCorrectAnswers:3, totalIncorrectAnswers:1},
-            { id: "de la cal2"   , totalGames: 2, totalMoney: 4, totalCorrectAnswers:6, totalIncorrectAnswers:3},
-            { id: "moros2"       , totalGames: 1, totalMoney: 5, totalCorrectAnswers:7, totalIncorrectAnswers:2},
-            { id: "mohamed2"     , totalGames: 0, totalMoney: 6, totalCorrectAnswers:3, totalIncorrectAnswers:1}
-        ]);
-
-        // })
-        // .catch((error) => {
-        //   console.error(error);
-        // });
+        // setRows( [
+        //     { id: "alberto"      , totalGames: 5, totalMoney: 1, totalCorrectAnswers:1, totalIncorrectAnswers:6},
+        //     { id: "momazos piolu", totalGames: 4, totalMoney: 2, totalCorrectAnswers:2, totalIncorrectAnswers:5},
+        //     { id: "de la uz"     , totalGames: 3, totalMoney: 3, totalCorrectAnswers:15, totalIncorrectAnswers:4},
+        //     { id: "de la cal"    , totalGames: 2, totalMoney: 4, totalCorrectAnswers:6, totalIncorrectAnswers:3},
+        //     { id: "moros"        , totalGames: 1, totalMoney: 5, totalCorrectAnswers:7, totalIncorrectAnswers:2},
+        //     { id: "mohamed"      , totalGames: 0, totalMoney: 6, totalCorrectAnswers:3, totalIncorrectAnswers:1},
+        //     { id: "de la cal2"   , totalGames: 2, totalMoney: 4, totalCorrectAnswers:6, totalIncorrectAnswers:3},
+        //     { id: "moros2"       , totalGames: 1, totalMoney: 5, totalCorrectAnswers:7, totalIncorrectAnswers:2},
+        //     { id: "mohamed2"     , totalGames: 0, totalMoney: 6, totalCorrectAnswers:3, totalIncorrectAnswers:1}
+        // ]);
     };
 
     const fetchGroupsRanking = async () => {
-        // axios.get(`${apiEndpoint}/user/group/ranking`)
-        // .then((response) => {
-        //   setRows(response.data.rank);
+        axios.get(`${apiEndpoint}/user/group/ranking`)
+        .then((response) => {
+          setRows(response.data.rank);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
 
         // setRows( [
         //     { id: "alberto"      , totalGames: 5, totalMoney: 1, totalCorrectAnswers:1, totalIncorrectAnswers:6},
@@ -45,11 +48,6 @@ const Ranking = () => {
         //     { id: "de la cal"    , totalGames: 2, totalMoney: 4, totalCorrectAnswers:6, totalIncorrectAnswers:3},
         //     { id: "moros"        , totalGames: 1, totalMoney: 5, totalCorrectAnswers:7, totalIncorrectAnswers:2},
         // ]);
-
-        // })
-        // .catch((error) => {
-        //   console.error(error);
-        // });
     };
 
     useEffect(() => {

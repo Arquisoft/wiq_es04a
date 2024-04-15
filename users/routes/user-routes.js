@@ -187,6 +187,67 @@ router.post('/group/add', async (req, res) => {
     }
 });
 
+router.get('/group/ranking', async (req, res) => {
+    try {
+        const groups = await Group.findAll({ attributes: ['name'] });
+
+        const groupStatistics = [];
+
+        for (const group of groups) {
+            const userGroups = await UserGroup.findAll({
+                where: { groupName: group.name }
+            });
+
+            let totalMoney = 0;
+            let totalCorrectAnswers = 0;
+            let totalIncorrectAnswers = 0;
+            let totalTimePlayed = 0;
+
+            for (const username of userGroups.map(userGroup => userGroup.username)) {
+
+                const userStatistics = await Statistics.findOne({
+                    where: { username }
+                });
+
+                if (userStatistics) {
+                    totalMoney += userStatistics.the_callenge_earned_money +
+                                  userStatistics.wise_men_stack_earned_money +
+                                  userStatistics.warm_question_earned_money +
+                                  userStatistics.discovering_cities_earned_money;
+
+                    totalCorrectAnswers += userStatistics.the_callenge_correctly_answered_questions +
+                                           userStatistics.wise_men_stack_correctly_answered_questions +
+                                           userStatistics.warm_question_correctly_answered_questions +
+                                           userStatistics.discovering_cities_correctly_answered_questions;
+
+                    totalIncorrectAnswers += userStatistics.the_callenge_incorrectly_answered_questions +
+                                             userStatistics.wise_men_stack_incorrectly_answered_questions +
+                                             userStatistics.warm_question_incorrectly_answered_questions +
+                                             userStatistics.discovering_cities_incorrectly_answered_questions;
+
+                    totalTimePlayed += userStatistics.the_callenge_games_played +
+                                       userStatistics.wise_men_stack_games_played +
+                                       userStatistics.warm_question_games_played +
+                                       userStatistics.discovering_cities_games_played;
+                }
+            }
+
+            groupStatistics.push({
+                id:group.name,
+                totalMoney,
+                totalCorrectAnswers,
+                totalIncorrectAnswers,
+                totalTimePlayed
+            });
+        }
+
+        groupStatistics.sort((a, b) => b.totalMoney - a.totalMoney);
+
+        res.json({ rank: groupStatistics });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
 
 // Getting a group by its name
 router.get('/group/:name', async (req, res) => {
@@ -488,69 +549,7 @@ router.get('/ranking', async (req, res) => {
             ],
             order: [['totalMoney', 'DESC']]
         });
-
-        res.json({rank: usersStatistics});
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-});
-
-
-router.get('/group/ranking', async (req, res) => {
-    try {
-        const groupStatistics = await Groups.findAll({
-            attributes: [
-                'name',
-                [
-                    sequelize.literal(`
-                        SUM(statistics.the_callenge_earned_money +
-                        statistics.wise_men_stack_earned_money +
-                        statistics.warm_question_earned_money +
-                        statistics.discovering_cities_earned_money)
-                    `),
-                    'totalMoney'
-                ],
-                [
-                    sequelize.literal(`
-                        SUM(statistics.the_callenge_correctly_answered_questions +
-                        statistics.wise_men_stack_correctly_answered_questions +
-                        statistics.warm_question_correctly_answered_questions +
-                        statistics.discovering_cities_correctly_answered_questions)
-                    `),
-                    'totalCorrectAnswers'
-                ],
-                [
-                    sequelize.literal(`
-                        SUM(statistics.the_callenge_incorrectly_answered_questions +
-                        statistics.wise_men_stack_incorrectly_answered_questions +
-                        statistics.warm_question_incorrectly_answered_questions +
-                        statistics.discovering_cities_incorrectly_answered_questions)
-                    `),
-                    'totalIncorrectAnswers'
-                ],
-                [
-                    sequelize.literal(`
-                        SUM(statistics.the_callenge_games_played +
-                        statistics.wise_men_stack_games_played +
-                        statistics.warm_question_games_played +
-                        statistics.discovering_cities_games_played)
-                    `),
-                    'totalTimePlayed'
-                ]
-            ],
-            include: [{
-                model: UserGroup,
-                attributes: [],
-                include: [{
-                    model: Statistics,
-                    attributes: [],
-                    required: true
-                }]
-            }],
-            group: ['Group.name'],
-            order: [['totalMoney', 'DESC']]
-        });
-        res.json({ rank: groupStatistics });
+        res.json({ rank: usersStatistics });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
