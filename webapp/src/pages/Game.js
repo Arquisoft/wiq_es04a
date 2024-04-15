@@ -274,7 +274,7 @@ const Game = () => {
             <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
                 { answered ?
                     // Pausa
-                    <Button variant="contained" onClick={() => togglePause()} sx={{ height: 100, width: 100, borderRadius: '50%' }} data-testid="pause">
+                    <Button variant="contained" onClick={() => togglePause()} sx={{ height: 100, width: 100, borderRadius: '50%' }} data-testid={ paused ? "play" : "pause"}>
                         { paused ? <PlayArrow /> : <Pause /> }
                     </Button>
                     :

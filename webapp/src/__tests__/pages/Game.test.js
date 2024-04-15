@@ -60,9 +60,6 @@ describe('Game component', () => {
     //selects correct answer
     fireEvent.click(correctAnswer);
     expect(screen.findByTestId("succes0"));
-
-
-    expect(screen.getByTestId("pause"));
   });
 
   
@@ -75,9 +72,6 @@ describe('Game component', () => {
     //selects correct answer
     fireEvent.click(incorrectAnswer);
     expect(screen.findByTestId("failure1"));
-
-    expect(screen.getByTestId("pause"));
-
   });
 
   it('should not answer the question', async () => {
@@ -90,5 +84,16 @@ describe('Game component', () => {
     }, 4000);
 
   }, 4500);
+
+  it('should render pause & play buttons when answered', async () => {
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
+    const correctAnswer = screen.getByRole('button', { name: 'Madrid' });
+    fireEvent.click(correctAnswer);
+
+    const pauseButton = screen.getByTestId("pause");
+    expect(pauseButton);
+    fireEvent.click(pauseButton);
+    expect(screen.getByTestId("play"));
+  })
 
 });
