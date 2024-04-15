@@ -274,7 +274,7 @@ const Game = () => {
             <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
                 { answered ?
                     // Pausa
-                    <Button variant="contained" onClick={() => togglePause()} sx={{ height: 100, width: 100, borderRadius: '50%' }}>
+                    <Button variant="contained" onClick={() => togglePause()} sx={{ height: 100, width: 100, borderRadius: '50%' }} data-testid="pause">
                         { paused ? <PlayArrow /> : <Pause /> }
                     </Button>
                     :
@@ -309,7 +309,7 @@ const Game = () => {
                     {questionData.options.map((option, index) => (
                         <Grid item xs={12} key={index}>
                             <Button
-                                data-testid="answer"
+                                data-testid={buttonStates[index] === "success" ? `success${index}` : buttonStates[index] === "failure" ? `failel${index}` : `answer${index}`}
                                 variant="contained"
                                 onClick={() => selectResponse(index, option)}
                                 disabled={buttonStates[index] !== null || answered} // before, you could still press more than one button

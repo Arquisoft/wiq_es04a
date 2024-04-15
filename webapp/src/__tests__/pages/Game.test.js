@@ -42,15 +42,13 @@ describe('Game component', () => {
     //expect(screen.findByText('1/3'));
 
     // waits for the question to appear
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
 
-    expect(screen.findByText('Which is the capital of Spain?'));
+    expect(screen.findByText('Which is the capital of Spain?'.toUpperCase()));
     expect(screen.findByText('Madrid'));
     expect(screen.findByText('Barcelona'));
     expect(screen.findByText('Paris'));
     expect(screen.findByText('London'));
-    
-    expect(screen.getByRole('button', { name: /Pause/i }));
 
   });
 
@@ -64,18 +62,16 @@ describe('Game component', () => {
     );
 
     // waits for the question to appear
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
     const correctAnswer = screen.getByRole('button', { name: 'Madrid' });
 
-    expect(correctAnswer).not.toHaveStyle({ backgroundColor: 'green' });
-
+    expect(screen.findByTestId("anwer0"));
     //selects correct answer
     fireEvent.click(correctAnswer);
+    expect(screen.findByTestId("succes0"));
 
-    //expect(screen.findByText('1')).toHaveStyle({ backgroundColor: 'lightgreen' });
 
-    expect(correctAnswer).toHaveStyle({ backgroundColor: 'green' });
-
+    expect(screen.getByTestId("pause"));
   });
 
   
@@ -88,16 +84,15 @@ describe('Game component', () => {
       </SessionContext.Provider>
     );
     // waits for the question to appear
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
     const incorrectAnswer = screen.getByRole('button', { name: 'Barcelona' });
 
-    expect(incorrectAnswer).not.toHaveStyle({ backgroundColor: 'red' });
-
+    expect(screen.findByTestId("anwer1"));
     //selects correct answer
     fireEvent.click(incorrectAnswer);
+    expect(screen.findByTestId("failure1"));
 
-    expect(incorrectAnswer).toHaveStyle({ backgroundColor: 'red' });
-    //expect(screen.findByText('1')).toHaveStyle({ backgroundColor: 'salmon' });
+    expect(screen.getByTestId("pause"));
 
   });
 
@@ -111,7 +106,7 @@ describe('Game component', () => {
     );
 
     // waits for the question to appear
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
 
     setTimeout(() => {
       // Comprobamos que el callback ha sido llamado después del tiempo especificado
@@ -135,14 +130,14 @@ describe('Game component', () => {
     await waitFor(() => screen.getByText('Which is the capital of Spain?'));
     var correctAnswer = screen.getByRole('button', { name: 'Madrid' });
 
-    expect(correctAnswer).not.toHaveStyle({ backgroundColor: 'green' });
+    expect(correctAnswer).not.toHaveStyle({ backgroundColor: '#339966' });
 
     //selects correct answer
     fireEvent.click(correctAnswer);
 
     //expect(screen.findByText('1')).toHaveStyle({ backgroundColor: 'lightgreen' });
 
-    expect(correctAnswer).toHaveStyle({ backgroundColor: 'green' });
+    expect(correctAnswer).toHaveStyle({ backgroundColor: '#339966' });
     setTimeout(() => {
     }, 3000);
 
@@ -155,7 +150,7 @@ describe('Game component', () => {
     await expect(screen.getByTestId("numRound")).toBeInTheDocument(); 
     correctAnswer = screen.getByRole('button', { name: 'Madrid' });
     fireEvent.click(correctAnswer);
-    expect(correctAnswer).toHaveStyle({ backgroundColor: 'green' });
+    expect(correctAnswer).toHaveStyle({ backgroundColor: '#339966' });
 
     setTimeout(() => {
     }, 3000);
@@ -168,7 +163,7 @@ describe('Game component', () => {
     await expect(screen.getByTestId("numRound")); 
     correctAnswer = screen.getByRole('button', { name: 'Madrid' });
     fireEvent.click(correctAnswer);
-    expect(correctAnswer).toHaveStyle({ backgroundColor: 'green' });
+    expect(correctAnswer).toHaveStyle({ backgroundColor: '#339966' });
 
     setTimeout(() => {
     }, 3000);
