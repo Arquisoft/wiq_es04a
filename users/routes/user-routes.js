@@ -201,7 +201,7 @@ router.get('/group/ranking', async (req, res) => {
             let totalMoney = 0;
             let totalCorrectAnswers = 0;
             let totalIncorrectAnswers = 0;
-            let totalTimePlayed = 0;
+            let totalGamesPlayed = 0;
 
             for (const username of userGroups.map(userGroup => userGroup.username)) {
 
@@ -225,7 +225,7 @@ router.get('/group/ranking', async (req, res) => {
                                              userStatistics.warm_question_incorrectly_answered_questions +
                                              userStatistics.discovering_cities_incorrectly_answered_questions;
 
-                    totalTimePlayed += userStatistics.the_callenge_games_played +
+                    totalGamesPlayed += userStatistics.the_callenge_games_played +
                                        userStatistics.wise_men_stack_games_played +
                                        userStatistics.warm_question_games_played +
                                        userStatistics.discovering_cities_games_played;
@@ -237,12 +237,11 @@ router.get('/group/ranking', async (req, res) => {
                 totalMoney,
                 totalCorrectAnswers,
                 totalIncorrectAnswers,
-                totalTimePlayed
+                totalGamesPlayed
             });
         }
 
         groupStatistics.sort((a, b) => b.totalMoney - a.totalMoney);
-
         res.json({ rank: groupStatistics });
     } catch (error) {
         res.status(400).json({ error: error.message });
@@ -544,7 +543,7 @@ router.get('/ranking', async (req, res) => {
                         warm_question_games_played +
                         discovering_cities_games_played
                     `),
-                    'totalTimePlayed'
+                    'totalGamesPlayed'
                 ]
             ],
             order: [['totalMoney', 'DESC']]

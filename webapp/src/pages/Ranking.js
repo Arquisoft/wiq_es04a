@@ -9,6 +9,7 @@ const Ranking = () => {
     const theme = useTheme();
 
     const [rows, setRows] = useState([]);
+    const [rankingType, setRankingType] = useState('user');
 
     const fetchUserRanking = async () => {
         axios.get(`${apiEndpoint}/user/ranking`)
@@ -18,18 +19,6 @@ const Ranking = () => {
         .catch((error) => {
           console.error(error);
         });
-
-        // setRows( [
-        //     { id: "alberto"      , totalGames: 5, totalMoney: 1, totalCorrectAnswers:1, totalIncorrectAnswers:6},
-        //     { id: "momazos piolu", totalGames: 4, totalMoney: 2, totalCorrectAnswers:2, totalIncorrectAnswers:5},
-        //     { id: "de la uz"     , totalGames: 3, totalMoney: 3, totalCorrectAnswers:15, totalIncorrectAnswers:4},
-        //     { id: "de la cal"    , totalGames: 2, totalMoney: 4, totalCorrectAnswers:6, totalIncorrectAnswers:3},
-        //     { id: "moros"        , totalGames: 1, totalMoney: 5, totalCorrectAnswers:7, totalIncorrectAnswers:2},
-        //     { id: "mohamed"      , totalGames: 0, totalMoney: 6, totalCorrectAnswers:3, totalIncorrectAnswers:1},
-        //     { id: "de la cal2"   , totalGames: 2, totalMoney: 4, totalCorrectAnswers:6, totalIncorrectAnswers:3},
-        //     { id: "moros2"       , totalGames: 1, totalMoney: 5, totalCorrectAnswers:7, totalIncorrectAnswers:2},
-        //     { id: "mohamed2"     , totalGames: 0, totalMoney: 6, totalCorrectAnswers:3, totalIncorrectAnswers:1}
-        // ]);
     };
 
     const fetchGroupsRanking = async () => {
@@ -40,26 +29,22 @@ const Ranking = () => {
         .catch((error) => {
           console.error(error);
         });
-
-        // setRows( [
-        //     { id: "alberto"      , totalGames: 5, totalMoney: 1, totalCorrectAnswers:1, totalIncorrectAnswers:6},
-        //     { id: "momazos piolu", totalGames: 4, totalMoney: 2, totalCorrectAnswers:2, totalIncorrectAnswers:5},
-        //     { id: "de la uz"     , totalGames: 3, totalMoney: 3, totalCorrectAnswers:15, totalIncorrectAnswers:4},
-        //     { id: "de la cal"    , totalGames: 2, totalMoney: 4, totalCorrectAnswers:6, totalIncorrectAnswers:3},
-        //     { id: "moros"        , totalGames: 1, totalMoney: 5, totalCorrectAnswers:7, totalIncorrectAnswers:2},
-        // ]);
     };
 
     useEffect(() => {
-        fetchUserRanking();
-    }, []);
-    
+        if (rankingType === 'user') {
+            fetchUserRanking();
+        } else {
+            fetchGroupsRanking();
+        }
+    }, [rankingType]);
+
     const columns = [
         { field: 'id', headerName: 'NAME', flex: 1, align: 'center', headerAlign: 'center'},
-        { field: 'totalGames', headerName: 'TOTAL GAMES', flex: 1, align: 'center', headerAlign: 'center'  },
         { field: 'totalMoney', headerName: 'TOTAL MONEY', flex: 1, align: 'center', headerAlign: 'center'  },
         { field: 'totalCorrectAnswers', headerName: 'CORRECT ANSWERS', flex: 1, align: 'center', headerAlign: 'center'  },
-        { field: 'totalIncorrectAnswers',headerName: 'INCORRECT ANSWERS', flex: 1, align: 'center', headerAlign: 'center' }
+        { field: 'totalIncorrectAnswers',headerName: 'INCORRECT ANSWERS', flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'totalGamesPlayed', headerName: 'TOTAL GAMES', flex: 1, align: 'center', headerAlign: 'center'  }
     ];
 
     return (        
@@ -76,8 +61,8 @@ const Ranking = () => {
             <Container style={{ display: 'flex', flexDirection: 'column' }}>
                 <Typography variant="h3" align="center" fontWeight="bold">RANKING</Typography>
                 <Container style={{ display: 'flex', justifyContent: 'center', marginTop: '0.5em', gap:'2em' }}>
-                    <Button onClick={() => fetchUserRanking()} variant="contained" sx={{ backgroundColor:theme.palette.primary.main, color:theme.palette.secondary.main, borderColor:theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color:theme.palette.primary.main, borderColor:theme.palette.primary.main } }}>USERS</Button>
-                    <Button onClick={() => fetchGroupsRanking()} variant="contained" sx={{ backgroundColor:theme.palette.primary.main, color:theme.palette.secondary.main, borderColor:theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color:theme.palette.primary.main, borderColor:theme.palette.primary.main } }}>GROUPS</Button>
+                    <Button onClick={() => setRankingType('user')} variant="contained" sx={{ backgroundColor: rankingType === 'user' ? 'white' : theme.palette.primary.main, color: rankingType === 'user' ? theme.palette.primary.main : 'white', borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>USERS</Button>
+                    <Button onClick={() => setRankingType('group')} variant="contained" sx={{ backgroundColor: rankingType === 'group' ? 'white' : theme.palette.primary.main, color: rankingType === 'group' ? theme.palette.primary.main : 'white', borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>GROUPS</Button>
                 </Container>
             </Container>
 
