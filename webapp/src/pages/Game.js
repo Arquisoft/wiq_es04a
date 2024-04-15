@@ -287,9 +287,8 @@ const Game = () => {
             <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
                 { answered ?
                     // Pausa
-                    <Button variant="contained" onClick={() => togglePause()} sx={{ marginBottom:'2em ' }}>
+                    <Button variant="contained" onClick={() => togglePause()} sx={{ height: 100, width: 100, borderRadius: '50%' }}>
                         { paused ? <PlayArrow /> : <Pause /> }
-                        { paused ? t("Game.play") : t("Game.pause") }
                     </Button>
                     :
                     // Cronómetro
