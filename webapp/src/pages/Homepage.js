@@ -11,29 +11,27 @@ const Homepage = () => {
 
         cardButton:{
             width: {
-                xs: '7.2rem',
+                xs: '9.6rem',
                 sm: '10..4rem',
                 md: '9.6rem',
                 lg: '12rem',
                 xl: '16rem',
             },
             height: {
-                xs: '9rem',
+                xs: '10rem',
                 sm: '13rem',
                 md: '12rem',
                 lg: '15rem',
                 xl: '20rem',
             },
-            marginLeft: '1.5rem',
-            marginRight:'1.5rem',
-            marginTop:'1.5rem'
+
+            marginTop:'1rem'
         },
 
         cardButtonMax:{
-            width: '17rem',
+            width: '20rem',
             height: '25rem',
-            marginLeft: '1.5rem',
-            marginRight:'1.5rem',
+            margin:'3rem'
         },
 
         playButton : {
@@ -42,14 +40,14 @@ const Homepage = () => {
                 sm: '3rem', // Tamaño para dispositivos pequeños
                 md: '3.5rem', // Tamaño para dispositivos medianos
                 lg: '4rem', // Tamaño para dispositivos grandes
-                xl: '6rem' // Tamaño para dispositivos extra grandes
+                xl: '5rem' // Tamaño para dispositivos extra grandes
             },
             width: {
                 xs: '10rem',
                 sm: '12rem',
                 md: '13.5rem',
                 lg: '14.5rem',
-                xl: '20rem'
+                xl: '16rem'
             },
             fontSize: {
                 xs: '0.8rem',
@@ -60,7 +58,7 @@ const Homepage = () => {
             },
 
             marginTop:'3rem',
-            marginBottom:'3rem',
+            marginBottom:'2rem',
             fontFamily: 'Arial Black, sans-serif',
 
             color: 'rgba(0,0,0,0.8)',
@@ -153,7 +151,7 @@ const Homepage = () => {
         setGames(
             <Grid container spacing={2} justifyContent="center" alignItems="center">
                 {info.map((option, index) => (
-                    <Grid item xs={index < 3 ? 4 : 6} sm={index < 3 ? 4 : 6} md={2} lg={2} xl={2} key={'game-' + index} sx={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center',}}>
+                    <Grid item xs={6} sm={4} md={2} lg={2} xl={2} key={'game-' + index} sx={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center',}}>
                         <Button sx={xxl ? styles.cardButtonMax : styles.cardButton} onClick={() => handleButtonClick(index)}>
                             <CardComponent
                                 imageUrl={option.cardFoto}
