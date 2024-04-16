@@ -14,6 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 //Prometheus configuration
+//It uses prometheus middleware whenever a petition happens
 const metricsMiddleware = promBundle({includeMethod: true});
 app.use(metricsMiddleware);
 

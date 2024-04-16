@@ -69,7 +69,7 @@ defineFeature(feature, test => {
 
     when('I click on the correct answer button', async () => {
         const answers = await page.$x('//*[@data-testid="answer"]');
-        const textoBoton1 = await page.evaluate(button => button.innerText, answerButton[0]);
+        const textoBoton1 = await page.evaluate(button => button.innerText, answers[0]);
         if(textoBoton1 === "Madrid") {
           await answers[0].click();
         } else {
@@ -107,7 +107,7 @@ defineFeature(feature, test => {
 
     when('I click on an incorrect answer button', async () => {
         const answers = await page.$x('//*[@data-testid="answer"]');
-        const textoBoton1 = await page.evaluate(button => button.innerText, answerButton[0]);
+        const textoBoton1 = await page.evaluate(button => button.innerText, answers[0]);
         if(textoBoton1 !== "Madrid") {
           await answers[0].click();
         } else {
