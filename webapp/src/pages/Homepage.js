@@ -7,8 +7,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 const Homepage = () => {
     const xxl = useMediaQuery('(min-width:1920px)');
-    const styles = {
 
+    const styles = React.useMemo(() => ({
         cardButton:{
             width: {
                 xs: '9.6rem',
@@ -89,8 +89,7 @@ const Homepage = () => {
             userSelect:'none',
             pointerEvents: 'none'
         },
-    }
-
+    }), []);
     // List of games on this page
     const [games, setGames] = React.useState(null);
 
@@ -104,36 +103,14 @@ const Homepage = () => {
     //Selected index
     const [activeIndex, setActiveIndex] = React.useState(0); // Nuevo estado para el índice activo
 
-
-    //Update the game information
-    React.useEffect(() => {
-        setInfo(data);
-    }, []);
-
-    //Does the initial loading of the page elements
-    React.useEffect(() => {
-        // If game information (info) has been loaded and there is no game information currently displayed
-        if (info !== null) {
-            // Show the information of the first game
-            displayGames(info)
-        }
-    });
-
-
-    // Update the selected page number, page games and game photo
-    const handleButtonClick = (index) => {
-        setActiveIndex(index)
-        changeGameLink(index);
-    };
-
     //if online mode -> change link to go to online room
-    const changeGameLink = (index) => {
+    const changeGameLink = React.useCallback((index) => {
         switch (info[index].nombre) {
             case "WISE MEN STACK":
-                setGameLink("/game");
+                setGameLink("/Wisemen");
                 break;
             case "WARM QUESTION":
-                setGameLink("/game");
+                setGameLink("/Warm");
                 break;
             case "DISCOVERING CITIES":
                 setGameLink("/discoveringCitiesGame");
@@ -145,14 +122,18 @@ const Homepage = () => {
                 setGameLink("/multiplayerRoom");
                 break;
             default:
-                setGameLink("/game");
                 break;
         }
-    }
+    }, [info]);
 
+    // Update the selected page number, page games and game photo
+    const handleButtonClick = React.useCallback((index) => {
+        setActiveIndex(index);
+        changeGameLink(index);
+    }, [setActiveIndex, changeGameLink]);
 
     // Responsible for generating the buttons with the names of the games and the pagination element
-    const displayGames = (info) => {
+    const displayGames = React.useCallback((info) => {
         setGames(
             <Grid container spacing={2} justifyContent="center" alignItems="center">
                 {info.map((option, index) => (
@@ -168,7 +149,21 @@ const Homepage = () => {
                 ))}
             </Grid>
         );
-    };
+    }, [xxl, styles.cardButtonMax, styles.cardButton, activeIndex, handleButtonClick]);
+
+    //Update the game information
+    React.useEffect(() => {
+        setInfo(data);
+    }, []);
+
+    // Does the initial loading of the page elements
+    React.useEffect(() => {
+        // If game information (info) has been loaded and there is no game information currently displayed
+        if (info !== null) {
+            // Show the information of the first game
+            displayGames(info);
+        }
+    }, [info, displayGames]); // <- Add info to the dependency array
 
     const videoRef = React.useRef(null);
     React.useEffect(() => {if (videoRef.current) {videoRef.current.playbackRate = 0.85;}}, []);
