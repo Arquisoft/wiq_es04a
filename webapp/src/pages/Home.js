@@ -1,12 +1,7 @@
 import * as React from "react";
 import {Box, Button} from "@mui/material";
-import { useContext } from 'react';
-import { SessionContext } from '../SessionContext';
-import { useTranslation } from 'react-i18next';
 
 const Home = () => {
-    const { username } = useContext(SessionContext);
-    const { t } = useTranslation();
 
     const styles = {
         logo:{
@@ -14,8 +9,8 @@ const Home = () => {
                 xs: '25em', // Más pequeño para dispositivos extra pequeños
                 sm: '30em', // Mediano para dispositivos pequeños
                 md: '35em', // Normal para dispositivos medianos
-                lg: '40em', // Grande para dispositivos grandes
-                xl: '45em' // Muy grande para dispositivos extra grandes
+                lg: '37.5em', // Grande para dispositivos grandes
+                xl: '40em' // Muy grande para dispositivos extra grandes
             },
             marginTop:'3rem',
             userSelect: 'none',
