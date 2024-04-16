@@ -12,8 +12,8 @@ const Homepage = () => {
         cardButton:{
             width: {
                 xs: '9.6rem',
-                sm: '10..4rem',
-                md: '9.6rem',
+                sm: '11.4rem',
+                md: '11rem',
                 lg: '12rem',
                 xl: '16rem',
             },
@@ -61,14 +61,14 @@ const Homepage = () => {
             marginBottom:'2rem',
             fontFamily: 'Arial Black, sans-serif',
 
-            color: 'rgba(0,0,0,0.8)',
-            backgroundColor: 'rgba(255,255,255,0.5)',
-            border: `2px solid ${'white'}`,
+            color: 'rgba(255,255,255,0.8)',
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            border: `2px solid ${'black'}`,
             transition: 'background-color 0.3s ease',
 
             '&:hover': {
-              backgroundColor: 'white',
-              color: 'black',
+              backgroundColor: 'black',
+              color: 'white',
             }
         },
 
@@ -78,11 +78,16 @@ const Homepage = () => {
             justifyContent: "center",
             alignItems: 'center',
             flexGrow: 1,
-            backgroundImage: 'url(\'.//BackgroundApagado.jpg\')',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
+        },
 
+        video:{
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            zIndex:'-1',
+            userSelect:'none',
+            pointerEvents: 'none'
         },
     }
 
@@ -165,10 +170,16 @@ const Homepage = () => {
         );
     };
 
+    const videoRef = React.useRef(null);
+    React.useEffect(() => {if (videoRef.current) {videoRef.current.playbackRate = 0.85;}}, []);
+
     return (
         <Box sx={{...styles.container }}>
             {games}
             <Button variant='conteined' href={gameLink} sx={styles.playButton}> PLAY </Button>
+            <video data-testid="video" ref={videoRef} autoPlay muted loop style={{ ...styles.video}}>
+                <source src="../home/Background-White.webm" type="video/mp4" />
+            </video>
         </Box>
     );
 };
