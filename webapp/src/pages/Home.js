@@ -1,17 +1,27 @@
 import * as React from "react";
 import {Box, Button} from "@mui/material";
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 
 const Home = () => {
+    const xxl = useMediaQuery('(min-width:1920px)');
 
     const styles = {
         logo:{
             width: {
-                xs: '25em', // Más pequeño para dispositivos extra pequeños
-                sm: '30em', // Mediano para dispositivos pequeños
-                md: '35em', // Normal para dispositivos medianos
-                lg: '37.5em', // Grande para dispositivos grandes
-                xl: '40em' // Muy grande para dispositivos extra grandes
+                xs: '20em', // Más pequeño para dispositivos extra pequeños
+                sm: '25em', // Mediano para dispositivos pequeños
+                md: '22.5em', // Normal para dispositivos medianos
+                lg: '25em', // Grande para dispositivos grandes
+                xl: '28em', // Muy grande para dispositivos extra grandes
             },
+            marginTop:'3rem',
+            userSelect: 'none',
+            pointerEvents: 'none'
+        },
+
+        maxLogo:{
+            width: '35em', // Muy grande para dispositivos extra grandes
             marginTop:'3rem',
             userSelect: 'none',
             pointerEvents: 'none'
@@ -40,17 +50,17 @@ const Home = () => {
                 xl: '1.2rem'
             },
 
-            marginTop: '3rem',
+            marginTop: '1rem',
             marginBottom:'3rem',
             fontFamily: 'Arial Black, sans-serif',
-            color: 'white',
+            color: 'black',
             backgroundColor: 'transparent',
-            border: `2px solid white`,
+            border: `2px solid black`,
             transition: 'background-color 0.3s ease',
 
             '&:hover': {
-                backgroundColor: 'white',
-                color: 'black',
+                backgroundColor: 'black',
+                color: 'white',
             }
         },
         fullScreen: {
@@ -63,16 +73,34 @@ const Home = () => {
             height: '100vh',
             margin: 0,
             padding: 0,
-        }
+        },
+
+        video:{
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            zIndex:'-1',
+            userSelect:'none',
+            pointerEvents: 'none'
+        },
     };
+
+    const videoRef = React.useRef(null);
+
+    React.useEffect(() => {
+        if (videoRef.current) {
+            videoRef.current.playbackRate = 0.85;
+        }
+    }, []);
 
     return (
         <Box sx={styles.fullScreen}>
-            <video autoPlay muted loop style={{ position: "absolute", width: "100%", height: "100%", objectFit: "cover", zIndex:'-1', userSelect:'none', pointerEvents: 'none'}}>
-                <source src="./home/Background-Blur.mp4" type="video/mp4" />
+            <video ref={videoRef} autoPlay muted loop style={{ ...styles.video}}>
+                <source src="./home/Background-White.webm" type="video/mp4" />
             </video>
 
-            <Box sx={{ ...styles.logo, userSelect: 'none', pointerEvents: 'none' }}>
+            <Box sx={xxl ? styles.maxLogo : styles.logo}>
                 <img src="./home/HomeLogo.png" alt="Logo" style={{ width: '100%' }} />
             </Box>
 
