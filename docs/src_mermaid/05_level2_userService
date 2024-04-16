@@ -1,0 +1,13 @@
+flowchart TD
+    subgraph Whitebox User Service
+    sis2(routes)
+    sis3(services)
+    sis2 -.-> sis3
+    end
+    sis1(Gateway service) -.->|Login/register user| sis2
+    sis1 -.->|Get statistics/group| sis2
+    sis1 -.->|Create/join group| sis2
+    sis1 -.->|Modify statistics| sis2
+    sis3 -.->|Insert/get user| db1[(MariaDB)]
+    sis3 -.->|Insert/get/edit group| db1
+    sis3 -.->|Insert/get/edit statistics| db1

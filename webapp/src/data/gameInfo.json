@@ -31,10 +31,10 @@
     },
     {
       "nombre": "ONLINE MODE",
-      "descripcion": "Create a room for other player to join and play 1vs1",
-      "foto": "../instructions/foto3.jpg",
+      "descripcion": "Create a room and share the room code with other players to play.",
+      "foto": "../instructions/online-photo.jpg",
       "card":"Create a room for other player to join and play 1vs1",
-      "cardFoto": "../homePage/foto3.jpg"
+      "cardFoto": "../homePage/online-photo.jpg"
 
     }
   ]

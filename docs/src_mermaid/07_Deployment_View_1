@@ -1,4 +1,5 @@
 '''
+
 @startuml
 
 
@@ -35,9 +36,9 @@ node DockerContainer8{
         component QuestionGenerationSystem
     }
 
- 
-
-
+node DockerContainer9{
+        component Multiplayer
+    }
 
  node DockerContainer5{
         component Grafana

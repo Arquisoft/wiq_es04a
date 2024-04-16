@@ -38,4 +38,5 @@ To assess the relevance level of the following risks, we will use number 1 to in
 |===
 | Technical Debt |  Considerations
 | Low-quality code | The use of new technologies and languages can lead to poorly written or poorly designed code. To address this issue, we will use pull requests to ensure that the code is reviewed by multiple team members.
+| Deployment issues | Having not worked with Docker and other deployment tools before may cause problems when deploying the application. For this reason, we are trying to put our best into learning these new technologies.
 |===

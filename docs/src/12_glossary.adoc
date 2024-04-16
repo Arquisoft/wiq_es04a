@@ -59,10 +59,6 @@ See https://docs.arc42.org/section-12/[Glossary] in the arc42 documentation.
 |===
 |Term |Definition |ES Translation
 
-|Discarding
-|Test in which the participants must answer a series of multiple-choice questions; for each question, they are presented with a set of options and must eliminate those they believe to be incorrect until they arrive at the correct answer. This process of elimination continues until the contestants are confident in the correct answer or until the allotted time for the test runs out
-|Descartando
-
 |Discovering cities
 |Test in which contestants receive clues about a specific city and must guess which city it is; this clues may include descriptions of geographical features, famous monuments, historical or cultural events, among other aspects related to the city in question.
 |Descubriendo ciudades
@@ -75,9 +71,13 @@ See https://docs.arc42.org/section-12/[Glossary] in the arc42 documentation.
 |Popular Spanish television program that combines quiz shows with educational entertainment aired daily on La 2 of Televisión Española. The show is known for its unique format, which includes a variety of challenges and tests where contestants demonstrate their knowledge in different areas such as history, geography, science, popular culture, literature, art, among other subjects. 
 |"Saber Y Ganar"
 
-|User
-|Player who can register and then login into the app to play some of the different quizes explained around this explanation.
-|Usuario
+|Player
+|User who can register and then login into the app to play some of the different quizes explained around this explanation.
+|Jugador
+
+|The Challenge
+|Test where contestants must face a series of questions or activities that test their knowledge and skills in a specific area, such as general culture, history, science, art, among other topics. This test may consist of answering multiple-choice questions, completing sentences, identifying images, or performing activities related to the subject matter.
+|El desafío
 
 |Warm question
 |Test in which contestants' aim is to answer questions rapidly and accurately, requiring quick thinking, as questions are presented rapidly without pauses between them. Contestants strive to provide correct answers to accumulate points, but they must also carefully assess the risk of answering incorrectly, which could lead to losing points.
@@ -113,10 +113,6 @@ See https://docs.arc42.org/section-12/[Glossary] in the arc42 documentation.
 |Git
 |Free and open-source version control system used for tracking changes in source code during software development. It allows multiple developers to collaborate on projects simultaneously and efficiently manage changes to the codebase.
 |_N/A_
-
-|Microservice
-|Software architectural style that structures an application as a collection of loosely coupled services; each service is designed to perform a specific and narrowly defined function within the application. These services are typically small, independently deployable, and can be developed, tested, and deployed separately from the rest of the application.
-|Microservicio
 
 |Wikidata
 |Free and open knowledge base that acts as a central storage repository for structured data from Wikimedia projects and beyond. It provides a common platform for collecting and sharing structured data about various topics, including but not limited to, people, places, events, concepts, and objects.

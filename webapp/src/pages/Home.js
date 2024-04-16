@@ -1,7 +1,15 @@
 import * as React from "react";
 import {Box, Button} from "@mui/material";
+import { useContext } from 'react';
+import { SessionContext } from '../SessionContext';
+import { useTranslation } from 'react-i18next';
 
 const Home = () => {
+    const theme = useTheme();
+
+    const { username } = useContext(SessionContext);
+    const { t } = useTranslation();
+
     const styles = {
         logo:{
             width: {

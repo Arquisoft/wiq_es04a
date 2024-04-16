@@ -4,10 +4,12 @@ const request = require('supertest');
 const express = require('express');
 const bodyParser = require('body-parser');
 const userRoutes = require('../../routes/user-routes.js');
+const config = require('../test-config.js');
 
 const app = express();
 app.use(bodyParser.json());
 app.use('/user', userRoutes);
+const password = config.users.normalPassword;
 
 describe('User Routes', () => {
 
@@ -52,6 +54,7 @@ describe('User Routes', () => {
     });
 
     it('should get questions record for a user in a specific game mode', async () => {
+        
         const username = 'testuser';
         const gameMode = 'classic';
     
@@ -63,6 +66,16 @@ describe('User Routes', () => {
             createdAt: new Date(),
             updatedAt: new Date()
         });
+
+        const newQuestionRecord = {
+            username: 'testuser',
+            questions: ['Question 1', 'Question 2'],
+            gameMode: 'classic'
+        };
+
+        await request(app)
+            .post('/user/questionsRecord')
+            .send(newQuestionRecord);
     
         // Luego, hacemos la solicitud GET al endpoint
         const response = await request(app)
@@ -70,9 +83,9 @@ describe('User Routes', () => {
     
         // Verificamos que se haya realizado correctamente y que los datos sean correctos
         expect(response.status).toBe(200);
-        expect(response.body.username).toBe(username);
-        expect(response.body.gameMode).toBe(gameMode);
-        expect(response.body.questions).toEqual(['Question 1', 'Question 2']);
+        expect(response.body[0].username).toBe(username);
+        expect(response.body[0].gameMode).toBe(gameMode);
+        expect(response.body[0].questions).toEqual(['Question 1', 'Question 2']);
     });
     it('should return 400 if questions record not found for user in a specific game mode', async () => {
         const username = 'nonexistentuser';
@@ -87,7 +100,7 @@ describe('User Routes', () => {
 
     it('should return 400 if an error occurs while retrieving questions record', async () => {
         // Mock an error occurring during database query
-        jest.spyOn(QuestionsRecord, 'findOne').mockImplementationOnce(() => {
+        jest.spyOn(QuestionsRecord, 'findAll').mockImplementationOnce(() => {
             throw new Error('Database error');
         });
 
@@ -106,7 +119,7 @@ describe('User Routes', () => {
     it('should add a new user', async () => {
         const newUser = {
             username: 'testuser',
-            password: 'Test1234',
+            password: password,
             name: 'Test',
             surname: 'User'
         };
@@ -134,7 +147,7 @@ describe('User Routes', () => {
     it('should not add a user if username already exists', async () => {
         const existingUser = {
             username: 'existinguser',
-            password: 'Test1234',
+            password: password,
             name: 'Existing',
             surname: 'User'
         };
@@ -161,7 +174,7 @@ describe('User Routes', () => {
     it('should return error if username is less than 4 characters long', async () => {
         const newUser = {
             username: 'abc',
-            password: 'Test1234',
+            password: password,
             name: 'John',
             surname: 'Doe'
         };
@@ -177,7 +190,7 @@ describe('User Routes', () => {
     it('should return error if password is less than 8 characters long', async () => {
         const newUser = {
             username: 'newuser',
-            password: 'Short1', // Short password
+            password: config.users.shortPassword, // Short password
             name: 'John',
             surname: 'Doe'
         };
@@ -193,7 +206,7 @@ describe('User Routes', () => {
     it('should return error if password does not contain numeric character', async () => {
         const newUser = {
             username: 'newuser',
-            password: 'PasswordWithoutNumber',
+            password: config.users.noNumberPassword,
             name: 'John',
             surname: 'Doe'
         };
@@ -209,7 +222,7 @@ describe('User Routes', () => {
     it('should return error if password does not contain uppercase letter', async () => {
         const newUser = {
             username: 'newuser',
-            password: 'passwordwithoutuppercase1',
+            password: config.users.noUppercasePassword,
             name: 'John',
             surname: 'Doe'
         };
@@ -225,7 +238,7 @@ describe('User Routes', () => {
     it('should return error if name is empty or contains only spaces', async () => {
         const newUser = {
             username: 'newuser',
-            password: 'Test1234',
+            password: password,
             name: '', // Empty name
             surname: 'Doe'
         };
@@ -241,7 +254,7 @@ describe('User Routes', () => {
     it('should return error if surname is empty or contains only spaces', async () => {
         const newUser = {
             username: 'newuser',
-            password: 'Test1234',
+            password: password,
             name: 'John',
             surname: ' ' // Surname with only spaces
         };
@@ -380,7 +393,7 @@ describe('User Routes', () => {
         //I have to add the user first to make the post work
         const newUser = {
             username: 'testuserGroup',
-            password: 'Test1234',
+            password: password,
             name: 'Test',
             surname: 'User'
         };
@@ -407,27 +420,40 @@ describe('User Routes', () => {
     });
 
 
+    // group add fail test because of not accepted group name
+    it('should return error 400 if group name is too short', async () => {
+        const groupData = {
+            name: "t",
+            username: "testuserGroup"
+        };
+    
+        const res = await request(app)
+            .post('/user/group/add')
+            .send(groupData)
+            .expect(400);
+    
+        expect(res.body.error).toBe('Group name must be at least 4 characters long.');
+    });
+
     
     //group add fail test
-    it('shouldn´t add a new group', async () => {
+    it('shouldn`t add a new group', async () => {
 
         // Making POST request to the endpoint
         const res = await request(app)
             .post('/user/group/add')
             .send({})
             .expect(500); // Expecting a successful response with status code 200
-
     
     });
 
     //group join
-
     it('should allow a user to join a group successfully when the group is not full', async () => {
         
          //I have to add the user first to make the post work
          const newUser = {
             username: 'testuserGroupJoin',
-            password: 'Test1234',
+            password: password,
             name: 'Test',
             surname: 'User'
         };
@@ -490,7 +516,7 @@ describe('User Routes', () => {
         //Creating the group creator user
         const baseUser = {
             username: 'testuserGroupJoinFull',
-            password: 'Test1234',
+            password: password,
             name: 'Test',
             surname: 'User'
         };
@@ -514,7 +540,7 @@ describe('User Routes', () => {
         for (let i = 0; i < 19; i++) {
             let newUser = {
                 username: `testuserGroupJoinFull${i}`,
-                password: 'Test1234',
+                password: password,
                 name: 'Test',
                 surname: 'User'
             };
@@ -533,7 +559,7 @@ describe('User Routes', () => {
         // Trying to add a 21st user to the group
         const newUser = {
             username: 'testuserGroupJoinFull20',
-            password: 'Test1234',
+            password: password,
             name: 'Test',
             surname: 'User'
         };
@@ -561,7 +587,7 @@ describe('User Routes', () => {
     it('should update user statistics', async () => {
         const newUser = {
             username: 'testuser',
-            password: 'Test1234', 
+            password: password,
             name: 'Test',
             surname: 'User'
         };
@@ -627,7 +653,7 @@ describe('User Routes', () => {
     it('should get user statistics by username', async () => {
         const newUser = {
             username: 'testuser',
-            password: 'Test1234', 
+            password: password, 
             name: 'Test',
             surname: 'User'
         };
@@ -659,14 +685,14 @@ describe('User Routes', () => {
     it('should get all user data', async () => {
         const newUser = {
             username: 'testuser',
-            password: 'Test1234', 
+            password: password,
             name: 'Test',
             surname: 'User'
         };
 
         const newUser2 = {
             username: 'testuser2',
-            password: 'Test1234', 
+            password: password,
             name: 'Test2',
             surname: 'User2'
         };
@@ -691,7 +717,7 @@ describe('User Routes', () => {
     it('should get a user by username', async () => {
         const newUser = {
             username: 'testuser3',
-            password: 'Test1234', 
+            password: password,
             name: 'Test',
             surname: 'User'
         };
@@ -709,18 +735,18 @@ describe('User Routes', () => {
     it('should get user ranking', async () => {
         const newUser = {
             username: 'testuser4',
-            password: 'Test1234', 
+            password: password,
             name: 'Test',
             surname: 'User'
         };
         const newUser2 = {
             username: 'testuser5',
-            password: 'Test1234', 
+            password: password,
             name: 'Test',
             surname: 'User'
         };const newUser3 = {
             username: 'testuser6',
-            password: 'Test1234', 
+            password: password, 
             name: 'Test',
             surname: 'User'
         };   

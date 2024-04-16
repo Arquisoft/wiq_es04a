@@ -104,13 +104,16 @@ jobs:
       uses: elgohr/Publish-Docker-Github-Action@v5
       env:
         API_URI: http://${{ secrets.DEPLOY_HOST }}:8000
+        ONLINE_URI: http://${{ secrets.DEPLOY_HOST }}:5010
       with:
           name: arquisoft/wiq_es04a/webapp
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
           workdir: webapp
-          buildargs: API_URI
+          buildargs: |
+            API_URI
+            ONLINE_URI
   docker-push-multiplayer:
     name: Push multiplayer service Docker Image to GitHub Packages
     runs-on: ubuntu-latest

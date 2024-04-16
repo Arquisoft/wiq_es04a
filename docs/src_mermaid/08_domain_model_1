@@ -1,0 +1,31 @@
+classDiagram
+    User "*"-->"1" Contest
+    Contest "1"-->"*"Game
+    Game "1"-->"*" Question
+    Game "1"-->"*" ProfileStatistics
+    Contest "1"-->"*" Profile
+    Contest "1"-->"*" Group
+    Profile "1"-->"1" ProfileStatistics
+    Group "1"-->"*" Profile
+    class Contest {
+    }
+    class Game {
+    }
+    class Question {
+        - String question
+        - List~String~ answers
+        - String correctAnswer
+    }
+    class Profile {
+        - String username
+        - int money
+    }
+    class ProfileStatistics {
+        - List~Question~ right
+        - List~Question~ wrong
+        - int position
+        - int timePlayed
+    }
+    class Group {
+    }
+

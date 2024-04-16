@@ -47,7 +47,7 @@ app.get('/user/questionsRecord/:username/:gameMode', async (req, res) => {
     const username = req.params.username;
     const gameMode = req.params.gameMode;
     // Forward the user statics edit request to the user service
-    const userResponse = await axios.get(`${userServiceUrl}/user/questionsRecord/${username}/${gameMode}`, req.body);
+    const userResponse = await axios.get(userServiceUrl+`/user/questionsRecord/`+username+`/`+gameMode, req.body);
     res.json(userResponse.data);
   } catch (error) {
     handleErrors(res, error);
@@ -56,7 +56,7 @@ app.get('/user/questionsRecord/:username/:gameMode', async (req, res) => {
 
 app.post('/user/questionsRecord', async (req, res) => {
   try {
-    const response = await axios.post(`${userServiceUrl}/user/questionsRecord`, req.body);
+    const response = await axios.post(userServiceUrl+`/user/questionsRecord`, req.body);
     res.json(response.data); 
   } catch (error) {
     console.error("Error al actualizar el historial de preguntas:", error);
@@ -99,7 +99,7 @@ app.get('/user/get/:username', async (req, res) => {
   try {
     const username = req.params.username;
     // Forward the user statics edit request to the user service
-    const userResponse = await axios.get(`${userServiceUrl}/user/get/${username}`, req.body);
+    const userResponse = await axios.get(userServiceUrl+'/user/get/'+username, req.body);
     res.json(userResponse.data);
   } catch (error) {
     handleErrors(res, error);
@@ -125,6 +125,17 @@ app.get('/questions', async (req, res) => {
   }
 });
 
+app.get('/questions/:category', async (req, res) => {
+  try {
+    const category = encodeURIComponent(req.params.category);
+    const questionsResponse = await axios.get(`${questionGenerationServiceUrl}/questions/getQuestionsFromDb/1/${category}`);
+    res.json(questionsResponse.data);
+  } catch (error) {
+    res.status(error.response).json({ error: error.response });
+  }
+});
+
+
 app.post('/statistics/edit', async (req, res) => {
   try {
     // Forward the user statics edit request to the user service
@@ -149,7 +160,9 @@ app.get('/user/statistics/:username', async (req, res) => {
 app.get('/user/group/list', async (req, res) => {
   try {
     const username = req.query.username;
+    console.log("username: ", username);
     const userResponse = await axios.get(userServiceUrl + '/user/group/list',{params: {username: username }});
+    console.log("userResponse: ", userResponse);
     res.json(userResponse.data);
   } catch (error) {
     handleErrors(res, error);
