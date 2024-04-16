@@ -10,8 +10,8 @@ const Home = () => {
         logo:{
             width: {
                 xs: '20em', // Más pequeño para dispositivos extra pequeños
-                sm: '25em', // Mediano para dispositivos pequeños
-                md: '22.5em', // Normal para dispositivos medianos
+                sm: '22.5em', // Mediano para dispositivos pequeños
+                md: '23.5em', // Normal para dispositivos medianos
                 lg: '25em', // Grande para dispositivos grandes
                 xl: '28em', // Muy grande para dispositivos extra grandes
             },
@@ -88,23 +88,19 @@ const Home = () => {
 
     const videoRef = React.useRef(null);
 
-    React.useEffect(() => {
-        if (videoRef.current) {
-            videoRef.current.playbackRate = 0.85;
-        }
-    }, []);
+    React.useEffect(() => {if (videoRef.current) {videoRef.current.playbackRate = 0.85;}}, []);
 
     return (
         <Box sx={styles.fullScreen}>
-            <video ref={videoRef} autoPlay muted loop style={{ ...styles.video}}>
-                <source src="./home/Background-White.webm" type="video/mp4" />
-            </video>
-
-            <Box sx={xxl ? styles.maxLogo : styles.logo}>
+            <Box data-testid="xxl" sx={xxl ? styles.maxLogo : styles.logo}>
                 <img src="./home/HomeLogo.png" alt="Logo" style={{ width: '100%' }} />
             </Box>
 
             <Button variant='contained' href={"/login"} sx={styles.playButton}> PLAY </Button>
+
+            <video data-testid="video" ref={videoRef} autoPlay muted loop style={{ ...styles.video}}>
+                <source src="./home/Background-White.webm" type="video/mp4" />
+            </video>
         </Box>
     );
 };
