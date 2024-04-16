@@ -130,5 +130,10 @@
             "winner_3": "réponses correctes en",
             "winner_4": "secondes"
         }
+    },
+
+    "NotFound": {
+        "title": "Page non trouvée",
+        "button_msg": "Retour à la page d'accueil"
     }
 }

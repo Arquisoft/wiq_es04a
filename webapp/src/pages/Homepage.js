@@ -75,28 +75,27 @@ const Homepage = () => {
         // If game information (info) has been loaded and there is no game information currently displayed
         if (info !== null && gamePhoto === null) {
             // Show the information of the first game
-            displayGames(info, 1,0,4,0)
+            displayGames(info, 1,0,5,0)
             displayGamePhoto(0);
         }
     });
 
     // Update the selected page number, page games and game photo
     const handlePageChange = (event, page) => {
-        displayGames(info, page, (page-1)*4, (page*4),0);
-        displayGamePhoto((page-1)*4);
-        changeGameLink((page-1)*4)
+        displayGames(info, page, (page-1)*5, (page*5),0);
+        displayGamePhoto((page-1)*5);
+        changeGameLink((page-1)*5)
     };
 
     // Update the selected page number, page games and game photo
     const handleButtonClick = (index, first, page) => {
-        displayGames(info, page, (page-1)*4, (page*4), index);
+        displayGames(info, page, (page-1)*5, (page*5), index);
         displayGamePhoto(index+first);
         changeGameLink(index+first);
     };
 
-    //if online mode -> change link to go to online room
     const changeGameLink = (index) => {
-        if(info[index].nombre === "ONLINE MODE") {
+        if(info[index].nombre === "MULTIPLAYER MODE") {
             setGameLink("/multiplayerRoom")
         } else if (info[index].nombre === "DISCOVERING CITIES") {
             setGameLink("/discoveringCitiesGame")
@@ -117,7 +116,7 @@ const Homepage = () => {
                         {option.nombre}
                     </Button>
                 ))}
-                <Pagination count={info ? Math.ceil(info.length / 4) : 1} color="primary" size='medium' page={page} onChange={handlePageChange}  sx={{marginTop:'20px',}}/>
+                <Pagination count={info ? Math.ceil(info.length / 5) : 1} color="primary" size='medium' page={page} onChange={handlePageChange}  sx={{marginTop:'20px',}}/>
             </Box>
         );
     };

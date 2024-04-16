@@ -19,8 +19,6 @@ describe('Homepage component', () => {
       </Router>
     );
 
-    await waitFor(() => screen.getByText(/Play/i));
-
     const playLink = screen.getByRole('link', { name: /PLAY/i });
     await expect(playLink).toBeInTheDocument();
 
@@ -36,9 +34,13 @@ describe('Homepage component', () => {
     const game4 = screen.getByRole('button', { name: /Warm question/i});
     await expect(game4).toBeInTheDocument();
 
+    const game5 = screen.getByRole('button', { name: /Multiplayer mode/i});
+    await expect(game5).toBeInTheDocument();
+
   });
   
-  it('should change game selection page', async () => {
+  //Now there is only one page
+  /*it('should change game selection page', async () => {
     
     render(
       <Homepage />
@@ -49,7 +51,7 @@ describe('Homepage component', () => {
     await waitFor(() => {
       expect(screen.queryByText('ONLINE MODE')).toBeInTheDocument();
     });
-  });
+  });*/
 
 
   it('should select a game mode', async () => {

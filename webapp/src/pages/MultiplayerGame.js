@@ -47,6 +47,9 @@ const Game = () => {
     const[winnerPlayer, setWinnerPlayer] = React.useState("");
     const[winnerCorrect, setWinnerCorrect] = React.useState(0);
     const[winnerTime, setWinnerTime] = React.useState(0);
+
+    //const [userResponses, setUserResponses] = React.useState([]);
+    const [, setUserResponses] = React.useState([]);
     
     React.useEffect(() => {
         const newSocket = io(socketEndpoint);
@@ -81,6 +84,8 @@ const Game = () => {
             setTimerRunning(false);
             setShouldRedirect(true);
             setQuestionCountdownRunning(false);
+            //updateStatistics();
+            //updateQuestionsRecord();
         }
         // eslint-disable-next-line
     }, [round]);
@@ -105,6 +110,33 @@ const Game = () => {
           
     };
 
+ /*   const updateStatistics = async() => {
+        try {
+            await axios.post(`${apiEndpoint}/statistics/edit`, {
+                username:username,
+                the_callenge_earned_money:totalScore,
+                the_callenge_correctly_answered_questions:correctlyAnsweredQuestions,
+                the_callenge_incorrectly_answered_questions:incorrectlyAnsweredQuestions,
+                the_callenge_total_time_played:totalTimePlayed,
+                the_callenge_games_played:1
+            });
+        } catch (error) {
+            console.error("Error:", error);
+        };
+    }*/
+
+    /*const updateQuestionsRecord = async() => {
+        try {
+            await axios.post(`${apiEndpoint}/user/questionsRecord`, {
+                questions: userResponses,
+                username: username,
+                gameMode: "MultiplayerMode"
+            });
+        } catch (error) {
+            console.error("Error:", error);
+        };
+    }*/
+
     // this function is called when a user selects a response. 
     const selectResponse = async (index, response) => {
         setAnswered(true);
@@ -114,6 +146,14 @@ const Game = () => {
 
         //check answer
         if (response === questionData.correctAnswer) {
+            const userResponse = {
+                question: questionData.question,
+                response: response,
+                options: questionData.options,
+                correctAnswer: questionData.correctAnswer
+            };
+            setUserResponses(prevResponses => [...prevResponses, userResponse]);
+
             newButtonStates[index] = "success"
             const sucessSound = new Audio(SUCCESS_SOUND_ROUTE);
             sucessSound.volume = 0.40;
@@ -125,6 +165,14 @@ const Game = () => {
             newQuestionHistorial[round-1] = true;
             setQuestionHistorial(newQuestionHistorial);
         } else {
+            const userResponse = {
+                question: questionData.question,
+                response: response,
+                options: questionData.options,
+                correctAnswer: questionData.correctAnswer
+            };
+            setUserResponses(prevResponses => [...prevResponses, userResponse]);
+
             newButtonStates[index] = "failure";
             const failureSound = new Audio(FAILURE_SOUND_ROUTE);
             failureSound.volume = 0.40;
