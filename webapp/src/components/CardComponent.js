@@ -56,7 +56,7 @@ const styles = {
             sm: '0rem', // Tamaño para dispositivos pequeños
             md: '1rem', // Tamaño para dispositivos medianos
             lg: '1.4rem', // Tamaño para dispositivos grandes
-            xl: '1.8rem' // Tamaño para dispositivos extra grandes
+            xl: '1.6rem' // Tamaño para dispositivos extra grandes
         },
         WebkitTextStroke: '0.07rem black',
         textStroke: '0.07rem black',
