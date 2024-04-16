@@ -2,7 +2,7 @@
     {
       "nombre": "WISE MEN STACK",
       "descripcion":
-            "The player chooses a topic from five available options and must answer a battery of questions related to it within 60 seconds. For each question, the host provides two options. If the contestant guesses correctly, they win €20; otherwise, they move on to the next question (as the correct answer would be the other option). If the time runs out before the question is fully asked and both possible answers are provided, the contestant may still answer it; however, if the statement hasn't been completed (or the options weren't provided), they cannot answer.",
+            "The player chooses a topic from five available options and must answer a battery of questions related to it within 60 seconds. For each question, the host provides two options. If the contestant guesses correctly, they move on to the next question.",
       "foto": "../instructions/foto0.png",
       "card":"The player chooses a topic from five available options and must answer a battery of questions related to it within 60 seconds.",
       "cardFoto": "../homePage/foto0.png"

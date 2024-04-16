@@ -9,20 +9,20 @@ const Instructions = () => {
 
         button:{
             color: 'black',
-            backgroundColor:'transparent',
+            backgroundColor:'rgba(255,255,255,0.7)',
             width: "100%",
-            height: "100px",
+            height: "75px",
             border: '2px solid black',
             borderRadius: '5px',
         },
 
         selectedButton:{
 
-            color: 'black',
-            backgroundColor:'rgba(255,255,255,0.6)',
+            color: 'white',
+            backgroundColor:'black',
             width: "100%",
-            height: "100px",
-            border: '2px solid black',
+            height: "75px",
+            border: '2px solid white',
             borderRadius: '5px'
         },
 
@@ -67,14 +67,6 @@ const Instructions = () => {
     const [gameDisplayedIndex, setGameDisplayed] = React.useState(null);
     const [gameInfo, setGameInfo] = React.useState(null);
 
-    const videoRef = React.useRef(null);
-
-    React.useEffect(() => {
-        if (videoRef.current) {
-            videoRef.current.playbackRate = 0.75;
-        }
-    }, []);
-
     React.useEffect(() => {
         setInfo(data);
     }, []);
@@ -88,11 +80,11 @@ const Instructions = () => {
         }
         else {
             setGameInfo(
-                <Box sx={{...styles.game, flexDirection:'row',gap:'2rem', paddingTop:'2rem'}}>
-                    <img src={info[index].foto} alt="Foto del minijuego" style={{ width: "25%", border: `2px solid black`, borderRadius: "5px", marginTop:'2rem'}}/>
-                    <Box sx={{...styles.game, flexDirection: "column", width:'50%'}}>
-                        <Typography variant="h3" align="center" fontWeight="bold"> {info[index].nombre} </Typography>
-                        <Typography  variant="body1" align="center" sx={{ textAlign: "justify", background: "none", paddingTop:'2rem', width:'80%'}}> {info[index].descripcion} </Typography>
+                <Box sx={{...styles.game, flexDirection:'row',gap:'2rem', margin:'1.5rem', height:'40vh', width:'70vw'}}>
+                    <img src={info[index].foto} alt="Foto del minijuego" style={{ height: "100%", border: `2px solid black`, borderRadius: "5px"}}/>
+                    <Box sx={{...styles.game, flexDirection: "column", width:'50%',height:'100%', paddingTop:'2rem', paddingBottom:'2rem', paddingRight:'1rem', paddingLeft:'1rem', borderRadius:'10px', border: `2px solid black`, backgroundColor: 'rgba(255,255,255,0.7)'}}>
+                        <Typography variant="h3" align="center" fontWeight="bold" sx={{fontSize:'2rem'}}> {info[index].nombre} </Typography>
+                        <Typography  variant="body1" align="center" sx={{ textAlign: "center", background: "none", paddingTop:'2rem', width:'80%', fontSize:'1rem'}}> {info[index].descripcion} </Typography>
                     </Box>
                 </Box>
             );
@@ -100,21 +92,24 @@ const Instructions = () => {
         }
     };
 
+    const videoRef = React.useRef(null);
+    React.useEffect(() => {if (videoRef.current) {videoRef.current.playbackRate = 0.85;}}, []);
+
     if (!info) {
         return <div>Loading...</div>; // Shows a loading message while the information is being obtained
     }
 
     return (
         <Box sx={{...styles.fullScreen}}>
-            <video ref={videoRef} autoPlay muted loop style={{ ...styles.video}}>
-                <source src="../instructions/background.mp4" type="video/mp4" />
+            <video data-testid="video" ref={videoRef} autoPlay muted loop style={{ ...styles.video}}>
+                <source src="../home/Background-White.webm" type="video/mp4" />
             </video>
             <CssBaseline />
 
             <Box sx={{...styles.fullScreen, width:'80%', margin:'1rem'}}>
                 <Grid container spacing={{ xs: 2, md: 4 }} columns={{ xs: 2, sm: 3, md: 3, lg: 5, xl:5 }}>
                     <Grid item xs={2} sm={3} md={5}>
-                        <Typography variant="h3" align="center" fontWeight="bold" sx={{paddingTop:'2rem'}}>GAME MODES</Typography>
+                        <Typography variant="h3" align="center" fontWeight="bold" sx={{textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', margin:'1rem'}}>INSTRUCTIONS</Typography>
                     </Grid>
                     {info.map((option, index) => (
                         <Grid item xs={1} key={option.nombre} >
