@@ -5,8 +5,6 @@ import { SessionContext } from '../SessionContext';
 import { useTranslation } from 'react-i18next';
 
 const Home = () => {
-    const theme = useTheme();
-
     const { username } = useContext(SessionContext);
     const { t } = useTranslation();
 

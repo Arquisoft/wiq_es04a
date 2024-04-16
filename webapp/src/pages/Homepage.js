@@ -94,7 +94,11 @@ const Homepage = () => {
     const [info, setInfo] = React.useState(null);
 
     // Link to each game page
-    const [gameLink, setGameLink] = React.useState("");
+    const [gameLink, setGameLink] = React.useState("/game");
+
+    //Selected index
+    const [activeIndex, setActiveIndex] = React.useState(0); // Nuevo estado para el índice activo
+
 
     //Update the game information
     React.useEffect(() => {
@@ -145,31 +149,20 @@ const Homepage = () => {
     // Responsible for generating the buttons with the names of the games and the pagination element
     const displayGames = (info) => {
         setGames(
-            <Box sx={{ display: 'flex', flexDirection: "column", justifyContent: "center", alignItems: 'center', width: '50%', flexGrow: 1,}}>
-                {info.slice(first, last).map((option, index) => (
-                    <Button key={'game'+index} variant="outlined" sx={activeIndex === index ? styles.buttonClicked : styles.buttonNormal} onClick={() => handleButtonClick(index, first,page)}>
-                        {option.nombre}
-                    </Button>
+            <Grid container spacing={2} justifyContent="center" alignItems="center">
+                {info.map((option, index) => (
+                    <Grid item xs={6} sm={4} md={2} lg={2} xl={2} key={'game-' + index} sx={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center',}}>
+                        <Button sx={xxl ? styles.cardButtonMax : styles.cardButton} onClick={() => handleButtonClick(index)}>
+                            <CardComponent
+                                imageUrl={option.cardFoto}
+                                title={option.nombre}
+                                isActive={index === activeIndex}
+                            />
+                        </Button>
+                    </Grid>
                 ))}
-                <Pagination count={info ? Math.ceil(info.length / 4) : 1} color="primary" size='medium' page={page} onChange={handlePageChange}  sx={{marginTop:'20px',}}/>
-            </Box>
+            </Grid>
         );
-    };
-
-    //Update component that has the photo of the selected game
-    const displayGamePhoto = (index) => {
-        if (info !== null) {
-            setGamePhoto(
-                <Box sx={{display:{xs:'none', md:'flex'}, flexGrow:1, flexDirection: "row", justifyContent: "center", alignItems:'center', width:'50%',}}>
-                    <img
-                        style={styles.img}
-                        src={info[index].foto}
-                        alt="Foto del juego"
-                    />
-
-                </Box>
-            );
-        }
     };
 
     return (
