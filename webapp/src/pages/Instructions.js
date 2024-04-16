@@ -36,12 +36,27 @@ const Instructions = () => {
             height: '100vh',
             margin: 0,
             padding: 0,
+
         },
 
         game:{
             display: "flex",
             alignItems: "center",
             justifyContent: 'center',
+        },
+
+        video:{
+            position: "fixed",
+            width: "100vw",
+            height: "100vh",
+            objectFit: "cover",
+            zIndex:'-1',
+            userSelect:'none',
+            pointerEvents: 'none',
+            top:'0',
+            left:'0',
+            opacity:'0.5',
+
         },
     };
 
@@ -51,6 +66,14 @@ const Instructions = () => {
     // Game to show info about and the comp with the info
     const [gameDisplayedIndex, setGameDisplayed] = React.useState(null);
     const [gameInfo, setGameInfo] = React.useState(null);
+
+    const videoRef = React.useRef(null);
+
+    React.useEffect(() => {
+        if (videoRef.current) {
+            videoRef.current.playbackRate = 0.75;
+        }
+    }, []);
 
     React.useEffect(() => {
         setInfo(data);
@@ -82,8 +105,8 @@ const Instructions = () => {
     }
 
     return (
-        <Box sx={styles.fullScreen}>
-            <video autoPlay muted loop style={{ position: "fixed", width: "100vw", height: "100vh", objectFit: "cover", zIndex:'-1', userSelect:'none', pointerEvents: 'none', top:'0', left:'0'}}>
+        <Box sx={{...styles.fullScreen}}>
+            <video ref={videoRef} autoPlay muted loop style={{ ...styles.video}}>
                 <source src="../instructions/background.mp4" type="video/mp4" />
             </video>
             <CssBaseline />
