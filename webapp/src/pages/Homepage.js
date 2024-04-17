@@ -118,7 +118,7 @@ const Homepage = () => {
             case "THE CHALLENGE":
                 setGameLink("/TheChallengeGame");
                 break;
-            case "ONLINE MODE":
+            case "MULTIPLAYER MODE":
                 setGameLink("/multiplayerRoom");
                 break;
             default:

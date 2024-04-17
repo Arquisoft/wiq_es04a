@@ -39,6 +39,7 @@ const Game = () => {
     const [questionCountdownKey, setQuestionCountdownKey] = React.useState(15); //key to update question timer
     const [questionCountdownRunning, setQuestionCountdownRunning] = React.useState(false); //property to start and stop question timer
     const [questionHistorial, setQuestionHistorial] = React.useState(Array(MAX_ROUNDS).fill(null));
+    const [userResponses, setUserResponses] = React.useState([]);
 
     const location = useLocation();
     const { gameQuestions, roomCode} = location.state;
@@ -81,6 +82,9 @@ const Game = () => {
             setTimerRunning(false);
             setShouldRedirect(true);
             setQuestionCountdownRunning(false);
+            updateStatistics();
+            updateQuestionsRecord();
+
         }
         // eslint-disable-next-line
     }, [round]);
@@ -105,6 +109,53 @@ const Game = () => {
           
     };
 
+    const updateStatistics = async() => {
+        try {
+            //const winner = winner === username ? 1 : 0;
+
+            await axios.post(`${apiEndpoint}/statistics/edit`, {
+                username:username,
+                the_callenge_earned_money:0,
+                the_callenge_correctly_answered_questions:0,
+                the_callenge_incorrectly_answered_questions:0,
+                the_callenge_total_time_played:0,
+                the_callenge_games_played:0,
+                wise_men_stack_earned_money: 0,
+                wise_men_stack_correctly_answered_questions: 0,
+                wise_men_stack_incorrectly_answered_questions: 0,
+                wise_men_stack_games_played: 0,
+                warm_question_earned_money: 0,
+                warm_question_correctly_answered_questions: 0,
+                warm_question_incorrectly_answered_questions: 0,
+                warm_question_passed_questions: 0,
+                warm_question_games_played: 0,
+                discovering_cities_earned_money: 0,
+                discovering_cities_correctly_answered_questions: 0,
+                discovering_cities_incorrectly_answered_questions: 0,
+                discovering_cities_games_played: 0,
+                online_earned_money: totalScore,
+                online_correctly_answered_questions: correctlyAnsweredQuestions,
+                online_incorrectly_answered_questions: incorrectlyAnsweredQuestions,
+                online_total_time_played: totalTimePlayed,
+                online_games_played: 1,
+            });
+        } catch (error) {
+            console.error("Error:", error);
+        };
+    }
+
+    const updateQuestionsRecord = async() => {
+        try {
+            await axios.post(`${apiEndpoint}/user/questionsRecord`, {
+                questions: userResponses,
+                username: username,
+                gameMode: "OnlineMode"
+            });
+        } catch (error) {
+            console.error("Error:", error);
+        };
+    }
+
     // this function is called when a user selects a response. 
     const selectResponse = async (index, response) => {
         setAnswered(true);
@@ -114,6 +165,14 @@ const Game = () => {
 
         //check answer
         if (response === questionData.correctAnswer) {
+            const userResponse = {
+                question: questionData.question,
+                response: response,
+                options: questionData.options,
+                correctAnswer: questionData.correctAnswer
+            };
+            setUserResponses(prevResponses => [...prevResponses, userResponse]);
+
             newButtonStates[index] = "success"
             const sucessSound = new Audio(SUCCESS_SOUND_ROUTE);
             sucessSound.volume = 0.40;
@@ -125,6 +184,14 @@ const Game = () => {
             newQuestionHistorial[round-1] = true;
             setQuestionHistorial(newQuestionHistorial);
         } else {
+            const userResponse = {
+                question: questionData.question,
+                response: response,
+                options: questionData.options,
+                correctAnswer: questionData.correctAnswer
+            };
+            setUserResponses(prevResponses => [...prevResponses, userResponse]);
+            
             newButtonStates[index] = "failure";
             const failureSound = new Audio(FAILURE_SOUND_ROUTE);
             failureSound.volume = 0.40;
@@ -142,22 +209,6 @@ const Game = () => {
         }
 
         setButtonStates(newButtonStates);
-
-        if (round >= 3) {
-            // Update user data before redirecting
-            try {
-                await axios.post(`${apiEndpoint}/statistics/edit`, {
-                    username:username,
-                    earned_money:totalScore,
-                    classic_correctly_answered_questions:correctlyAnsweredQuestions,
-                    classic_incorrectly_answered_questions:incorrectlyAnsweredQuestions,
-                    classic_total_time_played:totalTimePlayed,
-                    classic_games_played:1
-                  });
-              } catch (error) {
-                console.error("Error:", error);
-              }
-        }
 
         setTimeout(() => {
             setRound(round + 1);

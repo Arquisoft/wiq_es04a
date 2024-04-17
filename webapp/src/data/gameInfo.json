@@ -30,10 +30,10 @@
 
     },
     {
-      "nombre": "ONLINE MODE",
-      "descripcion": "Create a room and share the room code with other players to play.",
+      "nombre": "MULTIPLAYER MODE",
+      "descripcion": "Create a room and share the room code with other players to play. It also has a room chat.",
       "foto": "../instructions/online-photo.jpg",
-      "card":"Create a room for other player to join and play 1vs1",
+      "card":"Create a room and share the room code with other players to play. It also has a room chat.",
       "cardFoto": "../homePage/online-photo.jpg"
 
     }
