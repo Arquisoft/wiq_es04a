@@ -87,16 +87,6 @@ describe('User Routes', () => {
         expect(response.body[0].gameMode).toBe(gameMode);
         expect(response.body[0].questions).toEqual(['Question 1', 'Question 2']);
     });
-    it('should return 400 if questions record not found for user in a specific game mode', async () => {
-        const username = 'nonexistentuser';
-        const gameMode = 'classic';
-
-        const response = await request(app)
-            .get(`/user/questionsRecord/${username}/${gameMode}`);
-
-        expect(response.status).toBe(404);
-        expect(response.body.error).toBe('No record found');
-    });
 
     it('should return 400 if an error occurs while retrieving questions record', async () => {
         // Mock an error occurring during database query

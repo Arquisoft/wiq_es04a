@@ -139,5 +139,10 @@
             "winner_3": "respuestas correctas en",
             "winner_4": "segundos"
         }
+    }, 
+
+    "NotFound": {
+        "title": "Página no encontrada",
+        "button_msg": "Volver a la página de inicio"
     }
 }

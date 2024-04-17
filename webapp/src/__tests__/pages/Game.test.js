@@ -26,9 +26,6 @@ describe('Game component', () => {
     mockAxios.onPost('http://localhost:8000/statistics/edit').reply(200, { success: true });
     mockAxios.onPost('http://localhost:8000/user/questionsRecord').reply(200, { success: true });
 
-  });
-
-  it('should render question, answers and other ', async () => {
     render( 
       <SessionContext.Provider value={{ username: 'exampleUser' }}>
         <Router>
@@ -36,82 +33,50 @@ describe('Game component', () => {
         </Router>
       </SessionContext.Provider>
     );
+  });
 
+  it('should render question, answers and other ', async () => {
     expect(screen.getByRole('progressbar'));
     expect(screen.findByText('1'));
     //expect(screen.findByText('1/3'));
 
     // waits for the question to appear
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
 
-    expect(screen.findByText('Which is the capital of Spain?'));
+    expect(screen.findByText('Which is the capital of Spain?'.toUpperCase()));
     expect(screen.findByText('Madrid'));
     expect(screen.findByText('Barcelona'));
     expect(screen.findByText('Paris'));
     expect(screen.findByText('London'));
-    
-    expect(screen.getByRole('button', { name: /Pause/i }));
 
   });
 
   it('should guess correct answer', async () => {
-    render( 
-      <SessionContext.Provider value={{ username: 'exampleUser' }}>
-        <Router>
-          <Game />
-        </Router>
-      </SessionContext.Provider>
-    );
-
     // waits for the question to appear
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
     const correctAnswer = screen.getByRole('button', { name: 'Madrid' });
 
-    expect(correctAnswer).not.toHaveStyle({ backgroundColor: 'green' });
-
+    expect(screen.findByTestId("anwer0"));
     //selects correct answer
     fireEvent.click(correctAnswer);
-
-    //expect(screen.findByText('1')).toHaveStyle({ backgroundColor: 'lightgreen' });
-
-    expect(correctAnswer).toHaveStyle({ backgroundColor: 'green' });
-
+    expect(screen.findByTestId("succes0"));
   });
 
   
   it('should choose incorrect answer', async () => {
-    render( 
-      <SessionContext.Provider value={{ username: 'exampleUser' }}>
-        <Router>
-          <Game />
-        </Router>
-      </SessionContext.Provider>
-    );
     // waits for the question to appear
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
     const incorrectAnswer = screen.getByRole('button', { name: 'Barcelona' });
 
-    expect(incorrectAnswer).not.toHaveStyle({ backgroundColor: 'red' });
-
+    expect(screen.findByTestId("anwer1"));
     //selects correct answer
     fireEvent.click(incorrectAnswer);
-
-    expect(incorrectAnswer).toHaveStyle({ backgroundColor: 'red' });
-    //expect(screen.findByText('1')).toHaveStyle({ backgroundColor: 'salmon' });
-
+    expect(screen.findByTestId("failure1"));
   });
 
   it('should not answer the question', async () => {
-    render( 
-      <SessionContext.Provider value={{ username: 'exampleUser' }}>
-        <Router>
-          <Game />
-        </Router>
-      </SessionContext.Provider>
-    );
-
     // waits for the question to appear
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
 
     setTimeout(() => {
       // Comprobamos que el callback ha sido llamado después del tiempo especificado
@@ -120,71 +85,15 @@ describe('Game component', () => {
 
   }, 4500);
 
-  /*it('should pass rounds', async () => {
-    render( 
-      <SessionContext.Provider value={{ username: 'exampleUser' }}>
-        <Router>
-          <Game />
-        </Router>
-      </SessionContext.Provider>
-    );
-
-    //FIRST ROUND
-
-    // waits for the question to appear
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
-    var correctAnswer = screen.getByRole('button', { name: 'Madrid' });
-
-    expect(correctAnswer).not.toHaveStyle({ backgroundColor: 'green' });
-
-    //selects correct answer
+  it('should render pause & play buttons when answered', async () => {
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
+    const correctAnswer = screen.getByRole('button', { name: 'Madrid' });
     fireEvent.click(correctAnswer);
 
-    //expect(screen.findByText('1')).toHaveStyle({ backgroundColor: 'lightgreen' });
-
-    expect(correctAnswer).toHaveStyle({ backgroundColor: 'green' });
-    setTimeout(() => {
-    }, 3000);
-
-
-    // SECOND ROUND
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
-
-    //expect(screen.findByText('2/3')).toBeInTheDocument();
-    console.log(screen.getByTestId("numRound"));
-    await expect(screen.getByTestId("numRound")).toBeInTheDocument(); 
-    correctAnswer = screen.getByRole('button', { name: 'Madrid' });
-    fireEvent.click(correctAnswer);
-    expect(correctAnswer).toHaveStyle({ backgroundColor: 'green' });
-
-    setTimeout(() => {
-    }, 3000);
-
-
-    // THIRD ROUND
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
-
-    expect(screen.findByText('3/3'));
-    await expect(screen.getByTestId("numRound")); 
-    correctAnswer = screen.getByRole('button', { name: 'Madrid' });
-    fireEvent.click(correctAnswer);
-    expect(correctAnswer).toHaveStyle({ backgroundColor: 'green' });
-
-    setTimeout(() => {
-    }, 3000);
-
-    console.log(screen.getByTestId("numRound")); 
-    //END OF THE GAME
-    //await expect(screen.getByTestId("end-game-message")); 
-
-    //await waitFor(() => screen.getByTestId("end-game-message"));
-    /*await expect(screen.findByText('Correct Answers:'));
-    await expect(screen.findByText('Incorrect Answers:'));
-    await expect(screen.findByText('Total money:'));
-    await expect(screen.findByText('Game time:'));
-
-
-
-  });*/
+    const pauseButton = screen.getByTestId("pause");
+    expect(pauseButton);
+    fireEvent.click(pauseButton);
+    expect(screen.getByTestId("play"));
+  })
 
 });

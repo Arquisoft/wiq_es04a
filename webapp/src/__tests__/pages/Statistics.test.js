@@ -26,6 +26,11 @@ describe('Statistics component', () => {
       discovering_cities_correctly_answered_questions: 18,
       discovering_cities_incorrectly_answered_questions: 6,
       discovering_cities_games_played: 12,
+      online_earned_money: 15,
+      online_correctly_answered_questions: 2,
+      online_incorrectly_answered_questions: 3,
+      online_total_time_played: 10,
+      online_games_played: 12,
     });
     
     mockAxios.onGet('http://localhost:8000/user/questionsRecord/testuser/TheChallenge').reply(200, [
@@ -71,6 +76,20 @@ describe('Statistics component', () => {
     ]);
 
     mockAxios.onGet('http://localhost:8000/user/questionsRecord/testuser/DiscoveringCities').reply(200, [
+      {
+        createdAt: '2024-04-11T12:00:00Z',
+        questions: [
+        {
+          question: 'What is 1 + 1?',
+          options: ['1', '2', '3', '4'],
+          correctAnswer: '2',
+          response: '2',
+        },
+        ],
+      },
+    ]);
+
+    mockAxios.onGet('http://localhost:8000/user/questionsRecord/testuser/OnlineMode').reply(200, [
       {
         createdAt: '2024-04-11T12:00:00Z',
         questions: [
@@ -202,5 +221,36 @@ describe('Statistics component', () => {
     await screen.findByText('Game 04/11/2024, 14:00');
     expect(screen.getByText('What is 1 + 1?')).toBeInTheDocument();
     expect(screen.getByText('2')).toBeInTheDocument();
+  });
+
+  it('should render Statistics component with correct user statistics for Online mode', async () => {
+    render(
+      <SessionContext.Provider value={{ username: 'testuser' }}>
+        <Router>
+          <Statistics />
+        </Router>
+      </SessionContext.Provider>
+    );
+
+    await screen.findByText('STATISTICS');
+
+    fireEvent.click(screen.getByText('Online Mode'));
+
+    expect(screen.getByText('Online Mode')).toBeInTheDocument();
+    expect(screen.getByText('Earned Money:')).toBeInTheDocument();
+    expect(screen.getByText('15 €')).toBeInTheDocument();
+    expect(screen.getByText('Correctly Answered Questions:')).toBeInTheDocument();
+    expect(screen.getByText('2')).toBeInTheDocument();
+    expect(screen.getByText('Incorrectly Answered Questions:')).toBeInTheDocument();
+    expect(screen.getByText('3')).toBeInTheDocument();
+    expect(screen.getByText('Total Time Played:')).toBeInTheDocument();
+    expect(screen.getByText(/^10\s''$/)).toBeInTheDocument();
+    expect(screen.getByText('Games Played:')).toBeInTheDocument();
+    expect(screen.getAllByText('12'));
+
+    fireEvent.click(screen.getByText('Show Questions Record'));
+
+    await screen.findByText('Game 04/11/2024, 14:00');
+    expect(screen.getByText('What is 1 + 1?')).toBeInTheDocument();
   });
 });

@@ -19,6 +19,8 @@ import TheChallengeGame from './pages/TheChallengeGame';
 import {Route, Routes} from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Box } from '@mui/material';
+import PrivateRoute from './PrivateRoute';
+import NotFound from './pages/NotFound';
 
 const theme = createTheme({
   palette: {
@@ -41,9 +43,11 @@ const theme = createTheme({
 });
 
 function App() {
+
   React.useEffect(() => {
     document.title = "WIQ - Wikidata Infinite Quest";
   }, []);
+
   return (
     <Box sx={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
       <ThemeProvider theme={theme}>
@@ -52,18 +56,20 @@ function App() {
             <Route path="/" element={<Home />}/>
             <Route path="/login" element={<Login />}/>
             <Route path="/register" element={<Register />}/>
-            <Route path="/instructions" element={<Instructions />}/>
-            <Route path="/homepage" element={<Homepage />}/>
-            <Route path="/game" element={<Game />}/>
-            <Route path="/discoveringCitiesGame" element={<DiscoveringCitiesGame />}/>
+            <Route path="/instructions" element={<PrivateRoute element={Instructions}/>} />
+            <Route path="/homepage" element={<PrivateRoute element={Homepage}/>}/>
+            <Route path="/game" element={<PrivateRoute element={Game} />} />
+            <Route path="/discoveringCitiesGame" element={<PrivateRoute element={DiscoveringCitiesGame}/>}/>
             <Route path="/wiseMenStackGame" element={<WiseMenStackGame />}/>
-            <Route path="/multiplayerRoom" element={<MultiplayerRoom />}/>
-            <Route path="/TheChallengeGame" element={<TheChallengeGame />}/>
-            <Route path="/multiplayerGame" element={<MultiplayerGame />}/>
-            <Route path="/group/menu" element={<Groups />}/>
-            <Route path="/group/:groupName" element={<GroupDetails />} />
-            <Route path="/statistics" element={<Statistics />}/>
-            <Route path="/ranking" element={<Ranking/>}/>
+            <Route path="/multiplayerRoom" element={<PrivateRoute element={MultiplayerRoom}/>}/>
+            <Route path="/TheChallengeGame" element={<PrivateRoute element={TheChallengeGame}/>}/>
+            <Route path="/multiplayerGame" element={<PrivateRoute element={MultiplayerGame}/>}/>
+            <Route path="/group/menu" element={<PrivateRoute element={Groups}/>}/>
+            <Route path="/group/:groupName" element={<PrivateRoute element={GroupDetails}/>} />
+            <Route path="/statistics" element={<PrivateRoute element={Statistics }/>}/>
+            <Route path="/ranking" element={<PrivateRoute element={Ranking}/>}/>
+
+            <Route path="*" element={<NotFound />} /> 
           </Routes>
         <Footer/>
       </ThemeProvider>

@@ -140,5 +140,10 @@
             "winner_3": "correct answers in",
             "winner_4": "seconds"
         }
+    },
+
+    "NotFound": {
+        "title": "Page not found",
+        "button_msg": "Return to home page"
     }
 }
