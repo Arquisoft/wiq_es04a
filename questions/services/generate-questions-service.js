@@ -8,18 +8,40 @@ const dbService = require('./question-data-service')
  * @param {number} n - The number of questions to generate.
  * @returns {Promise<void>} A Promise that resolves when all questions are generated.
  */
-async function generateQuestions(n) {
+async function generateQuestions(n, questionCategory) {
     try {
-        const json = await utils.readFromFile("../questions/utils/question.json");
-        
+        let json = await utils.readFromFile("../questions/utils/question.json");
+        questionCategory="Political"
+        //generate only questions from selected category
+        if (questionCategory) {
+            json = json.filter(obj => obj.properties.some(prop => prop.category.includes(questionCategory)));
+        }
+
         for (let i = 0; i < n; i++) {
             //Gets random template
             const randomIndex = Math.floor(Math.random() * json.length);
             const entity = json[randomIndex];
 
             // get data for selected entity
-            const pos = Math.floor(Math.random() * entity.properties.length);
-           
+            /*let pos;
+            if(questionCategory) {
+                const filteredProperties = json.flatMap(obj => obj.properties.filter(prop => prop.category.includes(questionCategory)));
+                pos = Math.floor(Math.random() * filteredProperties.length);
+                filteredProperties[pos];
+            } else {
+                pos = Math.floor(Math.random() * entity.properties.length);
+            }*/
+            let pos = Math.floor(Math.random() * entity.properties.length);
+            let propertyJson = entity.properties[pos];
+            if(questionCategory) {
+                const filteredProperties = json.flatMap(obj => obj.properties.filter(prop => prop.category.includes(questionCategory)));
+                const randomPos = Math.floor(Math.random() * filteredProperties.length);
+                propertyJson = filteredProperties[randomPos];
+                const posForRandomProperty = entity.properties.findIndex(prop => prop === propertyJson);
+                console.log(entity.properties[posForRandomProperty])
+                pos = posForRandomProperty;
+            }
+            console.log(propertyJson)
             const property = entity.properties[pos].property;
             const categories = entity.properties[pos].category;
             const filter = entity.properties[pos].filter;
