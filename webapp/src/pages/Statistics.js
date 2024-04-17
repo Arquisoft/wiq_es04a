@@ -177,7 +177,7 @@ const Statistics = () => {
                 case 'OnlineMode':
                 return (
                     <TableContainer>
-                        <Table sx={{ minWidth: 360 }} aria-label="The Challenge Statistics">
+                        <Table sx={{ minWidth: 360 }} aria-label="The Online Mode Statistics">
                             <TableBody>
                                 <TableRow>
                                     <TableCell>{ t("Statistics.table.money") }:</TableCell>
