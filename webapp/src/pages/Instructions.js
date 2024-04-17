@@ -1,25 +1,26 @@
 import * as React from "react";
-import { Button, Typography, Grid, Box ,CssBaseline } from "@mui/material";
+import { Button, Typography, Grid, Box , CssBaseline, useMediaQuery  } from "@mui/material";
 import data from "../data/gameInfo.json";
 
 
 const Instructions = () => {
+    const lg = useMediaQuery('(min-width: 1200px)');
 
     const styles = {
 
         button:{
-            color: 'black',
+            color: '#006699',
             backgroundColor:'rgba(255,255,255,0.7)',
             width: "100%",
             height: "75px",
-            border: '2px solid black',
+            border: '2px solid #006699',
             borderRadius: '5px',
         },
 
         selectedButton:{
 
             color: 'white',
-            backgroundColor:'black',
+            backgroundColor:'#006699',
             width: "100%",
             height: "75px",
             border: '2px solid white',
@@ -39,12 +40,6 @@ const Instructions = () => {
 
         },
 
-        game:{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: 'center',
-        },
-
         video:{
             position: "fixed",
             width: "100vw",
@@ -58,6 +53,70 @@ const Instructions = () => {
             opacity:'0.5',
 
         },
+
+        gameDisplayRow:{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: 'center',
+            flexDirection:'row',
+            gap:'2rem',
+            margin:'1.5rem',
+            height:'40vh',
+            width:'70vw'
+        },
+        gameDisplayColumn:{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: 'center',
+            flexDirection:'column',
+            gap:'2rem',
+            margin:'1.5rem',
+            maxWidth:'20vw'
+        },
+
+        imgRow:{
+            height: "100%",
+            border: `2px solid #006699`,
+            borderRadius: "5px"
+        },
+
+        imgColumn:{
+            width: "20rem",
+            border: `2px solid #006699`,
+            borderRadius: "5px"
+        },
+
+        textRow:{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: 'center',
+            flexDirection: "column",
+            width:'50%',
+            height:'100%',
+            paddingTop:'2rem',
+            paddingBottom:'2rem',
+            paddingRight:'1rem',
+            paddingLeft:'1rem',
+            borderRadius:'10px',
+            border: `2px solid #006699`,
+            backgroundColor: 'rgba(255,255,255,0.7)',
+        },
+
+        textColumn:{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: 'center',
+            flexDirection: "column",
+            width:'20rem',
+            paddingTop:'2rem',
+            paddingBottom:'2rem',
+            paddingRight:'1rem',
+            paddingLeft:'1rem',
+            borderRadius:'10px',
+            border: `2px solid #006699`,
+            backgroundColor: 'rgba(255,255,255,0.7)',
+        },
+
     };
 
     // Whole information about games
@@ -80,9 +139,9 @@ const Instructions = () => {
         }
         else {
             setGameInfo(
-                <Box sx={{...styles.game, flexDirection:'row',gap:'2rem', margin:'1.5rem', height:'40vh', width:'70vw'}}>
-                    <img src={info[index].foto} alt="Foto del minijuego" style={{ height: "100%", border: `2px solid black`, borderRadius: "5px"}}/>
-                    <Box sx={{...styles.game, flexDirection: "column", width:'50%',height:'100%', paddingTop:'2rem', paddingBottom:'2rem', paddingRight:'1rem', paddingLeft:'1rem', borderRadius:'10px', border: `2px solid black`, backgroundColor: 'rgba(255,255,255,0.7)'}}>
+                <Box sx={ lg ? styles.gameDisplayRow : styles.gameDisplayColumn}>
+                    <img src={info[index].foto} alt="Foto del minijuego" style={lg ? styles.imgRow : styles.imgColumn}/>
+                    <Box sx={lg ? styles.textRow : styles.textColumn}>
                         <Typography variant="h3" align="center" fontWeight="bold" sx={{fontSize:'2rem'}}> {info[index].nombre} </Typography>
                         <Typography  variant="body1" align="center" sx={{ textAlign: "center", background: "none", paddingTop:'2rem', width:'80%', fontSize:'1rem'}}> {info[index].descripcion} </Typography>
                     </Box>
