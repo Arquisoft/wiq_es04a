@@ -2,27 +2,39 @@
     {
       "nombre": "WISE MEN STACK",
       "descripcion":
-            "The player chooses a topic from five available options and must answer a battery of questions related to it within 60 seconds. For each question, the host provides two options. If the contestant guesses correctly, they win €20; otherwise, they move on to the next question (as the correct answer would be the other option). If the time runs out before the question is fully asked and both possible answers are provided, the contestant may still answer it; however, if the statement hasn't been completed (or the options weren't provided), they cannot answer.",
-      "foto": "../gameImg/foto0.png"
+            "The player chooses a topic from five available options and must answer a battery of questions related to it within 60 seconds. For each question, the host provides two options. If the contestant guesses correctly, they move on to the next question.",
+      "foto": "../instructions/foto0.png",
+      "card":"The player chooses a topic from five available options and must answer a battery of questions related to it within 60 seconds.",
+      "cardFoto": "../homePage/foto0.png"
     },
     {
       "nombre": "WARM QUESTION",
       "descripcion": "It consists of ten topics of varied themes. For each correct answer, €100 is earned, and €10 are lost if the contestant passes, does not respond, or answers incorrectly.",
-      "foto": "../gameImg/foto1.jpg"
+      "foto": "../instructions/foto1.jpg",
+      "card":"It consists of ten topics of varied themes.",
+      "cardFoto": "../homePage/foto1.jpg"
     },
     {
       "nombre": "DISCOVERING CITIES",
       "descripcion": "In the 'Discovering Cities' game mode, the contestant will face a challenge where they will be repeatedly asked questions referring to different cities around the world. To successfully overcome the challenge, the contestant must answer as many questions as possible correctly throughout the test..",
-      "foto": "../gameImg/foto2.png"
+      "foto": "../instructions/foto2.png",
+      "card":"The contestant will face a challenge where they will be repeatedly asked questions referring to different cities around the world.",
+      "cardFoto": "../homePage/foto2.png"
     },
     {
       "nombre": "THE CHALLENGE",
       "descripcion": "The 'Challenge' game mode is the quintessential game mode, as it allows you to customize the match to your liking. This game mode is tailored for those who wish to practice certain game formats before engaging in our various other game modes.",
-      "foto": "../gameImg/foto3.jpg"
+      "foto": "../instructions/foto3.jpg",
+      "card":"The 'Challenge' game mode is the quintessential game mode, as it allows you to customize the match to your liking.",
+      "cardFoto": "../homePage/foto3.jpg"
+
     },
     {
       "nombre": "MULTIPLAYER MODE",
       "descripcion": "Create a room and share the room code with other players to play. It also has a room chat.",
-      "foto": "../gameImg/online-photo.jpg"
+      "foto": "../instructions/online-photo.jpg",
+      "card":"Create a room and share the room code with other players to play. It also has a room chat.",
+      "cardFoto": "../homePage/online-photo.jpg"
+
     }
   ]

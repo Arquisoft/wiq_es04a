@@ -1,63 +1,98 @@
 import * as React from 'react';
-import { Container, Button, Box, Pagination, useTheme } from '@mui/material';
+import { Button, Box, Grid, Typography } from '@mui/material';
 import data from "../data/gameInfo.json";
+import CardComponent from "../components/CardComponent.js";
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 
 const Homepage = () => {
-    const theme = useTheme();
-    const styles = {
-        // Object that stores the button styles in normal state
-        buttonNormal : {
-            width: "60%",
-            height: "3rem",
-            margin: '0.7vh',
-            '&:hover': { backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main,},
+    const xxl = useMediaQuery('(min-width:1920px)');
+
+    const styles = React.useMemo(() => ({
+        cardButton:{
+            width: {
+                xs: '8rem',
+                sm: '11.4rem',
+                md: '11rem',
+                lg: '12rem',
+                xl: '15rem',
+            },
+            height: {
+                xs: '8rem',
+                sm: '13rem',
+                md: '12rem',
+                lg: '15rem',
+                xl: '18rem',
+            },
+
+            marginTop:'1rem'
         },
-    
-        // Constant that stores the styles of the button when it is clicked
-        buttonClicked : {
-            width: "70%",
-            height: "3rem",
-            margin: '0.5vh',
-            backgroundColor: theme.palette.success.main,
-            color: theme.palette.secondary.main,
-            transition: 'width 0.1s ease-in-out, height 0.1s ease-in-out',
-            borderColor:theme.palette.success.main,
-            '&:hover': { backgroundColor: theme.palette.success.main, borderColor:theme.palette.success.main,},
+
+        cardButtonMax:{
+            width: '20rem',
+            height: '25rem',
+            margin:'3rem'
         },
-    
-        // Constant that stores the styles of the images
-        img : {
-            boxShadow: `-50px -50px 0 -30px ${theme.palette.error.main}, 50px 50px 0 -30px ${theme.palette.primary.main}`,
-            border:' 4px solid black',
-            width: '50%',
-        },
-    
-        // Constant that stores the styles of the play button
+
         playButton : {
-            height: "4rem",
-            width: "10rem",
-            marginTop:'7vh',
-            fontSize:'1.5rem',
-            fontFamily: 'Arial Black, sans-serif',
-    
-            color: theme.palette.success.main,
-            backgroundColor: 'transparent',
-            border: `2px solid ${theme.palette.success.main}`,
+            height: {
+                xs: '2.5rem', // Tamaño para dispositivos extra pequeños
+                sm: '3rem', // Tamaño para dispositivos pequeños
+                md: '3.5rem', // Tamaño para dispositivos medianos
+                lg: '4rem', // Tamaño para dispositivos grandes
+                xl: '5rem' // Tamaño para dispositivos extra grandes
+            },
+            width: {
+                xs: '10rem',
+                sm: '12rem',
+                md: '13.5rem',
+                lg: '14.5rem',
+                xl: '16rem'
+            },
+            fontSize: {
+                xs: '0.8rem',
+                sm: '0.9rem',
+                md: '1rem',
+                lg: '1.1rem',
+                xl: '1.2rem'
+            },
+
+            marginTop:'3rem',
+            marginBottom:'2rem',
+            fontFamily: 'Arial #006699, sans-serif',
+
+            color: 'rgba(255,255,255,1)',
+            backgroundColor: 'rgba(0,102,153,0.5)',
+            border: `2px solid ${'#006699'}`,
             transition: 'background-color 0.3s ease',
-    
+
             '&:hover': {
-              backgroundColor: theme.palette.success.main,
-              color: theme.palette.secondary.main,
+              backgroundColor: '#006699',
+              color: 'white',
             }
         },
-    
-    }
 
+        container:{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: 'center',
+            flexGrow: 1,
+        },
+
+        video:{
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            zIndex:'-1',
+            userSelect:'none',
+            pointerEvents: 'none'
+        },
+    }), []);
     // List of games on this page
     const [games, setGames] = React.useState(null);
 
-    // Game to show info about and the comp with the info
-    const [gamePhoto, setGamePhoto] = React.useState(null);
 
     // Whole information about games
     const [info, setInfo] = React.useState(null);
@@ -65,86 +100,83 @@ const Homepage = () => {
     // Link to each game page
     const [gameLink, setGameLink] = React.useState("/game");
 
+    //Selected index
+    const [activeIndex, setActiveIndex] = React.useState(0); // Nuevo estado para el índice activo
+
+    //if online mode -> change link to go to online room
+    const changeGameLink = React.useCallback((index) => {
+        switch (info[index].nombre) {
+            case "WISE MEN STACK":
+                setGameLink("/Wisemen");
+                break;
+            case "WARM QUESTION":
+                setGameLink("/Warm");
+                break;
+            case "DISCOVERING CITIES":
+                setGameLink("/discoveringCitiesGame");
+                break;
+            case "THE CHALLENGE":
+                setGameLink("/TheChallengeGame");
+                break;
+            case "MULTIPLAYER MODE":
+                setGameLink("/multiplayerRoom");
+                break;
+            default:
+                break;
+        }
+    }, [info]);
+
+    // Update the selected page number, page games and game photo
+    const handleButtonClick = React.useCallback((index) => {
+        setActiveIndex(index);
+        changeGameLink(index);
+    }, [setActiveIndex, changeGameLink]);
+
+    // Responsible for generating the buttons with the names of the games and the pagination element
+    const displayGames = React.useCallback((info) => {
+        setGames(
+            <Grid container spacing={2} justifyContent="center" alignItems="center">
+                {info.map((option, index) => (
+                    <Grid item xs={6} sm={4} md={2} lg={2} xl={2} key={'game-' + index} sx={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center',}}>
+                        <Button sx={xxl ? styles.cardButtonMax : styles.cardButton} onClick={() => handleButtonClick(index)}>
+                            <CardComponent
+                                imageUrl={option.cardFoto}
+                                title={option.nombre}
+                                isActive={index === activeIndex}
+                            />
+                        </Button>
+                    </Grid>
+                ))}
+            </Grid>
+        );
+    }, [xxl, styles.cardButtonMax, styles.cardButton, activeIndex, handleButtonClick]);
+
     //Update the game information
     React.useEffect(() => {
         setInfo(data);
     }, []);
 
-    //Does the initial loading of the page elements
+    // Does the initial loading of the page elements
     React.useEffect(() => {
         // If game information (info) has been loaded and there is no game information currently displayed
-        if (info !== null && gamePhoto === null) {
-            // Show the information of the first game
-            displayGames(info, 1,0,5,0)
-            displayGamePhoto(0);
-        }
-    });
-
-    // Update the selected page number, page games and game photo
-    const handlePageChange = (event, page) => {
-        displayGames(info, page, (page-1)*5, (page*5),0);
-        displayGamePhoto((page-1)*5);
-        changeGameLink((page-1)*5)
-    };
-
-    // Update the selected page number, page games and game photo
-    const handleButtonClick = (index, first, page) => {
-        displayGames(info, page, (page-1)*5, (page*5), index);
-        displayGamePhoto(index+first);
-        changeGameLink(index+first);
-    };
-
-    const changeGameLink = (index) => {
-        if(info[index].nombre === "MULTIPLAYER MODE") {
-            setGameLink("/multiplayerRoom")
-        } else if (info[index].nombre === "DISCOVERING CITIES") {
-            setGameLink("/discoveringCitiesGame")
-        }else if(info[index].nombre === "THE CHALLENGE") {
-            setGameLink("/TheChallengeGame")
-        }else {
-            setGameLink("/game")
-        }
-    }
-
-
-    // Responsible for generating the buttons with the names of the games and the pagination element
-    const displayGames = (info, page, first, last, activeIndex) => {
-        setGames(
-            <Box sx={{ display: 'flex', flexDirection: "column", justifyContent: "center", alignItems: 'center', width: '50%', flexGrow: 1,}}>
-                {info.slice(first, last).map((option, index) => (
-                    <Button key={'game'+index} variant="outlined" sx={activeIndex === index ? styles.buttonClicked : styles.buttonNormal} onClick={() => handleButtonClick(index, first,page)}>
-                        {option.nombre}
-                    </Button>
-                ))}
-                <Pagination count={info ? Math.ceil(info.length / 5) : 1} color="primary" size='medium' page={page} onChange={handlePageChange}  sx={{marginTop:'20px',}}/>
-            </Box>
-        );
-    };
-
-    //Update component that has the photo of the selected game
-    const displayGamePhoto = (index) => {
         if (info !== null) {
-            setGamePhoto(
-                <Box sx={{display:{xs:'none', md:'flex'}, flexGrow:1, flexDirection: "row", justifyContent: "center", alignItems:'center', width:'50%',}}>
-                    <img
-                        style={styles.img}
-                        src={info[index].foto}
-                        alt={data[index].nombre}
-                    />
-                    
-                </Box>
-            );
+            // Show the information of the first game
+            displayGames(info);
         }
-    };
+    }, [info, displayGames]); // <- Add info to the dependency array
+
+    const videoRef = React.useRef(null);
+    React.useEffect(() => {if (videoRef.current) {videoRef.current.playbackRate = 0.85;}}, []);
 
     return (
-        <Container sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center', flexGrow: 1, paddingTop: "4vh", marginTop:'3vh', paddingBottom: "4vh", marginBottom:'2vh'}}>
-            <Box sx={{ display: 'flex', flexDirection: "row", justifyContent: "center", alignItems: 'center', width: '100%'}}>
-                {games}
-                {gamePhoto}
-            </Box>
+        <Box sx={{...styles.container }}>
+            <video data-testid="video" ref={videoRef} autoPlay muted loop style={{ ...styles.video}}>
+                <source src="../home/Background-White.webm" type="video/mp4" />
+            </video>
+            <Typography variant="h3" align="center" fontWeight="bold" sx={{paddingTop:'2rem',textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem'}}>GAME MODES</Typography>
+            {games}
             <Button variant='conteined' href={gameLink} sx={styles.playButton}> PLAY </Button>
-        </Container>
+        </Box>
     );
 };
 
