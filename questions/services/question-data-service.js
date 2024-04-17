@@ -28,8 +28,23 @@ module.exports = {
    */
   getQuestion : async function(filter = {}) {
     try {
-      const question = await Question.findOne(filter);
-      return question;
+      //const question = await Question.findOne(filter);
+      //return question;
+
+      //if there is filter
+      if (Object.keys(filter).length !== 0) {
+        
+        return await Question.aggregate([
+          { $match: filter },
+          { $sample: { size: 1 } }
+        ]);
+      } else {
+        //if not filter -> just random question
+        return await Question.aggregate([
+          { $sample: { size: 1 } }
+        ]);
+      }
+      
 
     } catch (error) {
       console.error('Error obtaining the question', error.message);
