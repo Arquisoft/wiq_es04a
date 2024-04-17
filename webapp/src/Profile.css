@@ -1,4 +1,4 @@
-button img {
+button > img {
     --color: #006699; /* the color of the border */
     --border: 3px;   /* the thickness of the border */
     --offset: 15px;   /* control the movement of the border */
@@ -23,7 +23,7 @@ button img {
     background-repeat: no-repeat;
     transition: .001s;
   }
-  img:hover {
+  button > img:hover {
     --_s: 0px
   }
   
