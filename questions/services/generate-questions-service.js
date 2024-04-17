@@ -67,7 +67,8 @@ async function generateQuestions(n, questionCategory) {
                     question: questionText,
                     options: shuffledOptions,
                     correctAnswer: correctAnswer,
-                    categories: categories
+                    categories: categories,
+                    language: language
                 };
 
                 dbService.addQuestion(newQuestion);
