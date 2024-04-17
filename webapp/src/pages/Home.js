@@ -9,11 +9,11 @@ const Home = () => {
     const styles = {
         logo:{
             width: {
-                xs: '20em', // Más pequeño para dispositivos extra pequeños
-                sm: '22.5em', // Mediano para dispositivos pequeños
-                md: '23.5em', // Normal para dispositivos medianos
-                lg: '25em', // Grande para dispositivos grandes
-                xl: '28em', // Muy grande para dispositivos extra grandes
+                xs: '14em', // Más pequeño para dispositivos extra pequeños
+                sm: '16em', // Mediano para dispositivos pequeños
+                md: '18em', // Normal para dispositivos medianos
+                lg: '20em', // Grande para dispositivos grandes
+                xl: '23em', // Muy grande para dispositivos extra grandes
             },
             marginTop:'3rem',
             userSelect: 'none',

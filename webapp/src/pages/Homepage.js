@@ -11,14 +11,14 @@ const Homepage = () => {
     const styles = React.useMemo(() => ({
         cardButton:{
             width: {
-                xs: '9.6rem',
+                xs: '8rem',
                 sm: '11.4rem',
                 md: '11rem',
                 lg: '12rem',
                 xl: '15rem',
             },
             height: {
-                xs: '10rem',
+                xs: '8rem',
                 sm: '13rem',
                 md: '12rem',
                 lg: '15rem',
@@ -173,7 +173,7 @@ const Homepage = () => {
             <video data-testid="video" ref={videoRef} autoPlay muted loop style={{ ...styles.video}}>
                 <source src="../home/Background-White.webm" type="video/mp4" />
             </video>
-            <Typography variant="h3" align="center" fontWeight="bold" sx={{paddingTop:'2rem',textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)'}}>GAME MODES</Typography>
+            <Typography variant="h3" align="center" fontWeight="bold" sx={{paddingTop:'2rem',textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem'}}>GAME MODES</Typography>
             {games}
             <Button variant='conteined' href={gameLink} sx={styles.playButton}> PLAY </Button>
         </Box>
