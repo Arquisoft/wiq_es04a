@@ -14,7 +14,7 @@ describe('App component', () => {
             </MemoryRouter>
         </SessionContext.Provider>
     );
-    expect(screen.getByText('WIKIDATA')).toBeInTheDocument();
+    expect(screen.getByTestId('video')).toBeInTheDocument();
   });
 
   it('navigates to login page', async () => {
