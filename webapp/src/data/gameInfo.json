@@ -21,8 +21,8 @@
       "foto": "../gameImg/foto3.jpg"
     },
     {
-      "nombre": "ONLINE MODE",
-      "descripcion": "Create a room and share the room code with other players to play.",
+      "nombre": "MULTIPLAYER MODE",
+      "descripcion": "Create a room and share the room code with other players to play. It also has a room chat.",
       "foto": "../gameImg/online-photo.jpg"
     }
   ]

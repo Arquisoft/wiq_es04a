@@ -48,6 +48,9 @@ const Game = () => {
     const[winnerPlayer, setWinnerPlayer] = React.useState("");
     const[winnerCorrect, setWinnerCorrect] = React.useState(0);
     const[winnerTime, setWinnerTime] = React.useState(0);
+
+    //const [userResponses, setUserResponses] = React.useState([]);
+    const [, setUserResponses] = React.useState([]);
     
     React.useEffect(() => {
         const newSocket = io(socketEndpoint);
@@ -173,6 +176,14 @@ const Game = () => {
             };
             setUserResponses(prevResponses => [...prevResponses, userResponse]);
 
+            const userResponse = {
+                question: questionData.question,
+                response: response,
+                options: questionData.options,
+                correctAnswer: questionData.correctAnswer
+            };
+            setUserResponses(prevResponses => [...prevResponses, userResponse]);
+
             newButtonStates[index] = "success"
             const sucessSound = new Audio(SUCCESS_SOUND_ROUTE);
             sucessSound.volume = 0.40;
@@ -184,6 +195,14 @@ const Game = () => {
             newQuestionHistorial[round-1] = true;
             setQuestionHistorial(newQuestionHistorial);
         } else {
+            const userResponse = {
+                question: questionData.question,
+                response: response,
+                options: questionData.options,
+                correctAnswer: questionData.correctAnswer
+            };
+            setUserResponses(prevResponses => [...prevResponses, userResponse]);
+
             const userResponse = {
                 question: questionData.question,
                 response: response,
