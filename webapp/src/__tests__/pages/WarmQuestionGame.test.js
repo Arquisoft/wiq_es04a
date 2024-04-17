@@ -115,4 +115,30 @@ describe('Game component', () => {
 
   }, 4500);
 
+  it('should pass the question', async () => {
+    render( 
+        <SessionContext.Provider value={{ username: 'exampleUser' }}>
+          <Router>
+            <Game />
+          </Router>
+        </SessionContext.Provider>
+    );
+
+    // waits for the question to appear
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
+    const correctAnswer = screen.getByRole('button', { name: 'Madrid' });
+    const skip = screen.getByRole('button', { name: 'Skip' });
+
+    expect(correctAnswer).not.toHaveStyle({ backgroundColor: 'green' });
+
+    //selects correct answer
+    fireEvent.click(skip);
+
+    //expect(screen.findByText('1')).toHaveStyle({ backgroundColor: 'lightgreen' });
+
+    expect(correctAnswer).toHaveStyle({ backgroundColor: 'green' });
+
+  });
+
+
 });
