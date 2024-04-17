@@ -11,7 +11,7 @@ const dbService = require('./question-data-service')
 async function generateQuestions(n, questionCategory) {
     try {
         let json = await utils.readFromFile("../questions/utils/question.json");
-        questionCategory="Political"
+        
         //generate only questions from selected category
         if (questionCategory) {
             json = json.filter(obj => obj.properties.some(prop => prop.category.includes(questionCategory)));

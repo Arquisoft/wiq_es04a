@@ -73,7 +73,7 @@ router.get('/getQuestionsFromDb/:n/:category', async(_req, res) => {
     
     if (await dbService.getQuestionCountByCategory(category) < n) {
         //Must generate n questions
-        await generateQuestionsService.generateQuestions(n);
+        await generateQuestionsService.generateQuestions(n, category);
         //Do not wait to generate the others
         generateQuestionsService.generateQuestions(n);
     }
