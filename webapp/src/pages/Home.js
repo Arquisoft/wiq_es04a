@@ -53,13 +53,13 @@ const Home = () => {
             marginTop: '1rem',
             marginBottom:'3rem',
             fontFamily: 'Arial Black, sans-serif',
-            color: 'black',
+            color: '#006699',
             backgroundColor: 'transparent',
-            border: `2px solid black`,
+            border: `2px solid #006699`,
             transition: 'background-color 0.3s ease',
 
             '&:hover': {
-                backgroundColor: 'black',
+                backgroundColor: '#006699',
                 color: 'white',
             }
         },

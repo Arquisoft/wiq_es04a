@@ -58,7 +58,7 @@ function NavBar() {
     // position="static" => Barra se desplaza con scroll down
     <AppBar position="static" >
       {/* disableGutters -> Remove toolbar's padding */}
-      <Toolbar sx={{ alignItems: 'center', justifyContent: 'space-between', backgroundColor:'black' }}>
+      <Toolbar sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
         {/* Menú de Navegación, sólo se muestra en dispositivos móviles */}
 
         {isLoggedIn ? (

@@ -59,15 +59,15 @@ const Homepage = () => {
 
             marginTop:'3rem',
             marginBottom:'2rem',
-            fontFamily: 'Arial Black, sans-serif',
+            fontFamily: 'Arial #006699, sans-serif',
 
-            color: 'rgba(255,255,255,0.8)',
-            backgroundColor: 'rgba(0,0,0,0.5)',
-            border: `2px solid ${'black'}`,
+            color: 'rgba(255,255,255,1)',
+            backgroundColor: 'rgba(0,102,153,0.5)',
+            border: `2px solid ${'#006699'}`,
             transition: 'background-color 0.3s ease',
 
             '&:hover': {
-              backgroundColor: 'black',
+              backgroundColor: '#006699',
               color: 'white',
             }
         },
