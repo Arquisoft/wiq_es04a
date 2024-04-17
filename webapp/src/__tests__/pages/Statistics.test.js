@@ -115,7 +115,7 @@ describe('Statistics component', () => {
 
     await screen.findByText('STATISTICS');
 
-    expect(screen.getByText('Earned points:')).toBeInTheDocument();
+    expect(screen.getByText('Total Points:')).toBeInTheDocument();
     expect(screen.getByText('0 €')).toBeInTheDocument();
     expect(screen.getByText('Correctly Answered Questions:')).toBeInTheDocument();
     expect(screen.getByText('Incorrectly Answered Questions:')).toBeInTheDocument();
@@ -145,7 +145,7 @@ describe('Statistics component', () => {
     fireEvent.click(screen.getByText('Wise Men Stack'));
 
     expect(screen.getByText('Wise Men Stack')).toBeInTheDocument();
-    expect(screen.getByText('Total points:')).toBeInTheDocument();
+    expect(screen.getByText('Total Points:')).toBeInTheDocument();
     expect(screen.getByText('50 €')).toBeInTheDocument();
     expect(screen.getByText('Correctly Answered Questions:')).toBeInTheDocument();
     expect(screen.getAllByText('8'));
@@ -175,7 +175,7 @@ describe('Statistics component', () => {
     fireEvent.click(screen.getByText('Warm Question'));
 
     expect(screen.getByText('Warm Question')).toBeInTheDocument();
-    expect(screen.getByText('Total points:')).toBeInTheDocument();
+    expect(screen.getByText('Total Points:')).toBeInTheDocument();
     expect(screen.getByText('75 €')).toBeInTheDocument();
     expect(screen.getByText('Correctly Answered Questions:')).toBeInTheDocument();
     expect(screen.getAllByText('15'));
@@ -207,7 +207,7 @@ describe('Statistics component', () => {
     fireEvent.click(screen.getByText('Discovering Cities'));
 
     expect(screen.getByText('Discovering Cities')).toBeInTheDocument();
-    expect(screen.getByText('Total points:')).toBeInTheDocument();
+    expect(screen.getByText('Total Points:')).toBeInTheDocument();
     expect(screen.getByText('90 €')).toBeInTheDocument();
     expect(screen.getByText('Correctly Answered Cities:')).toBeInTheDocument();
     expect(screen.getByText('18')).toBeInTheDocument();
@@ -237,7 +237,7 @@ describe('Statistics component', () => {
     fireEvent.click(screen.getByText('Online Mode'));
 
     expect(screen.getByText('Online Mode')).toBeInTheDocument();
-    expect(screen.getByText('Total points:')).toBeInTheDocument();
+    expect(screen.getByText('Total Points:')).toBeInTheDocument();
     expect(screen.getByText('15 €')).toBeInTheDocument();
     expect(screen.getByText('Correctly Answered Questions:')).toBeInTheDocument();
     expect(screen.getByText('2')).toBeInTheDocument();
