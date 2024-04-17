@@ -35,11 +35,21 @@ app.get('/health', (_req, res) => {
 
 app.get('/user/profile', async (req, res) => {
   try {
-    const response = await axios.get(`${userServiceUrl}/user/profile`, req.params);
-    res.json(response);
+    const username = req.query.username;
+    const response = await axios.get(`${userServiceUrl}/user/profile`, {params: {username: username }});
+    res.json(response.data.user);
   } catch (error) {
     handleErrors(res, error);
-  }});
+}});
+
+app.post('/user/profile/:username', async (req, res) => {
+  try {
+    const username = req.params.username;
+    const response = await axios.post(`${userServiceUrl}/user/profile/`+username, req.body);
+    res.json(response.data);
+  } catch (error) {
+    handleErrors(res, error);
+}});
 
 app.post('/login', async (req, res) => {
   try {

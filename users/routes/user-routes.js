@@ -6,7 +6,7 @@ const { User, Statistics, Group, UserGroup, QuestionsRecord, sequelize } = requi
 
 router.get('/profile', async (req, res) => {
     try {
-        const username = req.params.username;
+        const username = req.query.username;
         // Querying using sequelize findOne method
         const user = await User.findOne({
             where: {
@@ -21,7 +21,7 @@ router.get('/profile', async (req, res) => {
 });
 
 
-router.post('/:username/avatar', async (req, res) => {
+router.post('/profile/:username', async (req, res) => {
     try {
 
         const username = req.params.username;
@@ -30,6 +30,7 @@ router.post('/:username/avatar', async (req, res) => {
         //Update the user's fields with the provided values
         await User.update({ imageUrl }, { where: { username } });
 
+        res.status(200);    
     } catch (error) {
       return res.status(500).json({ error: 'Internal Server Error' });
     }

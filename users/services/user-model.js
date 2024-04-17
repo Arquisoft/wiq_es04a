@@ -54,7 +54,7 @@ const User = sequelize.define('User', {
     },
     imageUrl: {
         type: DataTypes.STRING,
-        defaultValue: "../../webapp/public/default_user.jpg",
+        defaultValue: "default_user.jpg",
     }
 });
 

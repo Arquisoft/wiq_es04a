@@ -26,12 +26,13 @@ const Profile = () => {
 
     const handleAvatarChange = async () => {
         try {
-            await axios.post(`${apiEndpoint}/${username}/profile`, { imageUrl: currentSelectedAvatar });
+            console.log(currentSelectedAvatar);
+            await axios.post(`${apiEndpoint}/user/profile/${username}`, { imageUrl: currentSelectedAvatar });
+            fetchUserInfo();
         } catch (error) {
             setError('Error updating user information');
         }
     }
-
 
     useEffect(() => {
         fetchUserInfo();
