@@ -116,13 +116,12 @@ describe('Statistics component', () => {
     await screen.findByText('STATISTICS');
 
     expect(screen.getByText('Total Points:')).toBeInTheDocument();
-    expect(screen.getByText('0')).toBeInTheDocument();
     expect(screen.getByText('Correctly Answered Questions:')).toBeInTheDocument();
     expect(screen.getByText('Incorrectly Answered Questions:')).toBeInTheDocument();
     expect(screen.getByText('Total Time Played:')).toBeInTheDocument();
     expect(screen.getByText(/^0\s''$/)).toBeInTheDocument();
     expect(screen.getByText('Games Played:')).toBeInTheDocument();
-    expect(screen.getAllByText('0')).toHaveLength(3);
+    expect(screen.getAllByText('0')).toHaveLength(4);
 
     fireEvent.click(screen.getByText('Show Questions Record'));
 
