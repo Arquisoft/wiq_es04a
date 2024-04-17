@@ -23,25 +23,16 @@ async function generateQuestions(n, questionCategory) {
             const entity = json[randomIndex];
 
             // get data for selected entity
-            /*let pos;
-            if(questionCategory) {
-                const filteredProperties = json.flatMap(obj => obj.properties.filter(prop => prop.category.includes(questionCategory)));
-                pos = Math.floor(Math.random() * filteredProperties.length);
-                filteredProperties[pos];
-            } else {
-                pos = Math.floor(Math.random() * entity.properties.length);
-            }*/
             let pos = Math.floor(Math.random() * entity.properties.length);
-            let propertyJson = entity.properties[pos];
+            
+            //use only property of that required category
             if(questionCategory) {
                 const filteredProperties = json.flatMap(obj => obj.properties.filter(prop => prop.category.includes(questionCategory)));
                 const randomPos = Math.floor(Math.random() * filteredProperties.length);
-                propertyJson = filteredProperties[randomPos];
-                const posForRandomProperty = entity.properties.findIndex(prop => prop === propertyJson);
-                console.log(entity.properties[posForRandomProperty])
-                pos = posForRandomProperty;
+                const propertyJson = filteredProperties[randomPos];
+                pos = entity.properties.findIndex(prop => prop === propertyJson);
             }
-            console.log(propertyJson)
+        
             const property = entity.properties[pos].property;
             const categories = entity.properties[pos].category;
             const filter = entity.properties[pos].filter;
