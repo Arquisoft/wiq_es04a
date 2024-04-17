@@ -43,7 +43,7 @@ describe('Homepage', () => {
         fireEvent.click(gameButtons[3]);
 
         const playButton = screen.getByText('PLAY');
-        expect(playButton).toHaveAttribute('href', '/TheChallengeGame');
+        expect(playButton).toHaveAttribute('href', '/theChallengeGame');
     });
 
     it('changes game link to discovering', async () => {
@@ -63,7 +63,7 @@ describe('Homepage', () => {
         // Click on 'ONLINE MODE' which should be the last button
         fireEvent.click(gameButtons[1]);
         const playButton = screen.getByText('PLAY');
-        expect(playButton).toHaveAttribute('href', '/Warm');
+        expect(playButton).toHaveAttribute('href', '/warmQuestionGame');
     });
 
     it('changes game link to wise men stack', async () => {
