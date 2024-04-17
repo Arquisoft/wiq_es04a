@@ -100,7 +100,7 @@
     "Statistics": {
         "title": "STATISTICS",
         "table": {
-            "money": "Earned Money",
+            "money": "Total Points",
             "questions_corr": "Correctly Answered Questions",
             "questions_incorr": "Incorrectly Answered Questions",
             "questions_pass": "Passed Questions",
