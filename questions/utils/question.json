@@ -444,5 +444,129 @@
                 "category": ["Sport"]
             }
         ]
+    },
+    {
+        "name": "video game",
+        "instance": "Q7889",
+        "properties": [
+            {
+                "property": "P178",
+                "template":
+                    [{
+                    "lang": "es",
+                    "question": "Quien es el desarrollador del videojuego x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "Who is the developer of the video game x"
+                    }],
+                "category": ["Games"]
+            },
+            {
+                "property": "P577",
+                "template": [{
+                    "lang": "es",
+                    "question": "En qué año fue lanzado el videojuego x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "In what year was the video game x released?"
+                    }],
+                "category": ["Games"]
+            },
+            {
+                "property": "P400",
+                "template": [{
+                    "lang": "es",
+                    "question": "Cuáles son las plataformas compatibles con x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "What are the platforms supported by x"
+                    }],
+                "category": ["Games"]
+            }
+        ]
+    },
+    {
+        "name": "jewelry",
+        "instance": "Q161439",
+        "properties": [
+            {
+                "property": "P287",
+                "template":
+                    [{
+                    "lang": "es",
+                    "question": "Quién es el diseñador de la marca x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "Who is the designer of the brand x"
+                    }],
+                "category": ["Fashion"]
+            },
+            {
+                "property": "P571",
+                "template": [{
+                    "lang": "es",
+                    "question": "Cuándo fue fundada la casa de moda x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "When was the fashion house founded x"
+                    }],
+                "category": ["Fashion"]
+            }
+        ]
+    },
+    {
+        "name": "taxon",
+        "instance": "Q16521",
+        "properties": [
+            {
+                "property": "P2973",
+                "template":
+                    [{
+                    "lang": "es",
+                    "question": "Cuál es el hábitat natural de la especie x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "What is the natural habitat of species x"
+                    }],
+                "category": ["Animals"]
+            },
+            {
+                "property": "P2670",
+                "template": [{
+                    "lang": "es",
+                    "question": "Qué especies comparten el hábitat con x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "What species share the habitat with x"
+                    }],
+                "category": ["Animals"]
+            }
+        ]
+    },
+    {
+        "name": "brands",
+        "instance": "Q431289",
+        "properties": [
+            {
+                "property": "P571",
+                "template":
+                    [{
+                    "lang": "es",
+                    "question": "Cuándo fue fundada la marca x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "When was the brand x founded?"
+                    }],
+                "category": ["Brands"]
+            }
+        ]
     }
 ]
