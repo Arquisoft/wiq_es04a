@@ -28,9 +28,9 @@ router.post('/profile/:username', async (req, res) => {
         const { imageUrl } = req.body;
 
         //Update the user's fields with the provided values
-        await User.update({ imageUrl }, { where: { username } });
-
-        res.status(200);    
+        const user = await User.update({ imageUrl }, { where: { username } });
+        res.status(200);  
+        res.json({ user });  
     } catch (error) {
       return res.status(500).json({ error: 'Internal Server Error' });
     }

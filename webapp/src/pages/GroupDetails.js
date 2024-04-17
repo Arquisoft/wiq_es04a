@@ -48,12 +48,12 @@ const GroupDetails = () => {
     // Returns all group data including the creator, the creation date and the members list
     return (
         <Container sx={{ margin: '0 auto auto' }}>
-            <Typography variant="h3" sx={{ textAlign:'center' }}>{groupInfo.name}</Typography>
-            <Typography variant="h4">Creator: {groupInfo.creator}</Typography>
+            <Typography variant="h3" sx={{ textAlign:'center', fontWeight:'bold' }}>{groupInfo.name}</Typography>
+            <Typography variant="h4"><b>Creator:</b> {groupInfo.creator}</Typography>
             <Divider sx={{ marginBottom: '2em' }}/>
-            <Typography variant="h4">Created in: {new Date(groupInfo.createdAt).toLocaleDateString()}</Typography>
+            <Typography variant="h4"><b>Created in:</b> {new Date(groupInfo.createdAt).toLocaleDateString()}</Typography>
             <Divider sx={{ marginBottom: '2em' }}/>
-            <Typography variant="h4">Members {`${totalMembers}/${expectedMembers}`}:</Typography>
+            <Typography variant="h4"><b>Members &#40;{`${totalMembers}/${expectedMembers}`}&#41;:</b></Typography>
             <List sx={{ margin:'0', width: '100%' }}>
                 <Divider/>
                 {groupInfo.users.map(user => (

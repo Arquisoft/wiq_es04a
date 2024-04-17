@@ -1,10 +1,8 @@
 import React, { useEffect, useState, useCallback, useContext } from 'react';
 import axios from 'axios';
-import { Button, Container, Typography } from '@mui/material';
+import { Button, Container, Typography, Divider, Snackbar } from '@mui/material';
 import { SessionContext } from '../SessionContext';
-import styles from '../Profile.css';
 import { getHugo, getAlberto, getWiffo, getAndina, getSamu, getBarrero, getMaite } from '../data/icons';
-
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -12,8 +10,12 @@ const Profile = () => {
 
     const [userInfo, setUserInfo] = useState(null);
     const [error, setError] = useState('');
-    const { username } = useContext(SessionContext);
+    const [openSnackbar, setOpenSnackbar] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [selectedAvatar, setSelectedAvatar] = useState(null);
     const [currentSelectedAvatar, setCurrentSelectedAvatar] = useState('defalt_user.jpg');
+
+    const { username } = useContext(SessionContext);
 
     const fetchUserInfo = useCallback(async () => {
         try {
@@ -24,10 +26,16 @@ const Profile = () => {
         }
     }, [username]);
 
+    const handleAvatarSelect = (name) => {
+        setCurrentSelectedAvatar(name);
+        setSelectedAvatar(name);
+      };
+
     const handleAvatarChange = async () => {
         try {
-            console.log(currentSelectedAvatar);
             await axios.post(`${apiEndpoint}/user/profile/${username}`, { imageUrl: currentSelectedAvatar });
+            setSnackbarMessage('Avatar changed successfully');
+            setOpenSnackbar(true);
             fetchUserInfo();
         } catch (error) {
             setError('Error updating user information');
@@ -38,6 +46,10 @@ const Profile = () => {
         fetchUserInfo();
     }, [fetchUserInfo]);
 
+    const handleCloseSnackbar = () => {
+        setOpenSnackbar(false);
+    };
+
     if (error || !userInfo) {
         return (
             <Container sx={{ margin: '0 auto auto' }}>
@@ -47,54 +59,55 @@ const Profile = () => {
     }
 
     return (
-        
         <Container sx={{ margin: '0 auto auto', display:'flex', flexDirection:'column' }}>
-            <Typography variant="h2" sx={{ textAlign:'center', fontWeight:'bold', marginTop:'0.7em' }}>{userInfo.username}</Typography>
+            <Typography variant="h3" sx={{ textAlign:'center', fontWeight:'bold' }}>{userInfo.username}</Typography>
             <Container sx={{ display:'flex' }}>
                 <Container sx={{ display:'flex', flexDirection:'column', justifyContent:'center' }}>
                     <Typography variant="h4"><b>Name:</b> {userInfo.name}</Typography>
                     <Typography variant="h4"><b>Surname:</b> {userInfo.surname}</Typography>
                     <Typography variant="h4"><b>Created in:</b> {new Date(userInfo.createdAt).toLocaleDateString()}</Typography>
                 </Container>    
-                <img src={userInfo.imageUrl} alt="ActualPhoto" style={{ flex: 1, maxWidth:'50%', borderRadius:'50%' }} />
+                <img src={userInfo.imageUrl} alt="ActualPhoto" style={{ flex: 1, maxWidth:'20%', borderRadius:'50%' }} />
             </Container>
 
-            <Typography variant="h4" sx={{ textAlign:'center', marginTop:'5em', fontWeight:'bold'  }}>Choose your avatar</Typography>
+            <Divider style={{ margin:'1em 0'}}/>
 
+            <Typography variant="h5" sx={{ textAlign:'center', fontWeight:'bold'  }}>Choose your avatar</Typography>
             <Container sx={{ display: 'flex', justifyContent: 'space-around' }}>
-                <Button sx={{ borderRadius:'50%', display:'flex', flexDirection:'column' }}>
-                   
-                    <img src={getHugo()} style={{ flex: 1, maxWidth: '100%', borderRadius:'50%' }} onClick={() => setCurrentSelectedAvatar(getHugo())} alt="Icon1" />
+                <Button sx={{ display:'flex', flexDirection:'column', borderBottom: selectedAvatar === getHugo() ? '2px solid #006699' : 'none' }} onClick={() => handleAvatarSelect(getHugo())}>
+                    <img src={getHugo()} style={{ flex: 1, maxWidth: '50%', borderRadius:'50%', margin:'1em', margin:'1em' }} alt="Icon1" />
                     <Typography sx={{color: '#000000', fontWeight:'bold'  }}>HUGH</Typography>
                 </Button>          
-                <Button sx={{ borderRadius:'50%', display:'flex', flexDirection:'column' }}>
-                    <img src={getAlberto()} style={{ flex: 1, maxWidth: '100%', borderRadius:'50%' }} onClick={() => setCurrentSelectedAvatar(getAlberto())} alt="Icon2" />
+                <Button sx={{ display:'flex', flexDirection:'column', borderBottom: selectedAvatar === getAlberto() ? '2px solid #006699' : 'none' }} onClick={() => handleAvatarSelect(getAlberto())}>
+                    <img src={getAlberto()} style={{ flex: 1, maxWidth: '50%', borderRadius:'50%', margin:'1em' }} alt="Icon2" />
                     <Typography sx={{color: '#000000', fontWeight:'bold' }}>ALBERT</Typography>
                 </Button>      
-                <Button sx={{ borderRadius:'50%', display:'flex', flexDirection:'column' }}>
-                    <img src={getWiffo()} style={{ flex: 1, maxWidth: '100%', borderRadius:'50%' }} onClick={() => setCurrentSelectedAvatar(getWiffo())} alt="Icon3" />
+                <Button sx={{ display:'flex', flexDirection:'column', borderBottom: selectedAvatar === getWiffo() ? '2px solid #006699' : 'none' }} onClick={() => handleAvatarSelect(getWiffo())}>
+                    <img src={getWiffo()} style={{ flex: 1, maxWidth: '50%', borderRadius:'50%', margin:'1em' }} alt="Icon3" />
                     <Typography sx={{color: '#000000', fontWeight:'bold' }}>PAUL</Typography>
                 </Button>      
-                <Button sx={{ borderRadius:'50%', display:'flex', flexDirection:'column' }}>
-                    <img src={getAndina()} style={{ flex: 1, maxWidth: '100%', borderRadius:'50%' }} onClick={() => setCurrentSelectedAvatar(getAndina())} alt="Icon4" />
+                <Button sx={{ display:'flex', flexDirection:'column', borderBottom: selectedAvatar === getAndina() ? '2px solid #006699' : 'none' }} onClick={() => handleAvatarSelect(getAndina())} >
+                    <img src={getAndina()} style={{ flex: 1, maxWidth: '50%', borderRadius:'50%', margin:'1em' }} alt="Icon4" />
                     <Typography sx={{color: '#000000', fontWeight:'bold' }}>DAN</Typography>
                 </Button>
-                <Button sx={{ borderRadius:'50%', display:'flex', flexDirection:'column' }}>
-                    <img src={getSamu()} style={{ flex: 1, maxWidth: '100%', borderRadius:'50%' }} onClick={() => setCurrentSelectedAvatar(getSamu())} alt="Icon5" />
+                <Button sx={{ display:'flex', flexDirection:'column', borderBottom: selectedAvatar === getSamu() ? '2px solid #006699' : 'none' }} onClick={() => handleAvatarSelect(getSamu())} >
+                    <img src={getSamu()} style={{ flex: 1, maxWidth: '50%', borderRadius:'50%', margin:'1em' }} alt="Icon5" />
                     <Typography sx={{color: '#000000', fontWeight:'bold' }}>SAM </Typography>
                 </Button>
-                <Button sx={{ borderRadius:'50%', display:'flex', flexDirection:'column' }}>
-                    <img src={getBarrero()} style={{ flex: 1, maxWidth: '100%', borderRadius:'50%' }} onClick={() => setCurrentSelectedAvatar(getBarrero())} alt="Icon6" />
+                <Button sx={{ display:'flex', flexDirection:'column', borderBottom: selectedAvatar === getBarrero() ? '2px solid #006699' : 'none' }}  onClick={() => handleAvatarSelect(getBarrero())}>
+                    <img src={getBarrero()} style={{ flex: 1, maxWidth: '50%', borderRadius:'50%', margin:'1em' }} alt="Icon6" />
                     <Typography sx={{color: '#000000', fontWeight:'bold' }}>PEIBOL</Typography>
                 </Button>
-                <Button sx={{ borderRadius:'50%', display:'flex', flexDirection:'column' }}>
-                    <img src={getMaite()} style={{ flex: 1, maxWidth: '100%', borderRadius:'50%' }} onClick={() => setCurrentSelectedAvatar(getMaite())} alt="Icon7" />
+                <Button sx={{ display:'flex', flexDirection:'column', borderBottom: selectedAvatar === getMaite() ? '2px solid #006699' : 'none' }} onClick={() => handleAvatarSelect(getMaite())}>
+                    <img src={getMaite()} style={{ flex: 1, maxWidth: '50%', borderRadius:'50%', margin:'1em' }} alt="Icon7" />
                     <Typography sx={{color: '#000000', fontWeight:'bold' }}>THERESA</Typography>
                 </Button>   
             </Container>
             <Container sx={{ display:'flex', justifyContent:'center', marginTop:'2em' }}>
                 <Button variant="contained" onClick={handleAvatarChange}>Confirm change</Button>
             </Container>
+            <Snackbar open={openSnackbar} autoHideDuration={4500} onClose={handleCloseSnackbar} message={snackbarMessage} />
+            {error && (<Snackbar open={!!error} autoHideDuration={4500} onClose={() => setError('')} message={`Error: ${error}`} />)}
         </Container>
     );
 }
