@@ -30,6 +30,14 @@ const Profile = () => {
         }
     }, [username]);
 
+    const handleAvatarChange = async (avatar) => {
+        try {
+            await axios.post(`${apiEndpoint}/user/profile`, { username: username, imageUrl: avatar });
+        } catch (error) {
+            setError('Error updating user information');
+        }
+    }
+
     useEffect(() => {
         fetchUserInfo();
     }, [fetchUserInfo]);
@@ -44,8 +52,8 @@ const Profile = () => {
 
     return (
         
-        <Container sx={{ margin: '0 auto auto', display:'flex',flexDirection:'column', justifyContent:'space-between', alignContent:'space-between' }}>
-            <Typography variant="h2" sx={{ textAlign:'center', fontWeight:'bold' }}>{userInfo.username}</Typography>
+        <Container sx={{ margin: '0 auto auto', display:'flex', flexDirection:'column' }}>
+            <Typography variant="h2" sx={{ textAlign:'center', fontWeight:'bold', marginTop:'0.7em' }}>{userInfo.username}</Typography>
             <Container sx={{ display:'flex' }}>
                 <Container sx={{ display:'flex', flexDirection:'column', justifyContent:'center' }}>
                     <Typography variant="h4"><b>Name:</b> {userInfo.name}</Typography>
