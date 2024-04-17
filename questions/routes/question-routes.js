@@ -71,7 +71,7 @@ router.get('/getQuestionsFromDb/:n/:category', async(_req, res) => {
         return res.status(400).json({ error: 'Parameter "n" must be > 0.' });
     }
     
-    if (await dbService.getQuestionCount() < n) {
+    if (await dbService.getQuestionCountByCategory(category) < n) {
         //Must generate n questions
         await generateQuestionsService.generateQuestions(n);
         //Do not wait to generate the others

@@ -34,18 +34,21 @@ module.exports = {
       //if there is filter
       if (Object.keys(filter).length !== 0) {
         
-        return await Question.aggregate([
+        const q = await Question.aggregate([
           { $match: filter },
           { $sample: { size: 1 } }
         ]);
+
+        return q[0];
       } else {
         //if not filter -> just random question
-        return await Question.aggregate([
+        const q = await Question.aggregate([
           { $sample: { size: 1 } }
         ]);
+
+        return q[0];
       }
       
-
     } catch (error) {
       console.error('Error obtaining the question', error.message);
       return error.message;
