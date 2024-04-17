@@ -96,7 +96,7 @@
         ]
     },
     {
-        "name": "art",
+        "name": "painting",
         "instance": "Q3305213",
         "properties": [
             {
@@ -140,7 +140,7 @@
         ]
     },
     {
-        "name": "science",
+        "name": "inventions",
         "instance": "Q11028",
         "properties": [
             {
@@ -172,7 +172,7 @@
         ]
     },
     {
-        "name": "mountains",
+        "name": "mountain",
         "instance": "Q8502",
         "properties": [
             {
@@ -191,7 +191,7 @@
         ]
     },
     {
-        "name": "literature",
+        "name": "book",
         "instance": "Q571",
         "properties": [
             {
@@ -235,7 +235,7 @@
         ]
     },
     {
-        "name": "cars",
+        "name": "vehicle",
         "instance": "Q42889",
         "properties": [
             {
@@ -279,7 +279,7 @@
         ]
     },
     {
-        "name": "food",
+        "name": "dish",
         "instance": "Q746549",
         "properties": [
             {
@@ -310,7 +310,7 @@
         ]
     },
     {
-        "name": "architecture",
+        "name": "building",
         "instance": "Q41176",
         "properties": [
             {
@@ -353,7 +353,7 @@
         ]
     },
     {
-        "name": "series",
+        "name": "television series",
         "instance": "Q5398426",
         "properties": [
             {
@@ -415,7 +415,7 @@
         ]
     },
     {
-        "name": "sport",
+        "name": "athlete",
         "instance": "Q2066131",
         "properties": [
             {
