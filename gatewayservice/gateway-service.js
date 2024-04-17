@@ -32,6 +32,15 @@ app.get('/health', (_req, res) => {
   res.json({ status: 'OK' });
 });
 
+
+app.get('/user/profile', async (req, res) => {
+  try {
+    const response = await axios.get(`${userServiceUrl}/user/profile`, req.params);
+    res.json(response);
+  } catch (error) {
+    handleErrors(res, error);
+  }});
+
 app.post('/login', async (req, res) => {
   try {
     // Forward the login request to the authentication service

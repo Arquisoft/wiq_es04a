@@ -11,6 +11,7 @@ import Groups from './pages/Groups';
 import GroupDetails from './pages/GroupDetails';
 import Statistics from './pages/Statistics';
 import Ranking from './pages/Ranking'
+import Profile from './pages/Profile'
 import MultiplayerRoom from './pages/MultiplayerRoom';
 import MultiplayerGame from './pages/MultiplayerGame';
 import {Route, Routes} from 'react-router-dom';
@@ -58,6 +59,7 @@ function App() {
             <Route path="/group/:groupName" element={<GroupDetails />} />
             <Route path="/statistics/:user" element={<Statistics />}/>
             <Route path="/ranking" element={<Ranking/>}/>
+            <Route path="/profile" element={<Profile/>}/>
           </Routes>
         <Footer/>
       </ThemeProvider>

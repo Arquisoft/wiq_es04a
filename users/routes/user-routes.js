@@ -3,6 +3,39 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const { User, Statistics, Group, UserGroup, QuestionsRecord, sequelize } = require('../services/user-model');
 
+
+router.get('/profile', async (req, res) => {
+    try {
+        const username = req.params.username;
+        // Querying using sequelize findOne method
+        const user = await User.findOne({
+            where: {
+                username: username
+            }
+        });
+        res.status(200);
+        res.json({ user });
+    } catch (error) {
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+router.post('/:username/avatar', async (req, res) => {
+    try {
+
+        const username = req.params.username;
+        const { imageUrl } = req.body;
+
+        //Update the user's fields with the provided values
+        await User.update({ imageUrl }, { where: { username } });
+
+    } catch (error) {
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
 // Route for add a question to questions record
 router.post('/questionsRecord', async (req, res) => {
     try {
