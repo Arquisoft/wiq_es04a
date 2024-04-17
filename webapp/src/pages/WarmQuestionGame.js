@@ -135,7 +135,7 @@ const Game = () => {
             await axios.post(`${apiEndpoint}/user/questionsRecord`, {
                 questions: userResponses,
                 username: username,
-                gameMode: "The Challenge"
+                gameMode: "WarmQuestion"
             });
         } catch (error) {
             console.error("Error:", error);
@@ -309,6 +309,7 @@ if (shouldRedirect) {
             <div>
                 <Typography variant="h6">Correct Answers: {correctlyAnsweredQuestions}</Typography>
                 <Typography variant="h6">Incorrect Answers: {incorrectlyAnsweredQuestions}</Typography>
+                <Typography variant="h6">Skipped Questions: {passedQuestions}</Typography>
                 <Typography variant="h6">Total money: {totalScore}</Typography>
                 <Typography variant="h6">Game time: {totalTimePlayed} seconds</Typography>
             </div>
@@ -418,16 +419,19 @@ if (shouldRedirect) {
                 ))}
             </Grid>
 
+            {!answered && (
             <Button
                 variant="contained"
                 onClick={() => selectResponse(null, null)}
                 sx={{
                     margin: "15px",
-                    backgroundColor: "red", 
+                    backgroundColor: "red",
+                    fontWeight: "bold",
                 }}
->
-    {"Pass"}
-</Button>
+            >
+            {"Skip"}
+            </Button>
+            )}
 
             
         </Container>
