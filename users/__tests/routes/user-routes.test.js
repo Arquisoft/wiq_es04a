@@ -571,6 +571,68 @@ describe('User Routes', () => {
         expect(res.body.error).toBe('Group is already full');
     });
 
+    it('Should return an error when the user tries to create more than three groups', async () => {
+        const username='testuser1';
+        const groupName = 'testgroup4';
+        
+        await User.create({
+            username: username,
+            password: password,
+            name: 'Test1',
+            surname: 'User1'
+        });
+
+        const newGroup = {
+            name: 'testgroup1',
+            creator: username, 
+        };
+        await Group.create(newGroup);
+
+        const newGroup2 = {
+            name: 'testgroup2',
+            creator: username, 
+        };
+        await Group.create(newGroup2);
+
+        const newGroup3 = {
+            name: 'testgroup3',
+            creator: username, 
+        };
+        await Group.create(newGroup3);
+    
+        const response = await request(app)
+          .post('/user/group/add')
+          .send({ name: groupName, username });
+    
+        expect(response.status).toBe(400);
+        expect(response.body.error).toBe('You cannot create more than three groups');
+    });
+
+
+    it('Should return an error when the user tries to create a group with an existing name', async () => {
+        const username='testuser1';
+        const groupName='testgroup1';
+        
+        await User.create({
+            username: username,
+            password: password,
+            name: 'Test1',
+            surname: 'User1'
+        });
+
+        const newGroup = {
+            name: groupName,
+            creator: username, 
+        };
+        await Group.create(newGroup);
+    
+        const response = await request(app)
+          .post('/user/group/add')
+          .send({ name: groupName, username });
+    
+        expect(response.status).toBe(400);
+        expect(response.body.error).toBe('A group with the same name already exists');
+    });
     
 
     // STATISTICS TESTS
@@ -856,7 +918,7 @@ describe('User Routes', () => {
     it('should allow a user to exit a group', async () => {
         await User.create({
             username: 'testuser',
-            password: 'password',
+            password: password,
             name: 'Test',
             surname: 'User'
         });
@@ -891,14 +953,14 @@ describe('User Routes', () => {
     it('should allow viewing statistics of a user if logged in user has common group', async () => {
         await User.create({
             username: 'testuser1',
-            password: 'password1',
+            password: password,
             name: 'Test1',
             surname: 'User1'
         });
 
         await User.create({
             username: 'testuser2',
-            password: 'password2',
+            password: password,
             name: 'Test2',
             surname: 'User2'
         });
@@ -943,14 +1005,14 @@ describe('User Routes', () => {
     it('should return an error if user is not logged in or has no common group', async () => {
         await User.create({
             username: 'testuser1',
-            password: 'password1',
+            password: password,
             name: 'Test1',
             surname: 'User1'
         });
 
         await User.create({
             username: 'testuser2',
-            password: 'password2',
+            password: password,
             name: 'Test2',
             surname: 'User2'
         });
@@ -967,6 +1029,69 @@ describe('User Routes', () => {
             .expect(403);
 
         expect(responseWithInvalidLoggedUser.body).toHaveProperty('error');
+    });
+
+    it('Should return the user when the username is valid when getting the profile', async () => {
+        await User.create({
+            username: 'testuser1',
+            password: password,
+            name: 'Test1',
+            surname: 'User1'
+        });
+
+        const username = 'testuser1';
+        
+        const response = await request(app)
+          .get('/user/profile')
+          .query({ username });
+    
+        expect(response.status).toBe(200);
+        expect(response.body.user).toBeDefined();
+        expect(response.body.user.username).toBe('testuser1');
+        expect(response.body.user.name).toBe('Test1');
+        expect(response.body.user.surname).toBe('User1');
+    });
+
+    it('Should return an error when a user does not exist and does not have profile', async () => {
+        const username = 'nombre_de_usuario_inexistente';
+        
+        const response = await request(app)
+          .get('/user/profile')
+          .query({ username });
+    
+        expect(response.status).toBe(404);
+        expect(response.body.error).toBe('No user found');
+    });
+
+    it('Should update the user`s profile pic', async () => {
+        await User.create({
+            username: 'testuser1',
+            password: password,
+            name: 'Test1',
+            surname: 'User1'
+        });
+
+        const username = 'testuser1';
+        const newImageUrl = 'bertinIcon.jpg';
+    
+        const response = await request(app)
+          .post(`/user/profile/${username}`)
+          .send({ imageUrl: newImageUrl });
+    
+        expect(response.status).toBe(200);
+        expect(response.body.affectedRows).toBe(1);
+    });
+
+    it('Should return an error when updating th euser profile pic', async () => {
+        const username = 'nombre_de_usuario_inexistente';
+        const newImageUrl = 'nueva_url_de_imagen';
+    
+        const response = await request(app)
+          .post(`/user/profile/${username}`)
+          .send({ imageUrl: newImageUrl });
+    
+        expect(response.status).toBe(404);
+        expect(response.body.error).toBe('No user could be updated');
     });
 
 });

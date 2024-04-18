@@ -7,14 +7,19 @@ const { User, Statistics, Group, UserGroup, QuestionsRecord, sequelize } = requi
 router.get('/profile', async (req, res) => {
     try {
         const username = req.query.username;
+
         // Querying using sequelize findOne method
         const user = await User.findOne({
             where: {
                 username: username
             }
         });
-        res.status(200);
-        res.json({ user });
+
+        if (!user) {
+            return res.status(404).json({ error: 'No user found' });
+        }
+
+        res.status(200).json({ user });
     } catch (error) {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -23,14 +28,16 @@ router.get('/profile', async (req, res) => {
 
 router.post('/profile/:username', async (req, res) => {
     try {
-
         const username = req.params.username;
         const { imageUrl } = req.body;
 
         //Update the user's fields with the provided values
-        const user = await User.update({ imageUrl }, { where: { username } });
-        res.status(200);  
-        res.json({ user });  
+        const [affectedRows] = await User.update({ imageUrl }, { where: { username } });
+        if (affectedRows === 0) {
+            return res.status(404).json({ error: 'No user could be updated' });
+        }
+
+        res.status(200).json({ affectedRows });  
     } catch (error) {
       return res.status(500).json({ error: 'Internal Server Error' });
     }

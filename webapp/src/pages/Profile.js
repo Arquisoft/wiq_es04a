@@ -67,7 +67,7 @@ const Profile = () => {
                     <Typography variant="h4"><b>Surname:</b> {userInfo.surname}</Typography>
                     <Typography variant="h4"><b>Created in:</b> {new Date(userInfo.createdAt).toLocaleDateString()}</Typography>
                 </Container>    
-                <img src={userInfo.imageUrl} alt="ActualPhoto" style={{ flex: 1, maxWidth:'20%', borderRadius:'50%' }} />
+                <img src={userInfo.imageUrl} alt="Profile pic" style={{ flex: 1, maxWidth:'20%', borderRadius:'50%' }} />
             </Container>
 
             <Divider style={{ margin:'1em 0'}}/>
