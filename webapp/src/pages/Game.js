@@ -10,6 +10,7 @@ import { useContext } from 'react';
 import Confetti from 'react-confetti';
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { useTranslation } from 'react-i18next';
+import i18n from '../localize/i18n';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -44,6 +45,8 @@ const Game = () => {
     const [userResponses, setUserResponses] = React.useState([]);
     const [paused, setPaused] = React.useState(false);
     const [passNewRound, setPassNewRound] = React.useState(false);
+    const [language, setCurrentLanguage] = React.useState(i18n.language);
+
 
     const [questionHistorial, setQuestionHistorial] = React.useState(Array(MAX_ROUNDS).fill(null));
 
@@ -91,7 +94,10 @@ const Game = () => {
     // gets a random question from the database and initializes button states to null
     const startNewRound = async () => {
         setAnswered(false);
-        axios.get(`${apiEndpoint}/questions`)
+
+        // Updates current language
+        setCurrentLanguage(i18n.language);
+        axios.get(`${apiEndpoint}/questions/${language}`)
         .then(quest => {
             // every new round it gets a new question from db
             setQuestionData(quest.data);    
@@ -202,6 +208,7 @@ const Game = () => {
 
         setTimeout(async() => {
             setPassNewRound(true);
+            setCurrentLanguage(i18n.language);
         }, 4000);
     };
 
