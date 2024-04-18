@@ -8,7 +8,7 @@ const dbService = require('./question-data-service')
  * @param {number} n - The number of questions to generate.
  * @returns {Promise<void>} A Promise that resolves when all questions are generated.
  */
-async function generateQuestions(n, questionCategory, language) {
+async function generateQuestions(n, language, questionCategory) {
     try {
         let json = await utils.readFromFile("../questions/utils/question.json");
         

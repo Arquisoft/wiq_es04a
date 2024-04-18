@@ -99,7 +99,7 @@ const Game = () => {
         setAnswered(false);
         // It works deploying using git repo from machine with: axios.get(`http://20.80.235.188:8000/questions`)
         setCurrentLanguage(i18n.language);
-        axios.get(`${apiEndpoint}/questions/${category}/${language}`) 
+        axios.get(`${apiEndpoint}/questions/${language}/${category}`) 
         .then(quest => {
             // every new round it gets a new question from db
             setQuestionData(quest.data[0]);    
