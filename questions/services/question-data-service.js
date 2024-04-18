@@ -90,14 +90,14 @@ module.exports = {
    * Returns a the number of questions in the db.
    * @returns {int} The question count
    */
-  getQuestionCountByCategory : async function(wantedCategory) {
+  getQuestionCountByCategory : async function(wantedCategory, wantedLanguage) {
     try {
       // Obtain total number of questions in database
-      const totalQuestions = await Question.countDocuments({ categories: wantedCategory });
+      const totalQuestions = await Question.countDocuments({ categories: wantedCategory, language: wantedLanguage });
       return totalQuestions;
 
     } catch (error) {
-      console.error('Error obtaining the number of questions for category ', wantedCategory,': ', error.message);
+      console.error('Error obtaining the number of questions for category ', wantedCategory,' and language', wantedLanguage,': ', error.message);
       return error.message;
     }
   },
@@ -124,10 +124,11 @@ module.exports = {
   },
 
   // Obtaing random questions filtered by category
-  getRandomQuestionsByCategory : async function(n, wantedCategory) {
+  getRandomQuestionsByCategory : async function(n, wantedCategory, wantedLanguage) {
     try {
+      console.log("getRandom: ",wantedLanguage);
       // Obtain total number of questions with that category
-      const totalQuestions = await Question.countDocuments({ categories: wantedCategory });
+      const totalQuestions = await Question.countDocuments({ categories: wantedCategory, language: wantedLanguage });
   
       // Check if there are required number of questions
       if (totalQuestions < n) {
@@ -136,7 +137,8 @@ module.exports = {
       }
       
     return Question.aggregate([
-      { $match: { categories: wantedCategory } }, 
+      { $match: { categories: wantedCategory,
+                  language: wantedLanguage } }, 
       { $sample: { size: n } }
       ]);
       

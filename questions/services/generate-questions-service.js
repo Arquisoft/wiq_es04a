@@ -8,7 +8,7 @@ const dbService = require('./question-data-service')
  * @param {number} n - The number of questions to generate.
  * @returns {Promise<void>} A Promise that resolves when all questions are generated.
  */
-async function generateQuestions(n, questionCategory) {
+async function generateQuestions(n, questionCategory, language) {
     try {
         let json = await utils.readFromFile("../questions/utils/question.json");
         
@@ -36,12 +36,13 @@ async function generateQuestions(n, questionCategory) {
             const property = entity.properties[pos].property;
             const categories = entity.properties[pos].category;
             const filter = entity.properties[pos].filter;
-            const lang = 1 ; //english
+            const lang = language=="es"?0:1; //0 spanish, 1 english
+            console.log("generate questions: ",lang);
             const question = entity.properties[pos].template[lang].question;
-            const language = entity.properties[pos].template[lang].lang;
+            //const language = entity.properties[pos].template[lang].lang;
 
             //let [entityName, searched_property] = await wikidataService.getRandomEntity(instance, property, filter);
-            let [entityName, searched_property] = await wikidataService.getRandomEntity(entity, pos, lang);
+            let [entityName, searched_property] = await wikidataService.getRandomEntity(entity, pos, language);
 
             if (searched_property !== null) {
                 //This way we can ask questions with different structures

@@ -1,13 +1,14 @@
 const axios = require('axios');
 
-async function getRandomEntity(entity, pos, lang) {
+async function getRandomEntity(entity, pos, language) {
+    console.log("wikidata: ",language);
     const property = entity.properties[pos].property;
     const filt = entity.properties[pos].filter;
     var filter = '';
     if(filt) {
         filter = `FILTER(?property${filt})`;
     }
-    const language = entity.properties[pos].template[lang].lang;
+    //const language = entity.properties[pos].template[lang].lang;
     const instance = entity.instance;
 
     const consultaSparql = `

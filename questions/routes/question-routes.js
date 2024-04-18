@@ -62,23 +62,25 @@ router.get('/getQuestionsFromDb/:n', async(_req, res) => {
 });
 
 //Get random questions from db with category filter: http://localhost:8010/questions/getQuestionsFromDb/2/Geografía
-router.get('/getQuestionsFromDb/:n/:category', async(_req, res) => {
+router.get('/getQuestionsFromDb/:n/:category/:lang', async(_req, res) => {
     const n = parseInt(_req.params.n, 10);
     const category = _req.params.category;
-    
+    const language = _req.params.lang;
+    console.log("routes: ",language);
+
     //Verify is n is a correct number
     if (isNaN(n) || n <= 0) {
         return res.status(400).json({ error: 'Parameter "n" must be > 0.' });
     }
     
-    if (await dbService.getQuestionCountByCategory(category) < n) {
+    if (await dbService.getQuestionCountByCategory(category, language) < n) {
         //Must generate n questions
-        await generateQuestionsService.generateQuestions(n, category);
+        await generateQuestionsService.generateQuestions(n, category, language);
         //Do not wait to generate the others
-        generateQuestionsService.generateQuestions(n);
+        generateQuestionsService.generateQuestions(n, language);
     }
 
-    questions = await dbService.getRandomQuestionsByCategory(n, category);
+    questions = await dbService.getRandomQuestionsByCategory(n, category, language);
     res.json(questions);
 });
 
