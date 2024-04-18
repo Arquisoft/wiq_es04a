@@ -13,7 +13,7 @@ describe('Game component', () => {
   beforeEach(() => {
     mockAxios.reset();
     // Mockear respuestas de la API
-    mockAxios.onGet(`http://localhost:8000/questions/Geography`).reply(200, 
+    mockAxios.onGet(`http://localhost:8000/questions/en/Geography`).reply(200, 
     [
         {
         question: 'Which is the capital of Spain?',
