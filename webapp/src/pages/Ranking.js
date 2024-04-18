@@ -12,23 +12,21 @@ const Ranking = () => {
     const [rankingType, setRankingType] = useState('user');
 
     const fetchUserRanking = async () => {
-        axios.get(`${apiEndpoint}/user/ranking`)
-        .then((response) => {
-          setRows(response.data.rank);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+        try {
+            const response = axios.get(`${apiEndpoint}/user/ranking`);
+            setRows(response.data.rank);
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     const fetchGroupsRanking = async () => {
-        axios.get(`${apiEndpoint}/user/group/ranking`)
-        .then((response) => {
-          setRows(response.data.rank);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+        try {
+            const response = axios.get(`${apiEndpoint}/user/group/ranking`);
+            setRows(response.data.rank);
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     useEffect(() => {
