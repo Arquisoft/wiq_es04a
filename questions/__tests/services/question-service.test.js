@@ -85,12 +85,12 @@ describe('Question Functions', function() {
         const newQuestion = new Question(questionData);
         await newQuestion.save();
         
-        assert.strictEqual(await questionFunctions.getQuestionCount(), 1);
+        assert.strictEqual(await questionFunctions.getQuestionCount("en"), 1);
     });
 
     it('It should get an error message', async function() {
       await mongoose.disconnect();
-      const errorMsg = await questionFunctions.getQuestionCount();
+      const errorMsg = await questionFunctions.getQuestionCount("en");
       assert.strictEqual(errorMsg, "Client must be connected before running operations");
       await mongoose.connect(mongoURI);
     });
@@ -108,8 +108,8 @@ describe('Question Functions', function() {
         const newQuestion = new Question(questionData);
         await newQuestion.save();
         
-        assert.strictEqual(await questionFunctions.getQuestionCountByCategory("Geography"), 1);
-        assert.strictEqual(await questionFunctions.getQuestionCountByCategory("Political"), 0);
+        assert.strictEqual(await questionFunctions.getQuestionCountByCategory("Geography","en"), 1);
+        assert.strictEqual(await questionFunctions.getQuestionCountByCategory("Political","en"), 0);
     });
 
     it('It should get an error message', async function() {
@@ -133,9 +133,9 @@ describe('Question Functions', function() {
         const savedQuestion = await newQuestion.save();
         const savedQuestionId = savedQuestion._id;
         
-        assert.strictEqual(await questionFunctions.getQuestionCount(), 1);
+        assert.strictEqual(await questionFunctions.getQuestionCount("en"), 1);
         await questionFunctions.deleteQuestionById(savedQuestionId);
-        assert.strictEqual(await questionFunctions.getQuestionCount(), 0);
+        assert.strictEqual(await questionFunctions.getQuestionCount("en"), 0);
     });
 
     it('It should get an error message because of deleting with invalid id', async function() {
@@ -230,7 +230,7 @@ describe('Question Functions', function() {
       await questionFunctions.addQuestion(questionData3);
       await questionFunctions.addQuestion(questionData4);
 
-      const randomQuestions = await questionFunctions.getRandomQuestionsByCategory(2, "Geography");
+      const randomQuestions = await questionFunctions.getRandomQuestionsByCategory(2, "Geography","en");
         
       assert.strictEqual(randomQuestions.length, 2);
 
@@ -250,9 +250,9 @@ describe('Question Functions', function() {
 
     it('It should get two error messages', async function() {
       const errorMsgSize = await questionFunctions.getRandomQuestionsByCategory(40000, "Geography");
-      assert.strictEqual(errorMsgSize, 'Required 40000 questions and there are 0');
+      assert.strictEqual(errorMsgSize, null);
       await mongoose.disconnect();
-      const errorMsg = await questionFunctions.getRandomQuestionsByCategory(1);
+      const errorMsg = await questionFunctions.getRandomQuestionsByCategory(1,"Geography","en");
       assert.strictEqual(errorMsg, "Client must be connected before running operations");
       await mongoose.connect(mongoURI);
     });
