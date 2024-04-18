@@ -27,14 +27,17 @@ async function generateQuestions(n, language, questionCategory) {
             
             //use only property of that required category
             if(questionCategory) {
-                const filteredProperties = json.flatMap(obj => obj.properties.filter(prop => prop.category.includes(questionCategory)));
+                const filteredProperties = [];
+                entity.properties.forEach(property => {
+                    if (property.category.includes(questionCategory)) {
+                        filteredProperties.push(property);
+                    }
+                });
                 const randomPos = Math.floor(Math.random() * filteredProperties.length);
                 const propertyJson = filteredProperties[randomPos];
                 pos = entity.properties.findIndex(prop => prop === propertyJson);
             }
         
-            console.log("ENTITY ", entity)
-            //console.log("ENTITY ", entity)
             const property = entity.properties[pos].property;
             const categories = entity.properties[pos].category;
             const filter = entity.properties[pos].filter;
