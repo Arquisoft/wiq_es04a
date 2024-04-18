@@ -208,6 +208,7 @@ const Game = () => {
 
         setTimeout(async() => {
             setPassNewRound(true);
+            setCurrentLanguage(i18n.language);
         }, 4000);
     };
 

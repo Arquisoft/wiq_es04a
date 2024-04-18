@@ -210,6 +210,7 @@ const Game = () => {
         setTimeout(async() => {
             setRound(round + 1);
             setButtonStates([]);
+            setCurrentLanguage(i18n.language);
         }, 4000);
     };
 
