@@ -75,17 +75,16 @@ router.get('/getQuestionsFromDb/:n/:category/:lang', async(_req, res) => {
     
     if (await dbService.getQuestionCountByCategory(category, language) < n) {
         //Must generate n questions
-        await generateQuestionsService.generateQuestions(n, category, language);
+        await generateQuestionsService.generateQuestions(n, language, category);
         //Do not wait to generate the others
-        generateQuestionsService.generateQuestions(n, language);
+        generateQuestionsService.generateQuestions(n, language, category);
     }
-
     questions = await dbService.getRandomQuestionsByCategory(n, category, language);
-    console.log("Array questions: ",questions);
-    if(questions != null)
-        questions.map(question => {
-            dbService.deleteQuestionById(question._id);
-        })
+    if(questions != null) {
+        for(var i = 0; i < questions.length; i++) {
+            dbService.deleteQuestionById(questions[i]._id);
+        }
+    }
     res.json(questions);
     
 });
