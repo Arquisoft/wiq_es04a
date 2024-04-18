@@ -27,8 +27,8 @@ app.use(cors());
 const gameRooms = {};
 const gameResults = {};
 
-const getQuestion = () => {
-    return axios.get(`${apiEndpoint}/questions`)
+const getQuestion = () => { //TODO 
+    return axios.get(`${apiEndpoint}/questions/en`)
       .then(response => response.data)
       .catch(error => {
         console.error('Error getting question from question service ', error);
