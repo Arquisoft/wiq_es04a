@@ -110,13 +110,13 @@ const Homepage = () => {
                 setGameLink("/wiseMenStackGame");
                 break;
             case "WARM QUESTION":
-                setGameLink("/Warm");
+                setGameLink("/warmQuestionGame");
                 break;
             case "DISCOVERING CITIES":
                 setGameLink("/discoveringCitiesGame");
                 break;
             case "THE CHALLENGE":
-                setGameLink("/TheChallengeGame");
+                setGameLink("/theChallengeGame");
                 break;
             case "MULTIPLAYER MODE":
                 setGameLink("/multiplayerRoom");

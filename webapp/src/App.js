@@ -16,6 +16,7 @@ import Ranking from './pages/Ranking'
 import MultiplayerRoom from './pages/MultiplayerRoom';
 import MultiplayerGame from './pages/MultiplayerGame';
 import TheChallengeGame from './pages/TheChallengeGame';
+import WarmQuestion from './pages/WarmQuestionGame';
 import {Route, Routes} from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Box } from '@mui/material';
@@ -62,8 +63,9 @@ function App() {
             <Route path="/discoveringCitiesGame" element={<PrivateRoute element={DiscoveringCitiesGame}/>}/>
             <Route path="/wiseMenStackGame" element={<WiseMenStackGame />}/>
             <Route path="/multiplayerRoom" element={<PrivateRoute element={MultiplayerRoom}/>}/>
-            <Route path="/TheChallengeGame" element={<PrivateRoute element={TheChallengeGame}/>}/>
+            <Route path="/theChallengeGame" element={<PrivateRoute element={TheChallengeGame}/>}/>
             <Route path="/multiplayerGame" element={<PrivateRoute element={MultiplayerGame}/>}/>
+            <Route path="/warmQuestionGame" element={<PrivateRoute element={WarmQuestion}/>}/>
             <Route path="/group/menu" element={<PrivateRoute element={Groups}/>}/>
             <Route path="/group/:groupName" element={<PrivateRoute element={GroupDetails}/>} />
             <Route path="/statistics" element={<PrivateRoute element={Statistics }/>}/>

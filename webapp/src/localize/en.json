@@ -52,7 +52,7 @@
         "lose_msg": "Game Over",
         "correct": "Correct Answers",
         "incorrect": "Incorrect Answers",
-        "money": "Final Money",
+        "money": "Final points",
         "time": "Game Time (sec)",
         "pause": "Pause",
         "play": "Play",
@@ -110,7 +110,7 @@
     "Statistics": {
         "title": "STATISTICS",
         "table": {
-            "money": "Earned Money",
+            "money": "Total Points",
             "questions_corr": "Correctly Answered Questions",
             "questions_incorr": "Incorrectly Answered Questions",
             "questions_pass": "Passed Questions",

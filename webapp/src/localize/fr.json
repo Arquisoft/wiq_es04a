@@ -52,7 +52,7 @@
         "lose_msg": "Partie terminée",
         "correct": "Réponses Correctes",
         "incorrect": "Réponses Incorrectes",
-        "money": "Argent Final",
+        "money": "Points Finaux",
         "time": "Temps de Jeu (sec)",
         "pause": "Pause",
         "play": "Jouer",
@@ -111,7 +111,7 @@
     "Statistics": {
         "title": "STATISTIQUES",
         "table": {
-            "money": "Argent Gagné",
+            "money": "Points gagnés",
             "questions_corr": "Questions Correctement Répondues",
             "questions_incorr": "Questions Incorrectement Répondues",
             "questions_pass": "Questions Passées",
