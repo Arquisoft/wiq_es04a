@@ -33,6 +33,8 @@ async function generateQuestions(n, language, questionCategory) {
                 pos = entity.properties.findIndex(prop => prop === propertyJson);
             }
         
+            console.log("ENTITY ", entity)
+            //console.log("ENTITY ", entity)
             const property = entity.properties[pos].property;
             const categories = entity.properties[pos].category;
             const filter = entity.properties[pos].filter;
@@ -76,6 +78,7 @@ async function generateQuestions(n, language, questionCategory) {
         }
     } catch (error) {
         console.error("Error generating questions: ", error.message);
+        console.error("Line:", error.stack.split("\n")[1]);
     }
 }
 
