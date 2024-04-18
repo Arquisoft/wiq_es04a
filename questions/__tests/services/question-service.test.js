@@ -176,7 +176,7 @@ describe('Question Functions', function() {
       await questionFunctions.addQuestion(questionData2);
       await questionFunctions.addQuestion(questionData3);
 
-      const randomQuestions = await questionFunctions.getRandomQuestions(2);
+      const randomQuestions = await questionFunctions.getRandomQuestions(2,"en");
         
       assert.strictEqual(randomQuestions.length, 2);
     });
@@ -238,7 +238,7 @@ describe('Question Functions', function() {
         assert.strictEqual(question.categories[0], "Geography");
       });
 
-      const randomQuestionPolitical = await questionFunctions.getRandomQuestionsByCategory(1, "Political");
+      const randomQuestionPolitical = await questionFunctions.getRandomQuestionsByCategory(1, "Political","en");
         
       assert.strictEqual(randomQuestionPolitical.length, 1);
 
