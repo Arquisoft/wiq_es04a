@@ -1,35 +1,40 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
 import Statistics from '../../pages/Statistics';
 import { SessionContext } from '../../SessionContext';
-import { BrowserRouter as Router } from 'react-router-dom';
 import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
 
-const mockAxios = new MockAdapter(axios);
+jest.mock('axios');
 
 describe('Statistics component', () => {
-  beforeAll(async () => {
-    mockAxios.onPost('http://localhost:8000/user/add').reply(200, {
-      username: 'testuser',
-      password: 'test123', //NOSONAR
-      name: 'Test',
-      surname: 'User'
-    });
+  beforeEach(() => {
+    axios.get.mockReset();
   });
 
-  it('should render Statistics component with correct user statistics', async () => {
+  const renderStatisticsComponent = async () => {
+    const userStaticsMock = {
+      the_callenge_earned_money: 100,
+      the_callenge_correctly_answered_questions: 20,
+      the_callenge_incorrectly_answered_questions: 5,
+      the_callenge_total_time_played: 3600,
+      the_callenge_games_played: 10,
+    };
+
+    axios.get.mockResolvedValueOnce({ data: userStaticsMock });
+
     render(
       <SessionContext.Provider value={{ username: 'testuser' }}>
-        <Router>
-          <Statistics />
-        </Router>
+        <Statistics />
       </SessionContext.Provider>
     );
 
     await screen.findByText('STATISTICS');
+  };
 
+  it('should render statistics for "The Challenge" mode by default', async () => {
+    await renderStatisticsComponent();
+
+    expect(screen.getByText('The Challenge')).toBeInTheDocument();
     expect(screen.getByText('Earned Money:')).toBeInTheDocument();
     expect(screen.getByText('0 €')).toBeInTheDocument();
     expect(screen.getByText('Correctly Answered Questions:')).toBeInTheDocument();
@@ -41,15 +46,7 @@ describe('Statistics component', () => {
   });
 
   it('should render Statistics component with correct user statistics for Wise Men Stack mode', async () => {
-    render(
-      <SessionContext.Provider value={{ username: 'testuser' }}>
-        <Router>
-          <Statistics />
-        </Router>
-      </SessionContext.Provider>
-    );
-
-    await screen.findByText('STATISTICS');
+    await renderStatisticsComponent();
 
     fireEvent.click(screen.getByText('Wise Men Stack'));
 
@@ -63,15 +60,7 @@ describe('Statistics component', () => {
   });
 
   it('should render Statistics component with correct user statistics for Warm Question mode', async () => {
-    render(
-      <SessionContext.Provider value={{ username: 'testuser' }}>
-        <Router>
-          <Statistics />
-        </Router>
-      </SessionContext.Provider>
-    );
-
-    await screen.findByText('STATISTICS');
+    await renderStatisticsComponent();
 
     fireEvent.click(screen.getByText('Warm Question'));
 
@@ -86,15 +75,7 @@ describe('Statistics component', () => {
   });
 
   it('should render Statistics component with correct user statistics for Discovering Cities mode', async () => {
-    render(
-      <SessionContext.Provider value={{ username: 'testuser' }}>
-        <Router>
-          <Statistics />
-        </Router>
-      </SessionContext.Provider>
-    );
-
-    await screen.findByText('STATISTICS');
+    await renderStatisticsComponent();
 
     fireEvent.click(screen.getByText('Discovering Cities'));
 
