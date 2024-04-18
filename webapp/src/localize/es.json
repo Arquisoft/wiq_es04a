@@ -1,0 +1,148 @@
+{
+    "Home": "JUGAR",
+    "WIQ": {
+        "w": "WIKIDATOS",
+        "i": "INFINITO",
+        "q": "QUESTIONARIO"
+    },
+
+    "NavBar":{
+        "play": "Jugar",
+        "statistics": "Estadísticas",
+        "instructions": "Instrucciones",
+        "groups": "Grupos",
+        "languages": {
+            "en": "Inglés",
+            "es": "Español",
+            "fr": "Francés"
+        }
+    },
+    
+    "Footer": {
+        "api_questions": "DOCUMENTACIÓN DE LA API DE PREGUNTAS",
+        "api_users": "DOCUMENTACIÓN DE LA API DE USUARIOS"
+    },
+
+    "Games": {
+        "wise_men": {
+            "name": "Hombres Sabiondos",
+            "desc": "El jugador elige un tema entre cinco opciones disponibles y debe responder una batería de preguntas relacionadas con él en un plazo de 60 segundos. Para cada pregunta, el presentador proporciona dos opciones. Si el concursante acierta, gana €20; de lo contrario, pasa a la siguiente pregunta (ya que la respuesta correcta sería la otra opción). Si el tiempo se agota antes de que se formule por completo la pregunta y se proporcionen ambas posibles respuestas, el concursante aún puede responderla; sin embargo, si la afirmación no se ha completado (o las opciones no se proporcionaron), no pueden responder."
+        },
+        "warm_quest": {
+            "name": "Pregunta Calentorra",
+            "desc": "Consta de diez temas de diferentes temáticas. Por cada respuesta correcta, se ganan €100, y se pierden €10 si el concursante pasa, no responde o responde incorrectamente."
+        },
+        "discover": {
+            "name": "Descubriendo Ciudades",
+            "desc": "En el modo de juego 'Descubriendo Ciudades', el concursante enfrentará un desafío donde se le harán preguntas repetidas referentes a diferentes ciudades de todo el mundo. Para superar con éxito el desafío, el concursante debe responder tantas preguntas como sea posible correctamente a lo largo de la prueba."
+        },
+        "challenge": {
+            "name": "Desafío",
+            "desc": "El modo de juego 'Desafío' es el modo de juego por excelencia, ya que te permite personalizar el enfrentamiento a tu gusto. Este modo de juego está diseñado para aquellos que deseen practicar ciertos formatos de juego antes de participar en nuestros diversos otros modos de juego."
+        },
+        "multiplayer": {
+            "name": "Multijugador",
+            "desc": "Crea una sala para que otros jugadores se unan y jueguen 1 contra 1."
+        }
+    },
+
+    "Game": {
+        "win_msg": "¡Buen trabajo!",
+        "lose_msg": "Fin del juego",
+        "correct": "Respuestas correctas",
+        "incorrect": "Respuestas incorrectas",
+        "money": "Puntos finales",
+        "time": "Tiempo de juego (seg)",
+        "pause": "Pausa",
+        "play": "Jugar",
+        "round": "Pregunta ",
+        "start": "Empezar juego"
+    },
+    
+    "Wise_Men": {
+        "instructions": "Elige una categoría:",
+        "category":"Categorías: ",
+        "geography": "Geografía",
+        "political":"Política",
+        "sports":"Deporte"
+    },
+
+    "Login": {
+        "title": "Iniciar sesión",
+        "username": "Nombre de usuario",
+        "password": "Contraseña",
+        "button": "Iniciar sesión",
+        "register_link": "¿No tienes una cuenta? Regístrate aquí."
+    },
+    
+    "Register": {
+        "title": "Registro",
+        "username": "Nombre de usuario",
+        "password": "Contraseña",
+        "name": "Nombre",
+        "surname": "Apellido",
+        "button": "Registrarse",
+        "login_link": "¿Ya tienes una cuenta? Inicia sesión aquí."
+    },
+
+    "Ranking": {
+        "title": "CLASIFICACIÓN"
+    },
+
+    "Groups": {
+        "title": "GRUPOS",
+        "create": "Crear",
+        "list": "Lista",
+        "create_button": "Crear",
+        "name": "Nombre",
+        "see_members": "Ver Miembros",
+        "joined": "UNIDO",
+        "join": "¡ÚNETE!",
+        "filled": "LLENO",
+        "Details": {
+            "creator": "Creador",
+            "date": "Creado en",
+            "members": "Miembros"
+        }
+    },
+
+    "Statistics": {
+        "title": "ESTADÍSTICAS",
+        "table": {
+            "money": "Puntos Ganado",
+            "questions_corr": "Preguntas Respondidas Correctamente",
+            "questions_incorr": "Preguntas Respondidas Incorrectamente",
+            "questions_pass": "Preguntas Pasadas",
+            "played_games": "Juegos Jugados",
+            "total_time": "Tiempo Total Jugado",
+            "cities_corr": "Ciudades Respondidas Correctamente",
+            "cities_incorr": "Ciudades Respondidas Incorrectamente"
+        }
+    },
+
+    "Multiplayer": {
+        "Room": {
+            "code": "Código de Sala",
+            "participants": "Participantes",
+            "start": "Comenzar juego",
+            "create": "Crear sala",
+            "join": "Unirse a sala",
+            "send": "Enviar",
+            "chat_title": "Chat de la sala",
+            "chat_input_label": "Escribe tu mensaje"
+        },
+        "Game": {
+            "waiting_players_end": "Esperando a que terminen los demás jugadores...",
+            "waiting": "Esperando información del ganador...",
+            "winner_1": "Jugador ganador del juego",
+            "winner_2": "con",
+            "winner_3": "respuestas correctas en",
+            "winner_4": "segundos"
+        }
+    }, 
+
+    "NotFound": {
+        "title": "Página no encontrada",
+        "button_msg": "Volver a la página de inicio"
+    }
+}

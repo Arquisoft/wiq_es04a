@@ -5,7 +5,7 @@
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@emotion/react": "^11.11.3",
-    "@emotion/styled": "^11.11.0",
+    "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.10",
     "@mui/material": "^5.15.3",
     "@mui/x-data-grid": "^6.19.10",
@@ -16,10 +16,13 @@
     "babel": "^6.23.0",
     "cross-env": "^7.0.3",
     "express": "^4.19.2",
+    "i18next": "^23.11.0",
+    "pupeteer": "^0.0.1",
     "react": "^18.2.0",
     "react-confetti": "^6.1.0",
     "react-countdown-circle-timer": "^3.2.1",
     "react-dom": "^18.2.0",
+    "react-i18next": "^14.1.0",
     "react-router-dom": "^6.22.1",
     "react-scripts": "5.0.1",
     "sequelize": "^6.37.2",
@@ -62,7 +65,7 @@
     "jest-cucumber": "^3.0.1",
     "jest-environment-node": "^29.7.0",
     "mongodb-memory-server": "^9.1.4",
-    "puppeteer": "^21.7.0",
+    "puppeteer": "^21.11.0",
     "serve": "^14.2.1",
     "start-server-and-test": "^2.0.3"
   }

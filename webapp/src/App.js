@@ -1,5 +1,5 @@
 import React from 'react';
-import AddUser from './pages/AddUser';
+import Register from './pages/Register';
 import Instructions from './pages/Instructions';
 import Login from './pages/Login';
 import NavBar from './components/NavBar';
@@ -7,6 +7,8 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Homepage from './pages/Homepage';
 import Game from './pages/Game';
+import DiscoveringCitiesGame from './pages/DiscoveringCitiesGame';
+import WiseMenStackGame from './pages/WiseMenStackGame';
 import Groups from './pages/Groups';
 import GroupDetails from './pages/GroupDetails';
 import Statistics from './pages/Statistics';
@@ -14,9 +16,13 @@ import Ranking from './pages/Ranking'
 import Profile from './pages/Profile'
 import MultiplayerRoom from './pages/MultiplayerRoom';
 import MultiplayerGame from './pages/MultiplayerGame';
+import TheChallengeGame from './pages/TheChallengeGame';
+import WarmQuestion from './pages/WarmQuestionGame';
 import {Route, Routes} from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Box } from '@mui/material';
+import PrivateRoute from './PrivateRoute';
+import NotFound from './pages/NotFound';
 
 const theme = createTheme({
   palette: {
@@ -39,9 +45,11 @@ const theme = createTheme({
 });
 
 function App() {
+
   React.useEffect(() => {
     document.title = "WIQ - Wikidata Infinite Quest";
   }, []);
+
   return (
     <Box sx={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
       <ThemeProvider theme={theme}>
@@ -49,17 +57,22 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />}/>
             <Route path="/login" element={<Login />}/>
-            <Route path="/register" element={<AddUser />}/>
-            <Route path="/instructions" element={<Instructions />}/>
-            <Route path="/homepage" element={<Homepage />}/>
-            <Route path="/game" element={<Game />}/>
-            <Route path="/multiplayerRoom" element={<MultiplayerRoom />}/>
-            <Route path="/multiplayerGame" element={<MultiplayerGame />}/>
-            <Route path="/group/menu" element={<Groups />}/>
-            <Route path="/group/:groupName" element={<GroupDetails />} />
-            <Route path="/statistics/:user" element={<Statistics />}/>
-            <Route path="/ranking" element={<Ranking/>}/>
-            <Route path="/profile" element={<Profile/>}/>
+            <Route path="/register" element={<Register />}/>
+            <Route path="/instructions" element={<PrivateRoute element={Instructions}/>} />
+            <Route path="/homepage" element={<PrivateRoute element={Homepage}/>}/>
+            <Route path="/game" element={<PrivateRoute element={Game} />} />
+            <Route path="/discoveringCitiesGame" element={<PrivateRoute element={DiscoveringCitiesGame}/>}/>
+            <Route path="/wiseMenStackGame" element={<WiseMenStackGame />}/>
+            <Route path="/multiplayerRoom" element={<PrivateRoute element={MultiplayerRoom}/>}/>
+            <Route path="/theChallengeGame" element={<PrivateRoute element={TheChallengeGame}/>}/>
+            <Route path="/multiplayerGame" element={<PrivateRoute element={MultiplayerGame}/>}/>
+            <Route path="/warmQuestionGame" element={<PrivateRoute element={WarmQuestion}/>}/>
+            <Route path="/group/menu" element={<PrivateRoute element={Groups}/>}/>
+            <Route path="/group/:groupName" element={<PrivateRoute element={GroupDetails}/>} />
+            <Route path="/statistics/:user" element={<PrivateRoute element={Statistics }/>}/>
+            <Route path="/ranking" element={<PrivateRoute element={Ranking}/>}/>
+            <Route path="/profile" element={<PrivateRoute element={Profile}/>}/>
+            <Route path="*" element={<NotFound />} /> 
           </Routes>
         <Footer/>
       </ThemeProvider>

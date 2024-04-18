@@ -104,7 +104,7 @@ services:
   prometheus:
     image: prom/prometheus
     container_name: prometheus
-    profiles: ["dev"]
+    profiles: ["dev", "prod"]
     networks:
       - mynetwork
     volumes:
@@ -118,7 +118,7 @@ services:
   grafana:
     image: grafana/grafana
     container_name: grafana
-    profiles: ["dev"]
+    profiles: ["dev", "prod"]
     networks:
       - mynetwork
     volumes:

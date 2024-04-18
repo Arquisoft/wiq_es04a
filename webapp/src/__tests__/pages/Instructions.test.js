@@ -42,7 +42,7 @@ describe('Instructions component', () => {
       </Router>
     );
 
-    expect(screen.getByText('GAME MODES')).toBeInTheDocument(); //Check that the title is there
+    expect(screen.getByText('INSTRUCTIONS')).toBeInTheDocument(); //Check that the title is there
     expect(screen.getAllByRole('button').length).toBe(5); // Assuming there are 5 games in your mocked data, check that the buttons are there.
   });
 
@@ -150,4 +150,5 @@ describe('Instructions component', () => {
       expect(gameDescription).toBeInTheDocument();
     });
   });
+
 });

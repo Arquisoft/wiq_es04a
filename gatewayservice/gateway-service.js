@@ -14,6 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 //Prometheus configuration
+//It uses prometheus middleware whenever a petition happens
 const metricsMiddleware = promBundle({includeMethod: true});
 app.use(metricsMiddleware);
 
@@ -63,10 +64,11 @@ app.post('/login', async (req, res) => {
 
 app.get('/user/questionsRecord/:username/:gameMode', async (req, res) => {
   try {
+    console.log(1)
     const username = req.params.username;
     const gameMode = req.params.gameMode;
     // Forward the user statics edit request to the user service
-    const userResponse = await axios.get(userServiceUrl+`/user/questionsRecord/`+username+`/`+gameMode, req.body);
+    const userResponse = await axios.get(`${userServiceUrl}/user/questionsRecord/${username}/${gameMode}`, req.body);
     res.json(userResponse.data);
   } catch (error) {
     handleErrors(res, error);
@@ -132,6 +134,17 @@ app.get('/questions', async (req, res) => {
     res.status(error.response).json({ error: error.response });
   }
 });
+
+app.get('/questions/:category', async (req, res) => {
+  try {
+    const category = encodeURIComponent(req.params.category);
+    const questionsResponse = await axios.get(`${questionGenerationServiceUrl}/questions/getQuestionsFromDb/1/${category}`);
+    res.json(questionsResponse.data);
+  } catch (error) {
+    res.status(error.response).json({ error: error.response });
+  }
+});
+
 
 app.post('/statistics/edit', async (req, res) => {
   try {

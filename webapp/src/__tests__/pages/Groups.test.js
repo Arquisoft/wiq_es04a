@@ -5,6 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import Groups from '../../pages/Groups';
+import '../../localize/i18n';
 
 const mockAxios = new MockAdapter(axios);
 
