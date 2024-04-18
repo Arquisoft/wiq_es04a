@@ -117,9 +117,10 @@ app.post('/user/add', async (req, res) => {
   }
 });
 
-app.get('/questions', async (req, res) => {
+app.get('/questions/:lang', async (req, res) => {
   try {
-    const questionsResponse = await axios.get(`${questionGenerationServiceUrl}/questions`);
+    const language = encodeURIComponent(req.params.lang);
+    const questionsResponse = await axios.get(`${questionGenerationServiceUrl}/questions/${language}`);
     res.json(questionsResponse.data);
   } catch (error) {
     res.status(error.response).json({ error: error.response });

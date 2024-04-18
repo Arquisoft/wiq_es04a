@@ -5,33 +5,34 @@ const router = express.Router();
 
 
 //Get random question from db and deleting it, adding questions if there are less than 10: http://localhost:8010/questions
-router.get('/', async (req, res) => {
-    const questionCount = await dbService.getQuestionCount();
+router.get('/:lang', async (req, res) => {
+    const language = req.params.lang;
+    const questionCount = await dbService.getQuestionCount(language);
 
     // 0: Await till it creates 2, creates 50 async and do not delete
     if (questionCount == 0) {
-        await generateQuestionsService.generateQuestions(2);
-        generateQuestionsService.generateQuestions(50);
-        const question = await dbService.getQuestion();
+        await generateQuestionsService.generateQuestions(2, language);
+        generateQuestionsService.generateQuestions(50, language);
+        const question = await dbService.getQuestion({language: language});
         res.json(question);
         
     // < 50: async creates 10 and do not delete
     } else if (questionCount < 50) {
         //Do not wait to generate the others
-        generateQuestionsService.generateQuestions(10);
-        const question = await dbService.getQuestion();
+        generateQuestionsService.generateQuestions(10, language);
+        const question = await dbService.getQuestion({language: language});
         res.json(question);
 
     // < 100: async creates 5 and delete
     } else if (questionCount < 100) {
-        generateQuestionsService.generateQuestions(10);
-        const question = await dbService.getQuestion();
+        generateQuestionsService.generateQuestions(10, language);
+        const question = await dbService.getQuestion({language: language});
         res.json(question);
         dbService.deleteQuestionById(question._id);
 
     // >= 100: do not create and delete
     } else {
-        const question = await dbService.getQuestion();
+        const question = await dbService.getQuestion({language: language});
         res.json(question);
         dbService.deleteQuestionById(question._id);
     }

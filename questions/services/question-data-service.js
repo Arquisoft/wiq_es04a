@@ -74,10 +74,10 @@ module.exports = {
    * Returns a the number of questions in the db.
    * @returns {int} The question count
    */
-  getQuestionCount : async function() {
+  getQuestionCount : async function(language) {
     try {
       // Obtain total number of questions in database
-      const totalQuestions = await Question.countDocuments();
+      const totalQuestions = await Question.countDocuments({ language: language });
       return totalQuestions;
 
     } catch (error) {
