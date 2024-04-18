@@ -39,22 +39,23 @@ router.get('/:lang', async (req, res) => {
 });
 
 //Get random questions from db: http://localhost:8010/questions/getQuestionsFromDb/3
-router.get('/getQuestionsFromDb/:n', async(_req, res) => {
+router.get('/getQuestionsFromDb/:n/:lang', async(_req, res) => {
     const n = parseInt(_req.params.n, 10);
+    const language = _req.params.lang;
 
     //Verify is n is a correct number
     if (isNaN(n) || n <= 0) {
         return res.status(400).json({ error: 'Parameter "n" must be > 0.' });
     }
 
-    if (await dbService.getQuestionCount() < n) {
+    if (await dbService.getQuestionCount(language) < n) {
         //Must generate n questions
-        await generateQuestionsService.generateQuestions(n + 1);
+        await generateQuestionsService.generateQuestions(n + 1, language);
         //Do not wait to generate the others
-        generateQuestionsService.generateQuestions(n * 5);
+        generateQuestionsService.generateQuestions(n * 5, language);
     }
 
-    questions = await dbService.getRandomQuestions(n);
+    questions = await dbService.getRandomQuestions(n, language);
     if(questions != null)
         questions.map(question => {
             dbService.deleteQuestionById(question._id);
@@ -74,8 +75,8 @@ router.get('/getQuestionsFromDb/:n/:category/:lang', async(_req, res) => {
     }
     
     if (await dbService.getQuestionCountByCategory(category, language) < n) {
-        //Must generate n questions
-        await generateQuestionsService.generateQuestions(n, language, category);
+        //Must generate n questions (n because some can fail at generation at the moment 18/04)
+        await generateQuestionsService.generateQuestions(n + 2, language, category);
         //Do not wait to generate the others
         generateQuestionsService.generateQuestions(n, language, category);
     }

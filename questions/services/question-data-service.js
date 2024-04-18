@@ -104,10 +104,10 @@ module.exports = {
 
 
   // Get random questions  TODO: refactor to use common code with get questions by category
-  getRandomQuestions : async function(n) {
+  getRandomQuestions : async function(n, wantedLanguage) {
     try {
       // Obtain total number of questions in database
-      const totalQuestions = await Question.countDocuments();
+      const totalQuestions = await Question.countDocuments({ language: wantedLanguage });
   
       // Check if there are required number of questions
       if (totalQuestions < n) {
@@ -115,7 +115,7 @@ module.exports = {
         return 'Required ' + n + ' questions and there are ' + totalQuestions;
       }
 
-      return Question.aggregate([{ $sample: { size: n } }]);
+      return Question.aggregate([{ $match: { language: wantedLanguage } }, { $sample: { size: n } }]);
       
     } catch (error) {
       console.error('Error obtaining random questions: ', error.message);

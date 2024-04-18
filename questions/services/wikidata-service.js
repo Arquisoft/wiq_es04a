@@ -74,12 +74,18 @@ async function getProperties(property, language, filt) {
     `;
     const urlApiWikidata = 'https://query.wikidata.org/sparql';
     try {
+        const startTime = new Date();
         response = await axios.get(urlApiWikidata, {
             params: {
               query: consultaSparql,
-              format: 'json' // Debe ser una cadena
-            }
+              format: 'json' 
+            },
+            timeout: 15000 //means error
         });
+        const endTime = new Date();
+        const elapsedTime = endTime - startTime;
+
+        console.log(`Waited ${elapsedTime} ms for the properties`);
 
         const data = await response.data;
         const list = data.results.bindings;
@@ -95,6 +101,7 @@ async function getProperties(property, language, filt) {
     } catch (error) {
         console.error(error.stack);
         console.error(`Error obtaining properties: ${error.message}`);
+        console.error("Line:", error.stack.split("\n")[1]);
         return null;
     }
 }
