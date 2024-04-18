@@ -11,6 +11,7 @@ import Confetti from 'react-confetti';
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import { useTranslation } from 'react-i18next';
 import i18n from '../localize/i18n';
 
 
