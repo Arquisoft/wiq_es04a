@@ -73,7 +73,7 @@ const Statistics = () => {
                             <TableBody>
                                 <TableRow>
                                     <TableCell>{ t("Statistics.table.money") }:</TableCell>
-                                    <TableCell>{formatStats(userStatics.the_callenge_earned_money)} €</TableCell>
+                                    <TableCell>{formatStats(userStatics.the_callenge_earned_money)}</TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>{ t("Statistics.table.questions_corr") }:</TableCell>
@@ -102,7 +102,7 @@ const Statistics = () => {
                             <TableBody>
                                 <TableRow>
                                     <TableCell>{ t("Statistics.table.money") }:</TableCell>
-                                    <TableCell>{formatStats(userStatics.wise_men_stack_earned_money)} €</TableCell>
+                                    <TableCell>{formatStats(userStatics.wise_men_stack_earned_money)}</TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>{ t("Statistics.table.questions_corr") }:</TableCell>
@@ -127,7 +127,7 @@ const Statistics = () => {
                             <TableBody>
                                 <TableRow>
                                     <TableCell>{ t("Statistics.table.money") }:</TableCell>
-                                    <TableCell>{formatStats(userStatics.warm_question_earned_money)} €</TableCell>
+                                    <TableCell>{formatStats(userStatics.warm_question_earned_money > 0? userStatics.warm_question_earned_money : 0)}</TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>{ t("Statistics.table.questions_corr") }:</TableCell>
@@ -156,7 +156,7 @@ const Statistics = () => {
                             <TableBody>
                                 <TableRow>
                                     <TableCell>{ t("Statistics.table.money") }:</TableCell>
-                                    <TableCell>{formatStats(userStatics.discovering_cities_earned_money)} €</TableCell>
+                                    <TableCell>{formatStats(userStatics.discovering_cities_earned_money)}</TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>{ t("Statistics.table.cities_corr") }:</TableCell>
@@ -181,7 +181,7 @@ const Statistics = () => {
                             <TableBody>
                                 <TableRow>
                                     <TableCell>{ t("Statistics.table.money") }:</TableCell>
-                                    <TableCell>{formatStats(userStatics.online_earned_money)} €</TableCell>
+                                    <TableCell>{formatStats(userStatics.online_earned_money)}</TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>{ t("Statistics.table.questions_corr") }:</TableCell>
