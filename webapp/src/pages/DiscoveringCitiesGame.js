@@ -86,6 +86,7 @@ const DiscovertingCitiesGame = () => {
     const startNewRound = async () => {
         setAnswered(false);
         // It works deploying using git repo from machine with: axios.get(`http://20.80.235.188:8000/questions`)
+        // Updates current language
         setCurrentLanguage(i18n.language);
         axios.get(`${apiEndpoint}/questions/${language}/Cities`)
         .then(quest => {

@@ -49,7 +49,6 @@ const Game = () => {
     const [userResponses, setUserResponses] = React.useState([]);
     const [language, setCurrentLanguage] = React.useState(i18n.language);
 
-
     const [questionHistorial, setQuestionHistorial] = React.useState(Array(numRounds).fill(null));
 
     React.useEffect(() => {
