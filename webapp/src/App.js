@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Homepage from './pages/Homepage';
 import Game from './pages/Game';
 import DiscoveringCitiesGame from './pages/DiscoveringCitiesGame';
+import WiseMenStackGame from './pages/WiseMenStackGame';
 import Groups from './pages/Groups';
 import GroupDetails from './pages/GroupDetails';
 import Statistics from './pages/Statistics';
@@ -60,6 +61,7 @@ function App() {
             <Route path="/homepage" element={<PrivateRoute element={Homepage}/>}/>
             <Route path="/game" element={<PrivateRoute element={Game} />} />
             <Route path="/discoveringCitiesGame" element={<PrivateRoute element={DiscoveringCitiesGame}/>}/>
+            <Route path="/wiseMenStackGame" element={<WiseMenStackGame />}/>
             <Route path="/multiplayerRoom" element={<PrivateRoute element={MultiplayerRoom}/>}/>
             <Route path="/theChallengeGame" element={<PrivateRoute element={TheChallengeGame}/>}/>
             <Route path="/multiplayerGame" element={<PrivateRoute element={MultiplayerGame}/>}/>

@@ -73,7 +73,7 @@ describe('Homepage', () => {
         // Click on 'ONLINE MODE' which should be the last button
         fireEvent.click(gameButtons[0]);
         const playButton = screen.getByText('PLAY');
-        expect(playButton).toHaveAttribute('href', '/Wisemen');
+        expect(playButton).toHaveAttribute('href', '/wiseMenStackGame');
     });
 
     it('respects the xxl media query', () => {

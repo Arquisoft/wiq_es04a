@@ -55,7 +55,17 @@
         "money": "Final points",
         "time": "Game Time (sec)",
         "pause": "Pause",
-        "play": "Play"
+        "play": "Play",
+        "round": "Question ",
+        "start": "Start game"
+    },
+
+    "Wise_Men": {
+        "instructions": "Choose a category:",
+        "category":"Categories: ",
+        "geography": "Geography",
+        "political":"Political",
+        "sports":"Sports"
     },
 
     "Login": {
