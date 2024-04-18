@@ -370,4 +370,87 @@ describe('Routes Tests', () => {
     expect(response.body).toEqual(mockUserData.user);
   });
 
+  it('should update user profile and respond with updated data', async () => {
+    const username = 'testuser';
+    const mockUpdateData = {
+        username: 'testuser',
+        name: 'Test',
+        surname: 'User'
+    };
+    const mockResponseData = {
+      success: true,
+      user: {
+        username: 'testuser',
+        name: 'Test Updated',
+        surname: 'User Updated'
+      }
+    };
+
+    axios.post.mockResolvedValue({ data: mockResponseData });
+
+    const response = await request(app).post(`/user/profile/${username}`).send(mockUpdateData);
+
+    expect(axios.post).toHaveBeenCalledWith(
+      expect.stringContaining(`/user/profile/${username}`),
+      mockUpdateData
+    );
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual(mockResponseData);
+  });
+  
+  it('should fetch group ranking and respond with ranking data', async () => {
+    const mockRankingData = {
+      rankings: [
+        { username: 'user1', score: 100 },
+        { username: 'user2', score: 90 }
+      ]
+    };
+
+    axios.get.mockResolvedValue({ data: mockRankingData });
+
+    const response = await request(app).get('/user/group/ranking');
+
+    expect(axios.get).toHaveBeenCalledWith(expect.stringContaining(`/user/group/ranking`));
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual(mockRankingData);
+  });
+
+  it('should allow a user to exit a group and respond with success', async () => {
+    const groupName = 'ExampleGroup';
+    const mockRequestBody = { username: 'testuser' };
+    const mockResponseData = { success: true, message: 'User has exited the group' };
+
+    axios.post.mockResolvedValue({ data: mockResponseData });
+
+    const response = await request(app).post(`/group/${groupName}/exit`).send(mockRequestBody);
+
+    expect(axios.post).toHaveBeenCalledWith(
+      expect.stringContaining(`/user/group/${groupName}/exit`),
+      mockRequestBody
+    );
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual(mockResponseData);
+  });
+
+  it('should handle specific error responses correctly when the exit operation fails', async () => {
+    const groupName = 'ExampleGroup';
+    const mockRequestBody = { username: 'testuser' };
+    const mockErrorResponse = { error: 'Cannot exit group due to restrictions' };
+    
+    axios.post.mockRejectedValue({
+      response: {
+        status: 400,
+        data: mockErrorResponse
+      }
+    });
+
+    const response = await request(app).post(`/group/${groupName}/exit`).send(mockRequestBody);
+
+    expect(response.status).toBe(400);
+    expect(response.body).toEqual(mockErrorResponse);
+  });
+
 });
