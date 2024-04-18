@@ -10,9 +10,9 @@ import { useContext } from 'react';
 import Confetti from 'react-confetti';
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { useTranslation } from 'react-i18next';
+import i18n from '../localize/i18n';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
-
 
 const DiscovertingCitiesGame = () => {
     const navigate = useNavigate();
@@ -41,6 +41,7 @@ const DiscovertingCitiesGame = () => {
     const [questionCountdownKey, setQuestionCountdownKey] = React.useState(15); //key to update question timer
     const [questionCountdownRunning, setQuestionCountdownRunning] = React.useState(false); //property to start and stop question timer
     const [userResponses, setUserResponses] = React.useState([]);
+    const [language, setCurrentLanguage] = React.useState(i18n.language);
 
     const [questionHistorial, setQuestionHistorial] = React.useState(Array(MAX_ROUNDS).fill(null));
 
@@ -85,12 +86,12 @@ const DiscovertingCitiesGame = () => {
     const startNewRound = async () => {
         setAnswered(false);
         // It works deploying using git repo from machine with: axios.get(`http://20.80.235.188:8000/questions`)
-        axios.get(`${apiEndpoint}/questions/Geography`)
+        // Updates current language
+        setCurrentLanguage(i18n.language);
+        axios.get(`${apiEndpoint}/questions/${language}/Cities`)
         .then(quest => {
             // every new round it gets a new question from db
-            console.log("ENTRA DISCOVERING");
             setQuestionData(quest.data[0]); 
-            console.log(quest.data);
             setButtonStates(new Array(quest.data[0].options.length).fill(null));
         }).catch(error => {
             console.error(error);
@@ -198,6 +199,8 @@ const DiscovertingCitiesGame = () => {
         setTimeout(async() => {
             setRound(round + 1);
             setButtonStates([]);
+            setCurrentLanguage(i18n.language);
+
         }, 4000);
     };
 
