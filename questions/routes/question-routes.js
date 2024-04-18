@@ -66,7 +66,6 @@ router.get('/getQuestionsFromDb/:n/:category/:lang', async(_req, res) => {
     const n = parseInt(_req.params.n, 10);
     const category = _req.params.category;
     const language = _req.params.lang;
-    console.log("routes: ",language);
 
     //Verify is n is a correct number
     if (isNaN(n) || n <= 0) {
@@ -81,7 +80,13 @@ router.get('/getQuestionsFromDb/:n/:category/:lang', async(_req, res) => {
     }
 
     questions = await dbService.getRandomQuestionsByCategory(n, category, language);
+    console.log("Array questions: ",questions);
+    if(questions != null)
+        questions.map(question => {
+            dbService.deleteQuestionById(question._id);
+        })
     res.json(questions);
+    
 });
 
 module.exports = router;

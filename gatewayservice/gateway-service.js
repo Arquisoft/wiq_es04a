@@ -126,11 +126,10 @@ app.get('/questions', async (req, res) => {
   }
 });
 
-app.get('/questions/:category/:lang', async (req, res) => {
+app.get('/questions/:lang/:category', async (req, res) => {
   try {
     const category = encodeURIComponent(req.params.category);
     const language = encodeURIComponent(req.params.lang);
-    console.log("gateway: ",language);
     const questionsResponse = await axios.get(`${questionGenerationServiceUrl}/questions/getQuestionsFromDb/1/${category}/${language}`);
     res.json(questionsResponse.data);
   } catch (error) {

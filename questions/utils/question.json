@@ -15,7 +15,7 @@
                     "question": "What is the population of x"
                     }],
                 "filter": ">4000000",
-                "category": ["Geography"]
+                "category": ["Geography", "Cities"]
             },
             {   
                 "property": "P36",
@@ -27,7 +27,7 @@
                     "lang": "en",
                     "question": "What is the capital of x"
                     }],
-                "category": ["Geography"]
+                "category": ["Geography", "Cities"]
             },
             {   
                 "property": "P38",

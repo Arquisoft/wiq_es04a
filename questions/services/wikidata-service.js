@@ -1,7 +1,6 @@
 const axios = require('axios');
 
 async function getRandomEntity(entity, pos, language) {
-    console.log("wikidata: ",language);
     const property = entity.properties[pos].property;
     const filt = entity.properties[pos].filter;
     var filter = '';
