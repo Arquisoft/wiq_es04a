@@ -85,9 +85,9 @@ app.post('/user/questionsRecord', async (req, res) => {
   }
 });
 
-app.get('/user/allUsers', async (req, res) => {
+app.get('/user', async (req, res) => {
   try {
-    const response = await axios.get(`${userServiceUrl}/user/allUsers`);
+    const response = await axios.get(`${userServiceUrl}/user`);
     res.json(response.data); // Send just the response data
   } catch (error) {
     console.error("Error al obtener la sesión del usuario:", error);

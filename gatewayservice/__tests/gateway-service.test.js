@@ -95,24 +95,24 @@ describe('Routes Tests', () => {
     expect(response.body.error).toBe(errorMessage);
   });
 
-  it('should respond with status 200 for /user/allUsers endpoint', async () => {
+  it('should respond with status 200 for /user endpoint', async () => {
     const mockUserData = [{ username: 'user1' }, { username: 'user2' }];
     axios.get.mockResolvedValueOnce({ data: { users: mockUserData } });
   
-    const response = await request(app).get('/user/allUsers');
+    const response = await request(app).get('/user');
   
     expect(axios.get).toHaveBeenCalledWith(expect.stringContaining('/allUsers'));
     expect(response.status).toBe(200);
     expect(response.body).toEqual({ users: mockUserData }); 
   });
 
-  it('should handle /user/allUsers errors and respond with appropriate status and message', async () => {
+  it('should handle /user errors and respond with appropriate status and message', async () => {
     const errorMessage = 'Error fetching user data';
     axios.get.mockRejectedValueOnce(new Error(errorMessage));
 
-    const response = await request(app).get('/user/allUsers');
+    const response = await request(app).get('/user');
 
-    expect(axios.get).toHaveBeenCalledWith(expect.stringContaining('/user/allUsers'));
+    expect(axios.get).toHaveBeenCalledWith(expect.stringContaining('/user'));
     expect(response.status).toBe(500);
     expect(response.body.error).toBe('Error al obtener la sesión del usuario');
   });

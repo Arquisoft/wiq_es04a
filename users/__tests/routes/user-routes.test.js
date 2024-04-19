@@ -758,7 +758,7 @@ describe('User Routes', () => {
     
     
         const response = await request(app)
-            .get(`/user/allUsers`);
+            .get(`/user`);
     
         expect(response.status).toBe(200);
         expect(response.body.users.length).toBe(2);

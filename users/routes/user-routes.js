@@ -4,6 +4,52 @@ const bcrypt = require('bcrypt');
 const { User, Statistics, Group, UserGroup, QuestionsRecord, sequelize } = require('../services/user-model');
 
 
+
+//Get user by username
+router.get('/:username', async (req,res) => {
+    try {
+
+        const username = req.params.username;
+
+        // Querying using sequelize findOne method
+        const user = await User.findOne({
+            where: {
+                username: username
+            }
+        });
+        
+        const userJSON = user.toJSON();
+        res.json(userJSON);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+
+});
+
+
+/**
+ * user-routers
+ * gateway
+ * webapp 
+ * 
+ * tests de cada uno
+ * 
+ * 
+ * CAMBIAR
+ * 
+ * /statistics/edit -> patch.(/statistics)
+ * /group/name/exit -> delete.(/group/:name) ?????
+ * /group/name/join -> post.(/group/:name)
+ * /group/add -> post.(/group)
+ * /group/list -> get.(/group)
+ * /add -> post.(/user)
+ * /profile/username -> patch.(/user/profile)
+ * 
+ * CAMBIADO
+ * /allUsers -> /
+ */
+
+
 router.get('/profile', async (req, res) => {
     try {
         const username = req.query.username;
@@ -24,8 +70,6 @@ router.get('/profile', async (req, res) => {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-
-
 router.post('/profile/:username', async (req, res) => {
     try {
         const username = req.params.username;
@@ -42,8 +86,6 @@ router.post('/profile/:username', async (req, res) => {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-
-
 // Route for add a question to questions record
 router.post('/questionsRecord', async (req, res) => {
     try {
@@ -61,7 +103,6 @@ router.post('/questionsRecord', async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 });
-
 // Getting a questions record by username
 router.get('/questionsRecord/:username/:gameMode', async (req, res) => {
     console.log(2)
@@ -86,7 +127,6 @@ router.get('/questionsRecord/:username/:gameMode', async (req, res) => {
         return res.status(400).json({ error: error.message });
     }
 });
-
 // Route for add a user
 router.post('/add', async (req, res) => {
     try {
@@ -146,6 +186,8 @@ router.post('/add', async (req, res) => {
     }
 });
 
+
+
 // Getting the list of groups in the database
 router.get('/group/list', async (req, res) => {
     try {
@@ -192,7 +234,6 @@ router.get('/group/list', async (req, res) => {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-
 // Adding a group to the database and creating the relationship with the creator
 router.post('/group/add', async (req, res) => {
     try {
@@ -229,7 +270,6 @@ router.post('/group/add', async (req, res) => {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-
 router.get('/group/ranking', async (req, res) => {
     try {
         const groups = await Group.findAll({ attributes: ['name'] });
@@ -290,7 +330,6 @@ router.get('/group/ranking', async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 });
-
 // Getting a group by its name
 router.get('/group/:name', async (req, res) => {
     try {
@@ -330,8 +369,6 @@ router.get('/group/:name', async (req, res) => {
         return res.status(400).json({ error: error.message });
     }
 });
-
-
 // Adding a new relationship in the database between a group and a user when this one joins it
 router.post('/group/:name/join', async (req, res) => {
     try {
@@ -359,7 +396,6 @@ router.post('/group/:name/join', async (req, res) => {
        return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-
 router.post('/group/:name/exit', async (req, res) => {
     try {
         const groupName = req.params.name;
@@ -411,6 +447,8 @@ router.post('/group/:name/exit', async (req, res) => {
        return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+
 
 
 // Route for edit the statics of a user
@@ -473,7 +511,6 @@ router.post('/statistics/edit', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error', details: error.message });
     }
 });
-
 //Get user statics by username
 router.get('/statistics/:username', async (req,res) => {
     try {
@@ -519,11 +556,8 @@ router.get('/statistics/:username', async (req,res) => {
     }
 
 });
-
-
-
 //Get all users
-router.get('/allUsers', async (req,res) => {
+router.get('/', async (req,res) => {
 
     try {
 
@@ -542,28 +576,7 @@ router.get('/allUsers', async (req,res) => {
         res.status(400).json({ error: error.message });
     }
 });
-
-//Get user by username
-router.get('/get/:username', async (req,res) => {
-    try {
-
-        const username = req.params.username;
-
-        // Querying using sequelize findOne method
-        const user = await User.findOne({
-            where: {
-                username: username
-            }
-        });
-        
-        const userJSON = user.toJSON();
-        res.json(userJSON);
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-
-});
-
+// Route for getting the statistics of a user
 router.get('/ranking', async (req, res) => {
     try {
         const usersStatistics = await Statistics.findAll({
