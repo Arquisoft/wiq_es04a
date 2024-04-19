@@ -289,7 +289,7 @@ describe('User Routes', () => {
 
         // Perform the request without defining a username to see the previously created groups
         const response = await request(app)
-            .get('/user/group/list')
+            .get('/user/group')
             .set('Accept', 'application/json');
     
         // Verify if the request was successful
@@ -328,7 +328,7 @@ describe('User Routes', () => {
     
         // Perform the request with the defined username
         const response = await request(app)
-            .get('/user/group/list')
+            .get('/user/group')
             .query({ username: 'existinguser' })
             .set('Accept', 'application/json');
     

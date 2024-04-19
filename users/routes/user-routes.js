@@ -190,7 +190,7 @@ router.post('/', async (req, res) => {
 
 
 // Getting the list of groups in the database
-router.get('/group/list', async (req, res) => {
+router.get('/group', async (req, res) => {
     try {
 
         const username = req.query.username;

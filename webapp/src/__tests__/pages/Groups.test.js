@@ -33,7 +33,7 @@ describe('Groups component', () => {
 
   it('should render groups list and creation elements', async () => {
     // It mocks a succesful request getting two groups from the database.
-    mockAxios.onGet('http://localhost:8000/user/group/list').reply(200, { groups: [{ name: 'Group 1' }, { name: 'Group 2' }] });
+    mockAxios.onGet('http://localhost:8000/user/group').reply(200, { groups: [{ name: 'Group 1' }, { name: 'Group 2' }] });
 
     renderGroupsComponent();
 
@@ -51,7 +51,7 @@ describe('Groups component', () => {
 
   it('should show the FILLED button when group is already full', async () => {
     // Simulates a request response including the full group data
-    mockAxios.onGet('http://localhost:8000/user/group/list').reply(200, { groups: [{ name: 'Group 1', isMember: false, isFull: true }] });
+    mockAxios.onGet('http://localhost:8000/user/group').reply(200, { groups: [{ name: 'Group 1', isMember: false, isFull: true }] });
     
     renderGroupsComponent();
   
@@ -66,7 +66,7 @@ describe('Groups component', () => {
 
   it('should show the DELETE button when user is the creator', async () => {
     // Simulates a request response including the full group data
-    mockAxios.onGet('http://localhost:8000/user/group/list').reply(200, { groups: [{ name: 'Group 1', isMember: true, isCreator: true, isFull: false }] });
+    mockAxios.onGet('http://localhost:8000/user/group').reply(200, { groups: [{ name: 'Group 1', isMember: true, isCreator: true, isFull: false }] });
     
     renderGroupsComponent();
   
@@ -81,7 +81,7 @@ describe('Groups component', () => {
 
   it('could see group details', async () => {
     // Simulates a request response including the joined group data
-    mockAxios.onGet('http://localhost:8000/user/group/list').reply(200, { groups: [{ name: 'Group 1', isMember: false, isFull: false }] });
+    mockAxios.onGet('http://localhost:8000/user/group').reply(200, { groups: [{ name: 'Group 1', isMember: false, isFull: false }] });
   
     renderGroupsComponent();
   
@@ -105,7 +105,7 @@ describe('Groups component', () => {
   it('should change the page when pagination is clicked', async () => {
     // Simulates a request response including a list of groups with more than five items
     const mockedGroups = Array.from({ length: 10 }, (_, index) => ({ name: `Group ${index + 1}`, isMember: false, isFull: false }));
-    mockAxios.onGet('http://localhost:8000/user/group/list').reply(200, { groups: mockedGroups });
+    mockAxios.onGet('http://localhost:8000/user/group').reply(200, { groups: mockedGroups });
     
     renderGroupsComponent();
     
@@ -131,7 +131,7 @@ describe('Groups component', () => {
 
   it('should successfully add user to a group', async () => {
     // Simulates a request response including the unjoined group data
-    mockAxios.onGet('http://localhost:8000/user/group/list').reply(200, { groups: [{ name: 'Group1', isMember: false, isFull: false }] });
+    mockAxios.onGet('http://localhost:8000/user/group').reply(200, { groups: [{ name: 'Group1', isMember: false, isFull: false }] });
     mockAxios.onPost('http://localhost:8000/group/Group1/join').reply(200);
   
     renderGroupsComponent();
@@ -159,7 +159,7 @@ describe('Groups component', () => {
 
   it('should display error message when group is already full', async () => {
     // Simulates a request response including the unjoined group data
-    mockAxios.onGet('http://localhost:8000/user/group/list').reply(200, { groups: [{ name: 'Group1', isMember: false, isCreator: false , isFull: false }] });
+    mockAxios.onGet('http://localhost:8000/user/group').reply(200, { groups: [{ name: 'Group1', isMember: false, isCreator: false , isFull: false }] });
     mockAxios.onPost('http://localhost:8000/group/Group1/join').reply(400, { error: 'Group is already full' });
   
     renderGroupsComponent();
@@ -184,7 +184,7 @@ describe('Groups component', () => {
 
   it('should show an error message fetching data', async () => {
     // It simulates a request with an error fetching data
-    mockAxios.onGet('http://localhost:8000/user/group/list').reply(500);
+    mockAxios.onGet('http://localhost:8000/user/group').reply(500);
   
     renderGroupsComponent();
   
@@ -244,7 +244,7 @@ describe('Groups component', () => {
 
   it('should show the JOINED button when user has joined the group', async () => {
     // Simulates a request response including the joined group data
-    mockAxios.onGet('http://localhost:8000/user/group/list').reply(200, { groups: [{ name: 'Group 1', isMember: true, isFull: false }] });
+    mockAxios.onGet('http://localhost:8000/user/group').reply(200, { groups: [{ name: 'Group 1', isMember: true, isFull: false }] });
   
     renderGroupsComponent();
   

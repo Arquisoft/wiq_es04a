@@ -33,7 +33,7 @@ const Groups = () => {
 
     const fetchData = useCallback(async () => {
       try {
-        const response = await axios.get(`${apiEndpoint}/user/group/list`, { params: { username: username } });
+        const response = await axios.get(`${apiEndpoint}/user/group`, { params: { username: username } });
         setGroups(response.data.groups);
       } catch (error) {
         setError('Unsuccesful data fetching');
