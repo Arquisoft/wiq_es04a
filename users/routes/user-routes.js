@@ -40,13 +40,14 @@ router.get('/:username', async (req,res) => {
  * /statistics/edit -> patch.(/statistics)
  * /group/name/exit -> delete.(/group/:name) ?????
  * /group/name/join -> post.(/group/:name)
- * /group/add -> post.(/group)
  * /group/list -> get.(/group)
- * /add -> post.(/user)
  * /profile/username -> patch.(/user/profile)
  * 
  * CAMBIADO
  * /allUsers -> /
+ * /group/add -> post.(/group)
+ * /add -> post.(/user)
+
  */
 
 
@@ -128,7 +129,7 @@ router.get('/questionsRecord/:username/:gameMode', async (req, res) => {
     }
 });
 // Route for add a user
-router.post('/add', async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         const { username, password, name, surname } = req.body;
 

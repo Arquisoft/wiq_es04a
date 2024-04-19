@@ -115,7 +115,7 @@ describe('User Routes', () => {
         };
 
         const response = await request(app)
-            .post('/user/add')
+            .post('/user')
             .send(newUser);
 
         expect(response.status).toBe(200);
@@ -154,7 +154,7 @@ describe('User Routes', () => {
     
         // Try to add the existing user again
         const response = await request(app)
-            .post('/user/add')
+            .post('/user')
             .send(existingUser);
     
         expect(response.status).toBe(400);
@@ -170,7 +170,7 @@ describe('User Routes', () => {
         };
 
         const response = await request(app)
-            .post('/user/add')
+            .post('/user')
             .send(newUser);
 
         expect(response.status).toBe(400);
@@ -186,7 +186,7 @@ describe('User Routes', () => {
         };
 
         const response = await request(app)
-            .post('/user/add')
+            .post('/user')
             .send(newUser);
 
         expect(response.status).toBe(400);
@@ -202,7 +202,7 @@ describe('User Routes', () => {
         };
 
         const response = await request(app)
-            .post('/user/add')
+            .post('/user')
             .send(newUser);
 
         expect(response.status).toBe(400);
@@ -218,7 +218,7 @@ describe('User Routes', () => {
         };
 
         const response = await request(app)
-            .post('/user/add')
+            .post('/user')
             .send(newUser);
 
         expect(response.status).toBe(400);
@@ -234,7 +234,7 @@ describe('User Routes', () => {
         };
 
         const response = await request(app)
-            .post('/user/add')
+            .post('/user')
             .send(newUser);
 
         expect(response.status).toBe(400);
@@ -250,7 +250,7 @@ describe('User Routes', () => {
         };
 
         const response = await request(app)
-            .post('/user/add')
+            .post('/user')
             .send(newUser);
 
         expect(response.status).toBe(400);
@@ -391,7 +391,7 @@ describe('User Routes', () => {
         };
 
         const response = await request(app)
-            .post('/user/add')
+            .post('/user')
             .send(newUser);
 
 
@@ -450,7 +450,7 @@ describe('User Routes', () => {
             surname: 'User'
         };
         const response = await request(app)
-            .post('/user/add')
+            .post('/user')
             .send(newUser);
         const newGroup = {
             name: 'testgroupUserSuccessfulJoin',
@@ -513,7 +513,7 @@ describe('User Routes', () => {
             surname: 'User'
         };
         await request(app)
-            .post('/user/add')
+            .post('/user')
             .send(baseUser)
             .expect(200);
 
@@ -537,7 +537,7 @@ describe('User Routes', () => {
                 surname: 'User'
             };
             await request(app)
-                .post('/user/add')
+                .post('/user')
                 .send(newUser)
                 .expect(200);
     
@@ -558,7 +558,7 @@ describe('User Routes', () => {
     
         // Adding the user
         await request(app)
-            .post('/user/add')
+            .post('/user')
             .send(newUser)
             .expect(200);
     

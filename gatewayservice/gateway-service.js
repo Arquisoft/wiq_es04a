@@ -116,10 +116,10 @@ app.get('/user/get/:username', async (req, res) => {
   }
 });
 
-app.post('/user/add', async (req, res) => {
+app.post('/user', async (req, res) => {
   try {
     // Forward the add user request to the user service
-    const userResponse = await axios.post(`${userServiceUrl}/user/add`, req.body);
+    const userResponse = await axios.post(`${userServiceUrl}/user`, req.body);
     res.json(userResponse.data);
   } catch (error) {
     handleErrors(res, error);
