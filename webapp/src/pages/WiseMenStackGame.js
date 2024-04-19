@@ -9,6 +9,7 @@ import { useContext } from 'react';
 import Confetti from 'react-confetti';
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { useTranslation } from 'react-i18next';
+import i18n from '../localize/i18n';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -41,6 +42,7 @@ const WiseMenStackGame = () => {
     const [questionCountdownKey, ] = React.useState(60); //key to update question timer
     const [questionCountdownRunning, setQuestionCountdownRunning] = React.useState(false); //property to start and stop question timer
     const [userResponses, setUserResponses] = React.useState([]);
+    const [language, setCurrentLanguage] = React.useState(i18n.language);
 
     const [category, setCategory] = React.useState('Geography');
     const [possibleAnswers, setPossibleAnswers] = React.useState([]);
@@ -88,8 +90,10 @@ const WiseMenStackGame = () => {
     const startNewRound = async () => {
         setAnswered(false);
         // It works deploying using git repo from machine with: axios.get(`http://20.80.235.188:8000/questions`)7
-
-        axios.get(`${apiEndpoint}/questions/${category}`)
+        
+        // Updates current language
+        setCurrentLanguage(i18n.language);
+        axios.get(`${apiEndpoint}/questions/${language}/${category}`)
         .then(quest => {
             // every new round it gets a new question from db
             setQuestionData(quest.data[0]);
@@ -205,6 +209,7 @@ const WiseMenStackGame = () => {
         setTimeout(async() => {
             setRound(round + 1);
             setButtonStates([]);
+            setCurrentLanguage(i18n.language);
         }, 2000);
     };
 
