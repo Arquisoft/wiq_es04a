@@ -282,26 +282,26 @@ describe('Routes Tests', () => {
     expect(response.body.error).toBe(errorMessage);
   });
 
-  it('should respond with status 200 for /group/add endpoint', async () => {
+  it('should respond with status 200 for /group endpoint', async () => {
     const mockUserData = { username: 'testuser', groupName: 'Test Group' };
     axios.post.mockResolvedValueOnce({ data: mockUserData });
   
     const requestBody = { username: 'testuser', groupName: 'Test Group' };
-    const response = await request(app).post('/group/add').send(requestBody);
+    const response = await request(app).post('/group').send(requestBody);
   
-    expect(axios.post).toHaveBeenCalledWith(expect.stringContaining('/group/add'), requestBody);
+    expect(axios.post).toHaveBeenCalledWith(expect.stringContaining('/group'), requestBody);
     expect(response.status).toBe(200);
     expect(response.body).toEqual(mockUserData);
   });
   
-  it('should handle errors for /group/add endpoint and respond with appropriate status and message', async () => {
+  it('should handle errors for /group endpoint and respond with appropriate status and message', async () => {
     const errorMessage = 'Error adding user to group';
     axios.post.mockRejectedValueOnce({ response: { status: 400, data: { error: errorMessage } } });
   
     const requestBody = { username: 'testuser', groupName: 'Test Group' };
-    const response = await request(app).post('/group/add').send(requestBody);
+    const response = await request(app).post('/group').send(requestBody);
   
-    expect(axios.post).toHaveBeenCalledWith(expect.stringContaining('/group/add'), requestBody);
+    expect(axios.post).toHaveBeenCalledWith(expect.stringContaining('/group'), requestBody);
     expect(response.status).toBe(400);
     expect(response.body.error).toBe(errorMessage);
   });

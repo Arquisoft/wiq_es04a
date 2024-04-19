@@ -187,9 +187,9 @@ app.get('/user/group/ranking', async (req, res) => {
   }
 });
 
-app.post('/group/add', async (req, res) => {
+app.post('/group', async (req, res) => {
   try {
-    const userResponse = await axios.post(`${userServiceUrl}/user/group/add`, req.body);
+    const userResponse = await axios.post(`${userServiceUrl}/user/group`, req.body);
     res.json(userResponse.data);
   } catch (error) {
     if (error.response && error.response.status === 400) {

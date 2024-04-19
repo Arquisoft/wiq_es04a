@@ -279,7 +279,7 @@ describe('User Routes', () => {
         
             // We now make each request so that it creates the group and associates it to the user
             const response = await request(app)
-                .post('/user/group/add')
+                .post('/user/group')
                 .send(newGroup);
 
             // Verify if the request was successful
@@ -319,7 +319,7 @@ describe('User Routes', () => {
         
             // We now make each request so that it creates the group and associates it to the user
             const response = await request(app)
-                .post('/user/group/add')
+                .post('/user/group')
                 .send(newGroup);
 
             // Verify if the request was successful
@@ -402,7 +402,7 @@ describe('User Routes', () => {
 
         // Making POST request to the endpoint
         const res = await request(app)
-            .post('/user/group/add')
+            .post('/user/group')
             .send(groupData)
             .expect(200); // Expecting a successful response with status code 200
 
@@ -420,7 +420,7 @@ describe('User Routes', () => {
         };
     
         const res = await request(app)
-            .post('/user/group/add')
+            .post('/user/group')
             .send(groupData)
             .expect(400);
     
@@ -433,7 +433,7 @@ describe('User Routes', () => {
 
         // Making POST request to the endpoint
         const res = await request(app)
-            .post('/user/group/add')
+            .post('/user/group')
             .send({})
             .expect(500); // Expecting a successful response with status code 200
     
@@ -524,7 +524,7 @@ describe('User Routes', () => {
             username: "testuserGroupJoinFull"
         };
         let response = await request(app)
-            .post('/user/group/add')
+            .post('/user/group')
             .send(groupData)
             .expect(200);
     
@@ -602,7 +602,7 @@ describe('User Routes', () => {
         await Group.create(newGroup3);
     
         const response = await request(app)
-          .post('/user/group/add')
+          .post('/user/group')
           .send({ name: groupName, username });
     
         expect(response.status).toBe(400);
@@ -628,7 +628,7 @@ describe('User Routes', () => {
         await Group.create(newGroup);
     
         const response = await request(app)
-          .post('/user/group/add')
+          .post('/user/group')
           .send({ name: groupName, username });
     
         expect(response.status).toBe(400);

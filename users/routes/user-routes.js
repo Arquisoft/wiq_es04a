@@ -235,7 +235,7 @@ router.get('/group/list', async (req, res) => {
     }
 });
 // Adding a group to the database and creating the relationship with the creator
-router.post('/group/add', async (req, res) => {
+router.post('/group', async (req, res) => {
     try {
         const { name,username } = req.body;
 

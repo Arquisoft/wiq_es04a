@@ -196,7 +196,7 @@ describe('Groups component', () => {
 
   it('should successfully add a group', async () => {
     // It simulates a succesful group add request
-    mockAxios.onPost('http://localhost:8000/group/add').reply(200);
+    mockAxios.onPost('http://localhost:8000/group').reply(200);
   
     renderGroupsComponent();
   
@@ -212,7 +212,7 @@ describe('Groups component', () => {
 
   it('should show an error when another group with the same name exists', async () => {
     // Mocks a request error code with an already existing group
-    mockAxios.onPost('http://localhost:8000/group/add').reply(400, { error: 'A group with the same name already exists.' });
+    mockAxios.onPost('http://localhost:8000/group').reply(400, { error: 'A group with the same name already exists.' });
   
     renderGroupsComponent();
   
@@ -228,7 +228,7 @@ describe('Groups component', () => {
 
   it('should show generic error when adding a group fails', async () => {
     // Mocks a request generic error code
-    mockAxios.onPost('http://localhost:8000/group/add').reply(500, { error: 'Internal Server Error' });
+    mockAxios.onPost('http://localhost:8000/group').reply(500, { error: 'Internal Server Error' });
   
     renderGroupsComponent();
   
@@ -261,7 +261,7 @@ describe('Groups component', () => {
 
    it('should display and close the error snackbar when an error occurs', async () => {
     // It simulates a succesful group add request
-    mockAxios.onPost('http://localhost:8000/group/add').reply(400, { error: 'A group with the same name already exists.' });
+    mockAxios.onPost('http://localhost:8000/group').reply(400, { error: 'A group with the same name already exists.' });
 
     renderGroupsComponent();
 

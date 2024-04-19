@@ -47,7 +47,7 @@ const Groups = () => {
     // Function that creates a group and shows the posible errors
     const addGroup = async () => {
       try {
-        await axios.post(`${apiEndpoint}/group/add`, {
+        await axios.post(`${apiEndpoint}/group`, {
           name:name,
           username:username
         });
