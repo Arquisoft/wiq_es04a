@@ -132,7 +132,7 @@ describe('Groups component', () => {
   it('should successfully add user to a group', async () => {
     // Simulates a request response including the unjoined group data
     mockAxios.onGet('http://localhost:8000/user/group').reply(200, { groups: [{ name: 'Group1', isMember: false, isFull: false }] });
-    mockAxios.onPost('http://localhost:8000/group/Group1/join').reply(200);
+    mockAxios.onPost('http://localhost:8000/group/Group1').reply(200);
   
     renderGroupsComponent();
   
@@ -160,7 +160,7 @@ describe('Groups component', () => {
   it('should display error message when group is already full', async () => {
     // Simulates a request response including the unjoined group data
     mockAxios.onGet('http://localhost:8000/user/group').reply(200, { groups: [{ name: 'Group1', isMember: false, isCreator: false , isFull: false }] });
-    mockAxios.onPost('http://localhost:8000/group/Group1/join').reply(400, { error: 'Group is already full' });
+    mockAxios.onPost('http://localhost:8000/group/Group1').reply(400, { error: 'Group is already full' });
   
     renderGroupsComponent();
   
@@ -179,7 +179,7 @@ describe('Groups component', () => {
         expect(screen.getByText('Error: Group is already full')).toBeInTheDocument();
       }, 15);
     });
-
+ 
   });
 
   it('should show an error message fetching data', async () => {
