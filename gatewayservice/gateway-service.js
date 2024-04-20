@@ -140,7 +140,7 @@ app.get('/questions/:lang/:category', async (req, res) => {
 });
 
 
-app.post('/statistics/edit', async (req, res) => {
+app.put('/statistics', async (req, res) => {
   try {
     // Forward the user statics edit request to the user service
     const userResponse = await axios.post(`${userServiceUrl}/user/statistics/edit`, req.body);
@@ -150,7 +150,7 @@ app.post('/statistics/edit', async (req, res) => {
   }
 });
 
-app.get('/user/statistics/:username', async (req, res) => {
+app.get('/statistics/:username', async (req, res) => {
   try {
     const username = req.params.username;
     // Forward the user statics edit request to the user service
@@ -161,7 +161,7 @@ app.get('/user/statistics/:username', async (req, res) => {
   }
 });
 
-app.get('/user/group/list', async (req, res) => {
+app.get('/group', async (req, res) => {
   try {
     const username = req.query.username;
     console.log("username: ", username);
@@ -174,7 +174,7 @@ app.get('/user/group/list', async (req, res) => {
 });
 
 
-app.post('/group/add', async (req, res) => {
+app.post('/group', async (req, res) => {
   try {
     const userResponse = await axios.post(`${userServiceUrl}/user/group/add`, req.body);
     res.json(userResponse.data);

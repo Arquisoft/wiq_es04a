@@ -231,92 +231,92 @@ describe('Routes Tests', () => {
     expect(response.body).toEqual(mockQuestionsData);
   });
   
-  it('should respond with status 200 for /statistics/edit endpoint', async () => {
+  it('should respond with status 200 for /statistics endpoint', async () => {
     const mockUserData = { username: 'testuser', statistics: { points: 100 } };
     axios.post.mockResolvedValueOnce({ data: mockUserData });
   
     const requestBody = { username: 'testuser', statistics: { points: 100 } };
-    const response = await request(app).post('/statistics/edit').send(requestBody);
+    const response = await request(app).put('/statistics').send(requestBody);
   
     expect(axios.post).toHaveBeenCalledWith(expect.stringContaining('/statistics/edit'), requestBody);
     expect(response.status).toBe(200);
     expect(response.body).toEqual(mockUserData);
   });
 
-  it('should handle errors for /statistics/edit endpoint and respond with appropriate status and message', async () => {
+  it('should handle errors for /statistics endpoint and respond with appropriate status and message', async () => {
     const errorMessage = 'Error editing user statistics';
     axios.post.mockRejectedValueOnce(new Error(errorMessage));
   
     const requestBody = { username: 'testuser', statistics: { points: 100 } };
-    const response = await request(app).post('/statistics/edit').send(requestBody);
+    const response = await request(app).put('/statistics').send(requestBody);
   
     expect(axios.post).toHaveBeenCalledWith(expect.stringContaining('/statistics/edit'), requestBody);
     expect(response.status).toBe(500);
     expect(response.body.error).toBe(errorMessage);
   });
   
-  it('should respond with status 200 for /user/statistics/:username endpoint', async () => {
+  it('should respond with status 200 for /statistics/:username endpoint', async () => {
     const mockUserData = { username: 'testuser', statistics: { points: 100 } };
     axios.get.mockResolvedValueOnce({ data: mockUserData });
   
-    const response = await request(app).get('/user/statistics/testuser');
+    const response = await request(app).get('/statistics/testuser');
   
     expect(axios.get).toHaveBeenCalledWith(expect.stringContaining('/user/statistics/testuser'),{});
     expect(response.status).toBe(200);
     expect(response.body).toEqual(mockUserData);
   });
   
-  it('should handle errors for /user/statistics/:username endpoint and respond with appropriate status and message', async () => {
+  it('should handle errors for /statistics/:username endpoint and respond with appropriate status and message', async () => {
     const errorMessage = 'Error retrieving user statistics';
     axios.get.mockRejectedValueOnce(new Error(errorMessage));
   
-    const response = await request(app).get('/user/statistics/testuser');
+    const response = await request(app).get('/statistics/testuser');
   
     expect(axios.get).toHaveBeenCalledWith(expect.stringContaining('/user/statistics/testuser'),{});
     expect(response.status).toBe(500);
     expect(response.body.error).toBe(errorMessage);
   });
   
-  it('should respond with status 200 for /user/group/list endpoint', async () => {
+  it('should respond with status 200 for /group endpoint', async () => {
     const mockUserGroupData = ['group1', 'group2', 'group3'];
     axios.get.mockResolvedValueOnce({ data: mockUserGroupData });
   
-    const response = await request(app).get('/user/group/list').query({ username: 'testuser' });
+    const response = await request(app).get('/group').query({ username: 'testuser' });
   
     expect(axios.get).toHaveBeenCalledWith(expect.stringContaining('/user/group/list'), { params: { username: 'testuser' } });
     expect(response.status).toBe(200);
     expect(response.body).toEqual(mockUserGroupData);
   });
   
-  it('should handle errors for /user/group/list endpoint and respond with appropriate status and message', async () => {
+  it('should handle errors for /group endpoint and respond with appropriate status and message', async () => {
     const errorMessage = 'Error retrieving user groups';
     axios.get.mockRejectedValueOnce(new Error(errorMessage));
   
-    const response = await request(app).get('/user/group/list').query({ username: 'testuser' });
+    const response = await request(app).get('/group').query({ username: 'testuser' });
   
     expect(axios.get).toHaveBeenCalledWith(expect.stringContaining('/user/group/list'), { params: { username: 'testuser' } });
     expect(response.status).toBe(500);
     expect(response.body.error).toBe(errorMessage);
   });
 
-  it('should respond with status 200 for /group/add endpoint', async () => {
+  it('should respond with status 200 for /group endpoint', async () => {
     const mockUserData = { username: 'testuser', groupName: 'Test Group' };
     axios.post.mockResolvedValueOnce({ data: mockUserData });
   
     const requestBody = { username: 'testuser', groupName: 'Test Group' };
-    const response = await request(app).post('/group/add').send(requestBody);
+    const response = await request(app).post('/group').send(requestBody);
   
     expect(axios.post).toHaveBeenCalledWith(expect.stringContaining('/group/add'), requestBody);
     expect(response.status).toBe(200);
     expect(response.body).toEqual(mockUserData);
   });
   
-  it('should handle errors for /group/add endpoint and respond with appropriate status and message', async () => {
+  it('should handle errors for /group endpoint and respond with appropriate status and message', async () => {
     const errorMessage = 'Error adding user to group';
     axios.post.mockRejectedValueOnce({ response: { status: 400, data: { error: errorMessage } } });
   
     const requestBody = { username: 'testuser', groupName: 'Test Group' };
-    const response = await request(app).post('/group/add').send(requestBody);
+    const response = await request(app).post('/group').send(requestBody);
   
     expect(axios.post).toHaveBeenCalledWith(expect.stringContaining('/group/add'), requestBody);
     expect(response.status).toBe(400);
