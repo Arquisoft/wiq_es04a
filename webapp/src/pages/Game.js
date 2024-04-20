@@ -103,7 +103,7 @@ const Game = () => {
 
     const updateStatistics = async() => {
         try {
-            await axios.post(`${apiEndpoint}/statistics/edit`, {
+            await axios.patch(`${apiEndpoint}/statistics`, {
                 username:username,
                 the_callenge_earned_money:totalScore,
                 the_callenge_correctly_answered_questions:correctlyAnsweredQuestions,

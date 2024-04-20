@@ -39,15 +39,15 @@ router.get('/:username', async (req,res) => {
  * 
  * /statistics/edit -> patch.(/statistics)
  * /group/name/exit -> delete.(/group/:name) ?????
- * /group/name/join -> post.(/group/:name)
- * /group/list -> get.(/group)
  * /profile/username -> patch.(/user/profile)
  * 
  * CAMBIADO
  * /allUsers -> /
  * /group/add -> post.(/group)
  * /add -> post.(/user)
+ * /group/name/join -> post.(/group/:name)
 
+ * /group/list -> get.(/group)
  */
 
 
@@ -371,7 +371,7 @@ router.get('/group/:name', async (req, res) => {
     }
 });
 // Adding a new relationship in the database between a group and a user when this one joins it
-router.post('/group/:name/join', async (req, res) => {
+router.post('/group/:name', async (req, res) => {
     try {
         const groupName = req.params.name;
         const { username } = req.body;
@@ -453,7 +453,7 @@ router.post('/group/:name/exit', async (req, res) => {
 
 
 // Route for edit the statics of a user
-router.post('/statistics/edit', async (req, res) => {
+router.patch('/statistics', async (req, res) => {
     try {
 
         const { username, the_callenge_earned_money, the_callenge_correctly_answered_questions, the_callenge_incorrectly_answered_questions, 

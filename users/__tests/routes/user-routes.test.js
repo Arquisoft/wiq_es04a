@@ -670,7 +670,7 @@ describe('User Routes', () => {
         };
 
         const response = await request(app)
-            .post('/user/statistics/edit')
+            .patch('/user/statistics')
             .send(updatedStatistics);
 
         expect(response.status).toBe(200);
@@ -697,7 +697,7 @@ describe('User Routes', () => {
         };
 
         const response = await request(app)
-            .post('/user/statistics/edit')
+            .patch('/user/statistics')
             .send(nonExistingUserStatistics);
 
         expect(response.status).toBe(404);

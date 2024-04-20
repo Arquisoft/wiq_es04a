@@ -209,26 +209,26 @@ describe('Routes Tests', () => {
     expect(response.body).toEqual(mockQuestionsData);
   });
   
-  it('should respond with status 200 for /statistics/edit endpoint', async () => {
+  it('should respond with status 200 for /statistics endpoint', async () => {
     const mockUserData = { username: 'testuser', statistics: { points: 100 } };
     axios.post.mockResolvedValueOnce({ data: mockUserData });
   
     const requestBody = { username: 'testuser', statistics: { points: 100 } };
-    const response = await request(app).post('/statistics/edit').send(requestBody);
+    const response = await request(app).patch('/statistics').send(requestBody);
   
-    expect(axios.post).toHaveBeenCalledWith(expect.stringContaining('/statistics/edit'), requestBody);
+    expect(axios.post).toHaveBeenCalledWith(expect.stringContaining('/statistics'), requestBody);
     expect(response.status).toBe(200);
     expect(response.body).toEqual(mockUserData);
   });
 
-  it('should handle errors for /statistics/edit endpoint and respond with appropriate status and message', async () => {
+  it('should handle errors for /statistics endpoint and respond with appropriate status and message', async () => {
     const errorMessage = 'Error editing user statistics';
     axios.post.mockRejectedValueOnce(new Error(errorMessage));
   
     const requestBody = { username: 'testuser', statistics: { points: 100 } };
-    const response = await request(app).post('/statistics/edit').send(requestBody);
+    const response = await request(app).patch('/statistics').send(requestBody);
   
-    expect(axios.post).toHaveBeenCalledWith(expect.stringContaining('/statistics/edit'), requestBody);
+    expect(axios.post).toHaveBeenCalledWith(expect.stringContaining('/statistics'), requestBody);
     expect(response.status).toBe(500);
     expect(response.body.error).toBe(errorMessage);
   });
@@ -306,7 +306,7 @@ describe('Routes Tests', () => {
     expect(response.body.error).toBe(errorMessage);
   });
   
-  it('should respond with status 200 for /group/:name/join endpoint', async () => {
+  it('should respond with status 200 for /group/:name endpoint', async () => {
     const groupName = 'Test Group';
     const mockUserData = { username: 'testuser', groupName: groupName };
     axios.post.mockResolvedValueOnce({ data: mockUserData });
@@ -319,7 +319,7 @@ describe('Routes Tests', () => {
     expect(response.body).toEqual(mockUserData);
   });
   
-  it('should handle errors for /group/:name/join endpoint and respond with appropriate status and message', async () => {
+  it('should handle errors for /group/:name endpoint and respond with appropriate status and message', async () => {
     const groupName = 'Test Group';
     const errorMessage = 'Error joining group';
     axios.post.mockRejectedValueOnce({ response: { status: 400, data: { error: errorMessage } } });

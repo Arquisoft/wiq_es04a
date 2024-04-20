@@ -146,10 +146,10 @@ app.get('/questions/:category', async (req, res) => {
 });
 
 
-app.post('/statistics/edit', async (req, res) => {
+app.patch('/statistics', async (req, res) => {
   try {
     // Forward the user statics edit request to the user service
-    const userResponse = await axios.post(`${userServiceUrl}/user/statistics/edit`, req.body);
+    const userResponse = await axios.patch(`${userServiceUrl}/user/statistics`, req.body);
     res.json(userResponse.data);
   } catch (error) {
     handleErrors(res, error);
@@ -211,10 +211,10 @@ app.get('/group/:name', async (req, res) => {
   }
 });
 
-app.post('/group/:name/join', async (req, res) => {
+app.post('/group/:name', async (req, res) => {
   try {
     const { name } = req.params;
-    const userResponse = await axios.post(`${userServiceUrl}/user/group/${name}/join`, req.body);
+    const userResponse = await axios.post(`${userServiceUrl}/user/group/${name}`, req.body);
     res.json(userResponse.data);
   } catch (error) {
     if (error.response && error.response.status === 400) {

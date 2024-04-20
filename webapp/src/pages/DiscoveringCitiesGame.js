@@ -99,7 +99,7 @@ const DiscovertingCitiesGame = () => {
 
     const updateStatistics = async() => {
         try {
-            await axios.post(`${apiEndpoint}/statistics/edit`, {
+            await axios.patch(`${apiEndpoint}/statistics`, {
                 username:username,
                 the_callenge_earned_money:0,
                 the_callenge_correctly_answered_questions:0,
