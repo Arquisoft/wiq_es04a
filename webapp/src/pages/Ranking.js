@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {Container, Typography, useTheme, Button } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-import {Container, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
