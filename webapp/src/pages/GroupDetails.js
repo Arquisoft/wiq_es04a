@@ -63,7 +63,7 @@ const GroupDetails = () => {
             <Divider sx={{ marginBottom: '2em' }}/>
             <Typography variant="h4">
                 {
-                    `${ t("Groups.Details.members") } ${totalMembers}/${expectedMembers}:`
+                    `${ t("Groups.Details.members") } (${totalMembers}/${expectedMembers}):`
                 }
             </Typography>
             <List  sx={{ margin:'0', width: '100%' }}>
