@@ -168,7 +168,7 @@ describe('Routes Tests', () => {
 
     const response = await request(app).get(`/user/${username}`);
 
-    expect(axios.get).toHaveBeenCalledWith(expect.stringContaining(`/user/get/${username}`), {});
+    expect(axios.get).toHaveBeenCalledWith(expect.stringContaining(`/user/get/${username}`));
     expect(response.status).toBe(200);
     expect(response.body).toEqual(mockUserData);
   });
@@ -180,7 +180,7 @@ describe('Routes Tests', () => {
 
     const response = await request(app).get(`/user/${username}`);
 
-    expect(axios.get).toHaveBeenCalledWith(`http://localhost:8001/user/get/${username}`, {});
+    expect(axios.get).toHaveBeenCalledWith(`http://localhost:8001/user/get/${username}`);
     expect(response.status).toBe(500);
     expect(response.body.error).toBe('Error fetching user data');
   });
@@ -261,7 +261,7 @@ describe('Routes Tests', () => {
   
     const response = await request(app).get('/statistics/testuser');
   
-    expect(axios.get).toHaveBeenCalledWith(expect.stringContaining('/user/statistics/testuser'),{});
+    expect(axios.get).toHaveBeenCalledWith(expect.stringContaining('/user/statistics/testuser'));
     expect(response.status).toBe(200);
     expect(response.body).toEqual(mockUserData);
   });
@@ -272,7 +272,7 @@ describe('Routes Tests', () => {
   
     const response = await request(app).get('/statistics/testuser');
   
-    expect(axios.get).toHaveBeenCalledWith(expect.stringContaining('/user/statistics/testuser'),{});
+    expect(axios.get).toHaveBeenCalledWith(expect.stringContaining('/user/statistics/testuser'));
     expect(response.status).toBe(500);
     expect(response.body.error).toBe(errorMessage);
   });
