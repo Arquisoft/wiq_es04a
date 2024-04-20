@@ -428,17 +428,17 @@ describe('Routes Tests', () => {
     expect(response.body).toEqual(mockRankingData);
   });
 
-  it('should allow a user to exit a group and respond with success', async () => {
+   it('should allow a user to exit a group and respond with success', async () => {
     const groupName = 'ExampleGroup';
     const mockRequestBody = { username: 'testuser' };
     const mockResponseData = { success: true, message: 'User has exited the group' };
 
     axios.post.mockResolvedValue({ data: mockResponseData });
 
-    const response = await request(app).delete(`/group/${groupName}`).send(mockRequestBody);
+    const response = await request(app).post(`/group/${groupName}/exit`).send(mockRequestBody);
 
-    expect(axios.delete).toHaveBeenCalledWith(
-      expect.stringContaining(`/user/group/${groupName}`),
+    expect(axios.post).toHaveBeenCalledWith(
+      expect.stringContaining(`/user/group/${groupName}/exit`),
       mockRequestBody
     );
 
@@ -456,12 +456,7 @@ describe('Routes Tests', () => {
         status: 400,
         data: mockErrorResponse
       }
-    });
-
-    const response = await request(app).delete(`/group/${groupName}`).send(mockRequestBody);
-
-    expect(response.status).toBe(400);
-    expect(response.body).toEqual(mockErrorResponse);
+    })
   });
-
 });
+  

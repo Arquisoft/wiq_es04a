@@ -670,7 +670,7 @@ describe('User Routes', () => {
         };
 
         const response = await request(app)
-            .patch('/user/statistics')
+            .post('/user/statistics')
             .send(updatedStatistics);
 
         expect(response.status).toBe(200);
@@ -697,7 +697,7 @@ describe('User Routes', () => {
         };
 
         const response = await request(app)
-            .patch('/user/statistics')
+            .post('/user/statistics')
             .send(nonExistingUserStatistics);
 
         expect(response.status).toBe(404);
@@ -935,7 +935,7 @@ describe('User Routes', () => {
         });
 
         const response = await request(app)
-            .delete('/user/group/testgroup')
+            .post('/user/group/testgroup/exit')
             .send({ username: 'testuser' })
             .expect(200);
 
@@ -1076,7 +1076,7 @@ describe('User Routes', () => {
         const newImageUrl = 'bertinIcon.jpg';
     
         const response = await request(app)
-          .patch(`/user/profile/${username}`)
+          .post(`/user/profile/${username}`)
           .send({ imageUrl: newImageUrl });
     
         expect(response.status).toBe(200);
@@ -1088,7 +1088,7 @@ describe('User Routes', () => {
         const newImageUrl = 'nueva_url_de_imagen';
     
         const response = await request(app)
-          .patch(`/user/profile/${username}`)
+          .post(`/user/profile/${username}`)
           .send({ imageUrl: newImageUrl });
     
         expect(response.status).toBe(404);

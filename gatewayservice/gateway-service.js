@@ -225,10 +225,10 @@ app.post('/group/:name', async (req, res) => {
   }
 });
 
-app.delete('/group/:name', async (req, res) => {
+app.post('/group/:name/exit', async (req, res) => {
   try {
     const { name } = req.params;
-    const userResponse = await axios.delete(`${userServiceUrl}/user/group/${name}`, req.body);
+    const userResponse = await axios.post(`${userServiceUrl}/user/group/${name}/exit`, req.body);
     res.json(userResponse.data);
   } catch (error) {
     if (error.response && error.response.status === 400) {

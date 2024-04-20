@@ -125,10 +125,6 @@ router.get('/', async (req,res) => {
         res.status(400).json({ error: error.message });
     }
 });
-
-
-
-
 // Route for add a question to questions record
 router.post('/questionsRecord', async (req, res) => {
     try {
@@ -228,9 +224,6 @@ router.post('/', async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 });
-
-
-
 // Adding a group to the database and creating the relationship with the creator
 router.post('/group', async (req, res) => {
     try {
@@ -394,7 +387,7 @@ router.post('/group/:name', async (req, res) => {
     }
 });
 //leave a group
-router.delete('/group/:name', async (req, res) => {
+router.post('/group/:name/exit', async (req, res) => {
     try {
         const groupName = req.params.name;
         const { username } = req.body;
@@ -445,8 +438,6 @@ router.delete('/group/:name', async (req, res) => {
        return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-
-
 // Route for edit the statics of a user
 router.post('/statistics', async (req, res) => {
     try {
@@ -552,8 +543,6 @@ router.get('/statistics/:username', async (req,res) => {
     }
 
 });
-
-
 // Route for getting the statistics of a user
 router.get('/ranking', async (req, res) => {
     try {
