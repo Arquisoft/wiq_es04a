@@ -79,7 +79,7 @@ const Groups = () => {
     // Function that makes a member of a group leave it.
     const exitFromGroup = async (name) => {
       try {
-        await axios.post(`${apiEndpoint}/group/`+name+`/exit`, { username });
+        await axios.delete(`${apiEndpoint}/group/`+name, { username });
         setSnackbarMessage('Left the group successfully');
         setOpenSnackbar(true);
         fetchData();

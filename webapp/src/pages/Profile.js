@@ -33,7 +33,7 @@ const Profile = () => {
 
     const handleAvatarChange = async () => {
         try {
-            await axios.post(`${apiEndpoint}/user/profile/${username}`, { imageUrl: currentSelectedAvatar });
+            await axios.patch(`${apiEndpoint}/user/profile/${username}`, { imageUrl: currentSelectedAvatar });
             setSnackbarMessage('Avatar changed successfully');
             setOpenSnackbar(true);
             fetchUserInfo();

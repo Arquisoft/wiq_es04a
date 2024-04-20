@@ -37,16 +37,15 @@ router.get('/:username', async (req,res) => {
  * 
  * CAMBIAR
  * 
- * /statistics/edit -> patch.(/statistics)
- * /group/name/exit -> delete.(/group/:name) ?????
  * /profile/username -> patch.(/user/profile)
  * 
  * CAMBIADO
+ * /group/name/exit -> delete.(/group/:name) ?????
  * /allUsers -> /
  * /group/add -> post.(/group)
+ * /statistics/edit -> patch.(/statistics)
  * /add -> post.(/user)
  * /group/name/join -> post.(/group/:name)
-
  * /group/list -> get.(/group)
  */
 
@@ -71,7 +70,7 @@ router.get('/profile', async (req, res) => {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-router.post('/profile/:username', async (req, res) => {
+router.patch('/profile/:username', async (req, res) => {
     try {
         const username = req.params.username;
         const { imageUrl } = req.body;
@@ -397,7 +396,7 @@ router.post('/group/:name', async (req, res) => {
        return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-router.post('/group/:name/exit', async (req, res) => {
+router.delete('/group/:name', async (req, res) => {
     try {
         const groupName = req.params.name;
         const { username } = req.body;

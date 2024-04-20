@@ -399,7 +399,7 @@ describe('Routes Tests', () => {
 
     axios.post.mockResolvedValue({ data: mockResponseData });
 
-    const response = await request(app).post(`/user/profile/${username}`).send(mockUpdateData);
+    const response = await request(app).patch(`/user/profile/${username}`).send(mockUpdateData);
 
     expect(axios.post).toHaveBeenCalledWith(
       expect.stringContaining(`/user/profile/${username}`),
@@ -435,10 +435,10 @@ describe('Routes Tests', () => {
 
     axios.post.mockResolvedValue({ data: mockResponseData });
 
-    const response = await request(app).post(`/group/${groupName}/exit`).send(mockRequestBody);
+    const response = await request(app).delete(`/group/${groupName}`).send(mockRequestBody);
 
     expect(axios.post).toHaveBeenCalledWith(
-      expect.stringContaining(`/user/group/${groupName}/exit`),
+      expect.stringContaining(`/user/group/${groupName}`),
       mockRequestBody
     );
 
@@ -458,7 +458,7 @@ describe('Routes Tests', () => {
       }
     });
 
-    const response = await request(app).post(`/group/${groupName}/exit`).send(mockRequestBody);
+    const response = await request(app).delete(`/group/${groupName}`).send(mockRequestBody);
 
     expect(response.status).toBe(400);
     expect(response.body).toEqual(mockErrorResponse);

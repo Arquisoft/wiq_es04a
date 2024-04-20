@@ -935,7 +935,7 @@ describe('User Routes', () => {
         });
 
         const response = await request(app)
-            .post('/user/group/testgroup/exit')
+            .delete('/user/group/testgroup')
             .send({ username: 'testuser' })
             .expect(200);
 
@@ -1076,7 +1076,7 @@ describe('User Routes', () => {
         const newImageUrl = 'bertinIcon.jpg';
     
         const response = await request(app)
-          .post(`/user/profile/${username}`)
+          .patch(`/user/profile/${username}`)
           .send({ imageUrl: newImageUrl });
     
         expect(response.status).toBe(200);
@@ -1088,7 +1088,7 @@ describe('User Routes', () => {
         const newImageUrl = 'nueva_url_de_imagen';
     
         const response = await request(app)
-          .post(`/user/profile/${username}`)
+          .patch(`/user/profile/${username}`)
           .send({ imageUrl: newImageUrl });
     
         expect(response.status).toBe(404);
