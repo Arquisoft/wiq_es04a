@@ -24,7 +24,7 @@ describe('Wise Men Stack Game component', () => {
         }]
     );
 
-    mockAxios.onPatch('http://localhost:8000/statistics').reply(200, { success: true });
+    mockAxios.onPost('http://localhost:8000/statistics').reply(200, { success: true });
     mockAxios.onPost('http://localhost:8000/user/questionsRecord').reply(200, { success: true });
 
   });

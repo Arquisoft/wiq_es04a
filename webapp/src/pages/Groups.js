@@ -66,7 +66,7 @@ const Groups = () => {
     // Function that makes the user join a group and shows the possible errors when making this
     const addToGroup = async (name) => {
       try {
-        await axios.post(`${apiEndpoint}/group/`+name+`/join`, { username });
+        await axios.post(`${apiEndpoint}/group/`+name, { username });
         setSnackbarMessage('Joined the group successfully');
         setOpenSnackbar(true);
         fetchData();
@@ -79,7 +79,7 @@ const Groups = () => {
     // Function that makes a member of a group leave it.
     const exitFromGroup = async (name) => {
       try {
-        await axios.delete(`${apiEndpoint}/group/`+name, { username });
+        await axios.post(`${apiEndpoint}/group/`+name+`/exit`, { username });
         setSnackbarMessage('Left the group successfully');
         setOpenSnackbar(true);
         fetchData();
