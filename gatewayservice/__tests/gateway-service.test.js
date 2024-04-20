@@ -15,7 +15,7 @@ describe('Routes Tests', () => {
     process.exit(0); 
   }, 5000); 
 
-  it('should respond with status 200 for /user/questionsRecord/:username/:gameMode endpoint', async () => {
+  it('should respond with status 200 for /questionsRecord/:username/:gameMode endpoint', async () => {
     const mockUsername = 'testuser';
     const mockGameMode = 'testMode';
     const mockUserData = { username: mockUsername, gameMode: mockGameMode, questions: ['question1', 'question2'] };
@@ -23,7 +23,7 @@ describe('Routes Tests', () => {
     axios.get.mockResolvedValueOnce({ data: mockUserData });
 
     const response = await request(app)
-      .get(`/user/questionsRecord/${mockUsername}/${mockGameMode}`);
+      .get(`/questionsRecord/${mockUsername}/${mockGameMode}`);
 
     expect(axios.get).toHaveBeenCalledWith(
       expect.stringContaining(`/user/questionsRecord/${mockUsername}/${mockGameMode}`), {}
@@ -32,14 +32,14 @@ describe('Routes Tests', () => {
     expect(response.body).toEqual(mockUserData);
 });
 
-  it('should respond with status 200 for /user/questionsRecord endpoint', async () => {
+  it('should respond with status 200 for /questionsRecord endpoint', async () => {
     const mockRequestData = { userId: 'testuser', questions: ['question1', 'question2'] };
     const mockResponseData = { success: true };
 
     axios.post.mockResolvedValueOnce({ data: mockResponseData });
 
     const response = await request(app)
-      .post('/user/questionsRecord')
+      .post('/questionsRecord')
       .send(mockRequestData);
 
     expect(axios.post).toHaveBeenCalledWith(
@@ -50,13 +50,13 @@ describe('Routes Tests', () => {
     expect(response.body).toEqual(mockResponseData);
   });
 
-  it('should handle /user/questionsRecord errors and respond with appropriate status and message', async () => {
+  it('should handle /questionsRecord errors and respond with appropriate status and message', async () => {
     const mockRequestData = { userId: 'testuser', questions: ['question1', 'question2'] };
     const errorMessage = 'Error updating questions record';
     axios.post.mockRejectedValueOnce(new Error(errorMessage));
 
     const response = await request(app)
-      .post('/user/questionsRecord')
+      .post('/questionsRecord')
       .send(mockRequestData);
 
     expect(axios.post).toHaveBeenCalledWith(
@@ -95,114 +95,114 @@ describe('Routes Tests', () => {
     expect(response.body.error).toBe(errorMessage);
   });
 
-  it('should respond with status 200 for /user/session endpoint', async () => {
+  it('should respond with status 200 for /session endpoint', async () => {
     const mockSessionData = { username: 'testuser', role: 'user' };
     axios.get.mockResolvedValueOnce({ data: mockSessionData });
 
-    const response = await request(app).get('/user/session');
+    const response = await request(app).get('/session');
 
     expect(axios.get).toHaveBeenCalledWith(expect.stringContaining('/user/session'));
     expect(response.status).toBe(200);
     expect(response.body).toEqual(mockSessionData);
   });
 
-  it('should handle /user/session errors and respond with appropriate status and message', async () => {
+  it('should handle /session errors and respond with appropriate status and message', async () => {
     const errorMessage = 'Error fetching session data';
     axios.get.mockRejectedValueOnce(new Error(errorMessage));
 
-    const response = await request(app).get('/user/session');
+    const response = await request(app).get('/session');
 
     expect(axios.get).toHaveBeenCalledWith(expect.stringContaining('/user/session'));
     expect(response.status).toBe(500);
     expect(response.body.error).toBe('Error al obtener la sesión del usuario');
   });
 
-  it('should respond with status 200 for /user/allUsers endpoint', async () => {
+  it('should respond with status 200 for /user endpoint', async () => {
     const mockUserData = [{ username: 'user1' }, { username: 'user2' }];
     axios.get.mockResolvedValueOnce({ data: mockUserData });
 
-    const response = await request(app).get('/user/allUsers');
+    const response = await request(app).get('/user');
 
     expect(axios.get).toHaveBeenCalledWith(expect.stringContaining('/user/allUsers'));
     expect(response.status).toBe(200);
     expect(response.body).toEqual(mockUserData);
   });
 
-  it('should handle /user/allUsers errors and respond with appropriate status and message', async () => {
+  it('should handle /user errors and respond with appropriate status and message', async () => {
     const errorMessage = 'Error fetching user data';
     axios.get.mockRejectedValueOnce(new Error(errorMessage));
 
-    const response = await request(app).get('/user/allUsers');
+    const response = await request(app).get('/user');
 
     expect(axios.get).toHaveBeenCalledWith(expect.stringContaining('/user/allUsers'));
     expect(response.status).toBe(500);
     expect(response.body.error).toBe('Error al obtener la sesión del usuario');
   });
 
-  it('should respond with status 200 for /user/ranking endpoint', async () => {
+  it('should respond with status 200 for /ranking endpoint', async () => {
     const mockRankingData = [{ username: 'user1', score: 100 }, { username: 'user2', score: 90 }];
     axios.get.mockResolvedValueOnce({ data: mockRankingData });
 
-    const response = await request(app).get('/user/ranking');
+    const response = await request(app).get('/ranking');
 
     expect(axios.get).toHaveBeenCalledWith(expect.stringContaining('/user/ranking'));
     expect(response.status).toBe(200);
     expect(response.body).toEqual(mockRankingData);
   });
 
-  it('should handle /user/ranking errors and respond with appropriate status and message', async () => {
+  it('should handle /ranking errors and respond with appropriate status and message', async () => {
     const errorMessage = 'Error fetching ranking data';
     axios.get.mockRejectedValueOnce(new Error(errorMessage));
 
-    const response = await request(app).get('/user/ranking');
+    const response = await request(app).get('/ranking');
 
     expect(axios.get).toHaveBeenCalledWith(expect.stringContaining('/user/ranking'));
     expect(response.status).toBe(500);
     expect(response.body.error).toBe('Error al obtener la sesión del usuario');
   });
 
-  it('sshould respond with status 200 for /user/get/${username} endpoint', async () => {
+  it('sshould respond with status 200 for /user/${username} endpoint', async () => {
     const mockUserData = { username: 'testuser', email: 'testuser@example.com' };
     const username = 'testuser';
     axios.get.mockResolvedValueOnce({ data: mockUserData });
 
-    const response = await request(app).get(`/user/get/${username}`);
+    const response = await request(app).get(`/user/${username}`);
 
     expect(axios.get).toHaveBeenCalledWith(expect.stringContaining(`/user/get/${username}`), {});
     expect(response.status).toBe(200);
     expect(response.body).toEqual(mockUserData);
   });
 
-  it('should handle /user/get/${username} errors and respond with appropriate status and message', async () => {
+  it('should handle /user/${username} errors and respond with appropriate status and message', async () => {
     const errorMessage = 'Error fetching user data';
     const username = 'testuser';
     axios.get.mockRejectedValueOnce(new Error(errorMessage));
 
-    const response = await request(app).get(`/user/get/${username}`);
+    const response = await request(app).get(`/user/${username}`);
 
     expect(axios.get).toHaveBeenCalledWith(`http://localhost:8001/user/get/${username}`, {});
     expect(response.status).toBe(500);
     expect(response.body.error).toBe('Error fetching user data');
   });
 
-  it('should respond with status 200 for /user/add endpoint', async () => {
+  it('should respond with status 200 for /user endpoint', async () => {
     const mockUserData = { username: 'testuser', email: 'testuser@example.com' };
     axios.post.mockResolvedValueOnce({ data: mockUserData });
 
     const requestBody = { username: 'testuser', password: config.users.password, email: 'testuser@example.com' };
-    const response = await request(app).post('/user/add').send(requestBody);
+    const response = await request(app).post('/user').send(requestBody);
 
     expect(axios.post).toHaveBeenCalledWith(expect.stringContaining('/user/add'), requestBody);
     expect(response.status).toBe(200);
     expect(response.body).toEqual(mockUserData);
   });
 
-  it('should handle /user/add errors and respond with appropriate status and message', async () => {
+  it('should handle /user errors and respond with appropriate status and message', async () => {
     const errorMessage = 'Error adding user';
     axios.post.mockRejectedValueOnce(new Error(errorMessage));
 
     const requestBody = { username: 'testuser', password: config.users.password, email: 'testuser@example.com' };
-    const response = await request(app).post('/user/add').send(requestBody);
+    const response = await request(app).post('/user').send(requestBody);
 
     expect(axios.post).toHaveBeenCalledWith(expect.stringContaining('/user/add'), requestBody);
     expect(response.status).toBe(500);

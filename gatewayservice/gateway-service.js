@@ -43,7 +43,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
-app.get('/user/questionsRecord/:username/:gameMode', async (req, res) => {
+app.get('/questionsRecord/:username/:gameMode', async (req, res) => {
   try {
     console.log(1)
     const username = req.params.username;
@@ -56,7 +56,7 @@ app.get('/user/questionsRecord/:username/:gameMode', async (req, res) => {
   }
 });
 
-app.post('/user/questionsRecord', async (req, res) => {
+app.post('/questionsRecord', async (req, res) => {
   try {
     const response = await axios.post(userServiceUrl+`/user/questionsRecord`, req.body);
     res.json(response.data); 
@@ -67,7 +67,7 @@ app.post('/user/questionsRecord', async (req, res) => {
 });
 
 // Método para obtener la sesión del usuario
-app.get('/user/session', async (req, res) => {
+app.get('/session', async (req, res) => {
   try {
     const response = await axios.get(`${userServiceUrl}/user/session`);
     res.json(response.data); // Enviar solo los datos de la respuesta
@@ -77,7 +77,7 @@ app.get('/user/session', async (req, res) => {
   }
 });
 
-app.get('/user/allUsers', async (req, res) => {
+app.get('/user', async (req, res) => {
   try {
     const response = await axios.get(`${userServiceUrl}/user/allUsers`);
     res.json(response.data); // Enviar solo los datos de la respuesta
@@ -87,7 +87,7 @@ app.get('/user/allUsers', async (req, res) => {
   }
 });
 
-app.get('/user/ranking', async (req, res) => {
+app.get('/ranking', async (req, res) => {
   try {
     const response = await axios.get(`${userServiceUrl}/user/ranking`);
     res.json(response.data); // Enviar solo los datos de la respuesta
@@ -97,7 +97,7 @@ app.get('/user/ranking', async (req, res) => {
   }
 });
 
-app.get('/user/get/:username', async (req, res) => {
+app.get('/user/:username', async (req, res) => {
   try {
     const username = req.params.username;
     // Forward the user statics edit request to the user service
@@ -108,7 +108,7 @@ app.get('/user/get/:username', async (req, res) => {
   }
 });
 
-app.post('/user/add', async (req, res) => {
+app.post('/user', async (req, res) => {
   try {
     // Forward the add user request to the user service
     const userResponse = await axios.post(`${userServiceUrl}/user/add`, req.body);
