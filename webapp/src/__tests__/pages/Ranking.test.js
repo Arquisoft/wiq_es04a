@@ -19,7 +19,7 @@ describe('Ranking Component', () => {
     axios.get.mockResolvedValueOnce(userRanking);
 
     render(<Ranking />);
-    const usersButton = screen.getByText('USERS');
+    const usersButton = screen.getByTestId('users-button');
     fireEvent.click(usersButton);
 
     setTimeout(() => {
@@ -42,7 +42,7 @@ describe('Ranking Component', () => {
     axios.get.mockResolvedValueOnce(groupRanking);
 
     render(<Ranking />);
-    const groupsButton = screen.getByText('GROUPS');
+    const groupsButton = screen.getByTestId('groups-button');
     fireEvent.click(groupsButton);
 
     setTimeout(() => {

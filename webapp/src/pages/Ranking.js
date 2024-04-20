@@ -63,8 +63,12 @@ const Ranking = () => {
                     Ranking
                 </Typography>
                 <Container style={{ display: 'flex', justifyContent: 'center', marginTop: '0.5em', gap:'2em' }}>
-                    <Button onClick={() => setRankingType('user')} variant="contained" sx={{ backgroundColor: rankingType === 'user' ? 'white' : theme.palette.primary.main, color: rankingType === 'user' ? theme.palette.primary.main : 'white', borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>{t("Ranking.users")}</Button>
-                    <Button onClick={() => setRankingType('group')} variant="contained" sx={{ backgroundColor: rankingType === 'group' ? 'white' : theme.palette.primary.main, color: rankingType === 'group' ? theme.palette.primary.main : 'white', borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>{t("Ranking.groups")}</Button>
+                    <Button onClick={() => setRankingType('user')} variant="contained" sx={{ backgroundColor: rankingType === 'user' ? 'white' : theme.palette.primary.main, color: rankingType === 'user' ? theme.palette.primary.main : 'white', borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }} data-testid="users-button">
+                        {t("Ranking.users")}
+                    </Button>
+                    <Button onClick={() => setRankingType('group')} variant="contained" sx={{ backgroundColor: rankingType === 'group' ? 'white' : theme.palette.primary.main, color: rankingType === 'group' ? theme.palette.primary.main : 'white', borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }} data-testid="groups-button">
+                        {t("Ranking.groups")}
+                    </Button>
                 </Container>
             </Container>
 
