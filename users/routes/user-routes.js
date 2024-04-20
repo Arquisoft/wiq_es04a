@@ -286,22 +286,26 @@ router.get('/group/ranking', async (req, res) => {
                     totalMoney += userStatistics.the_callenge_earned_money +
                                   userStatistics.wise_men_stack_earned_money +
                                   userStatistics.warm_question_earned_money +
-                                  userStatistics.discovering_cities_earned_money;
+                                  userStatistics.discovering_cities_earned_money +
+                                  userStatistics.online_earned_money;
 
                     totalCorrectAnswers += userStatistics.the_callenge_correctly_answered_questions +
                                            userStatistics.wise_men_stack_correctly_answered_questions +
                                            userStatistics.warm_question_correctly_answered_questions +
-                                           userStatistics.discovering_cities_correctly_answered_questions;
+                                           userStatistics.discovering_cities_correctly_answered_questions +
+                                           userStatistics.online_correctly_answered_questions;
 
                     totalIncorrectAnswers += userStatistics.the_callenge_incorrectly_answered_questions +
                                              userStatistics.wise_men_stack_incorrectly_answered_questions +
                                              userStatistics.warm_question_incorrectly_answered_questions +
-                                             userStatistics.discovering_cities_incorrectly_answered_questions;
+                                             userStatistics.discovering_cities_incorrectly_answered_questions +
+                                             userStatistics.online_incorrectly_answered_questions;
 
                     totalGamesPlayed += userStatistics.the_callenge_games_played +
                                        userStatistics.wise_men_stack_games_played +
                                        userStatistics.warm_question_games_played +
-                                       userStatistics.discovering_cities_games_played;
+                                       userStatistics.discovering_cities_games_played +
+                                       userStatistics.online_games_played;
                 }
             }
 
@@ -559,7 +563,8 @@ router.get('/ranking', async (req, res) => {
                         the_callenge_earned_money +
                         wise_men_stack_earned_money +
                         warm_question_earned_money +
-                        discovering_cities_earned_money
+                        discovering_cities_earned_money +
+                        online_earned_money
                     `),
                     'totalMoney'
                 ],
@@ -568,7 +573,8 @@ router.get('/ranking', async (req, res) => {
                         the_callenge_correctly_answered_questions +
                         wise_men_stack_correctly_answered_questions +
                         warm_question_correctly_answered_questions +
-                        discovering_cities_correctly_answered_questions
+                        discovering_cities_correctly_answered_questions +
+                        online_correctly_answered_questions
                     `),
                     'totalCorrectAnswers'
                 ],
@@ -577,7 +583,8 @@ router.get('/ranking', async (req, res) => {
                         the_callenge_incorrectly_answered_questions +
                         wise_men_stack_incorrectly_answered_questions +
                         warm_question_incorrectly_answered_questions +
-                        discovering_cities_incorrectly_answered_questions
+                        discovering_cities_incorrectly_answered_questions +
+                        online_incorrectly_answered_questions
                     `),
                     'totalIncorrectAnswers'
                 ],
@@ -586,7 +593,8 @@ router.get('/ranking', async (req, res) => {
                         the_callenge_games_played +
                         wise_men_stack_games_played +
                         warm_question_games_played +
-                        discovering_cities_games_played
+                        discovering_cities_games_played +
+                        online_games_played
                     `),
                     'totalGamesPlayed'
                 ]
