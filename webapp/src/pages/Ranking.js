@@ -12,7 +12,7 @@ const Ranking = () => {
 
     useEffect(() => {
         const fetchRanking = async () => {
-            axios.get(`${apiEndpoint}/user/ranking`)
+            axios.get(`${apiEndpoint}/ranking`)
             .then((response) => {
               const resp = response.data;
               setRanking(resp.rank);

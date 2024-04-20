@@ -24,7 +24,7 @@ const Statistics = () => {
     useEffect(() => {
         const fetchUserStatics = async () => {
             try {
-                const response = await axios.get(`${apiEndpoint}/user/statistics/${username}`);
+                const response = await axios.get(`${apiEndpoint}/statistics/${username}`);
                 setUserStatics(response.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -37,7 +37,7 @@ const Statistics = () => {
     useEffect(() => {
         const fetchQuestionsRecord = async () => {
             try {
-                const response = await axios.get(`${apiEndpoint}/user/questionsRecord/${username}/${selectedMode}`, {
+                const response = await axios.get(`${apiEndpoint}/questionsRecord/${username}/${selectedMode}`, {
                     username: username,
                     gameMode: selectedMode
                 });

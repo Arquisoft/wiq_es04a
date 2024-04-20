@@ -54,7 +54,7 @@ app.get('/questionsRecord/:username/:gameMode', async (req, res) => {
   }
 });
 
-app.post('/questionsRecord', async (req, res) => {
+app.put('/questionsRecord', async (req, res) => {
   try {
     const response = await axios.post(`${userServiceUrl}/user/questionsRecord`, req.body);
     res.json(response.data);
