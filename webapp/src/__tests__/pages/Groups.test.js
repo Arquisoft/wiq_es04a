@@ -33,7 +33,7 @@ describe('Groups component', () => {
 
   it('should render groups list and creation elements', async () => {
     // It mocks a succesful request getting two groups from the database.
-    mockAxios.onGet('http://localhost:8000/user/group/list').reply(200, { groups: [{ name: 'Group 1' }, { name: 'Group 2' }] });
+    mockAxios.onGet('http://localhost:8000/group').reply(200, { groups: [{ name: 'Group 1' }, { name: 'Group 2' }] });
 
     renderGroupsComponent();
 
@@ -51,7 +51,7 @@ describe('Groups component', () => {
 
   it('should show an error message fetching data', async () => {
     // It simulates a request with an error fetching data
-    mockAxios.onGet('http://localhost:8000/user/group/list').reply(500);
+    mockAxios.onGet('http://localhost:8000/group').reply(500);
   
     renderGroupsComponent();
   
@@ -63,7 +63,7 @@ describe('Groups component', () => {
 
   it('should successfully add a group', async () => {
     // It simulates a succesful group add request
-    mockAxios.onPost('http://localhost:8000/group/add').reply(200);
+    mockAxios.onPost('http://localhost:8000/group').reply(200);
   
     renderGroupsComponent();
   
@@ -84,7 +84,7 @@ describe('Groups component', () => {
 
   it('should show an error when another group with the same name exists', async () => {
     // Mocks a request error code with an already existing group
-    mockAxios.onPost('http://localhost:8000/group/add').reply(400, { error: 'A group with the same name already exists.' });
+    mockAxios.onPost('http://localhost:8000/group').reply(400, { error: 'A group with the same name already exists.' });
   
     renderGroupsComponent();
   
@@ -100,7 +100,7 @@ describe('Groups component', () => {
 
   it('should show generic error when adding a group fails', async () => {
     // Mocks a request generic error code
-    mockAxios.onPost('http://localhost:8000/group/add').reply(500, { error: 'Internal Server Error' });
+    mockAxios.onPost('http://localhost:8000/group').reply(500, { error: 'Internal Server Error' });
   
     renderGroupsComponent();
   
@@ -116,7 +116,7 @@ describe('Groups component', () => {
 
   it('should show the FILLED button when group is already full', async () => {
     // Simulates a request response including the full group data
-    mockAxios.onGet('http://localhost:8000/user/group/list').reply(200, { groups: [{ name: 'Group 1', isMember: false, isFull: true }] });
+    mockAxios.onGet('http://localhost:8000/group').reply(200, { groups: [{ name: 'Group 1', isMember: false, isFull: true }] });
     
     renderGroupsComponent();
   
@@ -131,7 +131,7 @@ describe('Groups component', () => {
 
   it('should show the JOINED button when user has joined the group', async () => {
     // Simulates a request response including the joined group data
-    mockAxios.onGet('http://localhost:8000/user/group/list').reply(200, { groups: [{ name: 'Group 1', isMember: true, isFull: false }] });
+    mockAxios.onGet('http://localhost:8000/group').reply(200, { groups: [{ name: 'Group 1', isMember: true, isFull: false }] });
   
     renderGroupsComponent();
   
@@ -146,7 +146,7 @@ describe('Groups component', () => {
 
   it('could see group details', async () => {
     // Simulates a request response including the joined group data
-    mockAxios.onGet('http://localhost:8000/user/group/list').reply(200, { groups: [{ name: 'Group 1', isMember: false, isFull: false }] });
+    mockAxios.onGet('http://localhost:8000/group').reply(200, { groups: [{ name: 'Group 1', isMember: false, isFull: false }] });
   
     renderGroupsComponent();
   
@@ -170,7 +170,7 @@ describe('Groups component', () => {
   it('should change the page when pagination is clicked', async () => {
     // Simulates a request response including a list of groups with more than five items
     const mockedGroups = Array.from({ length: 10 }, (_, index) => ({ name: `Group ${index + 1}`, isMember: false, isFull: false }));
-    mockAxios.onGet('http://localhost:8000/user/group/list').reply(200, { groups: mockedGroups });
+    mockAxios.onGet('http://localhost:8000/group').reply(200, { groups: mockedGroups });
     
     renderGroupsComponent();
     
@@ -196,7 +196,7 @@ describe('Groups component', () => {
 
   it('should display and close the error snackbar when an error occurs', async () => {
     // It simulates a succesful group add request
-    mockAxios.onPost('http://localhost:8000/group/add').reply(400, { error: 'A group with the same name already exists.' });
+    mockAxios.onPost('http://localhost:8000/group').reply(400, { error: 'A group with the same name already exists.' });
 
     renderGroupsComponent();
 
@@ -217,7 +217,7 @@ describe('Groups component', () => {
 
   it('should successfully add user to a group', async () => {
     // Simulates a request response including the unjoined group data
-    mockAxios.onGet('http://localhost:8000/user/group/list').reply(200, { groups: [{ name: 'Group1', isMember: false, isFull: false }] });
+    mockAxios.onGet('http://localhost:8000/group').reply(200, { groups: [{ name: 'Group1', isMember: false, isFull: false }] });
     mockAxios.onPost('http://localhost:8000/group/Group1/join').reply(200);
   
     renderGroupsComponent();
@@ -243,7 +243,7 @@ describe('Groups component', () => {
 
   it('should display error message when group is already full', async () => {
     // Simulates a request response including the unjoined group data
-    mockAxios.onGet('http://localhost:8000/user/group/list').reply(200, { groups: [{ name: 'Group1', isMember: false, isFull: false }] });
+    mockAxios.onGet('http://localhost:8000/group').reply(200, { groups: [{ name: 'Group1', isMember: false, isFull: false }] });
     mockAxios.onPost('http://localhost:8000/group/Group1/join').reply(400, { error: 'Group is already full' });
   
     renderGroupsComponent();
@@ -268,7 +268,7 @@ describe('Groups component', () => {
 
   it('should display generic error message when joining group fails', async () => {
     // Simulates a request response including the full group data
-    mockAxios.onGet('http://localhost:8000/user/group/list').reply(200, { groups: [{ name: 'Group1', isMember: false, isFull: false }] });
+    mockAxios.onGet('http://localhost:8000/group').reply(200, { groups: [{ name: 'Group1', isMember: false, isFull: false }] });
     // Mock a generic request error code
     mockAxios.onPost('http://localhost:8000/group/Group1/join').reply(500, { error: 'Internal Server Error' });
 
