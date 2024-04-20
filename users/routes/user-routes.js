@@ -3,53 +3,52 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const { User, Statistics, Group, UserGroup, QuestionsRecord, sequelize } = require('../services/user-model');
 
-
-
-//Get user by username
-router.get('/:username', async (req,res) => {
+// Getting the list of groups in the database
+router.get('/group', async (req, res) => {
     try {
 
-        const username = req.params.username;
+        const username = req.query.username;
 
-        // Querying using sequelize findOne method
-        const user = await User.findOne({
+        // If the user is null or undefined (no one is logged, return all groups)
+        if (username === null || username === undefined) {
+            const allGroups = await Group.findAll({ order: [['name', 'ASC']] });
+            const groupsJSON = await Promise.all(allGroups.map(async (group) => {
+                return {
+                    name: group.name,
+                    isMember: false
+                };
+            }));
+            return res.json({ groups: groupsJSON });
+        }
+
+        // If someone is logged, return the groups indicating which one the user has joined
+        const userGroups = await UserGroup.findAll({
             where: {
-                username: username
+              username: username
             }
         });
-        
-        const userJSON = user.toJSON();
-        res.json(userJSON);
+        const userGroupNames = userGroups.map(userGroup => userGroup.groupName);
+
+        const allGroups = await Group.findAll({ order: [['name', 'ASC']] });
+        const groupsJSON = await Promise.all(allGroups.map(async (group) => {
+            const userCount = await UserGroup.count({
+                where: {
+                    groupName: group.name
+                }
+            });
+            return {
+                name: group.name,
+                isMember: userGroupNames.includes(group.name),
+                isCreator: group.creator === username,
+                isFull: userCount === 20
+            };
+        }));
+        res.json({ groups: groupsJSON });
+
     } catch (error) {
-        res.status(400).json({ error: error.message });
+      return res.status(500).json({ error: 'Internal Server Error' });
     }
-
 });
-
-
-/**
- * user-routers
- * gateway
- * webapp 
- * 
- * tests de cada uno
- * 
- * 
- * CAMBIAR
- * 
- * /profile/username -> patch.(/user/profile)
- * 
- * CAMBIADO
- * /group/name/exit -> delete.(/group/:name) ?????
- * /allUsers -> /
- * /group/add -> post.(/group)
- * /statistics/edit -> patch.(/statistics)
- * /add -> post.(/user)
- * /group/name/join -> post.(/group/:name)
- * /group/list -> get.(/group)
- */
-
-
 router.get('/profile', async (req, res) => {
     try {
         const username = req.query.username;
@@ -70,6 +69,47 @@ router.get('/profile', async (req, res) => {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+//Get user by username
+router.get('/:username', async (req,res) => {
+    try {
+
+        const username = req.params.username;
+
+        // Querying using sequelize findOne method
+        const user = await User.findOne({
+            where: {
+                username: username
+            }
+        });
+        
+        const userJSON = user.toJSON();
+        res.json(userJSON);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+
+});
+//Get all users
+router.get('/', async (req,res) => {
+
+    try {
+
+        const allUsers = await User.findAll();
+
+        // Converting each user to a JSON object
+        const usersJSON = allUsers.map(user => user.toJSON());
+
+        // Returned object in response, it contains a list of JSON objects (each user)
+        const allUsersJSON = {
+            users: usersJSON
+        };
+
+        res.json(allUsersJSON);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
+
 router.patch('/profile/:username', async (req, res) => {
     try {
         const username = req.params.username;
@@ -86,6 +126,8 @@ router.patch('/profile/:username', async (req, res) => {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+
 // Route for add a question to questions record
 router.post('/questionsRecord', async (req, res) => {
     try {
@@ -188,52 +230,6 @@ router.post('/', async (req, res) => {
 
 
 
-// Getting the list of groups in the database
-router.get('/group', async (req, res) => {
-    try {
-
-        const username = req.query.username;
-
-        // If the user is null or undefined (no one is logged, return all groups)
-        if (username === null || username === undefined) {
-            const allGroups = await Group.findAll({ order: [['name', 'ASC']] });
-            const groupsJSON = await Promise.all(allGroups.map(async (group) => {
-                return {
-                    name: group.name,
-                    isMember: false
-                };
-            }));
-            return res.json({ groups: groupsJSON });
-        }
-
-        // If someone is logged, return the groups indicating which one the user has joined
-        const userGroups = await UserGroup.findAll({
-            where: {
-              username: username
-            }
-        });
-        const userGroupNames = userGroups.map(userGroup => userGroup.groupName);
-
-        const allGroups = await Group.findAll({ order: [['name', 'ASC']] });
-        const groupsJSON = await Promise.all(allGroups.map(async (group) => {
-            const userCount = await UserGroup.count({
-                where: {
-                    groupName: group.name
-                }
-            });
-            return {
-                name: group.name,
-                isMember: userGroupNames.includes(group.name),
-                isCreator: group.creator === username,
-                isFull: userCount === 20
-            };
-        }));
-        res.json({ groups: groupsJSON });
-
-    } catch (error) {
-      return res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
 // Adding a group to the database and creating the relationship with the creator
 router.post('/group', async (req, res) => {
     try {
@@ -449,8 +445,6 @@ router.delete('/group/:name', async (req, res) => {
 });
 
 
-
-
 // Route for edit the statics of a user
 router.patch('/statistics', async (req, res) => {
     try {
@@ -556,26 +550,8 @@ router.get('/statistics/:username', async (req,res) => {
     }
 
 });
-//Get all users
-router.get('/', async (req,res) => {
 
-    try {
 
-        const allUsers = await User.findAll();
-
-        // Converting each user to a JSON object
-        const usersJSON = allUsers.map(user => user.toJSON());
-
-        // Returned object in response, it contains a list of JSON objects (each user)
-        const allUsersJSON = {
-            users: usersJSON
-        };
-
-        res.json(allUsersJSON);
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-});
 // Route for getting the statistics of a user
 router.get('/ranking', async (req, res) => {
     try {

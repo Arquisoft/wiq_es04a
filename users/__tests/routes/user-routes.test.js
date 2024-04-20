@@ -466,7 +466,7 @@ describe('User Routes', () => {
 
         // Making POST request to join the group
         const res = await request(app)
-            .post(`/user/group/${groupName}/join`)
+            .post(`/user/group/${groupName}`)
             .send({ username })
             .expect(200); // Expecting a successful response with status code 200
 
@@ -481,7 +481,7 @@ describe('User Routes', () => {
 
         // Making POST request to join the group
         const res = await request(app)
-            .post(`/user/group/${groupName}/join`)
+            .post(`/user/group/${groupName}`)
             .expect(500); // Expecting an internal server error response with status code 500
 
         // Verifying if the correct error message is returned
@@ -495,7 +495,7 @@ describe('User Routes', () => {
 
         // Making POST request to join the group
         const res = await request(app)
-            .post(`/user/group/${groupName}/join`)
+            .post(`/user/group/${groupName}`)
             .send({ username })
             .expect(500); // Expecting an internal server error response with status code 500
 
@@ -543,7 +543,7 @@ describe('User Routes', () => {
     
             // Adding the user to the group
             await request(app)
-                .post(`/user/group/${groupName}/join`)
+                .post(`/user/group/${groupName}`)
                 .send({ username: newUser.username })
                 .expect(200);
         }
@@ -564,7 +564,7 @@ describe('User Routes', () => {
     
         // Trying to add the user to the group, which should fail because the group is full
         const res = await request(app)
-            .post(`/user/group/${groupName}/join`)
+            .post(`/user/group/${groupName}`)
             .send({ username: newUser.username })
             .expect(400); // Expecting a 'Bad Request' response with status code 400
     
@@ -781,7 +781,7 @@ describe('User Routes', () => {
         await User.create(newUser);
 
         const response = await request(app)
-            .get(`/user/get/${newUser.username}`);
+            .get(`/user/${newUser.username}`);
 
         expect(response.status).toBe(200);
         expect(response.body.username).toBe(newUser.username);
