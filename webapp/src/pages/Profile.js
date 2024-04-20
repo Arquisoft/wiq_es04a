@@ -3,10 +3,12 @@ import axios from 'axios';
 import { Button, Container, Typography, Divider, Snackbar } from '@mui/material';
 import { SessionContext } from '../SessionContext';
 import { getHugo, getAlberto, getWiffo, getAndina, getSamu, getBarrero, getMaite } from '../data/icons';
+import { useTranslation } from 'react-i18next';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const Profile = () => {
+    const { t } = useTranslation();
 
     const [userInfo, setUserInfo] = useState(null);
     const [error, setError] = useState('');
@@ -63,16 +65,16 @@ const Profile = () => {
             <Typography variant="h3" sx={{ textAlign:'center', fontWeight:'bold' }}>{userInfo.username}</Typography>
             <Container sx={{ display:'flex' }}>
                 <Container sx={{ display:'flex', flexDirection:'column', justifyContent:'center' }}>
-                    <Typography variant="h4"><b>Name:</b> {userInfo.name}</Typography>
-                    <Typography variant="h4"><b>Surname:</b> {userInfo.surname}</Typography>
-                    <Typography variant="h4"><b>Created in:</b> {new Date(userInfo.createdAt).toLocaleDateString()}</Typography>
+                    <Typography variant="h4"><b>{t("Profile.name")}</b> {userInfo.name}</Typography>
+                    <Typography variant="h4"><b>{t("Profile.surname")}</b> {userInfo.surname}</Typography>
+                    <Typography variant="h4"><b>{t("Profile.created_in")}</b> {new Date(userInfo.createdAt).toLocaleDateString()}</Typography>
                 </Container>    
                 <img src={userInfo.imageUrl} alt="Profile pic" style={{ flex: 1, maxWidth:'20%', borderRadius:'50%' }} />
             </Container>
 
             <Divider style={{ margin:'1em 0'}}/>
 
-            <Typography variant="h5" sx={{ textAlign:'center', fontWeight:'bold'  }}>Choose your avatar</Typography>
+            <Typography variant="h5" sx={{ textAlign:'center', fontWeight:'bold'  }}>{t("Profile.choose_your_avatar")}</Typography>
             <Container sx={{ display: 'flex', justifyContent: 'space-around' }}>
                 <Button sx={{ display:'flex', flexDirection:'column', borderBottom: selectedAvatar === getHugo() ? '2px solid #006699' : 'none' }} onClick={() => handleAvatarSelect(getHugo())} data-testid="hugo-button">
                     <img src={getHugo()} style={{ flex: 1, maxWidth: '50%', borderRadius:'50%', margin:'1em', margin:'1em' }} alt="Icon1" />
@@ -104,7 +106,7 @@ const Profile = () => {
                 </Button>   
             </Container>
             <Container sx={{ display:'flex', justifyContent:'center', marginTop:'2em' }}>
-                <Button variant="contained" onClick={handleAvatarChange}>Confirm change</Button>
+                    <Button variant="contained" onClick={handleAvatarChange}>{t("Profile.confirm_changes")}</Button>
             </Container>
             <Snackbar open={openSnackbar} autoHideDuration={4500} onClose={handleCloseSnackbar} message={snackbarMessage} />
             {error && (<Snackbar open={!!error} autoHideDuration={4500} onClose={() => setError('')} message={`Error: ${error}`} />)}

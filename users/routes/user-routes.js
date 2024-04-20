@@ -85,6 +85,67 @@ router.post('/profile/:username', async (req, res) => {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+// Route for getting the statistics of a user
+router.get('/ranking', async (req, res) => {
+    try {
+        const usersStatistics = await Statistics.findAll({
+            attributes: [
+                [
+                    sequelize.literal(`
+                        username
+                    `),
+                    'id'
+                ],
+                [
+                    sequelize.literal(`
+                        the_callenge_earned_money +
+                        wise_men_stack_earned_money +
+                        warm_question_earned_money +
+                        discovering_cities_earned_money +
+                        online_earned_money
+                    `),
+                    'totalMoney'
+                ],
+                [
+                    sequelize.literal(`
+                        the_callenge_correctly_answered_questions +
+                        wise_men_stack_correctly_answered_questions +
+                        warm_question_correctly_answered_questions +
+                        discovering_cities_correctly_answered_questions +
+                        online_correctly_answered_questions
+                    `),
+                    'totalCorrectAnswers'
+                ],
+                [
+                    sequelize.literal(`
+                        the_callenge_incorrectly_answered_questions +
+                        wise_men_stack_incorrectly_answered_questions +
+                        warm_question_incorrectly_answered_questions +
+                        discovering_cities_incorrectly_answered_questions +
+                        online_incorrectly_answered_questions
+                    `),
+                    'totalIncorrectAnswers'
+                ],
+                [
+                    sequelize.literal(`
+                        the_callenge_games_played +
+                        wise_men_stack_games_played +
+                        warm_question_games_played +
+                        discovering_cities_games_played +
+                        online_games_played
+                    `),
+                    'totalGamesPlayed'
+                ]
+            ],
+            order: [['totalMoney', 'DESC']]
+        });
+        res.json({ rank: usersStatistics });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
+
 //Get user by username
 router.get('/:username', async (req,res) => {
     try {
@@ -547,64 +608,6 @@ router.get('/statistics/:username', async (req,res) => {
     }
 
 });
-// Route for getting the statistics of a user
-router.get('/ranking', async (req, res) => {
-    try {
-        const usersStatistics = await Statistics.findAll({
-            attributes: [
-                [
-                    sequelize.literal(`
-                        username
-                    `),
-                    'id'
-                ],
-                [
-                    sequelize.literal(`
-                        the_callenge_earned_money +
-                        wise_men_stack_earned_money +
-                        warm_question_earned_money +
-                        discovering_cities_earned_money +
-                        online_earned_money
-                    `),
-                    'totalMoney'
-                ],
-                [
-                    sequelize.literal(`
-                        the_callenge_correctly_answered_questions +
-                        wise_men_stack_correctly_answered_questions +
-                        warm_question_correctly_answered_questions +
-                        discovering_cities_correctly_answered_questions +
-                        online_correctly_answered_questions
-                    `),
-                    'totalCorrectAnswers'
-                ],
-                [
-                    sequelize.literal(`
-                        the_callenge_incorrectly_answered_questions +
-                        wise_men_stack_incorrectly_answered_questions +
-                        warm_question_incorrectly_answered_questions +
-                        discovering_cities_incorrectly_answered_questions +
-                        online_incorrectly_answered_questions
-                    `),
-                    'totalIncorrectAnswers'
-                ],
-                [
-                    sequelize.literal(`
-                        the_callenge_games_played +
-                        wise_men_stack_games_played +
-                        warm_question_games_played +
-                        discovering_cities_games_played +
-                        online_games_played
-                    `),
-                    'totalGamesPlayed'
-                ]
-            ],
-            order: [['totalMoney', 'DESC']]
-        });
-        res.json({ rank: usersStatistics });
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-});
+
 
 module.exports = router;

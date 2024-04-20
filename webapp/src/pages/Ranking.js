@@ -15,7 +15,7 @@ const Ranking = () => {
 
     const fetchUserRanking = async () => {
         try {
-            const response = axios.get(`${apiEndpoint}/user/ranking`);
+            const response = await axios.get(`${apiEndpoint}/user/ranking`);
             setRows(response.data.rank);
         } catch (error) {
             console.error(error);
@@ -24,7 +24,7 @@ const Ranking = () => {
 
     const fetchGroupsRanking = async () => {
         try {
-            const response = axios.get(`${apiEndpoint}/user/group/ranking`);
+            const response = await axios.get(`${apiEndpoint}/user/group/ranking`);
             setRows(response.data.rank);
         } catch (error) {
             console.error(error);
@@ -60,11 +60,11 @@ const Ranking = () => {
 
             <Container style={{ display: 'flex', flexDirection: 'column' }}>
                 <Typography variant="h3" align="center" fontWeight="bold">
-                    { t("Ranking.title") }
+                    Ranking
                 </Typography>
                 <Container style={{ display: 'flex', justifyContent: 'center', marginTop: '0.5em', gap:'2em' }}>
-                    <Button onClick={() => setRankingType('user')} variant="contained" sx={{ backgroundColor: rankingType === 'user' ? 'white' : theme.palette.primary.main, color: rankingType === 'user' ? theme.palette.primary.main : 'white', borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>USERS</Button>
-                    <Button onClick={() => setRankingType('group')} variant="contained" sx={{ backgroundColor: rankingType === 'group' ? 'white' : theme.palette.primary.main, color: rankingType === 'group' ? theme.palette.primary.main : 'white', borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>GROUPS</Button>
+                    <Button onClick={() => setRankingType('user')} variant="contained" sx={{ backgroundColor: rankingType === 'user' ? 'white' : theme.palette.primary.main, color: rankingType === 'user' ? theme.palette.primary.main : 'white', borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>{t("Ranking.users")}</Button>
+                    <Button onClick={() => setRankingType('group')} variant="contained" sx={{ backgroundColor: rankingType === 'group' ? 'white' : theme.palette.primary.main, color: rankingType === 'group' ? theme.palette.primary.main : 'white', borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>{t("Ranking.groups")}</Button>
                 </Container>
             </Container>
 

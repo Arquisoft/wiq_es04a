@@ -139,26 +139,26 @@ describe('Routes Tests', () => {
     expect(response.body.error).toBe('Error al obtener la sesión del usuario');
   });
 
-  it('sshould respond with status 200 for /user/get/${username} endpoint', async () => {
+  it('sshould respond with status 200 for /user/${username} endpoint', async () => {
     const mockUserData = { username: 'testuser', email: 'testuser@example.com' };
     const username = 'testuser';
     axios.get.mockResolvedValueOnce({ data: mockUserData });
 
-    const response = await request(app).get(`/user/get/${username}`);
+    const response = await request(app).get(`/user/${username}`);
 
-    expect(axios.get).toHaveBeenCalledWith(expect.stringContaining(`/user/get/${username}`), {});
+    expect(axios.get).toHaveBeenCalledWith(expect.stringContaining(`/user/${username}`), {});
     expect(response.status).toBe(200);
     expect(response.body).toEqual(mockUserData);
   });
 
-  it('should handle /user/get/${username} errors and respond with appropriate status and message', async () => {
+  it('should handle /user/${username} errors and respond with appropriate status and message', async () => {
     const errorMessage = 'Error fetching user data';
     const username = 'testuser';
     axios.get.mockRejectedValueOnce(new Error(errorMessage));
 
-    const response = await request(app).get(`/user/get/${username}`);
+    const response = await request(app).get(`/user/${username}`);
 
-    expect(axios.get).toHaveBeenCalledWith(`http://localhost:8001/user/get/${username}`, {});
+    expect(axios.get).toHaveBeenCalledWith(`http://localhost:8001/user/${username}`, {});
     expect(response.status).toBe(500);
     expect(response.body.error).toBe('Error fetching user data');
   });

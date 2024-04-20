@@ -33,6 +33,15 @@ app.get('/health', (_req, res) => {
   res.json({ status: 'OK' });
 });
 
+app.get('/user/ranking', async (req, res) => {
+  try {
+    const response = await axios.get(`${userServiceUrl}/user/ranking`);
+    res.json(response.data); // Send just the response data
+  } catch (error) {
+    console.error("Error al obtener la sesión del usuario:", error);
+    res.status(500).json({ error: "Error al obtener la sesión del usuario" });
+  }
+});
 
 app.get('/user/profile', async (req, res) => {
   try {
@@ -80,8 +89,28 @@ app.post('/user/questionsRecord', async (req, res) => {
     const response = await axios.post(userServiceUrl+`/user/questionsRecord`, req.body);
     res.json(response.data); 
   } catch (error) {
-    console.error("Error al actualizar el historial de preguntas:", error);
     res.status(500).json({ error: "Error al actualizar el historial de preguntas" });
+  }
+});
+
+app.get('/user/group', async (req, res) => {
+  try {
+    const username = req.query.username;
+    const userResponse = await axios.get(userServiceUrl + '/user/group',{params: {username: username }});
+    res.json(userResponse.data);
+  } catch (error) {
+    handleErrors(res, error);
+  }
+});
+
+app.get('/user/:username', async (req, res) => {
+  try {
+    const username = req.params.username;
+    // Forward the user statics edit request to the user service
+    const userResponse = await axios.get(userServiceUrl+'/user/'+username, req.body);
+    res.json(userResponse.data);
+  } catch (error) {
+    handleErrors(res, error);
   }
 });
 
@@ -90,29 +119,7 @@ app.get('/user', async (req, res) => {
     const response = await axios.get(`${userServiceUrl}/user`);
     res.json(response.data); // Send just the response data
   } catch (error) {
-    console.error("Error al obtener la sesión del usuario:", error);
     res.status(500).json({ error: "Error al obtener la sesión del usuario" });
-  }
-});
-
-app.get('/user/ranking', async (req, res) => {
-  try {
-    const response = await axios.get(`${userServiceUrl}/user/ranking`);
-    res.json(response.data); // Send just the response data
-  } catch (error) {
-    console.error("Error al obtener la sesión del usuario:", error);
-    res.status(500).json({ error: "Error al obtener la sesión del usuario" });
-  }
-});
-
-app.get('/user/get/:username', async (req, res) => {
-  try {
-    const username = req.params.username;
-    // Forward the user statics edit request to the user service
-    const userResponse = await axios.get(userServiceUrl+'/user/get/'+username, req.body);
-    res.json(userResponse.data);
-  } catch (error) {
-    handleErrors(res, error);
   }
 });
 
@@ -162,16 +169,6 @@ app.get('/user/statistics/:username', async (req, res) => {
     const loggedUser = req.query.loggedUser;
     // Forward the user statics edit request to the user service
     const userResponse = await axios.get(`${userServiceUrl}/user/statistics/${username}`,{params: {loggedUser: loggedUser }});
-    res.json(userResponse.data);
-  } catch (error) {
-    handleErrors(res, error);
-  }
-});
-
-app.get('/user/group', async (req, res) => {
-  try {
-    const username = req.query.username;
-    const userResponse = await axios.get(userServiceUrl + '/user/group',{params: {username: username }});
     res.json(userResponse.data);
   } catch (error) {
     handleErrors(res, error);
