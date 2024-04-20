@@ -12,6 +12,8 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { useTranslation } from 'react-i18next';
+import i18n from '../localize/i18n';
+
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -48,6 +50,7 @@ const Game = () => {
     const [questionCountdownKey, setQuestionCountdownKey] = React.useState(15); //key to update question timer
     const [questionCountdownRunning, setQuestionCountdownRunning] = React.useState(false); //property to start and stop question timer
     const [userResponses, setUserResponses] = React.useState([]);
+    const [language, setCurrentLanguage] = React.useState(i18n.language);
 
     const [questionHistorial, setQuestionHistorial] = React.useState(Array(numRounds).fill(null));
 
@@ -97,7 +100,8 @@ const Game = () => {
     const startNewRound = async () => {
         setAnswered(false);
         // It works deploying using git repo from machine with: axios.get(`http://20.80.235.188:8000/questions`)
-        axios.get(`${apiEndpoint}/questions/${category}`) 
+        setCurrentLanguage(i18n.language);
+        axios.get(`${apiEndpoint}/questions/${language}/${category}`) 
         .then(quest => {
             // every new round it gets a new question from db
             setQuestionData(quest.data[0]);    
@@ -209,6 +213,7 @@ const Game = () => {
         setTimeout(async() => {
             setRound(round + 1);
             setButtonStates([]);
+            setCurrentLanguage(i18n.language);
         }, 4000);
     };
 

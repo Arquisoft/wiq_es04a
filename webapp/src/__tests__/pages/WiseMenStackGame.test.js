@@ -14,7 +14,7 @@ describe('Wise Men Stack Game component', () => {
   beforeEach(() => {
     mockAxios.reset();
     // Mock the axios.post request to simulate a successful response
-    mockAxios.onGet('http://localhost:8000/questions/Geography').reply(200, 
+    mockAxios.onGet('http://localhost:8000/questions/en/Geography').reply(200, 
         [{
         question: 'Which is the capital of Spain?',
         options: ['Madrid', 'Barcelona', 'Paris', 'London'],

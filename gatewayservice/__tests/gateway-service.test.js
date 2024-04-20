@@ -191,7 +191,7 @@ describe('Routes Tests', () => {
     const mockQuestionsData = [{ id: 1, question: 'Sample question 1' }, { id: 2, question: 'Sample question 2' }];
     axios.get.mockResolvedValueOnce({ data: mockQuestionsData });
   
-    const response = await request(app).get('/questions');
+    const response = await request(app).get('/questions/en');
   
     expect(axios.get).toHaveBeenCalledWith(expect.stringContaining('/questions'));
     expect(response.status).toBe(200);
@@ -202,7 +202,7 @@ describe('Routes Tests', () => {
     const mockQuestionsData = [{ id: 1, question: 'Sample question 1' }, { id: 2, question: 'Sample question 2' }];
     axios.get.mockResolvedValueOnce({ data: mockQuestionsData });
   
-    const response = await request(app).get('/questions/Geography');
+    const response = await request(app).get('/questions/en/Geography');
   
     expect(axios.get).toHaveBeenCalledWith(expect.stringContaining('/questions'));
     expect(response.status).toBe(200);
