@@ -69,6 +69,22 @@ router.get('/profile', async (req, res) => {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+router.post('/profile/:username', async (req, res) => {
+    try {
+        const username = req.params.username;
+        const { imageUrl } = req.body;
+
+        //Update the user's fields with the provided values
+        const [affectedRows] = await User.update({ imageUrl }, { where: { username } });
+        if (affectedRows === 0) {
+            return res.status(404).json({ error: 'No user could be updated' });
+        }
+
+        res.status(200).json({ affectedRows });  
+    } catch (error) {
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 //Get user by username
 router.get('/:username', async (req,res) => {
     try {
@@ -110,22 +126,7 @@ router.get('/', async (req,res) => {
     }
 });
 
-router.patch('/profile/:username', async (req, res) => {
-    try {
-        const username = req.params.username;
-        const { imageUrl } = req.body;
 
-        //Update the user's fields with the provided values
-        const [affectedRows] = await User.update({ imageUrl }, { where: { username } });
-        if (affectedRows === 0) {
-            return res.status(404).json({ error: 'No user could be updated' });
-        }
-
-        res.status(200).json({ affectedRows });  
-    } catch (error) {
-      return res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
 
 
 // Route for add a question to questions record
@@ -392,6 +393,7 @@ router.post('/group/:name', async (req, res) => {
        return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+//leave a group
 router.delete('/group/:name', async (req, res) => {
     try {
         const groupName = req.params.name;
@@ -446,7 +448,7 @@ router.delete('/group/:name', async (req, res) => {
 
 
 // Route for edit the statics of a user
-router.patch('/statistics', async (req, res) => {
+router.post('/statistics', async (req, res) => {
     try {
 
         const { username, the_callenge_earned_money, the_callenge_correctly_answered_questions, the_callenge_incorrectly_answered_questions, 
@@ -499,7 +501,7 @@ router.patch('/statistics', async (req, res) => {
 
         // Save the changes to the database
         await statisticsUserToUpdate.save();
-
+        res.status(200);
         res.json({ message: 'User statics updated successfully' });
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error', details: error.message });

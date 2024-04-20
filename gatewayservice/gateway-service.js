@@ -43,10 +43,10 @@ app.get('/user/profile', async (req, res) => {
     handleErrors(res, error);
 }});
 
-app.patch('/user/profile/:username', async (req, res) => {
+app.post('/user/profile/:username', async (req, res) => {
   try {
     const username = req.params.username;
-    const response = await axios.patch(`${userServiceUrl}/user/profile/`+username, req.body);
+    const response = await axios.post(`${userServiceUrl}/user/profile/`+username, req.body);
     res.json(response.data);
   } catch (error) {
     handleErrors(res, error);
@@ -146,10 +146,10 @@ app.get('/questions/:category', async (req, res) => {
 });
 
 
-app.patch('/statistics', async (req, res) => {
+app.post('/statistics', async (req, res) => {
   try {
     // Forward the user statics edit request to the user service
-    const userResponse = await axios.patch(`${userServiceUrl}/user/statistics`, req.body);
+    const userResponse = await axios.post(`${userServiceUrl}/user/statistics`, req.body);
     res.json(userResponse.data);
   } catch (error) {
     handleErrors(res, error);

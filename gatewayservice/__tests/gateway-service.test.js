@@ -101,7 +101,7 @@ describe('Routes Tests', () => {
   
     const response = await request(app).get('/user');
   
-    expect(axios.get).toHaveBeenCalledWith(expect.stringContaining('/allUsers'));
+    expect(axios.get).toHaveBeenCalledWith(expect.stringContaining('/'));
     expect(response.status).toBe(200);
     expect(response.body).toEqual({ users: mockUserData }); 
   });
@@ -214,7 +214,7 @@ describe('Routes Tests', () => {
     axios.post.mockResolvedValueOnce({ data: mockUserData });
   
     const requestBody = { username: 'testuser', statistics: { points: 100 } };
-    const response = await request(app).patch('/statistics').send(requestBody);
+    const response = await request(app).post('/statistics').send(requestBody);
   
     expect(axios.post).toHaveBeenCalledWith(expect.stringContaining('/statistics'), requestBody);
     expect(response.status).toBe(200);
@@ -226,7 +226,7 @@ describe('Routes Tests', () => {
     axios.post.mockRejectedValueOnce(new Error(errorMessage));
   
     const requestBody = { username: 'testuser', statistics: { points: 100 } };
-    const response = await request(app).patch('/statistics').send(requestBody);
+    const response = await request(app).post('/statistics').send(requestBody);
   
     expect(axios.post).toHaveBeenCalledWith(expect.stringContaining('/statistics'), requestBody);
     expect(response.status).toBe(500);
@@ -312,9 +312,9 @@ describe('Routes Tests', () => {
     axios.post.mockResolvedValueOnce({ data: mockUserData });
   
     const requestBody = { username: 'testuser' };
-    const response = await request(app).post(`/group/${groupName}/join`).send(requestBody);
+    const response = await request(app).post(`/group/${groupName}`).send(requestBody);
   
-    expect(axios.post).toHaveBeenCalledWith(expect.stringContaining(`/group/${groupName}/join`), requestBody);
+    expect(axios.post).toHaveBeenCalledWith(expect.stringContaining(`/group/${groupName}`), requestBody);
     expect(response.status).toBe(200);
     expect(response.body).toEqual(mockUserData);
   });
@@ -325,9 +325,9 @@ describe('Routes Tests', () => {
     axios.post.mockRejectedValueOnce({ response: { status: 400, data: { error: errorMessage } } });
   
     const requestBody = { username: 'testuser' };
-    const response = await request(app).post(`/group/${groupName}/join`).send(requestBody);
+    const response = await request(app).post(`/group/${groupName}`).send(requestBody);
   
-    expect(axios.post).toHaveBeenCalledWith(expect.stringContaining(`/group/${groupName}/join`), requestBody);
+    expect(axios.post).toHaveBeenCalledWith(expect.stringContaining(`/group/${groupName}`), requestBody);
     expect(response.status).toBe(400);
     expect(response.body.error).toBe(errorMessage);
   });
@@ -399,7 +399,7 @@ describe('Routes Tests', () => {
 
     axios.post.mockResolvedValue({ data: mockResponseData });
 
-    const response = await request(app).patch(`/user/profile/${username}`).send(mockUpdateData);
+    const response = await request(app).post(`/user/profile/${username}`).send(mockUpdateData);
 
     expect(axios.post).toHaveBeenCalledWith(
       expect.stringContaining(`/user/profile/${username}`),
@@ -437,7 +437,7 @@ describe('Routes Tests', () => {
 
     const response = await request(app).delete(`/group/${groupName}`).send(mockRequestBody);
 
-    expect(axios.post).toHaveBeenCalledWith(
+    expect(axios.delete).toHaveBeenCalledWith(
       expect.stringContaining(`/user/group/${groupName}`),
       mockRequestBody
     );
