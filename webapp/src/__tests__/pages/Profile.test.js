@@ -75,7 +75,7 @@ describe('Profile component', () => {
     });
 
     fireEvent.click(screen.getByTestId('alberto-button'));
-    fireEvent.click(screen.getByRole('button', { name: 'Confirm change' }));
+    fireEvent.click(screen.getByTestId('confirm-button'));
 
     await waitFor(() => {
       expect(screen.getByText('Avatar changed successfully')).toBeInTheDocument();
@@ -95,7 +95,7 @@ describe('Profile component', () => {
           <Profile />
         </Router>
       </SessionContext.Provider>
-    );
+    ); 
 
     await waitFor(() => {
         expect(screen.getByText('Test')).toBeInTheDocument();
@@ -109,7 +109,7 @@ describe('Profile component', () => {
     fireEvent.click(screen.getByTestId('samu-button'));
     fireEvent.click(screen.getByTestId('barrero-button'));
     fireEvent.click(screen.getByTestId('maite-button'));
-    fireEvent.click(screen.getByRole('button', { name: 'Confirm change' }));
+    fireEvent.click(screen.getByTestId('confirm-button'));
 
     await waitFor(() => {
       expect(screen.getByText('Avatar changed successfully')).toBeInTheDocument();
@@ -137,7 +137,7 @@ describe('Profile component', () => {
     });
 
     fireEvent.click(screen.getByText('ALBERT'));
-    fireEvent.click(screen.getByRole('button', { name: 'Confirm change' }));
+    fireEvent.click(screen.getByTestId('confirm-button'));
 
     await waitFor(() => {
       expect(screen.getByText('Error updating user information')).toBeInTheDocument();

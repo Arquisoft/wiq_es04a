@@ -139,7 +139,7 @@ describe('Routes Tests', () => {
     expect(response.body.error).toBe('Error al obtener la sesión del usuario');
   });
 
-  it('sshould respond with status 200 for /user/${username} endpoint', async () => {
+  it('should respond with status 200 for /user/${username} endpoint', async () => {
     const mockUserData = { username: 'testuser', email: 'testuser@example.com' };
     const username = 'testuser';
     axios.get.mockResolvedValueOnce({ data: mockUserData });

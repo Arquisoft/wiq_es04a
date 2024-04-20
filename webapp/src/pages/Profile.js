@@ -106,7 +106,7 @@ const Profile = () => {
                 </Button>   
             </Container>
             <Container sx={{ display:'flex', justifyContent:'center', marginTop:'2em' }}>
-                    <Button variant="contained" onClick={handleAvatarChange}>{t("Profile.confirm_changes")}</Button>
+                    <Button variant="contained" onClick={handleAvatarChange} data-testid="confirm-button">{t("Profile.confirm_changes")}</Button>
             </Container>
             <Snackbar open={openSnackbar} autoHideDuration={4500} onClose={handleCloseSnackbar} message={snackbarMessage} />
             {error && (<Snackbar open={!!error} autoHideDuration={4500} onClose={() => setError('')} message={`Error: ${error}`} />)}
