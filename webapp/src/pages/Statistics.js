@@ -28,7 +28,7 @@ const Statistics = () => {
     useEffect(() => {
         const fetchUserStatics = async () => {
             try {
-                const response = await axios.get(`${apiEndpoint}/user/statistics/${user}`, { params: { loggedUser: username } });
+                const response = await axios.get(`${apiEndpoint}/statistics/${user}`, { params: { loggedUser: username } });
                 setUserStatics(response.data);
             } catch (error) {
                 setError(error.response.data.error);

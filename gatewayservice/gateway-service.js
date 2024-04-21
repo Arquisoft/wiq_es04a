@@ -33,7 +33,8 @@ app.get('/health', (_req, res) => {
 
 app.get('/ranking', async (req, res) => {
   try {
-    const response = await axios.get(`${userServiceUrl}/user/ranking`);
+    const rankingUrL = new URL(`/user/ranking/${username}`, userServiceUrl)
+    const response = await axios.get(rankingUrL);
     res.json(response.data); // Send just the response data
   } catch (error) {
     console.error("Error al obtener la sesión del usuario:", error);
@@ -44,7 +45,7 @@ app.get('/ranking', async (req, res) => {
 app.get('/profile', async (req, res) => {
   try {
     const username = req.query.username;
-    const profileUrl = new URL(`/user/profile?username=${encodeURIComponent(username)}`, userServiceUrl);
+    const profileUrl = new URL(`${userServiceUrl}/user/profile`, {params: {username: username }});
     const response = await axios.get(profileUrl.href);
     res.json(response.data.user);
   } catch (error) {
@@ -75,7 +76,6 @@ app.post('/login', async (req, res) => {
 
 app.get('/questionsRecord/:username/:gameMode', async (req, res) => {
   try {
-    console.log(1)
     const username = req.params.username;
     const gameMode = req.params.gameMode;
     // Forward the user statics edit request to the user service
@@ -234,7 +234,7 @@ app.put('/group/:name', async (req, res) => {
   }
 });
 
-app.post('/group/:name/exit', async (req, res) => {
+app.put('/group/:name/exit', async (req, res) => {
   try {
     const { name } = req.params;
     const groupExitUrl = new URL(`/user/group/${name}/exit`, userServiceUrl);

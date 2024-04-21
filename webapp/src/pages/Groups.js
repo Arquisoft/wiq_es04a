@@ -33,7 +33,7 @@ const Groups = () => {
 
     const fetchData = useCallback(async () => {
       try {
-        const response = await axios.get(`${apiEndpoint}/group`, { params: { username: username } });
+        const response = await axios.get(`${apiEndpoint}/user/group`, { params: { username: username } });
         setGroups(response.data.groups);
       } catch (error) {
         setError('Unsuccesful data fetching');
@@ -47,7 +47,6 @@ const Groups = () => {
     // Function that creates a group and shows the posible errors
     const addGroup = async () => {
       try {
-        await axios.post(`${apiEndpoint}/group`, {
         await axios.post(`${apiEndpoint}/group`, {
           name:name,
           username:username
@@ -67,7 +66,7 @@ const Groups = () => {
     // Function that makes the user join a group and shows the possible errors when making this
     const addToGroup = async (name) => {
       try {
-        await axios.post(`${apiEndpoint}/group/`+name, { username });
+        await axios.put(`${apiEndpoint}/group/`+name, { username });
         setSnackbarMessage('Joined the group successfully');
         setOpenSnackbar(true);
         fetchData();
@@ -80,7 +79,7 @@ const Groups = () => {
     // Function that makes a member of a group leave it.
     const exitFromGroup = async (name) => {
       try {
-        await axios.post(`${apiEndpoint}/group/`+name+`/exit`, { username });
+        await axios.put(`${apiEndpoint}/group/`+name+`/exit`, { username });
         setSnackbarMessage('Left the group successfully');
         setOpenSnackbar(true);
         fetchData();

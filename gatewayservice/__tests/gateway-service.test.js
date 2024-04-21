@@ -434,7 +434,7 @@ describe('Routes Tests', () => {
 
     axios.post.mockResolvedValue({ data: mockResponseData });
 
-    const response = await request(app).post(`/group/${groupName}/exit`).send(mockRequestBody);
+    const response = await request(app).put(`/group/${groupName}/exit`).send(mockRequestBody);
 
     expect(axios.post).toHaveBeenCalledWith(
       expect.stringContaining(`/user/group/${groupName}/exit`),
