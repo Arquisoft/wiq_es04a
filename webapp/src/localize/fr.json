@@ -19,8 +19,8 @@
     },
     
     "Footer": {
-        "api_questions": "QUESTIONS API DOC",
-        "api_users": "USERS API DOC"
+        "api_questions": "DOCUMENTATION DE L'API DES QUESTIONS",
+        "api_users": "DOCUMENTATION DE L'API DES UTILISATEURS"
     },
 
     "Games": {
@@ -95,7 +95,7 @@
         "name": "Nom",
         "see_members": "Voir les Membres",
         "joined": "REJOINT",
-        "join": "REJOINDRE !",
+        "join": "REJOINDRE",
         "exit": "Sortir",
         "delete": "Supprimer",
         "filled": "REMPLI",
@@ -155,7 +155,11 @@
     },
     "Ranking": {
         "users": "Utilisateurs",
-        "groups": "Groupes"
+        "groups": "Groupes",
+        "total_money": "MONEY",
+        "correct_answers": "CORRECT ANSWERS",
+        "incorrect_answers": "INCORRECT ANSWERS",
+        "total_games": "GAMES PLAYED"
     }
   
 }

@@ -96,7 +96,7 @@
         "joined": "JOINED",
         "join": "JOIN IT!",
         "filled": "FILLED",
-        "exit": "LEAVE",
+        "exit": "EXIT IT!",
         "delete": "DELETE",
         "Details": {
             "creator": "Creator",
@@ -158,6 +158,10 @@
     "Ranking":{
 
         "users":"Users",
-        "groups": "Groups"
+        "groups": "Groups",
+        "total_money": "MONEY",
+        "correct_answers": "CORRECT ANSWERS",
+        "incorrect_answers": "INCORRECT ANSWERS",
+        "total_games": "GAMES PLAYED"
     }
 }

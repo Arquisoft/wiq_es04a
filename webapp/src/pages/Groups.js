@@ -130,9 +130,7 @@ const Groups = () => {
             <Container key={group.name+"_container"}>
               <ListItem key={group.name} sx={{ display:'flex', alignContent:'space-between', alignItems:'center' }}>
                 <ListItemText primary={group.name} />
-                <Button variant="contained" color="primary" sx={{ marginRight: '2em' }} onClick={() => seeMembers(group.name)}>
-                  { t("Groups.see_members") }
-                </Button>
+                
                 {group.isMember ? (
                   group.isCreator ? (
                     <Button variant="contained" onClick={() => exitFromGroup(group.name)} sx={{ backgroundColor: '#FFFFFF', color: theme.palette.error.main, borderColor: theme.palette.error.main, '&:hover': { backgroundColor: theme.palette.secondary.main } }}>
@@ -152,6 +150,9 @@ const Groups = () => {
                     { t("Groups.join") }
                   </Button>
                 )}
+                <Button variant="contained" color="primary" sx={{ marginLeft: '2em' }} onClick={() => seeMembers(group.name)}>
+                  { t("Groups.see_members") }
+                </Button>
                 <Snackbar open={openSnackbar} autoHideDuration={4500} onClose={handleCloseSnackbar} message={snackbarMessage} />
                 {error && (<Snackbar open={!!error} autoHideDuration={4500} onClose={() => setError('')} message={`Error: ${error}`} />)}
               </ListItem>

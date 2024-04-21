@@ -60,7 +60,7 @@ const Ranking = () => {
 
             <Container style={{ display: 'flex', flexDirection: 'column' }}>
                 <Typography variant="h3" align="center" fontWeight="bold">
-                    Ranking
+                    RANKING
                 </Typography>
                 <Container style={{ display: 'flex', justifyContent: 'center', marginTop: '0.5em', gap:'2em' }}>
                     <Button onClick={() => setRankingType('user')} variant="contained" sx={{ backgroundColor: rankingType === 'user' ? 'white' : theme.palette.primary.main, color: rankingType === 'user' ? theme.palette.primary.main : 'white', borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }} data-testid="users-button">

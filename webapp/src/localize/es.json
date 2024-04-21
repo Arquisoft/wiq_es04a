@@ -93,8 +93,8 @@
         "name": "Nombre",
         "see_members": "Ver Miembros",
         "joined": "UNIDO",
-        "join": "¡ÚNETE!",
-        "exit": "SALIR",
+        "join": "UNIRSE",
+        "exit": "ABANDONAR",
         "delete": "ELIMINAR",
         "filled": "LLENO",
         "Details": {
@@ -157,6 +157,11 @@
     "Ranking":{
 
         "users":"Usuarios",
-        "groups": "Grupos"
+        "groups": "Grupos",
+        "name":"NOMBRE",
+        "total_money": "DINERO",
+        "correct_answers": "RESPUESTAS CORRECTAS",
+        "incorrect_answers": "RESPUESTAS INCORRECTAS",
+        "total_games": "PARTIDAS JUGADAS"
     }
 }
