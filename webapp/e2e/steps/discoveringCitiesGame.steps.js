@@ -7,13 +7,22 @@ let page;
 let browser;
 
 async function loginUser(username, password) {
-  clickLink('//*[@id="root"]/div/header/div/a[2]');
+  clickLink('//button[text()="PLAY"]');
 
   await expect(page).toFill('input[name="username"]', username);
   await expect(page).toFill('input[name="password"]', password);
   await expect(page).toClick('button', { text: /Log in/i });
 }
 
+async function clickLink(linkXPath) {
+  const [link] = await page.$x(linkXPath);
+  if (link) {
+      await link.click();
+  } else {
+      throw new Error(`Cannot find link "${link}"`);
+  }
+  }
+  
 defineFeature(feature, test => {
 
   beforeAll(async () => {

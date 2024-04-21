@@ -15,6 +15,16 @@ async function loginUser(username, password) {
   await expect(page).toClick('button', { text: /Log in/i });
 }
 
+async function clickLink(linkXPath) {
+  const [link] = await page.$x(linkXPath);
+  if (link) {
+      await link.click();
+  } else {
+      throw new Error(`Cannot find link "${link}"`);
+  }
+  }
+
+  
 defineFeature(feature, test => {
 
   beforeAll(async () => {
