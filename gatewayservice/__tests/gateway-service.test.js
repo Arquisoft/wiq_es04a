@@ -367,15 +367,16 @@ describe('Routes Tests', () => {
         surname: 'User'
       }
     };
-  
+
     axios.get.mockResolvedValue({ data: mockUserData });
-  
-    const expectedUrl = expect.stringContaining('/user/profile');
-  
+
     const response = await request(app).get('/profile').query({ username });
-  
-    expect(axios.get).toHaveBeenCalledWith(expectedUrl);
-  
+
+    expect(axios.get).toHaveBeenCalledWith(
+      expect.stringContaining(`/user/profile`), 
+      { params: { username: username } }
+    );
+
     expect(response.status).toBe(200);
     expect(response.body).toEqual(mockUserData.user);
   });
