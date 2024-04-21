@@ -32,29 +32,32 @@ app.get('/health', (_req, res) => {
   res.json({ status: 'OK' });
 });
 
-app.get('/user/ranking', async (req, res) => {
+app.get('/ranking', async (req, res) => {
   try {
-    const response = await axios.get(`${userServiceUrl}/user/ranking`);
+    rankingURL = new URL('/user/ranking', userServiceUrl);
+    const response = await axios.get(rankingURL);
     res.json(response.data); // Send just the response data
   } catch (error) {
-    console.error("Error al obtener la sesión del usuario:", error);
-    res.status(500).json({ error: "Error al obtener la sesión del usuario" });
+    handleErrors(res, error);
   }
 });
 
-app.get('/user/profile', async (req, res) => {
+app.get('/profile', async (req, res) => {
   try {
     const username = req.query.username;
-    const response = await axios.get(`${userServiceUrl}/user/profile`, {params: {username: username }});
+    profileURL = new URL('user/profile', userServiceUrl);
+    const response = await axios.get(profileURL, {params: {username: username }});
     res.json(response.data.user);
   } catch (error) {
     handleErrors(res, error);
 }});
 
-app.post('/user/profile/:username', async (req, res) => {
+app.put('/profile/:username', async (req, res) => {
   try {
     const username = req.params.username;
-    const response = await axios.post(`${userServiceUrl}/user/profile/`+username, req.body);
+    const urlPath = `/user/profile/${encodeURIComponent(username)}`;
+    const userProfileUrl = new URL(urlPath, userServiceUrl);
+    const response = await axios.post(userProfileUrl, req.body);
     res.json(response.data);
   } catch (error) {
     handleErrors(res, error);
@@ -87,10 +90,11 @@ app.put('/questionsRecord', async (req, res) => {
     const response = await axios.post(`${userServiceUrl}/user/questionsRecord`, req.body);
     res.json(response.data);
   } catch (error) {
-    res.status(500).json({ error: "Error al actualizar el historial de preguntas" });
+    handleErrors(res, error);
   }
 });
 
+/*
 // Método para obtener la sesión del usuario
 app.get('/user/session', async (req, res) => {
   try {
@@ -100,7 +104,7 @@ app.get('/user/session', async (req, res) => {
     console.error("Error al obtener la sesión del usuario:", error);
     res.status(500).json({ error: "Error al obtener la sesión del usuario" });
   }
-});
+});*/
 
 app.get('/user/group', async (req, res) => {
   try {
@@ -110,24 +114,15 @@ app.get('/user/group', async (req, res) => {
   } catch (error) {
     handleErrors(res, error);
   }
-
-app.get('/user/allUsers', async (req, res) => {
-  try {
-    const response = await axios.get(`${userServiceUrl}/user/allUsers`);
-    res.json(response.data); // Enviar solo los datos de la respuesta
-  } catch (error) {
-    console.error("Error al obtener la sesión del usuario:", error);
-    res.status(500).json({ error: "Error al obtener la sesión del usuario" });
-  }
 });
 
-app.get('/user/ranking', async (req, res) => {
+app.get('/user', async (req, res) => {
   try {
-    const response = await axios.get(`${userServiceUrl}/user/ranking`);
+    const usersUrl = new URL('/user/allUsers', userServiceUrl);
+    const response = await axios.get(usersUrl);
     res.json(response.data); // Enviar solo los datos de la respuesta
   } catch (error) {
-    console.error("Error al obtener la sesión del usuario:", error);
-    res.status(500).json({ error: "Error al obtener la sesión del usuario" });
+    handleErrors(res, error);
   }
 });
 
