@@ -425,7 +425,7 @@ router.get('/group/:name', async (req, res) => {
     }
 });
 // Adding a new relationship in the database between a group and a user when this one joins it
-router.post('/group/:name', async (req, res) => {
+router.post('/group/:name/join', async (req, res) => {
     try {
         const groupName = req.params.name;
         const { username } = req.body;
@@ -504,7 +504,7 @@ router.post('/group/:name/exit', async (req, res) => {
     }
 });
 // Route for edit the statics of a user
-router.post('/statistics', async (req, res) => {
+router.post('/statistics/edit', async (req, res) => {
     try {
 
         const { username, the_callenge_earned_money, the_callenge_correctly_answered_questions, the_callenge_incorrectly_answered_questions, 
