@@ -88,7 +88,7 @@ app.get('/questionsRecord/:username/:gameMode', async (req, res) => {
   }
 });
 
-app.post('/questionsRecord', async (req, res) => {
+app.put('/questionsRecord', async (req, res) => {
   try {
     const questionsRecordUrl = new URL(`/user/questionsRecord`, userServiceUrl);
     const response = await axios.post(questionsRecordUrl.href, req.body);

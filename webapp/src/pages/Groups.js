@@ -112,7 +112,7 @@ const Groups = () => {
             <TextField name="name" value={name} label={ t("Groups.name") } fullWidth onChange={(e) => setName(e.target.value)} />
           </Grid>
           <Grid item xs={3}>
-            <Button variant="contained" color="primary" onClick={addGroup} sx={{ padding:'1.1em' }} fullWidth>
+            <Button variant="contained" color="primary" onClick={() => addGroup()} sx={{ padding:'1.1em' }} fullWidth>
               { t("Groups.create_button") }
             </Button>
           </Grid>

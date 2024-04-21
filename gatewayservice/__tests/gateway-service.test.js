@@ -39,7 +39,7 @@ describe('Routes Tests', () => {
     axios.post.mockResolvedValueOnce({ data: mockResponseData });
 
     const response = await request(app)
-      .post('/questionsRecord')
+      .put('/questionsRecord')
       .send(mockRequestData);
 
     expect(axios.post).toHaveBeenCalledWith(
@@ -56,7 +56,7 @@ describe('Routes Tests', () => {
     axios.post.mockRejectedValueOnce(new Error(errorMessage));
 
     const response = await request(app)
-      .post('/questionsRecord')
+      .put('/questionsRecord')
       .send(mockRequestData);
 
     expect(axios.post).toHaveBeenCalledWith(
