@@ -6,6 +6,14 @@ const feature = loadFeature('./features/wiseMenStackGame.feature');
 let page;
 let browser;
 
+async function loginUser(username, password) {
+  clickLink('//*[@id="root"]/div/header/div/a[2]');
+
+  await expect(page).toFill('input[name="username"]', username);
+  await expect(page).toFill('input[name="password"]', password);
+  await expect(page).toClick('button', { text: /Log in/i });
+}
+
 defineFeature(feature, test => {
 
   beforeAll(async () => {
@@ -39,7 +47,13 @@ defineFeature(feature, test => {
     });
     //Way of setting up the timeout
     setDefaultOptions({ timeout: 10000 })
-
+    await page
+    .goto("http://localhost:3000", {
+      waitUntil: "networkidle0",
+    })
+    .catch(() => {});
+    await loginUser("prueba14","123456789Ab=11");
+     
      
   });
 
