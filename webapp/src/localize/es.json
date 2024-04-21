@@ -94,9 +94,12 @@
         "see_members": "Ver Miembros",
         "joined": "UNIDO",
         "join": "¡ÚNETE!",
+        "exit": "SALIR",
+        "delete": "ELIMINAR",
         "filled": "LLENO",
         "Details": {
             "creator": "Creador",
+            "statistics": "Ver estadísticas",
             "date": "Creado en",
             "members": "Miembros"
         }

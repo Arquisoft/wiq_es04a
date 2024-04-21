@@ -96,8 +96,11 @@
         "joined": "JOINED",
         "join": "JOIN IT!",
         "filled": "FILLED",
+        "exit": "LEAVE",
+        "delete": "DELETE",
         "Details": {
             "creator": "Creator",
+            "statistics": "See statistics",
             "date": "Created in",
             "members": "Members"
         }

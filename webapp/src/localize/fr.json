@@ -96,9 +96,12 @@
         "see_members": "Voir les Membres",
         "joined": "REJOINT",
         "join": "REJOINDRE !",
+        "exit": "Sortir",
+        "delete": "Supprimer",
         "filled": "REMPLI",
         "Details": {
             "creator": "Créateur",
+            "statistics": "Statistiques",
             "date": "Créé en",
             "members": "Membres"
         }
