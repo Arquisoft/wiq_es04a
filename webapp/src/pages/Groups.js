@@ -14,6 +14,7 @@ const Groups = () => {
     const [groups, setGroups] = useState([]);
     const [error, setError] = useState('');
     const [openSnackbar, setOpenSnackbar] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
     const [page, setPage] = useState(1);
     const [rowsPerPage] = useState(5);
 
@@ -47,9 +48,11 @@ const Groups = () => {
     const addGroup = async () => {
       try {
         await axios.post(`${apiEndpoint}/group`, {
+        await axios.post(`${apiEndpoint}/group`, {
           name:name,
           username:username
         });
+        setSnackbarMessage('Group created successfully');
         setOpenSnackbar(true);
         fetchData();
       } catch (error) {
@@ -61,18 +64,28 @@ const Groups = () => {
       setOpenSnackbar(false);
     };
 
-    // Function that makes the user join a group and shows the possible erros when making this
+    // Function that makes the user join a group and shows the possible errors when making this
     const addToGroup = async (name) => {
       try {
-        await axios.post(`${apiEndpoint}/group/`+name+`/join`, { username });
+        await axios.post(`${apiEndpoint}/group/`+name, { username });
+        setSnackbarMessage('Joined the group successfully');
         setOpenSnackbar(true);
         fetchData();
       } catch (error) {
-        if (error.response && error.response.status === 400) {
-          setError('Group is already full');
-        } else {
-          setError(error.response.data.error);
-        }
+        setError(error.response.data.error);
+      }
+    };
+
+    
+    // Function that makes a member of a group leave it.
+    const exitFromGroup = async (name) => {
+      try {
+        await axios.post(`${apiEndpoint}/group/`+name+`/exit`, { username });
+        setSnackbarMessage('Left the group successfully');
+        setOpenSnackbar(true);
+        fetchData();
+      } catch (error) {
+        setError(error.response.data.error);
       }
     };
 
@@ -85,7 +98,7 @@ const Groups = () => {
 
     return (
     <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <Typography variant="h3" sx={{ width: '100%', textAlign: 'center' }}>
+      <Typography variant="h3" sx={{ width: '100%', textAlign: 'center', fontWeight: 'bold' }}>
         { t("Groups.title") }
       </Typography>
 
@@ -105,8 +118,6 @@ const Groups = () => {
             </Button>
           </Grid>
         </Grid>
-        <Snackbar open={openSnackbar} autoHideDuration={4500} onClose={handleCloseSnackbar} message="Group created successfully" />
-        {error && (<Snackbar open={!!error} autoHideDuration={4500} onClose={() => setError('')} message={`Error: ${error}`} />)}
       </Container> 
 
       {/* Container showing the paginated groups list and its items */}
@@ -124,11 +135,17 @@ const Groups = () => {
                   { t("Groups.see_members") }
                 </Button>
                 {group.isMember ? (
-                  <Button variant="contained" sx={{ backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main } }}>
-                    { t("Groups.joined") }
-                  </Button>
+                  group.isCreator ? (
+                    <Button variant="contained" onClick={() => exitFromGroup(group.name)} sx={{ backgroundColor: '#FFFFFF', color: theme.palette.error.main, borderColor: theme.palette.error.main, '&:hover': { backgroundColor: theme.palette.secondary.main } }}>
+                      DELETE
+                    </Button>
+                  ):(
+                    <Button variant="contained" onClick={() => exitFromGroup(group.name)} sx={{ backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main } }}>
+                      EXIT IT!
+                    </Button>
+                    )
                 ) : group.isFull ? (
-                  <Button variant="contained" sx={{ backgroundColor: theme.palette.error.main, color: theme.palette.error.main, borderColor: theme.palette.error.main, '&:hover': { backgroundColor: theme.palette.secondary.main } }}>
+                  <Button variant="contained" sx={{ backgroundColor: theme.palette.secondary.main, color:'#FFFFFF' , borderColor: theme.palette.error.main, '&:hover': { backgroundColor: theme.palette.secondary.main } }}>
                     { t("Groups.filled") }
                   </Button>
                 ) : (
@@ -136,7 +153,7 @@ const Groups = () => {
                     { t("Groups.join") }
                   </Button>
                 )}
-                <Snackbar open={openSnackbar} autoHideDuration={4500} onClose={handleCloseSnackbar} message="Joined the group successfully" />
+                <Snackbar open={openSnackbar} autoHideDuration={4500} onClose={handleCloseSnackbar} message={snackbarMessage} />
                 {error && (<Snackbar open={!!error} autoHideDuration={4500} onClose={() => setError('')} message={`Error: ${error}`} />)}
               </ListItem>
               <Divider/>
@@ -154,8 +171,6 @@ const Groups = () => {
       </Container>
     </Container>
     );
-    
-
 }
 
 export default Groups;

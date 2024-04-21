@@ -86,10 +86,6 @@
         "login_link": "Already have an account? Login here."
     },
 
-    "Ranking": {
-        "title": "RANKING"
-    },
-
     "Groups": {
         "title": "GROUPS",
         "create": "Create",
@@ -145,5 +141,20 @@
     "NotFound": {
         "title": "Page not found",
         "button_msg": "Return to home page"
+    },
+
+    "Profile": {
+
+        "name":"Name:",
+        "surname": "Surname:",
+        "created_in":"Created in:",
+        "choose_your_avatar":"Choose your avatar:",
+        "confirm_changes":"Confirm change"
+        
+    },
+    "Ranking":{
+
+        "users":"Users",
+        "groups": "Groups"
     }
 }

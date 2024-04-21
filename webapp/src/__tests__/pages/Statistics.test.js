@@ -9,10 +9,16 @@ import MockAdapter from 'axios-mock-adapter';
 import '../../localize/i18n';
 
 const mockAxios = new MockAdapter(axios);
-
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useParams: () => ({
+    user: 'testuser'
+  })
+}));
+ 
 describe('Statistics component', () => {
   beforeAll(async () => {
-    mockAxios.onGet('http://localhost:8000/statistics/testuser').reply(200, {
+    mockAxios.onGet('http://localhost:8000/user/statistics/testuser',{ params: { loggedUser: "testuser" } }).reply(200, {
       wise_men_stack_earned_money: 50,
       wise_men_stack_correctly_answered_questions: 8,
       wise_men_stack_incorrectly_answered_questions: 12,
