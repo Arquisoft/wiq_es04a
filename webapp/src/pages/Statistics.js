@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { Container, Typography, Box, Table, TableBody, TableCell, TableContainer, TableRow, Button, useTheme, Grid } from '@mui/material';
+import { useParams } from 'react-router-dom';
 import { SessionContext } from '../SessionContext';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -12,7 +13,8 @@ const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000
 const Statistics = () => {
     const { t } = useTranslation();
     const theme = useTheme();
-    const { username } = useContext(SessionContext);
+    const [error, setError] = useState('');
+
     const [userStatics, setUserStatics] = useState([]);
     const [selectedMode, setSelectedMode] = useState('TheChallenge');
     const [questionsRecord, setQuestionsRecord] = useState([]);
@@ -20,19 +22,21 @@ const Statistics = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 1;
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+    const { username } = useContext(SessionContext);
+    const { user } = useParams();
 
     useEffect(() => {
         const fetchUserStatics = async () => {
             try {
-                const response = await axios.get(`${apiEndpoint}/user/statistics/${username}`);
+                const response = await axios.get(`${apiEndpoint}/user/statistics/${user}`, { params: { loggedUser: username } });
                 setUserStatics(response.data);
             } catch (error) {
-                console.error('Error fetching data:', error);
+                setError(error.response.data.error);
             }
         };
 
         fetchUserStatics();
-    }, [username]);
+    }, [username, username]);
 
     useEffect(() => {
         const fetchQuestionsRecord = async () => {
@@ -69,7 +73,7 @@ const Statistics = () => {
             case 'TheChallenge':
                 return (
                     <TableContainer>
-                        <Table sx={{ minWidth: 360 }} aria-label="The Challenge Statistics">
+                        <Table sx={{ minWidth: 360, backgroundColor:'rgba(84,95,95,0.3)', borderRadius:'10px' }} aria-label="The Challenge Statistics">
                             <TableBody>
                                 <TableRow>
                                     <TableCell>{ t("Statistics.table.money") }:</TableCell>
@@ -98,7 +102,7 @@ const Statistics = () => {
             case 'WiseMenStack':
                 return (
                     <TableContainer>
-                        <Table sx={{ minWidth: 360 }} aria-label="Wise Men Stack Statistics">
+                        <Table sx={{ minWidth: 360, backgroundColor:'rgba(84,95,95,0.3)', borderRadius:'10px' }} aria-label="Wise Men Stack Statistics">
                             <TableBody>
                                 <TableRow>
                                     <TableCell>{ t("Statistics.table.money") }:</TableCell>
@@ -123,7 +127,7 @@ const Statistics = () => {
             case 'WarmQuestion':
                 return (
                     <TableContainer>
-                        <Table sx={{ minWidth: 360 }} aria-label="Warm Question Statistics">
+                        <Table sx={{ minWidth: 360, backgroundColor:'rgba(84,95,95,0.3)', borderRadius:'10px' }} aria-label="Warm Question Statistics">
                             <TableBody>
                                 <TableRow>
                                     <TableCell>{ t("Statistics.table.money") }:</TableCell>
@@ -152,7 +156,7 @@ const Statistics = () => {
             case 'DiscoveringCities':
                 return (
                     <TableContainer>
-                        <Table sx={{ minWidth: 360 }} aria-label="Discovering Cities Statistics">
+                        <Table sx={{ minWidth: 360, backgroundColor:'rgba(84,95,95,0.3)', borderRadius:'10px' }} aria-label="Discovering Cities Statistics">
                             <TableBody>
                                 <TableRow>
                                     <TableCell>{ t("Statistics.table.money") }:</TableCell>
@@ -271,37 +275,43 @@ const Statistics = () => {
 
     return (
         <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Typography variant="h3" align="center" gutterBottom>
-                { t("Statistics.title") }
+            <Typography variant="h3" align="center" fontWeight="bold" gutterBottom>
+            { t("Statistics.title") }
             </Typography>
-            <Box>
-                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+            {error? (
+                <Container sx={{ margin: '0 auto auto' }}>
+                    <Typography variant="h5" sx={{ textAlign:'center' }}>{error}</Typography>
+                </Container>
+            ):(
+                <Box>
+                    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
                     <Button onClick={() => setSelectedMode('TheChallenge')} variant="contained" sx={{ marginBottom: isSmallScreen ? '0.5em' : '0', marginRight: isSmallScreen ? '0' : '0.5em', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>
-                        { t("Games.challenge.name") }
+                            { t("Games.challenge.name") }
+                        </Button>
+                        <Button onClick={() => setSelectedMode('WiseMenStack')} variant="contained" sx={{ marginBottom: isSmallScreen ? '0.5em' : '0', marginRight: isSmallScreen ? '0' : '0.5em', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>
+                            { t("Games.wise_men.name") }
+                        </Button>
+                        <Button onClick={() => setSelectedMode('WarmQuestion')} variant="contained" sx={{ marginBottom: isSmallScreen ? '0.5em' : '0', marginRight: isSmallScreen ? '0' : '0.5em', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>
+                            { t("Games.warm_quest.name") }
+                        </Button>
+                        <Button onClick={() => setSelectedMode('DiscoveringCities')} variant="contained" sx={{ marginBottom: isSmallScreen ? '0.5em' : '0', marginRight: isSmallScreen ? '0' : '0.5em', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>
+                            { t("Games.discover.name") }
+                        </Button>
+                        <Button onClick={() => setSelectedMode('OnlineMode')} variant="contained" sx={{ marginBottom: isSmallScreen ? '0.5em' : '0', marginRight: isSmallScreen ? '0' : '0.5em', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>
+                            { "Online Mode" }
+                        </Button>
+                    </div>
+                    {renderStatistics()}
+                    <Button
+                        onClick={() => setShowQuestionsRecord(!showQuestionsRecord)}
+                        variant="contained"
+                        sx={{ marginBottom: '0.5em', marginTop: '0.5em', backgroundColor: 'green', color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}
+                    >
+                        {showQuestionsRecord ? 'Hide Questions Record' : 'Show Questions Record'}
                     </Button>
-                    <Button onClick={() => setSelectedMode('WiseMenStack')} variant="contained" sx={{ marginBottom: isSmallScreen ? '0.5em' : '0', marginRight: isSmallScreen ? '0' : '0.5em', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>
-                        { t("Games.wise_men.name") }
-                    </Button>
-                    <Button onClick={() => setSelectedMode('WarmQuestion')} variant="contained" sx={{ marginBottom: isSmallScreen ? '0.5em' : '0', marginRight: isSmallScreen ? '0' : '0.5em', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>
-                        { t("Games.warm_quest.name") }
-                    </Button>
-                    <Button onClick={() => setSelectedMode('DiscoveringCities')} variant="contained" sx={{ marginBottom: isSmallScreen ? '0.5em' : '0', marginRight: isSmallScreen ? '0' : '0.5em', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>
-                        { t("Games.discover.name") }
-                    </Button>
-                    <Button onClick={() => setSelectedMode('OnlineMode')} variant="contained" sx={{ marginBottom: isSmallScreen ? '0.5em' : '0', marginRight: isSmallScreen ? '0' : '0.5em', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>
-                        { "Online Mode" }
-                    </Button>
-                </div>
-                {renderStatistics()}
-                <Button
-                    onClick={() => setShowQuestionsRecord(!showQuestionsRecord)}
-                    variant="contained"
-                    sx={{ marginBottom: '0.5em', marginTop: '0.5em', backgroundColor: 'green', color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}
-                >
-                    {showQuestionsRecord ? 'Hide Questions Record' : 'Show Questions Record'}
-                </Button>
-                {renderQuestions()}
-            </Box>
+                    {renderQuestions()}
+                </Box>
+            )}    
         </Container>
     );
 };

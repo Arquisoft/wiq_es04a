@@ -13,7 +13,7 @@ describe('Register component', () => {
   beforeEach(() => {
     mockAxios.reset();
     // Mock the axios.post request to simulate a successful response
-    mockAxios.onPost('http://localhost:8000/user/add').reply(200);
+    mockAxios.onPost('http://localhost:8000/user').reply(200);
     mockAxios.onPost('http://localhost:8000/login').reply(200);
   });
 
@@ -56,7 +56,7 @@ describe('Register component', () => {
   });
 
   it('should show error message if sign up fails', async () => {
-    mockAxios.onPost('http://localhost:8000/user/add').reply(400, { error: 'Username already exists' });
+    mockAxios.onPost('http://localhost:8000/user').reply(400, { error: 'Username already exists' });
 
     render(
       <SessionContext.Provider value={{}}>

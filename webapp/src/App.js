@@ -13,6 +13,7 @@ import Groups from './pages/Groups';
 import GroupDetails from './pages/GroupDetails';
 import Statistics from './pages/Statistics';
 import Ranking from './pages/Ranking'
+import Profile from './pages/Profile'
 import MultiplayerRoom from './pages/MultiplayerRoom';
 import MultiplayerGame from './pages/MultiplayerGame';
 import TheChallengeGame from './pages/TheChallengeGame';
@@ -68,9 +69,9 @@ function App() {
             <Route path="/warmQuestionGame" element={<PrivateRoute element={WarmQuestion}/>}/>
             <Route path="/group/menu" element={<PrivateRoute element={Groups}/>}/>
             <Route path="/group/:groupName" element={<PrivateRoute element={GroupDetails}/>} />
-            <Route path="/statistics" element={<PrivateRoute element={Statistics }/>}/>
+            <Route path="/statistics/:user" element={<PrivateRoute element={Statistics }/>}/>
             <Route path="/ranking" element={<PrivateRoute element={Ranking}/>}/>
-
+            <Route path="/profile" element={<PrivateRoute element={Profile}/>}/>
             <Route path="*" element={<NotFound />} /> 
           </Routes>
         <Footer/>

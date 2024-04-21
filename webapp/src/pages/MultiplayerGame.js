@@ -117,7 +117,7 @@ const Game = () => {
         try {
             //const winner = winner === username ? 1 : 0;
 
-            await axios.post(`${apiEndpoint}/statistics/edit`, {
+            await axios.post(`${apiEndpoint}/statistics`, {
                 username:username,
                 the_callenge_earned_money:0,
                 the_callenge_correctly_answered_questions:0,

@@ -85,10 +85,6 @@
         "login_link": "¿Ya tienes una cuenta? Inicia sesión aquí."
     },
 
-    "Ranking": {
-        "title": "CLASIFICACIÓN"
-    },
-
     "Groups": {
         "title": "GRUPOS",
         "create": "Crear",
@@ -144,5 +140,20 @@
     "NotFound": {
         "title": "Página no encontrada",
         "button_msg": "Volver a la página de inicio"
+    },
+
+    "Profile": {
+
+        "name":"Nombre:",
+        "surname": "Apellido:",
+        "created_in":"Fecha de registro:",
+        "choose_your_avatar":"Escoge tu avatar:",
+        "confirm_changes":"Confirmar cambio"
+        
+    },
+    "Ranking":{
+
+        "users":"Usuarios",
+        "groups": "Grupos"
     }
 }
