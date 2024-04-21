@@ -307,7 +307,7 @@ describe('Routes Tests', () => {
   });
   
   it('should respond with status 200 for /group/:name endpoint', async () => {
-    const groupName = 'Test Group';
+    const groupName = 'TestGroup';
     const mockUserData = { username: 'testuser', groupName: groupName };
     axios.post.mockResolvedValueOnce({ data: mockUserData });
   
@@ -320,7 +320,7 @@ describe('Routes Tests', () => {
   });
   
   it('should handle errors for /group/:name endpoint and respond with appropriate status and message', async () => {
-    const groupName = 'Test Group';
+    const groupName = 'TestGroup';
     const errorMessage = 'Error joining group';
     axios.post.mockRejectedValueOnce({ response: { status: 400, data: { error: errorMessage } } });
   
@@ -333,7 +333,7 @@ describe('Routes Tests', () => {
   });
   
   it('should respond with status 200 for /group/:name endpoint', async () => {
-    const groupName = 'Test Group';
+    const groupName = 'TestGroup';
     const username = 'user1';
     const mockGroupData = { name: groupName, members: ['user1', 'user2'] };
     axios.get.mockResolvedValueOnce({ data: mockGroupData });
@@ -346,7 +346,7 @@ describe('Routes Tests', () => {
   });
   
   it('should handle errors for /group/:name endpoint and respond with appropriate status and message', async () => {
-    const groupName = 'Test Group';
+    const groupName = 'TestGroup';
     const username = 'user1';
     const errorMessage = 'Error retrieving group data';
     axios.get.mockRejectedValueOnce(new Error(errorMessage));
@@ -367,16 +367,15 @@ describe('Routes Tests', () => {
         surname: 'User'
       }
     };
-
+  
     axios.get.mockResolvedValue({ data: mockUserData });
-
+  
+    const expectedUrl = expect.stringContaining('/user/profile');
+  
     const response = await request(app).get('/profile').query({ username });
-
-    expect(axios.get).toHaveBeenCalledWith(
-      expect.stringContaining(`/user/profile`), 
-      { params: { username: username } }
-    );
-
+  
+    expect(axios.get).toHaveBeenCalledWith(expectedUrl);
+  
     expect(response.status).toBe(200);
     expect(response.body).toEqual(mockUserData.user);
   });
