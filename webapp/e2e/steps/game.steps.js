@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer');
 const { defineFeature, loadFeature }=require('jest-cucumber');
 const setDefaultOptions = require('expect-puppeteer').setDefaultOptions
 const feature = loadFeature('./features/game.feature');
+const { clickLink, loginUser } = require("../loginUtil"); ;
 
 let page;
 let browser;
@@ -37,10 +38,12 @@ defineFeature(feature, test => {
         req.continue();
       }
     });
+
+    await loginUser("hugo", "12345678mM.", page);
+
     //Way of setting up the timeout
     setDefaultOptions({ timeout: 10000 })
 
-     
   });
 
   beforeEach(async () => {
