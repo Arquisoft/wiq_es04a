@@ -39,7 +39,9 @@ defineFeature(feature, test => {
       }
     });
 
-    await loginUser("JORDI33", "99999999XxX.", page);
+    //await loginUser("JORDI33", "99999999XxX.", page);
+
+   
 
     //Way of setting up the timeout
     setDefaultOptions({ timeout: 10000 })
@@ -47,6 +49,18 @@ defineFeature(feature, test => {
   });
 
   beforeEach(async () => {
+    await page
+    .goto("http://localhost:3000/game", {
+      waitUntil: "networkidle0",
+    })
+    .catch(() => {});
+
+    //"mock" login
+    await page.evaluate(() => {
+      localStorage.clear();
+      localStorage.setItem('sessionId', 'fictitiousSessionId12345');
+    });
+
     await page
     .goto("http://localhost:3000/game", {
       waitUntil: "networkidle0",

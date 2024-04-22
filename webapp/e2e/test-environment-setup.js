@@ -18,7 +18,7 @@ async function startServer() {
         
         //test user
         //const hashedPassword = await bcrypt.hash("99999999XxX.", 10);
-        const hashedPassword = "$2a$10$azpPYhKmIKB4Mhreyq6UHOQdrHdugt7TFh.VhSED.F.QsGaQh.tZ6";
+        /*const hashedPassword = "$2a$10$azpPYhKmIKB4Mhreyq6UHOQdrHdugt7TFh.VhSED.F.QsGaQh.tZ6";
         let username = "JORDI33";
         let name = "JORDI";
         let surname = "Hurtado"
@@ -28,7 +28,13 @@ async function startServer() {
             password: hashedPassword,
             name,
             surname
-        });
+        });*/
+
+        /*let SessionContext = await require('../src/SessionContext');
+        const { createSession } = useContext(SessionContext);
+        createSession("JORDI33");*/
+       
+        
 
     } catch (error) {
         console.error('Error starting server:', error);
