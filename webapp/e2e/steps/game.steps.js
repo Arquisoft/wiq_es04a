@@ -2,7 +2,6 @@ const puppeteer = require('puppeteer');
 const { defineFeature, loadFeature }=require('jest-cucumber');
 const setDefaultOptions = require('expect-puppeteer').setDefaultOptions
 const feature = loadFeature('./features/game.feature');
-const { clickLink, loginUser } = require("../loginUtil"); ;
 
 let page;
 let browser;
@@ -19,7 +18,7 @@ defineFeature(feature, test => {
     await page.setRequestInterception(true);
 
     page.on('request', (req) => {
-      if(req.url().endsWith('/questions')) {
+      if(req.url().endsWith('/questions/en')) {
         req.respond({
           status: 200,
           headers: {
@@ -37,11 +36,7 @@ defineFeature(feature, test => {
       } else {
         req.continue();
       }
-    });
-
-    //await loginUser("JORDI33", "99999999XxX.", page);
-
-   
+    });   
 
     //Way of setting up the timeout
     setDefaultOptions({ timeout: 10000 })
