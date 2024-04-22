@@ -1,7 +1,7 @@
 import React, { useState,useContext } from 'react';
 import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar, Box, Divider } from '@mui/material';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { SessionContext } from '../SessionContext';
 import { useTranslation } from 'react-i18next';
 
@@ -19,7 +19,7 @@ const AddUser = () => {
 
   const navigate = useNavigate();
 
-  const { createSession } = useContext(SessionContext);
+  const { createSession, updateAvatar } = useContext(SessionContext);
 
   const addUser = async () => {
     try {
@@ -29,10 +29,9 @@ const AddUser = () => {
         name, 
         surname
       });
-
       
-      await axios.post(`${apiEndpoint}/login`, { username, password });
-
+      let response = await axios.post(`${apiEndpoint}/login`, { username, password });
+      updateAvatar(response.data.avatar);
       setOpenSnackbar(true);
       createSession(username);
       navigate('/homepage');

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const { User, Statistics, Group, UserGroup, QuestionsRecord, sequelize } = require('../services/user-model');
+const { getRandomPic } = require("../data/icons");
 
 // Getting the list of groups in the database
 router.get('/group', async (req, res) => {
@@ -226,7 +227,7 @@ router.get('/questionsRecord/:username/:gameMode', async (req, res) => {
         return res.status(400).json({ error: error.message });
     }
 });
-// Route for add a user
+// Route to add a user
 router.post('/', async (req, res) => {
     try {
         const { username, password, name, surname } = req.body;
@@ -266,17 +267,20 @@ router.post('/', async (req, res) => {
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
 
+        const imageUrl = getRandomPic();
+
         // Create the user in the database using Sequelize
         const newUser = await User.create({
             username,
             password: hashedPassword,
             name,
-            surname
+            surname,
+            imageUrl
         });
 
-        // Create the user statics
+        // Create the user statistics
         await Statistics.create({
-            username,
+            username
         })
 
         res.json(newUser);

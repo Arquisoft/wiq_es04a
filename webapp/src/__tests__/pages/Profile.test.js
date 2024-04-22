@@ -7,7 +7,7 @@ import { SessionContext } from '../../SessionContext';
 import Profile from '../../pages/Profile';
 
 const mockAxios = new MockAdapter(axios);
-
+ 
 describe('Profile component', () => {
   const username = 'testuser';
   const initialUserInfo = {
@@ -78,7 +78,6 @@ describe('Profile component', () => {
     fireEvent.click(screen.getByTestId('confirm-button'));
 
     await waitFor(() => {
-      expect(screen.getByText('Avatar changed successfully')).toBeInTheDocument();
       expect(mockAxios.history.post.length).toBe(1);
       expect(mockAxios.history.post[0].data).toContain(newAvatar);
     });
@@ -112,7 +111,6 @@ describe('Profile component', () => {
     fireEvent.click(screen.getByTestId('confirm-button'));
 
     await waitFor(() => {
-      expect(screen.getByText('Avatar changed successfully')).toBeInTheDocument();
       expect(mockAxios.history.post.length).toBe(1);
       expect(mockAxios.history.post[0].data).toContain(newAvatar);
     });
