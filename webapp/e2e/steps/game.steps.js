@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 const { defineFeature, loadFeature }=require('jest-cucumber');
+const { expect } = require('expect-puppeteer');
 const setDefaultOptions = require('expect-puppeteer').setDefaultOptions
 const feature = loadFeature('./features/game.feature');
 
@@ -7,12 +8,22 @@ let page;
 let browser;
 
 
-async function loginUser(username, password) {
+async function loginUser(username, password, name, surname) {
   clickLink('//button[text()="PLAY"]');
 
   await expect(page).toFill('input[name="username"]', username);
   await expect(page).toFill('input[name="password"]', password);
   await expect(page).toClick('button', { text: /Log in/i });
+
+  if(await expect(page).toBe('button', { text: /Log in/i })) {
+    await expect(page).toClick("a", { text: "Don't have an account? Register here." });
+    await expect(page).toFill('input[name="username"]', username);
+    await expect(page).toFill('input[name="password"]', password);
+    await expect(page).toFill('input[name="name"]', name);
+    await expect(page).toFill('input[name="surname"]', surname);
+    await expect(page).toClick('button', { text: /Sign Up/i })
+    
+  }
 }
 
 async function clickLink(linkXPath) {
@@ -37,7 +48,7 @@ defineFeature(feature, test => {
     await page.setRequestInterception(true);
 
     page.on('request', (req) => {
-      if(req.url().endsWith('/questions')) {
+      if(req.url().endsWith('/questions/en')) {
         req.respond({
           status: 200,
           headers: {
@@ -62,7 +73,7 @@ defineFeature(feature, test => {
         waitUntil: "networkidle0",
       })
       .catch(() => {});
-      await loginUser("prueba14","123456789Ab=11");
+      await loginUser("prueba14","123456789Ab=11", "pr","prueba");
       
       //Way of setting up the timeout     
   });
