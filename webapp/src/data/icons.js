@@ -4,7 +4,7 @@ const getHugo = () => {
 
 const getAlberto = () => {
     return "bertinIcon.jpg";
-  }
+}
 
 const getWiffo = () => {
 return "wiffoIcon.jpg";

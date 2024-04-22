@@ -16,8 +16,7 @@ const Profile = () => {
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [selectedAvatar, setSelectedAvatar] = useState(null);
     const [currentSelectedAvatar, setCurrentSelectedAvatar] = useState('defalt_user.jpg');
-
-    const { username } = useContext(SessionContext);
+    const { username, updateAvatar } = useContext(SessionContext);
 
     const fetchUserInfo = useCallback(async () => {
         try {
@@ -36,6 +35,7 @@ const Profile = () => {
     const handleAvatarChange = async () => {
         try {
             await axios.put(`${apiEndpoint}/profile/${username}`, { imageUrl: currentSelectedAvatar });
+            updateAvatar(selectedAvatar);
             setSnackbarMessage('Avatar changed successfully');
             setOpenSnackbar(true);
             fetchUserInfo();
