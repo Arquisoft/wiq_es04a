@@ -107,7 +107,7 @@ const Homepage = () => {
     const changeGameLink = React.useCallback((index) => {
         switch (info[index].nombre) {
             case "WISE MEN STACK":
-                setGameLink("/Wisemen");
+                setGameLink("/wiseMenStackGame");
                 break;
             case "WARM QUESTION":
                 setGameLink("/warmQuestionGame");

@@ -11,6 +11,7 @@ import Confetti from 'react-confetti';
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import { useTranslation } from 'react-i18next';
 import i18n from '../localize/i18n';
 
 
@@ -25,6 +26,8 @@ const Game = () => {
     //sesion information
     const {username} = useContext(SessionContext);
     const theme = useTheme();
+
+    const { t } = useTranslation();
 
     // Game configuration state
     const [numRounds, setNumRounds] = React.useState(3);
@@ -111,7 +114,7 @@ const Game = () => {
 
     const updateStatistics = async() => {
         try {
-            await axios.post(`${apiEndpoint}/statistics/edit`, {
+            await axios.post(`${apiEndpoint}/statistics`, {
                 username:username,
                 the_callenge_earned_money:totalScore,
                 the_callenge_correctly_answered_questions:correctlyAnsweredQuestions,
@@ -278,7 +281,7 @@ const Game = () => {
                         }
                     }}
                 >
-                    Start game
+                    {t("Game.start")}
                 </Button>
             </Container>
         );

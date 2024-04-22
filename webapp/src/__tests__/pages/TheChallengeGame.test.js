@@ -4,6 +4,7 @@ import { SessionContext } from '../../SessionContext';
 import { BrowserRouter as Router } from 'react-router-dom';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+import '../../localize/i18n';
 import Game from '../../pages/TheChallengeGame';
 
 const mockAxios = new MockAdapter(axios);
@@ -12,7 +13,7 @@ describe('Game component', () => {
   beforeEach(() => {
     mockAxios.reset();
     // Mockear respuestas de la API
-    mockAxios.onGet(`http://localhost:8000/questions/Geography`).reply(200, 
+    mockAxios.onGet(`http://localhost:8000/questions/en/Geography`).reply(200, 
     [
         {
         question: 'Which is the capital of Spain?',
@@ -22,7 +23,7 @@ describe('Game component', () => {
     ]
     );
 
-    mockAxios.onPost(`http://localhost:8000/statistics/edit`).reply(200, { success: true });
+    mockAxios.onPost(`http://localhost:8000/statistics`).reply(200, { success: true });
     mockAxios.onPost(`http://localhost:8000/user/questionsRecord`).reply(200, { success: true });
 
   });

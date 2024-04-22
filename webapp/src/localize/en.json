@@ -55,7 +55,17 @@
         "money": "Final points",
         "time": "Game Time (sec)",
         "pause": "Pause",
-        "play": "Play"
+        "play": "Play",
+        "round": "Question ",
+        "start": "Start game"
+    },
+
+    "Wise_Men": {
+        "instructions": "Choose a category:",
+        "category":"Categories: ",
+        "geography": "Geography",
+        "political":"Political",
+        "sports":"Sports"
     },
 
     "Login": {
@@ -74,10 +84,6 @@
         "surname": "Surname",
         "button": "Sign up",
         "login_link": "Already have an account? Login here."
-    },
-
-    "Ranking": {
-        "title": "RANKING"
     },
 
     "Groups": {
@@ -135,5 +141,20 @@
     "NotFound": {
         "title": "Page not found",
         "button_msg": "Return to home page"
+    },
+
+    "Profile": {
+
+        "name":"Name:",
+        "surname": "Surname:",
+        "created_in":"Created in:",
+        "choose_your_avatar":"Choose your avatar:",
+        "confirm_changes":"Confirm change"
+        
+    },
+    "Ranking":{
+
+        "users":"Users",
+        "groups": "Groups"
     }
 }

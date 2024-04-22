@@ -13,7 +13,7 @@ describe('Game component', () => {
   beforeEach(() => {
     mockAxios.reset();
     // Mock the axios.post request to simulate a successful response
-    mockAxios.onGet('http://localhost:8000/questions').reply(200, 
+    mockAxios.onGet('http://localhost:8000/questions/en').reply(200, 
         {
         question: 'Which is the capital of Spain?',
         options: ['Madrid', 'Barcelona', 'Paris', 'London'],
@@ -23,7 +23,7 @@ describe('Game component', () => {
         }
     );
 
-    mockAxios.onPost('http://localhost:8000/statistics/edit').reply(200, { success: true });
+    mockAxios.onPost('http://localhost:8000/statistics').reply(200, { success: true });
     mockAxios.onPost('http://localhost:8000/user/questionsRecord').reply(200, { success: true });
 
     render( 
