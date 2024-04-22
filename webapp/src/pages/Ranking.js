@@ -15,7 +15,7 @@ const Ranking = () => {
 
     const fetchUserRanking = async () => {
         try {
-            const response = await axios.get(`${apiEndpoint}/user/ranking`);
+            const response = await axios.get(`${apiEndpoint}/ranking`);
             setRows(response.data.rank);
         } catch (error) {
             console.error(error);
@@ -24,7 +24,7 @@ const Ranking = () => {
 
     const fetchGroupsRanking = async () => {
         try {
-            const response = await axios.get(`${apiEndpoint}/user/group/ranking`);
+            const response = await axios.get(`${apiEndpoint}/group/ranking`);
             setRows(response.data.rank);
         } catch (error) {
             console.error(error);

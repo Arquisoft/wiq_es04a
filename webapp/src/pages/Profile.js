@@ -20,7 +20,7 @@ const Profile = () => {
 
     const fetchUserInfo = useCallback(async () => {
         try {
-            const response = await axios.get(`${apiEndpoint}/user/profile`, { params: { username: username } });
+            const response = await axios.get(`${apiEndpoint}/profile`, { params: { username: username } });
             setUserInfo(response.data);
         } catch (error) {
             setError('Error fetching user information');
@@ -34,7 +34,7 @@ const Profile = () => {
 
     const handleAvatarChange = async () => {
         try {
-            await axios.post(`${apiEndpoint}/user/profile/${username}`, { imageUrl: currentSelectedAvatar });
+            await axios.put(`${apiEndpoint}/profile/${username}`, { imageUrl: currentSelectedAvatar });
             updateAvatar(selectedAvatar);
             setSnackbarMessage('Avatar changed successfully');
             setOpenSnackbar(true);

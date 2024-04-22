@@ -19,11 +19,11 @@ describe('Profile component', () => {
   };
 
   beforeEach(() => {
-    mockAxios.reset();
+    mockAxios.reset(); 
   });
 
   it('should fetch and display user information', async () => {
-    mockAxios.onGet(`http://localhost:8000/user/profile`, { params: { username } }).reply(200, initialUserInfo);
+    mockAxios.onGet(`http://localhost:8000/profile`, { params: { username } }).reply(200, initialUserInfo);
     render(
       <SessionContext.Provider value={{ username }}>
         <Router>
@@ -41,7 +41,7 @@ describe('Profile component', () => {
   });
 
   it('should display an error if fetching user info fails', async () => {
-    mockAxios.onGet(`http://localhost:8000/user/profile`, { params: { username } }).reply(400, { error: 'Error fetching user information' });
+    mockAxios.onGet(`http://localhost:8000/profile`, { params: { username } }).reply(400, { error: 'Error fetching user information' });
 
     render(
       <SessionContext.Provider value={{ username }}>
@@ -58,8 +58,8 @@ describe('Profile component', () => {
 
   it('should handle avatar selection and update', async () => {
     const newAvatar = 'bertinIcon.jpg';
-    mockAxios.onGet(`http://localhost:8000/user/profile`, { params: { username } }).reply(200, initialUserInfo);
-    mockAxios.onPost(`http://localhost:8000/user/profile/${username}`, { imageUrl: newAvatar }).reply(200);
+    mockAxios.onGet(`http://localhost:8000/profile`, { params: { username } }).reply(200, initialUserInfo);
+    mockAxios.onPut(`http://localhost:8000/profile/${username}`, { imageUrl: newAvatar }).reply(200);
 
     render(
       <SessionContext.Provider value={{ username }}>
@@ -85,15 +85,15 @@ describe('Profile component', () => {
 
   it('should handle avatar selection and update after choosing different characters', async () => {
     const newAvatar = 'teresaIcon.jpg';
-    mockAxios.onGet(`http://localhost:8000/user/profile`, { params: { username } }).reply(200, initialUserInfo);
-    mockAxios.onPost(`http://localhost:8000/user/profile/${username}`, { imageUrl: newAvatar }).reply(200);
+    mockAxios.onGet(`http://localhost:8000/profile`, { params: { username } }).reply(200, initialUserInfo);
+    mockAxios.onPut(`http://localhost:8000/profile/${username}`, { imageUrl: newAvatar }).reply(200);
 
     render(
       <SessionContext.Provider value={{ username }}>
         <Router>
           <Profile />
         </Router>
-      </SessionContext.Provider>
+      </SessionContext.Provider> 
     ); 
 
     await waitFor(() => {
@@ -118,8 +118,8 @@ describe('Profile component', () => {
 
   it('should display an error if avatar update fails', async () => {
     const newAvatar = 'bertinIcon.jpg';
-    mockAxios.onGet(`http://localhost:8000/user/profile`, { params: { username } }).reply(200, initialUserInfo);
-    mockAxios.onPost(`http://localhost:8000/user/profile/${username}`, { imageUrl: newAvatar }).reply(400, { error: 'Error updating user information' });
+    mockAxios.onGet(`http://localhost:8000/profile`, { params: { username } }).reply(200, initialUserInfo);
+    mockAxios.onPost(`http://localhost:8000/profile/${username}`, { imageUrl: newAvatar }).reply(400, { error: 'Error updating user information' });
 
     render(
       <SessionContext.Provider value={{ username }}>

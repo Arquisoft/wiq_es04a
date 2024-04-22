@@ -33,6 +33,7 @@ describe('Groups component', () => {
 
   it('should render groups list and creation elements', async () => {
     // It mocks a succesful request getting two groups from the database.
+    mockAxios.onGet('http://localhost:8000/group').reply(200, { groups: [{ name: 'Group 1' }, { name: 'Group 2' }] });
     mockAxios.onGet('http://localhost:8000/user/group').reply(200, { groups: [{ name: 'Group 1' }, { name: 'Group 2' }] });
 
     renderGroupsComponent();
@@ -132,7 +133,7 @@ describe('Groups component', () => {
   it('should successfully add user to a group', async () => {
     // Simulates a request response including the unjoined group data
     mockAxios.onGet('http://localhost:8000/user/group').reply(200, { groups: [{ name: 'Group1', isMember: false, isFull: false }] });
-    mockAxios.onPost('http://localhost:8000/group/Group1').reply(200);
+    mockAxios.onPut('http://localhost:8000/group/Group1').reply(200);
   
     renderGroupsComponent();
   
@@ -156,11 +157,11 @@ describe('Groups component', () => {
 
 
   // FROM HERE, LOW TIMEOUTS NEED TO BE USED INSTEAD OF WAITFORS
-
+ 
   it('should display error message when group is already full', async () => {
     // Simulates a request response including the unjoined group data
     mockAxios.onGet('http://localhost:8000/user/group').reply(200, { groups: [{ name: 'Group1', isMember: false, isCreator: false , isFull: false }] });
-    mockAxios.onPost('http://localhost:8000/group/Group1').reply(400, { error: 'Group is already full' });
+    mockAxios.onPut('http://localhost:8000/group/Group1').reply(400, { error: 'Group is already full' });
   
     renderGroupsComponent();
   

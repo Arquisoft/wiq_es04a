@@ -23,8 +23,8 @@ describe('Game component', () => {
     ]
     );
 
-    mockAxios.onPost(`http://localhost:8000/statistics`).reply(200, { success: true });
-    mockAxios.onPost(`http://localhost:8000/user/questionsRecord`).reply(200, { success: true });
+    mockAxios.onPut(`http://localhost:8000/statistics`).reply(200, { success: true });
+    mockAxios.onPut(`http://localhost:8000/questionsRecord`).reply(200, { success: true });
 
   });
 

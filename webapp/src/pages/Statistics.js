@@ -28,7 +28,7 @@ const Statistics = () => {
     useEffect(() => {
         const fetchUserStatics = async () => {
             try {
-                const response = await axios.get(`${apiEndpoint}/user/statistics/${user}`, { params: { loggedUser: username } });
+                const response = await axios.get(`${apiEndpoint}/statistics/${user}`, { params: { loggedUser: username } });
                 setUserStatics(response.data);
             } catch (error) {
                 setError(error.response.data.error);
@@ -36,12 +36,12 @@ const Statistics = () => {
         };
 
         fetchUserStatics();
-    }, [user, username]);
+    }, [username, user]);
 
     useEffect(() => {
         const fetchQuestionsRecord = async () => {
             try {
-                const response = await axios.get(`${apiEndpoint}/user/questionsRecord/${username}/${selectedMode}`, {
+                const response = await axios.get(`${apiEndpoint}/questionsRecord/${username}/${selectedMode}`, {
                     username: username,
                     gameMode: selectedMode
                 });
@@ -181,7 +181,7 @@ const Statistics = () => {
                 case 'OnlineMode':
                 return (
                     <TableContainer>
-                        <Table sx={{ minWidth: 360 }} aria-label="The Online Mode Statistics">
+                        <Table sx={{ minWidth: 360, backgroundColor:'rgba(84,95,95,0.3)', borderRadius:'10px' }} aria-label="Online Mode Statistics">
                             <TableBody>
                                 <TableRow>
                                     <TableCell>{ t("Statistics.table.money") }:</TableCell>
