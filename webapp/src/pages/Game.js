@@ -219,7 +219,9 @@ const Game = () => {
         setButtonStates(newButtonStates);
 
         setTimeout(async() => {
+            console.log(`Pass value before: ${passNewRound}`);
             setPassNewRound(true);
+            console.log(`Pass value after: ${passNewRound}`);
             setCurrentLanguage(i18n.language);
         }, 4000);
     };
