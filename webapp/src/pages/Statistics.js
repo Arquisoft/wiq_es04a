@@ -36,7 +36,7 @@ const Statistics = () => {
         };
 
         fetchUserStatics();
-    }, [username, username]);
+    }, [user, username]);
 
     useEffect(() => {
         const fetchQuestionsRecord = async () => {

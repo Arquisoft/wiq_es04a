@@ -16,8 +16,7 @@ const Profile = () => {
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [selectedAvatar, setSelectedAvatar] = useState(null);
     const [currentSelectedAvatar, setCurrentSelectedAvatar] = useState('defalt_user.jpg');
-
-    const { username } = useContext(SessionContext);
+    const { username, updateAvatar } = useContext(SessionContext);
 
     const fetchUserInfo = useCallback(async () => {
         try {
@@ -36,6 +35,7 @@ const Profile = () => {
     const handleAvatarChange = async () => {
         try {
             await axios.post(`${apiEndpoint}/user/profile/${username}`, { imageUrl: currentSelectedAvatar });
+            updateAvatar(selectedAvatar);
             setSnackbarMessage('Avatar changed successfully');
             setOpenSnackbar(true);
             fetchUserInfo();
@@ -77,7 +77,7 @@ const Profile = () => {
             <Typography variant="h5" sx={{ textAlign:'center', fontWeight:'bold'  }}>{t("Profile.choose_your_avatar")}</Typography>
             <Container sx={{ display: 'flex', justifyContent: 'space-around' }}>
                 <Button sx={{ display:'flex', flexDirection:'column', borderBottom: selectedAvatar === getHugo() ? '2px solid #006699' : 'none' }} onClick={() => handleAvatarSelect(getHugo())} data-testid="hugo-button">
-                    <img src={getHugo()} style={{ flex: 1, maxWidth: '50%', borderRadius:'50%', margin:'1em', margin:'1em' }} alt="Icon1" />
+                    <img src={getHugo()} style={{ flex: 1, maxWidth: '50%', borderRadius:'50%', margin:'1em' }} alt="Icon1" />
                     <Typography sx={{color: '#000000', fontWeight:'bold'  }}>HUGH</Typography>
                 </Button>          
                 <Button sx={{ display:'flex', flexDirection:'column', borderBottom: selectedAvatar === getAlberto() ? '2px solid #006699' : 'none' }} onClick={() => handleAvatarSelect(getAlberto())} data-testid="alberto-button">
