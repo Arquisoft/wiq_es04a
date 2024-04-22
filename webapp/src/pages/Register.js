@@ -1,7 +1,7 @@
 import React, { useState,useContext } from 'react';
 import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar, Box, Divider } from '@mui/material';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { SessionContext } from '../SessionContext';
 import { useTranslation } from 'react-i18next';
 
@@ -19,7 +19,7 @@ const AddUser = () => {
 
   const navigate = useNavigate();
 
-  const { createSession } = useContext(SessionContext);
+  const { createSession, updateAvatar } = useContext(SessionContext);
 
   const addUser = async () => {
     try {
@@ -29,10 +29,9 @@ const AddUser = () => {
         name, 
         surname
       });
-
       
-      await axios.post(`${apiEndpoint}/login`, { username, password });
-
+      let response = await axios.post(`${apiEndpoint}/login`, { username, password });
+      updateAvatar(response.data.avatar);
       setOpenSnackbar(true);
       createSession(username);
       navigate('/homepage');
@@ -59,6 +58,7 @@ const AddUser = () => {
               label={ t("Register.username") }
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              data-testid="username"
             />
             <TextField
               name="password"
@@ -68,6 +68,7 @@ const AddUser = () => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              data-testid="password"
             />
             <Divider style={{ marginTop:'3%'}}/>
             <TextField
@@ -77,6 +78,7 @@ const AddUser = () => {
               label={ t("Register.name") }
               value={name}
               onChange={(e) => setName(e.target.value)}
+              data-testid="name"
             />
             <TextField
               name="surname"
@@ -85,9 +87,10 @@ const AddUser = () => {
               label={ t("Register.surname") }
               value={surname}
               onChange={(e) => setSurname(e.target.value)}
+              data-testid="surname"
             />
             <Divider style={{ marginTop:'3%'}}/>
-            <Button variant="contained" color="primary" onClick={addUser} style={{ width: '100%', marginTop: '5%' }}>
+            <Button variant="contained" color="primary" onClick={addUser} style={{ width: '100%', marginTop: '5%' }} data-testid="register-button">
               { t("Register.button") }
             </Button>
             <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="User added successfully" />

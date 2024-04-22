@@ -13,14 +13,15 @@ const Login = () => {
   
   const navigate = useNavigate();
 
-  const { createSession } = useContext(SessionContext);
+  const { createSession, updateAvatar } = useContext(SessionContext);
   const { t } = useTranslation();
 
   const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
   const loginUser = async () => {
     try {
-      await axios.post(`${apiEndpoint}/login`, { username, password });
+      let response = await axios.post(`${apiEndpoint}/login`, { username, password });
+      updateAvatar(response.data.avatar);
       setOpenSnackbar(true);
       createSession(username);
       navigate('/homepage');

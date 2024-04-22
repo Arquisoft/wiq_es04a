@@ -10,9 +10,8 @@ import { useTranslation } from 'react-i18next';
 import i18n from 'i18next';
 
 function NavBar() {
-  // Width for the nav menu element (?) Is it used later as a boolean ??????
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const { username, isLoggedIn, destroySession } = useContext(SessionContext);
+  const { username, isLoggedIn, avatar, destroySession } = useContext(SessionContext);
 
   const navigate = useNavigate();
 
@@ -50,7 +49,7 @@ function NavBar() {
     { path: '/statistics', text: t("NavBar.statistics") },
     { path: '/instructions', text: t("NavBar.instructions") },
     { path: '/group/menu', text: t("NavBar.groups") },
-    { path: '/ranking', text: 'Ranking' }
+    { path: '/ranking', text: t("NavBar.ranking") }
     // Add an object for each new page
   ];
 
@@ -144,8 +143,7 @@ function NavBar() {
                   {username}
                 </Typography>
                 <IconButton>
-                  {/* Need to change the image for the user profile one  */}
-                  <Avatar src="/default_user.jpg" alt="Profile pic" sx={{ width: 33, height: 33 }} />
+                  <Avatar src={avatar} alt="Profile pic" sx={{ width: 33, height: 33 }} />
                 </IconButton>
               </Button>
               <IconButton onClick={handleLogout} sx={{ color: 'white', '&:hover': { backgroundColor: '#5f7e94' }}} data-testid="logout-button">

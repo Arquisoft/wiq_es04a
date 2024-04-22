@@ -74,7 +74,7 @@ const GroupDetails = () => {
                             <ListItemText primary={user} />
                             {groupInfo.show && (
                                 <Button variant="contained" color="primary" onClick={() => seeStatistics(user)}>
-                                    See Statistics
+                                    { t("Groups.Details.statistics") }
                                 </Button>
                             )}
                         </ListItem>
