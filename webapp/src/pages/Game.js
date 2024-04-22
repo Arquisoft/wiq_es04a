@@ -104,6 +104,18 @@ const Game = () => {
             setButtonStates(new Array(quest.data.options.length).fill(null));
         }).catch(error => {
             console.error(error);
+            let quest = {}
+            quest.data = {
+                "_id":"1",
+                "question":"Esta pregunta de prueba resulta de su agrado?",
+                "options":["Muchísimo","Un cacho","Tope flama","Fino filipino"],
+                "correctAnswer":"Tope flama",
+                "categories":["Political"],
+                "id":"1",
+                "__v":0
+            };
+            setQuestionData(quest.data);
+            setButtonStates(new Array(quest.data.options.length).fill(null));
         });
     };
 
