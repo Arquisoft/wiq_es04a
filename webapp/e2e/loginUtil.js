@@ -15,7 +15,6 @@ async function loginUser(username, password, page) {
     .catch(() => {});
   
     await clickLink('//*[@id="root"]/div/header/div/div[2]/a', page);
-    //await clickLink('//*[@id="root"]/div/header/div/a[2]', page);
 
     await expect(page).toFill('input[name="username"]', username);
     await expect(page).toFill('input[name="password"]', password);

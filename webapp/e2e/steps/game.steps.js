@@ -39,7 +39,7 @@ defineFeature(feature, test => {
       }
     });
 
-    await loginUser("hugo", "12345678mM.", page);
+    await loginUser("JORDI33", "99999999XxX.", page);
 
     //Way of setting up the timeout
     setDefaultOptions({ timeout: 10000 })
