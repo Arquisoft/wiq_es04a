@@ -58,6 +58,7 @@ const AddUser = () => {
               label={ t("Register.username") }
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              data-testid="username"
             />
             <TextField
               name="password"
@@ -67,6 +68,7 @@ const AddUser = () => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              data-testid="password"
             />
             <Divider style={{ marginTop:'3%'}}/>
             <TextField
@@ -76,6 +78,7 @@ const AddUser = () => {
               label={ t("Register.name") }
               value={name}
               onChange={(e) => setName(e.target.value)}
+              data-testid="name"
             />
             <TextField
               name="surname"
@@ -84,9 +87,10 @@ const AddUser = () => {
               label={ t("Register.surname") }
               value={surname}
               onChange={(e) => setSurname(e.target.value)}
+              data-testid="surname"
             />
             <Divider style={{ marginTop:'3%'}}/>
-            <Button variant="contained" color="primary" onClick={addUser} style={{ width: '100%', marginTop: '5%' }}>
+            <Button variant="contained" color="primary" onClick={addUser} style={{ width: '100%', marginTop: '5%' }} data-testid="register-button">
               { t("Register.button") }
             </Button>
             <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="User added successfully" />
