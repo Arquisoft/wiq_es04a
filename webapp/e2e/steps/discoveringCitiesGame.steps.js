@@ -18,7 +18,7 @@ defineFeature(feature, test => {
     await page.setRequestInterception(true);
 
     page.on('request', (req) => {
-      if(req.url().endsWith('/Geography/en')) {
+      if(req.url().endsWith('/en/Cities')) {
         req.respond({
           status: 200,
           headers: {

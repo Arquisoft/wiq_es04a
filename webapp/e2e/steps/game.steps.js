@@ -67,11 +67,10 @@ defineFeature(feature, test => {
   test('Answering a question correctly', ({given,when,then}) => {
 
     given('A question', async () => {
-        //await expect(page.findByText('Which is the capital of Spain?'));
         const question = await page.$['data-testid="question"'];
-        await expect(page).toMatchElement("div", { text: 'Which is the capital of Spain?'});
         expect(question).not.toBeNull();
-        
+        await expect(page).toMatchElement("h4", { text: 'WHICH IS THE CAPITAL OF SPAIN?'});
+
         const answers = await page.$x('//*[@data-testid="answer"]');
         expect(answers.length).toBe(4);
     });
@@ -94,7 +93,7 @@ defineFeature(feature, test => {
     given('A question', async () => {
         //await expect(page.findByText('Which is the capital of Spain?'));
         const question = await page.$['data-testid="question"'];
-        await expect(page).toMatchElement("div", { text: 'Which is the capital of Spain?'});
+        await expect(page).toMatchElement("h4", { text: 'WHICH IS THE CAPITAL OF SPAIN?'});
         expect(question).not.toBeNull();
         
         const answers = await page.$x('//*[@data-testid="answer"]');
