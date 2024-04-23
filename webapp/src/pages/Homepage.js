@@ -38,11 +38,11 @@ const Homepage = () => {
 
         playButton : {
             height: {
-                xs: '2.5rem', // Tamaño para dispositivos extra pequeños
-                sm: '3rem', // Tamaño para dispositivos pequeños
-                md: '3.5rem', // Tamaño para dispositivos medianos
-                lg: '4rem', // Tamaño para dispositivos grandes
-                xl: '5rem' // Tamaño para dispositivos extra grandes
+                xs: '2.5rem',
+                sm: '3rem',
+                md: '3.5rem',
+                lg: '4rem',
+                xl: '5rem'
             },
             width: {
                 xs: '10rem',
