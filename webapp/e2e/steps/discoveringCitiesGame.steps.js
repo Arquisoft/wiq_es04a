@@ -5,33 +5,6 @@ const feature = loadFeature('./features/discoveringCitiesGame.feature');
 
 let page;
 let browser;
-
-async function loginUser(username, password, name, surname) {
-  clickLink('//button[text()="PLAY"]');
-
-  await expect(page).toFill('input[name()="username"]', username);
-  await expect(page).toFill('input[name()="password"]', password);
-  await expect(page).toClick('button', { text: /Log in/i });
-
-  if(await expect(page).toBe('button', { text: /Log in/i })) {
-    await expect(page).toClick("a", { text: "Don't have an account? Register here." });
-    await expect(page).toFill('input[name="username"]', username);
-    await expect(page).toFill('input[name="password"]', password);
-    await expect(page).toFill('input[name="name"]', name);
-    await expect(page).toFill('input[name="surname"]', surname);
-    await expect(page).toClick('button', { text: /Sign Up/i })
-    
-  }
-}
-
-async function clickLink(linkXPath) {
-  const [link] = await page.$x(linkXPath);
-  if (link) {
-      await link.click();
-  } else {
-      throw new Error(`Cannot find link "${link}"`);
-  }
-  }
   
 defineFeature(feature, test => {
 
@@ -66,13 +39,6 @@ defineFeature(feature, test => {
     });
     //Way of setting up the timeout
     setDefaultOptions({ timeout: 10000 })
-    await page
-    .goto("http://localhost:3000", {
-      waitUntil: "networkidle0",
-    })
-    .catch(() => {});
-    await loginUser("prueba14","123456789Ab=11", "pr","prueba");
-     
   });
 
   beforeEach(async () => {

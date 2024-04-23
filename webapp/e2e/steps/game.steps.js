@@ -6,35 +6,6 @@ const feature = loadFeature('./features/game.feature');
 
 let page;
 let browser;
-
-
-async function loginUser(username, password, name, surname) {
-  clickLink('//button[text()="PLAY"]');
-
-  await expect(page).toFill('input[name="username"]', username);
-  await expect(page).toFill('input[name="password"]', password);
-  await expect(page).toClick('button', { text: /Log in/i });
-
-  if(await expect(page).toBe('button', { text: /Log in/i })) {
-    await expect(page).toClick("a", { text: "Don't have an account? Register here." });
-    await expect(page).toFill('input[name="username"]', username);
-    await expect(page).toFill('input[name="password"]', password);
-    await expect(page).toFill('input[name="name"]', name);
-    await expect(page).toFill('input[name="surname"]', surname);
-    await expect(page).toClick('button', { text: /Sign Up/i })
-    
-  }
-}
-
-async function clickLink(linkXPath) {
-  const [link] = await page.$x(linkXPath);
-  if (link) {
-      await link.click();
-  } else {
-      throw new Error(`Cannot find link "${link}"`);
-  }
-  }
-
   
 defineFeature(feature, test => {
 
@@ -74,11 +45,6 @@ defineFeature(feature, test => {
   });
 
   beforeEach(async () => {
-    await page
-    .goto("http://localhost:3000/game", {
-      waitUntil: "networkidle0",
-    })
-    .catch(() => {});
 
     //"mock" login
     await page.evaluate(() => {

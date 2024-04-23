@@ -6,24 +6,6 @@ const feature = loadFeature('./features/wiseMenStackGame.feature');
 let page;
 let browser;
 
-async function loginUser(username, password) {
-  clickLink('//button[text()="PLAY"]');
-
-  await expect(page).toFill('input[name="username"]', username);
-  await expect(page).toFill('input[name="password"]', password);
-  await expect(page).toClick('button', { text: /Log in/i });
-}
-
-async function clickLink(linkXPath) {
-  const [link] = await page.$x(linkXPath);
-  if (link) {
-      await link.click();
-  } else {
-      throw new Error(`Cannot find link "${link}"`);
-  }
-  }
-  
-
 defineFeature(feature, test => {
 
   beforeAll(async () => {
@@ -57,23 +39,9 @@ defineFeature(feature, test => {
     });
     //Way of setting up the timeout
     setDefaultOptions({ timeout: 10000 })
-    await page
-    .goto("http://localhost:3000", {
-      waitUntil: "networkidle0",
-    })
-    .catch(() => {});
-    await loginUser("prueba14","123456789Ab=11");
-     
-     
   });
 
   beforeEach(async () => {
-    await page
-    .goto("http://localhost:3000/wiseMenStackGame", {
-      waitUntil: "networkidle0",
-    })
-    .catch(() => {});
-
     //"mock" login
     await page.evaluate(() => {
       localStorage.clear();
