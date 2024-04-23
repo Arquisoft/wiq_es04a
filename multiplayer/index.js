@@ -9,8 +9,8 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server, {
     cors: { //permit connections from webapp
-        origin: [process.env.WEBAPP_ENDPOINT, "http://localhost:3000"],
-        //origin: "*", //this should be changed to improve security
+        //origin: [process.env.WEBAPP_ENDPOINT, "http://localhost:3000"],
+        origin: "*", //this should be changed to improve security
         methods: ["GET", "POST"],
         allowedHeaders: "*" //this should be changed to improve security
     }
