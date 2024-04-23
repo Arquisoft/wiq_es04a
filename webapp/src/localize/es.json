@@ -44,6 +44,10 @@
         "multiplayer": {
             "name": "Multijugador",
             "desc": "Crea una sala para que otros jugadores se unan y jueguen 1 contra 1."
+        },
+        "online": {
+            "name": "Partida en línea",
+            "desc": ""
         }
     },
 
@@ -108,6 +112,7 @@
 
     "Statistics": {
         "title": "ESTADÍSTICAS",
+        "game": "Partida",
         "table": {
             "money": "Puntos Ganado",
             "questions_corr": "Preguntas Respondidas Correctamente",
@@ -117,6 +122,10 @@
             "total_time": "Tiempo Total Jugado",
             "cities_corr": "Ciudades Respondidas Correctamente",
             "cities_incorr": "Ciudades Respondidas Incorrectamente"
+        },
+        "button": {
+            "hide_record": "Ocultar registro de preguntas",
+            "show_record": "Mostrar registro de preguntas"
         }
     },
 

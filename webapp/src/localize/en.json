@@ -44,6 +44,10 @@
         "multiplayer": {
             "name": "Multiplayer",
             "desc": "Create a room for other player to join and play 1vs1"
+        },
+        "online": {
+            "name": "Online Game",
+            "desc": ""
         }
 
     },
@@ -109,6 +113,7 @@
 
     "Statistics": {
         "title": "STATISTICS",
+        "game": "Game",
         "table": {
             "money": "Total Points",
             "questions_corr": "Correctly Answered Questions",
@@ -118,6 +123,10 @@
             "total_time": "Total Time Played",
             "cities_corr": "Correctly Answered Cities",
             "cities_incorr": "Incorrectly Answered Cities"
+        },
+        "button": {
+            "hide_record": "Hide Questions Record",
+            "show_record": "Show Questions Record"
         }
     },
 
