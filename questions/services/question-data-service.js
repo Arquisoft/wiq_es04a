@@ -103,7 +103,7 @@ module.exports = {
   },
 
 
-  // Get random questions  TODO: refactor to use common code with get questions by category
+  // Get random questions
   getRandomQuestions : async function(n, wantedLanguage) {
     try {
       // Obtain total number of questions in database

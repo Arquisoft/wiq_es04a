@@ -9,7 +9,7 @@
     },
     {
       "nombre": "WARM QUESTION",
-      "descripcion": "It consists of ten topics of varied themes. For each correct answer, €100 is earned, and €10 are lost if the contestant passes, does not respond, or answers incorrectly.",
+      "descripcion": "It consists of ten topics of varied themes. For each correct answer, 100 points are earned, and 10 are lost if the contestant passes, does not respond, or answers incorrectly.",
       "foto": "../instructions/foto1.jpg",
       "card":"It consists of ten topics of varied themes.",
       "cardFoto": "../homePage/foto1.jpg"

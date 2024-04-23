@@ -5,7 +5,7 @@ const feature = loadFeature('./features/discoveringCitiesGame.feature');
 
 let page;
 let browser;
-
+  
 defineFeature(feature, test => {
 
   beforeAll(async () => {
@@ -29,7 +29,7 @@ defineFeature(feature, test => {
             question: 'Which is the capital of Spain?',
             options: ['Madrid', 'Barcelona', 'Paris', 'London'],
             correctAnswer: 'Madrid',
-            categories: ['Geography'],
+            categories: ['Cities'],
             language: 'en'
           }])
         });
@@ -39,8 +39,6 @@ defineFeature(feature, test => {
     });
     //Way of setting up the timeout
     setDefaultOptions({ timeout: 10000 })
-
-     
   });
 
   beforeEach(async () => {
