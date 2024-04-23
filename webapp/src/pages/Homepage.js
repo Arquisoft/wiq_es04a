@@ -124,6 +124,7 @@ const Homepage = () => {
                 setGameLink("/multiplayerRoom");
                 break;
             default:
+                setGameLink("/wiseMenStackGame");
                 break;
         }
     }, [info]);
