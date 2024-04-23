@@ -52,7 +52,7 @@ describe('Question generation', function() {
     
         dbService.addQuestion.mockResolvedValue();
         // Llama a la función que deseas probar
-        await generator.generateQuestions(1);
+        await generator.generateQuestions(1,"en","Geography");
     
         // Verifica que la función haya realizado las operaciones esperadas
         expect(dbService.addQuestion).toHaveBeenCalledTimes(1);
@@ -76,7 +76,7 @@ describe('Question generation', function() {
 
         console.error = jest.fn();
         // Llama a la función que deseas probar
-        await generator.generateQuestions(1);
+        await generator.generateQuestions(1,"en");
     
         // Verifica que la función haya realizado las operaciones esperadas
         expect(dbService.addQuestion).toHaveBeenCalledTimes(0);

@@ -39,8 +39,6 @@ defineFeature(feature, test => {
     });
     //Way of setting up the timeout
     setDefaultOptions({ timeout: 10000 })
-
-     
   });
 
   beforeEach(async () => {
@@ -49,7 +47,7 @@ defineFeature(feature, test => {
       waitUntil: "networkidle0",
     })
     .catch(() => {});
-
+    
     //"mock" login
     await page.evaluate(() => {
       localStorage.clear();
