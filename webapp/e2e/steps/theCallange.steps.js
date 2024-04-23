@@ -1,7 +1,9 @@
+import {useTheme} from '@mui/material';
 const puppeteer = require('puppeteer');
 const { defineFeature, loadFeature }=require('jest-cucumber');
 const setDefaultOptions = require('expect-puppeteer').setDefaultOptions
 const feature = loadFeature('./features/theChallangeGame.feauture');
+const theme = useTheme();
 
 let page;
 let browser;
@@ -94,7 +96,7 @@ defineFeature(feature, test => {
         } else {
           await expect(textoBoton2).toMatch(/Madrid/i);
         }*/
-        await expect(page).toMatchElement('[data-testid="succes0"]');
+        await expect(page).toMatchElement("button", { style: { backgroundColor: theme.palette.success.main } });
     });
   })
 
@@ -127,7 +129,8 @@ defineFeature(feature, test => {
         } else {
           await expect(textoBoton2).toMatch(/Madrid/i);
         }*/
-        await expect(page).toMatchElement('[data-testid="failure1"]');
+        await expect(page).toMatchElement("button", { style: { backgroundColor: theme.palette.error.main } });
+        await expect(page).toMatchElement("button", { style: { backgroundColor: theme.palette.success.main } });
     });
   })
 
