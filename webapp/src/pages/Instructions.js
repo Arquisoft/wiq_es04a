@@ -1,11 +1,14 @@
 import * as React from "react";
 import { useTheme, Button, Typography, Grid, Box , CssBaseline, useMediaQuery  } from "@mui/material";
 import data from "../data/gameInfo.json";
+import { useTranslation } from 'react-i18next';
 
 
 const Instructions = () => {
     const lg = useMediaQuery('(min-width: 1200px)');
+    const { t } = useTranslation();
     const theme = useTheme();
+
 
     const styles = {
 
@@ -144,7 +147,8 @@ const Instructions = () => {
                     <img src={info[index].foto} alt="Foto del minijuego" style={lg ? styles.imgRow : styles.imgColumn}/>
                     <Box sx={lg ? styles.textRow : styles.textColumn}>
                         <Typography variant="h3" align="center" fontWeight="bold" sx={{fontSize:'2rem'}}> {info[index].nombre} </Typography>
-                        <Typography  variant="body1" align="center" sx={{ textAlign: "center", background: "none", paddingTop:'2rem', width:'80%', fontSize:'1rem'}}> {info[index].descripcion} </Typography>
+                        <Typography  variant="body1" align="center" sx={{ textAlign: "center", background: "none", paddingTop:'2rem', width:'80%', fontSize:'1rem'}}> {t("Games." 
+                        + info[index].nombre +".desc")} </Typography>
                     </Box>
                 </Box>
             );

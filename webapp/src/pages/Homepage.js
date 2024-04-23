@@ -108,22 +108,23 @@ const Homepage = () => {
     //if online mode -> change link to go to online room
     const changeGameLink = React.useCallback((index) => {
         switch (info[index].nombre) {
-            case "WISE MEN STACK":
+            case "Wise Men Stack":
                 setGameLink("/wiseMenStackGame");
                 break;
-            case "WARM QUESTION":
+            case "Warm Question":
                 setGameLink("/warmQuestionGame");
                 break;
-            case "DISCOVERING CITIES":
+            case "Discovering Cities":
                 setGameLink("/discoveringCitiesGame");
                 break;
-            case "THE CHALLENGE":
+            case "Challenge":
                 setGameLink("/theChallengeGame");
                 break;
-            case "MULTIPLAYER MODE":
+            case "Multiplayer":
                 setGameLink("/multiplayerRoom");
                 break;
             default:
+                setGameLink("/wiseMenStackGame");
                 break;
         }
     }, [info]);
@@ -177,7 +178,7 @@ const Homepage = () => {
             </video>
             <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>{ t("Homepage.title") }</Typography>
             {games}
-            <Button variant='conteined' href={gameLink} sx={styles.playButton}> PLAY </Button>
+            <Button variant='conteined' href={gameLink} sx={styles.playButton}> {t("Home")} </Button>
         </Box>
     );
 };

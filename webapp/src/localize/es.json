@@ -29,24 +29,24 @@
     },
 
     "Games": {
-        "wise_men": {
-            "name": "Hombres Sabiondos",
+        "Wise Men Stack": {
+            "name": "Wise Men Stack",
             "desc": "El jugador elige un tema entre cinco opciones disponibles y debe responder una batería de preguntas relacionadas con él en un plazo de 60 segundos. Para cada pregunta, el presentador proporciona dos opciones. Si el concursante acierta, gana €20; de lo contrario, pasa a la siguiente pregunta (ya que la respuesta correcta sería la otra opción). Si el tiempo se agota antes de que se formule por completo la pregunta y se proporcionen ambas posibles respuestas, el concursante aún puede responderla; sin embargo, si la afirmación no se ha completado (o las opciones no se proporcionaron), no pueden responder."
         },
-        "warm_quest": {
-            "name": "Pregunta Calentorra",
+        "Warm Question": {
+            "name": "Warm Question",
             "desc": "Consta de diez temas de diferentes temáticas. Por cada respuesta correcta, se ganan €100, y se pierden €10 si el concursante pasa, no responde o responde incorrectamente."
         },
-        "discover": {
-            "name": "Descubriendo Ciudades",
+        "Discovering Cities": {
+            "name": "Discovering Cities",
             "desc": "En el modo de juego 'Descubriendo Ciudades', el concursante enfrentará un desafío donde se le harán preguntas repetidas referentes a diferentes ciudades de todo el mundo. Para superar con éxito el desafío, el concursante debe responder tantas preguntas como sea posible correctamente a lo largo de la prueba."
         },
-        "challenge": {
-            "name": "Desafío",
+        "Challenge": {
+            "name": "Challenge",
             "desc": "El modo de juego 'Desafío' es el modo de juego por excelencia, ya que te permite personalizar el enfrentamiento a tu gusto. Este modo de juego está diseñado para aquellos que deseen practicar ciertos formatos de juego antes de participar en nuestros diversos otros modos de juego."
         },
-        "multiplayer": {
-            "name": "Multijugador",
+        "Multiplayer": {
+            "name": "Multiplayer",
             "desc": "Crea una sala para que otros jugadores se unan y jueguen 1 contra 1."
         }
     },
@@ -112,6 +112,7 @@
 
     "Statistics": {
         "title": "ESTADÍSTICAS",
+        "game": "Partida",
         "table": {
             "money": "Puntos Ganado",
             "questions_corr": "Preguntas Respondidas Correctamente",
@@ -121,6 +122,10 @@
             "total_time": "Tiempo Total Jugado",
             "cities_corr": "Ciudades Respondidas Correctamente",
             "cities_incorr": "Ciudades Respondidas Incorrectamente"
+        },
+        "button": {
+            "hide_record": "Ocultar registro de preguntas",
+            "show_record": "Mostrar registro de preguntas"
         }
     },
 
@@ -164,7 +169,7 @@
         "users":"Usuarios",
         "groups": "Grupos",
         "name":"NOMBRE",
-        "total_money": "DINERO",
+        "total_money": "PUNTOS",
         "correct_answers": "RESPUESTAS CORRECTAS",
         "incorrect_answers": "RESPUESTAS INCORRECTAS",
         "total_games": "PARTIDAS JUGADAS"
