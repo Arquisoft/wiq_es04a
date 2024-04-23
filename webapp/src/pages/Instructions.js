@@ -1,26 +1,27 @@
 import * as React from "react";
-import { Button, Typography, Grid, Box , CssBaseline, useMediaQuery  } from "@mui/material";
+import { useTheme, Button, Typography, Grid, Box , CssBaseline, useMediaQuery  } from "@mui/material";
 import data from "../data/gameInfo.json";
 
 
 const Instructions = () => {
     const lg = useMediaQuery('(min-width: 1200px)');
+    const theme = useTheme();
 
     const styles = {
 
         button:{
-            color: '#006699',
+            color: theme.palette.primary.main,
             backgroundColor:'rgba(255,255,255,0.7)',
             width: "100%",
             height: "75px",
-            border: '2px solid #006699',
+            border: `2px solid ${theme.palette.primary.main}`,
             borderRadius: '5px',
         },
 
         selectedButton:{
 
             color: 'white',
-            backgroundColor:'#006699',
+            backgroundColor: theme.palette.primary.main,
             width: "100%",
             height: "75px",
             border: '2px solid white',
@@ -76,13 +77,13 @@ const Instructions = () => {
 
         imgRow:{
             height: "100%",
-            border: `2px solid #006699`,
+            border: `2px solid ${theme.palette.primary.main}`,
             borderRadius: "5px"
         },
 
         imgColumn:{
             width: "20rem",
-            border: `2px solid #006699`,
+            border: `2px solid ${theme.palette.primary.main}`,
             borderRadius: "5px"
         },
 
@@ -98,7 +99,7 @@ const Instructions = () => {
             paddingRight:'1rem',
             paddingLeft:'1rem',
             borderRadius:'10px',
-            border: `2px solid #006699`,
+            border: `2px solid ${theme.palette.primary.main}`,
             backgroundColor: 'rgba(255,255,255,0.7)',
         },
 
@@ -113,7 +114,7 @@ const Instructions = () => {
             paddingRight:'1rem',
             paddingLeft:'1rem',
             borderRadius:'10px',
-            border: `2px solid #006699`,
+            border: `2px solid ${theme.palette.primary.main}`,
             backgroundColor: 'rgba(255,255,255,0.7)',
         },
 
