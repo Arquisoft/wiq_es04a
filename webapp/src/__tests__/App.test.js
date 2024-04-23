@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import App from '../App';
 import { SessionContext } from '../SessionContext';
+import '../localize/i18n';
 
 describe('App component', () => {
   it('renders home page by default', () => {
@@ -13,7 +14,7 @@ describe('App component', () => {
             </MemoryRouter>
         </SessionContext.Provider>
     );
-    expect(screen.getByText('WIKIDATA')).toBeInTheDocument();
+    expect(screen.getByTestId('video')).toBeInTheDocument();
   });
 
   it('navigates to login page', async () => {

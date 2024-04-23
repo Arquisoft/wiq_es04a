@@ -54,7 +54,7 @@ const User = sequelize.define('User', {
     },
     imageUrl: {
         type: DataTypes.STRING,
-        defaultValue: "../../webapp/public/default_user.jpg",
+        defaultValue: "default_user.jpg",
     }
 });
 
@@ -162,6 +162,26 @@ const Statistics = sequelize.define('Statistics', {
         defaultValue: 0,
     },
     discovering_cities_games_played: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    online_earned_money: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    online_correctly_answered_questions: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    online_incorrectly_answered_questions: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    online_total_time_played: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    online_games_played: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
     }

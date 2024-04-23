@@ -1,0 +1,168 @@
+{
+    "Home": "PLAY",
+    "WIQ": {
+        "w": "WIKIDATA",
+        "i": "INFINITE",
+        "q": "QUEST"
+    },
+
+    "NavBar":{
+        "play": "Play",
+        "statistics": "Statistics",
+        "instructions": "Instructions",
+        "groups": "Groups",
+        "ranking": "Ranking",
+        "languages": {
+            "en": "English",
+            "es": "Spanish",
+            "fr": "French"
+        }
+    },
+    
+    "Footer": {
+        "api_questions": "QUESTIONS API DOC",
+        "api_users": "USERS API DOC"
+    },
+
+    "Games": {
+        "wise_men": {
+            "name": "Wise Men Stack",
+            "desc": "The player chooses a topic from five available options and must answer a battery of questions related to it within 60 seconds. For each question, the host provides two options. If the contestant guesses correctly, they win €20; otherwise, they move on to the next question (as the correct answer would be the other option). If the time runs out before the question is fully asked and both possible answers are provided, the contestant may still answer it; however, if the statement hasn't been completed (or the options weren't provided), they cannot answer."
+        },
+        "warm_quest": {
+            "name": "Warm Question",
+            "desc": "It consists of ten topics of varied themes. For each correct answer, €100 is earned, and €10 are lost if the contestant passes, does not respond, or answers incorrectly."
+        },
+        "discover": {
+            "name": "Discovering Cities",
+            "desc": "In the 'Discovering Cities' game mode, the contestant will face a challenge where they will be repeatedly asked questions referring to different cities around the world. To successfully overcome the challenge, the contestant must answer as many questions as possible correctly throughout the test.."
+        },
+        "challenge": {
+            "name": "Challenge",
+            "desc": "The 'Challenge' game mode is the quintessential game mode, as it allows you to customize the match to your liking. This game mode is tailored for those who wish to practice certain game formats before engaging in our various other game modes."
+        },
+        "multiplayer": {
+            "name": "Multiplayer",
+            "desc": "Create a room for other player to join and play 1vs1"
+        }
+
+    },
+
+    "Game": {
+        "win_msg": "Great Job!",
+        "lose_msg": "Game Over",
+        "correct": "Correct Answers",
+        "incorrect": "Incorrect Answers",
+        "money": "Final points",
+        "time": "Game Time (sec)",
+        "pause": "Pause",
+        "play": "Play",
+        "round": "Question ",
+        "start": "Start game"
+    },
+
+    "Wise_Men": {
+        "instructions": "Choose a category:",
+        "category":"Categories: ",
+        "geography": "Geography",
+        "political":"Political",
+        "sports":"Sports"
+    },
+
+    "Login": {
+        "title": "Log In",
+        "username": "Username",
+        "password": "Password",
+        "button": "Log in",
+        "register_link": "Don't have an account? Register here."
+    },
+
+    "Register": {
+        "title": "Log In",
+        "username": "Username",
+        "password": "Password",
+        "name": "Name",
+        "surname": "Surname",
+        "button": "Sign up",
+        "login_link": "Already have an account? Login here."
+    },
+
+    "Groups": {
+        "title": "GROUPS",
+        "create": "Create",
+        "list": "List",
+        "create_button": "Create",
+        "name": "Name",
+        "see_members": "See Members",
+        "joined": "JOINED",
+        "join": "JOIN IT!",
+        "filled": "FILLED",
+        "exit": "EXIT IT!",
+        "delete": "DELETE",
+        "Details": {
+            "creator": "Creator",
+            "statistics": "See statistics",
+            "date": "Created in",
+            "members": "Members"
+        }
+    },
+
+    "Statistics": {
+        "title": "STATISTICS",
+        "table": {
+            "money": "Total Points",
+            "questions_corr": "Correctly Answered Questions",
+            "questions_incorr": "Incorrectly Answered Questions",
+            "questions_pass": "Passed Questions",
+            "played_games": "Games Played",
+            "total_time": "Total Time Played",
+            "cities_corr": "Correctly Answered Cities",
+            "cities_incorr": "Incorrectly Answered Cities"
+        }
+    },
+
+    "Multiplayer": {
+        "Room": {
+            "code": "Room Code",
+            "participants": "Participants",
+            "start": "Start game",
+            "create": "Create room",
+            "join": "Join room",
+            "send": "Send",
+            "chat_title": "Chat of the room",
+            "chat_input_label": "Type your message"
+        },
+        "Game": {
+            "waiting_players_end": "Waiting for players end...",
+            "waiting": "Waiting for winner info...",
+            "winner_1": "Player winner of the game",
+            "winner_2": "with",
+            "winner_3": "correct answers in",
+            "winner_4": "seconds"
+        }
+    },
+
+    "NotFound": {
+        "title": "Page not found",
+        "button_msg": "Return to home page"
+    },
+
+    "Profile": {
+
+        "name":"Name:",
+        "surname": "Surname:",
+        "created_in":"Created in:",
+        "choose_your_avatar":"Choose your avatar:",
+        "confirm_changes":"Confirm change"
+        
+    },
+    "Ranking":{
+
+        "users":"Users",
+        "groups": "Groups",
+        "total_money": "MONEY",
+        "correct_answers": "CORRECT ANSWERS",
+        "incorrect_answers": "INCORRECT ANSWERS",
+        "total_games": "GAMES PLAYED"
+    }
+}
