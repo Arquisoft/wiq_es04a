@@ -72,7 +72,7 @@ defineFeature(feature, test => {
 
         //await expect(page.findByText('Which is the capital of Spain?'));
         const question = await page.$['data-testid="question"'];
-        await expect(page).toMatchElement("div", { text: 'Which is the capital of Spain?'});
+        await expect(page).toMatchElement("div", { text: 'Which is the capital of Spain?'.toUpperCase()});
         expect(question).not.toBeNull();
         
         const answers = await page.$x('//*[contains(@data-testid, "success") or contains(@data-testid, "failure") or contains(@data-testid, "answer")]');
@@ -106,7 +106,7 @@ defineFeature(feature, test => {
 
         //await expect(page.findByText('Which is the capital of Spain?'));
         const question = await page.$['data-testid="question"'];
-        await expect(page).toMatchElement("div", { text: 'Which is the capital of Spain?'});
+        await expect(page).toMatchElement("div", { text: 'Which is the capital of Spain?'.toUpperCase()});
         expect(question).not.toBeNull();
         
         const answers = await page.$x('//*[contains(@data-testid, "success") or contains(@data-testid, "failure") or contains(@data-testid, "answer")]');
