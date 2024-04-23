@@ -44,12 +44,7 @@
         "multiplayer": {
             "name": "Multiplayer",
             "desc": "Create a room for other player to join and play 1vs1"
-        },
-        "online": {
-            "name": "Online Game",
-            "desc": ""
         }
-
     },
 
     "Game": {

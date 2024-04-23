@@ -228,7 +228,7 @@ const Statistics = () => {
                     {currentItems.map((record, index) => (
                         <div key={index}>
                         <Typography variant="h5" gutterBottom>
-                           t("Statistics.game") {formatCreatedAt(record.createdAt)}
+                           {t("Statistics.game")} {formatCreatedAt(record.createdAt)}
                         </Typography>
 
                         <Grid container spacing={2}>
@@ -298,7 +298,7 @@ const Statistics = () => {
                             { t("Games.discover.name") }
                         </Button>
                         <Button onClick={() => setSelectedMode('OnlineMode')} variant="contained" sx={{ marginBottom: isSmallScreen ? '0.5em' : '0', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>
-                            { t("Games.online.name") }
+                            { t("Games.multiplayer.name") }
                         </Button>
                     </div>
                     {renderStatistics()}
