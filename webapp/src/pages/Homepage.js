@@ -4,7 +4,6 @@ import data from "../data/gameInfo.json";
 import CardComponent from "../components/CardComponent.js";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTranslation } from 'react-i18next';
-import i18n from '../localize/i18n';
 
 
 const Homepage = () => {
