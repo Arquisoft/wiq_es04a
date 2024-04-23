@@ -275,7 +275,7 @@ const Statistics = () => {
 
     return (
         <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Typography variant="h3" align="center" fontWeight="bold" gutterBottom>
+            <Typography variant="h2" align="center" fontWeight="bold" gutterBottom sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
             { t("Statistics.title") }
             </Typography>
             {error? (

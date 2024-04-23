@@ -50,7 +50,7 @@ const GroupDetails = () => {
     // Returns all group data including the creator, the creation date and the members list
     return (
         <Container sx={{ margin: '0 auto auto' }}>
-            <Typography variant="h3" sx={{ textAlign:'center', fontWeight:'bold' }}>
+            <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
                 {groupInfo.name}
             </Typography>
             <Typography variant="h4">

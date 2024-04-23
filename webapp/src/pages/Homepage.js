@@ -3,10 +3,12 @@ import { Button, Box, Grid, Typography } from '@mui/material';
 import data from "../data/gameInfo.json";
 import CardComponent from "../components/CardComponent.js";
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTranslation } from 'react-i18next';
 
 
 const Homepage = () => {
     const xxl = useMediaQuery('(min-width:1920px)');
+    const { t } = useTranslation();
 
     const styles = React.useMemo(() => ({
         cardButton:{
@@ -173,7 +175,7 @@ const Homepage = () => {
             <video data-testid="video" ref={videoRef} autoPlay muted loop style={{ ...styles.video}}>
                 <source src="../home/Background-White.webm" type="video/mp4" />
             </video>
-            <Typography variant="h3" align="center" fontWeight="bold" sx={{paddingTop:'2rem',textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem'}}>GAME MODES</Typography>
+            <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>{ t("Homepage.title") }</Typography>
             {games}
             <Button variant='conteined' href={gameLink} sx={styles.playButton}> PLAY </Button>
         </Box>
