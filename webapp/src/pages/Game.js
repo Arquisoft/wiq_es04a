@@ -94,6 +94,7 @@ const Game = () => {
     // gets a random question from the database and initializes button states to null
     const startNewRound = async () => {
         setAnswered(false);
+        setPassNewRound(false);
 
         // Updates current language
         setCurrentLanguage(i18n.language);
