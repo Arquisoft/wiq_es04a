@@ -4,6 +4,7 @@ import MultiplayerRoom from '../../pages/MultiplayerRoom';
 import io from 'socket.io-client';
 import { SessionContext } from '../../SessionContext';
 import { BrowserRouter as Router } from 'react-router-dom';
+import '../../localize/i18n';
 
 //mock some socket behaviour
 jest.mock('socket.io-client', () => {
@@ -60,7 +61,8 @@ describe('MultiplayerRoom component', () => {
         expect(socket.emit).toHaveBeenCalledWith(
           'join-room',
           expect.any(String),
-          'exampleUser'  
+          'exampleUser',
+          expect.any(String)  
         );
     });
 

@@ -3,9 +3,9 @@
         "name": "country",
         "instance": "Q6256",
         "properties": [
-            {   
+            {
                 "property": "P1082",
-                "template": 
+                "template":
                     [{
                     "lang": "es",
                     "question": "Cuál es la población de x"
@@ -15,9 +15,9 @@
                     "question": "What is the population of x"
                     }],
                 "filter": ">4000000",
-                "category": ["Geography"]
+                "category": ["Geography", "Cities"]
             },
-            {   
+            {
                 "property": "P36",
                 "template": [{
                     "lang": "es",
@@ -27,11 +27,11 @@
                     "lang": "en",
                     "question": "What is the capital of x"
                     }],
-                "category": ["Geography"]
+                "category": ["Geography", "Cities"]
             },
-            {   
+            {
                 "property": "P38",
-                "template": 
+                "template":
                     [{
                     "lang": "es",
                     "question": "Que moneda tiene x"
@@ -48,9 +48,9 @@
         "name": "football",
         "instance": "Q476028",
         "properties": [
-            {   
+            {
                 "property": "P115",
-                "template": 
+                "template":
                     [{
                     "lang": "es",
                     "question": "Cuál es el estadio del equipo x"
@@ -63,7 +63,7 @@
             },
             {
                 "property": "P17",
-                "template": 
+                "template":
                     [{
                     "lang": "es",
                     "question": "Cuál es el pais del equipo x"
@@ -80,9 +80,9 @@
         "name": "river",
         "instance": "Q4022",
         "properties": [
-            {   
+            {
                 "property": "P205",
-                "template": 
+                "template":
                     [{
                     "lang": "es",
                     "question": "En qué país está el río x"
@@ -92,6 +92,480 @@
                     "question":  "What country is x river in"
                     }],
                 "category": ["Geography"]
+            }
+        ]
+    },
+    {
+        "name": "painting",
+        "instance": "Q3305213",
+        "properties": [
+            {
+                "property": "P170",
+                "template":
+                    [{
+                    "lang": "es",
+                    "question": "Quien es el autor de x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "Who is the author of x"
+                    }],
+                "category": ["Art"]
+            },
+            {
+                "property": "P571",
+                "template": [{
+                    "lang": "es",
+                    "question": "Cual es el año de creacion de x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "What is the year of creation of x"
+                    }],
+                "category": ["Art"]
+            },
+            {
+                "property": "P136",
+                "template":
+                    [{
+                    "lang": "es",
+                    "question": "Cual es el estilo artistico de x"
+                    },
+                    {
+                    "lang": "en",
+                    "question":  "What is the artistic style of x"
+                    }],
+                "category": ["Art"]
+            }
+        ]
+    },
+    {
+        "name": "inventions",
+        "instance": "Q11028",
+        "properties": [
+            {
+                "property": "P61",
+                "template":
+                    [{
+                    "lang": "es",
+                    "question": "Quien es el inventor de x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "Who is the inventor of x"
+                    }],
+                "category": ["Science"]
+            },
+            {
+                "property": "P575",
+                "template":
+                    [{
+                    "lang": "es",
+                    "question": "En que año se inventó x"
+                    },
+                    {
+                    "lang": "en",
+                    "question":  "What was the year of invention of x"
+                    }],
+                "category": ["Science"]
+            }
+        ]
+    },
+    {
+        "name": "mountain",
+        "instance": "Q8502",
+        "properties": [
+            {
+                "property": "P2044",
+                "template":
+                    [{
+                    "lang": "es",
+                    "question": "Cual es la altitud mxima del x"
+                    },
+                    {
+                    "lang": "en",
+                    "question":  "What is the maximum altitude of x"
+                    }],
+                "category": ["Geography"]
+            }
+        ]
+    },
+    {
+        "name": "book",
+        "instance": "Q571",
+        "properties": [
+            {
+                "property": "P50",
+                "template":
+                    [{
+                    "lang": "es",
+                    "question": "Quien es el autor de x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "Who is the author of x"
+                    }],
+                "category": ["Entertainment"]
+            },
+            {
+                "property": "P577",
+                "template": [{
+                    "lang": "es",
+                    "question": "Cual es el año de publicacion de x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "What is the year of publication of x"
+                    }],
+                "category": ["Entertainment"]
+            },
+            {
+                "property": "P136",
+                "template":
+                    [{
+                    "lang": "es",
+                    "question": "Cual es el genero de x"
+                    },
+                    {
+                    "lang": "en",
+                    "question":  "What is the genre of x"
+                    }],
+                "category": ["Entertainment"]
+            }
+        ]
+    },
+    {
+        "name": "vehicle",
+        "instance": "Q42889",
+        "properties": [
+            {
+                "property": "P176",
+                "template":
+                    [{
+                    "lang": "es",
+                    "question": "Quien es el fabricante de x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "Who is the manufacturer of x"
+                    }],
+                "category": ["Cars"]
+            },
+            {
+                "property": "P3032",
+                "template": [{
+                    "lang": "es",
+                    "question": "Cuál es la velocidad máxima de x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "What is the maximum speed of x"
+                    }],
+                "category": ["Cars"]
+            },
+            {
+                "property": "P571",
+                "template":
+                    [{
+                    "lang": "es",
+                    "question": "En qué año fue introducido x al mercado"
+                    },
+                    {
+                    "lang": "en",
+                    "question":  "In what year was x introduced to the market"
+                    }],
+                "category": ["Cars"]
+            }
+        ]
+    },
+    {
+        "name": "dish",
+        "instance": "Q746549",
+        "properties": [
+            {
+                "property": "P527",
+                "template":
+                    [{
+                    "lang": "es",
+                    "question": "Cuál es el ingrediente principal de x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "What is the main ingredient of x"
+                    }],
+                "category": ["Food"]
+            },
+            {
+                "property": "P495",
+                "template": [{
+                    "lang": "es",
+                    "question": "De qué región es originario x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "What region is x originally from?"
+                    }],
+                "category": ["Food"]
+            }
+        ]
+    },
+    {
+        "name": "building",
+        "instance": "Q41176",
+        "properties": [
+            {
+                "property": "P84",
+                "template":
+                    [{
+                    "lang": "es",
+                    "question": "Quién fue el arquitecto de x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "Who was the architect of x"
+                    }],
+                "category": ["Art"]
+            },
+            {
+                "property": "P571",
+                "template": [{
+                    "lang": "es",
+                    "question": "En qué año se completó x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "In what year was it completed x"
+                    }],
+                "category": ["Art"]
+            },
+            {
+                "property": "P149",
+                "template": [{
+                    "lang": "es",
+                    "question": "Cuál es el estilo arquitectónico de x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "What is the architectural style of x"
+                    }],
+                "category": ["Art"]
+            }
+        ]
+    },
+    {
+        "name": "television series",
+        "instance": "Q5398426",
+        "properties": [
+            {
+                "property": "P178",
+                "template":
+                    [{
+                    "lang": "es",
+                    "question": "Quién es el creador de la serie x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "Who is the creator of the series x"
+                    }],
+                "category": ["Entertainment"]
+            },
+            {
+                "property": "P2437",
+                "template": [{
+                    "lang": "es",
+                    "question": "Cuántas temporadas tiene la serie x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "How many seasons does the series x have?"
+                    }],
+                "category": ["Entertainment"]
+            }
+        ]
+    },
+    {
+        "name": "software",
+        "instance": "Q7397",
+        "properties": [
+            {
+                "property": "P178",
+                "template":
+                    [{
+                    "lang": "es",
+                    "question": "Quién desarrolló el software x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "Who developed the software x"
+                    }],
+                "category": ["Technology"]
+            },
+            {
+                "property": "P277",
+                "template": [{
+                    "lang": "es",
+                    "question": "En qué lenguaje de programación está escrito x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "What programming language is x written in?"
+                    }],
+                "category": ["Technology"]
+            }
+        ]
+    },
+    {
+        "name": "athlete",
+        "instance": "Q2066131",
+        "properties": [
+            {
+                "property": "P641",
+                "template":
+                    [{
+                    "lang": "es",
+                    "question": "En qué deporte compite x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "Who developed the software x"
+                    }],
+                "category": ["Sport"]
+            },
+            {
+                "property": "P27",
+                "template": [{
+                    "lang": "es",
+                    "question": "Cuál es la nacionalidad del atleta x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "What is the nationality of the athlete x"
+                    }],
+                "category": ["Sport"]
+            }
+        ]
+    },
+    {
+        "name": "video game",
+        "instance": "Q7889",
+        "properties": [
+            {
+                "property": "P178",
+                "template":
+                    [{
+                    "lang": "es",
+                    "question": "Quien es el desarrollador del videojuego x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "Who is the developer of the video game x"
+                    }],
+                "category": ["Games"]
+            },
+            {
+                "property": "P577",
+                "template": [{
+                    "lang": "es",
+                    "question": "En qué año fue lanzado el videojuego x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "In what year was the video game x released?"
+                    }],
+                "category": ["Games"]
+            },
+            {
+                "property": "P400",
+                "template": [{
+                    "lang": "es",
+                    "question": "Cuáles son las plataformas compatibles con x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "What are the platforms supported by x"
+                    }],
+                "category": ["Games"]
+            }
+        ]
+    },
+    {
+        "name": "jewelry",
+        "instance": "Q161439",
+        "properties": [
+            {
+                "property": "P287",
+                "template":
+                    [{
+                    "lang": "es",
+                    "question": "Quién es el diseñador de la marca x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "Who is the designer of the brand x"
+                    }],
+                "category": ["Fashion"]
+            },
+            {
+                "property": "P571",
+                "template": [{
+                    "lang": "es",
+                    "question": "Cuándo fue fundada la casa de moda x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "When was the fashion house founded x"
+                    }],
+                "category": ["Fashion"]
+            }
+        ]
+    },
+    {
+        "name": "taxon",
+        "instance": "Q16521",
+        "properties": [
+            {
+                "property": "P2973",
+                "template":
+                    [{
+                    "lang": "es",
+                    "question": "Cuál es el hábitat natural de la especie x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "What is the natural habitat of species x"
+                    }],
+                "category": ["Animals"]
+            },
+            {
+                "property": "P2670",
+                "template": [{
+                    "lang": "es",
+                    "question": "Qué especies comparten el hábitat con x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "What species share the habitat with x"
+                    }],
+                "category": ["Animals"]
+            }
+        ]
+    },
+    {
+        "name": "brands",
+        "instance": "Q431289",
+        "properties": [
+            {
+                "property": "P571",
+                "template":
+                    [{
+                    "lang": "es",
+                    "question": "Cuándo fue fundada la marca x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "When was the brand x founded?"
+                    }],
+                "category": ["Brands"]
             }
         ]
     }

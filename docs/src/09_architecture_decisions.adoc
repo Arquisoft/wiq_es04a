@@ -38,10 +38,18 @@ The architectural decisions are completely documented in our https://github.com/
 
 === Team Working Methodology
 - https://github.com/Arquisoft/wiq_es04a/wiki/ADR-01-‐-Usage-of-A-Succesful-Branching-Model[ADR 01] - Usage of A Succesful Branching Model
+- https://github.com/Arquisoft/wiq_es04a/wiki/ADR-07-‐-Usage-of-Trunk-Based-Development[ADR 07] - Usage of Trunk Based Development
+
+=== Design and Decisions
+- https://github.com/Arquisoft/wiq_es04a/wiki/ADR-08-‐-Questions-Database-Functioning[ADR 08] - Questions Database Functioning
 
 === Technology
 - https://github.com/Arquisoft/wiq_es04a/wiki/ADR-02-‐-Microservices-Architecture[ADR 02] - Microservices Architecture
 - https://github.com/Arquisoft/wiq_es04a/wiki/ADR-03-‐-Frontend-in-React[ADR 03] - Front-end in React
+- https://github.com/Arquisoft/wiq_es04a/wiki/ADR-04-‐-Users-and-Groups-with-MariaDB[ADR 04] - Users and Groups with MariaDB
+- https://github.com/Arquisoft/wiq_es04a/wiki/ADR-05-‐-Question-generation-in-Node.js[ADR 05] - Question generation in Node.js
+- https://github.com/Arquisoft/wiq_es04a/wiki/ADR-06-‐-MongoDB-for-questions-database[ADR 06] - MongoDB for questions database
+- https://github.com/Arquisoft/wiq_es04a/wiki/ADR-09-‐-Multiplayer-technology[ADR 09] - Multiplayer technology
 
 _TBC when more architecture decisions are taken_
 
