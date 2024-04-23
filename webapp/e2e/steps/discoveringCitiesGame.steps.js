@@ -7,9 +7,7 @@ let page;
 let browser;
 
 async function loginUser(username, password, name, surname) {
-  const [loginLink] = await page.$x('//*[@id="root"]/div/header/div/a[2]');
-  await loginLink.click();
-  //clickLink('//button[text()="PLAY"]');
+  clickLink('//button[text()="PLAY"]');
 
   await expect(page).toFill('input[name()="username"]', username);
   await expect(page).toFill('input[name()="password"]', password);

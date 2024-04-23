@@ -189,7 +189,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(increase(http_request_duration_seconds_count{code=~\"5.*\"}[1m]))",
+          "expr": "sum(increase(http_request_duration_seconds_count{status_code=~\"4.*\"}[1m]))",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
