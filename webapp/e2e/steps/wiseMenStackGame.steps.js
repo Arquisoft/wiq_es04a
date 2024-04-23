@@ -42,6 +42,12 @@ defineFeature(feature, test => {
   });
 
   beforeEach(async () => {
+    await page
+    .goto("http://localhost:3000/wiseMenStackGame", {
+      waitUntil: "networkidle0",
+    })
+    .catch(() => {});
+    
     //"mock" login
     await page.evaluate(() => {
       localStorage.clear();
