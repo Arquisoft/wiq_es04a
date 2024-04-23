@@ -418,7 +418,7 @@ return (
                                 borderRadius: "10px",
                                 margin: "5px",
                                 "&:disabled": {
-                                    backgroundColor: buttonStates[index] === "success" ? theme.palette.success.main : buttonStates[index] === "failure" ? theme.palette.error.main : "gray",
+                                    backgroundColor: buttonStates[index] === "success" ? "green" : buttonStates[index] === "failure" ? "red" : "gray",
                                     color: "white",
                                 },
                             }}
