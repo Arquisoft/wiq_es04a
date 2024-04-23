@@ -166,9 +166,9 @@ const Instructions = () => {
             <CssBaseline />
 
             <Box sx={{...styles.fullScreen, width:'80%', margin:'1rem'}}>
-                <Grid container spacing={{ xs: 2, md: 4 }} columns={{ xs: 2, sm: 3, md: 3, lg: 5, xl:5 }}>
-                    <Grid item xs={2} sm={3} md={5}>
-                        <Typography variant="h3" align="center" fontWeight="bold" sx={{textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', margin:'1rem', fontSize:'2rem'}}>INSTRUCTIONS</Typography>
+                <Grid container spacing={{ xs: 2, md: 4 }} columns={{ xs: 1, sm: 3, lg: 5 }}>
+                    <Grid item xs={1} sm={3} md={5}>
+                        <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>INSTRUCTIONS</Typography>
                     </Grid>
                     {info.map((option, index) => (
                         <Grid item xs={1} key={option.nombre} >
