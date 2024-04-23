@@ -6,6 +6,10 @@
         "q": "QUESTIONARIO"
     },
 
+    "Homepage": {
+        "title": "MODOS DE JUEGO"
+    },
+
     "NavBar":{
         "play": "Jugar",
         "statistics": "Estadísticas",
