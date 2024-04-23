@@ -59,7 +59,7 @@ const Ranking = () => {
         }}>
 
             <Container style={{ display: 'flex', flexDirection: 'column' }}>
-                <Typography variant="h3" align="center" fontWeight="bold">
+                <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
                     RANKING
                 </Typography>
                 <Container style={{ display: 'flex', justifyContent: 'center', marginTop: '0.5em', gap:'2em' }}>

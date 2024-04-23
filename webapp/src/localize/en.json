@@ -6,6 +6,10 @@
         "q": "QUEST"
     },
 
+    "Homepage": {
+        "title": "GAME MODES"
+    },
+
     "NavBar":{
         "play": "Play",
         "statistics": "Statistics",
