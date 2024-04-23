@@ -126,11 +126,14 @@ describe('Question routes', function() {
       await expect(response.body.length).toBe(3);
     });
 
-    it('It should get n questions of certain category from the database', async function() {
+    it('get question when more than 100 questions', async function() {
+      await addingQuestions();
+      await addingQuestions();
+      await generateQuestionsService.generateQuestions.mockResolvedValue({"response":{"status":"200"}});
       const response = await request(app).get('/questions/getQuestionsFromDb/3/en');
       await expect(response.status).toBe(200);
       await expect(response.body.length).toBe(3);
-    });
+    });  
 
       it('It should not get n questions from the database', async function() {
         const response = await request(app).get('/questions/getQuestionsFromDb/-1/en');
@@ -154,6 +157,17 @@ describe('Question routes', function() {
         await expect(response.body.length).toBe(2);
         await expect(response.body[0].categories[0]).toBe("Geography");
       });
+
+      it('get question when more than 100 questions', async function() {
+        await addingQuestions();
+        await addingQuestions();
+        await generateQuestionsService.generateQuestions.mockResolvedValue({"response":{"status":"200"}});
+        const response = await request(app).get('/questions/getQuestionsFromDb/2/Geography/en');
+        await expect(response.status).toBe(200);
+        await expect(response.body.length).toBe(2);
+        await expect(response.body[0].categories[0]).toBe("Geography");
+      });
+
       it('It should not get n questions of certain category from the database', async function() {
         const response = await request(app).get('/questions/getQuestionsFromDb/-1/Geography/en');
         await expect(response.status).toBe(400);

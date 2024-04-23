@@ -69,7 +69,7 @@
       "options": {
         "dataLinks": []
       },
-      "percentage": false,
+      "percentage": true,
       "pluginVersion": "7.0.0",
       "pointradius": 2,
       "points": false,
@@ -369,7 +369,7 @@
     ]
   },
   "timezone": "",
-  "title": "Example Service Dashboard",
+  "title": "Wiq_es04 Dashboard",
   "uid": "1DYaynomMk",
   "version": 2
 }

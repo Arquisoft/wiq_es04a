@@ -84,19 +84,6 @@ router.get('/getQuestionsFromDb/:n/:lang', async(_req, res) => {
         }
     }
 
-    /*if (await dbService.getQuestionCount(language) < n) {
-        //Must generate n questions
-        await generateQuestionsService.generateQuestions(n + 1, language);
-        //Do not wait to generate the others
-        generateQuestionsService.generateQuestions(n * 5, language);
-    }
-
-    questions = await dbService.getRandomQuestions(n, language);
-    if(questions != null)
-        questions.map(question => {
-            dbService.deleteQuestionById(question._id);
-        })
-    res.json(questions);*/
 });
 
 //Get random questions from db with category filter: http://localhost:8010/questions/getQuestionsFromDb/2/Geografía
@@ -113,7 +100,6 @@ router.get('/getQuestionsFromDb/:n/:category/:lang', async(_req, res) => {
     
     // 0: Await till it creates 2, creates 50 async and do not delete
     if (questionCount == 0) {
-        console.log("QUESTIONS 0");
         await generateQuestionsService.generateQuestions(2, language, category);
         generateQuestionsService.generateQuestions(50, language, category);
         questions = await dbService.getRandomQuestionsByCategory(n, category, language);
@@ -121,7 +107,6 @@ router.get('/getQuestionsFromDb/:n/:category/:lang', async(_req, res) => {
         
     // < 50: async creates 10 and do not delete
     } else if (questionCount < 50) {
-        console.log("QUESTIONS 50");
         //Do not wait to generate the others
         generateQuestionsService.generateQuestions(10, language, category);
         questions = await dbService.getRandomQuestionsByCategory(n, category, language);
@@ -129,7 +114,6 @@ router.get('/getQuestionsFromDb/:n/:category/:lang', async(_req, res) => {
 
     // < 100: async creates 5 and delete
     } else if (questionCount < 100) {
-        console.log("QUESTIONS 100");
         generateQuestionsService.generateQuestions(10, language, category);
         questions = await dbService.getRandomQuestionsByCategory(n, category, language);
         res.json(questions);
@@ -141,7 +125,6 @@ router.get('/getQuestionsFromDb/:n/:category/:lang', async(_req, res) => {
 
     // >= 100: do not create and delete
     } else {
-        console.log("QUESTIONS ELSE");
         questions = await dbService.getRandomQuestionsByCategory(n, category, language);
         res.json(questions);
         if(questions != null) {
