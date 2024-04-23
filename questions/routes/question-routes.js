@@ -42,13 +42,49 @@ router.get('/:lang', async (req, res) => {
 router.get('/getQuestionsFromDb/:n/:lang', async(_req, res) => {
     const n = parseInt(_req.params.n, 10);
     const language = _req.params.lang;
+    const questionCount = await dbService.getQuestionCount(language);
 
     //Verify is n is a correct number
     if (isNaN(n) || n <= 0) {
         return res.status(400).json({ error: 'Parameter "n" must be > 0.' });
     }
 
-    if (await dbService.getQuestionCount(language) < n) {
+    // 0: Await till it creates 2, creates 50 async and do not delete
+    if (questionCount == 0) {
+        await generateQuestionsService.generateQuestions(2, language);
+        generateQuestionsService.generateQuestions(50, language);
+        const questions = await dbService.getRandomQuestions(n, language);
+        res.json(questions);
+        
+    // < 50: async creates 10 and do not delete
+    } else if (questionCount < 50) {
+        //Do not wait to generate the others
+        generateQuestionsService.generateQuestions(10, language);
+        const questions = await dbService.getRandomQuestions(n, language);
+        res.json(questions);
+
+    // < 100: async creates 5 and delete
+    } else if (questionCount < 100) {
+        generateQuestionsService.generateQuestions(10, language);
+        const questions = await dbService.getRandomQuestions(n, language);
+        res.json(questions);
+        if(questions != null) {
+            for(var i = 0; i < questions.length; i++) {
+                dbService.deleteQuestionById(questions[i]._id);
+            }
+        }
+    // >= 100: do not create and delete
+    } else {
+        const questions = await dbService.getRandomQuestions(n, language);
+        res.json(questions);
+        if(questions != null) {
+            for(var i = 0; i < questions.length; i++) {
+                dbService.deleteQuestionById(questions[i]._id);
+            }
+        }
+    }
+
+    /*if (await dbService.getQuestionCount(language) < n) {
         //Must generate n questions
         await generateQuestionsService.generateQuestions(n + 1, language);
         //Do not wait to generate the others
@@ -60,7 +96,7 @@ router.get('/getQuestionsFromDb/:n/:lang', async(_req, res) => {
         questions.map(question => {
             dbService.deleteQuestionById(question._id);
         })
-    res.json(questions);
+    res.json(questions);*/
 });
 
 //Get random questions from db with category filter: http://localhost:8010/questions/getQuestionsFromDb/2/Geografía
@@ -75,23 +111,9 @@ router.get('/getQuestionsFromDb/:n/:category/:lang', async(_req, res) => {
         return res.status(400).json({ error: 'Parameter "n" must be > 0.' });
     }
     
-    /*if (await dbService.getQuestionCountByCategory(category, language) < n) {
-        //Must generate n questions (n because some can fail at generation at the moment 18/04)
-        await generateQuestionsService.generateQuestions(n + 2, language, category);
-        //Do not wait to generate the others
-        generateQuestionsService.generateQuestions(n, language, category);
-    }
-    questions = await dbService.getRandomQuestionsByCategory(n, category, language);
-    if(questions != null) {
-        for(var i = 0; i < questions.length; i++) {
-            dbService.deleteQuestionById(questions[i]._id);
-        }
-    }
-    res.json(questions);*/
-    
-
     // 0: Await till it creates 2, creates 50 async and do not delete
     if (questionCount == 0) {
+        console.log("QUESTIONS 0");
         await generateQuestionsService.generateQuestions(2, language, category);
         generateQuestionsService.generateQuestions(50, language, category);
         questions = await dbService.getRandomQuestionsByCategory(n, category, language);
@@ -99,6 +121,7 @@ router.get('/getQuestionsFromDb/:n/:category/:lang', async(_req, res) => {
         
     // < 50: async creates 10 and do not delete
     } else if (questionCount < 50) {
+        console.log("QUESTIONS 50");
         //Do not wait to generate the others
         generateQuestionsService.generateQuestions(10, language, category);
         questions = await dbService.getRandomQuestionsByCategory(n, category, language);
@@ -106,6 +129,7 @@ router.get('/getQuestionsFromDb/:n/:category/:lang', async(_req, res) => {
 
     // < 100: async creates 5 and delete
     } else if (questionCount < 100) {
+        console.log("QUESTIONS 100");
         generateQuestionsService.generateQuestions(10, language, category);
         questions = await dbService.getRandomQuestionsByCategory(n, category, language);
         res.json(questions);
@@ -117,6 +141,7 @@ router.get('/getQuestionsFromDb/:n/:category/:lang', async(_req, res) => {
 
     // >= 100: do not create and delete
     } else {
+        console.log("QUESTIONS ELSE");
         questions = await dbService.getRandomQuestionsByCategory(n, category, language);
         res.json(questions);
         if(questions != null) {
