@@ -11,6 +11,7 @@
         "statistics": "Estadísticas",
         "instructions": "Instrucciones",
         "groups": "Grupos",
+        "ranking": "Ranking",
         "languages": {
             "en": "Inglés",
             "es": "Español",
@@ -85,10 +86,6 @@
         "login_link": "¿Ya tienes una cuenta? Inicia sesión aquí."
     },
 
-    "Ranking": {
-        "title": "CLASIFICACIÓN"
-    },
-
     "Groups": {
         "title": "GRUPOS",
         "create": "Crear",
@@ -97,10 +94,13 @@
         "name": "Nombre",
         "see_members": "Ver Miembros",
         "joined": "UNIDO",
-        "join": "¡ÚNETE!",
+        "join": "UNIRSE",
+        "exit": "ABANDONAR",
+        "delete": "ELIMINAR",
         "filled": "LLENO",
         "Details": {
             "creator": "Creador",
+            "statistics": "Ver estadísticas",
             "date": "Creado en",
             "members": "Miembros"
         }
@@ -144,5 +144,25 @@
     "NotFound": {
         "title": "Página no encontrada",
         "button_msg": "Volver a la página de inicio"
+    },
+
+    "Profile": {
+
+        "name":"Nombre:",
+        "surname": "Apellido:",
+        "created_in":"Fecha de registro:",
+        "choose_your_avatar":"Escoge tu avatar:",
+        "confirm_changes":"Confirmar cambio"
+        
+    },
+    "Ranking":{
+
+        "users":"Usuarios",
+        "groups": "Grupos",
+        "name":"NOMBRE",
+        "total_money": "DINERO",
+        "correct_answers": "RESPUESTAS CORRECTAS",
+        "incorrect_answers": "RESPUESTAS INCORRECTAS",
+        "total_games": "PARTIDAS JUGADAS"
     }
 }

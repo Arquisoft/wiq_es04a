@@ -115,7 +115,7 @@ describe('User Routes', () => {
         };
 
         const response = await request(app)
-            .post('/user/add')
+            .post('/user')
             .send(newUser);
 
         expect(response.status).toBe(200);
@@ -154,11 +154,11 @@ describe('User Routes', () => {
     
         // Try to add the existing user again
         const response = await request(app)
-            .post('/user/add')
+            .post('/user')
             .send(existingUser);
     
         expect(response.status).toBe(400);
-        expect(response.body.error).toBe('An account with that username already exists');
+        expect(response.body.error).toBe('Invalid username');
     });
 
     it('should return error if username is less than 4 characters long', async () => {
@@ -170,7 +170,7 @@ describe('User Routes', () => {
         };
 
         const response = await request(app)
-            .post('/user/add')
+            .post('/user')
             .send(newUser);
 
         expect(response.status).toBe(400);
@@ -186,7 +186,7 @@ describe('User Routes', () => {
         };
 
         const response = await request(app)
-            .post('/user/add')
+            .post('/user')
             .send(newUser);
 
         expect(response.status).toBe(400);
@@ -202,7 +202,7 @@ describe('User Routes', () => {
         };
 
         const response = await request(app)
-            .post('/user/add')
+            .post('/user')
             .send(newUser);
 
         expect(response.status).toBe(400);
@@ -218,7 +218,7 @@ describe('User Routes', () => {
         };
 
         const response = await request(app)
-            .post('/user/add')
+            .post('/user')
             .send(newUser);
 
         expect(response.status).toBe(400);
@@ -234,7 +234,7 @@ describe('User Routes', () => {
         };
 
         const response = await request(app)
-            .post('/user/add')
+            .post('/user')
             .send(newUser);
 
         expect(response.status).toBe(400);
@@ -250,7 +250,7 @@ describe('User Routes', () => {
         };
 
         const response = await request(app)
-            .post('/user/add')
+            .post('/user')
             .send(newUser);
 
         expect(response.status).toBe(400);
@@ -271,7 +271,7 @@ describe('User Routes', () => {
         });
 
         // We create some example groups
-        for(let i=0;i<5;i++){
+        for(let i=0;i<3;i++){
             const newGroup = {
                 name: 'Testing '+i,
                 username: 'existinguser'
@@ -279,7 +279,7 @@ describe('User Routes', () => {
         
             // We now make each request so that it creates the group and associates it to the user
             const response = await request(app)
-                .post('/user/group/add')
+                .post('/user/group')
                 .send(newGroup);
 
             // Verify if the request was successful
@@ -289,7 +289,7 @@ describe('User Routes', () => {
 
         // Perform the request without defining a username to see the previously created groups
         const response = await request(app)
-            .get('/user/group/list')
+            .get('/user/group')
             .set('Accept', 'application/json');
     
         // Verify if the request was successful
@@ -311,7 +311,7 @@ describe('User Routes', () => {
         });
 
         // We create some example groups
-        for(let i=0;i<5;i++){
+        for(let i=0;i<3;i++){
             const newGroup = {
                 name: 'Testing '+i,
                 username: 'existinguser'
@@ -319,7 +319,7 @@ describe('User Routes', () => {
         
             // We now make each request so that it creates the group and associates it to the user
             const response = await request(app)
-                .post('/user/group/add')
+                .post('/user/group')
                 .send(newGroup);
 
             // Verify if the request was successful
@@ -328,7 +328,7 @@ describe('User Routes', () => {
     
         // Perform the request with the defined username
         const response = await request(app)
-            .get('/user/group/list')
+            .get('/user/group')
             .query({ username: 'existinguser' })
             .set('Accept', 'application/json');
     
@@ -349,7 +349,8 @@ describe('User Routes', () => {
     it('should show an error if group doesnt exist', async () => {
 
         const response = await request(app)
-        .get(`/user/group/nonexistentGroup`);
+        .get(`/user/group/nonexistentGroup`)
+        .query({ username: 'Test1234' });
 
         expect(response.status).toBe(404);
         expect(response.type).toMatch(/json/);
@@ -366,7 +367,8 @@ describe('User Routes', () => {
         };
         await Group.create(newGroup);
         const response = await request(app)
-        .get(`/user/group/testgroup3`);
+            .get(`/user/group/testgroup3`)
+            .query({ username: 'Test1234' });
 
         expect(response.status).toBe(200);
         expect(response.type).toMatch(/json/);
@@ -389,7 +391,7 @@ describe('User Routes', () => {
         };
 
         const response = await request(app)
-            .post('/user/add')
+            .post('/user')
             .send(newUser);
 
 
@@ -400,7 +402,7 @@ describe('User Routes', () => {
 
         // Making POST request to the endpoint
         const res = await request(app)
-            .post('/user/group/add')
+            .post('/user/group')
             .send(groupData)
             .expect(200); // Expecting a successful response with status code 200
 
@@ -418,7 +420,7 @@ describe('User Routes', () => {
         };
     
         const res = await request(app)
-            .post('/user/group/add')
+            .post('/user/group')
             .send(groupData)
             .expect(400);
     
@@ -431,7 +433,7 @@ describe('User Routes', () => {
 
         // Making POST request to the endpoint
         const res = await request(app)
-            .post('/user/group/add')
+            .post('/user/group')
             .send({})
             .expect(500); // Expecting a successful response with status code 200
     
@@ -448,7 +450,7 @@ describe('User Routes', () => {
             surname: 'User'
         };
         const response = await request(app)
-            .post('/user/add')
+            .post('/user')
             .send(newUser);
         const newGroup = {
             name: 'testgroupUserSuccessfulJoin',
@@ -464,7 +466,7 @@ describe('User Routes', () => {
 
         // Making POST request to join the group
         const res = await request(app)
-            .post(`/user/group/${groupName}/join`)
+            .post(`/user/group/${groupName}`)
             .send({ username })
             .expect(200); // Expecting a successful response with status code 200
 
@@ -479,7 +481,7 @@ describe('User Routes', () => {
 
         // Making POST request to join the group
         const res = await request(app)
-            .post(`/user/group/${groupName}/join`)
+            .post(`/user/group/${groupName}`)
             .expect(500); // Expecting an internal server error response with status code 500
 
         // Verifying if the correct error message is returned
@@ -493,7 +495,7 @@ describe('User Routes', () => {
 
         // Making POST request to join the group
         const res = await request(app)
-            .post(`/user/group/${groupName}/join`)
+            .post(`/user/group/${groupName}`)
             .send({ username })
             .expect(500); // Expecting an internal server error response with status code 500
 
@@ -511,7 +513,7 @@ describe('User Routes', () => {
             surname: 'User'
         };
         await request(app)
-            .post('/user/add')
+            .post('/user')
             .send(baseUser)
             .expect(200);
 
@@ -522,7 +524,7 @@ describe('User Routes', () => {
             username: "testuserGroupJoinFull"
         };
         let response = await request(app)
-            .post('/user/group/add')
+            .post('/user/group')
             .send(groupData)
             .expect(200);
     
@@ -535,13 +537,13 @@ describe('User Routes', () => {
                 surname: 'User'
             };
             await request(app)
-                .post('/user/add')
+                .post('/user')
                 .send(newUser)
                 .expect(200);
     
             // Adding the user to the group
             await request(app)
-                .post(`/user/group/${groupName}/join`)
+                .post(`/user/group/${groupName}`)
                 .send({ username: newUser.username })
                 .expect(200);
         }
@@ -556,13 +558,13 @@ describe('User Routes', () => {
     
         // Adding the user
         await request(app)
-            .post('/user/add')
+            .post('/user')
             .send(newUser)
             .expect(200);
     
         // Trying to add the user to the group, which should fail because the group is full
         const res = await request(app)
-            .post(`/user/group/${groupName}/join`)
+            .post(`/user/group/${groupName}`)
             .send({ username: newUser.username })
             .expect(400); // Expecting a 'Bad Request' response with status code 400
     
@@ -570,6 +572,68 @@ describe('User Routes', () => {
         expect(res.body.error).toBe('Group is already full');
     });
 
+    it('Should return an error when the user tries to create more than three groups', async () => {
+        const username='testuser1';
+        const groupName = 'testgroup4';
+        
+        await User.create({
+            username: username,
+            password: password,
+            name: 'Test1',
+            surname: 'User1'
+        });
+
+        const newGroup = {
+            name: 'testgroup1',
+            creator: username, 
+        };
+        await Group.create(newGroup);
+
+        const newGroup2 = {
+            name: 'testgroup2',
+            creator: username, 
+        };
+        await Group.create(newGroup2);
+
+        const newGroup3 = {
+            name: 'testgroup3',
+            creator: username, 
+        };
+        await Group.create(newGroup3);
+    
+        const response = await request(app)
+          .post('/user/group')
+          .send({ name: groupName, username });
+    
+        expect(response.status).toBe(400);
+        expect(response.body.error).toBe('You cannot create more than three groups');
+    });
+
+
+    it('Should return an error when the user tries to create a group with an existing name', async () => {
+        const username='testuser1';
+        const groupName='testgroup1';
+        
+        await User.create({
+            username: username,
+            password: password,
+            name: 'Test1',
+            surname: 'User1'
+        });
+
+        const newGroup = {
+            name: groupName,
+            creator: username, 
+        };
+        await Group.create(newGroup);
+    
+        const response = await request(app)
+          .post('/user/group')
+          .send({ name: groupName, username });
+    
+        expect(response.status).toBe(400);
+        expect(response.body.error).toBe('A group with the same name already exists');
+    });
     
 
     // STATISTICS TESTS
@@ -606,7 +670,7 @@ describe('User Routes', () => {
         };
 
         const response = await request(app)
-            .post('/user/statistics/edit')
+            .post('/user/statistics')
             .send(updatedStatistics);
 
         expect(response.status).toBe(200);
@@ -633,7 +697,7 @@ describe('User Routes', () => {
         };
 
         const response = await request(app)
-            .post('/user/statistics/edit')
+            .post('/user/statistics')
             .send(nonExistingUserStatistics);
 
         expect(response.status).toBe(404);
@@ -662,7 +726,8 @@ describe('User Routes', () => {
         await Statistics.create({ username: newUser.username, ...initialStatistics });
     
         const response = await request(app)
-            .get(`/user/statistics/${newUser.username}`);
+            .get(`/user/statistics/${newUser.username}`)
+            .query({ loggedUser: newUser.username });
     
         expect(response.status).toBe(200);
         expect(response.body.the_callenge_earned_money).toEqual(initialStatistics.the_callenge_earned_money);
@@ -693,7 +758,7 @@ describe('User Routes', () => {
     
     
         const response = await request(app)
-            .get(`/user/allUsers`);
+            .get(`/user`);
     
         expect(response.status).toBe(200);
         expect(response.body.users.length).toBe(2);
@@ -716,7 +781,7 @@ describe('User Routes', () => {
         await User.create(newUser);
 
         const response = await request(app)
-            .get(`/user/get/${newUser.username}`);
+            .get(`/user/${newUser.username}`);
 
         expect(response.status).toBe(200);
         expect(response.body.username).toBe(newUser.username);
@@ -746,8 +811,288 @@ describe('User Routes', () => {
 
         const response = await request(app)
          .get(`/user/ranking`);
-        //expect(response.status).toBe(200);
-        // expect(response.type).toMatch(/json/);
-        // expect(response.body).toHaveProperty('users');
     });
+
+    describe('Group Ranking Routes', () => {
+        it('should return group ranking sorted by total money earned', async () => {
+            const newUser = {
+                username: 'testuser',
+                password: password,
+                name: 'Test',
+                surname: 'User'
+            };        
+            await User.create(newUser);
+            const newGroup = {
+                name: 'testgroup3',
+                creator: 'testuser', 
+            };
+            await Group.create(newGroup);
+            await UserGroup.create({
+                username: 'testuser',
+                groupName: 'testgroup3',
+                enteredAt: new Date()
+            });
+            const initialStatistics = {
+                username: 'testuser',
+                the_callenge_earned_money: 100,
+                the_callenge_correctly_answered_questions: 5,
+                the_callenge_incorrectly_answered_questions: 2,
+                the_callenge_total_time_played: 3600,
+                the_callenge_games_played: 3,
+                wise_men_stack_earned_money: 50,
+                wise_men_stack_correctly_answered_questions: 3,
+                wise_men_stack_incorrectly_answered_questions: 1,
+                wise_men_stack_total_time_played: 1800,
+                wise_men_stack_games_played: 2,
+                warm_question_earned_money: 80,
+                warm_question_correctly_answered_questions: 4,
+                warm_question_incorrectly_answered_questions: 1,
+                warm_question_total_time_played: 2700,
+                warm_question_games_played: 2,
+                discovering_cities_earned_money: 70,
+                discovering_cities_correctly_answered_questions: 4,
+                discovering_cities_incorrectly_answered_questions: 1,
+                discovering_cities_total_time_played: 3000,
+                discovering_cities_games_played: 3
+            };
+            await Statistics.create(initialStatistics);
+
+
+            const newUser2 = {
+                username: 'testuser2',
+                password: password,
+                name: 'Test2',
+                surname: 'User2'
+            };
+            await User.create(newUser2);
+            const newGroup2 = {
+                name: 'testgroup4',
+                creator: 'testuser2', 
+            };
+            await Group.create(newGroup2);
+            await UserGroup.create({
+                username: 'testuser2',
+                groupName: 'testgroup4',
+                enteredAt: new Date()
+            });
+            const initialStatistics2 = {
+                username: 'testuser2',
+                the_callenge_earned_money: 200,
+                the_callenge_correctly_answered_questions: 6,
+                the_callenge_incorrectly_answered_questions: 1,
+                the_callenge_total_time_played: 4000,
+                the_callenge_games_played: 4,
+                wise_men_stack_earned_money: 100,
+                wise_men_stack_correctly_answered_questions: 5,
+                wise_men_stack_incorrectly_answered_questions: 2,
+                wise_men_stack_total_time_played: 2500,
+                wise_men_stack_games_played: 3,
+                warm_question_earned_money: 120,
+                warm_question_correctly_answered_questions: 6,
+                warm_question_incorrectly_answered_questions: 2,
+                warm_question_total_time_played: 3200,
+                warm_question_games_played: 3,
+                discovering_cities_earned_money: 80,
+                discovering_cities_correctly_answered_questions: 5,
+                discovering_cities_incorrectly_answered_questions: 2,
+                discovering_cities_total_time_played: 3500,
+                discovering_cities_games_played: 4
+            };
+            await Statistics.create(initialStatistics2);
+
+
+            const response = await request(app)
+            .get('/user/group/ranking')
+            .expect(200);
+
+            expect(response.body).toHaveProperty('rank');
+            expect(response.body.rank).toHaveLength(2);
+
+            const [firstGroup, secondGroup] = response.body.rank;
+            expect(firstGroup.id).toBe("testgroup4");
+            expect(firstGroup.totalMoney).toBe(500);
+            expect(secondGroup.id).toBe("testgroup3");
+            expect(secondGroup.totalMoney).toBe(300);
+        });
+    });
+
+    it('should allow a user to exit a group', async () => {
+        await User.create({
+            username: 'testuser',
+            password: password,
+            name: 'Test',
+            surname: 'User'
+        });
+
+        await Group.create({
+            name: 'testgroup',
+            creator: 'testuser'
+        });
+
+        await UserGroup.create({
+            username: 'testuser',
+            groupName: 'testgroup'
+        });
+
+        const response = await request(app)
+            .post('/user/group/testgroup/exit')
+            .send({ username: 'testuser' })
+            .expect(200);
+
+        expect(response.status).toBe(200);
+
+        const userGroup = await UserGroup.findOne({
+            where: {
+                username: 'testuser',
+                groupName: 'testgroup'
+            }
+        });
+
+        expect(userGroup).toBeNull();
+    });
+
+    it('should allow viewing statistics of a user if logged in user has common group', async () => {
+        await User.create({
+            username: 'testuser1',
+            password: password,
+            name: 'Test1',
+            surname: 'User1'
+        });
+
+        await User.create({
+            username: 'testuser2',
+            password: password,
+            name: 'Test2',
+            surname: 'User2'
+        });
+
+        await Group.create({
+            name: 'testgroup',
+            creator: 'testuser1'
+        });
+
+        await UserGroup.create({
+            username: 'testuser1',
+            groupName: 'testgroup'
+        });
+
+        await UserGroup.create({
+            username: 'testuser2',
+            groupName: 'testgroup'
+        });
+
+        await Statistics.create({
+            username: 'testuser2',
+            the_callenge_earned_money: 100,
+            the_callenge_correctly_answered_questions: 5,
+            the_callenge_incorrectly_answered_questions: 2,
+            the_callenge_total_time_played: 3600,
+            the_callenge_games_played: 3
+        });
+
+        const response = await request(app)
+            .get('/user/statistics/testuser2')
+            .query({ loggedUser: 'testuser1' })
+            .expect(200);
+
+        expect(response.body).toHaveProperty('username', 'testuser2');
+        expect(response.body).toHaveProperty('the_callenge_earned_money', 100);
+        expect(response.body).toHaveProperty('the_callenge_correctly_answered_questions', 5);
+        expect(response.body).toHaveProperty('the_callenge_incorrectly_answered_questions', 2);
+        expect(response.body).toHaveProperty('the_callenge_total_time_played', 3600);
+        expect(response.body).toHaveProperty('the_callenge_games_played', 3);
+    });
+
+    it('should return an error if user is not logged in or has no common group', async () => {
+        await User.create({
+            username: 'testuser1',
+            password: password,
+            name: 'Test1',
+            surname: 'User1'
+        });
+
+        await User.create({
+            username: 'testuser2',
+            password: password,
+            name: 'Test2',
+            surname: 'User2'
+        });
+
+        const responseWithoutLoggedUser = await request(app)
+            .get('/user/statistics/testuser2')
+            .expect(403);
+
+        expect(responseWithoutLoggedUser.body).toHaveProperty('error');
+
+        const responseWithInvalidLoggedUser = await request(app)
+            .get('/user/statistics/testuser2')
+            .query({ loggedUser: 'testuser1' })
+            .expect(403);
+
+        expect(responseWithInvalidLoggedUser.body).toHaveProperty('error');
+    });
+
+    it('Should return the user when the username is valid when getting the profile', async () => {
+        await User.create({
+            username: 'testuser1',
+            password: password,
+            name: 'Test1',
+            surname: 'User1'
+        });
+
+        const username = 'testuser1';
+        
+        const response = await request(app)
+          .get('/user/profile')
+          .query({ username });
+    
+        expect(response.status).toBe(200);
+        expect(response.body.user).toBeDefined();
+        expect(response.body.user.username).toBe('testuser1');
+        expect(response.body.user.name).toBe('Test1');
+        expect(response.body.user.surname).toBe('User1');
+    });
+
+    it('Should return an error when a user does not exist and does not have profile', async () => {
+        const username = 'nombre_de_usuario_inexistente';
+        
+        const response = await request(app)
+          .get('/user/profile')
+          .query({ username });
+    
+        expect(response.status).toBe(404);
+        expect(response.body.error).toBe('No user found');
+    });
+
+    it('Should update the user`s profile pic', async () => {
+        await User.create({
+            username: 'testuser1',
+            password: password,
+            name: 'Test1',
+            surname: 'User1'
+        });
+
+        const username = 'testuser1';
+        const newImageUrl = 'bertinIcon.jpg';
+    
+        const response = await request(app)
+          .post(`/user/profile/${username}`)
+          .send({ imageUrl: newImageUrl });
+    
+        expect(response.status).toBe(200);
+        expect(response.body.affectedRows).toBe(1);
+    });
+
+    it('Should return an error when updating th euser profile pic', async () => {
+        const username = 'nombre_de_usuario_inexistente';
+        const newImageUrl = 'nueva_url_de_imagen';
+    
+        const response = await request(app)
+          .post(`/user/profile/${username}`)
+          .send({ imageUrl: newImageUrl });
+    
+        expect(response.status).toBe(404);
+        expect(response.body.error).toBe('No user could be updated');
+    });
+
 });

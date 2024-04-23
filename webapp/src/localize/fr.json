@@ -11,6 +11,7 @@
         "statistics": "Statistiques",
         "instructions": "Instructions",
         "groups": "Groupes",
+        "ranking": "Ranking",
         "languages": {
             "en": "Anglais",
             "es": "Espagnol",
@@ -19,8 +20,8 @@
     },
     
     "Footer": {
-        "api_questions": "QUESTIONS API DOC",
-        "api_users": "USERS API DOC"
+        "api_questions": "DOCUMENTATION DE L'API DES QUESTIONS",
+        "api_users": "DOCUMENTATION DE L'API DES UTILISATEURS"
     },
 
     "Games": {
@@ -87,10 +88,6 @@
         "login_link": "Vous avez déjà un compte ? Connectez-vous ici."
     },
 
-    "Ranking": {
-        "title": "CLASSEMENT"
-    },
-
     "Groups": {
         "title": "GROUPES",
         "create": "Créer",
@@ -99,10 +96,13 @@
         "name": "Nom",
         "see_members": "Voir les Membres",
         "joined": "REJOINT",
-        "join": "REJOINDRE !",
+        "join": "REJOINDRE",
+        "exit": "Sortir",
+        "delete": "Supprimer",
         "filled": "REMPLI",
         "Details": {
             "creator": "Créateur",
+            "statistics": "Statistiques",
             "date": "Créé en",
             "members": "Membres"
         }
@@ -146,5 +146,21 @@
     "NotFound": {
         "title": "Page non trouvée",
         "button_msg": "Retour à la page d'accueil"
+    },
+    "Profile": {
+        "name":"Nom :",
+        "surname": "Nom de famille :",
+        "created_in":"Créé à :",
+        "choose_your_avatar":"Choisissez votre avatar :",
+        "confirm_changes":"Confirmer les changements"
+    },
+    "Ranking": {
+        "users": "Utilisateurs",
+        "groups": "Groupes",
+        "total_money": "MONEY",
+        "correct_answers": "CORRECT ANSWERS",
+        "incorrect_answers": "INCORRECT ANSWERS",
+        "total_games": "GAMES PLAYED"
     }
+  
 }

@@ -45,7 +45,7 @@ defineFeature(feature, test => {
     await page.setRequestInterception(true);
 
     page.on('request', (req) => {
-      if(req.url().endsWith('/Cities')) {
+      if(req.url().endsWith('/en/Cities')) {
         req.respond({
           status: 200,
           headers: {
@@ -76,6 +76,18 @@ defineFeature(feature, test => {
   });
 
   beforeEach(async () => {
+    await page
+    .goto("http://localhost:3000/discoveringCitiesGame", {
+      waitUntil: "networkidle0",
+    })
+    .catch(() => {});
+
+    //"mock" login
+    await page.evaluate(() => {
+      localStorage.clear();
+      localStorage.setItem('sessionId', 'fictitiousSessionId12345');
+    });
+
     await page
     .goto("http://localhost:3000/discoveringCitiesGame", {
       waitUntil: "networkidle0",

@@ -9,10 +9,16 @@ import MockAdapter from 'axios-mock-adapter';
 import '../../localize/i18n';
 
 const mockAxios = new MockAdapter(axios);
-
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useParams: () => ({
+    user: 'testuser'
+  })
+}));
+ 
 describe('Statistics component', () => {
   beforeAll(async () => {
-    mockAxios.onGet('http://localhost:8000/user/statistics/testuser').reply(200, {
+    mockAxios.onGet('http://localhost:8000/statistics/testuser',{ params: { loggedUser: "testuser" } }).reply(200, {
       wise_men_stack_earned_money: 50,
       wise_men_stack_correctly_answered_questions: 8,
       wise_men_stack_incorrectly_answered_questions: 12,
@@ -33,7 +39,7 @@ describe('Statistics component', () => {
       online_games_played: 12,
     });
     
-    mockAxios.onGet('http://localhost:8000/user/questionsRecord/testuser/TheChallenge').reply(200, [
+    mockAxios.onGet('http://localhost:8000/questionsRecord/testuser/TheChallenge').reply(200, [
       {
         createdAt: '2024-04-11T12:00:00Z',
         questions: [
@@ -47,7 +53,7 @@ describe('Statistics component', () => {
       },
     ]);
 
-    mockAxios.onGet('http://localhost:8000/user/questionsRecord/testuser/WiseMenStack').reply(200, [
+    mockAxios.onGet('http://localhost:8000/questionsRecord/testuser/WiseMenStack').reply(200, [
       {
         createdAt: '2024-04-11T12:00:00Z',
         questions: [
@@ -61,7 +67,7 @@ describe('Statistics component', () => {
       },
     ]);
 
-    mockAxios.onGet('http://localhost:8000/user/questionsRecord/testuser/WarmQuestion').reply(200, [
+    mockAxios.onGet('http://localhost:8000/questionsRecord/testuser/WarmQuestion').reply(200, [
       {
         createdAt: '2024-04-11T12:00:00Z',
         questions: [
@@ -75,7 +81,7 @@ describe('Statistics component', () => {
       },
     ]);
 
-    mockAxios.onGet('http://localhost:8000/user/questionsRecord/testuser/DiscoveringCities').reply(200, [
+    mockAxios.onGet('http://localhost:8000/questionsRecord/testuser/DiscoveringCities').reply(200, [
       {
         createdAt: '2024-04-11T12:00:00Z',
         questions: [
@@ -89,7 +95,7 @@ describe('Statistics component', () => {
       },
     ]);
 
-    mockAxios.onGet('http://localhost:8000/user/questionsRecord/testuser/OnlineMode').reply(200, [
+    mockAxios.onGet('http://localhost:8000/questionsRecord/testuser/OnlineMode').reply(200, [
       {
         createdAt: '2024-04-11T12:00:00Z',
         questions: [

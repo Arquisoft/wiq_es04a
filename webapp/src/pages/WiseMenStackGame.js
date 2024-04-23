@@ -129,7 +129,7 @@ const WiseMenStackGame = () => {
 
     const updateStatistics = async() => {
         try {
-            await axios.post(`${apiEndpoint}/statistics/edit`, {
+            await axios.put(`${apiEndpoint}/statistics`, {
                 username:username,
                 wise_men_stack_earned_money:totalScore,
                 wise_men_stack_correctly_answered_questions:correctlyAnsweredQuestions,
@@ -143,7 +143,7 @@ const WiseMenStackGame = () => {
 
     const updateQuestionsRecord = async() => {
         try {
-            await axios.post(`${apiEndpoint}/user/questionsRecord`, {
+            await axios.put(`${apiEndpoint}/questionsRecord`, {
                 questions: userResponses,
                 username: username,
                 gameMode: "WiseMenStack"
