@@ -407,8 +407,8 @@ return (
                 {questionData.options.map((option, index) => (
                     <Grid item xs={12} key={index}>
                         <Button
-                            data-testid="answer"
-                            //data-testid={buttonStates[index] === "success" ? `success${index}` : buttonStates[index] === "failure" ? `failel${index}` : `answer${index}`}
+                            //data-testid="answer"
+                            data-testid={buttonStates[index] === "success" ? `success${index}` : buttonStates[index] === "failure" ? `failel${index}` : `answer${index}`}
                             variant="contained"
                             onClick={() => selectResponse(index, option)}
                             disabled={buttonStates[index] !== null || answered} // before, you could still press more than one button

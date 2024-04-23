@@ -239,9 +239,9 @@ describe('Statistics component', () => {
 
     await screen.findByText('STATISTICS');
 
-    fireEvent.click(screen.getByText('Online Mode'));
+    fireEvent.click(screen.getByText('Multiplayer'));
 
-    expect(screen.getByText('Online Mode')).toBeInTheDocument();
+    expect(screen.getByText('Multiplayer')).toBeInTheDocument();
     expect(screen.getByText('Total Points:')).toBeInTheDocument();
     expect(screen.getByText('15')).toBeInTheDocument();
     expect(screen.getByText('Correctly Answered Questions:')).toBeInTheDocument();
@@ -253,7 +253,7 @@ describe('Statistics component', () => {
     expect(screen.getByText('Games Played:')).toBeInTheDocument();
     expect(screen.getAllByText('12'));
 
-    fireEvent.click(screen.getByText('Show Questions Record'));
+    fireEvent.click(screen.getByText("Show Questions Record"));
 
     await screen.findByText('Game 04/11/2024, 14:00');
     expect(screen.getByText('What is 1 + 1?')).toBeInTheDocument();

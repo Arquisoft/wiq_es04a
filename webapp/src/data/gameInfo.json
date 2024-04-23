@@ -16,7 +16,7 @@
     },
     {
       "nombre": "Discovering Cities",
-      "descripcion": "In the 'Discovering Cities' game mode, the contestant will face a challenge where they will be repeatedly asked questions referring to different cities around the world. To successfully overcome the challenge, the contestant must answer as many questions as possible correctly throughout the test..",
+      "descripcion": "In the 'Discovering Cities' game mode, the contestant will face a challenge where they will be repeatedly asked questions referring to different cities around the world. To successfully overcome the challenge, the contestant must answer as many questions as possible correctly throughout the test.",
       "foto": "../instructions/foto2.png",
       "card":"The contestant will face a challenge where they will be repeatedly asked questions referring to different cities around the world.",
       "cardFoto": "../homePage/foto2.png"

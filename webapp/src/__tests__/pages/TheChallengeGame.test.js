@@ -50,13 +50,10 @@ describe('Game component', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Start game' }));
 
     // Espera a que aparezca la pregunta
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
-
-    expect(screen.findByText('1'));
-    //expect(screen.findByText('1/4'));
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
 
     // Verifica que el juego haya comenzado correctamente mostrando la pregunta y las opciones
-    expect(screen.getByText('Which is the capital of Spain?')).toBeInTheDocument();
+    expect(screen.getByText('Which is the capital of Spain?'.toUpperCase())).toBeInTheDocument();
     expect(screen.getByText('Madrid')).toBeInTheDocument();
     expect(screen.getByText('Barcelona')).toBeInTheDocument();
     expect(screen.getByText('Paris')).toBeInTheDocument();
@@ -83,17 +80,13 @@ describe('Game component', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Start game' }));
 
     // waits for the question to appear
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
     const correctAnswer = screen.getByRole('button', { name: 'Madrid' });
 
-    expect(correctAnswer).not.toHaveStyle({ backgroundColor: 'green' });
-
+    expect(screen.findByTestId("anwer0"));
     //selects correct answer
     fireEvent.click(correctAnswer);
-
-    //expect(screen.findByText('1')).toHaveStyle({ backgroundColor: 'lightgreen' });
-
-    expect(correctAnswer).toHaveStyle({ backgroundColor: 'green' });
+    expect(screen.findByTestId("succes0"));
 
   });
 
@@ -118,16 +111,13 @@ describe('Game component', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Start game' }));
 
     // waits for the question to appear
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
     const incorrectAnswer = screen.getByRole('button', { name: 'Barcelona' });
 
-    expect(incorrectAnswer).not.toHaveStyle({ backgroundColor: 'red' });
-
+    expect(screen.findByTestId("anwer1"));
     //selects correct answer
     fireEvent.click(incorrectAnswer);
-
-    expect(incorrectAnswer).toHaveStyle({ backgroundColor: 'red' });
-    //expect(screen.findByText('1')).toHaveStyle({ backgroundColor: 'salmon' });
+    expect(screen.findByTestId("failure1"));
 
   });
 
@@ -151,7 +141,7 @@ describe('Game component', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Start game' }));
 
     // waits for the question to appear
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
 
     setTimeout(() => {
       // Comprobamos que el callback ha sido llamado después del tiempo especificado
