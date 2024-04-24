@@ -1,7 +1,7 @@
 import * as React from 'react';
 import axios from 'axios';
 
-import { Container, Button, CssBaseline, Grid, Typography, CircularProgress, useTheme, MenuItem, Select } from '@mui/material';
+import { Container, Box, Button, CssBaseline, Grid, Typography, CircularProgress, useTheme, MenuItem, Select } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useNavigate } from 'react-router-dom';
@@ -231,28 +231,28 @@ const Game = () => {
     if (configModalOpen) {
         
         return(
-            <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Container sx={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center', gap: '2em' }}>
                 <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
                     {t("Game.config.title")}:
                 </Typography>
 
-                <div style={{ marginBottom: '1em' }}>
-                    <label style={{ margin: '0.5em' }} htmlFor="numRounds">{t("Game.config.num_rounds")}:</label>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
+                    <label htmlFor="numRounds">{t("Game.config.num_rounds")}:</label>
                     <Button disabled={numRounds === 1} onClick={() => setNumRounds(numRounds - 1)} variant="outlined" >-</Button>
-                    <span style={{ margin: '0.5em' }}>{numRounds}</span>
+                    <span>{numRounds}</span>
                     <Button onClick={() => setNumRounds(numRounds + 1)} variant="outlined">+</Button>
-                </div>
+                </Box>
 
-                <div style={{ marginBottom: '1em' }}>
-                    <label style={{ margin: '0.5em' }} htmlFor="questionTime">{t("Game.config.time")}:</label>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
+                    <label htmlFor="questionTime">{t("Game.config.time")}:</label>
                     <Button disabled={timerConfig === 1} onClick={() => setTimerConfig(timerConfig - 1)} variant="outlined">-</Button>
-                    <span style={{ margin: '0.5em' }}>{timerConfig}</span>
+                    <span>{timerConfig}</span>
                     <Button onClick={() => setTimerConfig(timerConfig + 1)} variant="outlined">+</Button>
-                </div>
+                </Box>
 
                 {/* Dropdown for selecting category */}
-                <div style={{ marginBottom: '1em' }}>
-                    <label style={{ margin: '0.5em' }} htmlFor="category">{t("Game.config.category")}:</label>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
+                    <label htmlFor="category">{t("Game.config.category")}:</label>
                     <Select
                         value={category}
                         onChange={(event) => setCategory(event.target.value)}
@@ -262,7 +262,7 @@ const Game = () => {
                         <MenuItem value="Political">{t("Game.categories.political")}</MenuItem>
                         <MenuItem value="Sports">{t("Game.categories.sports")}</MenuItem>
                     </Select>
-                </div>
+                </Box>
 
                 <Button
                     data-testid="start-button"
