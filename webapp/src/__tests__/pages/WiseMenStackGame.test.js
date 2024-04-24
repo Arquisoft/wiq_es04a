@@ -39,7 +39,7 @@ describe('Wise Men Stack Game component', () => {
   it('should render configuration, question, answers and other ', async () => {
     await waitFor(() => screen.getByText('GAME CONFIGURATION'));
     
-    const button = screen.getByText('Start game');
+    const button = screen.getByTestId('start-button');
     fireEvent.click(button);
     
     //expect(screen.getByRole('progressbar'));
@@ -58,7 +58,7 @@ describe('Wise Men Stack Game component', () => {
   it('should mark as correct right answer', async () => {
     await waitFor(() => screen.getByText('GAME CONFIGURATION'));
     
-    const button = screen.getByText('Start game');
+    const button = screen.getByTestId('start-button');
     fireEvent.click(button);
 
     // waits for the question to appear
@@ -76,7 +76,7 @@ describe('Wise Men Stack Game component', () => {
   it('should mark as incorrect another answer', async () => {
     await waitFor(() => screen.getByText('GAME CONFIGURATION'));
     
-    const button = screen.getByText('Start game');
+    const button = screen.getByTestId('start-button');
     fireEvent.click(button);
 
     // waits for the question to appear
@@ -96,7 +96,7 @@ describe('Wise Men Stack Game component', () => {
 
   
   it('should only show 2 answers', async () => {    await waitFor(() => screen.getByText('GAME CONFIGURATION'));
-    const button = screen.getByText('Start game');
+    const button = screen.getByTestId('start-button');
     fireEvent.click(button);
 
     // waits for the question to appear
@@ -108,7 +108,7 @@ describe('Wise Men Stack Game component', () => {
   it('should not answer the question', async () => {
     await waitFor(() => screen.getByText('GAME CONFIGURATION'));
     
-    const button = screen.getByText('Start game');
+    const button = screen.getByTestId('start-button');
     fireEvent.click(button);
 
     // waits for the question to appear
@@ -123,7 +123,7 @@ describe('Wise Men Stack Game component', () => {
 
   it('should render pause & play buttons when answered', async () => {
     await waitFor(() => screen.getByText('GAME CONFIGURATION'));
-    const button = screen.getByText('Start game');
+    const button = screen.getByTestId('start-button');
     fireEvent.click(button);
 
     await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
@@ -138,14 +138,12 @@ describe('Wise Men Stack Game component', () => {
 
   it('should render progress bar', async () => {
     await waitFor(() => screen.getByText('GAME CONFIGURATION'));
-    const button = screen.getByText('Start game');
+    const button = screen.getByTestId('start-button');
     fireEvent.click(button);
 
     await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
     const progressBar = screen.getByTestId('prog_bar0');
     await expect(progressBar).toBeInTheDocument();
   })
-
-  
 
 });
