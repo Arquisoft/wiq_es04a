@@ -1,6 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
-import { Container, Box, Button, CssBaseline, Grid, Typography, CircularProgress, Card, Select, MenuItem, useTheme } from '@mui/material';
+import { Container, Box, Button, CssBaseline, Grid, Typography, CircularProgress, Card, Select, MenuItem, IconButton, useTheme } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import { PlayArrow, Pause } from '@mui/icons-material';
@@ -343,9 +343,11 @@ const WiseMenStackGame = () => {
             <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
                 { answered ?
                     // Pausa
-                    <Button variant="contained" onClick={() => togglePause()} sx={{ height: 100, width: 100, borderRadius: '50%' }} data-testid={ paused ? "play" : "pause"}>
-                        { paused ? <PlayArrow /> : <Pause /> }
-                    </Button>
+                    <IconButton variant="contained" size="large" color="primary" aria-label={ paused ? t("Game.play") : t("Game.play") }
+                                onClick={() => togglePause()} sx={{ height: 100, width: 100, border: `2px solid ${theme.palette.primary.main}` }} 
+                                data-testid={ paused ? "play" : "pause"} >
+                        { paused ? <PlayArrow sx={{ fontSize:75 }} /> : <Pause sx={{ fontSize:75 }} /> }
+                    </IconButton>
                     :
                     // Cronómetro
                     <CountdownCircleTimer data-testid="circleTimer" key={questionCountdownKey} isPlaying = {questionCountdownRunning} duration={15} colorsTime={[10, 6, 3, 0]}
