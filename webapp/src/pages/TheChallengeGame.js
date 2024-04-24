@@ -1,7 +1,7 @@
 import * as React from 'react';
 import axios from 'axios';
 
-import { Container, Box, Button, CssBaseline, Grid, Typography, CircularProgress, useTheme, MenuItem, Select } from '@mui/material';
+import { Container, Box, Button, CssBaseline, Grid, Typography, CircularProgress, useTheme, MenuItem, Select, IconButton } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useNavigate } from 'react-router-dom';
@@ -13,6 +13,8 @@ import Card from '@mui/material/Card';
 import { useTranslation } from 'react-i18next';
 import i18n from '../localize/i18n';
 import { PlayArrow, Pause } from '@mui/icons-material';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
@@ -240,30 +242,30 @@ const Game = () => {
                     <Typography htmlFor="numRounds" variant="h5">
                         {t("Game.config.num_rounds")}:
                     </Typography>
-                    <Button disabled={numRounds === 1} onClick={() => setNumRounds(numRounds - 1)} variant="outlined" >
-                        -
-                    </Button>
-                    <Typography fontWeight="bold" sx={{ color: theme.palette.primary.main }}>
+                    <IconButton size="large" color="error" disabled={numRounds === 1} onClick={() => setNumRounds(numRounds - 1)} variant="outlined" >
+                        <RemoveIcon fontSize="inherit" />
+                    </IconButton>
+                    <Typography fontWeight="bold" color="primary" fontSize="1.5em">
                         {numRounds}
                     </Typography>
-                    <Button onClick={() => setNumRounds(numRounds + 1)} variant="outlined">
-                        +
-                    </Button>
+                    <IconButton size="large" color="success" onClick={() => setNumRounds(numRounds + 1)} variant="outlined">
+                        <AddIcon fontSize="inherit" />
+                    </IconButton>
                 </Box>
 
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
                     <Typography htmlFor="questionTime" variant="h5">
                         {t("Game.config.time")}:
                     </Typography>
-                    <Button disabled={timerConfig === 1} onClick={() => setTimerConfig(timerConfig - 1)} variant="outlined">
-                        -
-                    </Button>
-                    <Typography fontWeight="bold" sx={{ color: theme.palette.primary.main }}>
+                    <IconButton size="large" color="error" disabled={timerConfig === 1} onClick={() => setTimerConfig(timerConfig - 1)} variant="outlined">
+                        <RemoveIcon fontSize="inherit" />
+                    </IconButton>
+                    <Typography fontWeight="bold" color="primary" fontSize="1.5em">
                         {timerConfig}
                     </Typography>
-                    <Button onClick={() => setTimerConfig(timerConfig + 1)} variant="outlined">
-                        +
-                    </Button>
+                    <IconButton size="large" color="success" onClick={() => setTimerConfig(timerConfig + 1)} variant="outlined">
+                        <AddIcon fontSize="inherit" />
+                    </IconButton>
                 </Box>
 
                 {/* Dropdown for selecting category */}
