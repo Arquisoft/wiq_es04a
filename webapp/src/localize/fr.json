@@ -77,13 +77,10 @@
     },
     
     "Wise_Men": {
-        "instructions": "Choisissez une catégorie:",
-        "category":"Catégories: ",
-        "geography": "Geographie",
-        "political":"Politique",
-        "sports":"Sport"
+        "instructions1": "Choisissez",
+        "instructions2": "une",
+        "instructions3": "catégorie"
     },
-
 
     "Login": {
         "title": "Connecter",

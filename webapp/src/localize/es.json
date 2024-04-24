@@ -74,10 +74,11 @@
             "sports":"Deporte"
         }
     },
-    
+
     "Wise_Men": {
-        "instructions": "Elige una categoría:",
-        "category":"Categorías: "
+        "instructions1": "Elige",
+        "instructions2": "una",
+        "instructions3": "categoría"
     },
 
     "Login": {

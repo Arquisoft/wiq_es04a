@@ -1,6 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
-import { Container, Button, CssBaseline, Grid, Typography, CircularProgress, Card, CardContent, Select, MenuItem, useTheme } from '@mui/material';
+import { Container, Box, Button, CssBaseline, Grid, Typography, CircularProgress, Card, CardContent, Select, MenuItem, useTheme } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useNavigate } from 'react-router-dom';
@@ -231,40 +231,54 @@ const WiseMenStackGame = () => {
     
     if(!isConfigured) {
         return (
-            <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <Typography variant="h2" sx={{ marginBottom: '1em' }}>Wise Men Stack</Typography>
-                <Typography variant="h3" sx={{ marginBottom: '1em' }}>{t("Wise_Men.instructions")}</Typography>
+            <Container sx={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center', gap: '4em' }}>
+                <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
+                    {t("Game.config.title")}
+                </Typography>
 
-                {/* Dropdown for selecting category */}
-                <div style={{ marginBottom: '1em' }}>
-                    <label data-testid="categories-label" variant='h6' style={{ margin: '0.5em' }} htmlFor="category">{t("Wise_Men.category")}</label>
-                    <Select
-                        value={category}
-                        onChange={(event) => setCategory(event.target.value)}
-                        style={{ minWidth: '120px' }}
-                    >
-                        <MenuItem value="Geography">{t("Game.categories.geography")}</MenuItem>
-                        <MenuItem value="Political">{t("Game.categories.political")}</MenuItem>
-                        <MenuItem value="Sports">{t("Game.categories.sports")}</MenuItem>
-                    </Select>
-                </div>
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1em' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5em'}}>
+                        <Typography variant="h4" fontWeight="bold" color="error">{t("Wise_Men.instructions1")}</Typography>
+                        <Typography variant="h4" fontWeight="bold" color={theme.palette.success.main} >{t("Wise_Men.instructions2")}</Typography>
+                        <Typography variant="h4" fontWeight="bold" color="primary">{t("Wise_Men.instructions3")}</Typography>
+                    </Box>
+
+                    {/* Dropdown for selecting category */}
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
+                        <Typography data-testid="categories-label" variant='h5' htmlFor="category">
+                            {t("Game.config.category")}:
+                        </Typography>
+                        <Select
+                            value={category}
+                            onChange={(event) => setCategory(event.target.value)}
+                            style={{ minWidth: '120px' }}
+                        >
+                            <MenuItem value="Geography">{t("Game.categories.geography")}</MenuItem>
+                            <MenuItem value="Political">{t("Game.categories.political")}</MenuItem>
+                            <MenuItem value="Sports">{t("Game.categories.sports")}</MenuItem>
+                        </Select>
+                    </Box>
+                </Box>
 
                 <Button
                     data-testid="start-button"
                     onClick={() => { 
                         setConfiguration(true);
                         startNewRound(); 
-                        setQuestionHistorial(Array(round).fill(null)); 
-                        console.log(category) 
+                        setQuestionHistorial(Array(round).fill(null));
                     }}
                     variant="contained"
+                    size="large"
                     sx={{
-                        marginBottom: '0.5em',
-                        backgroundColor: theme.palette.primary.main,
-                        color: theme.palette.secondary.main,
+                        fontFamily: 'Arial Black, sans-serif',
+                        color: theme.palette.primary.main,
+                        backgroundColor: 'transparent',
+                        border: `2px solid ${theme.palette.primary.main}`,
+                        transition: 'background-color 0.3s ease',
+
                         '&:hover': {
-                            backgroundColor: theme.palette.secondary.main,
-                            color: theme.palette.primary.main,
+                            backgroundColor: theme.palette.primary.main,
+                            color: 'white',
                         }
                     }}
                 >
