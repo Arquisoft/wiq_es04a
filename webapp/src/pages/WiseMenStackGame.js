@@ -238,7 +238,7 @@ const WiseMenStackGame = () => {
 
     const questionHistorialBar = () => {
         return questionHistorial.map((isCorrect, index) => (
-            <Card sx={{ width: `${100 / round-1}%`, padding:'0.2em', margin:'0 0.1em', backgroundColor: isCorrect === null ? 'gray' : isCorrect ? theme.palette.success.main : theme.palette.error.main }}/>
+            <Card sx={{ width: `${100 / round}%`, padding:'0.2em', margin:'0 0.1em', backgroundColor: isCorrect === null ? 'gray' : isCorrect ? theme.palette.success.main : theme.palette.error.main }}/>
         ));
     };
 
@@ -382,7 +382,7 @@ const WiseMenStackGame = () => {
                 <Grid container spacing={2} gap="0.7em">
                     {possibleAnswers.map((option, index) => (
                         <Grid item xs={12} key={index}>
-                            <Button data-testid="answer"
+                            <Button data-testid={buttonStates[index] === "success" ? `success${index}` : buttonStates[index] === "failure" ? `failel${index}` : `answer${index}`}
                                 variant="contained" onClick={() => selectResponse(index, option)} disabled={buttonStates[index] !== null || answered}
                                 sx={{ height: "3.3em", width: "50%", borderRadius: "10px", "&:disabled": { backgroundColor: buttonStates[index] === "success" ? theme.palette.success.main : buttonStates[index] === "failure" ? theme.palette.error.main : "gray", color: "white"}}}>
                                 {buttonStates[index] === "success" ? <CheckIcon /> : buttonStates[index] === "failure" ? <ClearIcon /> : null}
@@ -393,25 +393,9 @@ const WiseMenStackGame = () => {
                 </Grid>
             </Container>
 
-            <Grid container spacing={2}>
-                {possibleAnswers.map((option, index) => (
-                    <Grid item xs={12} key={index}>
-                        <Button
-                            data-testid="answer"
-                            variant="contained"
-                            onClick={() => selectResponse(index, option)}
-                            disabled={buttonStates[index] !== null || answered} // before, you could still press more than one button
-                            
-                        >
-                            {buttonStates[index] === "success" ? <CheckIcon /> : buttonStates[index] === "failure" ? <ClearIcon /> : null}
-                            {option}
-                        </Button>
-                    </Grid>
-                ))}
-            </Grid>
-
             <Container sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop:'2em' }} >
                 {questionHistorialBar()}
+                { answered || round === 1 ? <Box></Box> : <Card sx={{ width: `${100 / round}%`, padding:'0.2em', margin:'0 0.1em', backgroundColor: 'gray' }}/> }
             </Container>
         </Container>
     );
