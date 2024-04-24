@@ -288,13 +288,17 @@ const Game = () => {
                     data-testid="start-button"
                     onClick={() => { startGame(); setQuestionHistorial(Array(numRounds).fill(null)); console.log(category) }}
                     variant="contained"
+                    size='large'
                     sx={{
-                        marginBottom: '0.5em',
-                        backgroundColor: theme.palette.primary.main,
-                        color: theme.palette.secondary.main,
+                        fontFamily: 'Arial Black, sans-serif',
+                        color: theme.palette.primary.main,
+                        backgroundColor: 'transparent',
+                        border: `2px solid ${theme.palette.primary.main}`,
+                        transition: 'background-color 0.3s ease',
+
                         '&:hover': {
-                            backgroundColor: theme.palette.secondary.main,
-                            color: theme.palette.primary.main,
+                            backgroundColor: theme.palette.primary.main,
+                            color: 'white',
                         }
                     }}
                 >
