@@ -25,7 +25,8 @@
     
     "Footer": {
         "api_questions": "QUESTIONS API DOC",
-        "api_users": "USERS API DOC"
+        "api_users": "USERS API DOC",
+        "apk_link": "Download for Android"
     },
 
     "Games": {

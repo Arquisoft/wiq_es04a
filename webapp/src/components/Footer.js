@@ -29,7 +29,7 @@ const Footer = () => {
           >
           <button style={{ display: 'flex', alignItems: 'center' }}>
             <AndroidIcon style={{ marginRight: '8px' }} />
-            Descargar para Android
+            {t("Footer.apk_link")}
           </button>
           </a>
         </Toolbar>

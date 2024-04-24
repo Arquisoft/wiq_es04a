@@ -25,7 +25,8 @@
     
     "Footer": {
         "api_questions": "DOCUMENTATION DE L'API DES QUESTIONS",
-        "api_users": "DOCUMENTATION DE L'API DES UTILISATEURS"
+        "api_users": "DOCUMENTATION DE L'API DES UTILISATEURS",
+        "apk_link": "Télécharger pour Android"
     },
 
     "Games": {
