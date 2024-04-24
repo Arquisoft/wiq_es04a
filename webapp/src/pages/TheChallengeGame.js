@@ -237,22 +237,40 @@ const Game = () => {
                 </Typography>
 
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
-                    <label htmlFor="numRounds">{t("Game.config.num_rounds")}:</label>
-                    <Button disabled={numRounds === 1} onClick={() => setNumRounds(numRounds - 1)} variant="outlined" >-</Button>
-                    <span>{numRounds}</span>
-                    <Button onClick={() => setNumRounds(numRounds + 1)} variant="outlined">+</Button>
+                    <Typography htmlFor="numRounds" variant="h5">
+                        {t("Game.config.num_rounds")}:
+                    </Typography>
+                    <Button disabled={numRounds === 1} onClick={() => setNumRounds(numRounds - 1)} variant="outlined" >
+                        -
+                    </Button>
+                    <Typography fontWeight="bold" sx={{ color: theme.palette.primary.main }}>
+                        {numRounds}
+                    </Typography>
+                    <Button onClick={() => setNumRounds(numRounds + 1)} variant="outlined">
+                        +
+                    </Button>
                 </Box>
 
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
-                    <label htmlFor="questionTime">{t("Game.config.time")}:</label>
-                    <Button disabled={timerConfig === 1} onClick={() => setTimerConfig(timerConfig - 1)} variant="outlined">-</Button>
-                    <span>{timerConfig}</span>
-                    <Button onClick={() => setTimerConfig(timerConfig + 1)} variant="outlined">+</Button>
+                    <Typography htmlFor="questionTime" variant="h5">
+                        {t("Game.config.time")}:
+                    </Typography>
+                    <Button disabled={timerConfig === 1} onClick={() => setTimerConfig(timerConfig - 1)} variant="outlined">
+                        -
+                    </Button>
+                    <Typography fontWeight="bold" sx={{ color: theme.palette.primary.main }}>
+                        {timerConfig}
+                    </Typography>
+                    <Button onClick={() => setTimerConfig(timerConfig + 1)} variant="outlined">
+                        +
+                    </Button>
                 </Box>
 
                 {/* Dropdown for selecting category */}
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
-                    <label htmlFor="category">{t("Game.config.category")}:</label>
+                    <Typography htmlFor="category" variant="h5">
+                        {t("Game.config.category")}:
+                    </Typography>
                     <Select
                         value={category}
                         onChange={(event) => setCategory(event.target.value)}
