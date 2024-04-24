@@ -76,8 +76,7 @@
     },
     
     "Wise_Men": {
-        "instructions": "Elige una categoría:",
-        "category":"Categorías: "
+        "instructions": "Elige una categoría:"
     },
 
     "Login": {

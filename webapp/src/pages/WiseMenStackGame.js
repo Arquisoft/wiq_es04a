@@ -237,13 +237,15 @@ const WiseMenStackGame = () => {
                 </Typography>
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1em' }}>
-                    <Typography variant="h3">
+                    <Typography variant="h4">
                         {t("Wise_Men.instructions")}
                     </Typography>
 
                     {/* Dropdown for selecting category */}
-                    <div>
-                        <label data-testid="categories-label" variant='h6' htmlFor="category">{t("Wise_Men.category")}</label>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
+                        <Typography data-testid="categories-label" variant='h5' htmlFor="category">
+                            {t("Game.config.category")}:
+                        </Typography>
                         <Select
                             value={category}
                             onChange={(event) => setCategory(event.target.value)}
@@ -253,7 +255,7 @@ const WiseMenStackGame = () => {
                             <MenuItem value="Political">{t("Game.categories.political")}</MenuItem>
                             <MenuItem value="Sports">{t("Game.categories.sports")}</MenuItem>
                         </Select>
-                    </div>
+                    </Box>
                 </Box>
 
                 <Button

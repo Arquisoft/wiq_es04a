@@ -78,10 +78,7 @@
     
     "Wise_Men": {
         "instructions": "Choisissez une catégorie:",
-        "category":"Catégories: ",
-        "geography": "Geographie",
-        "political":"Politique",
-        "sports":"Sport"
+        "category":"Catégories"
     },
 
 
