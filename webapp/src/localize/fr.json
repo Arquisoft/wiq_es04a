@@ -54,15 +54,16 @@
 
     "Game": {
         "win_msg": "Excellent travail !",
-        "lose_msg": "Partie terminée",
+        "lose_msg": "Partie Terminée",
         "correct": "Réponses Correctes",
         "incorrect": "Réponses Incorrectes",
         "money": "Points Finaux",
-        "time": "Temps de Jeu (sec)",
+        "time": "Secondes de Jeu",
         "pause": "Pause",
         "play": "Jouer",
         "round": "Question ",
-        "start": "Commencer à jouer",
+        "start": "Commencer à Jouer",
+        "skip": "Sauter",
         "config": {
             "title": "CONFIGURATION DU JEU",
             "num_rounds": "Nombre de tours",
