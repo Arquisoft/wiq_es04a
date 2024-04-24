@@ -256,9 +256,9 @@ const Game = () => {
                         onChange={(event) => setCategory(event.target.value)}
                         style={{ minWidth: '120px' }}
                     >
-                        <MenuItem value="Geography">Geography</MenuItem>
-                        <MenuItem value="Political">Political</MenuItem>
-                        <MenuItem value="Sports">Sports</MenuItem>
+                        <MenuItem value="Geography">{t("Wise_Men.geography")}</MenuItem>
+                        <MenuItem value="Political">{t("Wise_Men.political")}</MenuItem>
+                        <MenuItem value="Sports">{t("Wise_Men.sports")}</MenuItem>
                     </Select>
                 </div>
 
