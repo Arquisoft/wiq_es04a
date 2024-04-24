@@ -68,6 +68,11 @@
             "num_rounds": "Nombre de tours",
             "time": "Temps par question (secondes)",
             "category": "Catégorie"
+        },
+        "categories": {
+            "password": "Mot de passe",
+            "button": "Se connecter",
+            "register_link": "Vous n'avez pas de compte ? Inscrivez-vous ici."
         }
     },
     
@@ -82,10 +87,7 @@
 
     "Login": {
         "title": "Connecter",
-        "username": "Nom d'utilisateur",
-        "password": "Mot de passe",
-        "button": "Se connecter",
-        "register_link": "Vous n'avez pas de compte ? Inscrivez-vous ici."
+        "username": "Nom d'utilisateur"
     },
 
     "Register": {

@@ -263,9 +263,9 @@ if(!isConfigured) {
                         onChange={(event) => setCategory(event.target.value)}
                         style={{ minWidth: '120px' }}
                     >
-                        <MenuItem value="Geography">{t("Wise_Men.geography")}</MenuItem>
-                        <MenuItem value="Political">{t("Wise_Men.political")}</MenuItem>
-                        <MenuItem value="Sports">{t("Wise_Men.sports")}</MenuItem>
+                        <MenuItem value="Geography">{t("Game.categories.geography")}</MenuItem>
+                        <MenuItem value="Political">{t("Game.categories.political")}</MenuItem>
+                        <MenuItem value="Sports">{t("Game.categories.sports")}</MenuItem>
                     </Select>
                 </div>
 

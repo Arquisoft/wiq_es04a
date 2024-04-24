@@ -67,15 +67,17 @@
             "num_rounds": "Número de rondas",
             "time": "Tiempo por pregunta (segundos)",
             "category": "Categoría"
+        },
+        "categories": {
+            "geography": "Geografía",
+            "political":"Política",
+            "sports":"Deporte"
         }
     },
     
     "Wise_Men": {
         "instructions": "Elige una categoría:",
-        "category":"Categorías: ",
-        "geography": "Geografía",
-        "political":"Política",
-        "sports":"Deporte"
+        "category":"Categorías: "
     },
 
     "Login": {
