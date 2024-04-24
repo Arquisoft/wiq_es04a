@@ -1,6 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
-import { useTheme, Container, Button, CssBaseline, Grid, Typography, CircularProgress, Card } from '@mui/material';
+import { useTheme, Container, Button, CssBaseline, Grid, Typography, CircularProgress, Card, Box } from '@mui/material';
 import { PlayArrow, Pause } from '@mui/icons-material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -275,9 +275,9 @@ const Game = () => {
                         colors={[theme.palette.success.main, "#F7B801", "#f50707", theme.palette.error.main]} size={100} onComplete={() => selectResponse(-1, "FAILED")}>
                         {({ remainingTime }) => {
                             return (
-                                <div style={{ display: 'flex', alignItems: 'center' }}>
-                                    <div style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{remainingTime}</div>
-                                </div>
+                                <Box style={{ display: 'flex', alignItems: 'center' }}>
+                                    <Typography fontSize='1.2em' fontWeight='bold'>{remainingTime}</Typography>
+                                </Box>
                             );
                         }}
                     </CountdownCircleTimer>
