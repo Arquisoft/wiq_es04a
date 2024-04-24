@@ -38,10 +38,10 @@ const DiscovertingCitiesGame = () => {
     const [correctlyAnsweredQuestions, setCorrectlyAnsweredQuestions] = React.useState(0);
     const [incorrectlyAnsweredQuestions, setIncorrectlyAnsweredQuestions] = React.useState(0);
     const [totalTimePlayed, setTotalTimePlayed] = React.useState(0);
-    const [timerRunning, setTimerRunning] = React.useState(true); // indicate if the timer is working
-    const [showConfetti, setShowConfetti] = React.useState(false); //indicates if the confetti must appear
-    const [questionCountdownKey, setQuestionCountdownKey] = React.useState(15); //key to update question timer
-    const [questionCountdownRunning, setQuestionCountdownRunning] = React.useState(false); //property to start and stop question timer
+    const [timerRunning, setTimerRunning] = React.useState(true);
+    const [showConfetti, setShowConfetti] = React.useState(false);
+    const [questionCountdownKey, setQuestionCountdownKey] = React.useState(15);
+    const [questionCountdownRunning, setQuestionCountdownRunning] = React.useState(false);
     const [userResponses, setUserResponses] = React.useState([]);
     const [paused, setPaused] = React.useState(false);
     const [passNewRound, setPassNewRound] = React.useState(false);
@@ -215,12 +215,7 @@ const DiscovertingCitiesGame = () => {
 
     const questionHistorialBar = () => {
         return questionHistorial.map((isCorrect, index) => (
-            <Card sx={{ width: `${100 / MAX_ROUNDS}%`,
-                padding:'0.2em', 
-                margin:'0 0.1em', 
-                backgroundColor: isCorrect === null ? 'gray' : isCorrect ? theme.palette.success.main : theme.palette.error.main }}
-            >
-            </Card>
+            <Card sx={{ width: `${100 / MAX_ROUNDS}%`, padding:'0.2em', margin:'0 0.1em', backgroundColor: isCorrect === null ? 'gray' : isCorrect ? theme.palette.success.main : theme.palette.error.main }}/>
         ));
     };    
 
@@ -232,15 +227,7 @@ const DiscovertingCitiesGame = () => {
     // circular loading
     if (!questionData) {
         return (
-            <Container
-                sx={{ 
-                    display: 'flex', 
-                    flexDirection: 'column',
-                    justifyContent: 'center', 
-                    alignItems: 'center', 
-                    flex: '1'
-                }}
-            >
+            <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', flex: '1' }}>
                 <CssBaseline />
                 <CircularProgress />
             </Container>
@@ -254,22 +241,10 @@ const DiscovertingCitiesGame = () => {
             navigate('/homepage');
         }, 4000);
 
-
         return (
-            <Container
-                sx={{ 
-                    display: 'flex', 
-                    flexDirection: 'column',
-                    justifyContent: 'center', 
-                    alignItems: 'center', 
-                    gap: '5em',
-                    textAlign: 'center',
-                    flex: '1'
-                }}
-            >
+            <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '5em', textAlign: 'center', flex: '1' }}>
                 <CssBaseline />
-                <Typography variant="h2" data-testid="end-game-message"
-                        sx={{ color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? theme.palette.success.main : theme.palette.error.main }}>
+                <Typography variant="h2" data-testid="end-game-message" sx={{ color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? theme.palette.success.main : theme.palette.error.main }}>
                     {correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? t("Game.win_msg") : t("Game.lose_msg") }
                 </Typography>
                 <Container>
@@ -295,16 +270,9 @@ const DiscovertingCitiesGame = () => {
                     </Button>
                     :
                     // Cronómetro
-                    <CountdownCircleTimer
-                        data-testid="circleTimer"
-                        key={questionCountdownKey}
-                        isPlaying = {questionCountdownRunning}
-                        duration={15}
-                        colors={[theme.palette.success.main, "#F7B801", "#f50707", theme.palette.error.main]}
-                        size={100}
-                        colorsTime={[10, 6, 3, 0]}
-                        onComplete={() => selectResponse(-1, "FAILED")} //when time ends always fail question
-                        >
+                    <CountdownCircleTimer data-testid="circleTimer" key={questionCountdownKey} isPlaying = {questionCountdownRunning} duration={15}
+                        colors={[theme.palette.success.main, "#F7B801", "#f50707", theme.palette.error.main]} 
+                        colorsTime={[10, 6, 3, 0]} onComplete={() => selectResponse(-1, "FAILED")}  size={100} >
                         {({ remainingTime }) => {
                             return (
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -326,20 +294,8 @@ const DiscovertingCitiesGame = () => {
                         <Grid item xs={12} key={index}>
                             <Button
                                 data-testid={buttonStates[index] === "success" ? `success${index}` : buttonStates[index] === "failure" ? `failel${index}` : `answer${index}`}
-                                variant="contained"
-                                onClick={() => selectResponse(index, option)}
-                                disabled={buttonStates[index] !== null || answered}
-                                sx={{
-                                    height: "3.3em",
-                                    width: "50%",
-                                    borderRadius: "10px",
-                                    margin: "5px",
-                                    "&:disabled": {
-                                        backgroundColor: buttonStates[index] === "success" ? theme.palette.success.main : buttonStates[index] === "failure" ? theme.palette.error.main : "gray",
-                                        color: "white",
-                                    },
-                                }}
-                            >
+                                variant="contained" onClick={() => selectResponse(index, option)} disabled={buttonStates[index] !== null || answered}
+                                sx={{ height: "3.3em", width: "50%", borderRadius: "10px", margin: "5px", "&:disabled": {backgroundColor: buttonStates[index] === "success" ? theme.palette.success.main : buttonStates[index] === "failure" ? theme.palette.error.main : "gray", color: "white" } }}>
                                 {buttonStates[index] === "success" ? <CheckIcon /> : buttonStates[index] === "failure" ? <ClearIcon /> : null}
                                 {option}
                             </Button>
