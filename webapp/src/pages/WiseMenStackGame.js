@@ -237,9 +237,11 @@ const WiseMenStackGame = () => {
                 </Typography>
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1em' }}>
-                    <Typography variant="h4">
-                        {t("Wise_Men.instructions")}
-                    </Typography>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5em'}}>
+                        <Typography variant="h4" fontWeight="bold" color="error">{t("Wise_Men.instructions1")}</Typography>
+                        <Typography variant="h4" fontWeight="bold" color={theme.palette.success.main} >{t("Wise_Men.instructions2")}</Typography>
+                        <Typography variant="h4" fontWeight="bold" color="primary">{t("Wise_Men.instructions3")}</Typography>
+                    </Box>
 
                     {/* Dropdown for selecting category */}
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: '1em' }}>

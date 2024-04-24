@@ -77,10 +77,10 @@
     },
     
     "Wise_Men": {
-        "instructions": "Choisissez une catégorie:",
-        "category":"Catégories"
+        "instructions1": "Choisissez",
+        "instructions2": "une",
+        "instructions3": "catégorie"
     },
-
 
     "Login": {
         "title": "Connecter",
