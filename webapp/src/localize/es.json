@@ -53,15 +53,16 @@
 
     "Game": {
         "win_msg": "¡Buen trabajo!",
-        "lose_msg": "Fin del juego",
-        "correct": "Respuestas correctas",
-        "incorrect": "Respuestas incorrectas",
-        "money": "Puntos finales",
-        "time": "Tiempo de juego (seg)",
+        "lose_msg": "Fin del Juego",
+        "correct": "Respuestas Correctas",
+        "incorrect": "Respuestas Incorrectas",
+        "money": "Puntos Finales",
+        "time": "Segundos de Juego",
         "pause": "Pausa",
         "play": "Jugar",
         "round": "Pregunta ",
-        "start": "Empezar juego",
+        "start": "Empezar Juego",
+        "skip": "Saltar",
         "config": {
             "title": "CONFIGURACIÓN DEL JUEGO",
             "num_rounds": "Número de rondas",
