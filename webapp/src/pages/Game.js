@@ -243,7 +243,7 @@ const Game = () => {
 
 
         return (
-            <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '5em', textAlign: 'center', flex: '1'}}>
+            <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '4em', textAlign: 'center', flex: '1'}}>
                 <CssBaseline />
                 <Typography variant="h2" data-testid="end-game-message" sx={{ color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? theme.palette.success.main : theme.palette.error.main }}>
                     {correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? t("Game.win_msg") : t("Game.lose_msg") }
@@ -284,17 +284,17 @@ const Game = () => {
                 }
             </Container>
 
-            <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
-                <Typography variant="h4" data-testid="question" sx={{ fontWeight:'bold', marginBottom:'0.7em' }} >
+            <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1em' }} >
+                <Typography variant="h4" data-testid="question" fontWeight="bold" >
                     {questionData.question.toUpperCase()}
                 </Typography>
 
-                <Grid container spacing={2}>
+                <Grid container spacing={2} gap="0.7em">
                     {questionData.options.map((option, index) => (
                         <Grid item xs={12} key={index}>
                             <Button data-testid={buttonStates[index] === "success" ? `success${index}` : buttonStates[index] === "failure" ? `failel${index}` : `answer${index}`}
                                 variant="contained" onClick={() => selectResponse(index, option)} disabled={buttonStates[index] !== null || answered}
-                                sx={{ height: "3.3em", width: "50%", borderRadius: "10px", margin: "5px", "&:disabled": { backgroundColor: buttonStates[index] === "success" ? theme.palette.success.main : buttonStates[index] === "failure" ? theme.palette.error.main : "gray", color: "white"}}}>
+                                sx={{ height: "3.3em", width: "50%", borderRadius: "10px", "&:disabled": { backgroundColor: buttonStates[index] === "success" ? theme.palette.success.main : buttonStates[index] === "failure" ? theme.palette.error.main : "gray", color: "white"}}}>
                                 {buttonStates[index] === "success" ? <CheckIcon /> : buttonStates[index] === "failure" ? <ClearIcon /> : null}
                                 {option}
                             </Button>
