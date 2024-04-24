@@ -226,21 +226,19 @@ const Game = () => {
     // circular loading
     if (!questionData) {
         return (
-            <Container
-                sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', flex: '1'}}>
+            <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', flex: '1'}}>
                 <CssBaseline />
                 <CircularProgress />
             </Container>
         );
     }
 
-    // redirect to / if game over 
+    // redirect to homepage if game over 
     if (shouldRedirect) {
         // Redirect after 4 seconds
         setTimeout(() => {
             navigate('/homepage');
         }, 4000);
-
 
         return (
             <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '5em', textAlign: 'center', flex: '1'}}>
