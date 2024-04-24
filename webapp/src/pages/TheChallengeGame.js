@@ -235,7 +235,7 @@ const Game = () => {
         return(
             <Container sx={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center', gap: '4em' }}>
                 <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
-                    {t("Game.config.title")}:
+                    {t("Game.config.title")}
                 </Typography>
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1em' }}>

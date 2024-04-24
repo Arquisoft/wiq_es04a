@@ -65,7 +65,7 @@
         "config": {
             "title": "CONFIGURACIÓN DEL JUEGO",
             "num_rounds": "Número de rondas",
-            "time": "Tiempo por pregunta (segundos)",
+            "time": "Segundos por pregunta",
             "category": "Categoría"
         },
         "categories": {

@@ -66,7 +66,7 @@
         "config": {
             "title": "CONFIGURATION DU JEU",
             "num_rounds": "Nombre de tours",
-            "time": "Temps par question (secondes)",
+            "time": "Secondes par question",
             "category": "Catégorie"
         },
         "categories": {
