@@ -249,50 +249,50 @@ const WiseMenStackGame = () => {
         );
     }
 
-if(!isConfigured) {
-    return (
-        <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <Typography variant="h2" sx={{ marginBottom: '1em' }}>Wise Men Stack</Typography>
-                <Typography variant="h3" sx={{ marginBottom: '1em' }}>{t("Wise_Men.instructions")}</Typography>
+    if(!isConfigured) {
+        return (
+            <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <Typography variant="h2" sx={{ marginBottom: '1em' }}>Wise Men Stack</Typography>
+                    <Typography variant="h3" sx={{ marginBottom: '1em' }}>{t("Wise_Men.instructions")}</Typography>
 
-                {/* Dropdown for selecting category */}
-                <div style={{ marginBottom: '1em' }}>
-                    <label data-testid="categories-label" variant='h6' style={{ margin: '0.5em' }} htmlFor="category">{t("Wise_Men.category")}</label>
-                    <Select
-                        value={category}
-                        onChange={(event) => setCategory(event.target.value)}
-                        style={{ minWidth: '120px' }}
+                    {/* Dropdown for selecting category */}
+                    <div style={{ marginBottom: '1em' }}>
+                        <label data-testid="categories-label" variant='h6' style={{ margin: '0.5em' }} htmlFor="category">{t("Wise_Men.category")}</label>
+                        <Select
+                            value={category}
+                            onChange={(event) => setCategory(event.target.value)}
+                            style={{ minWidth: '120px' }}
+                        >
+                            <MenuItem value="Geography">{t("Game.categories.geography")}</MenuItem>
+                            <MenuItem value="Political">{t("Game.categories.political")}</MenuItem>
+                            <MenuItem value="Sports">{t("Game.categories.sports")}</MenuItem>
+                        </Select>
+                    </div>
+
+                    <Button
+                        data-testid="start-button"
+                        onClick={() => { 
+                            setConfiguration(true);
+                            startNewRound(); 
+                            setQuestionHistorial(Array(round).fill(null)); 
+                            console.log(category) 
+                        }}
+                        variant="contained"
+                        sx={{
+                            marginBottom: '0.5em',
+                            backgroundColor: theme.palette.primary.main,
+                            color: theme.palette.secondary.main,
+                            '&:hover': {
+                                backgroundColor: theme.palette.secondary.main,
+                                color: theme.palette.primary.main,
+                            }
+                        }}
                     >
-                        <MenuItem value="Geography">{t("Game.categories.geography")}</MenuItem>
-                        <MenuItem value="Political">{t("Game.categories.political")}</MenuItem>
-                        <MenuItem value="Sports">{t("Game.categories.sports")}</MenuItem>
-                    </Select>
-                </div>
-
-                <Button
-                    data-testid="start-button"
-                    onClick={() => { 
-                        setConfiguration(true);
-                        startNewRound(); 
-                        setQuestionHistorial(Array(round).fill(null)); 
-                        console.log(category) 
-                    }}
-                    variant="contained"
-                    sx={{
-                        marginBottom: '0.5em',
-                        backgroundColor: theme.palette.primary.main,
-                        color: theme.palette.secondary.main,
-                        '&:hover': {
-                            backgroundColor: theme.palette.secondary.main,
-                            color: theme.palette.primary.main,
-                        }
-                    }}
-                >
-                    {t("Game.start")}
-                </Button>
-            </Container>
-    );
-}    
+                        {t("Game.start")}
+                    </Button>
+                </Container>
+        );
+    }    
 
     // redirect to / if game over 
 if (shouldRedirect) {
