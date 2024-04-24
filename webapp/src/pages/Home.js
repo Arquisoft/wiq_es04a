@@ -1,10 +1,11 @@
 import * as React from "react";
 import {Box, Button} from "@mui/material";
 import useMediaQuery from '@mui/material/useMediaQuery';
-
+import { useTranslation } from 'react-i18next';
 
 const Home = () => {
     const xxl = useMediaQuery('(min-width:1920px)');
+    const { t } = useTranslation();
 
     const styles = {
         logo:{
@@ -96,7 +97,7 @@ const Home = () => {
                 <img src="./home/HomeLogo.png" alt="Logo" style={{ width: '100%' }} />
             </Box>
 
-            <Button variant='contained' href={"/login"} sx={styles.playButton}> PLAY </Button>
+            <Button variant='contained' href={"/login"} sx={styles.playButton}> {t("Home")} </Button>
 
             <video data-testid="video" ref={videoRef} autoPlay muted loop style={{ ...styles.video}}>
                 <source src="./home/Background-White.webm" type="video/mp4" />

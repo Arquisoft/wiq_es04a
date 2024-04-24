@@ -33,7 +33,7 @@ describe('Game component', () => {
         correctAnswer: 'Madrid',
         categories: ['Geography'],
         language: 'en'
-    };
+    }; 
 
     const generateQuestionArray = (questionObject, count) => {
         const questionArray = [];

@@ -13,14 +13,15 @@ const Login = () => {
   
   const navigate = useNavigate();
 
-  const { createSession } = useContext(SessionContext);
+  const { createSession, updateAvatar } = useContext(SessionContext);
   const { t } = useTranslation();
 
   const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
   const loginUser = async () => {
     try {
-      await axios.post(`${apiEndpoint}/login`, { username, password });
+      let response = await axios.post(`${apiEndpoint}/login`, { username, password });
+      updateAvatar(response.data.avatar);
       setOpenSnackbar(true);
       createSession(username);
       navigate('/homepage');
@@ -37,7 +38,7 @@ const Login = () => {
     <Container component="main" maxWidth="xs" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flex:'1', marginTop: '2em', marginBottom: '2em'}}>
       <Box sx={{margin: '2em'}}>
         <div>
-          <Typography component="h1" variant="h5">
+          <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
             { t("Login.title") }
           </Typography>
           <TextField

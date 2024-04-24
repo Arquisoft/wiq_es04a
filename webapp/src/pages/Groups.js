@@ -66,7 +66,7 @@ const Groups = () => {
     // Function that makes the user join a group and shows the possible errors when making this
     const addToGroup = async (name) => {
       try {
-        await axios.post(`${apiEndpoint}/group/`+name, { username });
+        await axios.put(`${apiEndpoint}/group/`+name, { username });
         setSnackbarMessage('Joined the group successfully');
         setOpenSnackbar(true);
         fetchData();
@@ -79,7 +79,7 @@ const Groups = () => {
     // Function that makes a member of a group leave it.
     const exitFromGroup = async (name) => {
       try {
-        await axios.post(`${apiEndpoint}/group/`+name+`/exit`, { username });
+        await axios.put(`${apiEndpoint}/group/`+name+`/exit`, { username });
         setSnackbarMessage('Left the group successfully');
         setOpenSnackbar(true);
         fetchData();
@@ -97,7 +97,7 @@ const Groups = () => {
 
     return (
     <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <Typography variant="h3" sx={{ width: '100%', textAlign: 'center', fontWeight: 'bold' }}>
+      <Typography variant="h2" align="center" fontWeight="bold" sx={{ width: '100%', textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
         { t("Groups.title") }
       </Typography>
 
@@ -112,7 +112,7 @@ const Groups = () => {
             <TextField name="name" value={name} label={ t("Groups.name") } fullWidth onChange={(e) => setName(e.target.value)} />
           </Grid>
           <Grid item xs={3}>
-            <Button variant="contained" color="primary" onClick={addGroup} sx={{ padding:'1.1em' }} fullWidth>
+            <Button variant="contained" color="primary" onClick={() => addGroup()} sx={{ padding:'1.1em' }} fullWidth>
               { t("Groups.create_button") }
             </Button>
           </Grid>
@@ -130,17 +130,15 @@ const Groups = () => {
             <Container key={group.name+"_container"}>
               <ListItem key={group.name} sx={{ display:'flex', alignContent:'space-between', alignItems:'center' }}>
                 <ListItemText primary={group.name} />
-                <Button variant="contained" color="primary" sx={{ marginRight: '2em' }} onClick={() => seeMembers(group.name)}>
-                  { t("Groups.see_members") }
-                </Button>
+                
                 {group.isMember ? (
                   group.isCreator ? (
                     <Button variant="contained" onClick={() => exitFromGroup(group.name)} sx={{ backgroundColor: '#FFFFFF', color: theme.palette.error.main, borderColor: theme.palette.error.main, '&:hover': { backgroundColor: theme.palette.secondary.main } }}>
-                      DELETE
+                      {t("Groups.delete")}
                     </Button>
                   ):(
                     <Button variant="contained" onClick={() => exitFromGroup(group.name)} sx={{ backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main } }}>
-                      EXIT IT!
+                      {t("Groups.exit")}
                     </Button>
                     )
                 ) : group.isFull ? (
@@ -152,6 +150,9 @@ const Groups = () => {
                     { t("Groups.join") }
                   </Button>
                 )}
+                <Button variant="contained" color="primary" sx={{ marginLeft: '2em' }} onClick={() => seeMembers(group.name)}>
+                  { t("Groups.see_members") }
+                </Button>
                 <Snackbar open={openSnackbar} autoHideDuration={4500} onClose={handleCloseSnackbar} message={snackbarMessage} />
                 {error && (<Snackbar open={!!error} autoHideDuration={4500} onClose={() => setError('')} message={`Error: ${error}`} />)}
               </ListItem>

@@ -1,11 +1,12 @@
 const puppeteer = require('puppeteer');
 const { defineFeature, loadFeature }=require('jest-cucumber');
+const { expect } = require('expect-puppeteer');
 const setDefaultOptions = require('expect-puppeteer').setDefaultOptions
 const feature = loadFeature('./features/game.feature');
 
 let page;
 let browser;
-
+  
 defineFeature(feature, test => {
 
   beforeAll(async () => {
@@ -45,10 +46,11 @@ defineFeature(feature, test => {
 
   beforeEach(async () => {
     await page
-    .goto("http://localhost:3000/game", {
+    .goto("http://localhost:3000/discoveringCitiesGame", {
       waitUntil: "networkidle0",
     })
     .catch(() => {});
+
 
     //"mock" login
     await page.evaluate(() => {

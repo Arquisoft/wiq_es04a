@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const { defineFeature, loadFeature }=require('jest-cucumber');
 const setDefaultOptions = require('expect-puppeteer').setDefaultOptions
-const feature = loadFeature('./features/wiseMenStackGame.feature');
+const feature = loadFeature('./features/theChallangeGame.feauture');
 
 let page;
 let browser;
@@ -39,15 +39,17 @@ defineFeature(feature, test => {
     });
     //Way of setting up the timeout
     setDefaultOptions({ timeout: 10000 })
+
+     
   });
 
   beforeEach(async () => {
     await page
-    .goto("http://localhost:3000/wiseMenStackGame", {
+    .goto("http://localhost:3000/theChallengeGame", {
       waitUntil: "networkidle0",
     })
     .catch(() => {});
-    
+
     //"mock" login
     await page.evaluate(() => {
       localStorage.clear();
@@ -55,7 +57,7 @@ defineFeature(feature, test => {
     });
 
     await page
-    .goto("http://localhost:3000/wiseMenStackGame", {
+    .goto("http://localhost:3000/theChallengeGame", {
       waitUntil: "networkidle0",
     })
     .catch(() => {});
@@ -70,21 +72,17 @@ defineFeature(feature, test => {
 
         //await expect(page.findByText('Which is the capital of Spain?'));
         const question = await page.$['data-testid="question"'];
-        await expect(page).toMatchElement("div", { text: 'Which is the capital of Spain?'});
+        await expect(page).toMatchElement("div", { text: 'Which is the capital of Spain?'.toUpperCase()});
         expect(question).not.toBeNull();
         
-        const answers = await page.$x('//*[@data-testid="answer"]');
-        expect(answers.length).toBe(2);
+        const answers = await page.$x('//*[contains(@data-testid, "success") or contains(@data-testid, "failure") or contains(@data-testid, "answer")]');
+        expect(answers.length).toBe(4);
     });
 
     when('I click on the correct answer button', async () => {
-        const answers = await page.$x('//*[@data-testid="answer"]');
-        const textoBoton1 = await page.evaluate(button => button.innerText, answers[0]);
-        if(textoBoton1 === "Madrid") {
-          await answers[0].click();
-        } else {
-          await answers[1].click();
-        }
+        const answers = await page.$x('//*[contains(@data-testid, "success") or contains(@data-testid, "failure") or contains(@data-testid, "answer")]');
+        await answers[0].click();
+  
     });
 
     then('The button turns green', async () => {
@@ -108,21 +106,16 @@ defineFeature(feature, test => {
 
         //await expect(page.findByText('Which is the capital of Spain?'));
         const question = await page.$['data-testid="question"'];
-        await expect(page).toMatchElement("div", { text: 'Which is the capital of Spain?'});
+        await expect(page).toMatchElement("div", { text: 'Which is the capital of Spain?'.toUpperCase()});
         expect(question).not.toBeNull();
         
-        const answers = await page.$x('//*[@data-testid="answer"]');
-        expect(answers.length).toBe(2);
+        const answers = await page.$x('//*[contains(@data-testid, "success") or contains(@data-testid, "failure") or contains(@data-testid, "answer")]');
+        expect(answers.length).toBe(4);
     });
 
     when('I click on an incorrect answer button', async () => {
-        const answers = await page.$x('//*[@data-testid="answer"]');
-        const textoBoton1 = await page.evaluate(button => button.innerText, answers[0]);
-        if(textoBoton1 !== "Madrid") {
-          await answers[0].click();
-        } else {
-          await answers[1].click();
-        }
+        const answers = await page.$x('//*[contains(@data-testid, "success") or contains(@data-testid, "failure") or contains(@data-testid, "answer")]');
+        await answers[1].click();
     });
 
     then('The button turns red', async () => {

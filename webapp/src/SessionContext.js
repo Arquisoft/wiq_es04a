@@ -8,6 +8,7 @@ const SessionProvider = ({ children }) => {
     const [sessionId, setSessionId] = useState('');
     const [username, setUsername] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [avatar, setAvatar] = useState('/default_user.jpg');
   
     //This hook recovers user data if available in localstorage when the sessprovider is created
     useEffect(() => {
@@ -21,6 +22,11 @@ const SessionProvider = ({ children }) => {
         if (storedUsername) {
           setUsername(storedUsername);
         }
+
+        const storedAvatar = localStorage.getItem('avatar');
+        if (storedAvatar) {
+            setAvatar(storedAvatar);
+        }
       }
     }, []);
   
@@ -31,19 +37,26 @@ const SessionProvider = ({ children }) => {
       setIsLoggedIn(true);
       localStorage.setItem('sessionId', newSessionId);
       localStorage.setItem('username', username);
+      localStorage.setItem('avatar', '/default_user.jpg');
     };
   
     const destroySession = () => {
       localStorage.removeItem('sessionId');
       localStorage.removeItem('username');
       setSessionId('');
-      setIsLoggedIn(false);
       setUsername('');
+      setIsLoggedIn(false);
+      setAvatar('/default_user.jpg');
+    };
+
+    const updateAvatar = (newAvatar) => {
+      setAvatar(newAvatar);
+      localStorage.setItem('avatar', newAvatar);
     };
   
     return (
         // This values are the props we can access from the child objects
-      <SessionContext.Provider value={{ sessionId, username, isLoggedIn, createSession, destroySession }}>
+      <SessionContext.Provider value={{ sessionId, username, isLoggedIn, avatar, createSession, destroySession, updateAvatar }}>
         {children}
       </SessionContext.Provider>
     );

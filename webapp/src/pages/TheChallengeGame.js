@@ -10,9 +10,9 @@ import { useContext } from 'react';
 import Confetti from 'react-confetti';
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import { useTranslation } from 'react-i18next';
 import i18n from '../localize/i18n';
+import { PlayArrow, Pause } from '@mui/icons-material';
 
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
@@ -51,6 +51,8 @@ const Game = () => {
     const [questionCountdownRunning, setQuestionCountdownRunning] = React.useState(false); //property to start and stop question timer
     const [userResponses, setUserResponses] = React.useState([]);
     const [language, setCurrentLanguage] = React.useState(i18n.language);
+    const [paused, setPaused] = React.useState(false);
+    const [passNewRound, setPassNewRound] = React.useState(false);
 
     const [questionHistorial, setQuestionHistorial] = React.useState(Array(numRounds).fill(null));
 
@@ -89,16 +91,25 @@ const Game = () => {
           setShowConfetti(false);
         }
       }, [correctlyAnsweredQuestions, incorrectlyAnsweredQuestions]);
+
+    React.useEffect(() => {
+        if (passNewRound && !paused) {
+            setRound(prevRound => {
+                return prevRound + 1;
+            });
+            setButtonStates([]);
+        }
+    }, [paused, passNewRound]);
      
 
     const startGame = () => {
         setConfigModalOpen(false);
         startNewRound();
     };
-    
-    // gets a random question from the database and initializes button states to null
+
     const startNewRound = async () => {
         setAnswered(false);
+        setPassNewRound(false);
         // It works deploying using git repo from machine with: axios.get(`http://20.80.235.188:8000/questions`)
         setCurrentLanguage(i18n.language);
         axios.get(`${apiEndpoint}/questions/${language}/${category}`) 
@@ -114,7 +125,7 @@ const Game = () => {
 
     const updateStatistics = async() => {
         try {
-            await axios.post(`${apiEndpoint}/statistics`, {
+            await axios.put(`${apiEndpoint}/statistics`, {
                 username:username,
                 the_callenge_earned_money:totalScore,
                 the_callenge_correctly_answered_questions:correctlyAnsweredQuestions,
@@ -147,7 +158,7 @@ const Game = () => {
 
     const updateQuestionsRecord = async() => {
         try {
-            await axios.post(`${apiEndpoint}/user/questionsRecord`, {
+            await axios.put(`${apiEndpoint}/questionsRecord`, {
                 questions: userResponses,
                 username: username,
                 gameMode: "TheChallenge"
@@ -211,27 +222,10 @@ const Game = () => {
         setButtonStates(newButtonStates);
 
         setTimeout(async() => {
-            setRound(round + 1);
-            setButtonStates([]);
+            setPassNewRound(true);
             setCurrentLanguage(i18n.language);
         }, 4000);
     };
-
-    const questionHistorialBar = () => {
-        return questionHistorial.map((isCorrect, index) => (
-        <Card 
-          key={index + 1}
-          variant="outlined"
-          style={{ 
-            width: `${100 / numRounds}%`,
-            marginRight: '0.6em',
-            backgroundColor: isCorrect === null ? 'gray' : isCorrect ? 'lightgreen' : 'salmon',
-          }}
-        >
-          <CardContent>{index + 1}</CardContent>
-        </Card>
-        ));
-    };    
 
     // Render the configuration window before starting the game
     if (configModalOpen) {
@@ -269,6 +263,7 @@ const Game = () => {
                 </div>
 
                 <Button
+                    data-testid="start-button"
                     onClick={() => { startGame(); setQuestionHistorial(Array(numRounds).fill(null)); console.log(category) }}
                     variant="contained"
                     sx={{
@@ -285,6 +280,22 @@ const Game = () => {
                 </Button>
             </Container>
         );
+    }
+
+    const questionHistorialBar = () => {
+        return questionHistorial.map((isCorrect, index) => (
+            <Card sx={{ width: `${100 / numRounds}%`,
+             padding:'0.2em', 
+             margin:'0 0.1em', 
+             backgroundColor: isCorrect === null ? 'gray' : isCorrect ? theme.palette.success.main : theme.palette.error.main }}
+            >
+            </Card>
+        ));
+    };    
+
+    const togglePause = () => {
+        setTimerRunning(!timerRunning);
+        setPaused(!paused);
     }
 
 
@@ -307,9 +318,9 @@ const Game = () => {
         );
     }
 
-    // redirect to / if game over 
-if (shouldRedirect) {
-    // Redirect after 3 seconds
+ // redirect to / if game over 
+ if (shouldRedirect) {
+    // Redirect after 4 seconds
     setTimeout(() => {
         navigate('/homepage');
     }, 4000);
@@ -317,107 +328,95 @@ if (shouldRedirect) {
 
     return (
         <Container
-            sx={{
-                display: 'flex',
+            sx={{ 
+                display: 'flex', 
                 flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '100vh',
+                justifyContent: 'center', 
+                alignItems: 'center', 
+                gap: '5em',
                 textAlign: 'center',
+                flex: '1'
             }}
         >
             <CssBaseline />
-            <Typography 
-            data-testid="end-game-message"
-            variant="h4" 
-            sx={{
-                color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? 'green' : 'red',
-                fontSize: '4rem', // Tamaño de fuente
-                marginTop: '20px', // Espaciado superior
-                marginBottom: '50px', // Espaciado inferior
-            }}
-        >
-            {correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? "Great Job!" : "Game Over"}
-        </Typography>
-            <div>
-                <Typography variant="h6">Correct Answers: {correctlyAnsweredQuestions}</Typography>
-                <Typography variant="h6">Incorrect Answers: {incorrectlyAnsweredQuestions}</Typography>
-                <Typography variant="h6">Total money: {totalScore}</Typography>
-                <Typography variant="h6">Game time: {totalTimePlayed} seconds</Typography>
-            </div>
+            <Typography variant="h2" data-testid="end-game-message"
+                    sx={{ color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? theme.palette.success.main : theme.palette.error.main }}>
+                {correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? t("Game.win_msg") : t("Game.lose_msg") }
+            </Typography>
+            <Container>
+                <Typography variant="h4">{ t("Game.correct") }: {correctlyAnsweredQuestions}</Typography>
+                <Typography variant="h4">{ t("Game.incorrect") }: {incorrectlyAnsweredQuestions}</Typography>
+                <Typography variant="h4">{ t("Game.money") }: {totalScore}</Typography>
+                <Typography variant="h4">{ t("Game.time") }: {totalTimePlayed}</Typography>
+            </Container>
             {showConfetti && <Confetti />}
         </Container>
     );
 }
-    return (
-        <Container
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '100vh',
-                textAlign: 'center',
-            }}
-        >
-            <CssBaseline />
 
-            <Container
-            sx={{
-                position: 'center',
-                top: '10%', 
-                right: '20%', 
-            }}>
-                <Container
-                    sx={{
-                        display: 'center',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                    }}
-                >
-                    {questionHistorialBar()}
-                </Container>
-            </Container>
+return (
+    <Container
+        sx={{ 
+            display: 'flex', 
+            flexDirection: 'column',
+            justifyContent: 'space-around',
+            alignItems: 'center', 
+            textAlign: 'center',
+            flex: '1',
+            gap: '2em',
+            margin: '2em auto 1em',
+        }}
+    >
+        <CssBaseline />
 
-            <Typography variant='h6' data-testid="numRound">
-                {round} / {numRounds}
-            </Typography>
-            <Typography variant="h5" mb={4} fontWeight="bold" style={{ display: 'flex', alignItems: 'center' }}>
-            <span data-testid="question" style={{ marginRight: '1em' }}>{questionData.question}</span>
+        <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
+            { answered ?
+                // Pausa
+                <Button variant="contained" onClick={() => togglePause()} sx={{ height: 100, width: 100, borderRadius: '50%' }} data-testid={ paused ? "play" : "pause"}>
+                    { paused ? <PlayArrow /> : <Pause /> }
+                </Button>
+                :
+                // Cronómetro
                 <CountdownCircleTimer
-                  data-testid="circleTimer"
-                  key={questionCountdownKey}
-                  isPlaying = {questionCountdownRunning}
-                  duration={timerConfig}
-                  colors={["#0bfc03", "#F7B801", "#f50707", "#A30000"]}
-                  size={100}
-                  colorsTime={[10, 6, 3, 0]}
-                  onComplete={() => selectResponse(0, "FAILED")} //when time ends always fail question
-                >
-                  {({ remainingTime }) => {
-                    return (
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <div style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{remainingTime}</div>
-                      </div>
-                    );
-                  }}
+                    data-testid="circleTimer"
+                    key={questionCountdownKey}
+                    isPlaying = {questionCountdownRunning}
+                    duration={timerConfig}
+                    colors={[theme.palette.success.main, "#F7B801", "#f50707", theme.palette.error.main]}
+                    size={100}
+                    colorsTime={[10, 6, 3, 0]}
+                    onComplete={() => selectResponse(-1, "FAILED")} //when time ends always fail question
+                    >
+                    {({ remainingTime }) => {
+                        return (
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <div style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{remainingTime}</div>
+                        </div>
+                        );
+                    }}
                 </CountdownCircleTimer>
+            }
+        </Container>
+
+        <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
+            <Typography variant="h4" data-testid="question" sx={{ fontWeight:'bold', marginBottom:'0.7em' }} >
+                {questionData.question.toUpperCase()}
             </Typography>
 
             <Grid container spacing={2}>
                 {questionData.options.map((option, index) => (
                     <Grid item xs={12} key={index}>
                         <Button
-                            data-testid="answer"
+                            //data-testid="answer"
+                            data-testid={buttonStates[index] === "success" ? `success${index}` : buttonStates[index] === "failure" ? `failel${index}` : `answer${index}`}
                             variant="contained"
                             onClick={() => selectResponse(index, option)}
                             disabled={buttonStates[index] !== null || answered} // before, you could still press more than one button
                             sx={{
-                                height: "50px", // Ajusta el tamaño según sea necesario
-                                width: "50%", // Ajusta el ancho según sea necesario
-                                borderRadius: "20px", // Ajusta el radio según sea necesario
+                                height: "3.3em",
+                                width: "50%",
+                                borderRadius: "10px",
                                 margin: "5px",
-                                backgroundColor: buttonStates[index] === "success" ? "green" : buttonStates[index] === "failure" ? "red" : null,
                                 "&:disabled": {
                                     backgroundColor: buttonStates[index] === "success" ? "green" : buttonStates[index] === "failure" ? "red" : "gray",
                                     color: "white",
@@ -431,7 +430,13 @@ if (shouldRedirect) {
                 ))}
             </Grid>
         </Container>
-    );
+
+        {/* Progress Cards */}
+        <Container sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop:'2em' }} >
+            {questionHistorialBar()}
+        </Container>
+    </Container>
+);
 };
 
 export default Game;

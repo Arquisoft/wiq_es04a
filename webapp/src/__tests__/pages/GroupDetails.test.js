@@ -42,9 +42,9 @@ describe('GroupDetails component', () => {
 
     await waitFor(() => {
       expect(getByText(groupInfo.name)).toBeInTheDocument();
-      expect(getByText(`Creator: ${groupInfo.creator}`)).toBeInTheDocument();
-      expect(getByText(`Created in: ${new Date(groupInfo.createdAt).toLocaleDateString()}`)).toBeInTheDocument();
-      expect(getByText(`Members (${groupInfo.users.length}/20):`)).toBeInTheDocument();
+      expect(getByText(`${groupInfo.creator}`)).toBeInTheDocument();
+      expect(getByText(`${new Date(groupInfo.createdAt).toLocaleDateString()}`)).toBeInTheDocument();
+      expect(getByText(`${groupInfo.users.length}/20`)).toBeInTheDocument();
       groupInfo.users.forEach(user => {
         expect(getByText(user)).toBeInTheDocument();
       });
