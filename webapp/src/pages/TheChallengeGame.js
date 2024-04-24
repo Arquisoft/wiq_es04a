@@ -232,7 +232,9 @@ const Game = () => {
         
         return(
             <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <Typography variant="h2" sx={{ marginBottom: '1em' }}>{t("Game.config.title")}:</Typography>
+                <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
+                    {t("Game.config.title")}:
+                </Typography>
 
                 <div style={{ marginBottom: '1em' }}>
                     <label style={{ margin: '0.5em' }} htmlFor="numRounds">{t("Game.config.num_rounds")}:</label>
