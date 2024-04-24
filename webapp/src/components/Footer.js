@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { AppBar, Toolbar, Typography, Link } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import AndroidIcon from '@mui/icons-material/Android';
 
 const Footer = () => {
     const { t } = useTranslation();
@@ -21,6 +22,16 @@ const Footer = () => {
               {t("Footer.api_users")}
             </Link>
           </Typography>
+          <a
+            href="https://mega.nz/file/vNVkhQwT#l3K-nttaNWJ1tjdUVXJlCClmYm9rmpgBS_ULNewASL4"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+          <button style={{ display: 'flex', alignItems: 'center' }}>
+            <AndroidIcon style={{ marginRight: '8px' }} />
+            Descargar para Android
+          </button>
+          </a>
         </Toolbar>
       </AppBar>
     );
