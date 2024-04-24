@@ -81,7 +81,7 @@
     },
 
     "Register": {
-        "title": "Log In",
+        "title": "Register",
         "username": "Username",
         "password": "Password",
         "name": "Name",
