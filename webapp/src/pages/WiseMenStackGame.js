@@ -225,7 +225,8 @@ const WiseMenStackGame = () => {
 
     const questionHistorialBar = () => {
         return questionHistorial.map((isCorrect, index) => (
-            <Card sx={{ width: `${100 / round}%`, padding:'0.2em', margin:'0 0.1em', backgroundColor: isCorrect === null ? 'gray' : isCorrect ? theme.palette.success.main : theme.palette.error.main }}/>
+            <Card   data-testid={`prog_bar${index}`}
+                    sx={{ width: `${100 / round}%`, padding:'0.2em', margin:'0 0.1em', backgroundColor: isCorrect === null ? 'gray' : isCorrect ? theme.palette.success.main : theme.palette.error.main }}/>
         ));
     };
 
@@ -382,7 +383,7 @@ const WiseMenStackGame = () => {
 
             <Container sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop:'2em' }} >
                 {questionHistorialBar()}
-                { answered || round === 1 ? <Box></Box> : <Card sx={{ width: `${100 / round}%`, padding:'0.2em', margin:'0 0.1em', backgroundColor: 'gray' }}/> }
+                { answered || round === 1 ? <Box></Box> : <Card data-testid='prog_bar_final' sx={{ width: `${100 / round}%`, padding:'0.2em', margin:'0 0.1em', backgroundColor: 'gray' }}/> }
             </Container>
         </Container>
     );

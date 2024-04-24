@@ -55,29 +55,47 @@ describe('Wise Men Stack Game component', () => {
     
   });
 
-  it('should guess correct answer', async () => {    await waitFor(() => screen.getByText('GAME CONFIGURATION'));
+  it('should mark as correct right answer', async () => {
+    await waitFor(() => screen.getByText('GAME CONFIGURATION'));
     
     const button = screen.getByText('Start game');
     fireEvent.click(button);
 
     // waits for the question to appear
     await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
+
     const correctAnswer = screen.getByRole('button', { name: 'Madrid' });
-
-    expect(correctAnswer).not.toHaveStyle({ backgroundColor: 'green' });
-
-    //selects correct answer
+    // now the answer is not selected:
+    expect(screen.findByTestId("anwer0"));
+    // after clicking it has changed to succeeded:
     fireEvent.click(correctAnswer);
+    expect(screen.findByTestId("succes0"));
 
-    //expect(screen.findByText('1')).toHaveStyle({ backgroundColor: 'lightgreen' });
+  });
 
-    expect(correctAnswer).toHaveStyle({ backgroundColor: 'green' });
+  it('should mark as incorrect another answer', async () => {
+    await waitFor(() => screen.getByText('GAME CONFIGURATION'));
+    
+    const button = screen.getByText('Start game');
+    fireEvent.click(button);
+
+    // waits for the question to appear
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
+
+    const answers = screen.getAllByRole('button');
+    const incorrectAnswer = answers[0].name === 'Madrid' ? answers[1] : answers[0];
+    const id = answers[0].name === 'Madrid' ? 1 : 0;
+
+    // now the answer is not selected:
+    expect(screen.findByTestId(`anwer${id}`));
+    // after clicking it has changed to succeeded:
+    fireEvent.click(incorrectAnswer);
+    expect(screen.findByTestId(`failure${id}`));
 
   });
 
   
-  it('should choose incorrect answer', async () => {    await waitFor(() => screen.getByText('GAME CONFIGURATION'));
-    
+  it('should only show 2 answers', async () => {    await waitFor(() => screen.getByText('GAME CONFIGURATION'));
     const button = screen.getByText('Start game');
     fireEvent.click(button);
 
@@ -102,5 +120,32 @@ describe('Wise Men Stack Game component', () => {
     }, 4000);
 
   }, 4500);
+
+  it('should render pause & play buttons when answered', async () => {
+    await waitFor(() => screen.getByText('GAME CONFIGURATION'));
+    const button = screen.getByText('Start game');
+    fireEvent.click(button);
+
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
+    const correctAnswer = screen.getByRole('button', { name: 'Madrid' });
+    fireEvent.click(correctAnswer);
+
+    const pauseButton = screen.getByTestId("pause");
+    expect(pauseButton);
+    fireEvent.click(pauseButton);
+    expect(screen.getByTestId("play"));
+  })
+
+  it('should render progress bar', async () => {
+    await waitFor(() => screen.getByText('GAME CONFIGURATION'));
+    const button = screen.getByText('Start game');
+    fireEvent.click(button);
+
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
+    const progressBar = screen.getByTestId('prog_bar0');
+    await expect(progressBar).toBeInTheDocument();
+  })
+
+  
 
 });
