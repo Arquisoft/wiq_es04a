@@ -2,8 +2,8 @@
     "Home": "JOUER",
     "WIQ": {
         "w": "WIKIDATA",
-        "i": "INFINITE",
-        "q": "QUEST"
+        "i": "ILLIMITÉ",
+        "q": "QUÊTE"
     },
 
     "Homepage": {
@@ -81,7 +81,7 @@
 
 
     "Login": {
-        "title": "Connexion",
+        "title": "Connecter",
         "username": "Nom d'utilisateur",
         "password": "Mot de passe",
         "button": "Se connecter",
@@ -89,7 +89,7 @@
     },
 
     "Register": {
-        "title": "Inscription",
+        "title": "Registre",
         "username": "Nom d'utilisateur",
         "password": "Mot de passe",
         "name": "Prénom",
