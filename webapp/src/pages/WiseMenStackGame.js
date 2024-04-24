@@ -227,8 +227,52 @@ const WiseMenStackGame = () => {
           <CardContent>{index + 1}</CardContent>
         </Card>
         ));
-      };    
+    };
+    
+    if(!isConfigured) {
+        return (
+            <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <Typography variant="h2" sx={{ marginBottom: '1em' }}>Wise Men Stack</Typography>
+                <Typography variant="h3" sx={{ marginBottom: '1em' }}>{t("Wise_Men.instructions")}</Typography>
 
+                {/* Dropdown for selecting category */}
+                <div style={{ marginBottom: '1em' }}>
+                    <label data-testid="categories-label" variant='h6' style={{ margin: '0.5em' }} htmlFor="category">{t("Wise_Men.category")}</label>
+                    <Select
+                        value={category}
+                        onChange={(event) => setCategory(event.target.value)}
+                        style={{ minWidth: '120px' }}
+                    >
+                        <MenuItem value="Geography">{t("Game.categories.geography")}</MenuItem>
+                        <MenuItem value="Political">{t("Game.categories.political")}</MenuItem>
+                        <MenuItem value="Sports">{t("Game.categories.sports")}</MenuItem>
+                    </Select>
+                </div>
+
+                <Button
+                    data-testid="start-button"
+                    onClick={() => { 
+                        setConfiguration(true);
+                        startNewRound(); 
+                        setQuestionHistorial(Array(round).fill(null)); 
+                        console.log(category) 
+                    }}
+                    variant="contained"
+                    sx={{
+                        marginBottom: '0.5em',
+                        backgroundColor: theme.palette.primary.main,
+                        color: theme.palette.secondary.main,
+                        '&:hover': {
+                            backgroundColor: theme.palette.secondary.main,
+                            color: theme.palette.primary.main,
+                        }
+                    }}
+                >
+                    {t("Game.start")}
+                </Button>
+            </Container>
+        );
+    }
     
     // circular loading
     if (!questionData) {
@@ -247,95 +291,50 @@ const WiseMenStackGame = () => {
                 <CircularProgress />
             </Container>
         );
-    }
-
-    if(!isConfigured) {
-        return (
-            <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <Typography variant="h2" sx={{ marginBottom: '1em' }}>Wise Men Stack</Typography>
-                    <Typography variant="h3" sx={{ marginBottom: '1em' }}>{t("Wise_Men.instructions")}</Typography>
-
-                    {/* Dropdown for selecting category */}
-                    <div style={{ marginBottom: '1em' }}>
-                        <label data-testid="categories-label" variant='h6' style={{ margin: '0.5em' }} htmlFor="category">{t("Wise_Men.category")}</label>
-                        <Select
-                            value={category}
-                            onChange={(event) => setCategory(event.target.value)}
-                            style={{ minWidth: '120px' }}
-                        >
-                            <MenuItem value="Geography">{t("Game.categories.geography")}</MenuItem>
-                            <MenuItem value="Political">{t("Game.categories.political")}</MenuItem>
-                            <MenuItem value="Sports">{t("Game.categories.sports")}</MenuItem>
-                        </Select>
-                    </div>
-
-                    <Button
-                        data-testid="start-button"
-                        onClick={() => { 
-                            setConfiguration(true);
-                            startNewRound(); 
-                            setQuestionHistorial(Array(round).fill(null)); 
-                            console.log(category) 
-                        }}
-                        variant="contained"
-                        sx={{
-                            marginBottom: '0.5em',
-                            backgroundColor: theme.palette.primary.main,
-                            color: theme.palette.secondary.main,
-                            '&:hover': {
-                                backgroundColor: theme.palette.secondary.main,
-                                color: theme.palette.primary.main,
-                            }
-                        }}
-                    >
-                        {t("Game.start")}
-                    </Button>
-                </Container>
-        );
     }    
 
     // redirect to / if game over 
-if (shouldRedirect) {
-    // Redirect after 3 seconds
-    setTimeout(() => {
-        navigate('/homepage');
-    }, 4000);
+    if (shouldRedirect) {
+        // Redirect after 3 seconds
+        setTimeout(() => {
+                navigate('/homepage');
+        }, 4000);
 
+        return (
+            <Container
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '100vh',
+                    textAlign: 'center',
+                }}
+            >
+                <CssBaseline />
+                <Typography 
+                data-testid="end-game-message"
+                variant="h4" 
+                sx={{
+                    color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? 'green' : 'red',
+                    fontSize: '4rem', // Tamaño de fuente
+                    marginTop: '20px', // Espaciado superior
+                    marginBottom: '50px', // Espaciado inferior
+                }}
+            >
+                {correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? t("Game.win_msg") : t("Game.lose_msg") }
+            </Typography>
+                <div>
+                    <Typography variant="h6">{ t("Game.correct") }: {correctlyAnsweredQuestions}</Typography>
+                    <Typography variant="h6">{ t("Game.incorrect") }: {incorrectlyAnsweredQuestions}</Typography>
+                    <Typography variant="h6">{ t("Game.money") }: {totalScore}</Typography>
+                    <Typography variant="h6">{ t("Game.time") }: {totalTimePlayed}</Typography>
+                </div>
+                {showConfetti && <Confetti />}
+            </Container>
+        );
+    }
 
-    return (
-        <Container
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '100vh',
-                textAlign: 'center',
-            }}
-        >
-            <CssBaseline />
-            <Typography 
-            data-testid="end-game-message"
-            variant="h4" 
-            sx={{
-                color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? 'green' : 'red',
-                fontSize: '4rem', // Tamaño de fuente
-                marginTop: '20px', // Espaciado superior
-                marginBottom: '50px', // Espaciado inferior
-            }}
-        >
-            {correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? t("Game.win_msg") : t("Game.lose_msg") }
-        </Typography>
-            <div>
-                <Typography variant="h6">{ t("Game.correct") }: {correctlyAnsweredQuestions}</Typography>
-                <Typography variant="h6">{ t("Game.incorrect") }: {incorrectlyAnsweredQuestions}</Typography>
-                <Typography variant="h6">{ t("Game.money") }: {totalScore}</Typography>
-                <Typography variant="h6">{ t("Game.time") }: {totalTimePlayed}</Typography>
-            </div>
-            {showConfetti && <Confetti />}
-        </Container>
-    );
-}
     return (
         <Container
             sx={{
