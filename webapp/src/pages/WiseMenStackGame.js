@@ -265,8 +265,7 @@ const WiseMenStackGame = () => {
                     onClick={() => { 
                         setConfiguration(true);
                         startNewRound(); 
-                        setQuestionHistorial(Array(round).fill(null)); 
-                        console.log(category) 
+                        setQuestionHistorial(Array(round).fill(null));
                     }}
                     variant="contained"
                     size="large"
