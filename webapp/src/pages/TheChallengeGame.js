@@ -309,10 +309,11 @@ const Game = () => {
 
     const questionHistorialBar = () => {
         return questionHistorial.map((isCorrect, index) => (
-            <Card sx={{ width: `${100 / numRounds}%`,
-             padding:'0.2em', 
-             margin:'0 0.1em', 
-             backgroundColor: isCorrect === null ? 'gray' : isCorrect ? theme.palette.success.main : theme.palette.error.main }}
+            <Card data-testid={`prog_bar${index}`}
+                    sx={{ width: `${100 / numRounds}%`,
+                    padding:'0.2em', 
+                    margin:'0 0.1em', 
+                    backgroundColor: isCorrect === null ? 'gray' : isCorrect ? theme.palette.success.main : theme.palette.error.main }}
             >
             </Card>
         ));
