@@ -270,9 +270,8 @@ const DiscovertingCitiesGame = () => {
                     </Button>
                     :
                     // Cronómetro
-                    <CountdownCircleTimer data-testid="circleTimer" key={questionCountdownKey} isPlaying = {questionCountdownRunning} duration={15}
-                        colors={[theme.palette.success.main, "#F7B801", "#f50707", theme.palette.error.main]} 
-                        colorsTime={[10, 6, 3, 0]} onComplete={() => selectResponse(-1, "FAILED")}  size={100} >
+                    <CountdownCircleTimer data-testid="circleTimer" key={questionCountdownKey} isPlaying = {questionCountdownRunning} duration={15} colorsTime={[10, 6, 3, 0]}
+                        colors={[theme.palette.success.main, "#F7B801", "#f50707", theme.palette.error.main]} size={100} onComplete={() => selectResponse(-1, "FAILED")}>
                         {({ remainingTime }) => {
                             return (
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -292,8 +291,7 @@ const DiscovertingCitiesGame = () => {
                 <Grid container spacing={2}>
                     {questionData.options.map((option, index) => (
                         <Grid item xs={12} key={index}>
-                            <Button
-                                data-testid={buttonStates[index] === "success" ? `success${index}` : buttonStates[index] === "failure" ? `failel${index}` : `answer${index}`}
+                            <Button data-testid={buttonStates[index] === "success" ? `success${index}` : buttonStates[index] === "failure" ? `failel${index}` : `answer${index}`}
                                 variant="contained" onClick={() => selectResponse(index, option)} disabled={buttonStates[index] !== null || answered}
                                 sx={{ height: "3.3em", width: "50%", borderRadius: "10px", margin: "5px", "&:disabled": {backgroundColor: buttonStates[index] === "success" ? theme.palette.success.main : buttonStates[index] === "failure" ? theme.palette.error.main : "gray", color: "white" } }}>
                                 {buttonStates[index] === "success" ? <CheckIcon /> : buttonStates[index] === "failure" ? <ClearIcon /> : null}
