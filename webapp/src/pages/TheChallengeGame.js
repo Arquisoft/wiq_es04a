@@ -232,17 +232,17 @@ const Game = () => {
         
         return(
             <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <Typography variant="h2" sx={{ marginBottom: '1em' }}>Game Configuration</Typography>
+                <Typography variant="h2" sx={{ marginBottom: '1em' }}>{t("Game.config.title")}:</Typography>
 
                 <div style={{ marginBottom: '1em' }}>
-                    <label style={{ margin: '0.5em' }} htmlFor="numRounds">Number of rounds:</label>
+                    <label style={{ margin: '0.5em' }} htmlFor="numRounds">{t("Game.config.num_rounds")}:</label>
                     <Button disabled={numRounds === 1} onClick={() => setNumRounds(numRounds - 1)} variant="outlined" >-</Button>
                     <span style={{ margin: '0.5em' }}>{numRounds}</span>
                     <Button onClick={() => setNumRounds(numRounds + 1)} variant="outlined">+</Button>
                 </div>
 
                 <div style={{ marginBottom: '1em' }}>
-                    <label style={{ margin: '0.5em' }} htmlFor="questionTime">Time per question (seconds):</label>
+                    <label style={{ margin: '0.5em' }} htmlFor="questionTime">{t("Game.config.time")}:</label>
                     <Button disabled={timerConfig === 1} onClick={() => setTimerConfig(timerConfig - 1)} variant="outlined">-</Button>
                     <span style={{ margin: '0.5em' }}>{timerConfig}</span>
                     <Button onClick={() => setTimerConfig(timerConfig + 1)} variant="outlined">+</Button>
@@ -250,7 +250,7 @@ const Game = () => {
 
                 {/* Dropdown for selecting category */}
                 <div style={{ marginBottom: '1em' }}>
-                    <label style={{ margin: '0.5em' }} htmlFor="category">Category:</label>
+                    <label style={{ margin: '0.5em' }} htmlFor="category">{t("Game.config.category")}:</label>
                     <Select
                         value={category}
                         onChange={(event) => setCategory(event.target.value)}

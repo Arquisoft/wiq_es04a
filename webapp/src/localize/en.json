@@ -61,7 +61,13 @@
         "pause": "Pause",
         "play": "Play",
         "round": "Question ",
-        "start": "Start game"
+        "start": "Start game",
+        "config": {
+            "title": "GAME CONFIGURATION",
+            "num_rounds": "Number of rounds",
+            "time": "Time per question (seconds)",
+            "category": "Category"
+        }
     },
 
     "Wise_Men": {
