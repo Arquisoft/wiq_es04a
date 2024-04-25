@@ -489,8 +489,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_login">6.2. Login</a></li>
 <li><a href="#_see_user_statistics">6.3. See User Statistics</a></li>
 <li><a href="#_see_games_instrucions">6.4. See Games Instrucions</a></li>
-<li><a href="#_groups">6.5. Groups</a></li>
-<li><a href="#_play_games">6.6. Play Games</a></li>
+<li><a href="#_see_users_and_groups_ranking">6.5. See Users and Groups Ranking</a></li>
+<li><a href="#_groups">6.6. Groups</a></li>
+<li><a href="#_play_games">6.7. Play Games</a></li>
+<li><a href="#_see_and_edit_your_profile">6.8. See and edit your profile</a></li>
 </ul>
 </li>
 <li><a href="#section-deployment-view">7. Deployment View</a></li>
@@ -1495,19 +1497,19 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Web App</strong>: It is the main module of the application.</p>
+<p><strong>webapp</strong>: It is the main module of the application.</p>
 </li>
 <li>
-<p><strong>Gateway Service</strong>: Handles the communication between the user service and question service modules with the web app service.</p>
+<p><strong>gateway</strong>: Handles the communication between the user service and question service modules with the web app service. Is is the API REST.</p>
 </li>
 <li>
-<p><strong>Question Generation Service</strong>: Gets questions from Wikidata and handles their loading into the database.</p>
+<p><strong>questions</strong>: Gets questions from Wikidata and handles their loading into the database.</p>
 </li>
 <li>
-<p><strong>User Service</strong>: Handles the user management.</p>
+<p><strong>users</strong>: Handles the user management.</p>
 </li>
 <li>
-<p><strong>Multiplayer Service</strong>: Handles the multiplayer management.</p>
+<p><strong>multiplayer</strong>: Handles the multiplayer management.</p>
 </li>
 <li>
 <p><strong>MongoDB</strong>: MongoDB database.</p>
@@ -1542,15 +1544,15 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_white_box_users_service">5.3.1. White Box Users Service</h4>
+<h4 id="_white_box_users">5.3.1. White Box users</h4>
 <div class="paragraph">
-<p><span class="image"><img src="./images/05_level2_userService.png" alt="Diagram White Box Users Service"></span></p>
+<p><span class="image"><img src="./images/05_level2_userService.png" alt="Diagram White users"></span></p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Motivation</dt>
 <dd>
-<p>Decomposition of the User Service black box from level 1 system.</p>
+<p>Decomposition of the users black box from level 1 system.</p>
 </dd>
 <dt class="hdlist1">Contained Building Blocks</dt>
 <dd>
@@ -1579,15 +1581,15 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_white_box_question_generation_service">5.3.2. White Box Question Generation Service</h4>
+<h4 id="_white_box_questions">5.3.2. White Box questions</h4>
 <div class="paragraph">
-<p><span class="image"><img src="./images/05_level2_questionGenerationService.png" alt="Diagram White Box Question Generation Service"></span></p>
+<p><span class="image"><img src="./images/05_level2_questionGenerationService.png" alt="Diagram White Box questions"></span></p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Motivation</dt>
 <dd>
-<p>Decomposition of the Question Generation Service black box from level 1 system.</p>
+<p>Decomposition of the questions black box from level 1 system.</p>
 </dd>
 <dt class="hdlist1">Contained Building Blocks</dt>
 <dd>
@@ -1607,7 +1609,7 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>index</strong>: Define the entry point of the Question Generation Service.</p>
+<p><strong>index</strong>: Define the entry point of the questions.</p>
 </li>
 <li>
 <p><strong>utils</strong>: Define auxiliar functions and questions structure.</p>
@@ -1621,13 +1623,13 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 <div class="sect3">
 <h4 id="_white_box_web_app">5.3.3. White Box Web App</h4>
 <div class="paragraph">
-<p><span class="image"><img src="./images/05_level2_webApp.png" alt="Diagram White Box Web App"></span></p>
+<p><span class="image"><img src="./images/05_level2_webApp.png" alt="Diagram White webapp"></span></p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Motivation</dt>
 <dd>
-<p>Decomposition of the Web App black box from level 1 system.</p>
+<p>Decomposition of the webapp black box from level 1 system.</p>
 </dd>
 <dt class="hdlist1">Contained Building Blocks</dt>
 <dd>
@@ -1646,15 +1648,15 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_white_box_gatewayservice_service">5.3.4. White Box GatewayService Service</h4>
+<h4 id="_white_box_gateway">5.3.4. White Box gateway</h4>
 <div class="paragraph">
-<p><span class="image"><img src="./images/05_level2_gatewayService.png" alt="Diagram White Box GatewayService Service"></span></p>
+<p><span class="image"><img src="./images/05_level2_gatewayService.png" alt="Diagram White Box gateway"></span></p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Motivation</dt>
 <dd>
-<p>Decomposition of the Gateway Service black box from level 1 system.</p>
+<p>Decomposition of the gateway black box from level 1 system.</p>
 </dd>
 <dt class="hdlist1">Contained Building Blocks</dt>
 <dd>
@@ -1680,15 +1682,15 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_white_box_multiplayer_service">5.3.5. White Box Multiplayer Service</h4>
+<h4 id="_white_box_multiplayer">5.3.5. White Box multiplayer</h4>
 <div class="paragraph">
-<p><span class="image"><img src="./images/05_level2_multiplayerService.png" alt="Diagram White Box Multiplayer Service"></span></p>
+<p><span class="image"><img src="./images/05_level2_multiplayerService.png" alt="Diagram White Box multiplayer"></span></p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Motivation</dt>
 <dd>
-<p>Decomposition of the Multiplayer Service black box from level 1 system.</p>
+<p>Decomposition of the multiplayer black box from level 1 system.</p>
 </dd>
 <dt class="hdlist1">Contained Building Blocks</dt>
 <dd>
@@ -1714,22 +1716,22 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_white_box_routes_from_user_service">5.4.1. White Box routes from User Service</h4>
+<h4 id="_white_box_routes_from_users">5.4.1. White Box routes from users</h4>
 <div class="paragraph">
-<p><span class="image"><img src="./images/05_level3_routesUserService.png" alt="Diagram White Box routes from User Service"></span></p>
+<p><span class="image"><img src="./images/05_level3_routesUserService.png" alt="Diagram White Box routes from users"></span></p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Motivation</dt>
 <dd>
-<p>Decomposition of the black box routes from User Service white box from level 2 system.</p>
+<p>Decomposition of the black box routes from users white box from level 2 system.</p>
 </dd>
 <dt class="hdlist1">Contained Building Blocks</dt>
 <dd>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>user-routes</strong>: Contains route handlers for the register, ranking,groups management and statistics management.</p>
+<p><strong>user-routes</strong>: Contains route handlers for the register, ranking, groups management, statistics management and questions record management.</p>
 </li>
 <li>
 <p><strong>auth-routes</strong>: Contains route handlers for the login.</p>
@@ -1741,15 +1743,15 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_white_box_services_from_user_service">5.4.2. White Box services from User Service</h4>
+<h4 id="_white_box_services_from_users">5.4.2. White Box services from users</h4>
 <div class="paragraph">
-<p><span class="image"><img src="./images/05_level3_servicesUserService.png" alt="Diagram White Box services from User Service"></span></p>
+<p><span class="image"><img src="./images/05_level3_servicesUserService.png" alt="Diagram White Box services from users"></span></p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Motivation</dt>
 <dd>
-<p>Decomposition of the black box services from User Service white box from level 2 system.</p>
+<p>Decomposition of the black box services from users white box from level 2 system.</p>
 </dd>
 <dt class="hdlist1">Contained Building Blocks</dt>
 <dd>
@@ -1758,9 +1760,6 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 <li>
 <p><strong>user-model</strong>: Define the User, Statistics and Group database schemas.</p>
 </li>
-<li>
-<p><strong>authVerifyMiddleWare</strong>: Authentication Middleware.</p>
-</li>
 </ul>
 </div>
 </dd>
@@ -1768,15 +1767,15 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_white_box_routes_from_question_generation_service">5.4.3. White Box routes from Question Generation Service</h4>
+<h4 id="_white_box_routes_from_questions">5.4.3. White Box routes from questions</h4>
 <div class="paragraph">
-<p><span class="image"><img src="./images/05_level3_routesQuestionGenerationService.png" alt="Diagram White Box routes from Question Generation Service"></span></p>
+<p><span class="image"><img src="./images/05_level3_routesQuestionGenerationService.png" alt="Diagram White Box routes from questions"></span></p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Motivation</dt>
 <dd>
-<p>Decomposition of the black box routes from Question Generation Service white box from level 2 system.</p>
+<p>Decomposition of the black box routes from questions white box from level 2 system.</p>
 </dd>
 <dt class="hdlist1">Contained Building Blocks</dt>
 <dd>
@@ -1792,15 +1791,15 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_white_box_services_from_question_generation_service">5.4.4. White Box services from Question Generation Service</h4>
+<h4 id="_white_box_services_from_questions">5.4.4. White Box services from questions</h4>
 <div class="paragraph">
-<p><span class="image"><img src="./images/05_level3_servicesQuestionGenerationService.png" alt="Diagram White Box services from Question Generation Service"></span></p>
+<p><span class="image"><img src="./images/05_level3_servicesQuestionGenerationService.png" alt="Diagram White Box services from questions"></span></p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Motivation</dt>
 <dd>
-<p>Decomposition of the black box routes from Question Generation Service white box from level 2 system.</p>
+<p>Decomposition of the black box routes from questions white box from level 2 system.</p>
 </dd>
 <dt class="hdlist1">Contained Building Blocks</dt>
 <dd>
@@ -1822,15 +1821,15 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_white_box_src_from_web_app">5.4.5. White Box src from Web App</h4>
+<h4 id="_white_box_src_from_webapp">5.4.5. White Box src from webapp</h4>
 <div class="paragraph">
-<p><span class="image"><img src="./images/05_level3_srcWebApp.png" alt="Diagram White Box src from Web App"></span></p>
+<p><span class="image"><img src="./images/05_level3_srcWebApp.png" alt="Diagram White Box src from webapp"></span></p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Motivation</dt>
 <dd>
-<p>Decomposition of the black box src from Web App white box from level 2 system.</p>
+<p>Decomposition of the black box src from webapp white box from level 2 system.</p>
 </dd>
 <dt class="hdlist1">Contained Building Blocks</dt>
 <dd>
@@ -1958,30 +1957,48 @@ You will mainly capture scenarios in your documentation to communicate your arch
 </div>
 </div>
 <div class="sect2">
-<h3 id="_groups">6.5. Groups</h3>
+<h3 id="_see_users_and_groups_ranking">6.5. See Users and Groups Ranking</h3>
+<div class="paragraph">
+<p><span class="image"><img src="./images/06_ranking_seq.svg" alt="See Ranking Sequence"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_groups">6.6. Groups</h3>
 <div class="sect3">
-<h4 id="_group_list_and_creation">6.5.1. Group List and Creation</h4>
+<h4 id="_group_list_and_creation">6.6.1. Group List and Creation</h4>
 <div class="paragraph">
 <p><span class="image"><img src="./images/06_create_a_group_seq.svg" alt="Group Creation Sequence"></span></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_group_joining">6.5.2. Group Joining</h4>
+<h4 id="_group_joining">6.6.2. Group Joining</h4>
 <div class="paragraph">
 <p><span class="image"><img src="./images/06_join_a_group_seq.svg" alt="Group Joining Sequence"></span></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_group_details">6.5.3. Group Details</h4>
+<h4 id="_group_exitingdeletion">6.6.3. Group Exiting/Deletion</h4>
+<div class="paragraph">
+<p><span class="image"><img src="./images/06_exit_a_group_seq.svg" alt="Group Exiting Sequence"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_group_details">6.6.4. Group Details</h4>
 <div class="paragraph">
 <p><span class="image"><img src="./images/06_group_details_seq.svg" alt="Group Details Sequence"></span></p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_play_games">6.6. Play Games</h3>
+<h3 id="_play_games">6.7. Play Games</h3>
 <div class="paragraph">
 <p><span class="image"><img src="./images/06_play_seq.svg" alt="Play Games Sequence"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_see_and_edit_your_profile">6.8. See and edit your profile</h3>
+<div class="paragraph">
+<p><span class="image"><img src="./images/06_profile_seq.svg" alt="See Profile Sequence"></span></p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -2893,7 +2910,7 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2024-04-08 22:21:04 +0200
+Last updated 2024-04-09 13:36:07 +0200
 </div>
 </div>
 </body>
