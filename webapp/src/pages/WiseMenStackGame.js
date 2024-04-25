@@ -1,6 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
-import { Container, Box, Button, CssBaseline, Grid, Typography, CircularProgress, Card, Select, MenuItem, IconButton, useTheme } from '@mui/material';
+import { Container, Box, Button, CssBaseline, Grid, Typography, CircularProgress, Card, Select, MenuItem, IconButton, useTheme, Paper } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import { PlayArrow, Pause } from '@mui/icons-material';
@@ -237,7 +237,8 @@ const WiseMenStackGame = () => {
     
     if(!isConfigured) {
         return (
-            <Container sx={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center', gap: '4em' }}>
+            <Container sx={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Paper elevation={5} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '4em', padding: '4em', borderRadius: '4em' }}>
                 <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
                     {t("Game.config.title")}
                 </Typography>
@@ -290,6 +291,7 @@ const WiseMenStackGame = () => {
                 >
                     {t("Game.start")}
                 </Button>
+            </Paper>
             </Container>
         );
     }
