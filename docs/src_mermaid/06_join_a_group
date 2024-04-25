@@ -3,10 +3,10 @@ sequenceDiagram
 
     alt A group is available to join
         User ->>+ Webapp: search group in list and click JOIN IT! button
-        Webapp ->> Gateway Service: axios.post('/group/${name}/join')
-        Gateway Service ->> Users: axios.post('/user/group/${name}/join')
+        Webapp ->> Gateway Service: axios.put('/group/:name')
+        Gateway Service ->> Users: axios.post('/user/group/:name')
 
-        Users ->> MariaDB: router.post('/user/group/:name/join')
+        Users ->> MariaDB: router.post('/user/group/:name')
         MariaDB -->> Users: JSON response
 
         Users -->> Gateway Service: 
