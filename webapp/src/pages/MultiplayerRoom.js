@@ -1,5 +1,5 @@
 import React, { useState, useEffect  } from 'react';
-import { Button, TextField, Typography, Grid, Paper, List, ListItem, CircularProgress } from '@mui/material';
+import { useTheme, Button, TextField, Typography, Grid, Paper, List, ListItem, CircularProgress, Container, Box } from '@mui/material';
 import io from 'socket.io-client';
 import { useContext } from 'react';
 import { SessionContext } from '../SessionContext';
@@ -11,6 +11,7 @@ const socketEndpoint = process.env.REACT_APP_MULTIPLAYER_ENDPOINT || 'http://loc
 
 const MultiplayerRoom = () => {
     const { t } = useTranslation();
+    const theme = useTheme();
 
     const [roomCode, setRoomCode] = useState("");
     const [error, setError] = useState("");
@@ -105,74 +106,108 @@ const MultiplayerRoom = () => {
     }
   
     return (
-        <Grid container justifyContent="center" alignItems="center" style={{ height: '100vh' }}>
-          <Grid item xs={6}>
-            <Paper elevation={3} style={{ padding: '20px' }}>
-              {roomCode && error === "" ? (
-                <>
-                  <Typography variant="h4" gutterBottom>
-                    { t("Multiplayer.Room.code") }:
-                  </Typography>
-                  <Typography variant="h5" gutterBottom style={{ marginTop: '10px' }}>
-                    {roomCode}
-                  </Typography>
+      <Container sx={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Paper elevation={5} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '2em', padding: '4em', borderRadius: '4em' }}>
+          <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
+            {t("Games.Multiplayer.name").toUpperCase()}
+          </Typography>
 
-                  <Typography variant="h4" gutterBottom>
-                    { t("Multiplayer.Room.participants") }:
-                  </Typography>
-                  <List>
-                    {roomPlayers.map((player, index) => (
-                    <ListItem key={index}>
-                        <Typography variant='h5'>{player}</Typography>
-                    </ListItem>
-                    ))}
-                  </List>
-                  <Button id="playBtn" variant="contained" disabled={!gameReady || !roomCreator || !gameLoaded} onClick={startGame} style={{ marginTop: '10px' }}>
-                    { t("Multiplayer.Room.start") }
-                  </Button>
-                  {loadingQuestions && (
-                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px', flexDirection: "column", alignItems: "center" }}>
-                        <CircularProgress />
-                        <Typography variant='h5' style={{ marginTop: '1em'}}>Loading questions...</Typography>
-                    </div>
-                )}
-                </>
-              ) : (
-                <>
-                  <Typography variant="h4" gutterBottom>
-                    { t("Multiplayer.Room.create") }
-                  </Typography>
-                  <Button variant="contained" onClick={handleCreateRoom} data-testid="btn-create-room">
-                    { t("Multiplayer.Room.create") }
-                  </Button>
-                  <Typography variant="h4" gutterBottom style={{ marginTop: '20px' }}>
-                    { t("Multiplayer.Room.join") }
-                  </Typography>
-                  <TextField
-                    label="Room code"
-                    variant="outlined"
-                    fullWidth
-                    onChange={(e) => setWrittenCode(e.target.value)}
-                    style={{ marginTop: '10px' }}
-                  />
-                  <Button variant="contained" onClick={handleJoinRoom} style={{ marginTop: '10px' }} data-testid="btn-join-room">
-                    { t("Multiplayer.Room.join") }
-                  </Button>
-                  {error && (
-                    <Typography variant="subtitle1" gutterBottom style={{ marginTop: '10px', color: 'red' }}>
-                      {error}
-                    </Typography>
-                  )}
-                </>
+          {roomCode && error === "" ? (
+            <>
+              <Typography variant="h4" gutterBottom>
+                { t("Multiplayer.Room.code") }:
+              </Typography>
+              <Typography variant="h5" gutterBottom style={{ marginTop: '10px' }}>
+                {roomCode}
+              </Typography>
+
+              <Typography variant="h4" gutterBottom>
+                { t("Multiplayer.Room.participants") }:
+              </Typography>
+              <List>
+                {roomPlayers.map((player, index) => (
+                <ListItem key={index}>
+                    <Typography variant='h5'>{player}</Typography>
+                </ListItem>
+                ))}
+              </List>
+              <Button id="playBtn" variant="contained" disabled={!gameReady || !roomCreator || !gameLoaded} onClick={startGame} style={{ marginTop: '10px' }}>
+                { t("Multiplayer.Room.start") }
+              </Button>
+              {loadingQuestions && (
+                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px', flexDirection: "column", alignItems: "center" }}>
+                    <CircularProgress />
+                    <Typography variant='h5' style={{ marginTop: '1em'}}>Loading questions...</Typography>
+                </div>
               )}
-            </Paper>
-          </Grid>
+            </>
+          ) : (
+            <Container sx={{ display: 'flex', flexDirection: 'column', gap: '2em' }} >
+              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' , gap: '1em',
+                          border: `2px solid ${theme.palette.primary.main}`, borderRadius: '1em', padding: '1em' }}>
+                <Typography variant="h4">
+                  { t("Multiplayer.Room.join") }
+                </Typography>
+                <TextField
+                  label="Room code"
+                  variant="outlined"
+                  fullWidth
+                  onChange={(e) => setWrittenCode(e.target.value)}                  
+                />
+                <Button variant="contained" onClick={handleJoinRoom} data-testid="btn-join-room"
+                        size='large'
+                        sx={{
+                            fontFamily: 'Arial Black, sans-serif',
+                            color: theme.palette.primary.main,
+                            backgroundColor: 'transparent',
+                            border: `2px solid ${theme.palette.primary.main}`,
+                            transition: 'background-color 0.3s ease',
+    
+                            '&:hover': {
+                                backgroundColor: theme.palette.primary.main,
+                                color: 'white',
+                            }
+                        }}>
+                  { t("Multiplayer.Room.join") }
+                </Button>
+                {error && (
+                  <Typography variant="subtitle1" gutterBottom color="error">
+                    {error}
+                  </Typography>
+                )}
+              </Box>
+
+              <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1em', 
+                        border: `2px solid ${theme.palette.success.main}`, borderRadius: '1em', padding: '1em' }}>
+                <Typography variant="h6">
+                  { t("Multiplayer.Room.new_game") }
+                </Typography>
+                <Button variant="contained" onClick={handleCreateRoom} data-testid="btn-create-room"
+                        size='large'
+                        sx={{
+                            fontFamily: 'Arial Black, sans-serif',
+                            color: theme.palette.success.main,
+                            backgroundColor: 'transparent',
+                            border: `2px solid ${theme.palette.success.main}`,
+                            transition: 'background-color 0.3s ease',
+    
+                            '&:hover': {
+                                backgroundColor: theme.palette.success.main,
+                                color: 'white',
+                            }
+                        }}>
+                  { t("Multiplayer.Room.create") }
+                </Button>
+              </Box>
+            </Container>
+          )}
           {roomCode && error === "" && (
             <Grid item xs={3} sx={{marginLeft: '2em'}}>
               <Chat roomCode={roomCode} username={username} />
             </Grid>
           )}
-        </Grid>
+        </Paper>
+      </Container>
       );
   }
 

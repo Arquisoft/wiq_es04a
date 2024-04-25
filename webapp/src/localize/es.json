@@ -148,7 +148,8 @@
             "join": "Unirse a sala",
             "send": "Enviar",
             "chat_title": "Chat de la sala",
-            "chat_input_label": "Escribe tu mensaje"
+            "chat_input_label": "Escribe tu mensaje",
+            "new_game": "¿Quieres iniciar un juego nuevo?"
         },
         "Game": {
             "waiting_players_end": "Esperando a que terminen los demás jugadores...",

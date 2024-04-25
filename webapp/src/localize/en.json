@@ -148,7 +148,8 @@
             "join": "Join room",
             "send": "Send",
             "chat_title": "Chat of the room",
-            "chat_input_label": "Type your message"
+            "chat_input_label": "Type your message",
+            "new_game": "Want to start a new game?"
         },
         "Game": {
             "waiting_players_end": "Waiting for players end...",
