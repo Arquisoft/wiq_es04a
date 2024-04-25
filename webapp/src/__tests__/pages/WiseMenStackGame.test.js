@@ -4,7 +4,7 @@ import { SessionContext } from '../../SessionContext'; // Importa el contexto ne
 import { BrowserRouter as Router } from 'react-router-dom';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import Game from '../../pages/WiseMenStackGame';
+import WiseMenStack from '../../pages/WiseMenStackGame';
 import '../../localize/i18n';
 import { expect } from 'expect-puppeteer';
 
@@ -30,7 +30,7 @@ describe('Wise Men Stack Game component', () => {
     render( 
       <SessionContext.Provider value={{ username: 'exampleUser' }}>
         <Router>
-          <Game />
+          <WiseMenStack />
         </Router>
       </SessionContext.Provider>
     );
