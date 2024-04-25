@@ -23,7 +23,6 @@ const WiseMenStackGame = () => {
     const {username} = useContext(SessionContext);
     const theme = useTheme();
 
-
     // Traductions
     const { t } = useTranslation();
 
@@ -135,7 +134,6 @@ const WiseMenStackGame = () => {
         const randomFactor = random < 0.5 ? -1 : 1;
         return array.sort(() => randomFactor);
     }
-      
 
     const updateStatistics = async() => {
         try {
@@ -224,8 +222,7 @@ const WiseMenStackGame = () => {
 
     const questionHistorialBar = () => {
         return questionHistorial.map((isCorrect, index) => (
-            <Card   data-testid={`prog_bar${index}`}
-                    sx={{ width: `${100 / round}%`, padding:'0.2em', margin:'0 0.1em', backgroundColor: isCorrect === null ? 'gray' : isCorrect ? theme.palette.success.main : theme.palette.error.main }}/>
+            <Card data-testid={`prog_bar${index}`} sx={{ width: `${100 / round}%`, padding:'0.2em', margin:'0 0.1em', backgroundColor: isCorrect === null ? 'gray' : isCorrect ? theme.palette.success.main : theme.palette.error.main }}/>
         ));
     };
 
@@ -237,60 +234,37 @@ const WiseMenStackGame = () => {
     if(!isConfigured) {
         return (
             <Container sx={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Paper elevation={5} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '4em', padding: '4em', borderRadius: '4em' }}>
-                <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
-                    {t("Game.config.title")}
-                </Typography>
+                <Paper elevation={5} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '4em', padding: '4em', borderRadius: '4em' }}>
+                    <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
+                        {t("Game.config.title")}
+                    </Typography>
 
-                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1em' }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5em'}}>
-                        <Typography variant="h4" fontWeight="bold" color="error">{t("Wise_Men.instructions1")}</Typography>
-                        <Typography variant="h4" fontWeight="bold" color={theme.palette.success.main} >{t("Wise_Men.instructions2")}</Typography>
-                        <Typography variant="h4" fontWeight="bold" color="primary">{t("Wise_Men.instructions3")}</Typography>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1em' }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5em'}}>
+                            <Typography variant="h4" fontWeight="bold" color="error">{t("Wise_Men.instructions1")}</Typography>
+                            <Typography variant="h4" fontWeight="bold" color={theme.palette.success.main} >{t("Wise_Men.instructions2")}</Typography>
+                            <Typography variant="h4" fontWeight="bold" color="primary">{t("Wise_Men.instructions3")}</Typography>
+                        </Box>
+
+                        {/* Dropdown for selecting category */}
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
+                            <Typography data-testid="categories-label" variant='h5' htmlFor="category">
+                                {t("Game.config.category")}:
+                            </Typography>
+                            <Select value={category} onChange={(event) => setCategory(event.target.value)} style={{ minWidth: '120px' }}>
+                                <MenuItem value="Geography">{t("Game.categories.geography")}</MenuItem>
+                                <MenuItem value="Political">{t("Game.categories.political")}</MenuItem>
+                                <MenuItem value="Sports">{t("Game.categories.sports")}</MenuItem>
+                            </Select>
+                        </Box>
                     </Box>
 
-                    {/* Dropdown for selecting category */}
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
-                        <Typography data-testid="categories-label" variant='h5' htmlFor="category">
-                            {t("Game.config.category")}:
-                        </Typography>
-                        <Select
-                            value={category}
-                            onChange={(event) => setCategory(event.target.value)}
-                            style={{ minWidth: '120px' }}
-                        >
-                            <MenuItem value="Geography">{t("Game.categories.geography")}</MenuItem>
-                            <MenuItem value="Political">{t("Game.categories.political")}</MenuItem>
-                            <MenuItem value="Sports">{t("Game.categories.sports")}</MenuItem>
-                        </Select>
-                    </Box>
-                </Box>
-
-                <Button
-                    data-testid="start-button"
-                    onClick={() => { 
-                        setConfiguration(true);
-                        startNewRound(); 
-                        setQuestionHistorial(Array(round).fill(null));
-                    }}
-                    variant="contained"
-                    size="large"
-                    sx={{
-                        fontFamily: 'Arial Black, sans-serif',
-                        color: theme.palette.primary.main,
-                        backgroundColor: 'transparent',
-                        border: `2px solid ${theme.palette.primary.main}`,
-                        transition: 'background-color 0.3s ease',
-
-                        '&:hover': {
-                            backgroundColor: theme.palette.primary.main,
-                            color: 'white',
-                        }
-                    }}
-                >
-                    {t("Game.start")}
-                </Button>
-            </Paper>
+                    <Button data-testid="start-button" onClick={() => { setConfiguration(true); startNewRound(); setQuestionHistorial(Array(round).fill(null)); }} variant="contained" size="large"
+                        sx={{ fontFamily: 'Arial Black, sans-serif', color: theme.palette.primary.main, backgroundColor: 'transparent', border: `2px solid ${theme.palette.primary.main}`,
+                        transition: 'background-color 0.3s ease', '&:hover': { backgroundColor: theme.palette.primary.main, color: 'white' }}}>
+                        {t("Game.start")}
+                    </Button>
+                </Paper>
             </Container>
         );
     }
@@ -298,25 +272,16 @@ const WiseMenStackGame = () => {
     // circular loading
     if (!questionData) {
         return (
-            <Container
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    height: '100vh',
-                    textAlign: 'center',
-                }}
-            >
+            <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', textAlign: 'center' }}>
                 <CssBaseline />
                 <CircularProgress />
             </Container>
         );
     }    
 
-    // redirect to / if game over 
+    // redirect to homepage if game over 
     if (shouldRedirect) {
-        // Redirect after 3 seconds
+        // Redirect after 4 seconds
         setTimeout(() => {
                 navigate('/homepage');
         }, 4000);

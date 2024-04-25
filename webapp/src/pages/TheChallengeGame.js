@@ -230,92 +230,71 @@ const TheChallengeGame = () => {
         
         return(
             <Container sx={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Paper elevation={5} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '4em', padding: '4em', borderRadius: '4em' }}>
-                <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
-                    {t("Game.config.title")}
-                </Typography>
+                <Paper elevation={5} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '4em', padding: '4em', borderRadius: '4em' }}>
+                    <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
+                        {t("Game.config.title")}
+                    </Typography>
 
-                <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1em' }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
-                        <Typography htmlFor="numRounds" variant="h5">
-                            {t("Game.config.num_rounds")}:
-                        </Typography>
-                        <IconButton size="large" color="error" disabled={numRounds === 1} onClick={() => setNumRounds(numRounds - 1)} variant="outlined" data-testId="removeRound">
-                            <RemoveIcon fontSize="inherit" />
-                        </IconButton>
-                        <Typography fontWeight="bold" color="primary" fontSize="1.5em">
-                            {numRounds}
-                        </Typography>
-                        <IconButton size="large" color="success" onClick={() => setNumRounds(numRounds + 1)} variant="outlined" data-testId="addRound">
-                            <AddIcon fontSize="inherit" />
-                        </IconButton>
-                    </Box>
+                    <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1em' }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
+                            <Typography htmlFor="numRounds" variant="h5">
+                                {t("Game.config.num_rounds")}:
+                            </Typography>
+                            <IconButton size="large" color="error" disabled={numRounds === 1} onClick={() => setNumRounds(numRounds - 1)} variant="outlined" data-testId="removeRound">
+                                <RemoveIcon fontSize="inherit" />
+                            </IconButton>
+                            <Typography fontWeight="bold" color="primary" fontSize="1.5em">
+                                {numRounds}
+                            </Typography>
+                            <IconButton size="large" color="success" onClick={() => setNumRounds(numRounds + 1)} variant="outlined" data-testId="addRound">
+                                <AddIcon fontSize="inherit" />
+                            </IconButton>
+                        </Box>
 
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
-                        <Typography htmlFor="questionTime" variant="h5">
-                            {t("Game.config.time")}:
-                        </Typography>
-                        <IconButton size="large" color="error" disabled={timerConfig === 1} onClick={() => setTimerConfig(timerConfig - 1)} variant="outlined" data-testId="removeSecond">
-                            <RemoveIcon fontSize="inherit" />
-                        </IconButton>
-                        <Typography fontWeight="bold" color="primary" fontSize="1.5em">
-                            {timerConfig}
-                        </Typography>
-                        <IconButton size="large" color="success" onClick={() => setTimerConfig(timerConfig + 1)} variant="outlined" data-testId="addSecond">
-                            <AddIcon fontSize="inherit" />
-                        </IconButton>
-                    </Box>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
+                            <Typography htmlFor="questionTime" variant="h5">
+                                {t("Game.config.time")}:
+                            </Typography>
+                            <IconButton size="large" color="error" disabled={timerConfig === 1} onClick={() => setTimerConfig(timerConfig - 1)} variant="outlined" data-testId="removeSecond">
+                                <RemoveIcon fontSize="inherit" />
+                            </IconButton>
+                            <Typography fontWeight="bold" color="primary" fontSize="1.5em">
+                                {timerConfig}
+                            </Typography>
+                            <IconButton size="large" color="success" onClick={() => setTimerConfig(timerConfig + 1)} variant="outlined" data-testId="addSecond">
+                                <AddIcon fontSize="inherit" />
+                            </IconButton>
+                        </Box>
 
-                    {/* Dropdown for selecting category */}
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
-                        <Typography htmlFor="category" variant="h5">
-                            {t("Game.config.category")}:
-                        </Typography>
-                        <Select
-                            value={category}
-                            onChange={(event) => setCategory(event.target.value)}
-                            style={{ minWidth: '120px' }}
-                        >
-                            <MenuItem value="Geography">{t("Game.categories.geography")}</MenuItem>
-                            <MenuItem value="Political">{t("Game.categories.political")}</MenuItem>
-                            <MenuItem value="Sports">{t("Game.categories.sports")}</MenuItem>
-                        </Select>
-                    </Box>
-                </Container>
-                <Button
-                    data-testid="start-button"
-                    onClick={() => { startGame(); setQuestionHistorial(Array(numRounds).fill(null)); console.log(category) }}
-                    variant="contained"
-                    size='large'
-                    sx={{
-                        fontFamily: 'Arial Black, sans-serif',
-                        color: theme.palette.primary.main,
-                        backgroundColor: 'transparent',
-                        border: `2px solid ${theme.palette.primary.main}`,
-                        transition: 'background-color 0.3s ease',
-
-                        '&:hover': {
-                            backgroundColor: theme.palette.primary.main,
-                            color: 'white',
-                        }
-                    }}
-                >
-                    {t("Game.start")}
-                </Button>
-            </Paper>
+                        {/* Dropdown for selecting category */}
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
+                            <Typography htmlFor="category" variant="h5">
+                                {t("Game.config.category")}:
+                            </Typography>
+                            <Select
+                                value={category}
+                                onChange={(event) => setCategory(event.target.value)}
+                                style={{ minWidth: '120px' }}
+                            >
+                                <MenuItem value="Geography">{t("Game.categories.geography")}</MenuItem>
+                                <MenuItem value="Political">{t("Game.categories.political")}</MenuItem>
+                                <MenuItem value="Sports">{t("Game.categories.sports")}</MenuItem>
+                            </Select>
+                        </Box>
+                    </Container>
+                    <Button data-testid="start-button" onClick={() => { startGame(); setQuestionHistorial(Array(numRounds).fill(null)); console.log(category) }} variant="contained" size='large'
+                        sx={{fontFamily: 'Arial Black, sans-serif', color: theme.palette.primary.main, backgroundColor: 'transparent', border: `2px solid ${theme.palette.primary.main}`,
+                        transition: 'background-color 0.3s ease', '&:hover': { backgroundColor: theme.palette.primary.main, color: 'white' }}}>
+                        {t("Game.start")}
+                    </Button>
+                </Paper>
             </Container>
         );
     }
 
     const questionHistorialBar = () => {
         return questionHistorial.map((isCorrect, index) => (
-            <Card data-testid={`prog_bar${index}`}
-                    sx={{ width: `${100 / numRounds}%`,
-                    padding:'0.2em', 
-                    margin:'0 0.1em', 
-                    backgroundColor: isCorrect === null ? 'gray' : isCorrect ? theme.palette.success.main : theme.palette.error.main }}
-            >
-            </Card>
+            <Card data-testid={`prog_bar${index}`} sx={{ width: `${100 / numRounds}%`, padding:'0.2em', margin:'0 0.1em', backgroundColor: isCorrect === null ? 'gray' : isCorrect ? theme.palette.success.main : theme.palette.error.main }} />
         ));
     };    
 
@@ -328,23 +307,14 @@ const TheChallengeGame = () => {
     // circular loading
     if (!questionData) {
         return (
-            <Container
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    height: '100vh',
-                    textAlign: 'center',
-                }}
-            >
+            <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', textAlign: 'center' }}>
                 <CssBaseline />
                 <CircularProgress />
             </Container>
         );
     }
 
-    // redirect to / if game over 
+    // redirect to homepage if game over 
     if (shouldRedirect) {
         // Redirect after 4 seconds
         setTimeout(() => {
