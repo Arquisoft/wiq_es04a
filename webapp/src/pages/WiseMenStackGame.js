@@ -14,7 +14,6 @@ import i18n from '../localize/i18n';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
-
 const WiseMenStackGame = () => {
     const navigate = useNavigate();
     const SUCCESS_SOUND_ROUTE = "/sounds/success_sound.mp3";

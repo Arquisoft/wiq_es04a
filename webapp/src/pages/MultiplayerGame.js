@@ -12,7 +12,6 @@ import io from 'socket.io-client';
 import { useTranslation } from 'react-i18next';
 import i18n from '../localize/i18n';
 
-
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 const socketEndpoint = process.env.REACT_APP_MULTIPLAYER_ENDPOINT || 'ws://localhost:5010';
 
@@ -43,7 +42,6 @@ const Game = () => {
     const [questionHistorial, setQuestionHistorial] = React.useState(Array(MAX_ROUNDS).fill(null));
     const [userResponses, setUserResponses] = React.useState([]);
     const [, setCurrentLanguage] = React.useState(i18n.language);
-
 
     const location = useLocation();
     const { gameQuestions, roomCode} = location.state;

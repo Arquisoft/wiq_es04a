@@ -15,9 +15,7 @@ import { PlayArrow, Pause } from '@mui/icons-material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
-
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
-
 
 const TheChallengeGame = () => {
     const navigate = useNavigate();

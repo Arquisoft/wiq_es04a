@@ -86,7 +86,7 @@ describe('The Challenge component', () => {
     //selects correct answer
     fireEvent.click(correctAnswer);
     
-    expect(screen.findByTestId("succes0"));
+    expect(screen.findByTestId("success0"));
 
   });
 
