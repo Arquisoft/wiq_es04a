@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Box, Button, Fab, useTheme } from "@mui/material";
+import {Box, Button, Fab, useTheme, Tooltip } from "@mui/material";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTranslation } from 'react-i18next';
 import AndroidIcon from '@mui/icons-material/Android';
@@ -167,14 +167,16 @@ const Home = () => {
             target="_blank"
             rel="noopener noreferrer"
             >
-            <Fab size={isMobile ? 'small' : 'big'} color="primary" aria-label="download" sx={{
-                    '&:hover': {
-                      border: `2px solid #3DDC84`, 
-                      backgroundColor: 'primary.light', 
-                    },
-                  }}>
-                <AndroidIcon style={{ color: "3DDC84", fontSize: '2em' }}/>
-            </Fab>
+            <Tooltip title="Botón de descarga de Android" placement="left"> {/* TODO */} 
+                <Fab size={isMobile ? 'small' : 'big'} color="primary" aria-label="download" sx={{
+                        '&:hover': {
+                        border: `2px solid #3DDC84`, 
+                        backgroundColor: 'primary.light', 
+                        },
+                    }}>
+                    <AndroidIcon style={{ color: "3DDC84", fontSize: '2em' }}/>
+                </Fab>
+            </Tooltip>
             </a>
         </Box>
 
