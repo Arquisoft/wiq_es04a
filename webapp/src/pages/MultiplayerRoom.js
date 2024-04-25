@@ -107,7 +107,7 @@ const MultiplayerRoom = () => {
   
     return (
       <Container sx={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Paper elevation={5} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '2em', padding: '4em', borderRadius: '4em' }}>
+        <Paper elevation={5} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '2em', padding: '3em', borderRadius: '4em' }}>
           <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
             {t("Games.Multiplayer.name").toUpperCase()}
           </Typography>
