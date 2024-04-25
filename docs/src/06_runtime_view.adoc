@@ -58,6 +58,11 @@ image:06_statistics_seq.svg["See User Statistics Sequence"]
 image:06_instructions_seq.svg["See Games Instrucions Sequence"]
 
 
+=== See Users and Groups Ranking
+
+image:06_ranking_seq.svg["See Ranking Sequence"]
+
+
 === Groups
 ==== Group List and Creation
 
@@ -79,3 +84,8 @@ image:06_group_details_seq.svg["Group Details Sequence"]
 === Play Games
 
 image:06_play_seq.svg["Play Games Sequence"]
+
+
+=== See and edit your profile
+
+image:06_profile_seq.svg["See Profile Sequence"]
