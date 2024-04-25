@@ -14,7 +14,7 @@ import i18n from '../localize/i18n';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
-const Game = () => {
+const WarmQuestionGame = () => {
     const navigate = useNavigate();
     const MAX_ROUNDS = 10;
     const SUCCESS_SOUND_ROUTE = "/sounds/success_sound.mp3";
@@ -348,4 +348,4 @@ const Game = () => {
     );
 };
 
-export default Game;
+export default WarmQuestionGame;
