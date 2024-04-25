@@ -4,11 +4,11 @@ import { SessionContext } from '../../SessionContext';
 import { BrowserRouter as Router } from 'react-router-dom';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import Game from '../../pages/WarmQuestionGame';
+import WarmQuestionGame from '../../pages/WarmQuestionGame';
 
 const mockAxios = new MockAdapter(axios);
 
-describe('Game component', () => {
+describe('WarmQuestionGame component', () => { 
   beforeEach(() => {
     mockAxios.reset();
     // Mock the axios.post request to simulate a successful response
@@ -30,18 +30,18 @@ describe('Game component', () => {
     render( 
         <SessionContext.Provider value={{ username: 'exampleUser' }}>
           <Router>
-            <Game />
+            <WarmQuestionGame />
           </Router>
         </SessionContext.Provider>
     );
 
     // Espera a que aparezca la pregunta
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
+    await waitFor(() => screen.getByTestId('question'));
 
     expect(screen.findByText('1'));
 
     // Verifica que el juego haya comenzado correctamente mostrando la pregunta y las opciones
-    expect(screen.getByText('Which is the capital of Spain?')).toBeInTheDocument();
+    expect(screen.getByTestId('question')).toBeInTheDocument();
     expect(screen.getByText('Madrid')).toBeInTheDocument();
     expect(screen.getByText('Barcelona')).toBeInTheDocument();
     expect(screen.getByText('Paris')).toBeInTheDocument();
@@ -52,23 +52,21 @@ describe('Game component', () => {
     render( 
         <SessionContext.Provider value={{ username: 'exampleUser' }}>
           <Router>
-            <Game />
+            <WarmQuestionGame />
           </Router>
         </SessionContext.Provider>
     );
 
     // waits for the question to appear
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
+    await waitFor(() => screen.getByTestId('question'));
     const correctAnswer = screen.getByRole('button', { name: 'Madrid' });
 
-    expect(correctAnswer).not.toHaveStyle({ backgroundColor: 'green' });
+    expect(correctAnswer).toHaveStyle({ backgroundColor: 'rgb(0, 102, 153);' });
 
     //selects correct answer
     fireEvent.click(correctAnswer);
 
-    //expect(screen.findByText('1')).toHaveStyle({ backgroundColor: 'lightgreen' });
-
-    expect(correctAnswer).toHaveStyle({ backgroundColor: 'green' });
+    expect(correctAnswer).toHaveStyle({ backgroundColor: 'rgb(51, 153, 102);' });
 
   });
 
@@ -77,22 +75,21 @@ describe('Game component', () => {
      render( 
         <SessionContext.Provider value={{ username: 'exampleUser' }}>
           <Router>
-            <Game />
+            <WarmQuestionGame />
           </Router>
         </SessionContext.Provider>
     );
 
     // waits for the question to appear
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
+    await waitFor(() => screen.getByTestId('question'));
     const incorrectAnswer = screen.getByRole('button', { name: 'Barcelona' });
 
-    expect(incorrectAnswer).not.toHaveStyle({ backgroundColor: 'red' });
+    expect(incorrectAnswer).toHaveStyle({ backgroundColor: 'rgb(0, 102, 153);' });
 
     //selects correct answer
     fireEvent.click(incorrectAnswer);
 
-    expect(incorrectAnswer).toHaveStyle({ backgroundColor: 'red' });
-    //expect(screen.findByText('1')).toHaveStyle({ backgroundColor: 'salmon' });
+    expect(incorrectAnswer).toHaveStyle({ backgroundColor: 'rgb(153, 0, 0);' });
 
   });
 
@@ -100,13 +97,13 @@ describe('Game component', () => {
     render( 
         <SessionContext.Provider value={{ username: 'exampleUser' }}>
           <Router>
-            <Game />
+            <WarmQuestionGame />
           </Router>
         </SessionContext.Provider>
     );
 
     // waits for the question to appear
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
+    await waitFor(() => screen.getByTestId('question'));
 
     setTimeout(() => {
       // Comprobamos que el callback ha sido llamado después del tiempo especificado
@@ -119,24 +116,22 @@ describe('Game component', () => {
     render( 
         <SessionContext.Provider value={{ username: 'exampleUser' }}>
           <Router>
-            <Game />
+            <WarmQuestionGame />
           </Router>
         </SessionContext.Provider>
     );
 
     // waits for the question to appear
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
+    await waitFor(() => screen.getByTestId('question'));
     const correctAnswer = screen.getByRole('button', { name: 'Madrid' });
     const skip = screen.getByRole('button', { name: 'Skip' });
 
-    expect(correctAnswer).not.toHaveStyle({ backgroundColor: 'green' });
+    expect(correctAnswer).toHaveStyle({ backgroundColor: 'rgb(0, 102, 153);' });
 
     //selects correct answer
     fireEvent.click(skip);
 
-    //expect(screen.findByText('1')).toHaveStyle({ backgroundColor: 'lightgreen' });
-
-    expect(correctAnswer).toHaveStyle({ backgroundColor: 'green' });
+    expect(correctAnswer).toHaveStyle({ backgroundColor: 'rgb(51, 153, 102);' });
 
   });
 
