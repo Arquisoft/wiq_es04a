@@ -40,12 +40,8 @@ describe('Wise Men Stack Game component', () => {
     await waitFor(() => screen.getByText('GAME CONFIGURATION'));
     
     const button = screen.getByTestId('start-button');
-    fireEvent.click(button);
-    
-    //expect(screen.getByRole('progressbar'));
-    expect(screen.findByText('1'));
-    expect(screen.findByText('Question 1'));
-    //expect(screen.findByText('1/3'));
+    // clicks the start button to show the first question
+    fireEvent.click(button); 
 
     // waits for the question to appear
     await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
