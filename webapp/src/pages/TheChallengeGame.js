@@ -19,7 +19,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 
-const Game = () => {
+const TheChallengeGame = () => {
     const navigate = useNavigate();
     const SUCCESS_SOUND_ROUTE = "/sounds/success_sound.mp3";
     const FAILURE_SOUND_ROUTE = "/sounds/wrong_sound.mp3";
@@ -425,4 +425,4 @@ const Game = () => {
     );
 };
 
-export default Game;
+export default TheChallengeGame;

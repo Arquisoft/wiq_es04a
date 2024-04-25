@@ -5,11 +5,11 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import '../../localize/i18n';
-import Game from '../../pages/TheChallengeGame';
+import TheChallengeGame from '../../pages/TheChallengeGame';
 
 const mockAxios = new MockAdapter(axios);
 
-describe('Game component', () => {
+describe('The Challenge component', () => {
   beforeEach(() => {
     mockAxios.reset();
     // Mockear respuestas de la API
@@ -32,7 +32,7 @@ describe('Game component', () => {
     render( 
         <SessionContext.Provider value={{ username: 'exampleUser' }}>
           <Router>
-            <Game />
+            <TheChallengeGame />
           </Router>
         </SessionContext.Provider>
     );
@@ -62,7 +62,7 @@ describe('Game component', () => {
     render( 
         <SessionContext.Provider value={{ username: 'exampleUser' }}>
           <Router>
-            <Game />
+            <TheChallengeGame />
           </Router>
         </SessionContext.Provider>
     );
@@ -83,9 +83,9 @@ describe('Game component', () => {
     await waitFor(() => screen.getByTestId('question'));
     const correctAnswer = screen.getByRole('button', { name: 'Madrid' });
 
-    expect(screen.findByTestId("anwer0"));
     //selects correct answer
     fireEvent.click(correctAnswer);
+    
     expect(screen.findByTestId("succes0"));
 
   });
@@ -95,7 +95,7 @@ describe('Game component', () => {
      render( 
         <SessionContext.Provider value={{ username: 'exampleUser' }}>
           <Router>
-            <Game />
+            <TheChallengeGame />
           </Router>
         </SessionContext.Provider>
     );
@@ -125,7 +125,7 @@ describe('Game component', () => {
     render( 
         <SessionContext.Provider value={{ username: 'exampleUser' }}>
           <Router>
-            <Game />
+            <TheChallengeGame />
           </Router>
         </SessionContext.Provider>
     );
@@ -154,7 +154,7 @@ describe('Game component', () => {
     render(
         <SessionContext.Provider value={{ username: 'exampleUser' }}>
             <Router>
-                <Game />
+                <TheChallengeGame />
             </Router>
         </SessionContext.Provider>
     );
@@ -172,6 +172,6 @@ describe('Game component', () => {
     fireEvent.click(screen.getByTestId('pause'));
 
     expect(screen.getByTestId('play')).toBeInTheDocument();
-});
+  });
 
 });
