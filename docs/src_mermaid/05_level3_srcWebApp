@@ -8,5 +8,5 @@ flowchart TD
  
     end
     sis1(User) -.->|Interacts with| sis4
-    sis4 -.->|Get/post| sis5(Gateway Service)
-    sis4 -.->|Get| sis6(Multiplayer Service)
+    sis4 -.->|Get/post| sis5(gateway)
+    sis4 -.->|Get| sis6(multiplayer)

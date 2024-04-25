@@ -109,7 +109,7 @@ First decomposition of the system.
 
 Contained Building Blocks::
 * **webapp**: It is the main module of the application. 
-* **gateway**: Handles the communication between the user service and question service modules with the web app service.
+* **gateway**: Handles the communication between the user service and question service modules with the web app service. Is is the API REST.
 * **questions**: Gets questions from Wikidata and handles their loading into the database.
 * **users**: Handles the user management.
 * **multiplayer**: Handles the multiplayer management.
@@ -199,61 +199,60 @@ Contained Building Blocks::
 ****
 Here you can specify the inner structure of (some) building blocks from level 2 as white boxes.
 ****
-==== White Box routes from User Service
+==== White Box routes from users
 
-image:05_level3_routesUserService.png["Diagram White Box routes from User Service"]
+image:05_level3_routesUserService.png["Diagram White Box routes from users"]
 
 Motivation::
 
-Decomposition of the black box routes from User Service white box from level 2 system.
+Decomposition of the black box routes from users white box from level 2 system.
 
 Contained Building Blocks::
-* **user-routes**: Contains route handlers for the register, ranking,groups management and statistics management.
+* **user-routes**: Contains route handlers for the register, ranking, groups management, statistics management and questions record management.
 * **auth-routes**: Contains route handlers for the login.
 
-==== White Box services from User Service
+==== White Box services from users
 
-image:05_level3_servicesUserService.png["Diagram White Box services from User Service"]
+image:05_level3_servicesUserService.png["Diagram White Box services from users"]
 
 Motivation::
 
-Decomposition of the black box services from User Service white box from level 2 system.
+Decomposition of the black box services from users white box from level 2 system.
 
 Contained Building Blocks::
 * **user-model**: Define the User, Statistics and Group database schemas.
-* **authVerifyMiddleWare**: Authentication Middleware.
 
-==== White Box routes from Question Generation Service
+==== White Box routes from questions
 
-image:05_level3_routesQuestionGenerationService.png["Diagram White Box routes from Question Generation Service"]
+image:05_level3_routesQuestionGenerationService.png["Diagram White Box routes from questions"]
 
 Motivation::
 
-Decomposition of the black box routes from Question Generation Service white box from level 2 system.
+Decomposition of the black box routes from questions white box from level 2 system.
 
 Contained Building Blocks::
 * **question-routes**: Contains route handlers for the questions management.
 
-==== White Box services from Question Generation Service
+==== White Box services from questions
 
-image:05_level3_servicesQuestionGenerationService.png["Diagram White Box services from Question Generation Service"]
+image:05_level3_servicesQuestionGenerationService.png["Diagram White Box services from questions"]
 
 Motivation::
 
-Decomposition of the black box routes from Question Generation Service white box from level 2 system.
+Decomposition of the black box routes from questions white box from level 2 system.
 
 Contained Building Blocks::
 * **question-data-model**: Define the Question database schema.
 * **question-data-service**: Responsible for managing questions in the database.
 * **wikidata-service**: Responsible for getting questions from Wikidata.
 
-==== White Box src from Web App
+==== White Box src from webapp
 
-image:05_level3_srcWebApp.png["Diagram White Box src from Web App"]
+image:05_level3_srcWebApp.png["Diagram White Box src from webapp"]
 
 Motivation::
 
-Decomposition of the black box src from Web App white box from level 2 system.
+Decomposition of the black box src from webapp white box from level 2 system.
 
 Contained Building Blocks::
 * **components**: Defines common elements in the pages like the nav-bar, footer, etc. 
