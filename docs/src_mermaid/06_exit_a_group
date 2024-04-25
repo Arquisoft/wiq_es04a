@@ -1,0 +1,18 @@
+sequenceDiagram
+    Note over User,Webapp: User must be logged in and in the group list view
+    Note over User,Webapp: User must belong to a group
+
+    alt the user created the group
+        User ->>+ Webapp: search group in list and click DELETE button
+    else the user just belongs to the group
+        User ->> Webapp: search group in list and click EXIT IT! button
+    end        
+        Webapp ->> Gateway Service: axios.put(`/group/:name/exit`, { username });
+        Gateway Service ->> Users: axios.post(`/group/:name/exit`, { username });
+
+        Users ->> MariaDB: router.post('/group/:name/exit')
+        MariaDB -->> Users: JSON response
+
+        Users -->> Gateway Service: 
+        Gateway Service -->> Webapp: 
+        Webapp -->>- User: update the groups list view

@@ -67,6 +67,10 @@ image:06_create_a_group_seq.svg["Group Creation Sequence"]
 
 image:06_join_a_group_seq.svg["Group Joining Sequence"]
 
+==== Group Exiting/Deletion
+
+image:06_exit_a_group_seq.svg["Group Exiting Sequence"]
+
 ==== Group Details
 
 image:06_group_details_seq.svg["Group Details Sequence"]
