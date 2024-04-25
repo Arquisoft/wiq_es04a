@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Box, Button} from "@mui/material";
+import {Box, Button, Fab, useTheme } from "@mui/material";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTranslation } from 'react-i18next';
 import AndroidIcon from '@mui/icons-material/Android';
@@ -7,6 +7,8 @@ import AndroidIcon from '@mui/icons-material/Android';
 const Home = () => {
     const xxl = useMediaQuery('(min-width:1920px)');
     const { t } = useTranslation();
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
     const styles = {
         logo:{
@@ -142,10 +144,40 @@ const Home = () => {
                 color="primary"
                 startIcon={<AndroidIcon style={{ marginRight: '0.2em', color: "3DDC84", fontSize: '2em' }} />}
                 style={{ marginTop: '0.5em' }}
+                sx={{
+                    '&:hover': {
+                      border: `2px solid #3DDC84`, 
+                      backgroundColor: 'primary.light', 
+                    },
+                  }}
             >
             {t("Footer.apk_link")}
             </Button>
           </a>
+
+          <Box
+            sx={{
+            position: 'fixed',
+            bottom: "14%", 
+            right: "6%", 
+            }}
+        >
+            <a
+            href="https://mega.nz/file/vNVkhQwT#l3K-nttaNWJ1tjdUVXJlCClmYm9rmpgBS_ULNewASL4"
+            target="_blank"
+            rel="noopener noreferrer"
+            >
+            <Fab size={isMobile ? 'small' : 'big'} color="primary" aria-label="download" sx={{
+                    '&:hover': {
+                      border: `2px solid #3DDC84`, 
+                      backgroundColor: 'primary.light', 
+                    },
+                  }}>
+                <AndroidIcon style={{ color: "3DDC84", fontSize: '2em' }}/>
+            </Fab>
+            </a>
+        </Box>
+
         </Box>
     );
 };
