@@ -242,13 +242,13 @@ const Game = () => {
                         <Typography htmlFor="numRounds" variant="h5">
                             {t("Game.config.num_rounds")}:
                         </Typography>
-                        <IconButton size="large" color="error" disabled={numRounds === 1} onClick={() => setNumRounds(numRounds - 1)} variant="outlined" >
+                        <IconButton size="large" color="error" disabled={numRounds === 1} onClick={() => setNumRounds(numRounds - 1)} variant="outlined" data-testId="removeRound">
                             <RemoveIcon fontSize="inherit" />
                         </IconButton>
                         <Typography fontWeight="bold" color="primary" fontSize="1.5em">
                             {numRounds}
                         </Typography>
-                        <IconButton size="large" color="success" onClick={() => setNumRounds(numRounds + 1)} variant="outlined">
+                        <IconButton size="large" color="success" onClick={() => setNumRounds(numRounds + 1)} variant="outlined" data-testId="addRound">
                             <AddIcon fontSize="inherit" />
                         </IconButton>
                     </Box>
@@ -257,13 +257,13 @@ const Game = () => {
                         <Typography htmlFor="questionTime" variant="h5">
                             {t("Game.config.time")}:
                         </Typography>
-                        <IconButton size="large" color="error" disabled={timerConfig === 1} onClick={() => setTimerConfig(timerConfig - 1)} variant="outlined">
+                        <IconButton size="large" color="error" disabled={timerConfig === 1} onClick={() => setTimerConfig(timerConfig - 1)} variant="outlined" data-testId="removeSecond">
                             <RemoveIcon fontSize="inherit" />
                         </IconButton>
                         <Typography fontWeight="bold" color="primary" fontSize="1.5em">
                             {timerConfig}
                         </Typography>
-                        <IconButton size="large" color="success" onClick={() => setTimerConfig(timerConfig + 1)} variant="outlined">
+                        <IconButton size="large" color="success" onClick={() => setTimerConfig(timerConfig + 1)} variant="outlined" data-testId="addSecond">
                             <AddIcon fontSize="inherit" />
                         </IconButton>
                     </Box>
