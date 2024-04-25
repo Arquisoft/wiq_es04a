@@ -234,66 +234,34 @@ const Game = () => {
         socket.emit("finished-game", username, correctlyAnsweredQuestions, totalTimePlayed);
 
         return (
-            <Container
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    height: '100vh',
-                    textAlign: 'center',
-                }}
-            >
+            <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '4em', textAlign: 'center', flex: '1'}}>
                 <CssBaseline />
-                <Typography 
-                variant="h4" 
-                sx={{
-                    color: winnerPlayer === username ? 'green' : 'black',
-                    fontSize: '4rem', // Tamaño de fuente
-                    marginTop: '20px', // Espaciado superior
-                    marginBottom: '50px', // Espaciado inferior
-                }}
-            >
-                
-                <Typography variant="h2" gutterBottom sx={{ fontFamily: 'fantasy', color: '#323333' }}>
-                {winnerPlayer === "" ? t("Multiplayer.Game.waiting_players_end") : "Game Over"}
-                </Typography>
-            </Typography>
-                <div>
-                <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6}>
-                        <Typography variant="h6" gutterBottom sx={{ fontFamily: 'fantasy', color: '#323333' }}>
-                        {t("Game.correct")}: {correctlyAnsweredQuestions}
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <Typography variant="h6" gutterBottom sx={{ fontFamily: 'fantasy', color: '#323333' }}>
-                        {t("Game.incorrect")}: {incorrectlyAnsweredQuestions}
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <Typography variant="h6" gutterBottom sx={{ fontFamily: 'fantasy', color: '#323333' }}>
-                        {t("Game.money")}: {totalScore}
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <Typography variant="h6" gutterBottom sx={{ fontFamily: 'fantasy', color: '#323333' }}>
-                        {t("Game.time")}: {totalTimePlayed}
-                        </Typography>
-                    </Grid>
-                </Grid>
 
-                    {winnerPlayer === "" ? (
-                        <Typography variant="h5" sx={{marginTop: '1em', fontFamily: 'fantasy', color: '#323333'}}>{ t("Multiplayer.Game.waiting") }</Typography>
-                    ) : (
-                        <Typography variant="h5" sx={{marginTop: '1em', fontFamily: 'fantasy', color: '#323333'}}>{ t("Multiplayer.Game.winner_1") }: {winnerPlayer} { t("Multiplayer.Game.winner_2") } {winnerCorrect} { t("Multiplayer.Game.winner_3") } {winnerTime} { t("Multiplayer.Game.winner_4") }</Typography>
-                    )}
-                </div>
+                <Typography variant="h2" data-testid="end-game-message" sx={{ color: winnerPlayer === username ? theme.palette.success.main : 'black' }}>
+                    {winnerPlayer === "" ? t("Multiplayer.Game.waiting_players_end") : t("Game.lose_msg")}
+                </Typography>
+
+                <Container>
+                    <Typography variant="h4">{ t("Game.correct") }: <b>{correctlyAnsweredQuestions}</b></Typography>
+                    <Typography variant="h4">{ t("Game.incorrect") }: <b>{incorrectlyAnsweredQuestions}</b></Typography>
+                    <Typography variant="h4">{ t("Game.money") }: <b>{totalScore}</b></Typography>
+                    <Typography variant="h4">{ t("Game.time") }: <b>{totalTimePlayed}</b></Typography>
+                </Container>
+
+                {winnerPlayer === "" ? (
+                    <Typography variant="h5">{ t("Multiplayer.Game.waiting") }</Typography>
+                ) : (
+                    <Container sx={{ display: 'flex', flexDirection:'column', alignItems:'center' }}>
+                        <Typography variant="h4">{ t("Multiplayer.Game.winner_1") }: <b>{winnerPlayer}</b></Typography>
+                        <Typography variant="h5">{ t("Multiplayer.Game.winner_2") }: <b>{winnerCorrect}</b> { t("Multiplayer.Game.winner_3") } <b>{winnerTime}</b> { t("Multiplayer.Game.winner_4") }</Typography>
+                    </Container>
+                )}
+
                 {showConfetti && <Confetti />}
             </Container>
         );
     }
-    
+
     return (
         <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center', textAlign: 'center', flex: '1', gap: '2em', margin: '0 auto', padding: '1em 0' }}>
             <CssBaseline />

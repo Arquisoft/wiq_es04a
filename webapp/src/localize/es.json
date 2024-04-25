@@ -144,8 +144,8 @@
             "code": "Código de Sala",
             "participants": "Participantes",
             "start": "Comenzar juego",
-            "create": "Crear sala",
-            "join": "Unirse a sala",
+            "create": "Crear Sala",
+            "join": "Unirse a Sala",
             "send": "Enviar",
             "chat_title": "Chat de la sala",
             "chat_input_label": "Escribe tu mensaje",
@@ -154,8 +154,8 @@
         "Game": {
             "waiting_players_end": "Esperando a que terminen los demás jugadores...",
             "waiting": "Esperando información del ganador...",
-            "winner_1": "Jugador ganador del juego",
-            "winner_2": "con",
+            "winner_1": "Ganador",
+            "winner_2": "Con",
             "winner_3": "respuestas correctas en",
             "winner_4": "segundos"
         }
