@@ -1,9 +1,9 @@
 flowchart TD
-    subgraph Whitebox Web App
+    subgraph Whitebox webapp
     sis2(src)
     sis3(public)
  
     end
     sis1(User) -.->|Interacts with| sis2
-    sis2 -.->|Get| sis4(Multiplayer Service)
-    sis2 -.->|Get/post| sis5(GatewayService Service)
+    sis2 -.->|Get| sis4(multiplayer)
+    sis2 -.->|Get/post| sis5(gateway)
