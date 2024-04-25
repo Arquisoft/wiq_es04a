@@ -1,6 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
-import { Container, Box, Button, CssBaseline, Grid, Typography, CircularProgress, useTheme, MenuItem, Select, IconButton } from '@mui/material';
+import { Container, Box, Button, CssBaseline, Grid, Typography, CircularProgress, useTheme, MenuItem, Select, IconButton, Paper } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useNavigate } from 'react-router-dom';
@@ -231,12 +231,13 @@ const Game = () => {
     if (configModalOpen) {
         
         return(
-            <Container sx={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center', gap: '4em' }}>
+            <Container sx={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Paper elevation={5} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '4em', padding: '4em', borderRadius: '4em' }}>
                 <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
                     {t("Game.config.title")}
                 </Typography>
 
-                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1em' }}>
+                <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1em' }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
                         <Typography htmlFor="numRounds" variant="h5">
                             {t("Game.config.num_rounds")}:
@@ -282,7 +283,7 @@ const Game = () => {
                             <MenuItem value="Sports">{t("Game.categories.sports")}</MenuItem>
                         </Select>
                     </Box>
-                </Box>
+                </Container>
                 <Button
                     data-testid="start-button"
                     onClick={() => { startGame(); setQuestionHistorial(Array(numRounds).fill(null)); console.log(category) }}
@@ -303,6 +304,7 @@ const Game = () => {
                 >
                     {t("Game.start")}
                 </Button>
+            </Paper>
             </Container>
         );
     }
