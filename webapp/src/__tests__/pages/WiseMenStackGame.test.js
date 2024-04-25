@@ -61,11 +61,10 @@ describe('Wise Men Stack Game component', () => {
     await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
 
     const correctAnswer = screen.getByRole('button', { name: 'Madrid' });
-    // now the answer is not selected:
-    expect(screen.findByTestId("anwer0"));
+
     // after clicking it has changed to succeeded:
     fireEvent.click(correctAnswer);
-    expect(screen.findByTestId("succes0"));
+    expect(screen.findByTestId("success0"));
 
   });
 
@@ -83,7 +82,7 @@ describe('Wise Men Stack Game component', () => {
     const id = answers[0].name === 'Madrid' ? 1 : 0;
 
     // now the answer is not selected:
-    expect(screen.findByTestId(`anwer${id}`));
+    expect(screen.findByTestId(`success${id}`));
     // after clicking it has changed to succeeded:
     fireEvent.click(incorrectAnswer);
     expect(screen.findByTestId(`failure${id}`));

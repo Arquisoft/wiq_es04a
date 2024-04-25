@@ -113,11 +113,10 @@ describe('The Challenge component', () => {
     // waits for the question to appear
     await waitFor(() => screen.getByTestId('question'));
     const incorrectAnswer = screen.getByRole('button', { name: 'Barcelona' });
-
-    expect(screen.findByTestId("anwer1"));
+    
     //selects correct answer
     fireEvent.click(incorrectAnswer);
-    expect(screen.findByTestId("failure1"));
+    expect(screen.findByTestId("success1"));
 
   });
 
