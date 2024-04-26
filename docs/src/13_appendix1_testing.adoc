@@ -26,6 +26,17 @@ image::13_results_gatling_2.png["Results for gatling recording test 2"]
 As it can be seen in the picture above, the results have changed noticeably. From our point of view, there are two main aspects which seem remarkable. On one hand, the drastic decrease in the number of failed requests. The failed requests have decreased to 2% compared to 27% in the first test. This demonstrates that the changes made to the application have achieved their objective.
 On the other hand, the overall increase in the time it takes to respond to a request catches the eye as well. Nevertheless, given that the difference in time is milliseconds and it is not a real-time critical application, we consider that the objective of these tests has been fulfilled.
 
+==== Users distribution along the simulation and response time distribution
+We think that it is useful to compare some of the statistics that these tests have providad us with. For instance, seeing __Users distribution along the simulation__ graphic allows us to see if the stablished settings get to a gradual users interaction with the application. Also, the __Response time distribution__ graphic is very visual so as to see the average time requests take to respond.
+
+===== Test 1
+image::13_statistics_1.png["Some statistics for test 1"]
+
+===== Test 2
+image::13_statistics_2.png["Some statistics for test 2"]
+
+
+
 
 
 
