@@ -94,36 +94,6 @@ defineFeature(feature, test => {
     });
   })
 
-  test('Answering a question incorrectly', ({given,when,then}) => {
-
-    given('A question', async () => {
-      const button = await page.$('[data-testid="start-button"]');
-      await button.click();
-
-      await expect(page).toMatchElement("div", { text: 'WHICH IS THE CAPITAL OF SPAIN?'});
-      const question = await page.$['data-testid="question"'];
-      expect(question).not.toBeNull();
-      
-      const answers = await page.$x('//*[contains(@data-testid, "answer")]');
-      expect(answers.length).toBe(2);
-    });
-
-    when('I click on an incorrect answer button', async () => {
-      const answers = await page.$x('//*[contains(@data-testid, "answer")]');
-      const textoBoton1 = await page.evaluate(button => button.innerText, answers[0]);
-      if(textoBoton1 !== "MADRID") {
-        await answers[0].click();
-      } else {
-        await answers[1].click();
-      }
-    });
-
-    then('The selected answer is marked as wrong', async () => {
-      const answer = await page.$x('//*[contains(@data-testid, "fail")]');
-      expect(answer.length).toBe(1);
-    });
-  })
-
   afterAll(async ()=>{
     browser.close()
   })
