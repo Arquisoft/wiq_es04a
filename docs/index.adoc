@@ -98,6 +98,6 @@ include::src/12_glossary.adoc[]
 
 <<<<
 // 13. Appendix I: Load tests
-include::src/13_appendix1_load_tests.adoc[]
+include::src/13_appendix1_testing.adoc[]
 
 

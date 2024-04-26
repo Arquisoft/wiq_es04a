@@ -1,23 +1,25 @@
 ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-load-tests]]
-== Appendix I: Load tests
+== Appendix I: Testing
 
 [role="arc42help"]
+
+=== Load tests
 We conducted load tests on our application using Gatling. Initially, we recorded the specific functionalities we intended to test, and then we configured the tests accordingly. Our primary focus was on testing the game component, as it constitutes the core aspect of our application. After recording the functionality to be tested, we increased the number of requests to 1,000 and established that these requests be made gradually, simulating a real-life scenario.
 
 image::13_conf_recording_gatling_1.png["Configuration for gatling recording 1"]
 
 After setting this, me executed the load tests, obtaining results that were not too bad. However, as it is shown in the next picture, more than 25% of the requests failed. This means that there is a possibility that the game fails when playing, which is not acceptable in an application of this kind. Even most of the requests have a response we will try to reduce the amount of failed requests. In addition, instant response of petitions has not the highest priority for us. It is more important that as many requests as possible and responded correctly.
 
-=== Test 1: 1000 users with poor question generation algorithm
+==== Test 1: 1000 users with poor question generation algorithm
 
 image::13_results_gatling_1.png["Results for gatling recording test 1"]
 
 After this load test, we tried to improve the question generation so as to avoid the failures mentioned above.
 We tested our application again, obtaining new results. We believe it is important to mention that even if the settings where the same in both tests, the application had more game modalities and new functionalities, which may affect to the number of requests and the time needed for each one.
 
-=== Test 2: 1000 users with new question generation algorithm
+==== Test 2: 1000 users with new question generation algorithm
 
 image::13_results_gatling_2.png["Results for gatling recording test 2"]
 
