@@ -24,7 +24,21 @@ describe('Game component', () => {
     let socket;
     
     beforeEach(() => {
-        socket = io();
+      socket = io();
+      useLocation.mockReturnValue({
+        state: {
+          gameQuestions: mockgameQuestions,
+          roomCode: "AAAAA",
+        },
+      })
+
+      render(
+      <SessionContext.Provider value={{ username: 'exampleUser' }}>
+        <BrowserRouter>
+            <MultiplayerGame />
+        </BrowserRouter>
+      </SessionContext.Provider>
+      );
     });
 
     const questionObject = {
@@ -46,95 +60,47 @@ describe('Game component', () => {
     const mockgameQuestions = generateQuestionArray(questionObject, 3);
 
   it('should render with recieved room code and questions ', async () => {
-      
-    //mock info that room sent to the game
-      useLocation.mockReturnValue({
-        state: {
-          gameQuestions: mockgameQuestions,
-          roomCode: "AAAAA",
-        },
-      })
-
-      render(
-      <SessionContext.Provider value={{ username: 'exampleUser' }}>
-        <BrowserRouter>
-            <MultiplayerGame />
-        </BrowserRouter>
-      </SessionContext.Provider>
-      );
-
-    expect(screen.findByText('1'));
-    expect(screen.findByText('1/3'));
-
     // waits for the question to appear
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
+    await waitFor(() => screen.getByTestId('question'));
 
-    expect(screen.findByText('Which is the capital of Spain?'));
+    expect(screen.getByTestId('question'));
     expect(screen.findByText('Madrid'));
     expect(screen.findByText('Barcelona'));
     expect(screen.findByText('Paris'));
     expect(screen.findByText('London'));
   });
 
- it('should guess correct answer', async () => {
-
-    useLocation.mockReturnValue({
-        state: {
-          gameQuestions: mockgameQuestions,
-          roomCode: "AAAAA",
-        },
-      })
-
-      render(
-      <SessionContext.Provider value={{ username: 'exampleUser' }}>
-        <BrowserRouter>
-            <MultiplayerGame />
-        </BrowserRouter>
-      </SessionContext.Provider>
-      );
-
+  it('should guess correct answer', async () => {
     // waits for the question to appear
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
+    await waitFor(() => screen.getByTestId('question'));
     const correctAnswer = screen.getByRole('button', { name: 'Madrid' });
 
-    expect(correctAnswer).not.toHaveStyle({ backgroundColor: 'green' });
+    expect(correctAnswer).toHaveStyle({ backgroundColor: 'rgb(0, 102, 153);' });
 
     //selects correct answer
     fireEvent.click(correctAnswer);
 
-    expect(correctAnswer).toHaveStyle({ backgroundColor: 'green' });
-
+    expect(correctAnswer).toHaveStyle({ backgroundColor: 'rgb(51, 153, 102);' });
   });
 
   
   it('should choose incorrect answer', async () => {
-
-    useLocation.mockReturnValue({
-        state: {
-          gameQuestions: mockgameQuestions,
-          roomCode: "AAAAA",
-        },
-      })
-
-      render(
-      <SessionContext.Provider value={{ username: 'exampleUser' }}>
-        <BrowserRouter>
-            <MultiplayerGame />
-        </BrowserRouter>
-      </SessionContext.Provider>
-      );
-
     // waits for the question to appear
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
+    await waitFor(() => screen.getByTestId('question'));
     const incorrectAnswer = screen.getByRole('button', { name: 'Barcelona' });
 
-    expect(incorrectAnswer).not.toHaveStyle({ backgroundColor: 'red' });
+    expect(incorrectAnswer).toHaveStyle({ backgroundColor: 'rgb(0, 102, 153);' });
 
     //selects correct answer
     fireEvent.click(incorrectAnswer); 
 
-    expect(incorrectAnswer).toHaveStyle({ backgroundColor: 'red' });
-
+    expect(incorrectAnswer).toHaveStyle({ backgroundColor: 'rgb(153, 0, 0);' });
   });
+
+  it('should render progress bar', async () => {
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
+    const progressBar = screen.getByTestId('prog_bar0');
+    await expect(progressBar).toBeInTheDocument();
+  })
 
 });

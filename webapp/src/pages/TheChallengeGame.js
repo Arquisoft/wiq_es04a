@@ -1,7 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
-
-import { Container, Button, CssBaseline, Grid, Typography, CircularProgress, useTheme, MenuItem, Select } from '@mui/material';
+import { Container, Box, Button, CssBaseline, Grid, Typography, CircularProgress, useTheme, MenuItem, Select, IconButton, Paper } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useNavigate } from 'react-router-dom';
@@ -13,12 +12,12 @@ import Card from '@mui/material/Card';
 import { useTranslation } from 'react-i18next';
 import i18n from '../localize/i18n';
 import { PlayArrow, Pause } from '@mui/icons-material';
-
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
-
-const Game = () => {
+const TheChallengeGame = () => {
     const navigate = useNavigate();
     const SUCCESS_SOUND_ROUTE = "/sounds/success_sound.mp3";
     const FAILURE_SOUND_ROUTE = "/sounds/wrong_sound.mp3";
@@ -110,7 +109,6 @@ const Game = () => {
     const startNewRound = async () => {
         setAnswered(false);
         setPassNewRound(false);
-        // It works deploying using git repo from machine with: axios.get(`http://20.80.235.188:8000/questions`)
         setCurrentLanguage(i18n.language);
         axios.get(`${apiEndpoint}/questions/${language}/${category}`) 
         .then(quest => {
@@ -231,65 +229,72 @@ const Game = () => {
     if (configModalOpen) {
         
         return(
-            <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <Typography variant="h2" sx={{ marginBottom: '1em' }}>Game Configuration</Typography>
+            <Container sx={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Paper elevation={5} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '4em', padding: '4em', borderRadius: '4em' }}>
+                    <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
+                        {t("Game.config.title")}
+                    </Typography>
 
-                <div style={{ marginBottom: '1em' }}>
-                    <label style={{ margin: '0.5em' }} htmlFor="numRounds">Number of rounds:</label>
-                    <Button disabled={numRounds === 1} onClick={() => setNumRounds(numRounds - 1)} variant="outlined" >-</Button>
-                    <span style={{ margin: '0.5em' }}>{numRounds}</span>
-                    <Button onClick={() => setNumRounds(numRounds + 1)} variant="outlined">+</Button>
-                </div>
+                    <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1em' }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
+                            <Typography htmlFor="numRounds" variant="h5">
+                                {t("Game.config.num_rounds")}:
+                            </Typography>
+                            <IconButton size="large" color="error" disabled={numRounds === 1} onClick={() => setNumRounds(numRounds - 1)} variant="outlined" data-testId="removeRound">
+                                <RemoveIcon fontSize="inherit" />
+                            </IconButton>
+                            <Typography fontWeight="bold" color="primary" fontSize="1.5em">
+                                {numRounds}
+                            </Typography>
+                            <IconButton size="large" color="success" onClick={() => setNumRounds(numRounds + 1)} variant="outlined" data-testId="addRound">
+                                <AddIcon fontSize="inherit" />
+                            </IconButton>
+                        </Box>
 
-                <div style={{ marginBottom: '1em' }}>
-                    <label style={{ margin: '0.5em' }} htmlFor="questionTime">Time per question (seconds):</label>
-                    <Button disabled={timerConfig === 1} onClick={() => setTimerConfig(timerConfig - 1)} variant="outlined">-</Button>
-                    <span style={{ margin: '0.5em' }}>{timerConfig}</span>
-                    <Button onClick={() => setTimerConfig(timerConfig + 1)} variant="outlined">+</Button>
-                </div>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
+                            <Typography htmlFor="questionTime" variant="h5">
+                                {t("Game.config.time")}:
+                            </Typography>
+                            <IconButton size="large" color="error" disabled={timerConfig === 1} onClick={() => setTimerConfig(timerConfig - 1)} variant="outlined" data-testId="removeSecond">
+                                <RemoveIcon fontSize="inherit" />
+                            </IconButton>
+                            <Typography fontWeight="bold" color="primary" fontSize="1.5em">
+                                {timerConfig}
+                            </Typography>
+                            <IconButton size="large" color="success" onClick={() => setTimerConfig(timerConfig + 1)} variant="outlined" data-testId="addSecond">
+                                <AddIcon fontSize="inherit" />
+                            </IconButton>
+                        </Box>
 
-                {/* Dropdown for selecting category */}
-                <div style={{ marginBottom: '1em' }}>
-                    <label style={{ margin: '0.5em' }} htmlFor="category">Category:</label>
-                    <Select
-                        value={category}
-                        onChange={(event) => setCategory(event.target.value)}
-                        style={{ minWidth: '120px' }}
-                    >
-                        <MenuItem value="Geography">Geography</MenuItem>
-                        <MenuItem value="Political">Political</MenuItem>
-                        <MenuItem value="Sports">Sports</MenuItem>
-                    </Select>
-                </div>
-
-                <Button
-                    data-testid="start-button"
-                    onClick={() => { startGame(); setQuestionHistorial(Array(numRounds).fill(null)); console.log(category) }}
-                    variant="contained"
-                    sx={{
-                        marginBottom: '0.5em',
-                        backgroundColor: theme.palette.primary.main,
-                        color: theme.palette.secondary.main,
-                        '&:hover': {
-                            backgroundColor: theme.palette.secondary.main,
-                            color: theme.palette.primary.main,
-                        }
-                    }}
-                >
-                    {t("Game.start")}
-                </Button>
+                        {/* Dropdown for selecting category */}
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
+                            <Typography htmlFor="category" variant="h5">
+                                {t("Game.config.category")}:
+                            </Typography>
+                            <Select
+                                value={category}
+                                onChange={(event) => setCategory(event.target.value)}
+                                style={{ minWidth: '120px' }}
+                            >
+                                <MenuItem value="Geography">{t("Game.categories.geography")}</MenuItem>
+                                <MenuItem value="Political">{t("Game.categories.political")}</MenuItem>
+                                <MenuItem value="Sports">{t("Game.categories.sports")}</MenuItem>
+                            </Select>
+                        </Box>
+                    </Container>
+                    <Button data-testid="start-button" onClick={() => { startGame(); setQuestionHistorial(Array(numRounds).fill(null)); console.log(category) }} variant="contained" size='large'
+                        sx={{fontFamily: 'Arial Black, sans-serif', color: theme.palette.primary.main, backgroundColor: 'transparent', border: `2px solid ${theme.palette.primary.main}`,
+                        transition: 'background-color 0.3s ease', '&:hover': { backgroundColor: theme.palette.primary.main, color: 'white' }}}>
+                        {t("Game.start")}
+                    </Button>
+                </Paper>
             </Container>
         );
     }
 
     const questionHistorialBar = () => {
         return questionHistorial.map((isCorrect, index) => (
-            <Card sx={{ width: `${100 / numRounds}%`,
-             padding:'0.2em', 
-             margin:'0 0.1em', 
-             backgroundColor: isCorrect === null ? 'gray' : isCorrect ? theme.palette.success.main : theme.palette.error.main }}
-            >
-            </Card>
+            <Card data-testid={`prog_bar${index}`} sx={{ width: `${100 / numRounds}%`, padding:'0.2em', margin:'0 0.1em', backgroundColor: isCorrect === null ? 'gray' : isCorrect ? theme.palette.success.main : theme.palette.error.main }} />
         ));
     };    
 
@@ -302,141 +307,90 @@ const Game = () => {
     // circular loading
     if (!questionData) {
         return (
-            <Container
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    height: '100vh',
-                    textAlign: 'center',
-                }}
-            >
+            <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flex: 1, textAlign: 'center' }}>
                 <CssBaseline />
                 <CircularProgress />
             </Container>
         );
     }
 
- // redirect to / if game over 
- if (shouldRedirect) {
-    // Redirect after 4 seconds
-    setTimeout(() => {
-        navigate('/homepage');
-    }, 4000);
+    // redirect to homepage if game over 
+    if (shouldRedirect) {
+        // Redirect after 4 seconds
+        setTimeout(() => {
+            navigate('/homepage');
+        }, 4000);
 
+
+        return (
+            <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '5em', textAlign: 'center', flex: '1' }}>
+                <CssBaseline />
+                <Typography variant="h2" data-testid="end-game-message" sx={{ color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? theme.palette.success.main : theme.palette.error.main }}>
+                    {correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? t("Game.win_msg") : t("Game.lose_msg") }
+                </Typography>
+                <Container>
+                    <Typography variant="h4">{ t("Game.correct") }: {correctlyAnsweredQuestions}</Typography>
+                    <Typography variant="h4">{ t("Game.incorrect") }: {incorrectlyAnsweredQuestions}</Typography>
+                    <Typography variant="h4">{ t("Game.money") }: {totalScore}</Typography>
+                    <Typography variant="h4">{ t("Game.time") }: {totalTimePlayed}</Typography>
+                </Container>
+                {showConfetti && <Confetti />}
+            </Container>
+        );
+    }
 
     return (
-        <Container
-            sx={{ 
-                display: 'flex', 
-                flexDirection: 'column',
-                justifyContent: 'center', 
-                alignItems: 'center', 
-                gap: '5em',
-                textAlign: 'center',
-                flex: '1'
-            }}
-        >
+        <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center', textAlign: 'center', flex: '1', gap: '2em', margin: '0 auto', padding: '1em 0' }}>
             <CssBaseline />
-            <Typography variant="h2" data-testid="end-game-message"
-                    sx={{ color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? theme.palette.success.main : theme.palette.error.main }}>
-                {correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? t("Game.win_msg") : t("Game.lose_msg") }
-            </Typography>
-            <Container>
-                <Typography variant="h4">{ t("Game.correct") }: {correctlyAnsweredQuestions}</Typography>
-                <Typography variant="h4">{ t("Game.incorrect") }: {incorrectlyAnsweredQuestions}</Typography>
-                <Typography variant="h4">{ t("Game.money") }: {totalScore}</Typography>
-                <Typography variant="h4">{ t("Game.time") }: {totalTimePlayed}</Typography>
+
+            <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
+                { answered ?
+                    // Pausa
+                    <IconButton variant="contained" size="large" color="primary" aria-label={ paused ? t("Game.play") : t("Game.pause") }
+                                onClick={() => togglePause()} sx={{ height: 100, width: 100, border: `2px solid ${theme.palette.primary.main}` }} 
+                                data-testid={ paused ? "play" : "pause"} >
+                        { paused ? <PlayArrow sx={{ fontSize:75 }} /> : <Pause sx={{ fontSize:75 }} /> }
+                    </IconButton>
+                    :
+                    // Cronómetro
+                    <CountdownCircleTimer data-testid="circleTimer" key={questionCountdownKey} isPlaying = {questionCountdownRunning} duration={15} colorsTime={[10, 6, 3, 0]}
+                    colors={[theme.palette.success.main, "#F7B801", "#f50707", theme.palette.error.main]} size={100} onComplete={() => selectResponse(-1, "FAILED")}>
+                        {({ remainingTime }) => {
+                            return (
+                                <Box style={{ display: 'flex', alignItems: 'center' }}>
+                                    <Typography fontSize='1.2em' fontWeight='bold'>{remainingTime}</Typography>
+                                </Box>
+                            );
+                        }}
+                    </CountdownCircleTimer>
+                }
             </Container>
-            {showConfetti && <Confetti />}
+
+            <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
+                <Typography variant="h4" data-testid="question" sx={{ fontWeight:'bold', marginBottom:'0.7em' }} >
+                    {questionData.question.toUpperCase()}
+                </Typography>
+
+                <Grid container spacing={2}>
+                    {questionData.options.map((option, index) => (
+                        <Grid item xs={12} key={index}>
+                            <Button data-testid={buttonStates[index] === "success" ? `success${index}` : buttonStates[index] === "failure" ? `fail${index}` : `answer${index}`}
+                                variant="contained" onClick={() => selectResponse(index, option)} disabled={buttonStates[index] !== null || answered}
+                                sx={{ height: "3.3em", width: "50%", borderRadius: "10px", margin: "5px", "&:disabled": { backgroundColor: buttonStates[index] === "success" ? "green" : buttonStates[index] === "failure" ? "red" : "gray", color: "white" }}}>
+                                {buttonStates[index] === "success" ? <CheckIcon /> : buttonStates[index] === "failure" ? <ClearIcon /> : null}
+                                {option}
+                            </Button>
+                        </Grid>
+                    ))}
+                </Grid>
+            </Container>
+
+            {/* Progress Cards */}
+            <Container sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop:'2em' }} >
+                {questionHistorialBar()}
+            </Container>
         </Container>
     );
-}
-
-return (
-    <Container
-        sx={{ 
-            display: 'flex', 
-            flexDirection: 'column',
-            justifyContent: 'space-around',
-            alignItems: 'center', 
-            textAlign: 'center',
-            flex: '1',
-            gap: '2em',
-            margin: '2em auto 1em',
-        }}
-    >
-        <CssBaseline />
-
-        <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
-            { answered ?
-                // Pausa
-                <Button variant="contained" onClick={() => togglePause()} sx={{ height: 100, width: 100, borderRadius: '50%' }} data-testid={ paused ? "play" : "pause"}>
-                    { paused ? <PlayArrow /> : <Pause /> }
-                </Button>
-                :
-                // Cronómetro
-                <CountdownCircleTimer
-                    data-testid="circleTimer"
-                    key={questionCountdownKey}
-                    isPlaying = {questionCountdownRunning}
-                    duration={timerConfig}
-                    colors={[theme.palette.success.main, "#F7B801", "#f50707", theme.palette.error.main]}
-                    size={100}
-                    colorsTime={[10, 6, 3, 0]}
-                    onComplete={() => selectResponse(-1, "FAILED")} //when time ends always fail question
-                    >
-                    {({ remainingTime }) => {
-                        return (
-                            <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <div style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{remainingTime}</div>
-                        </div>
-                        );
-                    }}
-                </CountdownCircleTimer>
-            }
-        </Container>
-
-        <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
-            <Typography variant="h4" data-testid="question" sx={{ fontWeight:'bold', marginBottom:'0.7em' }} >
-                {questionData.question.toUpperCase()}
-            </Typography>
-
-            <Grid container spacing={2}>
-                {questionData.options.map((option, index) => (
-                    <Grid item xs={12} key={index}>
-                        <Button
-                            //data-testid="answer"
-                            data-testid={buttonStates[index] === "success" ? `success${index}` : buttonStates[index] === "failure" ? `failel${index}` : `answer${index}`}
-                            variant="contained"
-                            onClick={() => selectResponse(index, option)}
-                            disabled={buttonStates[index] !== null || answered} // before, you could still press more than one button
-                            sx={{
-                                height: "3.3em",
-                                width: "50%",
-                                borderRadius: "10px",
-                                margin: "5px",
-                                "&:disabled": {
-                                    backgroundColor: buttonStates[index] === "success" ? "green" : buttonStates[index] === "failure" ? "red" : "gray",
-                                    color: "white",
-                                },
-                            }}
-                        >
-                            {buttonStates[index] === "success" ? <CheckIcon /> : buttonStates[index] === "failure" ? <ClearIcon /> : null}
-                            {option}
-                        </Button>
-                    </Grid>
-                ))}
-            </Grid>
-        </Container>
-
-        {/* Progress Cards */}
-        <Container sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop:'2em' }} >
-            {questionHistorialBar()}
-        </Container>
-    </Container>
-);
 };
 
-export default Game;
+export default TheChallengeGame;

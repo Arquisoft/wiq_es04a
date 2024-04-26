@@ -35,11 +35,7 @@ describe('Game component', () => {
     );
   });
 
-  it('should render question, answers and other ', async () => {
-    expect(screen.getByRole('progressbar'));
-    expect(screen.findByText('1'));
-    //expect(screen.findByText('1/3'));
-
+  it('should render question', async () => {
     // waits for the question to appear
     await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
 
@@ -94,6 +90,12 @@ describe('Game component', () => {
     expect(pauseButton);
     fireEvent.click(pauseButton);
     expect(screen.getByTestId("play"));
-  })
+  });
+
+  it('should render progress bar', async () => {
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
+    const progressBar = screen.getByTestId('prog_bar0');
+    await expect(progressBar).toBeInTheDocument();
+  });
 
 });
