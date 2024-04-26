@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
 import Homepage from '../../pages/Homepage';
+import '../../localize/i18n';
 
 // Hacemos un mock del módulo '@mui/material' y su hook useMediaQuery
 jest.mock('@mui/material/useMediaQuery', () => ({
@@ -16,7 +17,7 @@ describe('Homepage', () => {
     it('renders video and play button', () => {
         render(<Homepage />);
         expect(screen.getByTestId('video')).toBeInTheDocument();
-        expect(screen.getByText('PLAY')).toBeInTheDocument();
+        expect(screen.getByText("PLAY")).toBeInTheDocument();
     });
 
     it('loads game buttons dynamically based on data', async () => {

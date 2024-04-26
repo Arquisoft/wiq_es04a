@@ -38,7 +38,7 @@ const Login = () => {
     <Container component="main" maxWidth="xs" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flex:'1', marginTop: '2em', marginBottom: '2em'}}>
       <Box sx={{margin: '2em'}}>
         <div>
-          <Typography component="h1" variant="h5">
+          <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
             { t("Login.title") }
           </Typography>
           <TextField
