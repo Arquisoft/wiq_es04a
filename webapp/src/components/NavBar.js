@@ -98,6 +98,9 @@ function NavBar() {
                   </MenuItem>
                 ))}
             </Menu>
+            <Button component={Link} to="/" sx={{'&:hover': { backgroundColor: '#5f7e94' },}}>
+              <img src="/white_logo.png" alt="Logo" style={{ height: 40 }} />
+            </Button>
           </Box>
         ):(
           <Button component={Link} to="/" sx={{'&:hover': { backgroundColor: '#5f7e94' },}}>
@@ -108,11 +111,11 @@ function NavBar() {
         
         {/* Pages list in NavBar, only displayed when menu button is not, i.e., in larger devices */}
         {isLoggedIn ? (
-          <Box sx={{ display:'flex', alignItems:'center' }}>
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems:'center' }}>
             <Button component={Link} to="/" sx={{'&:hover': { backgroundColor: '#5f7e94' },}}>
               <img src="/white_logo.png" alt="Logo" style={{ height: 40 }} />
             </Button>
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            <Box sx={{ display: 'fles', flexGrow: 1 }}>
               {pages.map((page) => (
                 <Button component={Link} to={page.path==='/statistics'? `/statistics/${username}`:page.path} key={page.path} sx={{ color: 'white', display: 'block','&:hover': { backgroundColor: '#5f7e94' },}}>
                   {page.text}
