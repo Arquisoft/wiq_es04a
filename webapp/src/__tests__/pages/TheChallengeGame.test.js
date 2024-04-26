@@ -26,17 +26,16 @@ describe('The Challenge component', () => {
     mockAxios.onPut(`http://localhost:8000/statistics`).reply(200, { success: true });
     mockAxios.onPut(`http://localhost:8000/questionsRecord`).reply(200, { success: true });
 
+    render(
+      <SessionContext.Provider value={{ username: 'exampleUser' }}>
+          <Router>
+              <TheChallengeGame />
+          </Router>
+      </SessionContext.Provider>
+    );
   });
 
   it('should render configuration window and start game', async () => {
-    render( 
-        <SessionContext.Provider value={{ username: 'exampleUser' }}>
-          <Router>
-            <TheChallengeGame />
-          </Router>
-        </SessionContext.Provider>
-    );
-
     // Espera a que aparezca la ventana de configuración
     await waitFor(() => screen.getByText('GAME CONFIGURATION'));
 
@@ -59,14 +58,6 @@ describe('The Challenge component', () => {
   });
 
   it('should guess correct answer', async () => {
-    render( 
-        <SessionContext.Provider value={{ username: 'exampleUser' }}>
-          <Router>
-            <TheChallengeGame />
-          </Router>
-        </SessionContext.Provider>
-    );
-
     // Espera a que aparezca la ventana de configuración
     await waitFor(() => screen.getByText('GAME CONFIGURATION'));
 
@@ -92,14 +83,6 @@ describe('The Challenge component', () => {
 
   
   it('should choose incorrect answer', async () => {
-     render( 
-        <SessionContext.Provider value={{ username: 'exampleUser' }}>
-          <Router>
-            <TheChallengeGame />
-          </Router>
-        </SessionContext.Provider>
-    );
-
     // Espera a que aparezca la ventana de configuración
     await waitFor(() => screen.getByText('GAME CONFIGURATION'));
 
@@ -116,19 +99,11 @@ describe('The Challenge component', () => {
     
     //selects correct answer
     fireEvent.click(incorrectAnswer);
-    expect(screen.findByTestId("success1"));
+    expect(screen.findByTestId("fail1"));
 
   });
 
   it('should not answer the question', async () => {
-    render( 
-        <SessionContext.Provider value={{ username: 'exampleUser' }}>
-          <Router>
-            <TheChallengeGame />
-          </Router>
-        </SessionContext.Provider>
-    );
-
     // Espera a que aparezca la ventana de configuración
     await waitFor(() => screen.getByText('GAME CONFIGURATION'));
 
@@ -150,14 +125,6 @@ describe('The Challenge component', () => {
   }, 4500);
 
   it('should pause and resume the game after answering a question', async () => {
-    render(
-        <SessionContext.Provider value={{ username: 'exampleUser' }}>
-            <Router>
-                <TheChallengeGame />
-            </Router>
-        </SessionContext.Provider>
-    );
-
     await waitFor(() => screen.getByText('GAME CONFIGURATION'));
     fireEvent.click(screen.getByTestId('addRound'));
     fireEvent.click(screen.getByRole('button', { name: 'Start Game' }));
