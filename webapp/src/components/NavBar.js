@@ -107,7 +107,9 @@ function NavBar() {
             { logo }
           </Box>
         ):(
-          { logo }
+          <>
+            { logo }
+          </>
         )}
         
         
@@ -127,12 +129,12 @@ function NavBar() {
           <Box></Box>
         )}
 
-        <Box sx={{ display: "flex", gap: "2em" }}>
+        <Box sx={{ display: "flex", gap: {sx: "0.5em", md: "2em"} }}>
           {/* Internacionalization */}
-          <Box sx={{ borderRadius: '0.5em', '&:hover': { backgroundColor: '#5f7e94' }}}>
+          <Box sx={{ display: "flex", alignItems: "center", borderRadius: '0.5em', '&:hover': { backgroundColor: '#5f7e94' }}}>
             <TranslateIcon />
             <Select value={lang} autoWidth onChange={(e) => handleChangeLang(e.target.value)} data-testid="select-lang"
-                    sx={{ color: 'white', boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }} >
+                    sx={{ color: 'white', boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}>
               <MenuItem value={"en"} data-testid="en_selector">{t("NavBar.languages.en")}</MenuItem>
               <MenuItem value={"es"} data-testid="es_selector">{t("NavBar.languages.es")}</MenuItem>
               <MenuItem value={"fr"} data-testid="fr_selector">{t("NavBar.languages.fr")}</MenuItem>
@@ -149,7 +151,7 @@ function NavBar() {
                   <Avatar src={avatar} alt="Profile pic" sx={{ width: 33, height: 33 }} />
                 </IconButton>
               </Button>
-              <IconButton onClick={handleLogout} sx={{ color: 'white', '&:hover': { backgroundColor: '#5f7e94' }}} data-testid="logout-button">
+              <IconButton size='large' onClick={handleLogout} sx={{ color: 'white', '&:hover': { backgroundColor: '#5f7e94' }}} data-testid="logout-button">
                 <LogoutIcon />
               </IconButton>
             </Box>
