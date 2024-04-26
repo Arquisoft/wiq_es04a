@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
-import { SessionContext } from '../../SessionContext'; // Importa el contexto necesario
+import { SessionContext } from '../../../SessionContext'; // Importa el contexto necesario
 import { BrowserRouter as Router } from 'react-router-dom';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import Game from '../../pages/Game';
-import '../../localize/i18n';
+import Game from '../../../pages/games/Game';
+import '../../../localize/i18n';
 
 const mockAxios = new MockAdapter(axios);
 

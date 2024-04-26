@@ -2,10 +2,10 @@ import React, { useState, useEffect  } from 'react';
 import { useTheme, Button, TextField, Typography, Grid, Paper, List, ListItem, CircularProgress, Container, Box } from '@mui/material';
 import io from 'socket.io-client';
 import { useContext } from 'react';
-import { SessionContext } from '../SessionContext';
+import { SessionContext } from '../../SessionContext';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import Chat from '../components/Chat';
+import Chat from '../../components/Chat';
 
 const socketEndpoint = process.env.REACT_APP_MULTIPLAYER_ENDPOINT || 'http://localhost:5010';
 

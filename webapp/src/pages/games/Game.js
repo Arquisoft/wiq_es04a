@@ -5,18 +5,18 @@ import { PlayArrow, Pause } from '@mui/icons-material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useNavigate } from 'react-router-dom';
-import { SessionContext } from '../SessionContext';
+import { SessionContext } from '../../SessionContext';
 import { useContext } from 'react';
 import Confetti from 'react-confetti';
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { useTranslation } from 'react-i18next';
-import i18n from '../localize/i18n';
+import i18n from '../../localize/i18n';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
-const WarmQuestionGame = () => {
+const Game = () => {
     const navigate = useNavigate();
-    const MAX_ROUNDS = 10;
+    const MAX_ROUNDS = 3;
     const SUCCESS_SOUND_ROUTE = "/sounds/success_sound.mp3";
     const FAILURE_SOUND_ROUTE = "/sounds/wrong_sound.mp3";
 
@@ -37,12 +37,11 @@ const WarmQuestionGame = () => {
     const [totalScore, setTotalScore] = React.useState(0);
     const [correctlyAnsweredQuestions, setCorrectlyAnsweredQuestions] = React.useState(0);
     const [incorrectlyAnsweredQuestions, setIncorrectlyAnsweredQuestions] = React.useState(0);
-    const [passedQuestions, setPassedQuestions] = React.useState(0);
     const [totalTimePlayed, setTotalTimePlayed] = React.useState(0);
-    const [timerRunning, setTimerRunning] = React.useState(true); // indicate if the timer is working
-    const [showConfetti, setShowConfetti] = React.useState(false); //indicates if the confetti must appear
-    const [questionCountdownKey, setQuestionCountdownKey] = React.useState(15); //key to update question timer
-    const [questionCountdownRunning, setQuestionCountdownRunning] = React.useState(false); //property to start and stop question timer
+    const [timerRunning, setTimerRunning] = React.useState(true);
+    const [showConfetti, setShowConfetti] = React.useState(false);
+    const [questionCountdownKey, setQuestionCountdownKey] = React.useState(15);
+    const [questionCountdownRunning, setQuestionCountdownRunning] = React.useState(false);
     const [userResponses, setUserResponses] = React.useState([]);
     const [paused, setPaused] = React.useState(false);
     const [passNewRound, setPassNewRound] = React.useState(false);
@@ -105,27 +104,27 @@ const WarmQuestionGame = () => {
             setButtonStates(new Array(quest.data.options.length).fill(null));
         }).catch(error => {
             console.error(error);
-        }); 
+        });
     };
 
     const updateStatistics = async() => {
         try {
             await axios.put(`${apiEndpoint}/statistics`, {
                 username:username,
-                the_callenge_earned_money:0,
-                the_callenge_correctly_answered_questions:0,
-                the_callenge_incorrectly_answered_questions:0,
-                the_callenge_total_time_played:0,
-                the_callenge_games_played:0,
+                the_callenge_earned_money:totalScore,
+                the_callenge_correctly_answered_questions:correctlyAnsweredQuestions,
+                the_callenge_incorrectly_answered_questions:incorrectlyAnsweredQuestions,
+                the_callenge_total_time_played:totalTimePlayed,
+                the_callenge_games_played:1,
                 wise_men_stack_earned_money: 0,
                 wise_men_stack_correctly_answered_questions: 0,
                 wise_men_stack_incorrectly_answered_questions: 0,
                 wise_men_stack_games_played: 0,
-                warm_question_earned_money: totalScore,
-                warm_question_correctly_answered_questions: correctlyAnsweredQuestions,
-                warm_question_incorrectly_answered_questions: incorrectlyAnsweredQuestions,
-                warm_question_passed_questions: passedQuestions,
-                warm_question_games_played: 1,
+                warm_question_earned_money: 0,
+                warm_question_correctly_answered_questions: 0,
+                warm_question_incorrectly_answered_questions: 0,
+                warm_question_passed_questions: 0,
+                warm_question_games_played: 0,
                 discovering_cities_earned_money: 0,
                 discovering_cities_correctly_answered_questions: 0,
                 discovering_cities_incorrectly_answered_questions: 0,
@@ -135,6 +134,7 @@ const WarmQuestionGame = () => {
                 online_incorrectly_answered_questions: 0,
                 online_total_time_played: 0,
                 online_games_played: 0,
+                online_games_won: 0
             });
         } catch (error) {
             console.error("Error:", error);
@@ -146,7 +146,7 @@ const WarmQuestionGame = () => {
             await axios.put(`${apiEndpoint}/questionsRecord`, {
                 questions: userResponses,
                 username: username,
-                gameMode: "WarmQuestion"
+                gameMode: "TheChallenge"
             });
         } catch (error) {
             console.error("Error:", error);
@@ -160,33 +160,8 @@ const WarmQuestionGame = () => {
 
         setQuestionCountdownRunning(false);
 
-        if (response == null){
-            const userResponse = {
-                question: questionData.question,
-                response: "",
-                options: questionData.options,
-                correctAnswer: questionData.correctAnswer
-            };
-            setUserResponses(prevResponses => [...prevResponses, userResponse]);
-    
-            const failureSound = new Audio(FAILURE_SOUND_ROUTE);
-            failureSound.volume = 0.40;
-            failureSound.play();
-            for (let i = 0; i < questionData.options.length; i++) {
-                if (questionData.options[i] === questionData.correctAnswer) {
-                    newButtonStates[i] = "success";
-                }
-            }
-            setPassedQuestions(passedQuestions + 1);
-            setTotalScore(totalScore - 10);
-
-            const newQuestionHistorial = [...questionHistorial];
-            newQuestionHistorial[round-1] = false;
-            setQuestionHistorial(newQuestionHistorial);
-        }
-
         //check answer
-        else if (response === questionData.correctAnswer) {
+        if (response === questionData.correctAnswer) {
             const userResponse = {
                 question: questionData.question,
                 response: response,
@@ -232,16 +207,14 @@ const WarmQuestionGame = () => {
         setButtonStates(newButtonStates);
 
         setTimeout(async() => {
-            setRound(round + 1);
-            setButtonStates([]);
+            setPassNewRound(true);
             setCurrentLanguage(i18n.language);
         }, 4000);
     };
 
     const questionHistorialBar = () => {
         return questionHistorial.map((isCorrect, index) => (
-            <Card data-testid={`prog_bar${index}`}
-                    sx={{ width: `${100 / MAX_ROUNDS}%`, padding:'0.2em', margin:'0 0.1em', backgroundColor: isCorrect === null ? 'gray' : isCorrect ? theme.palette.success.main : theme.palette.error.main }}/>
+            <Card data-testid={`prog_bar${index}`} sx={{ width: `${100 / MAX_ROUNDS}%`, padding:'0.2em', margin:'0 0.1em', backgroundColor: isCorrect === null ? 'gray' : isCorrect ? theme.palette.success.main : theme.palette.error.main }}/>
         ));
     };    
 
@@ -268,7 +241,7 @@ const WarmQuestionGame = () => {
         }, 4000);
 
         return (
-            <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '5em', textAlign: 'center', flex: '1'}}>
+            <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '4em', textAlign: 'center', flex: '1'}}>
                 <CssBaseline />
                 <Typography variant="h2" data-testid="end-game-message" sx={{ color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? theme.palette.success.main : theme.palette.error.main }}>
                     {correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? t("Game.win_msg") : t("Game.lose_msg") }
@@ -287,7 +260,7 @@ const WarmQuestionGame = () => {
     return (
         <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center', textAlign: 'center', flex: '1', gap: '2em', margin: '0 auto', padding: '1em 0' }}>
             <CssBaseline />
-            
+
             <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
                 { answered ?
                     // Pausa
@@ -311,12 +284,12 @@ const WarmQuestionGame = () => {
                 }
             </Container>
 
-            <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap:'1em' }}>
-                <Typography variant="h4" data-testid="question" sx={{ fontWeight:'bold' }}>
+            <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1em' }} >
+                <Typography variant="h4" data-testid="question" fontWeight="bold" >
                     {questionData.question.toUpperCase()}
                 </Typography>
 
-                <Grid container spacing={2}>
+                <Grid container spacing={2} gap="0.7em">
                     {questionData.options.map((option, index) => (
                         <Grid item xs={12} key={index}>
                             <Button data-testid={buttonStates[index] === "success" ? `success${index}` : buttonStates[index] === "failure" ? `fail${index}` : `answer${index}`}
@@ -330,22 +303,12 @@ const WarmQuestionGame = () => {
                 </Grid>
             </Container>
 
-            { answered ?
-                <Button variant="contained" sx={{ fontWeight: "bold", width:100 }} disabled>
-                    { t("Game.skip") }
-                </Button>
-                :
-                <Button variant="contained" onClick={() => selectResponse(null, null)} sx={{ backgroundColor: theme.palette.error.main, '&:hover': { backgroundColor: theme.palette.error.main }, fontWeight: "bold", width:100 }}>
-                    { t("Game.skip") }
-                </Button>
-            }
-
             {/* Progress Cards */}
-            <Container sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }} >
+            <Container sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop:'2em' }} >
                 {questionHistorialBar()}
             </Container>
         </Container>
     );
 };
 
-export default WarmQuestionGame;
+export default Game;

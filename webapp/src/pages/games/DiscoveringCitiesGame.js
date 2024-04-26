@@ -1,30 +1,32 @@
 import * as React from 'react';
 import axios from 'axios';
-import { Container, Box, Button, CssBaseline, Grid, Typography, CircularProgress, Card, Select, MenuItem, IconButton, useTheme, Paper } from '@mui/material';
+import { useTheme, Container, Button, CssBaseline, Grid, Typography, CircularProgress, Card, Box, IconButton } from '@mui/material';
+import { PlayArrow, Pause } from '@mui/icons-material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
-import { PlayArrow, Pause } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import { SessionContext } from '../SessionContext';
+import { SessionContext } from '../../SessionContext';
 import { useContext } from 'react';
 import Confetti from 'react-confetti';
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { useTranslation } from 'react-i18next';
-import i18n from '../localize/i18n';
+import i18n from '../../localize/i18n';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
-const WiseMenStackGame = () => {
+const DiscovertingCitiesGame = () => {
     const navigate = useNavigate();
+    const MAX_ROUNDS = 5;
     const SUCCESS_SOUND_ROUTE = "/sounds/success_sound.mp3";
     const FAILURE_SOUND_ROUTE = "/sounds/wrong_sound.mp3";
 
     //sesion information
     const {username} = useContext(SessionContext);
-    const theme = useTheme();
 
-    // Traductions
+    // Translations
     const { t } = useTranslation();
+
+    const theme = useTheme();
 
     // state initialization
     const [round, setRound] = React.useState(1);
@@ -36,20 +38,17 @@ const WiseMenStackGame = () => {
     const [correctlyAnsweredQuestions, setCorrectlyAnsweredQuestions] = React.useState(0);
     const [incorrectlyAnsweredQuestions, setIncorrectlyAnsweredQuestions] = React.useState(0);
     const [totalTimePlayed, setTotalTimePlayed] = React.useState(0);
-    const [timerRunning, setTimerRunning] = React.useState(true); // indicate if the timer is working
-    const [showConfetti, setShowConfetti] = React.useState(false); //indicates if the confetti must appear
-    const [questionCountdownKey, ] = React.useState(60); //key to update question timer
-    const [questionCountdownRunning, setQuestionCountdownRunning] = React.useState(false); //property to start and stop question timer
+    const [timerRunning, setTimerRunning] = React.useState(true);
+    const [showConfetti, setShowConfetti] = React.useState(false);
+    const [questionCountdownKey, setQuestionCountdownKey] = React.useState(15);
+    const [questionCountdownRunning, setQuestionCountdownRunning] = React.useState(false);
     const [userResponses, setUserResponses] = React.useState([]);
-    const [language, setCurrentLanguage] = React.useState(i18n.language);
-
-    const [category, setCategory] = React.useState('Geography');
-    const [possibleAnswers, setPossibleAnswers] = React.useState([]);
-    const [isConfigured, setConfiguration] = React.useState(false);
     const [paused, setPaused] = React.useState(false);
     const [passNewRound, setPassNewRound] = React.useState(false);
+    const [language, setCurrentLanguage] = React.useState(i18n.language);
 
-    const [questionHistorial, setQuestionHistorial] = React.useState(Array(round).fill(null));
+
+    const [questionHistorial, setQuestionHistorial] = React.useState(Array(MAX_ROUNDS).fill(null));
 
     React.useEffect(() => {
         let timer;
@@ -64,9 +63,10 @@ const WiseMenStackGame = () => {
 
     // hook to initiating new rounds if the current number of rounds is less than or equal to 3 
     React.useEffect(() => {
-        if (totalTimePlayed <= questionCountdownKey) {
+        if (round <= MAX_ROUNDS) {
             startNewRound();
             setQuestionCountdownRunning(true);
+            setQuestionCountdownKey(questionCountdownKey => questionCountdownKey + 1); //code to reset countdown timer
         } else {
             setTimerRunning(false);
             setShouldRedirect(true);
@@ -79,13 +79,9 @@ const WiseMenStackGame = () => {
 
     // stablish if the confetti must show or not
     React.useEffect(() => {
-        if (correctlyAnsweredQuestions > incorrectlyAnsweredQuestions) {
-          setShowConfetti(true);
-        } else {
-          setShowConfetti(false);
-        }
+        correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? setShowConfetti(true) : setShowConfetti(false);
     }, [correctlyAnsweredQuestions, incorrectlyAnsweredQuestions]);
-    
+
     React.useEffect(() => {
         if (passNewRound && !paused) {
             setRound(prevRound => {
@@ -95,54 +91,51 @@ const WiseMenStackGame = () => {
         }
     }, [paused, passNewRound]);
 
+    // gets a random question from the database and initializes button states to null
     const startNewRound = async () => {
         setAnswered(false);
-
         setPassNewRound(false);
-        
+
         // Updates current language
         setCurrentLanguage(i18n.language);
-        axios.get(`${apiEndpoint}/questions/${language}/${category}`)
+        axios.get(`${apiEndpoint}/questions/${language}/Cities`)
         .then(quest => {
             // every new round it gets a new question from db
-            setQuestionData(quest.data[0]);
-            setButtonStates(new Array(2).fill(null));
-            getPossibleOptions(quest.data[0]);
-
+            setQuestionData(quest.data[0]);    
+            setButtonStates(new Array(quest.data[0].options.length).fill(null));
         }).catch(error => {
-            console.error("Could not get questions", error);
-        }); 
-        
+            console.error(error);
+        });
     };
-
-    // It puts 2 possible answers into an array making sure that the correct answer is not repeated
-    const getPossibleOptions = async (question) => {
-        var options = [];
-        options.push(question.correctAnswer);
-        let randomNumber ;
-        do {
-           randomNumber = Math.floor(Math.random() * question.options.length);
-        } while (question.options[randomNumber] === question.correctAnswer);
-        options.push(question.options[randomNumber]);
-        options = shuffleArray(options);
-        setPossibleAnswers(options);
-    }
-
-    // Shuffles array
-    function shuffleArray(array) {
-        const random = Math.random();
-        const randomFactor = random < 0.5 ? -1 : 1;
-        return array.sort(() => randomFactor);
-    }
 
     const updateStatistics = async() => {
         try {
             await axios.put(`${apiEndpoint}/statistics`, {
                 username:username,
-                wise_men_stack_earned_money:totalScore,
-                wise_men_stack_correctly_answered_questions:correctlyAnsweredQuestions,
-                wise_men_stack_incorrectly_answered_questions:incorrectlyAnsweredQuestions,
-                wise_men_stack_games_played:1
+                the_callenge_earned_money:0,
+                the_callenge_correctly_answered_questions:0,
+                the_callenge_incorrectly_answered_questions:0,
+                the_callenge_total_time_played:0,
+                the_callenge_games_played:0,
+                wise_men_stack_earned_money: 0,
+                wise_men_stack_correctly_answered_questions: 0,
+                wise_men_stack_incorrectly_answered_questions: 0,
+                wise_men_stack_games_played: 0,
+                warm_question_earned_money: 0,
+                warm_question_correctly_answered_questions: 0,
+                warm_question_incorrectly_answered_questions: 0,
+                warm_question_passed_questions: 0,
+                warm_question_games_played: 0,
+                discovering_cities_earned_money: totalScore,
+                discovering_cities_correctly_answered_questions: correctlyAnsweredQuestions,
+                discovering_cities_incorrectly_answered_questions: incorrectlyAnsweredQuestions,
+                discovering_cities_games_played: 1,
+                online_earned_money: 0,
+                online_correctly_answered_questions: 0,
+                online_incorrectly_answered_questions: 0,
+                online_total_time_played: 0,
+                online_games_played: 0,
+                online_games_won: 0
             });
         } catch (error) {
             console.error("Error:", error);
@@ -154,7 +147,7 @@ const WiseMenStackGame = () => {
             await axios.put(`${apiEndpoint}/questionsRecord`, {
                 questions: userResponses,
                 username: username,
-                gameMode: "WiseMenStack"
+                gameMode: "DiscoveringCities"
             });
         } catch (error) {
             console.error("Error:", error);
@@ -166,7 +159,7 @@ const WiseMenStackGame = () => {
         setAnswered(true);
         const newButtonStates = [...buttonStates];
 
-        //setQuestionCountdownRunning(false);
+        setQuestionCountdownRunning(false);
 
         //check answer
         if (response === questionData.correctAnswer) {
@@ -222,72 +215,34 @@ const WiseMenStackGame = () => {
 
     const questionHistorialBar = () => {
         return questionHistorial.map((isCorrect, index) => (
-            <Card data-testid={`prog_bar${index}`} sx={{ width: `${100 / round}%`, padding:'0.2em', margin:'0 0.1em', backgroundColor: isCorrect === null ? 'gray' : isCorrect ? theme.palette.success.main : theme.palette.error.main }}/>
+            <Card data-testid={`prog_bar${index}`} sx={{ width: `${100 / MAX_ROUNDS}%`, padding:'0.2em', margin:'0 0.1em', backgroundColor: isCorrect === null ? 'gray' : isCorrect ? theme.palette.success.main : theme.palette.error.main }}/>
         ));
-    };
+    };    
 
     const togglePause = () => {
         setTimerRunning(!timerRunning);
         setPaused(!paused);
     }
-    
-    if(!isConfigured) {
-        return (
-            <Container sx={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Paper elevation={5} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '4em', padding: '4em', borderRadius: '4em' }}>
-                    <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
-                        {t("Game.config.title")}
-                    </Typography>
 
-                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1em' }}>
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5em'}}>
-                            <Typography variant="h4" fontWeight="bold" color="error">{t("Wise_Men.instructions1")}</Typography>
-                            <Typography variant="h4" fontWeight="bold" color={theme.palette.success.main} >{t("Wise_Men.instructions2")}</Typography>
-                            <Typography variant="h4" fontWeight="bold" color="primary">{t("Wise_Men.instructions3")}</Typography>
-                        </Box>
-
-                        {/* Dropdown for selecting category */}
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
-                            <Typography data-testid="categories-label" variant='h5' htmlFor="category">
-                                {t("Game.config.category")}:
-                            </Typography>
-                            <Select value={category} onChange={(event) => setCategory(event.target.value)} style={{ minWidth: '120px' }}>
-                                <MenuItem value="Geography">{t("Game.categories.geography")}</MenuItem>
-                                <MenuItem value="Political">{t("Game.categories.political")}</MenuItem>
-                                <MenuItem value="Sports">{t("Game.categories.sports")}</MenuItem>
-                            </Select>
-                        </Box>
-                    </Box>
-
-                    <Button data-testid="start-button" onClick={() => { setConfiguration(true); startNewRound(); setQuestionHistorial(Array(round).fill(null)); }} variant="contained" size="large"
-                        sx={{ fontFamily: 'Arial Black, sans-serif', color: theme.palette.primary.main, backgroundColor: 'transparent', border: `2px solid ${theme.palette.primary.main}`,
-                        transition: 'background-color 0.3s ease', '&:hover': { backgroundColor: theme.palette.primary.main, color: 'white' }}}>
-                        {t("Game.start")}
-                    </Button>
-                </Paper>
-            </Container>
-        );
-    }
-    
     // circular loading
     if (!questionData) {
         return (
-            <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flex: 1, textAlign: 'center' }}>
+            <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', flex: '1' }}>
                 <CssBaseline />
                 <CircularProgress />
             </Container>
         );
-    }    
+    }
 
-    // redirect to homepage if game over 
+    // redirect to / if game over 
     if (shouldRedirect) {
         // Redirect after 4 seconds
         setTimeout(() => {
-                navigate('/homepage');
+            navigate('/homepage');
         }, 4000);
 
         return (
-            <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '4em', textAlign: 'center', flex: '1'}}>
+            <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '5em', textAlign: 'center', flex: '1' }}>
                 <CssBaseline />
                 <Typography variant="h2" data-testid="end-game-message" sx={{ color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? theme.palette.success.main : theme.palette.error.main }}>
                     {correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? t("Game.win_msg") : t("Game.lose_msg") }
@@ -330,17 +285,17 @@ const WiseMenStackGame = () => {
                 }
             </Container>
 
-            <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1em' }} >
-                <Typography variant="h4" data-testid="question" fontWeight="bold" >
+            <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
+                <Typography variant="h4" data-testid="question" sx={{ fontWeight:'bold', marginBottom:'0.7em' }} >
                     {questionData.question.toUpperCase()}
                 </Typography>
 
-                <Grid container spacing={2} gap="0.7em">
-                    {possibleAnswers.map((option, index) => (
+                <Grid container spacing={2}>
+                    {questionData.options.map((option, index) => (
                         <Grid item xs={12} key={index}>
                             <Button data-testid={buttonStates[index] === "success" ? `success${index}` : buttonStates[index] === "failure" ? `fail${index}` : `answer${index}`}
                                 variant="contained" onClick={() => selectResponse(index, option)} disabled={buttonStates[index] !== null || answered}
-                                sx={{ height: "3.3em", width: "50%", borderRadius: "10px", "&:disabled": { backgroundColor: buttonStates[index] === "success" ? theme.palette.success.main : buttonStates[index] === "failure" ? theme.palette.error.main : "gray", color: "white"}}}>
+                                sx={{ height: "3.3em", width: "50%", borderRadius: "10px", margin: "5px", "&:disabled": {backgroundColor: buttonStates[index] === "success" ? theme.palette.success.main : buttonStates[index] === "failure" ? theme.palette.error.main : "gray", color: "white" } }}>
                                 {buttonStates[index] === "success" ? <CheckIcon /> : buttonStates[index] === "failure" ? <ClearIcon /> : null}
                                 {option}
                             </Button>
@@ -349,12 +304,12 @@ const WiseMenStackGame = () => {
                 </Grid>
             </Container>
 
+            {/* Progress Cards */}
             <Container sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop:'2em' }} >
                 {questionHistorialBar()}
-                { answered || round === 1 ? <Box></Box> : <Card data-testid='prog_bar_final' sx={{ width: `${100 / round}%`, padding:'0.2em', margin:'0 0.1em', backgroundColor: 'gray' }}/> }
             </Container>
         </Container>
     );
 };
 
-export default WiseMenStackGame;
+export default DiscovertingCitiesGame;
