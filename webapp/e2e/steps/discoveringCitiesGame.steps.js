@@ -78,11 +78,11 @@ defineFeature(feature, test => {
       await answers[0].click();
     });
 
-    then('The button turns green', async () => {
+    then('The selected answer is marked as right', async () => {
       const answer = await page.$x('//*[contains(@data-testid, "success")]');
+      expect(answer.length).toBe(1);
       const textoBoton = await page.evaluate(button => button.innerText, answer[0]);
       await expect(textoBoton).toMatch(/Madrid/i);
-      await expect(page).toMatchElement("button", { style: { color: 'green' } });
     });
   })
 
@@ -99,16 +99,14 @@ defineFeature(feature, test => {
 
     when('I click on an incorrect answer button', async () => {
       const answers = await page.$x('//*[contains(@data-testid, "answer")]');
-      await answers[2].click();
+      await answers[1].click();
     });
 
-    then('The button turns red', async () => {
-      const answerButtons = await page.$x('//*[contains(@data-testid, "answer")]');
-      const textoBoton = await page.evaluate(button => button.innerText, answerButtons[0]);
+    then('The selected answer is marked as wrong', async () => {
+      const answer = await page.$x('//*[contains(@data-testid, "fail")]');
+      expect(answer.length).toBe(1);
+      const textoBoton = await page.evaluate(button => button.innerText, answer[0]);
       await expect(textoBoton).toMatch(/Barcelona/i);
-      await expect(page).toMatchElement("button", { style: { color: 'red' } });
-      await expect(page).toMatchElement("button", { style: { color: 'green' } });
-
     });
   })
 
