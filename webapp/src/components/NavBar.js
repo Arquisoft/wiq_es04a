@@ -53,6 +53,12 @@ function NavBar() {
     // Add an object for each new page
   ];
 
+  const logo = (
+    <Button component={Link} to="/" sx={{'&:hover': { backgroundColor: '#5f7e94' },}}>
+      <img src="/white_logo.png" alt="Logo" style={{ height: 40 }} />
+    </Button>
+  )
+
   return (
     // position="static" => Barra se desplaza con scroll down
     <AppBar position="static" >
@@ -98,23 +104,17 @@ function NavBar() {
                   </MenuItem>
                 ))}
             </Menu>
-            <Button component={Link} to="/" sx={{'&:hover': { backgroundColor: '#5f7e94' },}}>
-              <img src="/white_logo.png" alt="Logo" style={{ height: 40 }} />
-            </Button>
+            { logo }
           </Box>
         ):(
-          <Button component={Link} to="/" sx={{'&:hover': { backgroundColor: '#5f7e94' },}}>
-            <img src="/white_logo.png" alt="Logo" style={{ height: 40 }} />
-          </Button>
+          { logo }
         )}
         
         
         {/* Pages list in NavBar, only displayed when menu button is not, i.e., in larger devices */}
         {isLoggedIn ? (
           <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems:'center' }}>
-            <Button component={Link} to="/" sx={{'&:hover': { backgroundColor: '#5f7e94' },}}>
-              <img src="/white_logo.png" alt="Logo" style={{ height: 40 }} />
-            </Button>
+            { logo }
             <Box sx={{ display: 'fles', flexGrow: 1 }}>
               {pages.map((page) => (
                 <Button component={Link} to={page.path==='/statistics'? `/statistics/${username}`:page.path} key={page.path} sx={{ color: 'white', display: 'block','&:hover': { backgroundColor: '#5f7e94' },}}>
