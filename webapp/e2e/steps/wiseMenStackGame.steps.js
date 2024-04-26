@@ -10,7 +10,7 @@ defineFeature(feature, test => {
 
   beforeAll(async () => {
       
-      browser = process.env.GITHUB_ACTIONS
+    browser = process.env.GITHUB_ACTIONS
       ? await puppeteer.launch()
       : await puppeteer.launch({ headless: false, slowMo: 40 });
     page = await browser.newPage();
@@ -65,77 +65,59 @@ defineFeature(feature, test => {
   test('Answering a question correctly', ({given,when,then}) => {
 
     given('A question', async () => {
-        const button = await page.$('[data-testid="start-button"]');
-        await button.click();
+      const button = await page.$('[data-testid="start-button"]');
+      await button.click();
 
-        //await expect(page.findByText('Which is the capital of Spain?'));
-        const question = await page.$['data-testid="question"'];
-        await expect(page).toMatchElement("div", { text: 'Which is the capital of Spain?'});
-        expect(question).not.toBeNull();
-        
-        const answers = await page.$x('//*[@data-testid="answer"]');
-        expect(answers.length).toBe(2);
+      const question = await page.$['data-testid="question"'];
+      expect(question).not.toBeNull();
+      await expect(page).toMatchElement("div", { text: 'WHICH IS THE CAPITAL OF SPAIN?'});
+      
+      const answers = await page.$x('//*[contains(@data-testid, "answer")]');
+      expect(answers.length).toBe(2);
     });
 
     when('I click on the correct answer button', async () => {
-        const answers = await page.$x('//*[@data-testid="answer"]');
-        const textoBoton1 = await page.evaluate(button => button.innerText, answers[0]);
-        if(textoBoton1 === "Madrid") {
-          await answers[0].click();
-        } else {
-          await answers[1].click();
-        }
+      const answers = await page.$x('//*[contains(@data-testid, "answer")]');
+      const textoBoton1 = await page.evaluate(button => button.innerText, answers[0]);
+      if(textoBoton1 === "Madrid") {
+        await answers[0].click();
+      } else {
+        await answers[1].click();
+      }
     });
 
     then('The button turns green', async () => {
-        /*const answerButton = await page.$x('(//*[@data-testid="answer"])[1]');
-        const textoBoton1 = await page.evaluate(button => button.innerText, answerButton[0]);
-        const textoBoton2 = await page.evaluate(button => button.innerText, answerButton[1]);
-        if(textoBoton1 === "Madrid") {
-          await expect(textoBoton1).toMatch(/Madrid/i);
-        } else {
-          await expect(textoBoton2).toMatch(/Madrid/i);
-        }*/
-        await expect(page).toMatchElement("button", { style: { color: 'green' } });
+      await expect(page).toMatchElement("button", { style: { color: 'green' } });
     });
   })
 
   test('Answering a question incorrectly', ({given,when,then}) => {
 
     given('A question', async () => {
-        const button = await page.$('[data-testid="start-button"]');
-        await button.click();
+      const button = await page.$('[data-testid="start-button"]');
+      await button.click();
 
-        //await expect(page.findByText('Which is the capital of Spain?'));
-        const question = await page.$['data-testid="question"'];
-        await expect(page).toMatchElement("div", { text: 'Which is the capital of Spain?'});
-        expect(question).not.toBeNull();
-        
-        const answers = await page.$x('//*[@data-testid="answer"]');
-        expect(answers.length).toBe(2);
+      await expect(page).toMatchElement("div", { text: 'WHICH IS THE CAPITAL OF SPAIN?'});
+      const question = await page.$['data-testid="question"'];
+      expect(question).not.toBeNull();
+      
+      const answers = await page.$x('//*[contains(@data-testid, "answer")]');
+      expect(answers.length).toBe(2);
     });
 
     when('I click on an incorrect answer button', async () => {
-        const answers = await page.$x('//*[@data-testid="answer"]');
-        const textoBoton1 = await page.evaluate(button => button.innerText, answers[0]);
-        if(textoBoton1 !== "Madrid") {
-          await answers[0].click();
-        } else {
-          await answers[1].click();
-        }
+      const answers = await page.$x('//*[contains(@data-testid, "answer")]');
+      const textoBoton1 = await page.evaluate(button => button.innerText, answers[0]);
+      if(textoBoton1 !== "Madrid") {
+        await answers[0].click();
+      } else {
+        await answers[1].click();
+      }
     });
 
     then('The button turns red', async () => {
-        /*const answerButton = await page.$x('(//*[@data-testid="answer"])[2]');
-        const textoBoton1 = await page.evaluate(button => button.innerText, answerButton[0]);
-        const textoBoton2 = await page.evaluate(button => button.innerText, answerButton[1]);
-        if(textoBoton1 !== "Madrid") {
-          await expect(textoBoton1).not.toMatch(/Madrid/i);
-        } else {
-          await expect(textoBoton2).toMatch(/Madrid/i);
-        }*/
-        await expect(page).toMatchElement("button", { style: { color: 'red' } });
-        await expect(page).toMatchElement("button", { style: { color: 'green' } });
+      await expect(page).toMatchElement("button", { style: { color: 'red' } });
+      await expect(page).toMatchElement("button", { style: { color: 'green' } });
     });
   })
 
