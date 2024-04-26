@@ -8,9 +8,9 @@ import { useContext } from 'react';
 const Home = () => {
     const xxl = useMediaQuery('(min-width:1920px)');
     const { t } = useTranslation();
-    const {username} = useContext(SessionContext);
+    const {username} = useContext(SessionContext) || {};
 
-    const redirectPath = username ? "/login" : "/homepage";
+    const redirectPath = username == '' ? "/login" : "/homepage";
 
     const styles = {
         logo:{
