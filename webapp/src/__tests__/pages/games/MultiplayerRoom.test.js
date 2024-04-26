@@ -35,7 +35,7 @@ describe('MultiplayerRoom component', () => {
   test('creates a room', async () => {
 
     jest.mock('../../../pages/games/MultiplayerRoom', () => ({
-        ...jest.requireActual('../../pages/MultiplayerRoom'),
+        ...jest.requireActual('../../../pages/games/MultiplayerRoom'),
         generateRoomCode: jest.fn().mockReturnValue('AAAAA'),
     }));
 
