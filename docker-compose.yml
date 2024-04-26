@@ -10,6 +10,7 @@ services:
       - "27017:27017"
     networks:
       - mynetwork
+    restart: always
 
   mariadb:
     container_name: mariadb
@@ -24,6 +25,7 @@ services:
       - "3306:3306"
     networks:
       - mynetwork
+    restart: always
 
   users:
     container_name: users
@@ -38,6 +40,7 @@ services:
       - mynetwork
     environment:
       DATABASE_URL: mariadb:3306/userdb
+    restart: always
 
   questions:
       container_name: questions
@@ -53,6 +56,7 @@ services:
       environment:
         DATABASE_URI: mongodb://mongodb:27017/questionDB
         TEST_DATABASE_URI: mongodb://mongodb:27017/test
+      restart: always
 
   gatewayservice:
     container_name: gatewayservice
@@ -69,6 +73,7 @@ services:
     environment:
       USER_SERVICE_URL: http://users:8001
       QUESTION_SERVICE_URL: http://questions:8010
+    restart: always
 
   webapp:
     container_name: webapp
@@ -85,6 +90,7 @@ services:
     environment:
       REACT_APP_API_ENDPOINT: http://gatewayservice:8000
       REACT_APP_MULTIPLAYER_ENDPOINT: http://multiplayer:5010
+    restart: always
 
   multiplayer:
     container_name: multiplayer
@@ -100,6 +106,7 @@ services:
     environment:
       WEBAPP_ENDPOINT: http://webapp:3000
       GATEWAY_SERVICE_ENDPOINT: http://gatewayservice:8000
+    restart: always
 
   prometheus:
     image: prom/prometheus
@@ -114,6 +121,7 @@ services:
       - "9090:9090"
     depends_on: 
       - gatewayservice
+    restart: always
       
   grafana:
     image: grafana/grafana
@@ -133,6 +141,7 @@ services:
       - "9091:9091"
     depends_on: 
       - prometheus
+    restart: always
 
 volumes:
   mariadb_data:
