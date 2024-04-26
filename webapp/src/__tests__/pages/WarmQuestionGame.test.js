@@ -35,11 +35,8 @@ describe('WarmQuestionGame component', () => {
   });
 
   it('should render question, answers and other', async () => {
-
     // Espera a que aparezca la pregunta
     await waitFor(() => screen.getByTestId('question'));
-
-    expect(screen.findByText('1'));
 
     // Verifica que el juego haya comenzado correctamente mostrando la pregunta y las opciones
     expect(screen.getByTestId('question')).toBeInTheDocument();
@@ -50,7 +47,6 @@ describe('WarmQuestionGame component', () => {
   });
 
   it('should guess correct answer', async () => {
-
     // waits for the question to appear
     await waitFor(() => screen.getByTestId('question'));
     const correctAnswer = screen.getByRole('button', { name: 'Madrid' });
@@ -66,8 +62,6 @@ describe('WarmQuestionGame component', () => {
 
   
   it('should choose incorrect answer', async () => {
-
-
     // waits for the question to appear
     await waitFor(() => screen.getByTestId('question'));
     const incorrectAnswer = screen.getByRole('button', { name: 'Barcelona' });
@@ -82,7 +76,6 @@ describe('WarmQuestionGame component', () => {
   });
 
   it('should not answer the question', async () => {
-
     // waits for the question to appear
     await waitFor(() => screen.getByTestId('question'));
 
@@ -94,7 +87,6 @@ describe('WarmQuestionGame component', () => {
   }, 4500);
 
   it('should pass the question', async () => {
-
     // waits for the question to appear
     await waitFor(() => screen.getByTestId('question'));
     const correctAnswer = screen.getByRole('button', { name: 'Madrid' });
@@ -109,5 +101,21 @@ describe('WarmQuestionGame component', () => {
 
   });
 
+  it('should render pause & play buttons when answered', async () => {
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
+    const correctAnswer = screen.getByRole('button', { name: 'Madrid' });
+    fireEvent.click(correctAnswer);
+
+    const pauseButton = screen.getByTestId("pause");
+    expect(pauseButton);
+    fireEvent.click(pauseButton);
+    expect(screen.getByTestId("play"));
+  })
+
+  it('should render progress bar', async () => {
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
+    const progressBar = screen.getByTestId('prog_bar0');
+    await expect(progressBar).toBeInTheDocument();
+  })
 
 });
