@@ -24,16 +24,17 @@ describe('WarmQuestionGame component', () => {
 
     mockAxios.onPut('http://localhost:8000/statistics').reply(200, { success: true });
     mockAxios.onPut('http://localhost:8000/questionsRecord').reply(200, { success: true });
+
+    render( 
+      <SessionContext.Provider value={{ username: 'exampleUser' }}>
+        <Router>
+          <WarmQuestionGame />
+        </Router>
+      </SessionContext.Provider>
+    );
   });
 
   it('should render question, answers and other', async () => {
-    render( 
-        <SessionContext.Provider value={{ username: 'exampleUser' }}>
-          <Router>
-            <WarmQuestionGame />
-          </Router>
-        </SessionContext.Provider>
-    );
 
     // Espera a que aparezca la pregunta
     await waitFor(() => screen.getByTestId('question'));
@@ -49,13 +50,6 @@ describe('WarmQuestionGame component', () => {
   });
 
   it('should guess correct answer', async () => {
-    render( 
-        <SessionContext.Provider value={{ username: 'exampleUser' }}>
-          <Router>
-            <WarmQuestionGame />
-          </Router>
-        </SessionContext.Provider>
-    );
 
     // waits for the question to appear
     await waitFor(() => screen.getByTestId('question'));
@@ -72,13 +66,7 @@ describe('WarmQuestionGame component', () => {
 
   
   it('should choose incorrect answer', async () => {
-     render( 
-        <SessionContext.Provider value={{ username: 'exampleUser' }}>
-          <Router>
-            <WarmQuestionGame />
-          </Router>
-        </SessionContext.Provider>
-    );
+
 
     // waits for the question to appear
     await waitFor(() => screen.getByTestId('question'));
@@ -94,13 +82,6 @@ describe('WarmQuestionGame component', () => {
   });
 
   it('should not answer the question', async () => {
-    render( 
-        <SessionContext.Provider value={{ username: 'exampleUser' }}>
-          <Router>
-            <WarmQuestionGame />
-          </Router>
-        </SessionContext.Provider>
-    );
 
     // waits for the question to appear
     await waitFor(() => screen.getByTestId('question'));
@@ -113,13 +94,6 @@ describe('WarmQuestionGame component', () => {
   }, 4500);
 
   it('should pass the question', async () => {
-    render( 
-        <SessionContext.Provider value={{ username: 'exampleUser' }}>
-          <Router>
-            <WarmQuestionGame />
-          </Router>
-        </SessionContext.Provider>
-    );
 
     // waits for the question to appear
     await waitFor(() => screen.getByTestId('question'));
