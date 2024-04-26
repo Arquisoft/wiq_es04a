@@ -7,9 +7,9 @@ sequenceDiagram
     User ->>+ Webapp: click a mode game and PLAY buttons
 
     loop search questions
-        Webapp ->> Gateway Service: axios.get('/questions')
-        Gateway Service ->> Questions: axios.get('/questions')
-        Questions ->> Questions: router.get('/questions')
+        Webapp ->> Gateway Service: axios.get('/questions/:lang')
+        Gateway Service ->> Questions: axios.get('/questions/:lang')
+        Questions ->> Questions: router.get('/questions/:lang')
 
         Questions ->> MongoDB: generateQuestions()
         MongoDB -->> Questions: 
@@ -31,15 +31,15 @@ sequenceDiagram
 
         alt last question
             Webapp -->>- User: show homepage
-            Webapp ->> Gateway Service: axios.post('/statistics/edit')
-            Gateway Service ->> Users: axios.post('/user/statistics/edit')
-            Users ->> MariaDB: router.post('/user/statistics/edit')
+            Webapp ->> Gateway Service: axios.put('/statistics')
+            Gateway Service ->> Users: axios.post('/user/statistics')
+            Users ->> MariaDB: router.post('/user/statistics')
             MariaDB -->> Users: 
             Users -->> Gateway Service: JSON response
             Gateway Service -->> Webapp: 
             
-            Webapp ->> Gateway Service: axios.post('/user/questionsRecord')
-            Gateway Service ->> Users: axios.post('/user/questionsRecord')
+            Webapp ->> Gateway Service: axios.post('/questionsRecord')
+            Gateway Service ->> Users: axios.post('user/questionsRecord')
             Users ->> MariaDB: router.post('/user/questionsRecord')
             MariaDB -->> Users: JSON response
             Users -->> Gateway Service: 

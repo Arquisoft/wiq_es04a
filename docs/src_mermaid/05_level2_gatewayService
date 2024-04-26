@@ -1,9 +1,9 @@
 flowchart TD
-    subgraph Whitebox Gateway Service
+    subgraph Whitebox gateway
     sis2(gateway-service)
  
     end
-    sis1(Web app) -.->|Get/post| sis2
-    sis3(Multiplayer Service) -.->|Get| sis2
-    sis2 -.->|Get| sis4(Question Generation Service)
-    sis2 -.->|Get/post| sis5(User Service)
+    sis1(webapp) -.->|Get/post| sis2
+    sis3(multiplayer) -.->|Get| sis2
+    sis2 -.->|Get| sis4(questions)
+    sis2 -.->|Get/post| sis5(users)

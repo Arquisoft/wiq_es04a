@@ -2,5 +2,5 @@ flowchart TD
     subgraph Whitebox routes
     sis2(question-routes)
     end
-    sis1(GateawayService) -.-> sis2
+    sis1(gateaway) -.-> sis2
     sis2 -.-> sis3(services)

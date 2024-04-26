@@ -2,12 +2,18 @@ sequenceDiagram
     User ->>+ Webapp: click register link in login view
     Webapp -->>- User: redirect to register view
     User ->>+ Webapp: complete form and click
-    Webapp ->> Gateway Service: axios.post('/user/add')
-    Gateway Service ->> Users: axios.post('/user/add')
+    Webapp ->> Gateway Service: axios.post('/user', {username,password})
+    Gateway Service ->> Users: axios.post('/user', {username,password})
 
-    Users ->> MariaDB: router.post('/user/add')
+    Users ->> MariaDB: router.post('/user')
+    MariaDB -->> Users: JSON response with user info
+
+    Users -->> Gateway Service: 
+    Gateway Service -->> Webapp: 
+    Webapp ->> Gateway Service: axios.post('/login',{username,password})
+    Gateway Service ->> Users: axios.post('/login',{username,password})
+    Users ->> MariaDB: router.post('/login')
     MariaDB -->> Users: JSON response
-
     Users -->> Gateway Service: 
     Gateway Service -->> Webapp: 
     Webapp -->>- User: show homepage

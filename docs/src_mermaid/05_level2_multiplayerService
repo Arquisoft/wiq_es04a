@@ -1,7 +1,7 @@
 flowchart TD
-    subgraph Whitebox Multiplayer Service
+    subgraph Whitebox multiplayer
     sis2(index)
  
     end
-    sis1(Web app) -.-> sis2
-    sis2 -.->|Get| sis3(GatewayService)
+    sis1(webapp) -.-> sis2
+    sis2 -.->|Get| sis3(gateway)

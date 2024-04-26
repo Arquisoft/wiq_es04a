@@ -1,0 +1,25 @@
+sequenceDiagram
+    Note over User,Webapp: User must be logged in
+    User ->>+ Webapp: click RANKING navbar button
+    Webapp ->> Gateway Service: axios.get('/ranking')
+    Gateway Service ->> Users: axios.get('/user/ranking')
+
+    Users ->> MariaDB: router.get('/user/ranking')
+    MariaDB -->> Users: JSON response
+
+    Users -->> Gateway Service: 
+    Gateway Service -->> Webapp: 
+    Webapp -->>- User: show the users ranking
+
+    opt See groups ranking
+    User ->>+ Webapp: click ranking view GROUPS button
+    Webapp ->> Gateway Service: axios.get('/group/ranking')
+    Gateway Service ->> Users: axios.get('/user/group/ranking')
+
+    Users ->> MariaDB: router.get('/user/group/ranking')
+    MariaDB -->> Users: JSON response
+
+        Users -->> Gateway Service: 
+        Gateway Service -->> Webapp: 
+        Webapp -->>- User: show the group ranking 
+    end
