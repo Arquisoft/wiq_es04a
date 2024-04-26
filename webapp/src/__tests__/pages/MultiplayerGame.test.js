@@ -24,7 +24,21 @@ describe('Game component', () => {
     let socket;
     
     beforeEach(() => {
-        socket = io();
+      socket = io();
+      useLocation.mockReturnValue({
+        state: {
+          gameQuestions: mockgameQuestions,
+          roomCode: "AAAAA",
+        },
+      })
+
+      render(
+      <SessionContext.Provider value={{ username: 'exampleUser' }}>
+        <BrowserRouter>
+            <MultiplayerGame />
+        </BrowserRouter>
+      </SessionContext.Provider>
+      );
     });
 
     const questionObject = {
@@ -46,23 +60,6 @@ describe('Game component', () => {
     const mockgameQuestions = generateQuestionArray(questionObject, 3);
 
   it('should render with recieved room code and questions ', async () => {
-      
-    //mock info that room sent to the game
-      useLocation.mockReturnValue({
-        state: {
-          gameQuestions: mockgameQuestions,
-          roomCode: "AAAAA",
-        },
-      })
-
-      render(
-      <SessionContext.Provider value={{ username: 'exampleUser' }}>
-        <BrowserRouter>
-            <MultiplayerGame />
-        </BrowserRouter>
-      </SessionContext.Provider>
-      );
-
     // waits for the question to appear
     await waitFor(() => screen.getByTestId('question'));
 
@@ -73,23 +70,7 @@ describe('Game component', () => {
     expect(screen.findByText('London'));
   });
 
- it('should guess correct answer', async () => {
-
-    useLocation.mockReturnValue({
-        state: {
-          gameQuestions: mockgameQuestions,
-          roomCode: "AAAAA",
-        },
-      })
-
-      render(
-      <SessionContext.Provider value={{ username: 'exampleUser' }}>
-        <BrowserRouter>
-            <MultiplayerGame />
-        </BrowserRouter>
-      </SessionContext.Provider>
-      );
-
+  it('should guess correct answer', async () => {
     // waits for the question to appear
     await waitFor(() => screen.getByTestId('question'));
     const correctAnswer = screen.getByRole('button', { name: 'Madrid' });
@@ -100,27 +81,10 @@ describe('Game component', () => {
     fireEvent.click(correctAnswer);
 
     expect(correctAnswer).toHaveStyle({ backgroundColor: 'rgb(51, 153, 102);' });
-
   });
 
   
   it('should choose incorrect answer', async () => {
-
-    useLocation.mockReturnValue({
-        state: {
-          gameQuestions: mockgameQuestions,
-          roomCode: "AAAAA",
-        },
-      })
-
-      render(
-      <SessionContext.Provider value={{ username: 'exampleUser' }}>
-        <BrowserRouter>
-            <MultiplayerGame />
-        </BrowserRouter>
-      </SessionContext.Provider>
-      );
-
     // waits for the question to appear
     await waitFor(() => screen.getByTestId('question'));
     const incorrectAnswer = screen.getByRole('button', { name: 'Barcelona' });
@@ -131,7 +95,12 @@ describe('Game component', () => {
     fireEvent.click(incorrectAnswer); 
 
     expect(incorrectAnswer).toHaveStyle({ backgroundColor: 'rgb(153, 0, 0);' });
-
   });
+
+  it('should render progress bar', async () => {
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
+    const progressBar = screen.getByTestId('prog_bar0');
+    await expect(progressBar).toBeInTheDocument();
+  })
 
 });
