@@ -588,12 +588,14 @@ router.get('/statistics/:username', async (req,res) => {
                 }
             });
     
-            const hasCommonGroup = userGroups.some(userGroup => {
-                return loggedUserGroups.some(loggedUserGroup => loggedUserGroup.groupName === userGroup.groupName);
-            });
-
-            if(!hasCommonGroup){
-                return res.status(403).json({ error: 'You are not allowed to see this user statistics' });
+            if (loggedUserGroups.length != 0 && userGroups != 0){
+                const hasCommonGroup = userGroups.some(userGroup => {
+                    return loggedUserGroups.some(loggedUserGroup => loggedUserGroup.groupName === userGroup.groupName);
+                });
+    
+                if(!hasCommonGroup){
+                    return res.status(403).json({ error: 'You are not allowed to see this user statistics' });
+                }
             }
         }
 
