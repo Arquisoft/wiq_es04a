@@ -272,7 +272,7 @@ const WiseMenStackGame = () => {
     // circular loading
     if (!questionData) {
         return (
-            <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', textAlign: 'center' }}>
+            <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flex: 1, textAlign: 'center' }}>
                 <CssBaseline />
                 <CircularProgress />
             </Container>
