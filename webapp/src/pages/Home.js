@@ -10,7 +10,7 @@ const Home = () => {
     const { t } = useTranslation();
     const {username} = useContext(SessionContext) || {};
 
-    const redirectPath = username == '' ? "/login" : "/homepage";
+    const redirectPath = username === '' ? "/login" : "/homepage";
 
     const styles = {
         logo:{
