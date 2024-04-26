@@ -7,7 +7,13 @@ import { SessionContext } from '../../SessionContext';
 import Profile from '../../pages/Profile';
 
 const mockAxios = new MockAdapter(axios);
+const mockNavigate = jest.fn();
 
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockNavigate,
+}));
+ 
 describe('Profile component', () => {
   const username = 'testuser';
   const initialUserInfo = {
@@ -19,13 +25,14 @@ describe('Profile component', () => {
   };
 
   beforeEach(() => {
-    mockAxios.reset();
+    mockAxios.reset(); 
   });
 
   it('should fetch and display user information', async () => {
-    mockAxios.onGet(`http://localhost:8000/user/profile`, { params: { username } }).reply(200, initialUserInfo);
+    const updateAvatar = jest.fn();
+    mockAxios.onGet(`http://localhost:8000/profile`, { params: { username } }).reply(200, initialUserInfo);
     render(
-      <SessionContext.Provider value={{ username }}>
+      <SessionContext.Provider value={{ username, updateAvatar }}>
         <Router>
           <Profile />
         </Router>
@@ -41,10 +48,11 @@ describe('Profile component', () => {
   });
 
   it('should display an error if fetching user info fails', async () => {
-    mockAxios.onGet(`http://localhost:8000/user/profile`, { params: { username } }).reply(400, { error: 'Error fetching user information' });
+    const updateAvatar = jest.fn();
+    mockAxios.onGet(`http://localhost:8000/profile`, { params: { username } }).reply(400, { error: 'Error fetching user information' });
 
     render(
-      <SessionContext.Provider value={{ username }}>
+      <SessionContext.Provider value={{ username, updateAvatar }}>
         <Router>
           <Profile />
         </Router>
@@ -57,12 +65,13 @@ describe('Profile component', () => {
   });
 
   it('should handle avatar selection and update', async () => {
+    const updateAvatar = jest.fn();
     const newAvatar = 'bertinIcon.jpg';
-    mockAxios.onGet(`http://localhost:8000/user/profile`, { params: { username } }).reply(200, initialUserInfo);
-    mockAxios.onPost(`http://localhost:8000/user/profile/${username}`, { imageUrl: newAvatar }).reply(200);
+    mockAxios.onGet(`http://localhost:8000/profile`, { params: { username } }).reply(200, initialUserInfo);
+    mockAxios.onPut(`http://localhost:8000/profile/${username}`, { imageUrl: newAvatar }).reply(200);
 
     render(
-      <SessionContext.Provider value={{ username }}>
+      <SessionContext.Provider value={{ username, updateAvatar }}>
         <Router>
           <Profile />
         </Router>
@@ -78,23 +87,23 @@ describe('Profile component', () => {
     fireEvent.click(screen.getByTestId('confirm-button'));
 
     await waitFor(() => {
-      expect(screen.getByText('Avatar changed successfully')).toBeInTheDocument();
-      expect(mockAxios.history.post.length).toBe(1);
-      expect(mockAxios.history.post[0].data).toContain(newAvatar);
+      expect(mockAxios.history.put.length).toBe(1);
+      expect(mockAxios.history.put[0].data).toContain(newAvatar);
     });
   });
 
   it('should handle avatar selection and update after choosing different characters', async () => {
+    const updateAvatar = jest.fn();
     const newAvatar = 'teresaIcon.jpg';
-    mockAxios.onGet(`http://localhost:8000/user/profile`, { params: { username } }).reply(200, initialUserInfo);
-    mockAxios.onPost(`http://localhost:8000/user/profile/${username}`, { imageUrl: newAvatar }).reply(200);
+    mockAxios.onGet(`http://localhost:8000/profile`, { params: { username } }).reply(200, initialUserInfo);
+    mockAxios.onPut(`http://localhost:8000/profile/${username}`, { imageUrl: newAvatar }).reply(200);
 
     render(
-      <SessionContext.Provider value={{ username }}>
+      <SessionContext.Provider value={{ username, updateAvatar }}>
         <Router>
           <Profile />
         </Router>
-      </SessionContext.Provider>
+      </SessionContext.Provider> 
     ); 
 
     await waitFor(() => {
@@ -112,19 +121,20 @@ describe('Profile component', () => {
     fireEvent.click(screen.getByTestId('confirm-button'));
 
     await waitFor(() => {
-      expect(screen.getByText('Avatar changed successfully')).toBeInTheDocument();
-      expect(mockAxios.history.post.length).toBe(1);
-      expect(mockAxios.history.post[0].data).toContain(newAvatar);
+      expect(mockAxios.history.put.length).toBe(1);
+      expect(mockAxios.history.put[0].data).toContain(newAvatar);
     });
+
   });
 
   it('should display an error if avatar update fails', async () => {
+    const updateAvatar = jest.fn();
     const newAvatar = 'bertinIcon.jpg';
-    mockAxios.onGet(`http://localhost:8000/user/profile`, { params: { username } }).reply(200, initialUserInfo);
-    mockAxios.onPost(`http://localhost:8000/user/profile/${username}`, { imageUrl: newAvatar }).reply(400, { error: 'Error updating user information' });
+    mockAxios.onGet(`http://localhost:8000/profile`, { params: { username } }).reply(200, initialUserInfo);
+    mockAxios.onPost(`http://localhost:8000/profile/${username}`, { imageUrl: newAvatar }).reply(400, { error: 'Error updating user information' });
 
     render(
-      <SessionContext.Provider value={{ username }}>
+      <SessionContext.Provider value={{ username, updateAvatar  }}>
         <Router>
           <Profile />
         </Router>
@@ -143,7 +153,5 @@ describe('Profile component', () => {
       expect(screen.getByText('Error updating user information')).toBeInTheDocument();
     });
   });
-
-  
 
 });

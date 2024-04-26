@@ -1,28 +1,35 @@
 import React from 'react';
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import { SessionContext } from '../../SessionContext';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import Register from '../../pages/Register';
 import '../../localize/i18n';
 
 const mockAxios = new MockAdapter(axios);
+const mockNavigate = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockNavigate,
+}));
 
 describe('Register component', () => {
   beforeEach(() => {
     mockAxios.reset();
+    mockNavigate.mockReset();
     // Mock the axios.post request to simulate a successful response
     mockAxios.onPost('http://localhost:8000/user').reply(200);
-    mockAxios.onPost('http://localhost:8000/login').reply(200);
+    mockAxios.onPost('http://localhost:8000/login').reply(200, { avatar: 'bertinIcon.jpg' });
   });
 
   it('should render sign up form', () => {
     render(
       <SessionContext.Provider value={{}}>
-        <Router>
-          <Register />
-        </Router>
+      <RouterProvider router={createMemoryRouter([{ path: '/', element: <Register /> }])}>
+        <Register />
+      </RouterProvider>
       </SessionContext.Provider>
     );
 
@@ -35,11 +42,14 @@ describe('Register component', () => {
   });
 
   it('should sign up a user', async () => {
+    const createSession = jest.fn();
+    const updateAvatar = jest.fn();
+
     render(
-      <SessionContext.Provider value={{ createSession: jest.fn() }}>
-        <Router>
+      <SessionContext.Provider value={{ createSession, updateAvatar }}>
+        <RouterProvider router={createMemoryRouter([{ path: '/', element: <Register /> }])}>
           <Register />
-        </Router>
+        </RouterProvider>
       </SessionContext.Provider>
     );
 
@@ -60,9 +70,9 @@ describe('Register component', () => {
 
     render(
       <SessionContext.Provider value={{}}>
-        <Router>
+        <RouterProvider router={createMemoryRouter([{ path: '/', element: <Register /> }])}>
           <Register />
-        </Router>
+        </RouterProvider>
       </SessionContext.Provider>
     );
 

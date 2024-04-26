@@ -103,7 +103,7 @@ const Game = () => {
 
     const updateStatistics = async() => {
         try {
-            await axios.post(`${apiEndpoint}/statistics`, {
+            await axios.put(`${apiEndpoint}/statistics`, {
                 username:username,
                 the_callenge_earned_money:0,
                 the_callenge_correctly_answered_questions:0,
@@ -136,7 +136,7 @@ const Game = () => {
 
     const updateQuestionsRecord = async() => {
         try {
-            await axios.post(`${apiEndpoint}/user/questionsRecord`, {
+            await axios.put(`${apiEndpoint}/questionsRecord`, {
                 questions: userResponses,
                 username: username,
                 gameMode: "WarmQuestion"

@@ -94,6 +94,7 @@ const Game = () => {
     // gets a random question from the database and initializes button states to null
     const startNewRound = async () => {
         setAnswered(false);
+        setPassNewRound(false);
 
         // Updates current language
         setCurrentLanguage(i18n.language);
@@ -109,7 +110,7 @@ const Game = () => {
 
     const updateStatistics = async() => {
         try {
-            await axios.post(`${apiEndpoint}/statistics`, {
+            await axios.put(`${apiEndpoint}/statistics`, {
                 username:username,
                 the_callenge_earned_money:totalScore,
                 the_callenge_correctly_answered_questions:correctlyAnsweredQuestions,
@@ -143,7 +144,7 @@ const Game = () => {
 
     const updateQuestionsRecord = async() => {
         try {
-            await axios.post(`${apiEndpoint}/user/questionsRecord`, {
+            await axios.put(`${apiEndpoint}/questionsRecord`, {
                 questions: userResponses,
                 username: username,
                 gameMode: "TheChallenge"

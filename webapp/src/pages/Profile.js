@@ -16,12 +16,11 @@ const Profile = () => {
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [selectedAvatar, setSelectedAvatar] = useState(null);
     const [currentSelectedAvatar, setCurrentSelectedAvatar] = useState('defalt_user.jpg');
-
-    const { username } = useContext(SessionContext);
+    const { username, updateAvatar } = useContext(SessionContext);
 
     const fetchUserInfo = useCallback(async () => {
         try {
-            const response = await axios.get(`${apiEndpoint}/user/profile`, { params: { username: username } });
+            const response = await axios.get(`${apiEndpoint}/profile`, { params: { username: username } });
             setUserInfo(response.data);
         } catch (error) {
             setError('Error fetching user information');
@@ -35,7 +34,8 @@ const Profile = () => {
 
     const handleAvatarChange = async () => {
         try {
-            await axios.post(`${apiEndpoint}/user/profile/${username}`, { imageUrl: currentSelectedAvatar });
+            await axios.put(`${apiEndpoint}/profile/${username}`, { imageUrl: currentSelectedAvatar });
+            updateAvatar(selectedAvatar);
             setSnackbarMessage('Avatar changed successfully');
             setOpenSnackbar(true);
             fetchUserInfo();
@@ -62,7 +62,7 @@ const Profile = () => {
 
     return (
         <Container sx={{ margin: '0 auto auto', display:'flex', flexDirection:'column' }}>
-            <Typography variant="h3" sx={{ textAlign:'center', fontWeight:'bold' }}>{userInfo.username}</Typography>
+            <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>{userInfo.username}</Typography>
             <Container sx={{ display:'flex' }}>
                 <Container sx={{ display:'flex', flexDirection:'column', justifyContent:'center' }}>
                     <Typography variant="h4"><b>{t("Profile.name")}</b> {userInfo.name}</Typography>
