@@ -53,23 +53,33 @@
 
     "Game": {
         "win_msg": "¡Buen trabajo!",
-        "lose_msg": "Fin del juego",
-        "correct": "Respuestas correctas",
-        "incorrect": "Respuestas incorrectas",
-        "money": "Puntos finales",
-        "time": "Tiempo de juego (seg)",
+        "lose_msg": "Fin del Juego",
+        "correct": "Respuestas Correctas",
+        "incorrect": "Respuestas Incorrectas",
+        "money": "Puntos Finales",
+        "time": "Segundos de Juego",
         "pause": "Pausa",
         "play": "Jugar",
         "round": "Pregunta ",
-        "start": "Empezar juego"
+        "start": "Empezar Juego",
+        "skip": "Saltar",
+        "config": {
+            "title": "CONFIGURACIÓN DEL JUEGO",
+            "num_rounds": "Número de rondas",
+            "time": "Segundos por pregunta",
+            "category": "Categoría"
+        },
+        "categories": {
+            "geography": "Geografía",
+            "political":"Política",
+            "sports":"Deporte"
+        }
     },
-    
+
     "Wise_Men": {
-        "instructions": "Elige una categoría:",
-        "category":"Categorías: ",
-        "geography": "Geografía",
-        "political":"Política",
-        "sports":"Deporte"
+        "instructions1": "Elige",
+        "instructions2": "una",
+        "instructions3": "categoría"
     },
 
     "Login": {
@@ -81,7 +91,7 @@
     },
     
     "Register": {
-        "title": "Registro",
+        "title": "Registrarse",
         "username": "Nombre de usuario",
         "password": "Contraseña",
         "name": "Nombre",
@@ -134,17 +144,18 @@
             "code": "Código de Sala",
             "participants": "Participantes",
             "start": "Comenzar juego",
-            "create": "Crear sala",
-            "join": "Unirse a sala",
+            "create": "Crear Sala",
+            "join": "Unirse a Sala",
             "send": "Enviar",
             "chat_title": "Chat de la sala",
-            "chat_input_label": "Escribe tu mensaje"
+            "chat_input_label": "Escribe tu mensaje",
+            "new_game": "¿Quieres iniciar un juego nuevo?"
         },
         "Game": {
             "waiting_players_end": "Esperando a que terminen los demás jugadores...",
             "waiting": "Esperando información del ganador...",
-            "winner_1": "Jugador ganador del juego",
-            "winner_2": "con",
+            "winner_1": "Ganador",
+            "winner_2": "Con",
             "winner_3": "respuestas correctas en",
             "winner_4": "segundos"
         }

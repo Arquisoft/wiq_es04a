@@ -1,6 +1,6 @@
 import React, { useState,useContext } from 'react';
 import axios from 'axios';
-import { Container, Typography, TextField, Button, Snackbar, Box, Divider } from '@mui/material';
+import { useTheme, Container, Typography, TextField, Button, Snackbar, Box, Divider } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { SessionContext } from '../SessionContext';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +9,7 @@ const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000
 
 const AddUser = () => {
   const { t } = useTranslation();
+  const theme = useTheme();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -90,7 +91,20 @@ const AddUser = () => {
               data-testid="surname"
             />
             <Divider style={{ marginTop:'3%'}}/>
-            <Button variant="contained" color="primary" onClick={addUser} style={{ width: '100%', marginTop: '5%' }} data-testid="register-button">
+            <Button variant="contained" onClick={addUser} style={{ width: '100%', marginTop: '5%' }} data-testid="register-button"
+              sx={{
+                fontFamily: 'Arial Black, sans-serif',
+                color: theme.palette.primary.main,
+                backgroundColor: 'transparent',
+                border: `2px solid ${theme.palette.primary.main}`,
+                transition: 'background-color 0.3s ease',
+
+                '&:hover': {
+                    backgroundColor: theme.palette.primary.main,
+                    color: 'white',
+                }
+            }}
+            >
               { t("Register.button") }
             </Button>
             <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="User added successfully" />
