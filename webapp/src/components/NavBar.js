@@ -117,9 +117,9 @@ function NavBar() {
         {isLoggedIn ? (
           <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems:'center' }}>
             { logo }
-            <Box sx={{ display: 'fles', flexGrow: 1 }}>
+            <Box sx={{ display: 'flex', flexGrow: 1 }}>
               {pages.map((page) => (
-                <Button component={Link} to={page.path==='/statistics'? `/statistics/${username}`:page.path} key={page.path} sx={{ color: 'white', display: 'block','&:hover': { backgroundColor: '#5f7e94' },}}>
+                <Button component={Link} to={page.path==='/statistics'? `/statistics/${username}`:page.path} key={page.path} sx={{ color: 'white', '&:hover': { backgroundColor: '#5f7e94' },}}>
                   {page.text}
                 </Button>
               ))}
@@ -129,7 +129,7 @@ function NavBar() {
           <Box></Box>
         )}
 
-        <Box sx={{ display: "flex", gap: {sx: "0.5em", md: "2em"} }}>
+        <Box sx={{ display: "flex", gap: {sx: "0.5em", md: "1em"} }}>
           {/* Internacionalization */}
           <Box sx={{ display: "flex", alignItems: "center", borderRadius: '0.5em', '&:hover': { backgroundColor: '#5f7e94' }}}>
             <TranslateIcon />
@@ -142,19 +142,21 @@ function NavBar() {
           </Box>
 
           {isLoggedIn ? (
-            <Box sx={{ display:'flex', alignItems:'center' }}>
-              <Button component={Link} to="/profile" sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0, '&:hover': { backgroundColor: '#5f7e94' }}} >
-                <Typography variant="body2" sx={{ color: 'white', textDecoration: 'none', paddingLeft:'0.5em' }}>
-                  {username}
-                </Typography>
-                <IconButton>
-                  <Avatar src={avatar} alt="Profile pic" sx={{ width: 33, height: 33 }} />
-                </IconButton>
-              </Button>
+            <>
+              <Box sx={{ display:'flex', alignItems:'center' }}>
+                <Button component={Link} to="/profile" sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0, '&:hover': { backgroundColor: '#5f7e94' }}} >
+                  <Typography variant="body2" sx={{ color: 'white', textDecoration: 'none', paddingLeft:'0.5em' }}>
+                    {username}
+                  </Typography>
+                  <IconButton>
+                    <Avatar src={avatar} alt="Profile pic" sx={{ width: 33, height: 33 }} />
+                  </IconButton>
+                </Button>
+              </Box>
               <IconButton size='large' onClick={handleLogout} sx={{ color: 'white', '&:hover': { backgroundColor: '#5f7e94' }}} data-testid="logout-button">
                 <LogoutIcon />
               </IconButton>
-            </Box>
+            </>
           ):(
             <Button component={Link} to={'/login'} sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0, '&:hover': { backgroundColor: '#5f7e94' }}} >
               <Typography variant="body2" sx={{ color: 'white', textDecoration: 'none', paddingLeft:'0.5em' }}>
