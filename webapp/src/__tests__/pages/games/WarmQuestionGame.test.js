@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
-import { SessionContext } from '../../SessionContext';
+import { SessionContext } from '../../../SessionContext';
 import { BrowserRouter as Router } from 'react-router-dom';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import WarmQuestionGame from '../../pages/WarmQuestionGame';
+import WarmQuestionGame from '../../../pages/games/WarmQuestionGame';
 
 const mockAxios = new MockAdapter(axios);
 

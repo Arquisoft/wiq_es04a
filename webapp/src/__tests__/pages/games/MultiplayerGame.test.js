@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
-import { SessionContext } from '../../SessionContext'; 
+import { SessionContext } from '../../../SessionContext'; 
 import { BrowserRouter, useLocation } from 'react-router-dom'; 
-import MultiplayerGame from '../../pages/MultiplayerGame';
+import MultiplayerGame from '../../../pages/games/MultiplayerGame';
 import io from 'socket.io-client';
-import '../../localize/i18n';
+import '../../../localize/i18n';
 
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
