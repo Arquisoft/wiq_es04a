@@ -36,6 +36,15 @@ image::13_statistics_1.png["Some statistics for test 1"]
 image::13_statistics_2.png["Some statistics for test 2"]
 
 
+==== Number of responses per second
+Finally, we would like to compare another graph because we believe it illustrates the number of responses per second in a straightforward manner during the tests. This allows us to observe the percentage of failed requests each second. As mentioned earlier, our primary goal after the initial test was to reduce the number of failed requests, even if it meant slightly increasing the average response time for each request.
+
+===== Test 1
+image::13_responses_per_seconds_1.png["Responses per second 1"]
+
+===== Test 2
+image::13_responses_per_second_2.png["Responses per second 2"]
+
 
 
 
