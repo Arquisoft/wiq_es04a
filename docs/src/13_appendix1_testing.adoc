@@ -45,6 +45,9 @@ image::13_responses_per_seconds_1.png["Responses per second 1"]
 ===== Test 2
 image::13_responses_per_second_2.png["Responses per second 2"]
 
+As we can see, the second test shows a much more equilibrated graphic. Responses are distributed better in time and failures are a minimum percentage of the total responses.
+
+For these reasons, the load tests have motivated us to develop a more stable question generation algorithm. This reduces the likelihood of requests failing when users are interacting with our application. This ultimately leads to a better user experience, which is a crucial aspect of application development.
 
 
 
