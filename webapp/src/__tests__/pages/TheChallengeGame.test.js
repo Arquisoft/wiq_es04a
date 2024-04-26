@@ -5,11 +5,11 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import '../../localize/i18n';
-import Game from '../../pages/TheChallengeGame';
+import TheChallengeGame from '../../pages/TheChallengeGame';
 
 const mockAxios = new MockAdapter(axios);
 
-describe('Game component', () => {
+describe('The Challenge component', () => {
   beforeEach(() => {
     mockAxios.reset();
     // Mockear respuestas de la API
@@ -26,34 +26,31 @@ describe('Game component', () => {
     mockAxios.onPut(`http://localhost:8000/statistics`).reply(200, { success: true });
     mockAxios.onPut(`http://localhost:8000/questionsRecord`).reply(200, { success: true });
 
+    render(
+      <SessionContext.Provider value={{ username: 'exampleUser' }}>
+          <Router>
+              <TheChallengeGame />
+          </Router>
+      </SessionContext.Provider>
+    );
   });
 
   it('should render configuration window and start game', async () => {
-    render( 
-        <SessionContext.Provider value={{ username: 'exampleUser' }}>
-          <Router>
-            <Game />
-          </Router>
-        </SessionContext.Provider>
-    );
-
     // Espera a que aparezca la ventana de configuración
-    await waitFor(() => screen.getByText('Game Configuration'));
+    await waitFor(() => screen.getByText('GAME CONFIGURATION'));
 
     // Simula la configuración del juego
-    const increaseButtons = screen.getAllByRole('button', { name: '+' });
-    fireEvent.click(increaseButtons[0]); // Aumenta el número de rondas
-    fireEvent.click(increaseButtons[1]); // Aumenta el tiempo por pregunta
-    //fireEvent.change(screen.getByLabelText('Category:'), { target: { value: 'Sports' } });
+    const increaseButton = screen.getByTestId('addRound');
+    fireEvent.click(increaseButton); // Aumenta el número de rondas
 
     // Inicia el juego
-    fireEvent.click(screen.getByRole('button', { name: 'Start game' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Start Game' }));
 
     // Espera a que aparezca la pregunta
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
+    await waitFor(() => screen.getByTestId('question'));
 
     // Verifica que el juego haya comenzado correctamente mostrando la pregunta y las opciones
-    expect(screen.getByText('Which is the capital of Spain?'.toUpperCase())).toBeInTheDocument();
+    expect(screen.getByTestId('question')).toBeInTheDocument();
     expect(screen.getByText('Madrid')).toBeInTheDocument();
     expect(screen.getByText('Barcelona')).toBeInTheDocument();
     expect(screen.getByText('Paris')).toBeInTheDocument();
@@ -61,87 +58,64 @@ describe('Game component', () => {
   });
 
   it('should guess correct answer', async () => {
-    render( 
-        <SessionContext.Provider value={{ username: 'exampleUser' }}>
-          <Router>
-            <Game />
-          </Router>
-        </SessionContext.Provider>
-    );
-
     // Espera a que aparezca la ventana de configuración
-    await waitFor(() => screen.getByText('Game Configuration'));
+    await waitFor(() => screen.getByText('GAME CONFIGURATION'));
 
     // Simula la configuración del juego
-    const increaseButtons = screen.getAllByRole('button', { name: '+' });
-    fireEvent.click(increaseButtons[0]); // Aumenta el número de rondas
+    const increaseRoundButton = screen.getByTestId('addRound');
+    fireEvent.click(increaseRoundButton); // Aumenta el número de rondas
+    const increaseSecondsButton = screen.getByTestId('addSecond');
+    fireEvent.click(increaseSecondsButton); // Aumenta los segundos por ronda
 
     // Inicia el juego
-    fireEvent.click(screen.getByRole('button', { name: 'Start game' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Start Game' }));
 
     // waits for the question to appear
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
+    await waitFor(() => screen.getByTestId('question'));
     const correctAnswer = screen.getByRole('button', { name: 'Madrid' });
 
-    expect(screen.findByTestId("anwer0"));
     //selects correct answer
     fireEvent.click(correctAnswer);
-    expect(screen.findByTestId("succes0"));
+    
+    expect(screen.findByTestId("success0"));
 
   });
 
   
   it('should choose incorrect answer', async () => {
-     render( 
-        <SessionContext.Provider value={{ username: 'exampleUser' }}>
-          <Router>
-            <Game />
-          </Router>
-        </SessionContext.Provider>
-    );
-
     // Espera a que aparezca la ventana de configuración
-    await waitFor(() => screen.getByText('Game Configuration'));
+    await waitFor(() => screen.getByText('GAME CONFIGURATION'));
 
     // Simula la configuración del juego
-    const increaseButtons = screen.getAllByRole('button', { name: '+' });
-    fireEvent.click(increaseButtons[0]); // Aumenta el número de rondas
+    const increaseButton = screen.getByTestId('addRound');
+    fireEvent.click(increaseButton); // Aumenta el número de rondas
 
     // Inicia el juego
-    fireEvent.click(screen.getByRole('button', { name: 'Start game' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Start Game' }));
 
     // waits for the question to appear
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
+    await waitFor(() => screen.getByTestId('question'));
     const incorrectAnswer = screen.getByRole('button', { name: 'Barcelona' });
-
-    expect(screen.findByTestId("anwer1"));
+    
     //selects correct answer
     fireEvent.click(incorrectAnswer);
-    expect(screen.findByTestId("failure1"));
+    expect(screen.findByTestId("fail1"));
 
   });
 
   it('should not answer the question', async () => {
-    render( 
-        <SessionContext.Provider value={{ username: 'exampleUser' }}>
-          <Router>
-            <Game />
-          </Router>
-        </SessionContext.Provider>
-    );
-
     // Espera a que aparezca la ventana de configuración
-    await waitFor(() => screen.getByText('Game Configuration'));
+    await waitFor(() => screen.getByText('GAME CONFIGURATION'));
 
     // Simula la configuración del juego
-    const increaseButtons = screen.getAllByRole('button', { name: '+' });
-    fireEvent.click(increaseButtons[0]); // Aumenta el número de rondas
+    const increaseButton = screen.getByTestId('addRound');
+    fireEvent.click(increaseButton); // Aumenta el número de rondas
 
     // Inicia el juego
-    fireEvent.click(screen.getByRole('button', { name: 'Start game' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Start Game' }));
 
     // waits for the question to appear
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
+    await waitFor(() => screen.getByTestId('question'));
 
     setTimeout(() => {
       // Comprobamos que el callback ha sido llamado después del tiempo especificado
@@ -149,5 +123,21 @@ describe('Game component', () => {
     }, 4000);
 
   }, 4500);
+
+  it('should pause and resume the game after answering a question', async () => {
+    await waitFor(() => screen.getByText('GAME CONFIGURATION'));
+    fireEvent.click(screen.getByTestId('addRound'));
+    fireEvent.click(screen.getByRole('button', { name: 'Start Game' }));
+
+    await waitFor(() => screen.getByTestId('question'));
+
+    fireEvent.click(screen.getByRole('button', { name: 'Madrid' }));
+
+    await waitFor(() => screen.getByTestId('pause'));
+
+    fireEvent.click(screen.getByTestId('pause'));
+
+    expect(screen.getByTestId('play')).toBeInTheDocument();
+  });
 
 });
