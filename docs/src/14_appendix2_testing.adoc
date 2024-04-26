@@ -1,0 +1,12 @@
+ifndef::imagesdir[:imagesdir: ../images]
+
+[[section-load-tests]]
+== Appendix II: Other tests
+
+[role="arc42help"]
+
+=== Unitary tests
+
+=== Acceptance tests
+
+=== Usability tests
