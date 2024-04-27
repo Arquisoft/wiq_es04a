@@ -1,6 +1,6 @@
 ifndef::imagesdir[:imagesdir: ../images]
 
-[[section-load-tests]]
+[[section-monitoring]]
 == Appendix III: Application monitoring
 
 [role="arc42help"]
