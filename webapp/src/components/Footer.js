@@ -2,6 +2,7 @@ import * as React from 'react';
 import { AppBar, Toolbar, Typography, Link } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
+
 const Footer = () => {
     const { t } = useTranslation();
 
