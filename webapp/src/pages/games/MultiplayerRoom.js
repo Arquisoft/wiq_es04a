@@ -106,7 +106,7 @@ const MultiplayerRoom = () => {
     }
   
     return (
-      <Container sx={{ maxWidth: '2000px', display: 'flex', flexDirection: { md: 'column', lg: 'row' }, justifyContent: 'center', flex: 1, alignItems: 'center', padding: '2em 0', gap: '2em' }}>
+      <Box sx={{display: 'flex', flexDirection: { md: 'column', lg: 'row' }, justifyContent: 'center', flex: 1, alignItems: 'center', padding: '2em 0', gap: '2em' }}>
         {roomCode && error === "" && (
           <Container></Container>
         )}
@@ -216,7 +216,7 @@ const MultiplayerRoom = () => {
             <Chat roomCode={roomCode} username={username} />
           </Container>
         )}
-      </Container>
+      </Box>
       );
   }
 
