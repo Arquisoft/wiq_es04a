@@ -31,6 +31,14 @@ describe('Groups component', () => {
     });
   };
 
+  it('debe reproducir el video a una velocidad de 0.85', async () => {
+    renderGroupsComponent();
+    const videoElement = screen.getByTestId('video');
+    expect(videoElement).toBeInTheDocument();
+    expect(videoElement.playbackRate).toBe(0.85);
+
+  });
+
   it('should render groups list and creation elements', async () => {
     // It mocks a succesful request getting two groups from the database.
     mockAxios.onGet('http://localhost:8000/group').reply(200, { groups: [{ name: 'Group 1' }, { name: 'Group 2' }] });
