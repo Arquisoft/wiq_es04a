@@ -119,7 +119,7 @@ function NavBar() {
             { logo }
             <Box sx={{ display: 'flex', flexGrow: 1 }}>
               {pages.map((page) => (
-                <Button component={Link} to={page.path==='/statistics'? `/statistics/${username}`:page.path} key={page.path} sx={{ color: 'white', '&:hover': { backgroundColor: '#5f7e94' },}}>
+                <Button component={Link} size='large' to={page.path==='/statistics'? `/statistics/${username}`:page.path} key={page.path}sx={{ color: 'white', '&:hover': { backgroundColor: '#5f7e94' },}}>
                   {page.text}
                 </Button>
               ))}
@@ -129,7 +129,7 @@ function NavBar() {
           <Box></Box>
         )}
 
-        <Box sx={{ display: "flex", gap: {sx: "0.5em", md: "1em"} }}>
+        <Box sx={{ display: "flex", gap: {sm: "0.5em", lg: "2em"} }}>
           {/* Internacionalization */}
           <Box sx={{ display: "flex", alignItems: "center", borderRadius: '0.5em', '&:hover': { backgroundColor: '#5f7e94' }}}>
             <TranslateIcon />
