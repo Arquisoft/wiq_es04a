@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Box, Button, Fab, useTheme, Tooltip } from "@mui/material";
+import {Box, Button, useTheme } from "@mui/material";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTranslation } from 'react-i18next';
 import AndroidIcon from '@mui/icons-material/Android';
@@ -105,6 +105,8 @@ const Home = () => {
             <video data-testid="video" ref={videoRef} autoPlay muted loop style={{ ...styles.video}}>
                 <source src="./home/Background-White.webm" type="video/mp4" />
             </video>
+            
+
             <a
             href="https://mega.nz/file/vNVkhQwT#l3K-nttaNWJ1tjdUVXJlCClmYm9rmpgBS_ULNewASL4"
             target="_blank"
@@ -112,38 +114,10 @@ const Home = () => {
             >
             <Button
                 variant="contained"
-                color="primary"
-                startIcon={<AndroidIcon style={{ marginRight: '0.2em' }} />}
-            >
-            {t("Footer.apk_link")}
-            </Button>
-          </a>
-
-          <a
-            href="https://mega.nz/file/vNVkhQwT#l3K-nttaNWJ1tjdUVXJlCClmYm9rmpgBS_ULNewASL4"
-            target="_blank"
-            rel="noopener noreferrer"
-            >
-            <Button
-                variant="contained"
-                color="primary"
-                startIcon={<AndroidIcon style={{ marginRight: '0.2em', color: "3DDC84", }} />}
-                style={{ marginTop: '0.5em' }}
-            >
-            {t("Footer.apk_link")}
-            </Button>
-          </a>
-
-          <a
-            href="https://mega.nz/file/vNVkhQwT#l3K-nttaNWJ1tjdUVXJlCClmYm9rmpgBS_ULNewASL4"
-            target="_blank"
-            rel="noopener noreferrer"
-            >
-            <Button
-                variant="contained"
+                size={isMobile ? 'small' : 'big'}
                 color="primary"
                 startIcon={<AndroidIcon style={{ marginRight: '0.2em', color: "3DDC84", fontSize: '2em' }} />}
-                style={{ marginTop: '0.5em' }}
+                style={{ marginTop: '0.8em' }}
                 sx={{
                     '&:hover': {
                       border: `2px solid #3DDC84`, 
@@ -154,31 +128,6 @@ const Home = () => {
             {t("Footer.apk_link")}
             </Button>
           </a>
-
-          <Box
-            sx={{
-            position: 'fixed',
-            bottom: "14%", 
-            right: "6%", 
-            }}
-        >
-            <a
-            href="https://mega.nz/file/vNVkhQwT#l3K-nttaNWJ1tjdUVXJlCClmYm9rmpgBS_ULNewASL4"
-            target="_blank"
-            rel="noopener noreferrer"
-            >
-            <Tooltip title="Botón de descarga de Android" placement="left"> {/* TODO */} 
-                <Fab size={isMobile ? 'small' : 'big'} color="primary" aria-label="download" sx={{
-                        '&:hover': {
-                        border: `2px solid #3DDC84`, 
-                        backgroundColor: 'primary.light', 
-                        },
-                    }}>
-                    <AndroidIcon style={{ color: "3DDC84", fontSize: '2em' }}/>
-                </Fab>
-            </Tooltip>
-            </a>
-        </Box>
 
         </Box>
     );
