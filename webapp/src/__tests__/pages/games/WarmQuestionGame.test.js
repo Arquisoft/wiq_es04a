@@ -1,14 +1,14 @@
 import React from 'react';
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
-import { SessionContext } from '../../SessionContext';
+import { SessionContext } from '../../../SessionContext';
 import { BrowserRouter as Router } from 'react-router-dom';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import Game from '../../pages/WarmQuestionGame';
+import WarmQuestionGame from '../../../pages/games/WarmQuestionGame';
 
 const mockAxios = new MockAdapter(axios);
 
-describe('Game component', () => {
+describe('WarmQuestionGame component', () => { 
   beforeEach(() => {
     mockAxios.reset();
     // Mock the axios.post request to simulate a successful response
@@ -24,24 +24,22 @@ describe('Game component', () => {
 
     mockAxios.onPut('http://localhost:8000/statistics').reply(200, { success: true });
     mockAxios.onPut('http://localhost:8000/questionsRecord').reply(200, { success: true });
+
+    render( 
+      <SessionContext.Provider value={{ username: 'exampleUser' }}>
+        <Router>
+          <WarmQuestionGame />
+        </Router>
+      </SessionContext.Provider>
+    );
   });
 
   it('should render question, answers and other', async () => {
-    render( 
-        <SessionContext.Provider value={{ username: 'exampleUser' }}>
-          <Router>
-            <Game />
-          </Router>
-        </SessionContext.Provider>
-    );
-
     // Espera a que aparezca la pregunta
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
-
-    expect(screen.findByText('1'));
+    await waitFor(() => screen.getByTestId('question'));
 
     // Verifica que el juego haya comenzado correctamente mostrando la pregunta y las opciones
-    expect(screen.getByText('Which is the capital of Spain?')).toBeInTheDocument();
+    expect(screen.getByTestId('question')).toBeInTheDocument();
     expect(screen.getByText('Madrid')).toBeInTheDocument();
     expect(screen.getByText('Barcelona')).toBeInTheDocument();
     expect(screen.getByText('Paris')).toBeInTheDocument();
@@ -49,64 +47,37 @@ describe('Game component', () => {
   });
 
   it('should guess correct answer', async () => {
-    render( 
-        <SessionContext.Provider value={{ username: 'exampleUser' }}>
-          <Router>
-            <Game />
-          </Router>
-        </SessionContext.Provider>
-    );
-
     // waits for the question to appear
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
+    await waitFor(() => screen.getByTestId('question'));
     const correctAnswer = screen.getByRole('button', { name: 'Madrid' });
 
-    expect(correctAnswer).not.toHaveStyle({ backgroundColor: 'green' });
+    expect(correctAnswer).toHaveStyle({ backgroundColor: 'rgb(0, 102, 153);' });
 
     //selects correct answer
     fireEvent.click(correctAnswer);
 
-    //expect(screen.findByText('1')).toHaveStyle({ backgroundColor: 'lightgreen' });
-
-    expect(correctAnswer).toHaveStyle({ backgroundColor: 'green' });
+    expect(correctAnswer).toHaveStyle({ backgroundColor: 'rgb(51, 153, 102);' });
 
   });
 
   
   it('should choose incorrect answer', async () => {
-     render( 
-        <SessionContext.Provider value={{ username: 'exampleUser' }}>
-          <Router>
-            <Game />
-          </Router>
-        </SessionContext.Provider>
-    );
-
     // waits for the question to appear
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
+    await waitFor(() => screen.getByTestId('question'));
     const incorrectAnswer = screen.getByRole('button', { name: 'Barcelona' });
 
-    expect(incorrectAnswer).not.toHaveStyle({ backgroundColor: 'red' });
+    expect(incorrectAnswer).toHaveStyle({ backgroundColor: 'rgb(0, 102, 153);' });
 
     //selects correct answer
     fireEvent.click(incorrectAnswer);
 
-    expect(incorrectAnswer).toHaveStyle({ backgroundColor: 'red' });
-    //expect(screen.findByText('1')).toHaveStyle({ backgroundColor: 'salmon' });
+    expect(incorrectAnswer).toHaveStyle({ backgroundColor: 'rgb(153, 0, 0);' });
 
   });
 
   it('should not answer the question', async () => {
-    render( 
-        <SessionContext.Provider value={{ username: 'exampleUser' }}>
-          <Router>
-            <Game />
-          </Router>
-        </SessionContext.Provider>
-    );
-
     // waits for the question to appear
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
+    await waitFor(() => screen.getByTestId('question'));
 
     setTimeout(() => {
       // Comprobamos que el callback ha sido llamado después del tiempo especificado
@@ -116,29 +87,35 @@ describe('Game component', () => {
   }, 4500);
 
   it('should pass the question', async () => {
-    render( 
-        <SessionContext.Provider value={{ username: 'exampleUser' }}>
-          <Router>
-            <Game />
-          </Router>
-        </SessionContext.Provider>
-    );
-
     // waits for the question to appear
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'));
+    await waitFor(() => screen.getByTestId('question'));
     const correctAnswer = screen.getByRole('button', { name: 'Madrid' });
     const skip = screen.getByRole('button', { name: 'Skip' });
 
-    expect(correctAnswer).not.toHaveStyle({ backgroundColor: 'green' });
+    expect(correctAnswer).toHaveStyle({ backgroundColor: 'rgb(0, 102, 153);' });
 
     //selects correct answer
     fireEvent.click(skip);
 
-    //expect(screen.findByText('1')).toHaveStyle({ backgroundColor: 'lightgreen' });
-
-    expect(correctAnswer).toHaveStyle({ backgroundColor: 'green' });
+    expect(correctAnswer).toHaveStyle({ backgroundColor: 'rgb(51, 153, 102);' });
 
   });
 
+  it('should render pause & play buttons when answered', async () => {
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
+    const correctAnswer = screen.getByRole('button', { name: 'Madrid' });
+    fireEvent.click(correctAnswer);
+
+    const pauseButton = screen.getByTestId("pause");
+    expect(pauseButton);
+    fireEvent.click(pauseButton);
+    expect(screen.getByTestId("play"));
+  })
+
+  it('should render progress bar', async () => {
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
+    const progressBar = screen.getByTestId('prog_bar0');
+    await expect(progressBar).toBeInTheDocument();
+  })
 
 });

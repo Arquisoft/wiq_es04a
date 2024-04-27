@@ -3,10 +3,13 @@ import { Button, Box, Grid, Typography } from '@mui/material';
 import data from "../data/gameInfo.json";
 import CardComponent from "../components/CardComponent.js";
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTranslation } from 'react-i18next';
 
 
 const Homepage = () => {
     const xxl = useMediaQuery('(min-width:1920px)');
+    
+    const { t } = useTranslation();
 
     const styles = React.useMemo(() => ({
         cardButton:{
@@ -36,11 +39,11 @@ const Homepage = () => {
 
         playButton : {
             height: {
-                xs: '2.5rem', // Tamaño para dispositivos extra pequeños
-                sm: '3rem', // Tamaño para dispositivos pequeños
-                md: '3.5rem', // Tamaño para dispositivos medianos
-                lg: '4rem', // Tamaño para dispositivos grandes
-                xl: '5rem' // Tamaño para dispositivos extra grandes
+                xs: '2.5rem',
+                sm: '3rem',
+                md: '3.5rem',
+                lg: '4rem',
+                xl: '5rem'
             },
             width: {
                 xs: '10rem',
@@ -98,30 +101,31 @@ const Homepage = () => {
     const [info, setInfo] = React.useState(null);
 
     // Link to each game page
-    const [gameLink, setGameLink] = React.useState("/game");
+    const [gameLink, setGameLink] = React.useState("/wiseMenStackGame");
 
     //Selected index
-    const [activeIndex, setActiveIndex] = React.useState(0); // Nuevo estado para el índice activo
+    const [activeIndex, setActiveIndex] = React.useState(0);
 
     //if online mode -> change link to go to online room
     const changeGameLink = React.useCallback((index) => {
         switch (info[index].nombre) {
-            case "WISE MEN STACK":
+            case "Wise Men Stack":
                 setGameLink("/wiseMenStackGame");
                 break;
-            case "WARM QUESTION":
+            case "Warm Question":
                 setGameLink("/warmQuestionGame");
                 break;
-            case "DISCOVERING CITIES":
+            case "Discovering Cities":
                 setGameLink("/discoveringCitiesGame");
                 break;
-            case "THE CHALLENGE":
+            case "Challenge":
                 setGameLink("/theChallengeGame");
                 break;
-            case "MULTIPLAYER MODE":
+            case "Multiplayer":
                 setGameLink("/multiplayerRoom");
                 break;
             default:
+                setGameLink("/wiseMenStackGame");
                 break;
         }
     }, [info]);
@@ -163,7 +167,7 @@ const Homepage = () => {
             // Show the information of the first game
             displayGames(info);
         }
-    }, [info, displayGames]); // <- Add info to the dependency array
+    }, [info, displayGames]);
 
     const videoRef = React.useRef(null);
     React.useEffect(() => {if (videoRef.current) {videoRef.current.playbackRate = 0.85;}}, []);
@@ -171,11 +175,11 @@ const Homepage = () => {
     return (
         <Box sx={{...styles.container }}>
             <video data-testid="video" ref={videoRef} autoPlay muted loop style={{ ...styles.video}}>
-                <source src="../home/Background-White.webm" type="video/mp4" />
+                <source src="../home/Background-White.webm" type="video/webm" />
             </video>
-            <Typography variant="h3" align="center" fontWeight="bold" sx={{paddingTop:'2rem',textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem'}}>GAME MODES</Typography>
-            {games}
-            <Button variant='conteined' href={gameLink} sx={styles.playButton}> PLAY </Button>
+            <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>{ t("Homepage.title") }</Typography>
+                {games}
+            <Button variant='conteined' href={gameLink} sx={styles.playButton}> {t("Home")} </Button>
         </Box>
     );
 };

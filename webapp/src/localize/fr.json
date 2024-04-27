@@ -2,8 +2,12 @@
     "Home": "JOUER",
     "WIQ": {
         "w": "WIKIDATA",
-        "i": "INFINITE",
-        "q": "QUEST"
+        "i": "ILLIMITÉ",
+        "q": "QUÊTE"
+    },
+
+    "Homepage": {
+        "title": "MODES DE JEU"
     },
 
     "NavBar":{
@@ -21,28 +25,29 @@
     
     "Footer": {
         "api_questions": "DOCUMENTATION DE L'API DES QUESTIONS",
-        "api_users": "DOCUMENTATION DE L'API DES UTILISATEURS"
+        "api_users": "DOCUMENTATION DE L'API DES UTILISATEURS",
+        "apk_link": "Télécharger pour Android"
     },
 
     "Games": {
-        "wise_men": {
-            "name": "Pile de Sages",
+        "Wise Men Stack": {
+            "name": "Wise Men Stack",
             "desc": "Le joueur choisit un sujet parmi cinq options disponibles et doit répondre à une batterie de questions qui y sont liées dans un délai de 60 secondes. Pour chaque question, l'hôte fournit deux options. Si le participant devine correctement, il gagne 20 € ; sinon, il passe à la question suivante (car la bonne réponse serait l'autre option). Si le temps s'écoule avant que la question ne soit entièrement posée et que les deux réponses possibles soient fournies, le participant peut toujours y répondre ; cependant, si l'énoncé n'a pas été complété (ou si les options n'ont pas été fournies), il ne peut pas répondre."
         },
-        "warm_quest": {
-            "name": "Question Chaleureuse",
+        "Warm Question": {
+            "name": "Warm Question",
             "desc": "Il se compose de dix sujets de thèmes variés. Pour chaque réponse correcte, 100 € sont gagnés, et 10 € sont perdus si le participant passe, ne répond pas ou répond incorrectement."
         },
-        "discover": {
-            "name": "Découverte des Villes",
+        "Discovering Cities": {
+            "name": "Discovering Cities",
             "desc": "Dans le mode de jeu 'Découverte des Villes', le participant sera confronté à un défi où il lui sera posé à plusieurs reprises des questions se référant à différentes villes du monde entier. Pour surmonter avec succès le défi, le participant doit répondre correctement à autant de questions que possible tout au long du test."
         },
-        "challenge": {
-            "name": "Défi",
+        "Challenge": {
+            "name": "Challenge",
             "desc": "Le mode de jeu 'Défi' est le mode de jeu par excellence, car il vous permet de personnaliser le match à votre guise. Ce mode de jeu est adapté à ceux qui souhaitent s'entraîner à certains formats de jeu avant de s'engager dans nos divers autres modes de jeu."
         },
-        "multiplayer": {
-            "name": "Multijoueur",
+        "Multiplayer": {
+            "name": "Multiplayer",
             "desc": "Créez une salle pour que d'autres joueurs se joignent et jouent en 1 contre 1."
         }
 
@@ -50,36 +55,42 @@
 
     "Game": {
         "win_msg": "Excellent travail !",
-        "lose_msg": "Partie terminée",
+        "lose_msg": "Partie Terminée",
         "correct": "Réponses Correctes",
         "incorrect": "Réponses Incorrectes",
         "money": "Points Finaux",
-        "time": "Temps de Jeu (sec)",
+        "time": "Secondes de Jeu",
         "pause": "Pause",
         "play": "Jouer",
         "round": "Question ",
-        "start": "Commencer à jouer"
+        "start": "Commencer à Jouer",
+        "skip": "Sauter",
+        "config": {
+            "title": "CONFIGURATION DU JEU",
+            "num_rounds": "Nombre de tours",
+            "time": "Secondes par question",
+            "category": "Catégorie"
+        },
+        "categories": {
+            "password": "Mot de passe",
+            "button": "Se connecter",
+            "register_link": "Vous n'avez pas de compte ? Inscrivez-vous ici."
+        }
     },
     
     "Wise_Men": {
-        "instructions": "Choisissez une catégorie:",
-        "category":"Catégories: ",
-        "geography": "Geographie",
-        "political":"Politique",
-        "sports":"Sport"
+        "instructions1": "Choisissez",
+        "instructions2": "une",
+        "instructions3": "catégorie"
     },
 
-
     "Login": {
-        "title": "Connexion",
-        "username": "Nom d'utilisateur",
-        "password": "Mot de passe",
-        "button": "Se connecter",
-        "register_link": "Vous n'avez pas de compte ? Inscrivez-vous ici."
+        "title": "Connecter",
+        "username": "Nom d'utilisateur"
     },
 
     "Register": {
-        "title": "Inscription",
+        "title": "Registre",
         "username": "Nom d'utilisateur",
         "password": "Mot de passe",
         "name": "Prénom",
@@ -110,6 +121,7 @@
 
     "Statistics": {
         "title": "STATISTIQUES",
+        "game": "Partie",
         "table": {
             "money": "Points gagnés",
             "questions_corr": "Questions Correctement Répondues",
@@ -119,6 +131,10 @@
             "total_time": "Temps Total Joué",
             "cities_corr": "Villes Répondus Correctement",
             "cities_incorr": "Villes Répondus Incorrectement"
+        },
+        "button": {
+            "hide_record": "Masquer l'historique des questions",
+            "show_record": "Afficher l'historique des questions"
         }
     },
 
@@ -127,17 +143,18 @@
             "code": "Code de la Salle",
             "participants": "Participants",
             "start": "Démarrer le jeu",
-            "create": "Créer une salle",
-            "join": "Rejoindre une salle",
+            "create": "Créer Salle",
+            "join": "Rejoindre une Salle",
             "send": "Envoyer",
             "chat_title": "Discussion de la salle",
-            "chat_input_label": "Tape ton message"
+            "chat_input_label": "Tape ton message",
+            "new_game": "Veux toi un neuveax jue?"
         },
         "Game": {
             "waiting_players_end": "En attendant que tous les joueurs finissent...",
             "waiting": "En attente des informations du gagnant...",
-            "winner_1": "Joueur gagnant de la partie",
-            "winner_2": "avec",
+            "winner_1": "Gagnant",
+            "winner_2": "Avec",
             "winner_3": "réponses correctes en",
             "winner_4": "secondes"
         }
@@ -157,7 +174,7 @@
     "Ranking": {
         "users": "Utilisateurs",
         "groups": "Groupes",
-        "total_money": "MONEY",
+        "total_money": "POINTS",
         "correct_answers": "CORRECT ANSWERS",
         "incorrect_answers": "INCORRECT ANSWERS",
         "total_games": "GAMES PLAYED"

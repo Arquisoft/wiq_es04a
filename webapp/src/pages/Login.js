@@ -1,6 +1,6 @@
 import React, { useState,useContext } from 'react';
 import axios from 'axios';
-import { Container, Typography, TextField, Button, Snackbar, Box, Divider } from '@mui/material';
+import { useTheme, Container, Typography, TextField, Button, Snackbar, Box, Divider } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { SessionContext } from '../SessionContext';
 import { useTranslation } from 'react-i18next';
@@ -10,6 +10,8 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
+
+  const theme = useTheme();
   
   const navigate = useNavigate();
 
@@ -38,7 +40,7 @@ const Login = () => {
     <Container component="main" maxWidth="xs" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flex:'1', marginTop: '2em', marginBottom: '2em'}}>
       <Box sx={{margin: '2em'}}>
         <div>
-          <Typography component="h1" variant="h5">
+          <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
             { t("Login.title") }
           </Typography>
           <TextField
@@ -59,7 +61,20 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <Divider style={{ marginTop:'3%'}}/>
-          <Button variant="contained" color="primary" onClick={loginUser} style={{ width: '100%', marginTop: '5%' }}>
+          <Button variant="contained" onClick={loginUser} style={{ width: '100%', marginTop: '5%' }}
+            sx={{
+              fontFamily: 'Arial Black, sans-serif',
+              color: theme.palette.primary.main,
+              backgroundColor: 'transparent',
+              border: `2px solid ${theme.palette.primary.main}`,
+              transition: 'background-color 0.3s ease',
+
+              '&:hover': {
+                  backgroundColor: theme.palette.primary.main,
+                  color: 'white',
+              }
+          }}
+          >
           { t("Login.button") }
           </Button>
           <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="Login successful" />

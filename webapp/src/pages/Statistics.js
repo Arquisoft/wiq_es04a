@@ -228,7 +228,7 @@ const Statistics = () => {
                     {currentItems.map((record, index) => (
                         <div key={index}>
                         <Typography variant="h5" gutterBottom>
-                            Game {formatCreatedAt(record.createdAt)}
+                           {t("Statistics.game")} {formatCreatedAt(record.createdAt)}
                         </Typography>
 
                         <Grid container spacing={2}>
@@ -275,7 +275,7 @@ const Statistics = () => {
 
     return (
         <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Typography variant="h3" align="center" fontWeight="bold" gutterBottom>
+            <Typography variant="h2" align="center" fontWeight="bold" gutterBottom sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
             { t("Statistics.title") }
             </Typography>
             {error? (
@@ -286,19 +286,19 @@ const Statistics = () => {
                 <Box>
                     <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px', gap:'1em' }}>
                     <Button onClick={() => setSelectedMode('TheChallenge')} variant="contained" sx={{ marginBottom: isSmallScreen ? '0.5em' : '0', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>
-                            { t("Games.challenge.name") }
+                            { t("Games.Challenge.name") }
                         </Button>
                         <Button onClick={() => setSelectedMode('WiseMenStack')} variant="contained" sx={{ marginBottom: isSmallScreen ? '0.5em' : '0', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>
-                            { t("Games.wise_men.name") }
+                            { t("Games.Wise Men Stack.name") }
                         </Button>
                         <Button onClick={() => setSelectedMode('WarmQuestion')} variant="contained" sx={{ marginBottom: isSmallScreen ? '0.5em' : '0', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>
-                            { t("Games.warm_quest.name") }
+                            { t("Games.Warm Question.name") }
                         </Button>
                         <Button onClick={() => setSelectedMode('DiscoveringCities')} variant="contained" sx={{ marginBottom: isSmallScreen ? '0.5em' : '0', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>
-                            { t("Games.discover.name") }
+                            { t("Games.Discovering Cities.name") }
                         </Button>
                         <Button onClick={() => setSelectedMode('OnlineMode')} variant="contained" sx={{ marginBottom: isSmallScreen ? '0.5em' : '0', backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}>
-                            { "Online Mode" }
+                            { t("Games.Multiplayer.name") }
                         </Button>
                     </div>
                     {renderStatistics()}
@@ -307,7 +307,7 @@ const Statistics = () => {
                         variant="contained"
                         sx={{ marginBottom: '0.5em', marginTop: '0.5em', backgroundColor: 'green', color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}
                     >
-                        {showQuestionsRecord ? 'Hide Questions Record' : 'Show Questions Record'}
+                        {showQuestionsRecord ? t("Statistics.button.hide_record") : t("Statistics.button.show_record")}
                     </Button>
                     {renderQuestions()}
                 </Box>

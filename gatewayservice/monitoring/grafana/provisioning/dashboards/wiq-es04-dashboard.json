@@ -80,9 +80,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(increase(http_request_duration_seconds_count[1m]))",
+          "expr": "sum(increase(http_request_duration_seconds_count[1h]))",
           "interval": "",
-          "legendFormat": "Requests per minute",
+          "legendFormat": "Requests per hour",
           "refId": "A"
         }
       ],
@@ -90,7 +90,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Rate (R): Number of requests per minute",
+      "title": "Rate (R): Number of requests per hour",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -189,7 +189,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(increase(http_request_duration_seconds_count{code=~\"5.*\"}[1m]))",
+          "expr": "sum(increase(http_request_duration_seconds_count{status_code=~\"4.*\"}[1m]))",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -369,7 +369,7 @@
     ]
   },
   "timezone": "",
-  "title": "Example Service Dashboard",
+  "title": "Wiq_es04 Dashboard",
   "uid": "1DYaynomMk",
   "version": 2
 }

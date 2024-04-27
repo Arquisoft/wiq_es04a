@@ -50,21 +50,19 @@ const GroupDetails = () => {
     // Returns all group data including the creator, the creation date and the members list
     return (
         <Container sx={{ margin: '0 auto auto' }}>
-            <Typography variant="h3" sx={{ textAlign:'center', fontWeight:'bold' }}>
-                {groupInfo.name}
+            <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
+                <b>{groupInfo.name}</b>
             </Typography>
             <Typography variant="h4">
-                { `${t("Groups.Details.creator")}: ${groupInfo.creator}` }
-            </Typography>
-            <Divider sx={{ marginBottom: '2em' }}/>
-            <Typography variant="h4">
-                { `${t("Groups.Details.date")}: ${new Date(groupInfo.createdAt).toLocaleDateString()}` }
+                <b>{t("Groups.Details.creator")}:</b> {groupInfo.creator}
             </Typography>
             <Divider sx={{ marginBottom: '2em' }}/>
             <Typography variant="h4">
-                {
-                    `${ t("Groups.Details.members") } (${totalMembers}/${expectedMembers}):`
-                }
+                <b>{t("Groups.Details.date")}:</b> {new Date(groupInfo.createdAt).toLocaleDateString()}
+            </Typography>
+            <Divider sx={{ marginBottom: '2em' }}/>
+            <Typography variant="h4">
+                <b>{t("Groups.Details.members")}:</b> {totalMembers}/{expectedMembers}
             </Typography>
             <List  sx={{ margin:'0', width: '100%' }}>
                 <Divider />

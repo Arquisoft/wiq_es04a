@@ -33,8 +33,8 @@ describe('Chat component', () => {
   
     test('sends a message', async () => {
   
-      jest.mock('../../pages/MultiplayerRoom', () => ({
-          ...jest.requireActual('../../pages/MultiplayerRoom'),
+      jest.mock('../../pages/games/MultiplayerRoom', () => ({
+          ...jest.requireActual('../../pages/games/MultiplayerRoom'),
           generateRoomCode: jest.fn().mockReturnValue('AAAAA'),
       }));
   

@@ -1,26 +1,30 @@
 import * as React from "react";
-import { Button, Typography, Grid, Box , CssBaseline, useMediaQuery  } from "@mui/material";
+import { useTheme, Button, Typography, Grid, Box , CssBaseline, useMediaQuery  } from "@mui/material";
 import data from "../data/gameInfo.json";
+import { useTranslation } from 'react-i18next';
 
 
 const Instructions = () => {
     const lg = useMediaQuery('(min-width: 1200px)');
+    const { t } = useTranslation();
+    const theme = useTheme();
+
 
     const styles = {
 
         button:{
-            color: '#006699',
+            color: theme.palette.primary.main,
             backgroundColor:'rgba(255,255,255,0.7)',
             width: "100%",
             height: "75px",
-            border: '2px solid #006699',
+            border: `2px solid ${theme.palette.primary.main}`,
             borderRadius: '5px',
         },
 
         selectedButton:{
 
             color: 'white',
-            backgroundColor:'#006699',
+            backgroundColor: theme.palette.primary.main,
             width: "100%",
             height: "75px",
             border: '2px solid white',
@@ -76,13 +80,13 @@ const Instructions = () => {
 
         imgRow:{
             height: "100%",
-            border: `2px solid #006699`,
+            border: `2px solid ${theme.palette.primary.main}`,
             borderRadius: "5px"
         },
 
         imgColumn:{
             width: "20rem",
-            border: `2px solid #006699`,
+            border: `2px solid ${theme.palette.primary.main}`,
             borderRadius: "5px"
         },
 
@@ -98,7 +102,7 @@ const Instructions = () => {
             paddingRight:'1rem',
             paddingLeft:'1rem',
             borderRadius:'10px',
-            border: `2px solid #006699`,
+            border: `2px solid ${theme.palette.primary.main}`,
             backgroundColor: 'rgba(255,255,255,0.7)',
         },
 
@@ -113,7 +117,7 @@ const Instructions = () => {
             paddingRight:'1rem',
             paddingLeft:'1rem',
             borderRadius:'10px',
-            border: `2px solid #006699`,
+            border: `2px solid ${theme.palette.primary.main}`,
             backgroundColor: 'rgba(255,255,255,0.7)',
         },
 
@@ -143,7 +147,8 @@ const Instructions = () => {
                     <img src={info[index].foto} alt="Foto del minijuego" style={lg ? styles.imgRow : styles.imgColumn}/>
                     <Box sx={lg ? styles.textRow : styles.textColumn}>
                         <Typography variant="h3" align="center" fontWeight="bold" sx={{fontSize:'2rem'}}> {info[index].nombre} </Typography>
-                        <Typography  variant="body1" align="center" sx={{ textAlign: "center", background: "none", paddingTop:'2rem', width:'80%', fontSize:'1rem'}}> {info[index].descripcion} </Typography>
+                        <Typography  variant="body1" align="center" sx={{ textAlign: "center", background: "none", paddingTop:'2rem', width:'80%', fontSize:'1rem'}}> {t("Games." 
+                        + info[index].nombre +".desc")} </Typography>
                     </Box>
                 </Box>
             );
@@ -166,9 +171,9 @@ const Instructions = () => {
             <CssBaseline />
 
             <Box sx={{...styles.fullScreen, width:'80%', margin:'1rem'}}>
-                <Grid container spacing={{ xs: 2, md: 4 }} columns={{ xs: 2, sm: 3, md: 3, lg: 5, xl:5 }}>
-                    <Grid item xs={2} sm={3} md={5}>
-                        <Typography variant="h3" align="center" fontWeight="bold" sx={{textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', margin:'1rem', fontSize:'2rem'}}>INSTRUCTIONS</Typography>
+                <Grid container spacing={{ xs: 2, md: 4 }} columns={{ xs: 1, sm: 3, lg: 5 }}>
+                    <Grid item xs={1} sm={3} md={5}>
+                        <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>INSTRUCTIONS</Typography>
                     </Grid>
                     {info.map((option, index) => (
                         <Grid item xs={1} key={option.nombre} >
