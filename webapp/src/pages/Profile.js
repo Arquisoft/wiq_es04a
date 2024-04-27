@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback, useContext } from 'react';
 import axios from 'axios';
 import { Button, Container, Typography, Divider, Snackbar } from '@mui/material';
 import { SessionContext } from '../SessionContext';
-import { getHugo, getAlberto, getWiffo, getAndina, getSamu, getBarrero, getMaite } from '../data/icons';
+import { getHugo, getAlberto, getWiffo, getAndina, getSamu, getBarrero, getTeresa } from '../data/icons';
 import { useTranslation } from 'react-i18next';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
@@ -83,7 +83,7 @@ const Profile = () => {
                 <Button sx={{ display:'flex', flexDirection:'column', borderBottom: selectedAvatar === getAlberto() ? '2px solid #006699' : 'none' }} onClick={() => handleAvatarSelect(getAlberto())} data-testid="alberto-button">
                     <img src={getAlberto()} style={{ flex: 1, maxWidth: '50%', borderRadius:'50%', margin:'1em' }} alt="Icon2" />
                     <Typography sx={{color: '#000000', fontWeight:'bold' }}>ALBERT</Typography>
-                </Button>      
+                </Button>
                 <Button sx={{ display:'flex', flexDirection:'column', borderBottom: selectedAvatar === getWiffo() ? '2px solid #006699' : 'none' }} onClick={() => handleAvatarSelect(getWiffo())} data-testid="wiffo-button">
                     <img src={getWiffo()} style={{ flex: 1, maxWidth: '50%', borderRadius:'50%', margin:'1em' }} alt="Icon3" />
                     <Typography sx={{color: '#000000', fontWeight:'bold' }}>PAUL</Typography>
@@ -100,8 +100,8 @@ const Profile = () => {
                     <img src={getBarrero()} style={{ flex: 1, maxWidth: '50%', borderRadius:'50%', margin:'1em' }} alt="Icon6" />
                     <Typography sx={{color: '#000000', fontWeight:'bold' }}>PEIBOL</Typography>
                 </Button>
-                <Button sx={{ display:'flex', flexDirection:'column', borderBottom: selectedAvatar === getMaite() ? '2px solid #006699' : 'none' }} onClick={() => handleAvatarSelect(getMaite())} data-testid="maite-button">
-                    <img src={getMaite()} style={{ flex: 1, maxWidth: '50%', borderRadius:'50%', margin:'1em' }} alt="Icon7" />
+                <Button sx={{ display:'flex', flexDirection:'column', borderBottom: selectedAvatar === getTeresa() ? '2px solid #006699' : 'none' }} onClick={() => handleAvatarSelect(getTeresa())} data-testid="teresa-button">
+                    <img src={getTeresa()} style={{ flex: 1, maxWidth: '50%', borderRadius:'50%', margin:'1em' }} alt="Icon7" />
                     <Typography sx={{color: '#000000', fontWeight:'bold' }}>THERESA</Typography>
                 </Button>   
             </Container>
