@@ -40,7 +40,7 @@
                     "lang": "en",
                     "question":  "What currency x has"
                     }],
-                "category": ["Political"]
+                "category": ["Geography"]
             }
         ]
     },
@@ -91,7 +91,7 @@
                     "lang": "en",
                     "question":  "What country is x river in"
                     }],
-                "category": ["Geography", "River"]
+                "category": ["Geography"]
             }
         ]
     },
@@ -162,7 +162,7 @@
                     "question":  "What is the maximum altitude of x"
                     }],
                 "filter": ">4000",    
-                "category": ["Geography", "Mountains"]
+                "category": ["Geography"]
             }
         ]
     },
@@ -245,7 +245,7 @@
                     "lang": "en",
                     "question": "Who developed the software x"
                     }],
-                "category": ["Sport"]
+                "category": ["Sports"]
             },
             {
                 "property": "P27",
@@ -257,7 +257,7 @@
                     "lang": "en",
                     "question": "What is the nationality of the athlete x"
                     }],
-                "category": ["Sport"]
+                "category": ["Sports"]
             }
         ]
     },
@@ -276,7 +276,7 @@
                     "lang": "en",
                     "question": "Who is the developer of the video game x"
                     }],
-                "category": ["Games"]
+                "category": ["Games","Entertainment"]
             },
             {
                 "property": "P400",
@@ -288,7 +288,7 @@
                     "lang": "en",
                     "question": "What are the platforms supported by x"
                     }],
-                "category": ["Games"]
+                "category": ["Games","Entertainment"]
             }
         ]
     },
@@ -307,7 +307,7 @@
                     "lang": "en",
                     "question": "What is the natural habitat of species x"
                     }],
-                "category": ["Animals"]
+                "category": ["Animals","Science"]
             },
             {
                 "property": "P2670",
@@ -319,7 +319,7 @@
                     "lang": "en",
                     "question": "What species share the habitat with x"
                     }],
-                "category": ["Animals"]
+                "category": ["Animals","Science"]
             }
         ]
     }
