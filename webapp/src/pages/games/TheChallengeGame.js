@@ -246,7 +246,7 @@ const TheChallengeGame = () => {
                             <Typography fontWeight="bold" color="primary" fontSize="1.5em">
                                 {numRounds}
                             </Typography>
-                            <IconButton size="large" color="success" onClick={() => setNumRounds(numRounds + 1)} variant="outlined" data-testId="addRound">
+                            <IconButton size="large" color="success" disabled={numRounds === 30} onClick={() => setNumRounds(numRounds + 1)} variant="outlined" data-testId="addRound">
                                 <AddIcon fontSize="inherit" />
                             </IconButton>
                         </Box>
@@ -255,13 +255,13 @@ const TheChallengeGame = () => {
                             <Typography htmlFor="questionTime" variant="h5">
                                 {t("Game.config.time")}:
                             </Typography>
-                            <IconButton size="large" color="error" disabled={timerConfig === 1} onClick={() => setTimerConfig(timerConfig - 1)} variant="outlined" data-testId="removeSecond">
+                            <IconButton size="large" color="error" disabled={timerConfig === 5} onClick={() => setTimerConfig(timerConfig - 1)} variant="outlined" data-testId="removeSecond">
                                 <RemoveIcon fontSize="inherit" />
                             </IconButton>
                             <Typography fontWeight="bold" color="primary" fontSize="1.5em">
                                 {timerConfig}
                             </Typography>
-                            <IconButton size="large" color="success" onClick={() => setTimerConfig(timerConfig + 1)} variant="outlined" data-testId="addSecond">
+                            <IconButton size="large" color="success" disabled={numRounds === 99} onClick={() => setTimerConfig(timerConfig + 1)} variant="outlined" data-testId="addSecond">
                                 <AddIcon fontSize="inherit" />
                             </IconButton>
                         </Box>

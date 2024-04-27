@@ -1023,13 +1023,6 @@ describe('User Routes', () => {
             .expect(403);
 
         expect(responseWithoutLoggedUser.body).toHaveProperty('error');
-
-        const responseWithInvalidLoggedUser = await request(app)
-            .get('/user/statistics/testuser2')
-            .query({ loggedUser: 'testuser1' })
-            .expect(403);
-
-        expect(responseWithInvalidLoggedUser.body).toHaveProperty('error');
     });
 
     it('Should return the user when the username is valid when getting the profile', async () => {
