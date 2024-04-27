@@ -1,5 +1,5 @@
 import React, { useState, useEffect  } from 'react';
-import { useTheme, Button, TextField, Typography, Grid, Paper, List, ListItem, CircularProgress, Container, Box } from '@mui/material';
+import { useTheme, Button, TextField, Typography, Paper, List, ListItem, CircularProgress, Container, Box } from '@mui/material';
 import io from 'socket.io-client';
 import { useContext } from 'react';
 import { SessionContext } from '../../SessionContext';
@@ -106,8 +106,11 @@ const MultiplayerRoom = () => {
     }
   
     return (
-      <Container sx={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Paper elevation={5} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '2em', padding: '3em', borderRadius: '4em', marginTop: '2em', marginBottom: '2em' }}>
+      <Container sx={{ display: 'flex', flexDirection: { md: 'column', lg: 'row' }, justifyContent: 'center', flex: 1, alignItems: 'center', padding: '2em 0', gap: '2em' }}>
+        {roomCode && error === "" && (
+          <Container></Container>
+        )}
+        <Paper elevation={5} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '2em', padding: '3em', borderRadius: '4em' }}>
           <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
             {t("Games.Multiplayer.name").toUpperCase()}
           </Typography>
@@ -201,12 +204,13 @@ const MultiplayerRoom = () => {
               </Box>
             </Container>
           )}
-          {roomCode && error === "" && (
-            <Grid item xs={3} sx={{marginLeft: '2em'}}>
-              <Chat roomCode={roomCode} username={username} />
-            </Grid>
-          )}
         </Paper>
+
+        {roomCode && error === "" && (
+          <Container >
+            <Chat roomCode={roomCode} username={username} />
+          </Container>
+        )}
       </Container>
       );
   }
