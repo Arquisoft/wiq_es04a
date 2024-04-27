@@ -5,18 +5,18 @@ import { PlayArrow, Pause } from '@mui/icons-material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useNavigate } from 'react-router-dom';
-import { SessionContext } from '../SessionContext';
+import { SessionContext } from '../../SessionContext';
 import { useContext } from 'react';
 import Confetti from 'react-confetti';
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { useTranslation } from 'react-i18next';
-import i18n from '../localize/i18n';
+import i18n from '../../localize/i18n';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
-const DiscovertingCitiesGame = () => {
+const WarmQuestionGame = () => {
     const navigate = useNavigate();
-    const MAX_ROUNDS = 5;
+    const MAX_ROUNDS = 10;
     const SUCCESS_SOUND_ROUTE = "/sounds/success_sound.mp3";
     const FAILURE_SOUND_ROUTE = "/sounds/wrong_sound.mp3";
 
@@ -37,16 +37,16 @@ const DiscovertingCitiesGame = () => {
     const [totalScore, setTotalScore] = React.useState(0);
     const [correctlyAnsweredQuestions, setCorrectlyAnsweredQuestions] = React.useState(0);
     const [incorrectlyAnsweredQuestions, setIncorrectlyAnsweredQuestions] = React.useState(0);
+    const [passedQuestions, setPassedQuestions] = React.useState(0);
     const [totalTimePlayed, setTotalTimePlayed] = React.useState(0);
-    const [timerRunning, setTimerRunning] = React.useState(true);
-    const [showConfetti, setShowConfetti] = React.useState(false);
-    const [questionCountdownKey, setQuestionCountdownKey] = React.useState(15);
-    const [questionCountdownRunning, setQuestionCountdownRunning] = React.useState(false);
+    const [timerRunning, setTimerRunning] = React.useState(true); // indicate if the timer is working
+    const [showConfetti, setShowConfetti] = React.useState(false); //indicates if the confetti must appear
+    const [questionCountdownKey, setQuestionCountdownKey] = React.useState(15); //key to update question timer
+    const [questionCountdownRunning, setQuestionCountdownRunning] = React.useState(false); //property to start and stop question timer
     const [userResponses, setUserResponses] = React.useState([]);
     const [paused, setPaused] = React.useState(false);
     const [passNewRound, setPassNewRound] = React.useState(false);
     const [language, setCurrentLanguage] = React.useState(i18n.language);
-
 
     const [questionHistorial, setQuestionHistorial] = React.useState(Array(MAX_ROUNDS).fill(null));
 
@@ -98,14 +98,14 @@ const DiscovertingCitiesGame = () => {
 
         // Updates current language
         setCurrentLanguage(i18n.language);
-        axios.get(`${apiEndpoint}/questions/${language}/Cities`)
+        axios.get(`${apiEndpoint}/questions/${language}`)
         .then(quest => {
             // every new round it gets a new question from db
-            setQuestionData(quest.data[0]);    
-            setButtonStates(new Array(quest.data[0].options.length).fill(null));
+            setQuestionData(quest.data);    
+            setButtonStates(new Array(quest.data.options.length).fill(null));
         }).catch(error => {
             console.error(error);
-        });
+        }); 
     };
 
     const updateStatistics = async() => {
@@ -121,21 +121,20 @@ const DiscovertingCitiesGame = () => {
                 wise_men_stack_correctly_answered_questions: 0,
                 wise_men_stack_incorrectly_answered_questions: 0,
                 wise_men_stack_games_played: 0,
-                warm_question_earned_money: 0,
-                warm_question_correctly_answered_questions: 0,
-                warm_question_incorrectly_answered_questions: 0,
-                warm_question_passed_questions: 0,
-                warm_question_games_played: 0,
-                discovering_cities_earned_money: totalScore,
-                discovering_cities_correctly_answered_questions: correctlyAnsweredQuestions,
-                discovering_cities_incorrectly_answered_questions: incorrectlyAnsweredQuestions,
-                discovering_cities_games_played: 1,
+                warm_question_earned_money: totalScore,
+                warm_question_correctly_answered_questions: correctlyAnsweredQuestions,
+                warm_question_incorrectly_answered_questions: incorrectlyAnsweredQuestions,
+                warm_question_passed_questions: passedQuestions,
+                warm_question_games_played: 1,
+                discovering_cities_earned_money: 0,
+                discovering_cities_correctly_answered_questions: 0,
+                discovering_cities_incorrectly_answered_questions: 0,
+                discovering_cities_games_played: 0,
                 online_earned_money: 0,
                 online_correctly_answered_questions: 0,
                 online_incorrectly_answered_questions: 0,
                 online_total_time_played: 0,
                 online_games_played: 0,
-                online_games_won: 0
             });
         } catch (error) {
             console.error("Error:", error);
@@ -147,7 +146,7 @@ const DiscovertingCitiesGame = () => {
             await axios.put(`${apiEndpoint}/questionsRecord`, {
                 questions: userResponses,
                 username: username,
-                gameMode: "DiscoveringCities"
+                gameMode: "WarmQuestion"
             });
         } catch (error) {
             console.error("Error:", error);
@@ -161,8 +160,33 @@ const DiscovertingCitiesGame = () => {
 
         setQuestionCountdownRunning(false);
 
+        if (response == null){
+            const userResponse = {
+                question: questionData.question,
+                response: "",
+                options: questionData.options,
+                correctAnswer: questionData.correctAnswer
+            };
+            setUserResponses(prevResponses => [...prevResponses, userResponse]);
+    
+            const failureSound = new Audio(FAILURE_SOUND_ROUTE);
+            failureSound.volume = 0.40;
+            failureSound.play();
+            for (let i = 0; i < questionData.options.length; i++) {
+                if (questionData.options[i] === questionData.correctAnswer) {
+                    newButtonStates[i] = "success";
+                }
+            }
+            setPassedQuestions(passedQuestions + 1);
+            setTotalScore(totalScore - 10);
+
+            const newQuestionHistorial = [...questionHistorial];
+            newQuestionHistorial[round-1] = false;
+            setQuestionHistorial(newQuestionHistorial);
+        }
+
         //check answer
-        if (response === questionData.correctAnswer) {
+        else if (response === questionData.correctAnswer) {
             const userResponse = {
                 question: questionData.question,
                 response: response,
@@ -208,14 +232,16 @@ const DiscovertingCitiesGame = () => {
         setButtonStates(newButtonStates);
 
         setTimeout(async() => {
-            setPassNewRound(true);
+            setRound(round + 1);
+            setButtonStates([]);
             setCurrentLanguage(i18n.language);
         }, 4000);
     };
 
     const questionHistorialBar = () => {
         return questionHistorial.map((isCorrect, index) => (
-            <Card data-testid={`prog_bar${index}`} sx={{ width: `${100 / MAX_ROUNDS}%`, padding:'0.2em', margin:'0 0.1em', backgroundColor: isCorrect === null ? 'gray' : isCorrect ? theme.palette.success.main : theme.palette.error.main }}/>
+            <Card data-testid={`prog_bar${index}`}
+                    sx={{ width: `${100 / MAX_ROUNDS}%`, padding:'0.2em', margin:'0 0.1em', backgroundColor: isCorrect === null ? 'gray' : isCorrect ? theme.palette.success.main : theme.palette.error.main }}/>
         ));
     };    
 
@@ -227,14 +253,14 @@ const DiscovertingCitiesGame = () => {
     // circular loading
     if (!questionData) {
         return (
-            <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', flex: '1' }}>
+            <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', flex: '1'}}>
                 <CssBaseline />
                 <CircularProgress />
             </Container>
         );
     }
 
-    // redirect to / if game over 
+    // redirect to homepage if game over 
     if (shouldRedirect) {
         // Redirect after 4 seconds
         setTimeout(() => {
@@ -242,7 +268,7 @@ const DiscovertingCitiesGame = () => {
         }, 4000);
 
         return (
-            <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '5em', textAlign: 'center', flex: '1' }}>
+            <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '5em', textAlign: 'center', flex: '1'}}>
                 <CssBaseline />
                 <Typography variant="h2" data-testid="end-game-message" sx={{ color: correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? theme.palette.success.main : theme.palette.error.main }}>
                     {correctlyAnsweredQuestions > incorrectlyAnsweredQuestions ? t("Game.win_msg") : t("Game.lose_msg") }
@@ -261,7 +287,7 @@ const DiscovertingCitiesGame = () => {
     return (
         <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center', textAlign: 'center', flex: '1', gap: '2em', margin: '0 auto', padding: '1em 0' }}>
             <CssBaseline />
-
+            
             <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
                 { answered ?
                     // Pausa
@@ -285,8 +311,8 @@ const DiscovertingCitiesGame = () => {
                 }
             </Container>
 
-            <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
-                <Typography variant="h4" data-testid="question" sx={{ fontWeight:'bold', marginBottom:'0.7em' }} >
+            <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap:'1em' }}>
+                <Typography variant="h4" data-testid="question" sx={{ fontWeight:'bold' }}>
                     {questionData.question.toUpperCase()}
                 </Typography>
 
@@ -295,7 +321,7 @@ const DiscovertingCitiesGame = () => {
                         <Grid item xs={12} key={index}>
                             <Button data-testid={buttonStates[index] === "success" ? `success${index}` : buttonStates[index] === "failure" ? `fail${index}` : `answer${index}`}
                                 variant="contained" onClick={() => selectResponse(index, option)} disabled={buttonStates[index] !== null || answered}
-                                sx={{ height: "3.3em", width: "50%", borderRadius: "10px", margin: "5px", "&:disabled": {backgroundColor: buttonStates[index] === "success" ? theme.palette.success.main : buttonStates[index] === "failure" ? theme.palette.error.main : "gray", color: "white" } }}>
+                                sx={{ height: "3.3em", width: "50%", borderRadius: "10px", "&:disabled": { backgroundColor: buttonStates[index] === "success" ? theme.palette.success.main : buttonStates[index] === "failure" ? theme.palette.error.main : "gray", color: "white"}}}>
                                 {buttonStates[index] === "success" ? <CheckIcon /> : buttonStates[index] === "failure" ? <ClearIcon /> : null}
                                 {option}
                             </Button>
@@ -304,12 +330,22 @@ const DiscovertingCitiesGame = () => {
                 </Grid>
             </Container>
 
+            { answered ?
+                <Button variant="contained" sx={{ fontWeight: "bold", width:100 }} disabled>
+                    { t("Game.skip") }
+                </Button>
+                :
+                <Button variant="contained" onClick={() => selectResponse(null, null)} sx={{ backgroundColor: theme.palette.error.main, '&:hover': { backgroundColor: theme.palette.error.main }, fontWeight: "bold", width:100 }}>
+                    { t("Game.skip") }
+                </Button>
+            }
+
             {/* Progress Cards */}
-            <Container sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop:'2em' }} >
+            <Container sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }} >
                 {questionHistorialBar()}
             </Container>
         </Container>
     );
 };
 
-export default DiscovertingCitiesGame;
+export default WarmQuestionGame;
