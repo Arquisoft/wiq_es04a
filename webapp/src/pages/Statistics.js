@@ -273,8 +273,30 @@ const Statistics = () => {
         }
     };
 
+    //Video settings
+    const styles = {
+        video: {
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            width: "100%",
+            height: "100%",
+            transform: "translate(-50%, -50%)",
+            objectFit: "cover",
+            zIndex: '-1',
+            userSelect: 'none',
+            pointerEvents: 'none'
+        },
+    };
+
+    const videoRef = React.useRef(null);
+    React.useEffect(() => {if (videoRef.current) {videoRef.current.playbackRate = 0.85;}}, []);
+
     return (
         <Container sx={{ margin: '0 auto auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <video data-testid="video" ref={videoRef} autoPlay muted loop style={{ ...styles.video}}>
+                <source src="../home/Background-White.webm" type="video/mp4" />
+            </video>
             <Typography variant="h2" align="center" fontWeight="bold" gutterBottom sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
             { t("Statistics.title") }
             </Typography>
