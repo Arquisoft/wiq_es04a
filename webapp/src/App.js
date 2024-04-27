@@ -6,22 +6,22 @@ import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Homepage from './pages/Homepage';
-import Game from './pages/Game';
-import DiscoveringCitiesGame from './pages/DiscoveringCitiesGame';
-import WiseMenStackGame from './pages/WiseMenStackGame';
+import Game from './pages/games/Game';
+import DiscoveringCitiesGame from './pages/games/DiscoveringCitiesGame';
+import WiseMenStackGame from './pages/games/WiseMenStackGame';
 import Groups from './pages/Groups';
 import GroupDetails from './pages/GroupDetails';
 import Statistics from './pages/Statistics';
 import Ranking from './pages/Ranking'
 import Profile from './pages/Profile'
-import MultiplayerRoom from './pages/MultiplayerRoom';
-import MultiplayerGame from './pages/MultiplayerGame';
-import TheChallengeGame from './pages/TheChallengeGame';
-import WarmQuestion from './pages/WarmQuestionGame';
+import MultiplayerRoom from './pages/games/MultiplayerRoom';
+import MultiplayerGame from './pages/games/MultiplayerGame';
+import TheChallengeGame from './pages/games/TheChallengeGame';
+import WarmQuestionGame from './pages/games/WarmQuestionGame';
 import {Route, Routes} from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Box } from '@mui/material';
-import PrivateRoute from './PrivateRoute';
+import PrivateRoute from './pages/PrivateRoute';
 import NotFound from './pages/NotFound';
 
 const theme = createTheme({
@@ -66,7 +66,7 @@ function App() {
             <Route path="/multiplayerRoom" element={<PrivateRoute element={MultiplayerRoom}/>}/>
             <Route path="/theChallengeGame" element={<PrivateRoute element={TheChallengeGame}/>}/>
             <Route path="/multiplayerGame" element={<PrivateRoute element={MultiplayerGame}/>}/>
-            <Route path="/warmQuestionGame" element={<PrivateRoute element={WarmQuestion}/>}/>
+            <Route path="/warmQuestionGame" element={<PrivateRoute element={WarmQuestionGame}/>}/>
             <Route path="/group/menu" element={<PrivateRoute element={Groups}/>}/>
             <Route path="/group/:groupName" element={<PrivateRoute element={GroupDetails}/>} />
             <Route path="/statistics/:user" element={<PrivateRoute element={Statistics }/>}/>

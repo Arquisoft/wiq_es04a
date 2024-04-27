@@ -26,8 +26,10 @@ describe('NavBar component', () => {
         </BrowserRouter>
       </SessionContext.Provider>
     );
-    const logo = screen.getByAltText('Logo');
-    await expect(logo).toBeInTheDocument();
+    const logo = screen.getAllByAltText('Logo');
+    // There should be the one for mobile and the one for normal devices
+    await expect(logo[0]).toBeInTheDocument();
+    await expect(logo[1]).toBeInTheDocument();
   });
 
   it('should render log-in option', async () => {
@@ -41,6 +43,7 @@ describe('NavBar component', () => {
     const logIn = screen.getByText('Log In');
     await expect(logIn).toBeInTheDocument();
   });
+
 
   // As there s a link for the menu (mobiles version) and in the propper nav, we have to check 2 elements appear
   it('should render navigation links', async () => {

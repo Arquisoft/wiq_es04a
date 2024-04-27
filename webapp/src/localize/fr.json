@@ -2,8 +2,8 @@
     "Home": "JOUER",
     "WIQ": {
         "w": "WIKIDATA",
-        "i": "INFINITE",
-        "q": "QUEST"
+        "i": "ILLIMITÉ",
+        "q": "QUÊTE"
     },
 
     "Homepage": {
@@ -55,36 +55,42 @@
 
     "Game": {
         "win_msg": "Excellent travail !",
-        "lose_msg": "Partie terminée",
+        "lose_msg": "Partie Terminée",
         "correct": "Réponses Correctes",
         "incorrect": "Réponses Incorrectes",
         "money": "Points Finaux",
-        "time": "Temps de Jeu (sec)",
+        "time": "Secondes de Jeu",
         "pause": "Pause",
         "play": "Jouer",
         "round": "Question ",
-        "start": "Commencer à jouer"
+        "start": "Commencer à Jouer",
+        "skip": "Sauter",
+        "config": {
+            "title": "CONFIGURATION DU JEU",
+            "num_rounds": "Nombre de tours",
+            "time": "Secondes par question",
+            "category": "Catégorie"
+        },
+        "categories": {
+            "password": "Mot de passe",
+            "button": "Se connecter",
+            "register_link": "Vous n'avez pas de compte ? Inscrivez-vous ici."
+        }
     },
     
     "Wise_Men": {
-        "instructions": "Choisissez une catégorie:",
-        "category":"Catégories: ",
-        "geography": "Geographie",
-        "political":"Politique",
-        "sports":"Sport"
+        "instructions1": "Choisissez",
+        "instructions2": "une",
+        "instructions3": "catégorie"
     },
 
-
     "Login": {
-        "title": "Connexion",
-        "username": "Nom d'utilisateur",
-        "password": "Mot de passe",
-        "button": "Se connecter",
-        "register_link": "Vous n'avez pas de compte ? Inscrivez-vous ici."
+        "title": "Connecter",
+        "username": "Nom d'utilisateur"
     },
 
     "Register": {
-        "title": "Inscription",
+        "title": "Registre",
         "username": "Nom d'utilisateur",
         "password": "Mot de passe",
         "name": "Prénom",
@@ -137,17 +143,18 @@
             "code": "Code de la Salle",
             "participants": "Participants",
             "start": "Démarrer le jeu",
-            "create": "Créer une salle",
-            "join": "Rejoindre une salle",
+            "create": "Créer Salle",
+            "join": "Rejoindre une Salle",
             "send": "Envoyer",
             "chat_title": "Discussion de la salle",
-            "chat_input_label": "Tape ton message"
+            "chat_input_label": "Tape ton message",
+            "new_game": "Veux toi un neuveax jue?"
         },
         "Game": {
             "waiting_players_end": "En attendant que tous les joueurs finissent...",
             "waiting": "En attente des informations du gagnant...",
-            "winner_1": "Joueur gagnant de la partie",
-            "winner_2": "avec",
+            "winner_1": "Gagnant",
+            "winner_2": "Avec",
             "winner_3": "réponses correctes en",
             "winner_4": "secondes"
         }

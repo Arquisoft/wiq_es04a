@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
-import { SessionContext } from '../../SessionContext'; // Importa el contexto necesario
+import { SessionContext } from '../../../SessionContext'; // Importa el contexto necesario
 import { BrowserRouter as Router } from 'react-router-dom';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import Game from '../../pages/Game';
-import '../../localize/i18n';
+import Game from '../../../pages/games/Game';
+import '../../../localize/i18n';
 
 const mockAxios = new MockAdapter(axios);
 
@@ -35,11 +35,7 @@ describe('Game component', () => {
     );
   });
 
-  it('should render question, answers and other ', async () => {
-    expect(screen.getByRole('progressbar'));
-    expect(screen.findByText('1'));
-    //expect(screen.findByText('1/3'));
-
+  it('should render question', async () => {
     // waits for the question to appear
     await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
 
@@ -94,6 +90,12 @@ describe('Game component', () => {
     expect(pauseButton);
     fireEvent.click(pauseButton);
     expect(screen.getByTestId("play"));
-  })
+  });
+
+  it('should render progress bar', async () => {
+    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
+    const progressBar = screen.getByTestId('prog_bar0');
+    await expect(progressBar).toBeInTheDocument();
+  });
 
 });
