@@ -532,6 +532,22 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_technical_terms">12.3. Technical Terms</a></li>
 </ul>
 </li>
+<li><a href="#section-load-tests">13. Appendix I: Load tests</a>
+<ul class="sectlevel2">
+<li><a href="#_test_1_1000_users_with_poor_question_generation_algorithm">13.1. Test 1: 1000 users with poor question generation algorithm</a></li>
+<li><a href="#_test_2_1000_users_with_new_question_generation_algorithm">13.2. Test 2: 1000 users with new question generation algorithm</a></li>
+<li><a href="#_users_distribution_along_the_simulation_and_response_time_distribution">13.3. Users distribution along the simulation and response time distribution</a></li>
+<li><a href="#_number_of_responses_per_second">13.4. Number of responses per second</a></li>
+</ul>
+</li>
+<li><a href="#section-load-tests">14. Appendix II: Other tests</a>
+<ul class="sectlevel2">
+<li><a href="#_unitary_tests">14.1. Unitary tests</a></li>
+<li><a href="#_acceptance_tests">14.2. Acceptance tests</a></li>
+<li><a href="#_usability_tests">14.3. Usability tests</a></li>
+</ul>
+</li>
+<li><a href="#section-load-tests">15. Appendix III: Application monitoring</a></li>
 </ul>
 </div>
 </div>
@@ -2903,14 +2919,129 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 </tr>
 </tbody>
 </table>
+<div style="page-break-after: always;"></div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-load-tests">13. Appendix I: Load tests</h2>
+<div class="sectionbody">
+<div class="paragraph arc42help">
+<p>We conducted load tests on our application using Gatling. Initially, we recorded the specific functionalities we intended to test, and then we configured the tests accordingly. Our primary focus was on testing the game component, as it constitutes the core aspect of our application. After recording the functionality to be tested, we increased the number of requests to 1,000 and established that these requests be made gradually, simulating a real-life scenario.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/13_conf_recording_gatling_1.png" alt="Configuration for gatling recording 1">
+</div>
+</div>
+<div class="paragraph">
+<p>After setting this, me executed the load tests, obtaining results that were not too bad. However, as it is shown in the next picture, more than 25% of the requests failed. This means that there is a possibility that the game fails when playing, which is not acceptable in an application of this kind. Even most of the requests have a response we will try to reduce the amount of failed requests. In addition, instant response of petitions has not the highest priority for us. It is more important that as many requests as possible and responded correctly.</p>
+</div>
+<div class="sect2">
+<h3 id="_test_1_1000_users_with_poor_question_generation_algorithm">13.1. Test 1: 1000 users with poor question generation algorithm</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./images/13_results_gatling_1.png" alt="Results for gatling recording test 1">
+</div>
+</div>
+<div class="paragraph">
+<p>After this load test, we tried to improve the question generation so as to avoid the failures mentioned above.
+We tested our application again, obtaining new results. We believe it is important to mention that even if the settings where the same in both tests, the application had more game modalities and new functionalities, which may affect to the number of requests and the time needed for each one.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_test_2_1000_users_with_new_question_generation_algorithm">13.2. Test 2: 1000 users with new question generation algorithm</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./images/13_results_gatling_2.png" alt="Results for gatling recording test 2">
+</div>
+</div>
+<div class="paragraph">
+<p>As it can be seen in the picture above, the results have changed noticeably. From our point of view, there are two main aspects which seem remarkable. On one hand, the drastic decrease in the number of failed requests. The failed requests have decreased to 2% compared to 27% in the first test. This demonstrates that the changes made to the application have achieved their objective.
+On the other hand, the overall increase in the time it takes to respond to a request catches the eye as well. Nevertheless, given that the difference in time is milliseconds and it is not a real-time critical application, we consider that the objective of these tests has been fulfilled.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_users_distribution_along_the_simulation_and_response_time_distribution">13.3. Users distribution along the simulation and response time distribution</h3>
+<div class="paragraph">
+<p>We think that it is useful to compare some of the statistics that these tests have providad us with. For instance, seeing <em>Users distribution along the simulation</em> graphic allows us to see if the stablished settings get to a gradual users interaction with the application. Also, the <em>Response time distribution</em> graphic is very visual so as to see the average time requests take to respond.</p>
+</div>
+<div class="sect3">
+<h4 id="_test_1">13.3.1. Test 1</h4>
+<div class="imageblock">
+<div class="content">
+<img src="./images/13_statistics_1.png" alt="Some statistics for test 1">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_test_2">13.3.2. Test 2</h4>
+<div class="imageblock">
+<div class="content">
+<img src="./images/13_statistics_2.png" alt="Some statistics for test 2">
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_number_of_responses_per_second">13.4. Number of responses per second</h3>
+<div class="paragraph">
+<p>Finally, we would like to compare another graph because we believe it illustrates the number of responses per second in a straightforward manner during the tests. This allows us to observe the percentage of failed requests each second. As mentioned earlier, our primary goal after the initial test was to reduce the number of failed requests, even if it meant slightly increasing the average response time for each request.</p>
+</div>
+<div class="sect3">
+<h4 id="_test_1_2">13.4.1. Test 1</h4>
+<div class="imageblock">
+<div class="content">
+<img src="./images/13_responses_per_seconds_1.png" alt="Responses per second 1">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_test_2_2">13.4.2. Test 2</h4>
+<div class="imageblock">
+<div class="content">
+<img src="./images/13_responses_per_second_2.png" alt="Responses per second 2">
+</div>
+</div>
+<div class="paragraph">
+<p>As we can see, the second test shows a much more equilibrated graphic. Responses are distributed better in time and failures are a minimum percentage of the total responses.</p>
+</div>
+<div class="paragraph">
+<p>For these reasons, the load tests have motivated us to develop a more stable question generation algorithm. This reduces the likelihood of requests failing when users are interacting with our application. This ultimately leads to a better user experience, which is a crucial aspect of application development.</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-load-tests">14. Appendix II: Other tests</h2>
+<div class="sectionbody">
+<div class="sect2 arc42help">
+<h3 id="_unitary_tests">14.1. Unitary tests</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_acceptance_tests">14.2. Acceptance tests</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_usability_tests">14.3. Usability tests</h3>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-load-tests">15. Appendix III: Application monitoring</h2>
+<div class="sectionbody">
+
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2024-04-09 13:36:07 +0200
+Last updated 2024-04-27 19:27:49 +0200
 </div>
 </div>
 </body>
