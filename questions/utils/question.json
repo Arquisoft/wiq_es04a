@@ -5,55 +5,31 @@
         "properties": [
             {
                 "property": "P1082",
-                "template":
-                    [{
-                    "lang": "es",
-                    "question": "Cuál es la población de x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "What is the population of x"
-                    },
-                    {
-                    "lang": "fr",
-                    "question": "Quelle est la population de x?"
-                    }
-                ],
+                "template": {
+                    "es": "Cuál es la población de x",
+                    "en": "What is the population of x",
+                    "fr": "Quelle est la population de x"
+                },
                 "filter": ">4000000",
                 "category": ["Geography", "Cities"]
             },
             {
                 "property": "P36",
-                "template": [{
-                    "lang": "es",
-                    "question": "Cuál es la capital de x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "What is the capital of x"
-                    },
-                    {
-                    "lang": "fr",
-                    "question": "Quelle est la capitale de x?"
-                    }],
+                "template": {
+                    "es": "Cuál es la capital de x",
+                    "en": "What is the capital of x",
+                    "fr": "Quelle est la capitale de x"
+                },
                 "category": ["Geography", "Cities"]
             },
             {
                 "property": "P38",
-                "template":
-                    [{
-                    "lang": "es",
-                    "question": "Que moneda tiene x"
-                    },
-                    {
-                    "lang": "en",
-                    "question":  "What currency x has"
-                    },
-                    {
-                    "lang": "fr",
-                    "question": "Quelle est la monnaie de x?"
-                    }],
-                "category": ["Geography"]
+                "template": {
+                    "es": "Que moneda tiene x",
+                    "en": "What currency x has",
+                    "fr": "Quelle est la devise de x"
+                },
+                "category": ["Political"]
             }
         ]
     },
@@ -63,36 +39,20 @@
         "properties": [
             {
                 "property": "P115",
-                "template":
-                    [{
-                    "lang": "es",
-                    "question": "Cuál es el estadio del equipo x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "What is the stadium of x team"
-                    },
-                    {
-                    "lang": "fr",
-                    "question": "Quel est le stade de l'équipe x?"
-                    }],
+                "template": {
+                    "es": "Cuál es el estadio del equipo x",
+                    "en": "What is the stadium of x team",
+                    "fr": "Quel est le stade de l'équipe x"
+                },
                 "category": ["Sports"]
             },
             {
                 "property": "P17",
-                "template":
-                    [{
-                    "lang": "es",
-                    "question": "Cuál es el pais del equipo x"
-                    },
-                    {
-                    "lang": "en",
-                    "question":  "What is the country of x team"
-                    },
-                    {
-                    "lang": "fr",
-                    "question": "Quel est le pays de l'équipe x?"
-                    }],
+                "template": {
+                    "es": "Cuál es el pais del equipo x",
+                    "en": "What is the country of x team",
+                    "fr": "Quel est le pays de l'équipe x"
+                },
                 "category": ["Sports", "Geography"]
             }
         ]
@@ -103,19 +63,11 @@
         "properties": [
             {
                 "property": "P205",
-                "template":
-                    [{
-                    "lang": "es",
-                    "question": "En qué país está el río x"
-                    },
-                    {
-                    "lang": "en",
-                    "question":  "What country is x river in"
-                    },
-                    {
-                    "lang": "fr",
-                    "question": "Dans quel pays se trouve le fleuve x?"
-                    }],
+                "template": {
+                    "es": "En qué país está el río x",
+                    "en": "What country is x river in",
+                    "fr": "Dans quel pays se trouve le fleuve x"
+                },
                 "category": ["Geography"]
             }
         ]
@@ -126,36 +78,20 @@
         "properties": [
             {
                 "property": "P170",
-                "template":
-                    [{
-                    "lang": "es",
-                    "question": "Quien es el autor de x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "Who is the author of x"
-                    },
-                    {
-                    "lang": "fr",
-                    "question": "Qui est l'auteur de x?"
-                    }],
+                "template": {
+                    "es": "Quien es el autor de x",
+                    "en": "Who is the author of x",
+                    "fr": "Qui est l'auteur de x"
+                },
                 "category": ["Art"]
             },
             {
                 "property": "P136",
-                "template":
-                    [{
-                    "lang": "es",
-                    "question": "Cual es el estilo artistico de x"
-                    },
-                    {
-                    "lang": "en",
-                    "question":  "What is the artistic style of x"
-                    },
-                    {
-                    "lang": "fr",
-                    "question": "Quel est le style artistique de x?"
-                    }],
+                "template": {
+                    "es": "Cual es el estilo artistico de x",
+                    "en": "What is the artistic style of x",
+                    "fr": "Quel est le style artistique de x"
+                },
                 "category": ["Art"]
             }
         ]
@@ -166,44 +102,12 @@
         "properties": [
             {
                 "property": "P61",
-                "template":
-                    [{
-                    "lang": "es",
-                    "question": "Quien es el inventor de x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "Who is the inventor of x"
-                    },
-                    {
-                    "lang": "fr",
-                    "question": "Qui est l'inventeur de x?"
-                    }],
+                "template": {
+                    "es": "Quien es el inventor de x",
+                    "en": "Who is the inventor of x",
+                    "fr": "Qui est l'inventeur de x"
+                },
                 "category": ["Science"]
-            }
-        ]
-    },
-    {
-        "name": "mountain",
-        "instance": "Q8502",
-        "properties": [
-            {
-                "property": "P2044",
-                "template":
-                    [{
-                    "lang": "es",
-                    "question": "Cual es la altitud de la montaña x"
-                    },
-                    {
-                    "lang": "en",
-                    "question":  "What is the altitude of x"
-                    },
-                    {
-                    "lang": "fr",
-                    "question": "Quelle est l'altitude de la montagne x?"
-                    }],
-                "filter": ">4000",    
-                "category": ["Geography"]
             }
         ]
     },
@@ -213,36 +117,20 @@
         "properties": [
             {
                 "property": "P50",
-                "template":
-                    [{
-                    "lang": "es",
-                    "question": "Quien es el autor de x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "Who is the author of x"
-                    },
-                    {
-                    "lang": "fr",
-                    "question": "Qui est l'auteur de x?"
-                    }],
+                "template": {
+                    "es": "Quien es el autor de x",
+                    "en": "Who is the author of x",
+                    "fr": "Qui est l'auteur de x"
+                },
                 "category": ["Entertainment"]
             },
             {
                 "property": "P136",
-                "template":
-                    [{
-                    "lang": "es",
-                    "question": "Cual es el genero de x"
-                    },
-                    {
-                    "lang": "en",
-                    "question":  "What is the genre of x"
-                    },
-                    {
-                    "lang": "fr",
-                    "question": "Quel est le genre de x?"
-                    }],
+                "template": {
+                    "es": "Cual es el genero de x",
+                    "en": "What is the genre of x",
+                    "fr": "Quel est le genre de x"
+                },
                 "category": ["Entertainment"]
             }
         ]
@@ -253,27 +141,20 @@
         "properties": [
             {
                 "property": "P176",
-                "template":
-                    [{
-                    "lang": "es",
-                    "question": "Quien es el fabricante de x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "Who is the manufacturer of x"
-                    }],
+                "template": {
+                    "es": "Quien es el fabricante de x",
+                    "en": "Who is the manufacturer of x",
+                    "fr": "Qui est le fabricant de x"
+                },
                 "category": ["Cars"]
             },
             {
                 "property": "P3032",
-                "template": [{
-                    "lang": "es",
-                    "question": "Cuál es la velocidad máxima de x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "What is the maximum speed of x"
-                    }],
+                "template": {
+                    "es": "Cuál es la velocidad máxima de x",
+                    "en": "What is the maximum speed of x",
+                    "fr": "Quelle est la vitesse maximale de x"
+                },
                 "category": ["Cars"]
             }
         ]
@@ -284,14 +165,11 @@
         "properties": [
             {
                 "property": "P495",
-                "template": [{
-                    "lang": "es",
-                    "question": "De qué región es originario x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "What region is x originally from?"
-                    }],
+                "template": {
+                    "es": "De qué región es originario x",
+                    "en": "What region is x originally from?",
+                    "fr": "De quelle région x est-il originaire?"
+                },
                 "category": ["Food"]
             }
         ]
@@ -302,27 +180,20 @@
         "properties": [
             {
                 "property": "P84",
-                "template":
-                    [{
-                    "lang": "es",
-                    "question": "Quién fue el arquitecto de x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "Who was the architect of x"
-                    }],
+                "template": {
+                    "es": "Quién fue el arquitecto de x",
+                    "en": "Who was the architect of x",
+                    "fr": "Qui était l'architecte de x"
+                },
                 "category": ["Art"]
             },
             {
                 "property": "P149",
-                "template": [{
-                    "lang": "es",
-                    "question": "Cuál es el estilo arquitectónico de x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "What is the architectural style of x"
-                    }],
+                "template": {
+                    "es": "Cuál es el estilo arquitectónico de x",
+                    "en": "What is the architectural style of x",
+                    "fr": "Quel est le style architectural de x"
+                },
                 "category": ["Art"]
             }
         ]
@@ -333,37 +204,45 @@
         "properties": [
             {
                 "property": "P178",
-                "template":
-                    [{
-                    "lang": "es",
-                    "question": "Quién es el creador de la serie x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "Who is the creator of the series x"
-                    },
-                    {
-                    "lang": "fr",
-                    "question": "Qui est le créateur de la série x?"
-                    }],
+                "template": {
+                    "es": "Quién es el creador de la serie x",
+                    "en": "Who is the creator of the series x",
+                    "fr": "Qui est le créateur de la série x"
+                },
                 "category": ["Entertainment"]
             },
             {
                 "property": "P2437",
-                "template": [{
-                    "lang": "es",
-                    "question": "Cuántas temporadas tiene la serie x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "How many seasons does the series x have?"
-                    },
-                    {
-                    "lang": "fr",
-                    "question": "Combien de saisons compte la série x?"
-                    }],
-                "filter": ">0",
+                "template": {
+                    "es": "Cuántas temporadas tiene la serie x",
+                    "en": "How many seasons does the series x have?",
+                    "fr": "Combien de saisons la série x a-t-elle?"
+                },
                 "category": ["Entertainment"]
+            }
+        ]
+    },
+    {
+        "name": "software",
+        "instance": "Q7397",
+        "properties": [
+            {
+                "property": "P178",
+                "template": {
+                    "es": "Quién desarrolló el software x",
+                    "en": "Who developed the software x",
+                    "fr": "Qui a développé le logiciel x"
+                },
+                "category": ["Technology"]
+            },
+            {
+                "property": "P277",
+                "template": {
+                    "es": "En qué lenguaje de programación está escrito x",
+                    "en": "What programming language is x written in?",
+                    "fr": "Dans quel langage de programmation x est-il écrit?"
+                },
+                "category": ["Technology"]
             }
         ]
     },
@@ -373,36 +252,21 @@
         "properties": [
             {
                 "property": "P641",
-                "template":
-                    [{
-                    "lang": "es",
-                    "question": "En qué deporte compite x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "What sport does x compite in?"
-                    },
-                    {
-                    "lang": "fr",
-                    "question": "Dans quel sport concourt x?"
-                    }],
-                "category": ["Sports"]
+                "template": {
+                    "es": "En qué deporte compite x",
+                    "en": "In what sport does x compete",
+                    "fr": "Dans quel sport x compétitionne-t-il"
+                },
+                "category": ["Sport"]
             },
             {
                 "property": "P27",
-                "template": [{
-                    "lang": "es",
-                    "question": "Cuál es la nacionalidad del atleta x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "What is the nationality of the athlete x"
-                    },
-                    {
-                    "lang": "fr",
-                    "question": "Quelle est la nationalité de l'athlète x?"
-                    }],
-                "category": ["Sports"]
+                "template": {
+                    "es": "Cuál es la nacionalidad del atleta x",
+                    "en": "What is the nationality of the athlete x",
+                    "fr": "Quelle est la nationalité de l'athlète x"
+                },
+                "category": ["Sport"]
             }
         ]
     },
@@ -412,36 +276,36 @@
         "properties": [
             {
                 "property": "P178",
-                "template":
-                    [{
-                    "lang": "es",
-                    "question": "Quien es el desarrollador del videojuego x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "Who is the developer of the video game x"
-                    },
-                    {
-                    "lang": "fr",
-                    "question": "Qui est le développeur du jeu vidéo x?"
-                    }],
-                "category": ["Games","Entertainment"]
+                "template": {
+                    "es": "Quien es el desarrollador del videojuego x",
+                    "en": "Who is the developer of the video game x",
+                    "fr": "Qui est le développeur du jeu vidéo x"
+                },
+                "category": ["Games"]
             },
             {
                 "property": "P400",
-                "template": [{
-                    "lang": "es",
-                    "question": "Cuáles son las plataformas compatibles con x"
+                "template": {
+                    "es": "Cuáles son las plataformas compatibles con x",
+                    "en": "What are the platforms supported by x",
+                    "fr": "Quelles sont les plates-formes supportées par x"
                     },
-                    {
-                    "lang": "en",
-                    "question": "What are the platforms supported by x"
-                    },
-                    {
-                    "lang": "fr",
-                    "question": "Quelles sont les plateformes compatibles avec x?"
-                    }],
-                "category": ["Games","Entertainment"]
+                "category": ["Games"]
+            }
+        ]
+    },
+    {
+        "name": "jewelry",
+        "instance": "Q161439",
+        "properties": [
+            {
+                "property": "P287",
+                "template": {
+                    "es": "Quién es el diseñador de la marca x",
+                    "en": "Who is the designer of the brand x",
+                    "fr": "Qui est le designer de la marque x"
+                },
+                "category": ["Fashion"]
             }
         ]
     },
@@ -451,36 +315,21 @@
         "properties": [
             {
                 "property": "P2973",
-                "template":
-                    [{
-                    "lang": "es",
-                    "question": "Cuál es el hábitat natural de la especie x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "What is the natural habitat of species x"
-                    },
-                    {
-                    "lang": "fr",
-                    "question": "Quel est l'habitat naturel de l'espèce x?"
-                    }],
-                "category": ["Animals","Science"]
+                "template": {
+                    "es": "Cuál es el hábitat natural de la especie x",
+                    "en": "What is the natural habitat of species x",
+                    "fr": "Quel est l'habitat naturel de l'espèce x"
+                },
+                "category": ["Animals"]
             },
             {
                 "property": "P2670",
-                "template": [{
-                    "lang": "es",
-                    "question": "Qué especies comparten el hábitat con x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "What species share the habitat with x"
-                    },
-                    {
-                    "lang": "fr",
-                    "question": "Quelles espèces partagent l'habitat avec x?"
-                    }],
-                "category": ["Animals","Science"]
+                "template": {
+                    "es": "Qué especies comparten el hábitat con x",
+                    "en": "What species share the habitat with x",
+                    "fr": "Quelles espèces partagent l'habitat avec x"
+                },
+                "category": ["Animals"]
             }
         ]
     }

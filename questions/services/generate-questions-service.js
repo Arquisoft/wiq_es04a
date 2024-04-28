@@ -1,6 +1,6 @@
 const utils = require('../utils/generalQuestions');
 const wikidataService = require('./wikidata-service');
-const dbService = require('./question-data-service')
+const dbService = require('./question-data-service');
 
 /**
  * Asynchronously generates a specified number of questions using data from the JSON file and stores them in the DB.
@@ -42,19 +42,55 @@ async function generateQuestions(n, language, questionCategory) {
             const property = entity.properties[pos].property;
             const categories = entity.properties[pos].category;
             const filter = entity.properties[pos].filter;
-            const lang = language=="es"?0:1; //0 spanish, 1 english
-            const question = entity.properties[pos].template[lang].question;
+            // Now language is accessed directly:
+            const question = entity.properties[pos].template[language];
 
-            //let [entityName, searched_property] = await wikidataService.getRandomEntity(instance, property, filter);
-            let [entityName, searched_property] = await wikidataService.getRandomEntity(entity, pos, language);
+            let [entityName, searched_property] = [null, null]
+            let invalidEntity = false;
+            while ((!entityName || !searched_property) && !invalidEntity) {
+                try {
+                    // If result for the entity is invalid, stops and logs the entity
+                    let response = await wikidataService.getRandomEntity(entity, pos, language);
+                    if (response && response.length === 2) {
+                        [entityName, searched_property] = response;
+                    } else {
+                        console.error(`Error: getRandomEntity returned an invalid response for the entity: ${entity.name}`);
+                        invalidEntity = true;
+                    }
+                } catch (error) {
+                    console.error("Error generating label for the answer: ", error.message);
+                    console.error("Line:", error.stack.split("\n")[1]);
+                }
+            }
+            if (invalidEntity) {
+                continue;
+            }
 
             if (searched_property !== null) {
                 //This way we can ask questions with different structures
                 const questionText = question.replace('x',entityName.charAt(0).toUpperCase() + entityName.slice(1)) +`?`;
+                // If that question is already in db, it goes on:
+                const questionAlreadyInDb = await dbService.getQuestion({"question": questionText});
+                if (!questionAlreadyInDb === undefined) {
+                    console.log(`Question ${questionText} already in db, skipping`);
+                    continue;
+                }
+
                 let correctAnswer = searched_property;
     
                 // options will contain 3 wrong answers plus the correct one
-                let options = await wikidataService.getProperties(property, language, filter);
+                let options;
+                try {
+                    options = await wikidataService.getProperties(property, language, filter);
+
+                } catch (error) {
+                    console.error(`Error generating options for ${entityName}: `, error.message);
+                    console.error("Line:", error.stack.split("\n")[1]);
+                    continue;
+                }
+                if (!options) {
+                    continue;
+                }
                 options.push(correctAnswer);
 
                 //If properties are entities

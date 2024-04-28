@@ -6,6 +6,7 @@ const generalQuestions = require('../../utils/generalQuestions');
 jest.mock('../../utils/generalQuestions');
 jest.mock('../../services/wikidata-service');
 jest.mock('../../services/question-data-service', () => ({
+    getQuestion: jest.fn(),
     addQuestion: jest.fn(), // Mockear la función addQuestion para que no haga nada
 }));
 
@@ -15,15 +16,10 @@ const entity = {
         "properties": [
             {   
                 "property": "P1082",
-                "template": 
-                    [{
-                    "lang": "es",
-                    "question": "Cuál es la población de x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "What is the population of x"
-                    }],
+                "template": {
+                    "es": "Cuál es la población de x",
+                    "en": "What is the population of x"
+                },
                 "filter": ">1000000",
                 "category": ["Geography"]
             }
@@ -48,8 +44,9 @@ describe('Question generation', function() {
         wikidataService.getProperties.mockResolvedValue(['Barcelona', 'Paris', 'London']);
         wikidataService.convertUrlsToLabels.mockResolvedValue(['Barcelona', 'Paris', 'London','Madrid']);
 
-        generalQuestions.shuffleArray.mockResolvedValue(['Barcelona', 'Paris', 'London','Madrid'])
+        generalQuestions.shuffleArray.mockResolvedValue(['Barcelona', 'Paris', 'London','Madrid']);
     
+        dbService.getQuestion.mockResolvedValue("undefined");
         dbService.addQuestion.mockResolvedValue();
         // Llama a la función que deseas probar
         await generator.generateQuestions(1,"en","Geography");
