@@ -71,14 +71,21 @@ At the moment, the application follows this schema:
 image::08_domain_model_1.png["Current version of the domain model"]
 
 * **User**: it is the person that uses the application. There can be multiple Users at the same time using the app. 
-* **Contest**: The contest is the part that the User can see. It contains everything the user can do, such as play games o look for rankings and statistics.
-* **Game**: The User can play different games, including _The Challenge_, _Wise Men Stack_ or even a multiplayer mode, which enables various Users to play together. Games consist of several questions to which users have to answer. Down below there is an schema that show the different game modes that will we available.
-* **Question**: Each question has different answers but only one of them is correct. Answering correctly to the questions rewards users with _money_.
+* **Contest**: The contest is the part that the User can see. It contains everything the user can do, such as play games, be part of groups or look for rankings and statistics.
+* **Game**: The User can play different games, including _The Challenge_, _Wise Men Stack_ or even a multiplayer mode, which enables various Users to play together. Games consist of several questions to which users have to answer. Down below there is an schema that show the different game modes that are available.
+* **Question**: Each question has different answers but only one of them is correct. Answering correctly to the questions rewards users with _points_.
 * **Statistics**: Each user has statistics that show different aspects of their profile, such as the time they invested on each game mode, correct and incorrect questions, etc.
-* **Profile**: User's profile has data such as their username and the amount on _money_ they have earned.
+* **Profile**: User's profile has data such as their username and the amount on _points_ they have earned. They can also choose a profile picture from between some given avatars.
 * **Group**: Users are able to join or create groups, that way the can get to a groups ranking.
 
 image::08_domain_model_2.png["Current version of the game modes"]
+
+* **Wise Men Stack**: The player chooses a topic from the available options and must answer a battery of questions related to it within 60 seconds. For each question, the host provides two options. If the contestant guesses correctly, they move on to the next question.
+* **Warm Question**: It consists of some topics of varied themes. For each correct answer, €100 is earned, and €10 are lost if the contestant passes, does not respond, or answers incorrectly.
+* **Discovering Cities**: The contestant will face a challenge where they will be repeatedly asked questions referring to different cities around the world. To successfully overcome the challenge, the contestant must answer as many questions as possible correctly throughout the test. Time and number of questions are fixed.
+* **The Challenge**: It is the quintessential game mode, as it allows you to customize the match to your liking. This game mode is tailored for those who wish to practice certain game formats before engaging in our various other game modes. Number of questions, time per question and category can be set.
+* **Multiplayer**: Create a room and share the room code with other players to play. It also has a room chat.
+
 
 
 === User Experience (UX)

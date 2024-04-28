@@ -18,7 +18,7 @@ classDiagram
     }
     class Profile {
         - String username
-        - int money
+        - int points
     }
     class ProfileStatistics {
         - List~Question~ right
@@ -28,4 +28,3 @@ classDiagram
     }
     class Group {
     }
-

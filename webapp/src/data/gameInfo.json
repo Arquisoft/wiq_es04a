@@ -2,14 +2,14 @@
     {
       "nombre": "Wise Men Stack",
       "descripcion":
-            "The player chooses a topic from five available options and must answer a battery of questions related to it within 60 seconds. For each question, the host provides two options. If the contestant guesses correctly, they move on to the next question.",
+            "The player chooses a topic from the available options and must answer a battery of questions related to it within 60 seconds. For each question, the host provides two options. If the contestant guesses correctly, they move on to the next question.",
       "foto": "../instructions/foto0.png",
       "card":"The player chooses a topic from five available options and must answer a battery of questions related to it within 60 seconds.",
       "cardFoto": "../homePage/foto0.png"
     },
     {
       "nombre": "Warm Question",
-      "descripcion": "It consists of ten topics of varied themes. For each correct answer, €100 is earned, and €10 are lost if the contestant passes, does not respond, or answers incorrectly.",
+      "descripcion": "It consists of some topics of varied themes. For each correct answer, €100 is earned, and €10 are lost if the contestant passes, does not respond, or answers incorrectly.",
       "foto": "../instructions/foto1.jpg",
       "card":"It consists of ten topics of varied themes.",
       "cardFoto": "../homePage/foto1.jpg"
