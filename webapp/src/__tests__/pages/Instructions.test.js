@@ -81,7 +81,7 @@ describe('Instructions component', () => {
     expect(gameNames2).toHaveLength(1); // Check the expected number of matches
 
     await waitFor(() => {
-      expect(screen.queryByText(/The player chooses a topic from five available options/)).not.toBeInTheDocument();
+      expect(screen.queryByText(/The player chooses a topic from some available options/)).not.toBeInTheDocument();
     });
   });
 
@@ -103,7 +103,7 @@ describe('Instructions component', () => {
     expect(gameName).toHaveLength(2); // Check the expected number of matches
 
     await waitFor(() => {
-      const gameDescription = screen.getByText(/It consists of ten topics of varied themes/);
+      const gameDescription = screen.getByText(/It consists of topics of varied themes./);
       expect(gameDescription).toBeInTheDocument();
     });
   });
@@ -148,7 +148,7 @@ describe('Instructions component', () => {
       const gameName = await screen.findAllByText(game.nombre);
       expect(gameName).toHaveLength(2); // Check the expected number of matches
 
-      const gameDescription = await screen.findByText(game.descripcion);
+      const gameDescription = await screen.findByText(game.description);
       expect(gameDescription).toBeInTheDocument();
     });
   });
