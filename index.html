@@ -2766,15 +2766,19 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Filtering questions and answers</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Given the structure of Wikidata there are sometimes where questions and answers do not have the proper label we are looking for. Although we have stablished filters and different strategies, nothing seems to work perfectly.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Similarity between questions</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Due to the way we generate questions, it is possible that sometimes questions get repeated. It is not the usual but there is a probability.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Given the structure of Wikidata there are sometimes where questions and answers do not have the proper label we are looking for. Although we have stablished filters and different strategies, sometimes it fails.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Changes in database model</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Changing the model of a relational database makes it necessary to create a new database, losing all of the data we had before.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Game duplication code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Due to our little knowledge about JavaScript, we have not found a way of optimizing code from different game modes. It would be necessary to search for another way of doing it, as this is not maintenable.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Non-expiring session token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Once someone has logged in in the application, session token does not expire. That way session does not finish unless you explicitly log out.</p></td>
 </tr>
 </tbody>
 </table>
@@ -3143,7 +3147,7 @@ The second way is without graphic interface. It is done this way when e2e tests 
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2024-04-28 12:13:41 +0200
+Last updated 2024-04-28 21:04:48 +0200
 </div>
 </div>
 </body>
