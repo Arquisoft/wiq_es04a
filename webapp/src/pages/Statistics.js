@@ -41,8 +41,8 @@ const Statistics = () => {
     useEffect(() => {
         const fetchQuestionsRecord = async () => {
             try {
-                const response = await axios.get(`${apiEndpoint}/questionsRecord/${username}/${selectedMode}`, {
-                    username: username,
+                const response = await axios.get(`${apiEndpoint}/questionsRecord/${user}/${selectedMode}`, {
+                    username: user,
                     gameMode: selectedMode
                 });
                 setQuestionsRecord(response.data);
@@ -52,7 +52,7 @@ const Statistics = () => {
         };
 
         fetchQuestionsRecord();
-    }, [username, selectedMode]);
+    }, [user, selectedMode]);
 
     const totalPages = Math.ceil(questionsRecord.length / itemsPerPage);
 
@@ -236,14 +236,14 @@ const Statistics = () => {
                                 <Grid item xs={12} key={questionIndex}>
                                     <Box sx={{ bgcolor: '#f0f0f0', borderRadius: '20px', padding: '2%' }}>
                                         <Typography variant="body1" gutterBottom>
-                                            {question.correctAnswer === question.response ? <CheckIcon style={{color: 'green', fontSize: '1.2rem'}} /> : <ClearIcon style={{color: 'red', fontSize: '1.2rem'}} />}
+                                            {question.correctAnswer === question.response ? <CheckIcon style={{color: theme.palette.success.main, fontSize: '1.2rem'}} /> : <ClearIcon style={{color: theme.palette.error.main, fontSize: '1.2rem'}} />}
                                             {question.question}
                                         </Typography>
                                         {question.options.map((option, optionIndex) => (
                                             <Box
                                                 key={optionIndex}
                                                 sx={{
-                                                    bgcolor: option === question.correctAnswer ? 'green' : question.response === option ? 'red' : '#ffffff',
+                                                    bgcolor: option === question.correctAnswer ? theme.palette.success.main : question.response === option ? theme.palette.error.main : '#ffffff',
                                                     color: option === question.correctAnswer || option === question.response ? '#ffffff' : 'inherit', 
                                                     borderRadius: '20px',
                                                     padding: '2%',
@@ -327,7 +327,7 @@ const Statistics = () => {
                     <Button
                         onClick={() => setShowQuestionsRecord(!showQuestionsRecord)}
                         variant="contained"
-                        sx={{ marginBottom: '0.5em', marginTop: '0.5em', backgroundColor: 'green', color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}
+                        sx={{ marginBottom: '0.5em', marginTop: '0.5em', backgroundColor: theme.palette.success.main, color: theme.palette.secondary.main, borderColor: theme.palette.primary.main, '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.main, borderColor: theme.palette.primary.main } }}
                     >
                         {showQuestionsRecord ? t("Statistics.button.hide_record") : t("Statistics.button.show_record")}
                     </Button>
