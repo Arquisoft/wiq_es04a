@@ -71,7 +71,7 @@ async function generateQuestions(n, language, questionCategory) {
                 const questionText = question.replace('x',entityName.charAt(0).toUpperCase() + entityName.slice(1)) +`?`;
                 // If that question is already in db, it goes on:
                 const questionAlreadyInDb = await dbService.getQuestion({"question": questionText});
-                if (!questionAlreadyInDb === "undefined") {
+                if (!questionAlreadyInDb === undefined) {
                     console.log(`Question ${questionText} already in db, skipping`);
                     continue;
                 }
