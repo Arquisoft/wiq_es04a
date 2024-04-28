@@ -10,6 +10,6 @@ The dashboard that we are using to monitorize our project is called _Wiq_es04 Da
 
 image::15_monitoring_graphics.png["Grafana dashboard"]
 
-We would like to mention that this monitorization is set to be available both in production and deployment environments. For this reason, our Grafana dashboard is accesible through this http://20.19.89.97:9091/d/1DYaynomMk/wiq-es04-dashboard?orgId=1[ link.]
+We would like to mention that this monitorization is set to be available both in production and deployment environments. For this reason, our Grafana dashboard is  link:http://20.19.89.97:9091/d/1DYaynomMk/wiq-es04-dashboard?orgId=1[ accesible ].
 
-To see how Grafana works we have used Apache. We have stablished the number of requests and how fast we want them to execute. This lets us check easily how our project works. Also, another interesting thing to mention are the http://20.19.89.97:8000/metrics[ metrics ]. It shows every different request on the application and its status code.
+To see how Grafana works we have used Apache. We have stablished the number of requests and how fast we want them to execute. This lets us check easily how our project treats requests. Also, another interesting thing to mention are the http://20.19.89.97:8000/metrics[ metrics ]. It shows every different request on the application and its status code.
