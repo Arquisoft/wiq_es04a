@@ -72,9 +72,14 @@
             "category": "Catégorie"
         },
         "categories": {
-            "password": "Mot de passe",
-            "button": "Se connecter",
-            "register_link": "Vous n'avez pas de compte ? Inscrivez-vous ici."
+            "geography": "Gréographie",
+            "political":"Politique",
+            "sports":"Sport",
+            "cities": "Villes",
+            "art": "Art",
+            "entertainment": "Divertissement",
+            "games": "Jeux",
+            "animals": "Animaux"
         }
     },
     
@@ -86,7 +91,10 @@
 
     "Login": {
         "title": "Connecter",
-        "username": "Nom d'utilisateur"
+        "username": "Nom d'utilisateur",
+        "password": "Mot de passe",
+        "button": "Se connecter",
+        "register_link": "Vous n'avez pas de compte ? Inscrivez-vous ici."
     },
 
     "Register": {

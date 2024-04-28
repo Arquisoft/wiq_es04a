@@ -73,7 +73,12 @@
         "categories": {
             "geography": "Geography",
             "political":"Political",
-            "sports":"Sports"
+            "sports":"Sports",
+            "cities": "Cities",
+            "art": "Art",
+            "entertainment": "Entertainment",
+            "games": "Games",
+            "animals": "Animals"
         }
     },
 
