@@ -17,11 +17,18 @@ We would also like to mention that SonarCloud offers a graphic where risks in di
 
 image::14_graphic_sonarcloud.png["Risks graphic"]
 
-
-
 === Acceptance tests
 Acceptance tests are also important. They do not focus on the functionality of the application but on the user experience. This way we were able to know easily if elements where rendered quickly. In addition, this tests let us measure how long it takes for an interaction with the application. 
 For this tests we used a MariaDB database created only for these tests. We used MariaDB because we needed to get information from users, which are https://github.com/Arquisoft/wiq_es04a/wiki/ADR-04-‐-Users-and-Groups-with-MariaDB[ stored in this type of relational database.]
 
 We focused in testing the different games available, as it is the core part of the application. It is important to mention that e2e tests can be executed two ways. The first way, using a graphic interface, which easier for the developer. We are able to see how the tests are executing so we may see some issues that otherwise we would not be able to detect.
 The second way is without graphic interface. It is done this way when e2e tests are executed through Github actions in deployment, not locally. It is sometimes more difficult to detect the issues but there is still a great overview of the tests execution which helps to detect problems.
+
+=== Usability tests
+One of our quality goals is 'Usability', we always have it in mind when we are developing new features. However, we need to check if we are doing it good. To test the usability of the application we made some rudimentary usability tests.
+
+We got three users to test the application in different stages of the development, helping us to change things that we did not notice when developing it:
+
+For instance, one user told us that our 'Play' button in home page always redirected to login, even if you were logged in. It caused confusion to the users so we changed it to redirect to game selection page if logged in.
+
+Other usability test was made with the Android application. The user noticed that some times the nav bar had a strange behaviour that messed up the entire interface. We adapted to the comments made by adapting the navbar.
