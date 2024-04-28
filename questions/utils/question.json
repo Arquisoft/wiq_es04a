@@ -248,6 +248,86 @@
         ]
     },
     {
+        "name": "vehicle",
+        "instance": "Q42889",
+        "properties": [
+            {
+                "property": "P176",
+                "template":
+                    [{
+                    "lang": "es",
+                    "question": "Quien es el fabricante de x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "Who is the manufacturer of x"
+                    }],
+                "category": ["Cars"]
+            },
+            {
+                "property": "P3032",
+                "template": [{
+                    "lang": "es",
+                    "question": "Cuál es la velocidad máxima de x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "What is the maximum speed of x"
+                    }],
+                "category": ["Cars"]
+            }
+        ]
+    },
+    {
+        "name": "dish",
+        "instance": "Q746549",
+        "properties": [
+            {
+                "property": "P495",
+                "template": [{
+                    "lang": "es",
+                    "question": "De qué región es originario x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "What region is x originally from?"
+                    }],
+                "category": ["Food"]
+            }
+        ]
+    },
+    {
+        "name": "building",
+        "instance": "Q41176",
+        "properties": [
+            {
+                "property": "P84",
+                "template":
+                    [{
+                    "lang": "es",
+                    "question": "Quién fue el arquitecto de x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "Who was the architect of x"
+                    }],
+                "category": ["Art"]
+            },
+            {
+                "property": "P149",
+                "template": [{
+                    "lang": "es",
+                    "question": "Cuál es el estilo arquitectónico de x"
+                    },
+                    {
+                    "lang": "en",
+                    "question": "What is the architectural style of x"
+                    }],
+                "category": ["Art"]
+            }
+        ]
+    },
+    {
         "name": "television series", 
         "instance": "Q5398426",
         "properties": [
