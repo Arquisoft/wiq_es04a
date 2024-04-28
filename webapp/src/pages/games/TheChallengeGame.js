@@ -358,7 +358,7 @@ const TheChallengeGame = () => {
                     </IconButton>
                     :
                     // Cronómetro
-                    <CountdownCircleTimer data-testid="circleTimer" key={questionCountdownKey} isPlaying = {questionCountdownRunning} duration={15} colorsTime={[10, 6, 3, 0]}
+                    <CountdownCircleTimer data-testid="circleTimer" key={questionCountdownKey} isPlaying = {questionCountdownRunning} duration={timerConfig} colorsTime={[10, 6, 3, 0]}
                     colors={[theme.palette.success.main, "#F7B801", "#f50707", theme.palette.error.main]} size={100} onComplete={() => selectResponse(-1, "FAILED")}>
                         {({ remainingTime }) => {
                             return (
