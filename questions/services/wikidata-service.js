@@ -80,7 +80,7 @@ async function getProperties(property, language, filt) {
               query: consultaSparql,
               format: 'json' 
             },
-            timeout: 15000 //means error
+            timeout: 30000 //means error
         });
         const endTime = new Date();
         const elapsedTime = endTime - startTime;
@@ -99,7 +99,6 @@ async function getProperties(property, language, filt) {
         }
         return null;
     } catch (error) {
-        console.error(error.stack);
         console.error(`Error obtaining properties: ${error.message}`);
         console.error("Line:", error.stack.split("\n")[1]);
         return null;
