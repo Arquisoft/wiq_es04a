@@ -1,0 +1,118 @@
+openapi: 3.0.0
+info:
+  title: Questionservice API
+  description: Question OpenAPI specification
+  version: 1.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/UO288347_1/questions-api/1.0.0
+  - url: http://localhost:8000
+    description: Development server
+  - url: http://20.19.89.97:8000
+    description: Production server
+paths:
+  /questions/:lang:
+    get:
+      summary: Gests a question from the database.
+      operationId: questions
+      description: Gests a question from the database. If there are not enough questions, it asks wikidata for more
+      responses:
+        '200':
+          description: Returned question succesfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    description: Unique identification
+                    example: 660549daa56f92f15a73f89c
+                  question:
+                    type: string
+                  options:
+                    type: array
+                    items:
+                      type: string
+                  correctAnswer:
+                    type: string
+                  categories:
+                    type: array
+                    items:
+                      type: string
+                  language:
+                    type: string
+        '400':
+          description: Failed to get question
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error while getting a question.
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error information.
+                    example: Internal Server Error
+  /questions/:lang/:category:
+    get:
+      summary: Gests a question from a specified category.
+      operationId: questionsByCategory
+      description: Gests a question from the database of a specified category. If there are not enough questions, it asks wikidata for more
+      responses:
+        '200':
+          description: Returned question succesfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    description: Unique identification
+                    example: 660549daa56f92f15a73f89c
+                  question:
+                    type: string
+                  options:
+                    type: array
+                    items:
+                      type: string
+                  correctAnswer:
+                    type: string
+                  categories:
+                    type: array
+                    items:
+                      type: string
+                  language:
+                    type: string
+        '400':
+          description: Failed to get question
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error while getting a question.
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error information.
+                    example: Internal Server Error

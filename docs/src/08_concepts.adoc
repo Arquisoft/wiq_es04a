@@ -71,38 +71,51 @@ At the moment, the application follows this schema:
 image::08_domain_model_1.png["Current version of the domain model"]
 
 * **User**: it is the person that uses the application. There can be multiple Users at the same time using the app. 
-* **Contest**: The contest is the part that the User can see. It contains everything the user can do, such as play games o look for rankings and statistics.
-* **Game**: The User can play different games, including _The Challenge_, _Wise Men Stack_ or even a multiplayer mode, which enables various Users to play together. Games consist of several questions to which users have to answer. Down below there is an schema that show the different game modes that will we available.
-* **Question**: Each question has different answers but only one of them is correct. Answering correctly to the questions rewards users with _money_.
+* **Contest**: The contest is the part that the User can see. It contains everything the user can do, such as play games, be part of groups or look for rankings and statistics.
+* **Game**: The User can play different games, including _The Challenge_, _Wise Men Stack_ or even a multiplayer mode, which enables various Users to play together. Games consist of several questions to which users have to answer. Down below there is an schema that show the different game modes that are available.
+* **Question**: Each question has different answers but only one of them is correct. Answering correctly to the questions rewards users with _points_.
 * **Statistics**: Each user has statistics that show different aspects of their profile, such as the time they invested on each game mode, correct and incorrect questions, etc.
-* **Profile**: User's profile has data such as their username and the amount on _money_ they have earned.
+* **Profile**: User's profile has data such as their username and the amount on _points_ they have earned. They can also choose a profile picture from between some given avatars.
 * **Group**: Users are able to join or create groups, that way the can get to a groups ranking.
 
 image::08_domain_model_2.png["Current version of the game modes"]
 
+* **Wise Men Stack**: The player chooses a topic from the available options and must answer a battery of questions related to it within 60 seconds. For each question, the host provides two options. If the contestant guesses correctly, they move on to the next question.
+* **Warm Question**: It consists of some topics of varied themes. For each correct answer, €100 is earned, and €10 are lost if the contestant passes, does not respond, or answers incorrectly.
+* **Discovering Cities**: The contestant will face a challenge where they will be repeatedly asked questions referring to different cities around the world. To successfully overcome the challenge, the contestant must answer as many questions as possible correctly throughout the test. Time and number of questions are fixed.
+* **The Challenge**: It is the quintessential game mode, as it allows you to customize the match to your liking. This game mode is tailored for those who wish to practice certain game formats before engaging in our various other game modes. Number of questions, time per question and category can be set.
+* **Multiplayer**: Create a room and share the room code with other players to play. It also has a room chat.
+
+
 
 === User Experience (UX)
-* https://arquisoft.github.io/wiq_es04a/#_technical_terms[**Frontend**]: the frontend of this application consists of a deployed web app which will be deployed. The user can register and log in with accounts already created on an intuitive page. They can also play different game modes and to consult their historial record, statistics, and even a ranking.
+* https://arquisoft.github.io/wiq_es04a/#_technical_terms[**Frontend**]: the frontend of this application consists of a deployed web app which is deployed. The user can register or log in with accounts already created on an intuitive page. They can also play different game modes and to consult their historial record, statistics, and even some rankings.
 As it can be seen down below, the homepage is bright and appealing, which leads to a better user experience. Users can easily choose the game mode they prefer and play.
 
 image::08_homepage.png["Current homepage window"]
 
-* https://arquisoft.github.io/wiq_es04a/#_technical_terms[**Internationalization**] The application will likely be available in various languages, including English as the main language. This would provide a better user experience as users could better tailor the application to their personal preferences.
+* https://arquisoft.github.io/wiq_es04a/#_technical_terms[**Internationalization**] The application is available in various languages, including English as the main language. This would provide a better user experience as users could better tailor the application to their personal preferences.
 
 === Operation Concepts
-* **Usability**: The application should be easy to use. For this reason, we had some people try our application. This way we can know its strengths and weaknesses and improve them. Usability affects User Experience as well, so it is an important aspect of the application. Up to this moment, usability testing has helped with the color palette chosen the application.
+* **Usability**: We tried for the application to be easy to use. For this reason, we had some people try our application. This way we can know its strengths and weaknesses and improve them. Usability affects User Experience as well, so it is an important aspect of the application. Up to this moment, usability testing has helped with the color palette chosen the application.
+
+We have also taken into account certain aspects that could difficult a person to use our application properly. For instance, we have stablished tics and crosses as well as colours to know if questions are correct or not. For this reason, a daltonic person would get to know if they got the answer correct or not easily.
+
 
 === Security
-At the moment, security mechanisms are not the main focus of the application, but some decisions have already been made and will be implemented soon.
+We have implemented some security in the application. We have blocked access to certain directions if you are not logged in. This way, we avoid external people to be able to access our application as it could lead to other security issues.
+We have also stablished that passwords need to follow a certain security level. They need to be at least 8 characters longs and they must contain upper and lower letters, numbers and special characters. Also, passwords are stored encrypted. In case that the batabase is stolen, data would still be secure. 
 
 === Architecture and Design Patterns
 * https://arquisoft.github.io/wiq_es04a/#_technical_terms[**Microservice**]: In this application there are some microservices such as the User Management, which involves signing up, logging in and everything related to the points and timing of the user. Microservices provide an easy way of creating a complex application composed by independent systems.
 Another important microservice is the questions generation system. It creates infinite questions related to varios topics. Thats to this, users can never get bored of the game, as questions do not repeat themselves.
 The webapp microservice includes everything related to the graphic interface. Users are able to communicate with the application thats to this service.
 
+All of the architectural decisions that have taken place through the application creation are specified in the https://github.com/Arquisoft/wiq_es04a/wiki[repository Wiki section]
 
 === Development Concepts
 * **Testing**: Numerous use-cases are studied so as to provide a solid and easy-to-use application. There are unitary tests related to every functionality of the project, as well as e2e tests regarding the main game.
+
 * https://arquisoft.github.io/wiq_es04a/#_acronyms[**CI/CD**]: The application is in continuous integration and deployment. Team members commit frequently into the repository where the project is stored. This makes it easier when assembling project parts involving collaboration from different team members.
 
-image::08_mindmap_concepts.png["Initial version of cross-cutting concepts"]
+image::08_mindmap_concepts.png["cross-cutting concepts"]

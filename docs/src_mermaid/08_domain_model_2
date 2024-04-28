@@ -3,7 +3,7 @@ classDiagram
     Game <|-- WarmQuestion
     Game <|-- TheChallenge
     Game <|-- DiscoveringCities
-    Game <|-- OnlineMode
+    Game <|-- Multiplayer
     class Game {
     }
     class WiseMenStack {
@@ -14,6 +14,6 @@ classDiagram
     }
     class DiscoveringCities {
     }
-    class OnlineMode {
+    class Multiplayer {
     }
     

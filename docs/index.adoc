@@ -96,4 +96,14 @@ include::src/11_technical_risks.adoc[]
 // 12. Glossary
 include::src/12_glossary.adoc[]
 
+<<<<
+// 13. Appendix I: Load tests
+include::src/13_appendix1_load_tests.adoc[]
 
+<<<<
+// 14. Appendix I: Other tests
+include::src/14_appendix2_testing.adoc[]
+
+<<<<
+// 15. Appendix I: Monitoring
+include::src/15_appendix3_monitoring.adoc[]

@@ -39,6 +39,7 @@ To develop the app we will use the following technologies:
 * Docker Compose to deploy all the microservices
 * GitHub for version control
 * WikiData API to obtain question and answer information
+* ExpressJS to build the backend
 
 We have considered the trade-offs that belong to each technology, such as SpringBoot or PHP for the backend of the app. 
 However, JavaScript was the language that adapted better to our requirements due to the simplicity of the language and its
@@ -105,14 +106,14 @@ Quality goals are explained in detail in point 10.
 |Quality goal| Decisions to achieve it.
 |Usability| We are going to use real users to test the app interface and improve it according to their feedback.
 |Availability| Docker Compose will be helpful to avoid problems with the deploy of the app. In addition we will use web hosting to expose it to the internet.
-|Security| A login system with encrypted password storage will be used to protect the user data.
+|Testability| We created unit and e2e (integration) test set to test the application
 |Performance| We will use the minimum required calls to the APIs to mantain the minimum time response, for example, with bulk requests.
 |===
 
 === Relevant organizational decisions
 
-Our framework will be based on working every week with two weekly meetings, one will be held during lab time in order to assign tasks and make minor decisions.
-On the other hand, the weekend meeting will be intended for more thorough reviews as well as more significant decisions.
+Our framework will be based on working every week with meetings when necessary, one will be held always during lab time in order to assign tasks and make minor decisions.
+On the other hand, further meetings will be intended for more thorough reviews as well as more significant decisions.
 
 Each assigned task will be created as an Issue in GitHub to track the progress done. In addition, we are going to use GitHub Projects to organize the workflow of the team.
 To merge the code to the develop branch we are going to use Pull Requests in order to be approved by every person of the team.

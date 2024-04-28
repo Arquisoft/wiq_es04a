@@ -42,16 +42,18 @@ See https://docs.arc42.org/section-7/[Deployment View] in the arc42 documentatio
 
 ****
 
-We have several services deployed in a single containter using Docker Compose, this eases the deployment.
+We have several services deployed in a single virtual machine using containers and Docker Compose, this eases the deployment.
 This are the different container and their relations:
 
 - WebApp: The web page. Gets data from Gateway Service.
 - Gateway Service: data access interface for services.
-- AuthService and UserService: manages authentication and login systems.
-- MongoDB: persistance system used in the application.
+- Users: manages authentication and statistics about users.
+- MariaDB: persistance system used in the users data.
+- MongoDB: persistance system used in the questions data.
 - Grafana and Prometeus: code monitoring systems.
-- QuestionGenerationSystem: generates questions to use in the game.
+- Questions: generates questions to use in the game.
+- Multiplayer: permits users to play multiplayer games.
 
 We are going to use an Azure VM to deploy all this services.
 
-image::07_development view["Deployment View"]
+image:07_deployment_view.png["Deployment View"]

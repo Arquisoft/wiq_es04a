@@ -11,41 +11,38 @@ left to right direction
 node AzureServer{    
     
 
-    node DockerContainer1 {
-        component MongoDB
+    node MongoDB {
+        
     } 
-  
-  node DockerContainer2 {
-        component AuthService
-    }   
+    
+   node MariaDB {
+   }
 
+  node Users{
+  }   
 
-  node DockerContainer3{
-        component UserService
-    }   
-
- node DockerContainer7{
-        component GatewayService
+ node GatewayService{
+    
     }
 
- node DockerContainer4 {
-        component WebApp
+ node WebApp {
+        
     }   
 
-node DockerContainer8{
-        component QuestionGenerationSystem
+node Questions{
+       
     }
 
-node DockerContainer9{
-        component Multiplayer
+node Multiplayer{
+        
     }
 
- node DockerContainer5{
-        component Grafana
+ node Grafana{
+        
     }   
 
-  node DockerContainer6{
-        component Prometheus
+  node Prometheus{
+        
     }   
 
 }
@@ -68,6 +65,6 @@ User -l-> WebBrowser : "uses"
 
 
 WebApp -d-> WebBrowser : "shows on user device"
-QuestionGenerationSystem -d-> Wikidata : "Fetches data"
+Questions -d-> Wikidata : "Fetches data"
 @enduml
 '''

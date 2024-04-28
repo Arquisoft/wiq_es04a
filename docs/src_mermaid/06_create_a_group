@@ -1,10 +1,10 @@
 sequenceDiagram
     Note over User,Webapp: User must be logged in
     User ->>+ Webapp: click GROUPS navbar button
-    Webapp ->> Gateway Service: axios.get('/user/group/list')
-    Gateway Service ->> Users: axios.get('/user/group/list')
+    Webapp ->> Gateway Service: axios.get('/user/group')
+    Gateway Service ->> Users: axios.get('/user/group')
 
-    Users ->> MariaDB: router.get('/user/group/list')
+    Users ->> MariaDB: router.get('/user/group')
     MariaDB -->> Users: JSON response
 
     Users -->> Gateway Service: 
@@ -13,13 +13,13 @@ sequenceDiagram
 
     loop Create a group
         User ->>+ Webapp: insert a group name and click CREATE button
-        Webapp ->> Gateway Service: axios.post('/group/add')
-        Gateway Service ->> Users: axios.post('/group/add')
+        Webapp ->> Gateway Service: axios.post('/group')
+        Gateway Service ->> Users: axios.post('/user/group')
 
-        Users ->> MariaDB: router.post('/user/group/add')
+        Users ->> MariaDB: router.post('/user/group')
         MariaDB -->> Users: JSON response
 
         Users -->> Gateway Service: 
         Gateway Service -->> Webapp: 
-        Webapp -->>- User: update the groups view
+        Webapp -->>- User: update the groups list view
     end
