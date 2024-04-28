@@ -10,4 +10,4 @@ The dashboard that we are using to monitorize our project is called _Wiq_es04 Da
 
 image::15_monitoring_graphics.png["Grafana dashboard"]
 
-We would like to mention that this monitorization is set to be available both in production and deployment environments. For this reason, our Grafana dashboard is accesible.
+We would like to mention that this monitorization is set to be available both in production and deployment environments. For this reason, our Grafana dashboard is accesible link:http://20.19.89.97:9091/d/1DYaynomMk/wiq-es04-dashboard?orgId=1["here"].
