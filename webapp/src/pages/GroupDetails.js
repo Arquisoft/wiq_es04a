@@ -35,9 +35,31 @@ const GroupDetails = () => {
         navigate(`/statistics/${name}`);
     };
 
+    //Video settings
+    const styles = {
+        video: {
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            width: "100%",
+            height: "100%",
+            transform: "translate(-50%, -50%)",
+            objectFit: "cover",
+            zIndex: '-1',
+            userSelect: 'none',
+            pointerEvents: 'none'
+        },
+    };
+
+    const videoRef = React.useRef(null);
+    React.useEffect(() => {if (videoRef.current) {videoRef.current.playbackRate = 0.85;}}, []);
+
     if (error || !groupInfo) {
         return (
             <Container sx={{ margin: '0 auto auto' }}>
+                <video data-testid="video" ref={videoRef} autoPlay muted loop style={{ ...styles.video}}>
+                    <source src="../home/Background-White.webm" type="video/mp4" />
+                </video>
                 <Typography variant="h5" sx={{ textAlign:'center' }}>{error}</Typography>
             </Container>
         )
@@ -50,6 +72,9 @@ const GroupDetails = () => {
     // Returns all group data including the creator, the creation date and the members list
     return (
         <Container sx={{ margin: '0 auto auto' }}>
+            <video data-testid="video" ref={videoRef} autoPlay muted loop style={{ ...styles.video}}>
+                <source src="../home/Background-White.webm" type="video/mp4" />
+            </video>
             <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
                 <b>{groupInfo.name}</b>
             </Typography>

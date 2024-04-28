@@ -136,6 +136,20 @@ describe('Statistics component', () => {
     expect(screen.getByText('2')).toBeInTheDocument();
   });
 
+  it('debe reproducir el video a una velocidad de 0.85', async () => {
+    render(
+      <SessionContext.Provider value={{ username: 'testuser' }}>
+        <Router>
+          <Statistics />
+        </Router>
+      </SessionContext.Provider>
+    );
+    const videoElement = screen.getByTestId('video');
+    expect(videoElement).toBeInTheDocument();
+    expect(videoElement.playbackRate).toBe(0.85);
+
+  });
+
   it('should render Statistics component with correct user statistics for Wise Men Stack mode', async () => {
     render(
       <SessionContext.Provider value={{ username: 'testuser' }}>

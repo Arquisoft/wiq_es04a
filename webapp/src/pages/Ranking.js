@@ -47,6 +47,21 @@ const Ranking = () => {
         { field: 'totalGamesPlayed', headerName: 'TOTAL GAMES', flex: 1, align: 'center', headerAlign: 'center'  }
     ];
 
+    //Video settings
+    const styles = {
+        video:{
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            zIndex:'-1',
+            userSelect:'none',
+            pointerEvents: 'none'
+        },
+    };
+    const videoRef = React.useRef(null);
+    React.useEffect(() => {if (videoRef.current) {videoRef.current.playbackRate = 0.85;}}, []);
+
     return (        
         <Container sx={{ 
             display: "flex", 
@@ -57,6 +72,10 @@ const Ranking = () => {
             gap: "1.5em",
             flexGrow: 1
         }}>
+
+<           video data-testid="video" ref={videoRef} autoPlay muted loop style={{ ...styles.video}}>
+                <source src="../home/Background-White.webm" type="video/mp4" />
+            </video>
 
             <Container style={{ display: 'flex', flexDirection: 'column' }}>
                 <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
