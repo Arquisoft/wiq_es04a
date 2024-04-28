@@ -1,0 +1,189 @@
+{
+    "Home": "JUGAR",
+    "WIQ": {
+        "w": "WIKIDATOS",
+        "i": "INFINITO",
+        "q": "QUESTIONARIO"
+    },
+
+    "Homepage": {
+        "title": "MODOS DE JUEGO"
+    },
+
+    "NavBar":{
+        "play": "Jugar",
+        "statistics": "Estadísticas",
+        "instructions": "Instrucciones",
+        "groups": "Grupos",
+        "ranking": "Ranking",
+        "languages": {
+            "en": "Inglés",
+            "es": "Español",
+            "fr": "Francés"
+        }
+    },
+    
+    "Footer": {
+        "api_questions": "DOCUMENTACIÓN DE LA API DE PREGUNTAS",
+        "api_users": "DOCUMENTACIÓN DE LA API DE USUARIOS",
+        "apk_link": "Descargar para Android"
+    },
+
+    "Games": {
+        "Wise Men Stack": {
+            "name": "Wise Men Stack",
+            "desc": "El jugador elige un tema entre cinco opciones disponibles y debe responder una batería de preguntas relacionadas con él en un plazo de 60 segundos. Para cada pregunta, el presentador proporciona dos opciones. Si el concursante acierta, gana €20; de lo contrario, pasa a la siguiente pregunta (ya que la respuesta correcta sería la otra opción). Si el tiempo se agota antes de que se formule por completo la pregunta y se proporcionen ambas posibles respuestas, el concursante aún puede responderla; sin embargo, si la afirmación no se ha completado (o las opciones no se proporcionaron), no pueden responder."
+        },
+        "Warm Question": {
+            "name": "Warm Question",
+            "desc": "Consta de diez temas de diferentes temáticas. Por cada respuesta correcta, se ganan €100, y se pierden €10 si el concursante pasa, no responde o responde incorrectamente."
+        },
+        "Discovering Cities": {
+            "name": "Discovering Cities",
+            "desc": "En el modo de juego 'Descubriendo Ciudades', el concursante enfrentará un desafío donde se le harán preguntas repetidas referentes a diferentes ciudades de todo el mundo. Para superar con éxito el desafío, el concursante debe responder tantas preguntas como sea posible correctamente a lo largo de la prueba."
+        },
+        "Challenge": {
+            "name": "Challenge",
+            "desc": "El modo de juego 'Desafío' es el modo de juego por excelencia, ya que te permite personalizar el enfrentamiento a tu gusto. Este modo de juego está diseñado para aquellos que deseen practicar ciertos formatos de juego antes de participar en nuestros diversos otros modos de juego."
+        },
+        "Multiplayer": {
+            "name": "Multiplayer",
+            "desc": "Crea una sala para que otros jugadores se unan y jueguen 1 contra 1."
+        }
+    },
+
+    "Game": {
+        "win_msg": "¡Buen trabajo!",
+        "lose_msg": "Fin del Juego",
+        "correct": "Respuestas Correctas",
+        "incorrect": "Respuestas Incorrectas",
+        "money": "Puntos Finales",
+        "time": "Segundos de Juego",
+        "pause": "Pausa",
+        "play": "Jugar",
+        "round": "Pregunta ",
+        "start": "Empezar Juego",
+        "skip": "Saltar",
+        "config": {
+            "title": "CONFIGURACIÓN DEL JUEGO",
+            "num_rounds": "Número de rondas",
+            "time": "Segundos por pregunta",
+            "category": "Categoría"
+        },
+        "categories": {
+            "geography": "Geografía",
+            "political":"Política",
+            "sports":"Deporte"
+        }
+    },
+
+    "Wise_Men": {
+        "instructions1": "Elige",
+        "instructions2": "una",
+        "instructions3": "categoría"
+    },
+
+    "Login": {
+        "title": "Iniciar sesión",
+        "username": "Nombre de usuario",
+        "password": "Contraseña",
+        "button": "Iniciar sesión",
+        "register_link": "¿No tienes una cuenta? Regístrate aquí."
+    },
+    
+    "Register": {
+        "title": "Registrarse",
+        "username": "Nombre de usuario",
+        "password": "Contraseña",
+        "name": "Nombre",
+        "surname": "Apellido",
+        "button": "Registrarse",
+        "login_link": "¿Ya tienes una cuenta? Inicia sesión aquí."
+    },
+
+    "Groups": {
+        "title": "GRUPOS",
+        "create": "Crear",
+        "list": "Lista",
+        "create_button": "Crear",
+        "name": "Nombre",
+        "see_members": "Ver Miembros",
+        "joined": "UNIDO",
+        "join": "UNIRSE",
+        "exit": "ABANDONAR",
+        "delete": "ELIMINAR",
+        "filled": "LLENO",
+        "Details": {
+            "creator": "Creador",
+            "statistics": "Ver estadísticas",
+            "date": "Creado en",
+            "members": "Miembros"
+        }
+    },
+
+    "Statistics": {
+        "title": "ESTADÍSTICAS",
+        "game": "Partida",
+        "table": {
+            "money": "Puntos Ganado",
+            "questions_corr": "Preguntas Respondidas Correctamente",
+            "questions_incorr": "Preguntas Respondidas Incorrectamente",
+            "questions_pass": "Preguntas Pasadas",
+            "played_games": "Juegos Jugados",
+            "total_time": "Tiempo Total Jugado",
+            "cities_corr": "Ciudades Respondidas Correctamente",
+            "cities_incorr": "Ciudades Respondidas Incorrectamente"
+        },
+        "button": {
+            "hide_record": "Ocultar registro de preguntas",
+            "show_record": "Mostrar registro de preguntas"
+        }
+    },
+
+    "Multiplayer": {
+        "Room": {
+            "code": "Código de Sala",
+            "participants": "Participantes",
+            "start": "Comenzar juego",
+            "create": "Crear Sala",
+            "join": "Unirse a Sala",
+            "send": "Enviar",
+            "chat_title": "Chat de la sala",
+            "chat_input_label": "Escribe tu mensaje",
+            "new_game": "¿Quieres iniciar un juego nuevo?"
+        },
+        "Game": {
+            "waiting_players_end": "Esperando a que terminen los demás jugadores...",
+            "waiting": "Esperando información del ganador...",
+            "winner_1": "Ganador",
+            "winner_2": "Con",
+            "winner_3": "respuestas correctas en",
+            "winner_4": "segundos"
+        }
+    }, 
+
+    "NotFound": {
+        "title": "Página no encontrada",
+        "button_msg": "Volver a la página de inicio"
+    },
+
+    "Profile": {
+
+        "name":"Nombre:",
+        "surname": "Apellido:",
+        "created_in":"Fecha de registro:",
+        "choose_your_avatar":"Escoge tu avatar:",
+        "confirm_changes":"Confirmar cambio"
+        
+    },
+    "Ranking":{
+
+        "users":"Usuarios",
+        "groups": "Grupos",
+        "name":"NOMBRE",
+        "total_money": "PUNTOS",
+        "correct_answers": "RESPUESTAS CORRECTAS",
+        "incorrect_answers": "RESPUESTAS INCORRECTAS",
+        "total_games": "PARTIDAS JUGADAS"
+    }
+}

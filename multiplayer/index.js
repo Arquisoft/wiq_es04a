@@ -27,8 +27,8 @@ app.use(cors());
 const gameRooms = {};
 const gameResults = {};
 
-const getQuestion = () => {
-    return axios.get(`${apiEndpoint}/questions`)
+const getQuestion = () => { //TODO 
+    return axios.get(`${apiEndpoint}/questions/en`)
       .then(response => response.data)
       .catch(error => {
         console.error('Error getting question from question service ', error);
@@ -54,7 +54,19 @@ const getQuestion = () => {
 io.on('connection', (socket) => {
     console.log('New client connected');
 
-    socket.on('join-room', (roomCode, username) => {
+    socket.on('join-room', (roomCode, username, action) => {
+
+        if(action === 'join') {
+            console.log("JOIN")
+            if (!gameRooms[roomCode]) {
+                console.log("JOIN IF")
+                socket.emit('join-error', 'Room does not exist');
+                return;
+            } else {
+                socket.emit('join-error', '');
+            }
+        }
+       
         socket.join(roomCode); 
         console.log(`${username} has joined game ${roomCode}`);
         
@@ -69,22 +81,12 @@ io.on('connection', (socket) => {
         
         const room = io.sockets.adapter.rooms.get(roomCode); // Obtain the room
 
-        if(room && room.size === 2) {
+        if(room && room.size >= 2) {
             console.log("Game is ready");
 
             io.to(roomCode).emit("game-ready", "ready");
 
-            // three questions -> this should be refactored in future
-            /*Promise.all([getQuestion(), getQuestion(), getQuestion()])
-            .then(questions => {
-                questions.forEach(question => {
-                questionList.push(question);
-                });
-                
-                io.to(roomCode).emit("questions-ready", questionList, roomCode); // emit event only to room clients
-            })*/
             getAndEmitQuestions(roomCode);
-
         }
 
         io.to(roomCode).emit("update-players", gameRooms[roomCode]);
@@ -122,7 +124,36 @@ io.on('connection', (socket) => {
             }
 
             });
+
+            socket.on('disconnect', () => {
+                console.log(`${username} has disconnected`);
+                
+                const index = gameRooms[roomCode].indexOf(username);
+                if (index !== -1) {
+                    gameRooms[roomCode].splice(index, 1);
+                    delete gameResults[roomCode][username];
+                    io.to(roomCode).emit("update-players", gameRooms[roomCode]);
+                    
+                    const room = io.sockets.adapter.rooms.get(roomCode);
+                    if(room && room.size < 2) {
+                        io.to(roomCode).emit("game-ready", "not-ready");
+                    }
+                    
+                }
+            });
       });
+
+      socket.on('join-room-chat', (roomCode, username) => {
+        socket.join(roomCode + "-chat");
+
+        socket.removeAllListeners('send-message');
+
+        socket.on('send-message', (message, roomCode, username) => {
+            io.to(roomCode + "-chat").emit('recieved-message', { username, message });
+        });
+    
+    
+    });
     
   });
 
@@ -131,6 +162,4 @@ io.on('connection', (socket) => {
 // Start the service 
 server.listen(port, () => {
   console.log(`Multiplayer Service listening at port ${port}`);
-  console.log("WEBAPP_ENDPOINT: ", process.env.WEBAPP_ENDPOINT);
-  console.log("apiEndpoint: ", apiEndpoint);
 });

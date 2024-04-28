@@ -1,24 +1,29 @@
 import React, { useState,useContext } from 'react';
 import axios from 'axios';
-import { Container, Typography, TextField, Button, Snackbar, Box, Divider } from '@mui/material';
-import { Link,useNavigate } from 'react-router-dom';
+import { useTheme, Container, Typography, TextField, Button, Snackbar, Box, Divider } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
 import { SessionContext } from '../SessionContext';
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
+
+  const theme = useTheme();
   
   const navigate = useNavigate();
 
-  const { createSession } = useContext(SessionContext);
+  const { createSession, updateAvatar } = useContext(SessionContext);
+  const { t } = useTranslation();
 
   const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
   const loginUser = async () => {
     try {
-      await axios.post(`${apiEndpoint}/login`, { username, password });
+      let response = await axios.post(`${apiEndpoint}/login`, { username, password });
+      updateAvatar(response.data.avatar);
       setOpenSnackbar(true);
       createSession(username);
       navigate('/homepage');
@@ -35,13 +40,13 @@ const Login = () => {
     <Container component="main" maxWidth="xs" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flex:'1', marginTop: '2em', marginBottom: '2em'}}>
       <Box sx={{margin: '2em'}}>
         <div>
-          <Typography component="h1" variant="h5">
-            Log In
+          <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
+            { t("Login.title") }
           </Typography>
           <TextField
             margin="normal"
             fullWidth
-            label="Username"
+            label={ t("Login.username") }
             name="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -49,15 +54,28 @@ const Login = () => {
           <TextField
             margin="normal"
             fullWidth
-            label="Password"
+            label={ t("Login.password") }
             name="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <Divider style={{ marginTop:'3%'}}/>
-          <Button variant="contained" color="primary" onClick={loginUser} style={{ width: '100%', marginTop: '5%' }}>
-            Log In
+          <Button variant="contained" onClick={loginUser} style={{ width: '100%', marginTop: '5%' }}
+            sx={{
+              fontFamily: 'Arial Black, sans-serif',
+              color: theme.palette.primary.main,
+              backgroundColor: 'transparent',
+              border: `2px solid ${theme.palette.primary.main}`,
+              transition: 'background-color 0.3s ease',
+
+              '&:hover': {
+                  backgroundColor: theme.palette.primary.main,
+                  color: 'white',
+              }
+          }}
+          >
+          { t("Login.button") }
           </Button>
           <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="Login successful" />
           {error && (
@@ -65,7 +83,7 @@ const Login = () => {
           )}
           <Container style={{textAlign: 'center', marginTop:'15%'}}>
             <Link name="gotoregister" component="button" variant="body2" to="/register">
-            Don't have an account? Register here.
+            { t("Login.register_link") }
             </Link>
           </Container>
         </div>

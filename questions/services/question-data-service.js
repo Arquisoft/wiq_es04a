@@ -28,9 +28,27 @@ module.exports = {
    */
   getQuestion : async function(filter = {}) {
     try {
-      const question = await Question.findOne(filter);
-      return question;
+      //const question = await Question.findOne(filter);
+      //return question;
 
+      //if there is filter
+      if (Object.keys(filter).length !== 0) {
+        
+        const q = await Question.aggregate([
+          { $match: filter },
+          { $sample: { size: 1 } }
+        ]);
+
+        return q[0];
+      } else {
+        //if not filter -> just random question
+        const q = await Question.aggregate([
+          { $sample: { size: 1 } }
+        ]);
+
+        return q[0];
+      }
+      
     } catch (error) {
       console.error('Error obtaining the question', error.message);
       return error.message;
@@ -56,10 +74,10 @@ module.exports = {
    * Returns a the number of questions in the db.
    * @returns {int} The question count
    */
-  getQuestionCount : async function() {
+  getQuestionCount : async function(language) {
     try {
       // Obtain total number of questions in database
-      const totalQuestions = await Question.countDocuments();
+      const totalQuestions = await Question.countDocuments({ language: language });
       return totalQuestions;
 
     } catch (error) {
@@ -72,24 +90,24 @@ module.exports = {
    * Returns a the number of questions in the db.
    * @returns {int} The question count
    */
-  getQuestionCountByCategory : async function(wantedCategory) {
+  getQuestionCountByCategory : async function(wantedCategory, wantedLanguage) {
     try {
       // Obtain total number of questions in database
-      const totalQuestions = await Question.countDocuments({ categories: wantedCategory });
+      const totalQuestions = await Question.countDocuments({ categories: wantedCategory, language: wantedLanguage });
       return totalQuestions;
 
     } catch (error) {
-      console.error('Error obtaining the number of questions for category ', wantedCategory,': ', error.message);
+      console.error('Error obtaining the number of questions for category ', wantedCategory,' and language', wantedLanguage,': ', error.message);
       return error.message;
     }
   },
 
 
-  // Get random questions  TODO: refactor to use common code with get questions by category
-  getRandomQuestions : async function(n) {
+  // Get random questions
+  getRandomQuestions : async function(n, wantedLanguage) {
     try {
       // Obtain total number of questions in database
-      const totalQuestions = await Question.countDocuments();
+      const totalQuestions = await Question.countDocuments({ language: wantedLanguage });
   
       // Check if there are required number of questions
       if (totalQuestions < n) {
@@ -97,7 +115,7 @@ module.exports = {
         return 'Required ' + n + ' questions and there are ' + totalQuestions;
       }
 
-      return Question.aggregate([{ $sample: { size: n } }]);
+      return Question.aggregate([{ $match: { language: wantedLanguage } }, { $sample: { size: n } }]);
       
     } catch (error) {
       console.error('Error obtaining random questions: ', error.message);
@@ -106,19 +124,21 @@ module.exports = {
   },
 
   // Obtaing random questions filtered by category
-  getRandomQuestionsByCategory : async function(n, wantedCategory) {
+  getRandomQuestionsByCategory : async function(n, wantedCategory, wantedLanguage) {
     try {
+      console.log("getRandom: ",wantedLanguage);
       // Obtain total number of questions with that category
-      const totalQuestions = await Question.countDocuments({ categories: wantedCategory });
+      const totalQuestions = await Question.countDocuments({ categories: wantedCategory, language: wantedLanguage });
   
       // Check if there are required number of questions
       if (totalQuestions < n) {
         console.log('Required ', n, ' questions and there are ', totalQuestions);
-        return 'Required ' + n + ' questions and there are ' + totalQuestions;
+        return null;
       }
       
     return Question.aggregate([
-      { $match: { categories: wantedCategory } }, 
+      { $match: { categories: wantedCategory,
+                  language: wantedLanguage } }, 
       { $sample: { size: n } }
       ]);
       
