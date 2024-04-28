@@ -86,15 +86,7 @@ defineFeature(feature, test => {
     });
 
     then('The button turns green', async () => {
-        /*const answerButton = await page.$x('(//*[@data-testid="answer"])[1]');
-        const textoBoton1 = await page.evaluate(button => button.innerText, answerButton[0]);
-        const textoBoton2 = await page.evaluate(button => button.innerText, answerButton[1]);
-        if(textoBoton1 === "Madrid") {
-          await expect(textoBoton1).toMatch(/Madrid/i);
-        } else {
-          await expect(textoBoton2).toMatch(/Madrid/i);
-        }*/
-        await expect(page).toMatchElement("button", { style: { color: 'green' } });
+        await expect(page).toMatchElement("button", { style: { color: 'rgb(51, 153, 102);' } });
     });
   })
 
@@ -119,16 +111,8 @@ defineFeature(feature, test => {
     });
 
     then('The button turns red', async () => {
-        /*const answerButton = await page.$x('(//*[@data-testid="answer"])[2]');
-        const textoBoton1 = await page.evaluate(button => button.innerText, answerButton[0]);
-        const textoBoton2 = await page.evaluate(button => button.innerText, answerButton[1]);
-        if(textoBoton1 !== "Madrid") {
-          await expect(textoBoton1).not.toMatch(/Madrid/i);
-        } else {
-          await expect(textoBoton2).toMatch(/Madrid/i);
-        }*/
-        await expect(page).toMatchElement("button", { style: { color: 'red' } });
-        await expect(page).toMatchElement("button", { style: { color: 'green' } });
+        await expect(page).toMatchElement("button", { style: { color: 'rgb(153, 0, 0);' } });
+        await expect(page).toMatchElement("button", { style: { color: 'rgb(51, 153, 102);' } });
     });
   })
 
