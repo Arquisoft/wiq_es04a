@@ -73,7 +73,12 @@
         "categories": {
             "geography": "Geografía",
             "political":"Política",
-            "sports":"Deporte"
+            "sports":"Deporte",
+            "cities": "Ciudades",
+            "art": "Arte",
+            "entertainment": "Entretenimiento",
+            "games": "Juegos",
+            "animals": "Animales"
         }
     },
 
@@ -125,7 +130,7 @@
         "title": "ESTADÍSTICAS",
         "game": "Partida",
         "table": {
-            "money": "Puntos Ganado",
+            "money": "Puntos Ganados",
             "questions_corr": "Preguntas Respondidas Correctamente",
             "questions_incorr": "Preguntas Respondidas Incorrectamente",
             "questions_pass": "Preguntas Pasadas",

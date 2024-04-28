@@ -24,7 +24,7 @@ async function generateQuestions(n, language, questionCategory) {
 
             // get data for selected entity
             let pos = Math.floor(Math.random() * entity.properties.length);
-            
+
             //use only property of that required category
             if(questionCategory) {
                 const filteredProperties = [];
@@ -33,6 +33,7 @@ async function generateQuestions(n, language, questionCategory) {
                         filteredProperties.push(property);
                     }
                 });
+
                 const randomPos = Math.floor(Math.random() * filteredProperties.length);
                 const propertyJson = filteredProperties[randomPos];
                 pos = entity.properties.findIndex(prop => prop === propertyJson);

@@ -22,8 +22,8 @@ const getBarrero = () => {
 return "barreroIcon.jpg";
 }
 
-const getMaite = () => {
+const getTeresa = () => {
 return "teresaIcon.jpg";
 }
 
-export { getHugo, getAlberto, getWiffo, getAndina, getSamu, getBarrero, getMaite };
+export { getHugo, getAlberto, getWiffo, getAndina, getSamu, getBarrero, getTeresa };

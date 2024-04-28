@@ -279,6 +279,11 @@ const TheChallengeGame = () => {
                                 <MenuItem value="Geography">{t("Game.categories.geography")}</MenuItem>
                                 <MenuItem value="Political">{t("Game.categories.political")}</MenuItem>
                                 <MenuItem value="Sports">{t("Game.categories.sports")}</MenuItem>
+                                <MenuItem value="Cities">{t("Game.categories.cities")}</MenuItem>
+                                <MenuItem value="Art">{t("Game.categories.art")}</MenuItem>
+                                <MenuItem value="Entertainment">{t("Game.categories.entertainment")}</MenuItem>
+                                <MenuItem value="Games">{t("Game.categories.games")}</MenuItem>
+                                <MenuItem value="Animals">{t("Game.categories.animals")}</MenuItem>
                             </Select>
                         </Box>
                     </Container>
@@ -353,7 +358,7 @@ const TheChallengeGame = () => {
                     </IconButton>
                     :
                     // Cronómetro
-                    <CountdownCircleTimer data-testid="circleTimer" key={questionCountdownKey} isPlaying = {questionCountdownRunning} duration={15} colorsTime={[10, 6, 3, 0]}
+                    <CountdownCircleTimer data-testid="circleTimer" key={questionCountdownKey} isPlaying = {questionCountdownRunning} duration={timerConfig} colorsTime={[10, 6, 3, 0]}
                     colors={[theme.palette.success.main, "#F7B801", "#f50707", theme.palette.error.main]} size={100} onComplete={() => selectResponse(-1, "FAILED")}>
                         {({ remainingTime }) => {
                             return (

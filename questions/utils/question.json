@@ -113,7 +113,7 @@
     },
     {
         "name": "book",
-        "instance": "Q571",
+        "instance": "Q7725634",
         "properties": [
             {
                 "property": "P50",
@@ -199,7 +199,7 @@
         ]
     },
     {
-        "name": "television series",
+        "name": "television series", 
         "instance": "Q5398426",
         "properties": [
             {
