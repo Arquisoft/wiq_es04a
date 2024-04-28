@@ -1,8 +1,7 @@
 [
     {
       "nombre": "Wise Men Stack",
-      "descripcion":
-            "The player chooses a topic from the available options and must answer a battery of questions related to it within 60 seconds. For each question, the host provides two options. If the contestant guesses correctly, they move on to the next question.",
+      "descripcion": "The player chooses a topic from the available options and must answer a battery of questions related to it within 60 seconds. For each question, the host provides two options. If the contestant guesses correctly, they move on to the next question.",
       "foto": "../instructions/foto0.png",
       "card":"The player chooses a topic from three available options and must answer a battery of questions related to it within 60 seconds.",
       "cardFoto": "../homePage/foto0.png"
