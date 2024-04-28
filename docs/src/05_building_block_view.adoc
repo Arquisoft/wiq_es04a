@@ -178,7 +178,7 @@ Decomposition of the gateway black box from level 1 system.
 
 Contained Building Blocks::
 * **gateway-service**: Define the routes for handling the communication between the user service and question service modules with the web app service.
-
+* **prometheus**: Contains the configuration of grapfana and prometheus
 Other Important Interfaces::
 * **monitoring**: Uses Grafana and Prometheus to monitor the application.
 
@@ -258,8 +258,8 @@ Contained Building Blocks::
 * **components**: Defines common elements in the pages like the nav-bar, footer, etc. 
 * **pages**: Defines the different screens of the application.
 * **data**:  It contains the data used by the pages.
+* **App**: Main entry point for the application logic. Defines the application's theme and navbar routes.
+* **index**: Initializes the application and renders the main component (App.js) to the DOM.
 
-Other Important Interfaces::
-* **index**: Define the entry point of the Web app.
 
 
