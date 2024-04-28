@@ -151,9 +151,9 @@
             {
                 "property": "P3032",
                 "template": {
-                    "es": "Cuál es la velocidad máxima de x",
-                    "en": "What is the maximum speed of x",
-                    "fr": "Quelle est la vitesse maximale de x"
+                    "es": "Cuál es la mayor velocidad de x",
+                    "en": "What is the greatest speed of x",
+                    "fr": "Quelle est la vitesse plus grand de x"
                 },
                 "category": ["Cars"]
             }
