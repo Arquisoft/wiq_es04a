@@ -32,11 +32,11 @@
     "Games": {
         "Wise Men Stack": {
             "name": "Wise Men Stack",
-            "desc": "The player chooses a topic from five available options and must answer a battery of questions related to it within 60 seconds. For each question, the host provides two options. If the contestant guesses correctly, they win €20; otherwise, they move on to the next question (as the correct answer would be the other option). If the time runs out before the question is fully asked and both possible answers are provided, the contestant may still answer it; however, if the statement hasn't been completed (or the options weren't provided), they cannot answer."
+            "desc": "The player chooses a topic from some available options and must answer a battery of questions related to it within 60 seconds. For each question, the host provides two options. If the contestant guesses correctly, they win 20 points; otherwise, they move on to the next question (as the correct answer would be the other option). If the time runs out before the question is fully asked and both possible answers are provided, the contestant may still answer it; however, if the statement hasn't been completed (or the options weren't provided), they cannot answer."
         },
         "Warm Question": {
             "name": "Warm Question",
-            "desc": "It consists of ten topics of varied themes. For each correct answer, €100 is earned, and €10 are lost if the contestant passes, does not respond, or answers incorrectly."
+            "desc": "It consists of topics of varied themes. For each correct answer, 100 points are earned, and 10 points are lost if the contestant passes, does not respond, or answers incorrectly."
         },
         "Discovering Cities": {
             "name": "Discovering Cities",
@@ -48,7 +48,7 @@
         },
         "Multiplayer": {
             "name": "Multiplayer",
-            "desc": "Create a room for other player to join and play 1vs1"
+            "desc": "Create a room for other players to join and play together. Also, a chat is available."
         }
     },
 
