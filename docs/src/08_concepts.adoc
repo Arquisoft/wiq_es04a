@@ -89,27 +89,33 @@ image::08_domain_model_2.png["Current version of the game modes"]
 
 
 === User Experience (UX)
-* https://arquisoft.github.io/wiq_es04a/#_technical_terms[**Frontend**]: the frontend of this application consists of a deployed web app which will be deployed. The user can register and log in with accounts already created on an intuitive page. They can also play different game modes and to consult their historial record, statistics, and even a ranking.
+* https://arquisoft.github.io/wiq_es04a/#_technical_terms[**Frontend**]: the frontend of this application consists of a deployed web app which is deployed. The user can register or log in with accounts already created on an intuitive page. They can also play different game modes and to consult their historial record, statistics, and even some rankings.
 As it can be seen down below, the homepage is bright and appealing, which leads to a better user experience. Users can easily choose the game mode they prefer and play.
 
 image::08_homepage.png["Current homepage window"]
 
-* https://arquisoft.github.io/wiq_es04a/#_technical_terms[**Internationalization**] The application will likely be available in various languages, including English as the main language. This would provide a better user experience as users could better tailor the application to their personal preferences.
+* https://arquisoft.github.io/wiq_es04a/#_technical_terms[**Internationalization**] The application is available in various languages, including English as the main language. This would provide a better user experience as users could better tailor the application to their personal preferences.
 
 === Operation Concepts
-* **Usability**: The application should be easy to use. For this reason, we had some people try our application. This way we can know its strengths and weaknesses and improve them. Usability affects User Experience as well, so it is an important aspect of the application. Up to this moment, usability testing has helped with the color palette chosen the application.
+* **Usability**: We tried for the application to be easy to use. For this reason, we had some people try our application. This way we can know its strengths and weaknesses and improve them. Usability affects User Experience as well, so it is an important aspect of the application. Up to this moment, usability testing has helped with the color palette chosen the application.
+
+We have also taken into account certain aspects that could difficult a person to use our application properly. For instance, we have stablished tics and crosses as well as colours to know if questions are correct or not. For this reason, a daltonic person would get to know if they got the answer correct or not easily.
+
 
 === Security
-At the moment, security mechanisms are not the main focus of the application, but some decisions have already been made and will be implemented soon.
+We have implemented some security in the application. We have blocked access to certain directions if you are not logged in. This way, we avoid external people to be able to access our application as it could lead to other security issues.
+We have also stablished that passwords need to follow a certain security level. They need to be at least 8 characters longs and they must contain upper and lower letters, numbers and special characters. Also, passwords are stored encrypted. In case that the batabase is stolen, data would still be secure. 
 
 === Architecture and Design Patterns
 * https://arquisoft.github.io/wiq_es04a/#_technical_terms[**Microservice**]: In this application there are some microservices such as the User Management, which involves signing up, logging in and everything related to the points and timing of the user. Microservices provide an easy way of creating a complex application composed by independent systems.
 Another important microservice is the questions generation system. It creates infinite questions related to varios topics. Thats to this, users can never get bored of the game, as questions do not repeat themselves.
 The webapp microservice includes everything related to the graphic interface. Users are able to communicate with the application thats to this service.
 
+All of the architectural decisions that have taken place through the application creation are specified in the https://github.com/Arquisoft/wiq_es04a/wiki[repository Wiki section]
 
 === Development Concepts
 * **Testing**: Numerous use-cases are studied so as to provide a solid and easy-to-use application. There are unitary tests related to every functionality of the project, as well as e2e tests regarding the main game.
+
 * https://arquisoft.github.io/wiq_es04a/#_acronyms[**CI/CD**]: The application is in continuous integration and deployment. Team members commit frequently into the repository where the project is stored. This makes it easier when assembling project parts involving collaboration from different team members.
 
-image::08_mindmap_concepts.png["Initial version of cross-cutting concepts"]
+image::08_mindmap_concepts.png["cross-cutting concepts"]
