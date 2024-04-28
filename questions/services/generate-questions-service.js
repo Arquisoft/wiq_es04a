@@ -44,8 +44,15 @@ async function generateQuestions(n, language, questionCategory) {
             // Now language is accessed directly:
             const question = entity.properties[pos].template[language];
 
-            //let [entityName, searched_property] = await wikidataService.getRandomEntity(instance, property, filter);
-            let [entityName, searched_property] = await wikidataService.getRandomEntity(entity, pos, language);
+            let [entityName, searched_property] = [null, null]
+            while (!entityName || !searched_property) {
+                try {
+                    [entityName, searched_property] = await wikidataService.getRandomEntity(entity, pos, language);
+                } catch (error) {
+                    console.error("Error generating label for the answer: ", error.message);
+                    console.error("Line:", error.stack.split("\n")[1]);
+                }
+            }
 
             if (searched_property !== null) {
                 //This way we can ask questions with different structures
