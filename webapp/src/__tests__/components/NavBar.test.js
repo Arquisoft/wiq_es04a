@@ -121,7 +121,7 @@ describe('NavBar component', () => {
     );
 
     // Checks select menu is in the nav
-    const selectLang = screen.getByText("English");
+    const selectLang = screen.getAllByText("English")[0];
     await expect(selectLang).toBeInTheDocument();
   
     // Click on it and check both options are there

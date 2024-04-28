@@ -1,6 +1,7 @@
 const axios = require('axios');
 
 async function getRandomEntity(entity, pos, language) {
+
     const property = entity.properties[pos].property;
     const filt = entity.properties[pos].filter;
     var filter = '';
@@ -22,13 +23,12 @@ async function getRandomEntity(entity, pos, language) {
     `;
     // it is better to use the FILTER rather than SERVICE
     //SERVICE wikibase:label { bd:serviceParam wikibase:language "es". }
-  
+
     const urlApiWikidata = 'https://query.wikidata.org/sparql';
     const headers = {
         'User-Agent': 'QuestionGeneration/1.0',
         'Accept': 'application/json',
     };
-  
     try {
         response = await axios.get(urlApiWikidata, {
             params: {
@@ -37,14 +37,16 @@ async function getRandomEntity(entity, pos, language) {
             },
             headers: headers,
           });
-  
+        
+
         const data = await response.data
         const entities = data.results.bindings;
-  
+
         if (entities.length > 0) {
             const randomEntity = entities[Math.floor(Math.random() * entities.length)];
             const entityName = randomEntity.entityLabel.value;
             const property = randomEntity.property.value;
+            console.log("ENTITY, PROPERTY: ",entityName, property);
             return [entityName, property];
         } else {
             return null;
@@ -80,7 +82,7 @@ async function getProperties(property, language, filt) {
               query: consultaSparql,
               format: 'json' 
             },
-            timeout: 15000 //means error
+            timeout: 30000 //means error
         });
         const endTime = new Date();
         const elapsedTime = endTime - startTime;
@@ -95,11 +97,11 @@ async function getProperties(property, language, filt) {
             for(var i = 0; i < 3 ; i++) {
                 properties[i] = list[Math.floor(Math.random() * list.length)].property.value;
             }
+            console.log("PROPERTIES: ",properties);
             return properties;
         }
         return null;
     } catch (error) {
-        console.error(error.stack);
         console.error(`Error obtaining properties: ${error.message}`);
         console.error("Line:", error.stack.split("\n")[1]);
         return null;
@@ -118,7 +120,7 @@ async function getEntityLabel(entityUrl) {
     if(entity.labels.es) {
         return entity.labels.es.value;
     }
-    
+     
     return "no label (TEST)";
   }
   

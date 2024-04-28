@@ -32,6 +32,17 @@ describe('Ranking Component', () => {
 
   });
 
+  it('debe reproducir el video a una velocidad de 0.85', async () => {
+    render(<Ranking />);
+
+    setTimeout(() => {
+      const videoElement = screen.getByTestId('video');
+      expect(videoElement).toBeInTheDocument();
+      expect(videoElement.playbackRate).toBe(0.85);
+    }, 15);
+
+  });
+
   it('should display group ranking when "GROUPS" button is clicked', async () => {
     const groupRanking = {
       data: { rank: [

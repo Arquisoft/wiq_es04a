@@ -1,0 +1,422 @@
+---
+openapi: 3.0.0
+info:
+  title: UsersService API
+  description: User OpenAPI specification
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/UO289689_1/users-api/1.0.0
+  description: SwaggerHub API Auto Mocking
+- url: http://localhost:8000
+  description: Development server
+- url: http://20.19.89.97:8000
+  description: Production server
+paths:
+  /user:
+    get:
+      summary: Get all users
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+        "400":
+          description: Bad request
+    post:
+      summary: Add a new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user_body'
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_1'
+        "500":
+          description: Internal Server Error
+  /user/{username}:
+    get:
+      summary: Get user by username
+      parameters:
+      - name: username
+        in: path
+        description: Username
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_2'
+        "400":
+          description: Bad request
+  /ranking:
+    get:
+      summary: Get users sorted by correct answers
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+        "400":
+          description: Bad request
+  /statistics/{username}:
+    get:
+      summary: Get user statistics by username
+      parameters:
+      - name: username
+        in: path
+        description: Username
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_3'
+        "400":
+          description: Bad request
+  /statistics:
+    put:
+      summary: Update user statistics
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/statistics_body'
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_4'
+        "500":
+          description: Internal Server Error
+  /questionsRecord/{username}/{gameMode}:
+    get:
+      summary: Get users questions record by username and game mode
+      parameters:
+      - name: username
+        in: path
+        description: Username
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: gameMode
+        in: path
+        description: Game mode
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_5'
+        "500":
+          description: Internal Server Error
+  /questionsRecord:
+    put:
+      summary: Update users questions record
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/questionsRecord_body'
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionsRecord_body'
+        "500":
+          description: Internal Server Error
+  /group:
+    get:
+      summary: Get all users groups
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_6'
+        "500":
+          description: Internal Server Error
+    post:
+      summary: Add a new group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/group_body'
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_7'
+        "400":
+          description: Bad request
+  /group/{name}:
+    get:
+      summary: Get group by name
+      parameters:
+      - name: name
+        in: path
+        description: Group name
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_7'
+        "404":
+          description: Group not found
+        "400":
+          description: Bad request
+components:
+  schemas:
+    inline_response_200:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+              name:
+                type: string
+              surname:
+                type: string
+              createdAt:
+                type: string
+              imageUrl:
+                type: string
+    user_body:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        name:
+          type: string
+        surname:
+          type: string
+    inline_response_200_1:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        name:
+          type: string
+        surname:
+          type: string
+        createdAt:
+          type: string
+    inline_response_200_2:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        name:
+          type: string
+        surname:
+          type: string
+        createdAt:
+          type: string
+        imageUrl:
+          type: string
+    inline_response_200_3:
+      type: object
+      properties:
+        username:
+          type: string
+        the_callenge_earned_money:
+          type: integer
+        the_callenge_correctly_answered_questions:
+          type: integer
+        the_callenge_incorrectly_answered_questions:
+          type: integer
+        the_callenge_total_time_played:
+          type: integer
+        the_callenge_games_played:
+          type: integer
+        wise_men_stack_earned_money:
+          type: integer
+        wise_men_stack_correctly_answered_questions:
+          type: integer
+        wise_men_stack_incorrectly_answered_questions:
+          type: integer
+        wise_men_stack_games_played:
+          type: integer
+        warm_question_earned_money:
+          type: integer
+        warm_question_correctly_answered_questions:
+          type: integer
+        warm_question_incorrectly_answered_questions:
+          type: integer
+        warm_question_passed_questions:
+          type: integer
+        warm_question_games_played:
+          type: integer
+        discovering_cities_earned_money:
+          type: integer
+        discovering_cities_correctly_answered_questions:
+          type: integer
+        discovering_cities_incorrectly_answered_questions:
+          type: integer
+        discovering_cities_games_played:
+          type: integer
+    statistics_body:
+      type: object
+      properties:
+        username:
+          type: string
+        the_callenge_earned_money:
+          type: integer
+        the_callenge_correctly_answered_questions:
+          type: integer
+        the_callenge_incorrectly_answered_questions:
+          type: integer
+        the_callenge_total_time_played:
+          type: integer
+        the_callenge_games_played:
+          type: integer
+        wise_men_stack_earned_money:
+          type: integer
+        wise_men_stack_correctly_answered_questions:
+          type: integer
+        wise_men_stack_incorrectly_answered_questions:
+          type: integer
+        wise_men_stack_games_played:
+          type: integer
+        warm_question_earned_money:
+          type: integer
+        warm_question_correctly_answered_questions:
+          type: integer
+        warm_question_incorrectly_answered_questions:
+          type: integer
+        warm_question_passed_questions:
+          type: integer
+        warm_question_games_played:
+          type: integer
+        discovering_cities_earned_money:
+          type: integer
+        discovering_cities_correctly_answered_questions:
+          type: integer
+        discovering_cities_incorrectly_answered_questions:
+          type: integer
+        discovering_cities_games_played:
+          type: integer
+        online_earned_money:
+          type: integer
+        online_correctly_answered_questions:
+          type: integer
+        online_incorrectly_answered_questions:
+          type: integer
+        online_total_time_played:
+          type: integer
+        online_games_played:
+          type: integer
+    inline_response_200_4:
+      type: object
+      properties:
+        username:
+          type: string
+        message:
+          type: string
+    inline_response_200_5:
+      type: object
+      properties:
+        username:
+          type: string
+        questionsRecord:
+          type: object
+        gameMode:
+          type: string
+    questionsRecord_body:
+      type: object
+      properties:
+        username:
+          type: string
+        questionsRecord:
+          type: object
+        gameMode:
+          type: string
+    inline_response_200_6:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              creator:
+                type: string
+              createdAt:
+                type: string
+    group_body:
+      type: object
+      properties:
+        name:
+          type: string
+        username:
+          type: string
+    inline_response_200_7:
+      type: object
+      properties:
+        name:
+          type: string
+        creator:
+          type: string
+        createdAt:
+          type: string
