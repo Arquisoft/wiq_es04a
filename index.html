@@ -2760,6 +2760,22 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <td class="tableblock halign-left valign-top"><p class="tableblock">Deployment issues</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Having not worked with Docker and other deployment tools before may cause problems when deploying the application. For this reason, we are trying to put our best into learning these new technologies.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dependency with Wikidata</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It is a requirement so we need to depend on it. However, we have created a questions database so in case that Wikidata was not working, the application would continue to work for some time.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Filtering questions and answers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Given the structure of Wikidata there are sometimes where questions and answers do not have the proper label we are looking for. Although we have stablished filters and different strategies, nothing seems to work perfectly.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Similarity between questions</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Due to the way we generate questions, it is possible that sometimes questions get repeated. It is not the usual but there is a probability.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Changes in database model</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Changing the model of a relational database makes it necessary to create a new database, losing all of the data we had before.</p></td>
+</tr>
 </tbody>
 </table>
 <div style="page-break-after: always;"></div>
