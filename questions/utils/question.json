@@ -113,18 +113,6 @@
                 "category": ["Art"]
             },
             {
-                "property": "P571",
-                "template": [{
-                    "lang": "es",
-                    "question": "Cual es el año de creacion de x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "What is the year of creation of x"
-                    }],
-                "category": ["Art"]
-            },
-            {
                 "property": "P136",
                 "template":
                     [{
@@ -155,38 +143,6 @@
                     "question": "Who is the inventor of x"
                     }],
                 "category": ["Science"]
-            },
-            {
-                "property": "P575",
-                "template":
-                    [{
-                    "lang": "es",
-                    "question": "En que año se inventó x"
-                    },
-                    {
-                    "lang": "en",
-                    "question":  "What was the year of invention of x"
-                    }],
-                "category": ["Science"]
-            }
-        ]
-    },
-    {
-        "name": "mountain",
-        "instance": "Q8502",
-        "properties": [
-            {
-                "property": "P2044",
-                "template":
-                    [{
-                    "lang": "es",
-                    "question": "Cual es la altitud mxima del x"
-                    },
-                    {
-                    "lang": "en",
-                    "question":  "What is the maximum altitude of x"
-                    }],
-                "category": ["Geography"]
             }
         ]
     },
@@ -204,18 +160,6 @@
                     {
                     "lang": "en",
                     "question": "Who is the author of x"
-                    }],
-                "category": ["Entertainment"]
-            },
-            {
-                "property": "P577",
-                "template": [{
-                    "lang": "es",
-                    "question": "Cual es el año de publicacion de x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "What is the year of publication of x"
                     }],
                 "category": ["Entertainment"]
             },
@@ -262,19 +206,6 @@
                     "question": "What is the maximum speed of x"
                     }],
                 "category": ["Cars"]
-            },
-            {
-                "property": "P571",
-                "template":
-                    [{
-                    "lang": "es",
-                    "question": "En qué año fue introducido x al mercado"
-                    },
-                    {
-                    "lang": "en",
-                    "question":  "In what year was x introduced to the market"
-                    }],
-                "category": ["Cars"]
             }
         ]
     },
@@ -282,19 +213,6 @@
         "name": "dish",
         "instance": "Q746549",
         "properties": [
-            {
-                "property": "P527",
-                "template":
-                    [{
-                    "lang": "es",
-                    "question": "Cuál es el ingrediente principal de x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "What is the main ingredient of x"
-                    }],
-                "category": ["Food"]
-            },
             {
                 "property": "P495",
                 "template": [{
@@ -323,18 +241,6 @@
                     {
                     "lang": "en",
                     "question": "Who was the architect of x"
-                    }],
-                "category": ["Art"]
-            },
-            {
-                "property": "P571",
-                "template": [{
-                    "lang": "es",
-                    "question": "En qué año se completó x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "In what year was it completed x"
                     }],
                 "category": ["Art"]
             },
@@ -463,18 +369,6 @@
                 "category": ["Games"]
             },
             {
-                "property": "P577",
-                "template": [{
-                    "lang": "es",
-                    "question": "En qué año fue lanzado el videojuego x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "In what year was the video game x released?"
-                    }],
-                "category": ["Games"]
-            },
-            {
                 "property": "P400",
                 "template": [{
                     "lang": "es",
@@ -502,18 +396,6 @@
                     {
                     "lang": "en",
                     "question": "Who is the designer of the brand x"
-                    }],
-                "category": ["Fashion"]
-            },
-            {
-                "property": "P571",
-                "template": [{
-                    "lang": "es",
-                    "question": "Cuándo fue fundada la casa de moda x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "When was the fashion house founded x"
                     }],
                 "category": ["Fashion"]
             }
@@ -547,25 +429,6 @@
                     "question": "What species share the habitat with x"
                     }],
                 "category": ["Animals"]
-            }
-        ]
-    },
-    {
-        "name": "brands",
-        "instance": "Q431289",
-        "properties": [
-            {
-                "property": "P571",
-                "template":
-                    [{
-                    "lang": "es",
-                    "question": "Cuándo fue fundada la marca x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "When was the brand x founded?"
-                    }],
-                "category": ["Brands"]
             }
         ]
     }
