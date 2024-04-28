@@ -7,29 +7,29 @@ import '../../localize/i18n';
 jest.mock('../../data/gameInfo.json', () => ({
   __esModule: true,
   default: [
-    {
+        {
       nombre: "Wise Men Stack",
-      descripcion: "The player chooses a topic from five available options and must answer a battery of questions related to it within 60 seconds. For each question, the host provides two options. If the contestant guesses correctly, they win €20; otherwise, they move on to the next question (as the correct answer would be the other option). If the time runs out before the question is fully asked and both possible answers are provided, the contestant may still answer it; however, if the statement hasn't been completed (or the options weren't provided), they cannot answer.",
+      description: "The player chooses a topic from some available options and must answer a battery of questions related to it within 60 seconds. For each question, the host provides two options. If the contestant guesses correctly, they win 20 points; otherwise, they move on to the next question (as the correct answer would be the other option). If the time runs out before the question is fully asked and both possible answers are provided, the contestant may still answer it; however, if the statement hasn't been completed (or the options weren't provided), they cannot answer.",
       foto: "../gameImg/foto0.png"
     },
     {
       nombre: "Warm Question",
-      descripcion: "It consists of ten topics of varied themes. For each correct answer, €100 is earned, and €10 are lost if the contestant passes, does not respond, or answers incorrectly.",
+      description: "It consists of topics of varied themes. For each correct answer, 100 points are earned, and 10 points are lost if the contestant passes, does not respond, or answers incorrectly.",
       foto: "../gameImg/foto1.jpg"
     },
     {
       nombre: "Discovering Cities",
-      descripcion: "In the 'Discovering Cities' game mode, the contestant will face a challenge where they will be repeatedly asked questions referring to different cities around the world. To successfully overcome the challenge, the contestant must answer as many questions as possible correctly throughout the test.",
+      description: "In the 'Discovering Cities' game mode, the contestant will face a challenge where they will be repeatedly asked questions referring to different cities around the world. To successfully overcome the challenge, the contestant must answer as many questions as possible correctly throughout the test.",
       foto: "../gameImg/foto2.png"
     },
     {
       nombre: "Challenge",
-      descripcion: "The 'Challenge' game mode is the quintessential game mode, as it allows you to customize the match to your liking. This game mode is tailored for those who wish to practice certain game formats before engaging in our various other game modes.",
+      description: "The 'Challenge' game mode is the quintessential game mode, as it allows you to customize the match to your liking. This game mode is tailored for those who wish to practice certain game formats before engaging in our various other game modes.",
       foto: "../gameImg/foto3.jpg"
     },
     {
       nombre: "Multiplayer",
-      descripcion: "Create a room for other player to join and play 1vs1",
+      description: "Create a room for other players to join and play together. Also, a chat is available.",
       foto: "../gameImg/foto3.jpg"
     }
   ]
@@ -111,27 +111,27 @@ describe('Instructions component', () => {
   const mockGameData = [
     {
       nombre: "Wise Men Stack",
-      descripcion: "The player chooses a topic from five available options and must answer a battery of questions related to it within 60 seconds. For each question, the host provides two options. If the contestant guesses correctly, they win €20; otherwise, they move on to the next question (as the correct answer would be the other option). If the time runs out before the question is fully asked and both possible answers are provided, the contestant may still answer it; however, if the statement hasn't been completed (or the options weren't provided), they cannot answer.",
+      description: "The player chooses a topic from some available options and must answer a battery of questions related to it within 60 seconds. For each question, the host provides two options. If the contestant guesses correctly, they win 20 points; otherwise, they move on to the next question (as the correct answer would be the other option). If the time runs out before the question is fully asked and both possible answers are provided, the contestant may still answer it; however, if the statement hasn't been completed (or the options weren't provided), they cannot answer.",
       foto: "../gameImg/foto0.png"
     },
     {
       nombre: "Warm Question",
-      descripcion: "It consists of ten topics of varied themes. For each correct answer, €100 is earned, and €10 are lost if the contestant passes, does not respond, or answers incorrectly.",
+      description: "It consists of topics of varied themes. For each correct answer, 100 points are earned, and 10 points are lost if the contestant passes, does not respond, or answers incorrectly.",
       foto: "../gameImg/foto1.jpg"
     },
     {
       nombre: "Discovering Cities",
-      descripcion: "In the 'Discovering Cities' game mode, the contestant will face a challenge where they will be repeatedly asked questions referring to different cities around the world. To successfully overcome the challenge, the contestant must answer as many questions as possible correctly throughout the test.",
+      description: "In the 'Discovering Cities' game mode, the contestant will face a challenge where they will be repeatedly asked questions referring to different cities around the world. To successfully overcome the challenge, the contestant must answer as many questions as possible correctly throughout the test.",
       foto: "../gameImg/foto2.png"
     },
     {
       nombre: "Challenge",
-      descripcion: "The 'Challenge' game mode is the quintessential game mode, as it allows you to customize the match to your liking. This game mode is tailored for those who wish to practice certain game formats before engaging in our various other game modes.",
+      description: "The 'Challenge' game mode is the quintessential game mode, as it allows you to customize the match to your liking. This game mode is tailored for those who wish to practice certain game formats before engaging in our various other game modes.",
       foto: "../gameImg/foto3.jpg"
     },
     {
       nombre: "Multiplayer",
-      descripcion: "Create a room for other player to join and play 1vs1",
+      description: "Create a room for other players to join and play together. Also, a chat is available.",
       foto: "../gameImg/foto3.jpg"
     }
   ];
