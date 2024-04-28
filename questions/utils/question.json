@@ -13,7 +13,12 @@
                     {
                     "lang": "en",
                     "question": "What is the population of x"
-                    }],
+                    },
+                    {
+                    "lang": "fr",
+                    "question": "Quelle est la population de x?"
+                    }
+                ],
                 "filter": ">4000000",
                 "category": ["Geography", "Cities"]
             },
@@ -26,6 +31,10 @@
                     {
                     "lang": "en",
                     "question": "What is the capital of x"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": "Quelle est la capitale de x?"
                     }],
                 "category": ["Geography", "Cities"]
             },
@@ -39,8 +48,12 @@
                     {
                     "lang": "en",
                     "question":  "What currency x has"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": "Quelle est la monnaie de x?"
                     }],
-                "category": ["Political"]
+                "category": ["Geography"]
             }
         ]
     },
@@ -58,6 +71,10 @@
                     {
                     "lang": "en",
                     "question": "What is the stadium of x team"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": "Quel est le stade de l'équipe x?"
                     }],
                 "category": ["Sports"]
             },
@@ -71,6 +88,10 @@
                     {
                     "lang": "en",
                     "question":  "What is the country of x team"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": "Quel est le pays de l'équipe x?"
                     }],
                 "category": ["Sports", "Geography"]
             }
@@ -90,6 +111,10 @@
                     {
                     "lang": "en",
                     "question":  "What country is x river in"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": "Dans quel pays se trouve le fleuve x?"
                     }],
                 "category": ["Geography"]
             }
@@ -109,6 +134,10 @@
                     {
                     "lang": "en",
                     "question": "Who is the author of x"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": "Qui est l'auteur de x?"
                     }],
                 "category": ["Art"]
             },
@@ -122,6 +151,10 @@
                     {
                     "lang": "en",
                     "question":  "What is the artistic style of x"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": "Quel est le style artistique de x?"
                     }],
                 "category": ["Art"]
             }
@@ -141,14 +174,42 @@
                     {
                     "lang": "en",
                     "question": "Who is the inventor of x"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": "Qui est l'inventeur de x?"
                     }],
                 "category": ["Science"]
             }
         ]
     },
     {
+        "name": "mountain",
+        "instance": "Q8502",
+        "properties": [
+            {
+                "property": "P2044",
+                "template":
+                    [{
+                    "lang": "es",
+                    "question": "Cual es la altitud de la montaña x"
+                    },
+                    {
+                    "lang": "en",
+                    "question":  "What is the altitude of x"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": "Quelle est l'altitude de la montagne x?"
+                    }],
+                "filter": ">4000",    
+                "category": ["Geography"]
+            }
+        ]
+    },
+    {
         "name": "book",
-        "instance": "Q571",
+        "instance": "Q7725634",
         "properties": [
             {
                 "property": "P50",
@@ -160,6 +221,10 @@
                     {
                     "lang": "en",
                     "question": "Who is the author of x"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": "Qui est l'auteur de x?"
                     }],
                 "category": ["Entertainment"]
             },
@@ -173,6 +238,10 @@
                     {
                     "lang": "en",
                     "question":  "What is the genre of x"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": "Quel est le genre de x?"
                     }],
                 "category": ["Entertainment"]
             }
@@ -259,7 +328,7 @@
         ]
     },
     {
-        "name": "television series",
+        "name": "television series", 
         "instance": "Q5398426",
         "properties": [
             {
@@ -272,6 +341,10 @@
                     {
                     "lang": "en",
                     "question": "Who is the creator of the series x"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": "Qui est le créateur de la série x?"
                     }],
                 "category": ["Entertainment"]
             },
@@ -284,39 +357,13 @@
                     {
                     "lang": "en",
                     "question": "How many seasons does the series x have?"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": "Combien de saisons compte la série x?"
                     }],
+                "filter": ">0",
                 "category": ["Entertainment"]
-            }
-        ]
-    },
-    {
-        "name": "software",
-        "instance": "Q7397",
-        "properties": [
-            {
-                "property": "P178",
-                "template":
-                    [{
-                    "lang": "es",
-                    "question": "Quién desarrolló el software x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "Who developed the software x"
-                    }],
-                "category": ["Technology"]
-            },
-            {
-                "property": "P277",
-                "template": [{
-                    "lang": "es",
-                    "question": "En qué lenguaje de programación está escrito x"
-                    },
-                    {
-                    "lang": "en",
-                    "question": "What programming language is x written in?"
-                    }],
-                "category": ["Technology"]
             }
         ]
     },
@@ -333,9 +380,13 @@
                     },
                     {
                     "lang": "en",
-                    "question": "Who developed the software x"
+                    "question": "What sport does x compite in?"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": "Dans quel sport concourt x?"
                     }],
-                "category": ["Sport"]
+                "category": ["Sports"]
             },
             {
                 "property": "P27",
@@ -346,8 +397,12 @@
                     {
                     "lang": "en",
                     "question": "What is the nationality of the athlete x"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": "Quelle est la nationalité de l'athlète x?"
                     }],
-                "category": ["Sport"]
+                "category": ["Sports"]
             }
         ]
     },
@@ -365,8 +420,12 @@
                     {
                     "lang": "en",
                     "question": "Who is the developer of the video game x"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": "Qui est le développeur du jeu vidéo x?"
                     }],
-                "category": ["Games"]
+                "category": ["Games","Entertainment"]
             },
             {
                 "property": "P400",
@@ -377,27 +436,12 @@
                     {
                     "lang": "en",
                     "question": "What are the platforms supported by x"
-                    }],
-                "category": ["Games"]
-            }
-        ]
-    },
-    {
-        "name": "jewelry",
-        "instance": "Q161439",
-        "properties": [
-            {
-                "property": "P287",
-                "template":
-                    [{
-                    "lang": "es",
-                    "question": "Quién es el diseñador de la marca x"
                     },
                     {
-                    "lang": "en",
-                    "question": "Who is the designer of the brand x"
+                    "lang": "fr",
+                    "question": "Quelles sont les plateformes compatibles avec x?"
                     }],
-                "category": ["Fashion"]
+                "category": ["Games","Entertainment"]
             }
         ]
     },
@@ -415,8 +459,12 @@
                     {
                     "lang": "en",
                     "question": "What is the natural habitat of species x"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": "Quel est l'habitat naturel de l'espèce x?"
                     }],
-                "category": ["Animals"]
+                "category": ["Animals","Science"]
             },
             {
                 "property": "P2670",
@@ -427,8 +475,12 @@
                     {
                     "lang": "en",
                     "question": "What species share the habitat with x"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": "Quelles espèces partagent l'habitat avec x?"
                     }],
-                "category": ["Animals"]
+                "category": ["Animals","Science"]
             }
         ]
     }

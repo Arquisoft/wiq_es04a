@@ -80,9 +80,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(increase(http_request_duration_seconds_count[1h]))",
+          "expr": "sum(increase(http_request_duration_seconds_count[1m]))",
           "interval": "",
-          "legendFormat": "Requests per hour",
+          "legendFormat": "Requests per minute",
           "refId": "A"
         }
       ],
@@ -90,7 +90,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Rate (R): Number of requests per hour",
+      "title": "Rate (R): Number of requests per minute",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -191,7 +191,7 @@
         {
           "expr": "sum(increase(http_request_duration_seconds_count{status_code=~\"4.*\"}[1m]))",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "Not found",
           "refId": "A"
         }
       ],
@@ -199,7 +199,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Errors (E): The number of failed requests",
+      "title": "Not found (NF): The number of not found requests",
       "tooltip": {
         "shared": true,
         "sort": 0,
