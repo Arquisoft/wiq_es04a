@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, fireEvent, waitFor, screen } from '@testing-library/react';
-import MultiplayerRoom from '../../pages/MultiplayerRoom';
+import MultiplayerRoom from '../../../pages/games/MultiplayerRoom';
 import io from 'socket.io-client';
-import { SessionContext } from '../../SessionContext';
+import { SessionContext } from '../../../SessionContext';
 import { BrowserRouter as Router } from 'react-router-dom';
-import '../../localize/i18n';
+import '../../../localize/i18n';
 
 //mock some socket behaviour
 jest.mock('socket.io-client', () => {
@@ -34,8 +34,8 @@ describe('MultiplayerRoom component', () => {
 
   test('creates a room', async () => {
 
-    jest.mock('../../pages/MultiplayerRoom', () => ({
-        ...jest.requireActual('../../pages/MultiplayerRoom'),
+    jest.mock('../../../pages/games/MultiplayerRoom', () => ({
+        ...jest.requireActual('../../../pages/games/MultiplayerRoom'),
         generateRoomCode: jest.fn().mockReturnValue('AAAAA'),
     }));
 

@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 const Homepage = () => {
     const xxl = useMediaQuery('(min-width:1920px)');
+    
     const { t } = useTranslation();
 
     const styles = React.useMemo(() => ({
@@ -100,10 +101,10 @@ const Homepage = () => {
     const [info, setInfo] = React.useState(null);
 
     // Link to each game page
-    const [gameLink, setGameLink] = React.useState("/game");
+    const [gameLink, setGameLink] = React.useState("/wiseMenStackGame");
 
     //Selected index
-    const [activeIndex, setActiveIndex] = React.useState(0); // Nuevo estado para el índice activo
+    const [activeIndex, setActiveIndex] = React.useState(0);
 
     //if online mode -> change link to go to online room
     const changeGameLink = React.useCallback((index) => {
@@ -166,7 +167,7 @@ const Homepage = () => {
             // Show the information of the first game
             displayGames(info);
         }
-    }, [info, displayGames]); // <- Add info to the dependency array
+    }, [info, displayGames]);
 
     const videoRef = React.useRef(null);
     React.useEffect(() => {if (videoRef.current) {videoRef.current.playbackRate = 0.85;}}, []);
@@ -174,10 +175,10 @@ const Homepage = () => {
     return (
         <Box sx={{...styles.container }}>
             <video data-testid="video" ref={videoRef} autoPlay muted loop style={{ ...styles.video}}>
-                <source src="../home/Background-White.webm" type="video/mp4" />
+                <source src="../home/Background-White.webm" type="video/webm" />
             </video>
             <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>{ t("Homepage.title") }</Typography>
-            {games}
+                {games}
             <Button variant='conteined' href={gameLink} sx={styles.playButton}> {t("Home")} </Button>
         </Box>
     );

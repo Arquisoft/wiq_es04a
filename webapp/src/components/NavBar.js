@@ -53,6 +53,12 @@ function NavBar() {
     // Add an object for each new page
   ];
 
+  const logo = (
+    <Button component={Link} to="/" sx={{'&:hover': { backgroundColor: '#5f7e94' },}}>
+      <img src="/white_logo.png" alt="Logo" style={{ height: 40 }} />
+    </Button>
+  )
+
   return (
     // position="static" => Barra se desplaza con scroll down
     <AppBar position="static" >
@@ -97,24 +103,32 @@ function NavBar() {
                     </Link>
                   </MenuItem>
                 ))}
+              <Box sx={{ display: "flex", alignItems: "center", borderRadius: '0.5em', '&:hover': { backgroundColor: '#5f7e94' }}}>
+                <TranslateIcon />
+                <Select value={lang} autoWidth onChange={(e) => handleChangeLang(e.target.value)} data-testid="select-lang"
+                    sx={{ color: 'black', boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}>
+                  <MenuItem value={"en"} data-testid="en_selector">{t("NavBar.languages.en")}</MenuItem>
+                  <MenuItem value={"es"} data-testid="es_selector">{t("NavBar.languages.es")}</MenuItem>
+                  <MenuItem value={"fr"} data-testid="fr_selector">{t("NavBar.languages.fr")}</MenuItem>
+                </Select>
+              </Box>
             </Menu>
+            { logo }
           </Box>
         ):(
-          <Button component={Link} to="/" sx={{'&:hover': { backgroundColor: '#5f7e94' },}}>
-            <img src="/white_logo.png" alt="Logo" style={{ height: 40 }} />
-          </Button>
+          <>
+            { logo }
+          </>
         )}
         
         
         {/* Pages list in NavBar, only displayed when menu button is not, i.e., in larger devices */}
         {isLoggedIn ? (
-          <Box sx={{ display:'flex', alignItems:'center' }}>
-            <Button component={Link} to="/" sx={{'&:hover': { backgroundColor: '#5f7e94' },}}>
-              <img src="/white_logo.png" alt="Logo" style={{ height: 40 }} />
-            </Button>
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems:'center' }}>
+            { logo }
+            <Box sx={{ display: 'flex', flexGrow: 1 }}>
               {pages.map((page) => (
-                <Button component={Link} to={page.path==='/statistics'? `/statistics/${username}`:page.path} key={page.path} sx={{ color: 'white', display: 'block','&:hover': { backgroundColor: '#5f7e94' },}}>
+                <Button component={Link} size='large' to={page.path==='/statistics'? `/statistics/${username}`:page.path} key={page.path}sx={{ color: 'white', '&:hover': { backgroundColor: '#5f7e94' },}}>
                   {page.text}
                 </Button>
               ))}
@@ -124,32 +138,34 @@ function NavBar() {
           <Box></Box>
         )}
 
-        <Box sx={{ display: "flex", gap: "2em" }}>
-          {/* Internacionalization */}
-          <Box sx={{ borderRadius: '0.5em', '&:hover': { backgroundColor: '#5f7e94' }}}>
+        <Box sx={{ display: "flex", gap: {sm: "0.5em", lg: "2em"} }}>
+
+          {/* Internacionalization */} 
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: "center", borderRadius: '0.5em', '&:hover': { backgroundColor: '#5f7e94' }}}>
             <TranslateIcon />
             <Select value={lang} autoWidth onChange={(e) => handleChangeLang(e.target.value)} data-testid="select-lang"
-                    sx={{ color: 'white', boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }} >
+                    sx={{ color: 'white', boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}>
               <MenuItem value={"en"} data-testid="en_selector">{t("NavBar.languages.en")}</MenuItem>
               <MenuItem value={"es"} data-testid="es_selector">{t("NavBar.languages.es")}</MenuItem>
               <MenuItem value={"fr"} data-testid="fr_selector">{t("NavBar.languages.fr")}</MenuItem>
             </Select>
           </Box>
-
           {isLoggedIn ? (
-            <Box sx={{ display:'flex', alignItems:'center' }}>
-              <Button component={Link} to="/profile" sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0, '&:hover': { backgroundColor: '#5f7e94' }}} >
-                <Typography variant="body2" sx={{ color: 'white', textDecoration: 'none', paddingLeft:'0.5em' }}>
-                  {username}
-                </Typography>
-                <IconButton>
-                  <Avatar src={avatar} alt="Profile pic" sx={{ width: 33, height: 33 }} />
-                </IconButton>
-              </Button>
-              <IconButton onClick={handleLogout} sx={{ color: 'white', '&:hover': { backgroundColor: '#5f7e94' }}} data-testid="logout-button">
+            <>
+              <Box sx={{ display:'flex', alignItems:'center' }}>
+                <Button component={Link} to="/profile" sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0, '&:hover': { backgroundColor: '#5f7e94' }}} >
+                  <Typography variant="body2" sx={{ color: 'white', textDecoration: 'none', paddingLeft:'0.5em' }}>
+                    {username}
+                  </Typography>
+                  <IconButton>
+                    <Avatar src={avatar} alt="Profile pic" sx={{ width: 33, height: 33 }} />
+                  </IconButton>
+                </Button>
+              </Box>
+              <IconButton size='large' onClick={handleLogout} sx={{ color: 'white', '&:hover': { backgroundColor: '#5f7e94' }}} data-testid="logout-button">
                 <LogoutIcon />
               </IconButton>
-            </Box>
+            </>
           ):(
             <Button component={Link} to={'/login'} sx={{ p: 0, display: 'flex', alignItems: 'center', flexGrow: 0, '&:hover': { backgroundColor: '#5f7e94' }}} >
               <Typography variant="body2" sx={{ color: 'white', textDecoration: 'none', paddingLeft:'0.5em' }}>

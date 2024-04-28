@@ -1,11 +1,19 @@
 import * as React from "react";
-import {Box, Button} from "@mui/material";
+import {Box, Button, useTheme } from "@mui/material";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTranslation } from 'react-i18next';
+import AndroidIcon from '@mui/icons-material/Android';
+import { SessionContext } from '../SessionContext';
+import { useContext } from 'react';
 
 const Home = () => {
     const xxl = useMediaQuery('(min-width:1920px)');
     const { t } = useTranslation();
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const {username} = useContext(SessionContext) || {};
+
+    const redirectPath = username === '' ? "/login" : "/homepage";
 
     const styles = {
         logo:{
@@ -97,11 +105,35 @@ const Home = () => {
                 <img src="./home/HomeLogo.png" alt="Logo" style={{ width: '100%' }} />
             </Box>
 
-            <Button variant='contained' href={"/login"} sx={styles.playButton}> {t("Home")} </Button>
+            <Button variant='contained' href={redirectPath} sx={styles.playButton}> {t("Home")} </Button>
 
             <video data-testid="video" ref={videoRef} autoPlay muted loop style={{ ...styles.video}}>
                 <source src="./home/Background-White.webm" type="video/mp4" />
             </video>
+            
+
+            <a
+            href="https://mega.nz/file/vNVkhQwT#l3K-nttaNWJ1tjdUVXJlCClmYm9rmpgBS_ULNewASL4"
+            target="_blank"
+            rel="noopener noreferrer"
+            >
+            <Button
+                variant="contained"
+                size={isMobile ? 'small' : 'big'}
+                color="primary"
+                startIcon={<AndroidIcon style={{ marginRight: '0.2em', color: "3DDC84", fontSize: '2em' }} />}
+                style={{ marginTop: '0.8em' }}
+                sx={{
+                    '&:hover': {
+                      border: `2px solid #3DDC84`, 
+                      backgroundColor: 'primary.light', 
+                    },
+                  }}
+            >
+            {t("Footer.apk_link")}
+            </Button>
+          </a>
+
         </Box>
     );
 };
