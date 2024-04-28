@@ -32,11 +32,11 @@
     "Games": {
         "Wise Men Stack": {
             "name": "Wise Men Stack",
-            "desc": "Le joueur choisit un sujet parmi cinq options disponibles et doit répondre à une batterie de questions qui y sont liées dans un délai de 60 secondes. Pour chaque question, l'hôte fournit deux options. Si le participant devine correctement, il gagne 20 € ; sinon, il passe à la question suivante (car la bonne réponse serait l'autre option). Si le temps s'écoule avant que la question ne soit entièrement posée et que les deux réponses possibles soient fournies, le participant peut toujours y répondre ; cependant, si l'énoncé n'a pas été complété (ou si les options n'ont pas été fournies), il ne peut pas répondre."
+            "desc": "Le joueur choisit un sujet parmi quelques options disponibles et doit répondre à une batterie de questions qui y sont liées dans un délai de 60 secondes. Pour chaque question, l'hôte fournit deux options. Si le participant devine correctement, il gagne 20 points ; sinon, il passe à la question suivante (car la bonne réponse serait l'autre option). Si le temps s'écoule avant que la question ne soit entièrement posée et que les deux réponses possibles soient fournies, le participant peut toujours y répondre ; cependant, si l'énoncé n'a pas été complété (ou si les options n'ont pas été fournies), il ne peut pas répondre."
         },
         "Warm Question": {
             "name": "Warm Question",
-            "desc": "Il se compose de dix sujets de thèmes variés. Pour chaque réponse correcte, 100 € sont gagnés, et 10 € sont perdus si le participant passe, ne répond pas ou répond incorrectement."
+            "desc": "Il se compose de sujets de thèmes variés. Pour chaque réponse correcte, 100 points sont gagnés, et 10 points sont perdus si le participant passe, ne répond pas ou répond incorrectement."
         },
         "Discovering Cities": {
             "name": "Discovering Cities",
@@ -48,7 +48,7 @@
         },
         "Multiplayer": {
             "name": "Multiplayer",
-            "desc": "Créez une salle pour que d'autres joueurs se joignent et jouent en 1 contre 1."
+            "desc": "Créez une salle pour que d'autres joueurs se joignent et jouent ensemble. Il y a aussi un chat."
         }
 
     },
