@@ -68,6 +68,13 @@ async function generateQuestions(n, language, questionCategory) {
             if (searched_property !== null) {
                 //This way we can ask questions with different structures
                 const questionText = question.replace('x',entityName.charAt(0).toUpperCase() + entityName.slice(1)) +`?`;
+                // If that question is already in db, it goes on:
+                const questionAlreadyInDb = await dbService.getQuestion({"question": questionText});
+                if (!questionAlreadyInDb === "undefined") {
+                    console.log(`Question ${questionText} already in db, skipping`);
+                    continue;
+                }
+
                 let correctAnswer = searched_property;
     
                 // options will contain 3 wrong answers plus the correct one

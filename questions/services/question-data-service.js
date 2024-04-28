@@ -20,7 +20,6 @@ module.exports = {
   },
 
 
-  //TODO - Filter func not yet implemented
   /**
    * Returns a question from the database that could be filtered using a dictionary and removes it.
    * @param {dict} filter - The dict containing the filter options for mongoose.
@@ -28,17 +27,13 @@ module.exports = {
    */
   getQuestion : async function(filter = {}) {
     try {
-      //const question = await Question.findOne(filter);
-      //return question;
-
       //if there is filter
       if (Object.keys(filter).length !== 0) {
-        
+
         const q = await Question.aggregate([
           { $match: filter },
           { $sample: { size: 1 } }
         ]);
-
         return q[0];
       } else {
         //if not filter -> just random question
