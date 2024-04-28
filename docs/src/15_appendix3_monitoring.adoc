@@ -3,7 +3,6 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-monitoring]]
 == Appendix III: Application monitoring
 
-[role="arc42help"]
 Monitoring an application is a crucial part of it. It is an easy way of knowing how well a web application is working through different graphics and metrics. For this, we adapted the monitoring system that was given to us and we personalized it. That means we are using Prometheus as well as Grafana to monitorize our project. Prometheus intercepts every request that reaches our application's gateway. Grafana takes those data at paints them in easy-understanding graphics. We have a dashboard in Grafana to display some aspects that we consider relevant.
 
 The dashboard that we are using to monitorize our project is called _Wiq_es04 Dashboard_ and it has 3 different panels. The first of them shows the number of requests through time. The second one shows requests that accessed pages that were not found. The third one paints a graphic of the average time each request takes.

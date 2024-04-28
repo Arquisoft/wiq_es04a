@@ -3,8 +3,6 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-load-tests]]
 == Appendix I: Load tests
 
-[role="arc42help"]
-
 We conducted load tests on our application using Gatling. This type of testing allows us to know how __strong__ our application is in relation with the amount of users that interact with it at the same time. Initially, we recorded the specific functionalities we intended to test, and then we configured the tests accordingly. Our primary focus was on testing the game component, as it constitutes the core aspect of our application. After recording the functionality to be tested, we increased the number of requests to 1,000 and established that these requests be made gradually, simulating a real-life scenario.
 
 image::13_conf_recording_gatling_1.png["Configuration for gatling recording 1"]
