@@ -1,9 +1,9 @@
 flowchart TD
-    subgraph Whitebox Question Generation Service
+    subgraph Whitebox questions
     sis2(routes)
     sis3(services)
     sis2 -.-> sis3
     end
-    sis1(Gateway service) -.->|Get questions| sis2
+    sis1(gateway) -.->|Get questions| sis2
     sis3 -.->|Insert/delete/get questions| db1[(MongoDB)]
     sis3 -.->|Search for questions| sis4(Wikidata)

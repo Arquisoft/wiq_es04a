@@ -39,4 +39,9 @@ To assess the relevance level of the following risks, we will use number 1 to in
 | Technical Debt |  Considerations
 | Low-quality code | The use of new technologies and languages can lead to poorly written or poorly designed code. To address this issue, we will use pull requests to ensure that the code is reviewed by multiple team members.
 | Deployment issues | Having not worked with Docker and other deployment tools before may cause problems when deploying the application. For this reason, we are trying to put our best into learning these new technologies.
+| Dependency with Wikidata | It is a requirement so we need to depend on it. However, we have created a questions database so in case that Wikidata was not working, the application would continue to work for some time.
+| Filtering questions and answers | Given the structure of Wikidata there are sometimes where questions and answers do not have the proper label we are looking for. Although we have stablished filters and different strategies, sometimes it fails.
+| Changes in database model | Changing the model of a relational database makes it necessary to create a new database, losing all of the data we had before.
+| Game duplication code | Due to our little knowledge about JavaScript, we have not found a way of optimizing code from different game modes. It would be necessary to search for another way of doing it, as this is not maintenable.
+| Non-expiring session token | Once someone has logged in in the application, session token does not expire. That way session does not finish unless you explicitly log out.
 |===

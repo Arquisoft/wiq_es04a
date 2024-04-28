@@ -1,5 +1,5 @@
 import React, { useState, useEffect  } from 'react';
-import { useTheme, Button, TextField, Typography, Grid, Paper, List, ListItem, CircularProgress, Container, Box } from '@mui/material';
+import { useTheme, Button, TextField, Typography, Paper, List, ListItem, CircularProgress, Container, Box } from '@mui/material';
 import io from 'socket.io-client';
 import { useContext } from 'react';
 import { SessionContext } from '../../SessionContext';
@@ -106,41 +106,49 @@ const MultiplayerRoom = () => {
     }
   
     return (
-      <Container sx={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Paper elevation={5} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '2em', padding: '3em', borderRadius: '4em', marginTop: '2em', marginBottom: '2em' }}>
+      <Box sx={{display: 'flex', flexDirection: { xs: "column", lg: 'row' }, justifyContent: 'center', flex: 1, alignItems: 'center', padding: '2em 0', gap: '4em' }}>
+        {roomCode && error === "" && (
+          <Container></Container>
+        )}
+        <Paper elevation={5} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '2em', padding: '3em', borderRadius: '4em' }}>
           <Typography variant="h2" align="center" fontWeight="bold" sx={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', fontSize:'3rem' }}>
             {t("Games.Multiplayer.name").toUpperCase()}
           </Typography>
 
           {roomCode && error === "" ? (
-            <>
-              <Typography variant="h4" gutterBottom>
-                { t("Multiplayer.Room.code") }:
-              </Typography>
-              <Typography variant="h5" gutterBottom style={{ marginTop: '10px' }}>
-                {roomCode}
-              </Typography>
-
-              <Typography variant="h4" gutterBottom>
-                { t("Multiplayer.Room.participants") }:
-              </Typography>
-              <List>
-                {roomPlayers.map((player, index) => (
-                <ListItem key={index}>
-                    <Typography variant='h5'>{player}</Typography>
-                </ListItem>
-                ))}
-              </List>
-              <Button id="playBtn" variant="contained" disabled={!gameReady || !roomCreator || !gameLoaded} onClick={startGame} style={{ marginTop: '10px' }}>
-                { t("Multiplayer.Room.start") }
-              </Button>
-              {loadingQuestions && (
-                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px', flexDirection: "column", alignItems: "center" }}>
-                    <CircularProgress />
-                    <Typography variant='h5' style={{ marginTop: '1em'}}>Loading questions...</Typography>
-                </div>
-              )}
-            </>
+            <Container sx={{ display: 'flex', flexDirection: 'column', gap: '2em' }} >
+              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' , gap: '1em',
+                          border: `2px solid ${theme.palette.primary.main}`, borderRadius: '1em', padding: '1em' }}>
+                <Typography variant="h4">
+                  { t("Multiplayer.Room.code") }:
+                </Typography>
+                <Typography variant="h5" >
+                  {roomCode}
+                </Typography>
+              </Box>
+              <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1em', 
+                        border: `2px solid ${theme.palette.success.main}`, borderRadius: '1em', padding: '1em' }}>
+                <Typography variant="h4">
+                  { t("Multiplayer.Room.participants") }:
+                </Typography>
+                <List>
+                  {roomPlayers.map((player, index) => (
+                  <ListItem key={index}>
+                      <Typography variant='h5'>{player}</Typography>
+                  </ListItem>
+                  ))}
+                </List>
+                <Button id="playBtn" variant="contained" disabled={!gameReady || !roomCreator || !gameLoaded} onClick={startGame} style={{ marginTop: '10px' }}>
+                  { t("Multiplayer.Room.start") }
+                </Button>
+                {loadingQuestions && (
+                  <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px', flexDirection: "column", alignItems: "center" }}>
+                      <CircularProgress />
+                      <Typography variant='h5' style={{ marginTop: '1em'}}>Loading questions...</Typography>
+                  </div>
+                )}
+              </Box>
+            </Container>
           ) : (
             <Container sx={{ display: 'flex', flexDirection: 'column', gap: '2em' }} >
               <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' , gap: '1em',
@@ -201,13 +209,14 @@ const MultiplayerRoom = () => {
               </Box>
             </Container>
           )}
-          {roomCode && error === "" && (
-            <Grid item xs={3} sx={{marginLeft: '2em'}}>
-              <Chat roomCode={roomCode} username={username} />
-            </Grid>
-          )}
         </Paper>
-      </Container>
+
+        {roomCode && error === "" && (
+          <Container >
+            <Chat roomCode={roomCode} username={username} />
+          </Container>
+        )}
+      </Box>
       );
   }
 

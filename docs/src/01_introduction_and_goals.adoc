@@ -22,7 +22,7 @@ One of the most relevant requirement is that the questions are generated from Wi
 To do the game we are going to develop a web application that will be available to enter from any device with internet connection.
 
 Regarding quality requirements, the goal is to achieve an optimal level, especially in terms of usability,
- maintainability, efficiency, security, and testability.
+ maintainability, efficiency, and testability.
 
 The main stakeholders in the project are several. Firstly, Professor José Emilio Labra, who teaches the 
 subject. Also, the students and members of the HappySoftware development team. Lastly, potential users of 
@@ -92,7 +92,7 @@ A table with quality goals and concrete scenarios, ordered by priorities
 |Quality goal|Concrete scenario
 |Usability|It must be easy to use the app, thus everybody could use it
 |Availability|The system should be available the most time possible
-|Security|The user's data must remain confidential.
+|Testability|Functionalities must be covered with tests to ensure correct behavior
 |Performance|Using the system must be as smooth as possible. Especially, the question generation must be fast.
 |===
 

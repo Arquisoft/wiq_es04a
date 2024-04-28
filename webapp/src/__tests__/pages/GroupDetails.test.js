@@ -1,12 +1,12 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { render, waitFor, screen } from '@testing-library/react';
 import { BrowserRouter as Router, useParams } from 'react-router-dom';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import GroupDetails from '../../pages/GroupDetails';
 import '../../localize/i18n';
 import { SessionContext } from '../../SessionContext';
- 
+
 const mockAxios = new MockAdapter(axios);
 
 jest.mock('react-router-dom', () => ({
@@ -49,6 +49,23 @@ describe('GroupDetails component', () => {
         expect(getByText(user)).toBeInTheDocument();
       });
     });
+  });
+
+  it('debe reproducir el video a una velocidad de 0.85', async () => {
+    render(
+      <SessionContext.Provider value={{ username: 'TestCreator' }}>
+        <Router>
+          <GroupDetails />
+        </Router>
+      </SessionContext.Provider>
+    );
+
+    await waitFor(() => {
+      const videoElement = screen.getByTestId('video');
+      expect(videoElement).toBeInTheDocument();
+      expect(videoElement.playbackRate).toBe(0.85);
+    });
+
   });
 
   it('should render error message when failed to fetch group information', async () => {

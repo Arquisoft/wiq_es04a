@@ -117,7 +117,7 @@ describe('Profile component', () => {
     fireEvent.click(screen.getByTestId('andina-button'));
     fireEvent.click(screen.getByTestId('samu-button'));
     fireEvent.click(screen.getByTestId('barrero-button'));
-    fireEvent.click(screen.getByTestId('maite-button'));
+    fireEvent.click(screen.getByTestId('teresa-button'));
     fireEvent.click(screen.getByTestId('confirm-button'));
 
     await waitFor(() => {

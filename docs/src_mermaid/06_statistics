@@ -1,8 +1,13 @@
 sequenceDiagram
     Note over User,Webapp: User must be logged in
-    User ->>+ Webapp: click STATISTICS navbar button
-    Webapp ->> Gateway Service: axios.get('/user/statistics/${username}');
-    Gateway Service ->> Users: axios.get('/user/statistics/${username}');
+    alt the user wants to see his statistics
+        User ->>+ Webapp: click STATISTICS navbar button
+    else the user wants to see a member of any of its groups' statistics
+        User ->> Webapp: click SEE STATISTICS in the group details view
+    end   
+    
+    Webapp ->> Gateway Service: axios.get('/statistics/:username', {params:{loggedUser:username}});
+    Gateway Service ->> Users: axios.get('/statistics/:username', {params:{loggedUser:username}});
 
     Users ->> MariaDB: router.get('/user/statistics/:username')
     MariaDB -->> Users: JSON response
@@ -15,4 +20,15 @@ sequenceDiagram
         User ->>+ Webapp: click other mode statistics button
         Webapp -->>- User: show the other mode statistics stored
     end
+
+    User ->>+ Webapp: click Show Questions Record button
+    Webapp ->> Gateway Service: axios.get('/questionsRecord/:username/:selectedMode', {params:{username, gameMode}});
+    Gateway Service ->> Users: axios.get('/questionsRecord/:username/:selectedMode', {params:{username, gameMode}});
+
+    Users ->> MariaDB: router.get('/questionsRecord/:username/:selectedMode')
+    MariaDB -->> Users: JSON response
+
+    Users -->> Gateway Service: 
+    Gateway Service -->> Webapp: 
+    Webapp -->>- User: show user questions record
     

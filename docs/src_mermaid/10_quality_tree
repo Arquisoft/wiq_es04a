@@ -1,0 +1,5 @@
+flowchart TD
+    C{Quality requirements} --> Usability
+    C --> Availability
+    C --> Testability
+    C --> Performance

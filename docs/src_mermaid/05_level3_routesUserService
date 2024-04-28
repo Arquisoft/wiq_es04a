@@ -3,9 +3,9 @@ flowchart TD
     sis2(user-routes)
     sis3(auth-routes)
     end
-    sis1(Gateway Service) -.->|Insert/get/edit group| sis2
-    sis1(Gateway Service) -.->|Insert/get/edit statistics| sis2
-    sis1(Gateway Service) -.->|Insert user| sis2
+    sis1(gateway) -.->|Insert/get/edit group| sis2
+    sis1 -.->|Insert/get/edit statistics| sis2
+    sis1 -.->|Insert user| sis2
     sis1 -.->|Get user| sis3
     sis2 -.-> sis4(services)
     sis3 -.-> sis4

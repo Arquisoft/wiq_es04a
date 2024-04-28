@@ -1,5 +1,6 @@
 # Wikidata Infinite Quest
 🌐 [wikiquest.sytes.net](http://wikiquest.sytes.net/)
+⚠️ If you entered the site time ago it requires log out and log in one time to remove errors.
 ## 👨‍💻 Contributors:
 
 | Contributor | Contact |
