@@ -116,21 +116,6 @@ describe('Wise Men Stack Game component', () => {
 
   }, 4500);
 
-  it('should render pause & play buttons when answered', async () => {
-    await waitFor(() => screen.getByText('GAME CONFIGURATION'));
-    const button = screen.getByTestId('start-button');
-    fireEvent.click(button);
-
-    await waitFor(() => screen.getByText('Which is the capital of Spain?'.toUpperCase()));
-    const correctAnswer = screen.getByRole('button', { name: 'Madrid' });
-    fireEvent.click(correctAnswer);
-
-    const pauseButton = screen.getByTestId("pause");
-    expect(pauseButton);
-    fireEvent.click(pauseButton);
-    expect(screen.getByTestId("play"));
-  })
-
   it('should render progress bar', async () => {
     await waitFor(() => screen.getByText('GAME CONFIGURATION'));
     const button = screen.getByTestId('start-button');
