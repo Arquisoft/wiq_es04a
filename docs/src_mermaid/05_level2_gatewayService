@@ -1,6 +1,7 @@
 flowchart TD
     subgraph Whitebox gateway
     sis2(gateway-service)
+    sis6(prometheus)
  
     end
     sis1(webapp) -.->|Get/post| sis2

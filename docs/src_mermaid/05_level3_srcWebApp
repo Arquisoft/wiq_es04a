@@ -5,6 +5,9 @@ flowchart TD
     sis4(pages)
     sis2 -.-> sis4
     sis3 -.-> sis4
+    sis7(App)
+    sis8(index)
+    sis7 -.-> sis4
  
     end
     sis1(User) -.->|Interacts with| sis4
