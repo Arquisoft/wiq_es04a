@@ -5,11 +5,11 @@
         "properties": [
             {
                 "property": "P1082",
-                "template":
-                    {
+                "template": {
                     "es": "Cuál es la población de x",
-                    "en": "What is the population of x"
-                    },
+                    "en": "What is the population of x",
+                    "fr": "Quelle est la population de x"
+                },
                 "filter": ">4000000",
                 "category": ["Geography", "Cities"]
             },
@@ -17,17 +17,18 @@
                 "property": "P36",
                 "template": {
                     "es": "Cuál es la capital de x",
-                    "en": "What is the capital of x"
-                    },
+                    "en": "What is the capital of x",
+                    "fr": "Quelle est la capitale de x"
+                },
                 "category": ["Geography", "Cities"]
             },
             {
                 "property": "P38",
-                "template":
-                    {
+                "template": {
                     "es": "Que moneda tiene x",
-                    "en":  "What currency x has"
-                    },
+                    "en": "What currency x has",
+                    "fr": "Quelle est la devise de x"
+                },
                 "category": ["Political"]
             }
         ]
@@ -38,20 +39,20 @@
         "properties": [
             {
                 "property": "P115",
-                "template":
-                    {
+                "template": {
                     "es": "Cuál es el estadio del equipo x",
-                    "en": "What is the stadium of x team"
-                    },
+                    "en": "What is the stadium of x team",
+                    "fr": "Quel est le stade de l'équipe x"
+                },
                 "category": ["Sports"]
             },
             {
                 "property": "P17",
-                "template":
-                    {
+                "template": {
                     "es": "Cuál es el pais del equipo x",
-                    "en":  "What is the country of x team"
-                    },
+                    "en": "What is the country of x team",
+                    "fr": "Quel est le pays de l'équipe x"
+                },
                 "category": ["Sports", "Geography"]
             }
         ]
@@ -62,11 +63,11 @@
         "properties": [
             {
                 "property": "P205",
-                "template":
-                    {
+                "template": {
                     "es": "En qué país está el río x",
-                    "en":  "What country is x river in"
-                    },
+                    "en": "What country is x river in",
+                    "fr": "Dans quel pays se trouve le fleuve x"
+                },
                 "category": ["Geography"]
             }
         ]
@@ -77,28 +78,29 @@
         "properties": [
             {
                 "property": "P170",
-                "template":
-                    {
+                "template": {
                     "es": "Quien es el autor de x",
-                    "en": "Who is the author of x"
-                    },
+                    "en": "Who is the author of x",
+                    "fr": "Qui est l'auteur de x"
+                },
                 "category": ["Art"]
             },
             {
                 "property": "P571",
                 "template": {
                     "es": "Cual es el año de creacion de x",
-                    "en": "What is the year of creation of x"
-                    },
+                    "en": "What is the year of creation of x",
+                    "fr": "Quelle est l'année de création de x"
+                },
                 "category": ["Art"]
             },
             {
                 "property": "P136",
-                "template":
-                    {
+                "template": {
                     "es": "Cual es el estilo artistico de x",
-                    "en":  "What is the artistic style of x"
-                    },
+                    "en": "What is the artistic style of x",
+                    "fr": "Quel est le style artistique de x"
+                },
                 "category": ["Art"]
             }
         ]
@@ -109,20 +111,20 @@
         "properties": [
             {
                 "property": "P61",
-                "template":
-                    {
+                "template": {
                     "es": "Quien es el inventor de x",
-                    "en": "Who is the inventor of x"
-                    },
+                    "en": "Who is the inventor of x",
+                    "fr": "Qui est l'inventeur de x"
+                },
                 "category": ["Science"]
             },
             {
                 "property": "P575",
-                "template":
-                    {
+                "template": {
                     "es": "En que año se inventó x",
-                    "en":  "What was the year of invention of x"
-                    },
+                    "en": "What was the year of invention of x",
+                    "fr": "En quelle année x a été inventé"
+                },
                 "category": ["Science"]
             }
         ]
@@ -133,11 +135,11 @@
         "properties": [
             {
                 "property": "P2044",
-                "template":
-                    {
+                "template": {
                     "es": "Cual es la altitud mxima del x",
-                    "en":  "What is the maximum altitude of x"
-                    },
+                    "en": "What is the maximum altitude of x",
+                    "fr": "Quelle est l'altitude maximale de x"
+                },
                 "category": ["Geography"]
             }
         ]
@@ -148,28 +150,29 @@
         "properties": [
             {
                 "property": "P50",
-                "template":
-                    {
+                "template": {
                     "es": "Quien es el autor de x",
-                    "en": "Who is the author of x"
-                    },
+                    "en": "Who is the author of x",
+                    "fr": "Qui est l'auteur de x"
+                },
                 "category": ["Entertainment"]
             },
             {
                 "property": "P577",
                 "template": {
                     "es": "Cual es el año de publicacion de x",
-                    "en": "What is the year of publication of x"
-                    },
+                    "en": "What is the year of publication of x",
+                    "fr": "Quelle est l'année de publication de x"
+                },
                 "category": ["Entertainment"]
             },
             {
                 "property": "P136",
-                "template":
-                    {
+                "template": {
                     "es": "Cual es el genero de x",
-                    "en":  "What is the genre of x"
-                    },
+                    "en": "What is the genre of x",
+                    "fr": "Quel est le genre de x"
+                },
                 "category": ["Entertainment"]
             }
         ]
@@ -180,28 +183,29 @@
         "properties": [
             {
                 "property": "P176",
-                "template":
-                    {
+                "template": {
                     "es": "Quien es el fabricante de x",
-                    "en": "Who is the manufacturer of x"
-                    },
+                    "en": "Who is the manufacturer of x",
+                    "fr": "Qui est le fabricant de x"
+                },
                 "category": ["Cars"]
             },
             {
                 "property": "P3032",
                 "template": {
                     "es": "Cuál es la velocidad máxima de x",
-                    "en": "What is the maximum speed of x"
-                    },
+                    "en": "What is the maximum speed of x",
+                    "fr": "Quelle est la vitesse maximale de x"
+                },
                 "category": ["Cars"]
             },
             {
                 "property": "P571",
-                "template":
-                    {
+                "template": {
                     "es": "En qué año fue introducido x al mercado",
-                    "en":  "In what year was x introduced to the market"
-                    },
+                    "en": "In what year was x introduced to the market",
+                    "fr": "En quelle année x a été introduit sur le marché"
+                },
                 "category": ["Cars"]
             }
         ]
@@ -212,19 +216,20 @@
         "properties": [
             {
                 "property": "P527",
-                "template":
-                    {
+                "template": {
                     "es": "Cuál es el ingrediente principal de x",
-                    "en": "What is the main ingredient of x"
-                    },
+                    "en": "What is the main ingredient of x",
+                    "fr": "Quel est l'ingrédient principal de x"
+                },
                 "category": ["Food"]
             },
             {
                 "property": "P495",
                 "template": {
                     "es": "De qué región es originario x",
-                    "en": "What region is x originally from?"
-                    },
+                    "en": "What region is x originally from?",
+                    "fr": "De quelle région x est-il originaire?"
+                },
                 "category": ["Food"]
             }
         ]
@@ -235,27 +240,29 @@
         "properties": [
             {
                 "property": "P84",
-                "template":
-                    {
+                "template": {
                     "es": "Quién fue el arquitecto de x",
-                    "en": "Who was the architect of x"
-                    },
+                    "en": "Who was the architect of x",
+                    "fr": "Qui était l'architecte de x"
+                },
                 "category": ["Art"]
             },
             {
                 "property": "P571",
                 "template": {
                     "es": "En qué año se completó x",
-                    "en": "In what year was it completed x"
-                    },
+                    "en": "In what year was it completed x",
+                    "fr": "En quelle année x a-t-il été achevé"
+                },
                 "category": ["Art"]
             },
             {
                 "property": "P149",
                 "template": {
                     "es": "Cuál es el estilo arquitectónico de x",
-                    "en": "What is the architectural style of x"
-                    },
+                    "en": "What is the architectural style of x",
+                    "fr": "Quel est le style architectural de x"
+                },
                 "category": ["Art"]
             }
         ]
@@ -266,19 +273,20 @@
         "properties": [
             {
                 "property": "P178",
-                "template":
-                    {
+                "template": {
                     "es": "Quién es el creador de la serie x",
-                    "en": "Who is the creator of the series x"
-                    },
+                    "en": "Who is the creator of the series x",
+                    "fr": "Qui est le créateur de la série x"
+                },
                 "category": ["Entertainment"]
             },
             {
                 "property": "P2437",
                 "template": {
                     "es": "Cuántas temporadas tiene la serie x",
-                    "en": "How many seasons does the series x have?"
-                    },
+                    "en": "How many seasons does the series x have?",
+                    "fr": "Combien de saisons la série x a-t-elle?"
+                },
                 "category": ["Entertainment"]
             }
         ]
@@ -289,19 +297,20 @@
         "properties": [
             {
                 "property": "P178",
-                "template":
-                    {
+                "template": {
                     "es": "Quién desarrolló el software x",
-                    "en": "Who developed the software x"
-                    },
+                    "en": "Who developed the software x",
+                    "fr": "Qui a développé le logiciel x"
+                },
                 "category": ["Technology"]
             },
             {
                 "property": "P277",
                 "template": {
                     "es": "En qué lenguaje de programación está escrito x",
-                    "en": "What programminge iwritten in?"
-                    },
+                    "en": "What programming language is x written in?",
+                    "fr": "Dans quel langage de programmation x est-il écrit?"
+                },
                 "category": ["Technology"]
             }
         ]
@@ -312,19 +321,20 @@
         "properties": [
             {
                 "property": "P641",
-                "template":
-                    {
+                "template": {
                     "es": "En qué deporte compite x",
-                    "en": "Who developed the software x"
-                    },
+                    "en": "In what sport does x compete",
+                    "fr": "Dans quel sport x compétitionne-t-il"
+                },
                 "category": ["Sport"]
             },
             {
                 "property": "P27",
                 "template": {
                     "es": "Cuál es la nacionalidad del atleta x",
-                    "en": "What is the nationality of the athlete x"
-                    },
+                    "en": "What is the nationality of the athlete x",
+                    "fr": "Quelle est la nationalité de l'athlète x"
+                },
                 "category": ["Sport"]
             }
         ]
@@ -335,26 +345,28 @@
         "properties": [
             {
                 "property": "P178",
-                "template":
-                    {
+                "template": {
                     "es": "Quien es el desarrollador del videojuego x",
-                    "en": "Who is the developer of the video game x"
-                    },
+                    "en": "Who is the developer of the video game x",
+                    "fr": "Qui est le développeur du jeu vidéo x"
+                },
                 "category": ["Games"]
             },
             {
                 "property": "P577",
                 "template": {
                     "es": "En qué año fue lanzado el videojuego x",
-                    "en": "In what year was the video game x released?"
-                    },
+                    "en": "In what year was the video game x released?",
+                    "fr": "En quelle année le jeu vidéo x a-t-il été lancé?"
+                },
                 "category": ["Games"]
             },
             {
                 "property": "P400",
                 "template": {
                     "es": "Cuáles son las plataformas compatibles con x",
-                    "en": "What are the platforms supported by x"
+                    "en": "What are the platforms supported by x",
+                    "fr": "Quelles sont les plates-formes supportées par x"
                     },
                 "category": ["Games"]
             }
@@ -366,19 +378,20 @@
         "properties": [
             {
                 "property": "P287",
-                "template":
-                    {
+                "template": {
                     "es": "Quién es el diseñador de la marca x",
-                    "en": "Who is the designer of the brand x"
-                    },
+                    "en": "Who is the designer of the brand x",
+                    "fr": "Qui est le designer de la marque x"
+                },
                 "category": ["Fashion"]
             },
             {
                 "property": "P571",
                 "template": {
                     "es": "Cuándo fue fundada la casa de moda x",
-                    "en": "When was the fashion house founded x"
-                    },
+                    "en": "When was the fashion house founded x",
+                    "fr": "Quand la maison de mode x a-t-elle été fondée"
+                },
                 "category": ["Fashion"]
             }
         ]
@@ -389,19 +402,20 @@
         "properties": [
             {
                 "property": "P2973",
-                "template":
-                    {
+                "template": {
                     "es": "Cuál es el hábitat natural de la especie x",
-                    "en": "What is the natural habitat of species x"
-                    },
+                    "en": "What is the natural habitat of species x",
+                    "fr": "Quel est l'habitat naturel de l'espèce x"
+                },
                 "category": ["Animals"]
             },
             {
                 "property": "P2670",
                 "template": {
                     "es": "Qué especies comparten el hábitat con x",
-                    "en": "What species share the habitat with x"
-                    },
+                    "en": "What species share the habitat with x",
+                    "fr": "Quelles espèces partagent l'habitat avec x"
+                },
                 "category": ["Animals"]
             }
         ]
@@ -412,11 +426,11 @@
         "properties": [
             {
                 "property": "P571",
-                "template":
-                    {
+                "template": {
                     "es": "Cuándo fue fundada la marca x",
-                    "en": "When was the brand x founded?"
-                    },
+                    "en": "When was the brand x founded?",
+                    "fr": "Quand la marque x a-t-elle été fondée?"
+                },
                 "category": ["Brands"]
             }
         ]
