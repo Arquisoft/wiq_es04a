@@ -139,10 +139,29 @@ const WiseMenStackGame = () => {
         try {
             await axios.put(`${apiEndpoint}/statistics`, {
                 username:username,
+                the_callenge_earned_money:0,
+                the_callenge_correctly_answered_questions:0,
+                the_callenge_incorrectly_answered_questions:0,
+                the_callenge_total_time_played:0,
+                the_callenge_games_played:0,
                 wise_men_stack_earned_money:totalScore,
                 wise_men_stack_correctly_answered_questions:correctlyAnsweredQuestions,
                 wise_men_stack_incorrectly_answered_questions:incorrectlyAnsweredQuestions,
-                wise_men_stack_games_played:1
+                wise_men_stack_games_played:1,
+                warm_question_earned_money: 0,
+                warm_question_correctly_answered_questions: 0,
+                warm_question_incorrectly_answered_questions: 0,
+                warm_question_passed_questions: 0,
+                warm_question_games_played: 0,
+                discovering_cities_earned_money: 0,
+                discovering_cities_correctly_answered_questions: 0,
+                discovering_cities_incorrectly_answered_questions: 0,
+                discovering_cities_games_played: 0,
+                online_earned_money: 0,
+                online_correctly_answered_questions: 0,
+                online_incorrectly_answered_questions: 0,
+                online_total_time_played: 0,
+                online_games_played: 0,
             });
         } catch (error) {
             console.error("Error:", error);
@@ -173,7 +192,7 @@ const WiseMenStackGame = () => {
             const userResponse = {
                 question: questionData.question,
                 response: response,
-                options: questionData.options,
+                options: possibleAnswers,
                 correctAnswer: questionData.correctAnswer
             };
             setUserResponses(prevResponses => [...prevResponses, userResponse]);
@@ -322,7 +341,7 @@ const WiseMenStackGame = () => {
                     </IconButton>
                     :
                     // Cronómetro
-                    <CountdownCircleTimer data-testid="circleTimer" key={questionCountdownKey} isPlaying = {questionCountdownRunning} duration={15} colorsTime={[10, 6, 3, 0]}
+                    <CountdownCircleTimer data-testid="circleTimer" key={questionCountdownKey} isPlaying = {questionCountdownRunning} duration={60} colorsTime={[10, 6, 3, 0]}
                         colors={[theme.palette.success.main, "#F7B801", "#f50707", theme.palette.error.main]} size={100} onComplete={() => selectResponse(-1, "FAILED")}>
                         {({ remainingTime }) => {
                             return (
