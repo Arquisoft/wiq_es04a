@@ -1,0 +1,25 @@
+sequenceDiagram
+    Note over User,Webapp: User must be logged in
+    User ->>+ Webapp: click his name/photo in the navbar
+    Webapp ->> Gateway Service: axios.get('/profile', {params:{username:username}})
+    Gateway Service ->> Users: axios.get('/user/profile', {params:{username:username}})
+
+    Users ->> MariaDB: router.get('/user/profile')
+    MariaDB -->> Users: JSON response
+
+    Users -->> Gateway Service: 
+    Gateway Service -->> Webapp: 
+    Webapp -->>- User: show the users ranking
+
+    opt Update your user avatar
+    User ->>+ Webapp: click any avatar of your choice
+    User ->>+ Webapp: click Confirm change button
+    Webapp ->> Gateway Service: axios.put('/profile/:username', {imageUrl:currentSelectedAvatar})
+    Gateway Service ->> Users: axios.get('/user/profile/:username', {imageUrl:currentSelectedAvatar})
+
+    Users ->> MariaDB: router.get('/user/profile/:username')
+    MariaDB -->> Users: JSON response
+    Users -->> Gateway Service: 
+    Gateway Service -->> Webapp: 
+    Webapp -->>- User: update the navbar avatar and profile view
+    end

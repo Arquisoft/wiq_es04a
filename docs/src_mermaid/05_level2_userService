@@ -1,10 +1,10 @@
 flowchart TD
-    subgraph Whitebox User Service
+    subgraph Whitebox users
     sis2(routes)
     sis3(services)
     sis2 -.-> sis3
     end
-    sis1(Gateway service) -.->|Login/register user| sis2
+    sis1(gateway) -.->|Login/register user| sis2
     sis1 -.->|Get statistics/group| sis2
     sis1 -.->|Create/join group| sis2
     sis1 -.->|Modify statistics| sis2

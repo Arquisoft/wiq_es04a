@@ -3,10 +3,10 @@ sequenceDiagram
 
     alt There is a group in the list
         User ->>+ Webapp: search group in list and click SEE MEMBERS button
-        Webapp ->> Gateway Service: axios.get('/group/${groupName}')
-        Gateway Service ->> Users: axios.get('/group/${groupName}')
+        Webapp ->> Gateway Service: axios.get('/group/:groupName', {params:{username:username}})
+        Gateway Service ->> Users: axios.get('/group/:groupName' {params:{username:username}})
 
-        Users ->> MariaDB: router.get('/user/group/:name/')
+        Users ->> MariaDB: router.get('/user/group/:name')
         MariaDB -->> Users: JSON response
 
         Users -->> Gateway Service: 
