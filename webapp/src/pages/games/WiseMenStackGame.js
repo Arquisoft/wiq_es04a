@@ -39,6 +39,7 @@ const WiseMenStackGame = () => {
     const [timerRunning, setTimerRunning] = React.useState(true); // indicate if the timer is working
     const [showConfetti, setShowConfetti] = React.useState(false); //indicates if the confetti must appear
     const [questionCountdownKey, ] = React.useState(60); //key to update question timer
+    const [targetTime, ] = React.useState(60);
     const [questionCountdownRunning, setQuestionCountdownRunning] = React.useState(false); //property to start and stop question timer
     const [userResponses, setUserResponses] = React.useState([]);
     const [language, setCurrentLanguage] = React.useState(i18n.language);
@@ -64,18 +65,21 @@ const WiseMenStackGame = () => {
 
     // hook to initiating new rounds if the current number of rounds is less than or equal to 3 
     React.useEffect(() => {
-        if (totalTimePlayed <= questionCountdownKey) {
+        if (totalTimePlayed <= targetTime) {
             startNewRound();
-            setQuestionCountdownRunning(true);
-        } else {
-            setTimerRunning(false);
-            setShouldRedirect(true);
-            setQuestionCountdownRunning(false);
-            updateStatistics();
-            updateQuestionsRecord();
+            setQuestionCountdownRunning(true)
         }
         // eslint-disable-next-line
     }, [round]);
+
+    const endGame = () => {
+        setTimerRunning(false);
+        setShouldRedirect(true);
+        setQuestionCountdownRunning(false);
+        updateStatistics();
+        updateQuestionsRecord();
+        // eslint-disable-next-line
+    }
 
     // stablish if the confetti must show or not
     React.useEffect(() => {
@@ -108,7 +112,7 @@ const WiseMenStackGame = () => {
             setQuestionData(quest.data[0]);
             setButtonStates(new Array(2).fill(null));
             getPossibleOptions(quest.data[0]);
-
+           
         }).catch(error => {
             console.error("Could not get questions", error);
         }); 
@@ -182,6 +186,7 @@ const WiseMenStackGame = () => {
 
     // this function is called when a user selects a response. 
     const selectResponse = async (index, response) => {
+        setQuestionCountdownRunning(false);
         setAnswered(true);
         const newButtonStates = [...buttonStates];
 
@@ -332,7 +337,7 @@ const WiseMenStackGame = () => {
             <CssBaseline />
 
             <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
-                { answered ?
+                { false ?
                     // Pausa
                     <IconButton variant="contained" size="large" color="primary" aria-label={ paused ? t("Game.play") : t("Game.pause") }
                                 onClick={() => togglePause()} sx={{ height: 100, width: 100, border: `2px solid ${theme.palette.primary.main}` }} 
@@ -341,8 +346,8 @@ const WiseMenStackGame = () => {
                     </IconButton>
                     :
                     // Cronómetro
-                    <CountdownCircleTimer data-testid="circleTimer" key={questionCountdownKey} isPlaying = {questionCountdownRunning} duration={60} colorsTime={[10, 6, 3, 0]}
-                        colors={[theme.palette.success.main, "#F7B801", "#f50707", theme.palette.error.main]} size={100} onComplete={() => selectResponse(-1, "FAILED")}>
+                    <CountdownCircleTimer data-testid="circleTimer" key={questionCountdownKey} isPlaying = {questionCountdownRunning} duration={targetTime} colorsTime={[10, 6, 3, 0]}
+                        colors={[theme.palette.success.main, "#F7B801", "#f50707", theme.palette.error.main]} size={100} onComplete={() => endGame()}>
                         {({ remainingTime }) => {
                             return (
                                 <Box style={{ display: 'flex', alignItems: 'center' }}>
