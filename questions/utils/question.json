@@ -86,15 +86,6 @@
                 "category": ["Art"]
             },
             {
-                "property": "P571",
-                "template": {
-                    "es": "Cual es el año de creacion de x",
-                    "en": "What is the year of creation of x",
-                    "fr": "Quelle est l'année de création de x"
-                },
-                "category": ["Art"]
-            },
-            {
                 "property": "P136",
                 "template": {
                     "es": "Cual es el estilo artistico de x",
@@ -117,30 +108,6 @@
                     "fr": "Qui est l'inventeur de x"
                 },
                 "category": ["Science"]
-            },
-            {
-                "property": "P575",
-                "template": {
-                    "es": "En que año se inventó x",
-                    "en": "What was the year of invention of x",
-                    "fr": "En quelle année x a été inventé"
-                },
-                "category": ["Science"]
-            }
-        ]
-    },
-    {
-        "name": "mountain",
-        "instance": "Q8502",
-        "properties": [
-            {
-                "property": "P2044",
-                "template": {
-                    "es": "Cual es la altitud mxima del x",
-                    "en": "What is the maximum altitude of x",
-                    "fr": "Quelle est l'altitude maximale de x"
-                },
-                "category": ["Geography"]
             }
         ]
     },
@@ -154,15 +121,6 @@
                     "es": "Quien es el autor de x",
                     "en": "Who is the author of x",
                     "fr": "Qui est l'auteur de x"
-                },
-                "category": ["Entertainment"]
-            },
-            {
-                "property": "P577",
-                "template": {
-                    "es": "Cual es el año de publicacion de x",
-                    "en": "What is the year of publication of x",
-                    "fr": "Quelle est l'année de publication de x"
                 },
                 "category": ["Entertainment"]
             },
@@ -198,15 +156,6 @@
                     "fr": "Quelle est la vitesse maximale de x"
                 },
                 "category": ["Cars"]
-            },
-            {
-                "property": "P571",
-                "template": {
-                    "es": "En qué año fue introducido x al mercado",
-                    "en": "In what year was x introduced to the market",
-                    "fr": "En quelle année x a été introduit sur le marché"
-                },
-                "category": ["Cars"]
             }
         ]
     },
@@ -214,15 +163,6 @@
         "name": "dish",
         "instance": "Q746549",
         "properties": [
-            {
-                "property": "P527",
-                "template": {
-                    "es": "Cuál es el ingrediente principal de x",
-                    "en": "What is the main ingredient of x",
-                    "fr": "Quel est l'ingrédient principal de x"
-                },
-                "category": ["Food"]
-            },
             {
                 "property": "P495",
                 "template": {
@@ -244,15 +184,6 @@
                     "es": "Quién fue el arquitecto de x",
                     "en": "Who was the architect of x",
                     "fr": "Qui était l'architecte de x"
-                },
-                "category": ["Art"]
-            },
-            {
-                "property": "P571",
-                "template": {
-                    "es": "En qué año se completó x",
-                    "en": "In what year was it completed x",
-                    "fr": "En quelle année x a-t-il été achevé"
                 },
                 "category": ["Art"]
             },
@@ -353,15 +284,6 @@
                 "category": ["Games"]
             },
             {
-                "property": "P577",
-                "template": {
-                    "es": "En qué año fue lanzado el videojuego x",
-                    "en": "In what year was the video game x released?",
-                    "fr": "En quelle année le jeu vidéo x a-t-il été lancé?"
-                },
-                "category": ["Games"]
-            },
-            {
                 "property": "P400",
                 "template": {
                     "es": "Cuáles son las plataformas compatibles con x",
@@ -382,15 +304,6 @@
                     "es": "Quién es el diseñador de la marca x",
                     "en": "Who is the designer of the brand x",
                     "fr": "Qui est le designer de la marque x"
-                },
-                "category": ["Fashion"]
-            },
-            {
-                "property": "P571",
-                "template": {
-                    "es": "Cuándo fue fundada la casa de moda x",
-                    "en": "When was the fashion house founded x",
-                    "fr": "Quand la maison de mode x a-t-elle été fondée"
                 },
                 "category": ["Fashion"]
             }
@@ -417,21 +330,6 @@
                     "fr": "Quelles espèces partagent l'habitat avec x"
                 },
                 "category": ["Animals"]
-            }
-        ]
-    },
-    {
-        "name": "brands",
-        "instance": "Q431289",
-        "properties": [
-            {
-                "property": "P571",
-                "template": {
-                    "es": "Cuándo fue fundada la marca x",
-                    "en": "When was the brand x founded?",
-                    "fr": "Quand la marque x a-t-elle été fondée?"
-                },
-                "category": ["Brands"]
             }
         ]
     }
