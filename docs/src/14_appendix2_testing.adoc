@@ -21,4 +21,7 @@ image::14_graphic_sonarcloud.png["Risks graphic"]
 
 === Acceptance tests
 Acceptance tests are also important. They do not focus on the functionality of the application but on the user experience. This way we were able to know easily if elements where rendered quickly. In addition, this tests let us measure how long it takes for an interaction with the application. 
+For this tests we used a MariaDB database created only for these tests. We useb MariaDB because we need to get information from users, which are https://github.com/Arquisoft/wiq_es04a/wiki/ADR-04-‐-Users-and-Groups-with-MariaDB[ stored in this type of relational database.]
 
+We focused in testing the different games available, as it is the core part of the application. It is important to mention that e2e tests can be executed two ways. The first way, using a graphic interface, which easier for the developer. We are able to see how the tests are executing so we may see some issues that otherwise we would not be able to detect.
+The second way is without graphic interface. It is done this way when e2e tests are executed through Github actions in deployment, not locally. It is sometimes more difficult to detect the issues but there is still a great overview of the tests execution which helps to detect problems.
