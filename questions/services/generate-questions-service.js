@@ -41,8 +41,8 @@ async function generateQuestions(n, language, questionCategory) {
             const property = entity.properties[pos].property;
             const categories = entity.properties[pos].category;
             const filter = entity.properties[pos].filter;
-            const lang = language=="es"?0:1; //0 spanish, 1 english
-            const question = entity.properties[pos].template[lang].question;
+            // Now language is accessed directly:
+            const question = entity.properties[pos].template[language];
 
             //let [entityName, searched_property] = await wikidataService.getRandomEntity(instance, property, filter);
             let [entityName, searched_property] = await wikidataService.getRandomEntity(entity, pos, language);
