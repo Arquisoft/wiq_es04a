@@ -191,7 +191,7 @@
         {
           "expr": "sum(increase(http_request_duration_seconds_count{status_code=~\"4.*\"}[1m]))",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "Not found",
           "refId": "A"
         }
       ],
