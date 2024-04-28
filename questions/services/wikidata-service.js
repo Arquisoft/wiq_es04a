@@ -121,6 +121,9 @@ async function getEntityLabel(entityUrl) {
     if(entity.labels.es) {
         return entity.labels.es.value;
     }
+    if(entity.labels.fr) {
+        return entity.labels.fr.value;
+    }
     
     return "no label (TEST)";
   }
