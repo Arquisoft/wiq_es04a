@@ -106,7 +106,7 @@ const MultiplayerRoom = () => {
     }
   
     return (
-      <Box sx={{display: 'flex', flexDirection: { md: 'column', lg: 'row' }, justifyContent: 'center', flex: 1, alignItems: 'center', padding: '2em 0', gap: '4em' }}>
+      <Box sx={{display: 'flex', flexDirection: { xs: "column", lg: 'row' }, justifyContent: 'center', flex: 1, alignItems: 'center', padding: '2em 0', gap: '4em' }}>
         {roomCode && error === "" && (
           <Container></Container>
         )}
