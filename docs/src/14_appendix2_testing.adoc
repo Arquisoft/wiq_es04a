@@ -8,6 +8,17 @@ ifndef::imagesdir[:imagesdir: ../images]
 === Unitary tests
 We did unitary tests through the whole application. These tests were useful when getting to know if what we had just implemented worked properly or not. It is also a very esasy way of checking if you changed something without noticing. For example, if anything were modified, unitary tests where adapted to this new functionality. However, the changes made in the application may affect some parts that we were not expecting to be affected. This way we could be able to garantee that the application continued to work properly and to check if there were some parts that depended on others when they should not. For these reasons, it is very important to have as much as possible of our code covered. We have achieved a coverage percentage greater than 80%.
 
+==== SonarCloud
+The picture below shows an overview done with SonarCloud to our repository. As it can be seen, all of the diferent services reach 80% or more, some of them reaaching almost 90%. The total coverage of our project is around 82%. However, it is important to remember that coverage is not only about numbers but about testing projects in a good way. 
+
+image::14_coverage.png["Code coverage"]
+
+We would also like to mention that SonarCloud offers a graphic where risks in different part of the code are displayed. Bubbles in the top right side of the graphic means that the longer-term health may be at risk. Green bubbles at the bottom-left are best. Down below there is the graphic of our project, which shows all bubbles in green and most of them are in the left-bottom part.
+
+image::14_graphic_sonarcloud.png["Risks graphic"]
+
+
+
 === Acceptance tests
 Acceptance tests are also important. They do not focus on the functionality of the application but on the user experience. This way we were able to know easily if elements where rendered quickly. In addition, this tests let us measure how long it takes for an interaction with the application. 
 
