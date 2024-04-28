@@ -8,15 +8,20 @@ sequenceDiagram
 
     loop search questions
         Webapp ->> Gateway Service: axios.get('/questions/:lang')
-        Gateway Service ->> Questions: axios.get('/questions/:lang')
-        Questions ->> Questions: router.get('/questions/:lang')
+        
+        alt game mode
+            Gateway Service ->> Questions: axios.get('/questions/:lang')
+            Questions ->> Questions: router.get('/questions/:lang')
+        else
+            Gateway Service ->> Questions: axios.get('/questions/:lang/:category')
+            Questions ->> Questions: router.get('/questions/:lang/:category')
+        end
+
 
         Questions ->> MongoDB: generateQuestions()
         MongoDB -->> Questions: 
-        alt questions>10
-            Questions ->> Wikidata: getRandomEntity(), getProperties(), convertUrlsToLabels()
-            Wikidata -->> Questions: 
-        end
+        Questions ->> Wikidata: getRandomEntity(), getProperties(), convertUrlsToLabels()
+        Wikidata -->> Questions: 
         Questions ->> MongoDB: getQuestion()
         MongoDB -->> Questions: JSON response
         Questions -->> Gateway Service: JSON response
