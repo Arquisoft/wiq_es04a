@@ -32,11 +32,11 @@
     "Games": {
         "Wise Men Stack": {
             "name": "Wise Men Stack",
-            "desc": "El jugador elige un tema entre cinco opciones disponibles y debe responder una batería de preguntas relacionadas con él en un plazo de 60 segundos. Para cada pregunta, el presentador proporciona dos opciones. Si el concursante acierta, gana €20; de lo contrario, pasa a la siguiente pregunta (ya que la respuesta correcta sería la otra opción). Si el tiempo se agota antes de que se formule por completo la pregunta y se proporcionen ambas posibles respuestas, el concursante aún puede responderla; sin embargo, si la afirmación no se ha completado (o las opciones no se proporcionaron), no pueden responder."
+            "desc": "El jugador elige un tema entre varias opciones disponibles y debe responder una batería de preguntas relacionadas con él en un plazo de 60 segundos. Para cada pregunta, el presentador proporciona dos opciones. Si el concursante acierta, gana 20 puntos; de lo contrario, pasa a la siguiente pregunta (ya que la respuesta correcta sería la otra opción). Si el tiempo se agota antes de que se formule por completo la pregunta y se proporcionen ambas posibles respuestas, el concursante aún puede responderla; sin embargo, si la afirmación no se ha completado (o las opciones no se proporcionaron), no pueden responder."
         },
         "Warm Question": {
             "name": "Warm Question",
-            "desc": "Consta de diez temas de diferentes temáticas. Por cada respuesta correcta, se ganan €100, y se pierden €10 si el concursante pasa, no responde o responde incorrectamente."
+            "desc": "Consta de temas de diferentes temáticas. Por cada respuesta correcta, se ganan 100 puntos, y se pierden 10 puntos si el concursante pasa, no responde o responde incorrectamente."
         },
         "Discovering Cities": {
             "name": "Discovering Cities",
@@ -48,7 +48,7 @@
         },
         "Multiplayer": {
             "name": "Multiplayer",
-            "desc": "Crea una sala para que otros jugadores se unan y jueguen 1 contra 1."
+            "desc": "Crea una sala para que otros jugadores se unan y jueguen juntos. También hay un chat disponible."
         }
     },
 
