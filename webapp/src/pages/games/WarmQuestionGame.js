@@ -232,8 +232,7 @@ const WarmQuestionGame = () => {
         setButtonStates(newButtonStates);
 
         setTimeout(async() => {
-            setRound(round + 1);
-            setButtonStates([]);
+            setPassNewRound(true);
             setCurrentLanguage(i18n.language);
         }, 4000);
     };
