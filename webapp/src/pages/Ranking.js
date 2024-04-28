@@ -41,7 +41,7 @@ const Ranking = () => {
 
     const columns = [
         { field: 'id', headerName: 'NAME', flex: 1, align: 'center', headerAlign: 'center'},
-        { field: 'totalMoney', headerName: 'TOTAL MONEY', flex: 1, align: 'center', headerAlign: 'center'  },
+        { field: 'totalMoney', headerName: 'TOTAL POINTS', flex: 1, align: 'center', headerAlign: 'center'  },
         { field: 'totalCorrectAnswers', headerName: 'CORRECT ANSWERS', flex: 1, align: 'center', headerAlign: 'center'  },
         { field: 'totalIncorrectAnswers',headerName: 'INCORRECT ANSWERS', flex: 1, align: 'center', headerAlign: 'center' },
         { field: 'totalGamesPlayed', headerName: 'TOTAL GAMES', flex: 1, align: 'center', headerAlign: 'center'  }
