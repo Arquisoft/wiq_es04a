@@ -4,3 +4,4 @@ ifndef::imagesdir[:imagesdir: ../images]
 == Appendix III: Application monitoring
 
 [role="arc42help"]
+Monitoring an application is also an important part of it. It is an easy way of knowing how well a web application is working through different graphics. For this, we adapted the monitoring system that was given to us and we personalized it. 
