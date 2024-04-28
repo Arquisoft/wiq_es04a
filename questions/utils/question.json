@@ -13,7 +13,12 @@
                     {
                     "lang": "en",
                     "question": "What is the population of x"
-                    }],
+                    },
+                    {
+                    "lang": "fr",
+                    "question": "What is the population of x"
+                    }
+                ],
                 "filter": ">4000000",
                 "category": ["Geography", "Cities"]
             },
@@ -26,6 +31,10 @@
                     {
                     "lang": "en",
                     "question": "What is the capital of x"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": ""
                     }],
                 "category": ["Geography", "Cities"]
             },
@@ -39,6 +48,10 @@
                     {
                     "lang": "en",
                     "question":  "What currency x has"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": ""
                     }],
                 "category": ["Geography"]
             }
@@ -58,6 +71,10 @@
                     {
                     "lang": "en",
                     "question": "What is the stadium of x team"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": ""
                     }],
                 "category": ["Sports"]
             },
@@ -71,6 +88,10 @@
                     {
                     "lang": "en",
                     "question":  "What is the country of x team"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": ""
                     }],
                 "category": ["Sports", "Geography"]
             }
@@ -90,6 +111,10 @@
                     {
                     "lang": "en",
                     "question":  "What country is x river in"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": ""
                     }],
                 "category": ["Geography"]
             }
@@ -109,6 +134,10 @@
                     {
                     "lang": "en",
                     "question": "Who is the author of x"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": ""
                     }],
                 "category": ["Art"]
             },
@@ -122,6 +151,10 @@
                     {
                     "lang": "en",
                     "question":  "What is the artistic style of x"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": ""
                     }],
                 "category": ["Art"]
             }
@@ -141,6 +174,10 @@
                     {
                     "lang": "en",
                     "question": "Who is the inventor of x"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": ""
                     }],
                 "category": ["Science"]
             }
@@ -160,6 +197,10 @@
                     {
                     "lang": "en",
                     "question":  "What is the maximum altitude of x"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": ""
                     }],
                 "filter": ">4000",    
                 "category": ["Geography"]
@@ -180,6 +221,10 @@
                     {
                     "lang": "en",
                     "question": "Who is the author of x"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": ""
                     }],
                 "category": ["Entertainment"]
             },
@@ -193,6 +238,10 @@
                     {
                     "lang": "en",
                     "question":  "What is the genre of x"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": ""
                     }],
                 "category": ["Entertainment"]
             }
@@ -212,6 +261,10 @@
                     {
                     "lang": "en",
                     "question": "Who is the creator of the series x"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": ""
                     }],
                 "category": ["Entertainment"]
             },
@@ -224,6 +277,10 @@
                     {
                     "lang": "en",
                     "question": "How many seasons does the series x have?"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": ""
                     }],
                 "filter": ">0",
                 "category": ["Entertainment"]
@@ -244,6 +301,10 @@
                     {
                     "lang": "en",
                     "question": "Who developed the software x"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": ""
                     }],
                 "category": ["Sports"]
             },
@@ -256,6 +317,10 @@
                     {
                     "lang": "en",
                     "question": "What is the nationality of the athlete x"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": ""
                     }],
                 "category": ["Sports"]
             }
@@ -275,6 +340,10 @@
                     {
                     "lang": "en",
                     "question": "Who is the developer of the video game x"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": ""
                     }],
                 "category": ["Games","Entertainment"]
             },
@@ -287,6 +356,10 @@
                     {
                     "lang": "en",
                     "question": "What are the platforms supported by x"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": ""
                     }],
                 "category": ["Games","Entertainment"]
             }
@@ -306,6 +379,10 @@
                     {
                     "lang": "en",
                     "question": "What is the natural habitat of species x"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": ""
                     }],
                 "category": ["Animals","Science"]
             },
@@ -318,6 +395,10 @@
                     {
                     "lang": "en",
                     "question": "What species share the habitat with x"
+                    },
+                    {
+                    "lang": "fr",
+                    "question": ""
                     }],
                 "category": ["Animals","Science"]
             }
