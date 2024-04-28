@@ -52,7 +52,7 @@ const Statistics = () => {
         };
 
         fetchQuestionsRecord();
-    }, [username, selectedMode]);
+    }, [user, selectedMode]);
 
     const totalPages = Math.ceil(questionsRecord.length / itemsPerPage);
 
