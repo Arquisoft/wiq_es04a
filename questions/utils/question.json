@@ -16,7 +16,7 @@
                     },
                     {
                     "lang": "fr",
-                    "question": "What is the population of x"
+                    "question": "Quelle est la population de x?"
                     }
                 ],
                 "filter": ">4000000",
@@ -34,7 +34,7 @@
                     },
                     {
                     "lang": "fr",
-                    "question": ""
+                    "question": "Quelle est la capitale de x?"
                     }],
                 "category": ["Geography", "Cities"]
             },
@@ -51,7 +51,7 @@
                     },
                     {
                     "lang": "fr",
-                    "question": ""
+                    "question": "Quelle est la monnaie de x?"
                     }],
                 "category": ["Geography"]
             }
@@ -74,7 +74,7 @@
                     },
                     {
                     "lang": "fr",
-                    "question": ""
+                    "question": "Quel est le stade de l'équipe x?"
                     }],
                 "category": ["Sports"]
             },
@@ -91,7 +91,7 @@
                     },
                     {
                     "lang": "fr",
-                    "question": ""
+                    "question": "Quel est le pays de l'équipe x?"
                     }],
                 "category": ["Sports", "Geography"]
             }
@@ -114,7 +114,7 @@
                     },
                     {
                     "lang": "fr",
-                    "question": ""
+                    "question": "Dans quel pays se trouve le fleuve x?"
                     }],
                 "category": ["Geography"]
             }
@@ -137,7 +137,7 @@
                     },
                     {
                     "lang": "fr",
-                    "question": ""
+                    "question": "Qui est l'auteur de x?"
                     }],
                 "category": ["Art"]
             },
@@ -154,7 +154,7 @@
                     },
                     {
                     "lang": "fr",
-                    "question": ""
+                    "question": "Quel est le style artistique de x?"
                     }],
                 "category": ["Art"]
             }
@@ -177,7 +177,7 @@
                     },
                     {
                     "lang": "fr",
-                    "question": ""
+                    "question": "Qui est l'inventeur de x?"
                     }],
                 "category": ["Science"]
             }
@@ -196,11 +196,11 @@
                     },
                     {
                     "lang": "en",
-                    "question":  "What is the maximum altitude of x"
+                    "question":  "What is the altitude of x"
                     },
                     {
                     "lang": "fr",
-                    "question": ""
+                    "question": "Quelle est l'altitude de la montagne x?"
                     }],
                 "filter": ">4000",    
                 "category": ["Geography"]
@@ -224,7 +224,7 @@
                     },
                     {
                     "lang": "fr",
-                    "question": ""
+                    "question": "Qui est l'auteur de x?"
                     }],
                 "category": ["Entertainment"]
             },
@@ -241,7 +241,7 @@
                     },
                     {
                     "lang": "fr",
-                    "question": ""
+                    "question": "Quel est le genre de x?"
                     }],
                 "category": ["Entertainment"]
             }
@@ -264,7 +264,7 @@
                     },
                     {
                     "lang": "fr",
-                    "question": ""
+                    "question": "Qui est le créateur de la série x?"
                     }],
                 "category": ["Entertainment"]
             },
@@ -280,7 +280,7 @@
                     },
                     {
                     "lang": "fr",
-                    "question": ""
+                    "question": "Combien de saisons compte la série x?"
                     }],
                 "filter": ">0",
                 "category": ["Entertainment"]
@@ -300,11 +300,11 @@
                     },
                     {
                     "lang": "en",
-                    "question": "Who developed the software x"
+                    "question": "What sport does x compite in?"
                     },
                     {
                     "lang": "fr",
-                    "question": ""
+                    "question": "Dans quel sport concourt x?"
                     }],
                 "category": ["Sports"]
             },
@@ -320,7 +320,7 @@
                     },
                     {
                     "lang": "fr",
-                    "question": ""
+                    "question": "Quelle est la nationalité de l'athlète x?"
                     }],
                 "category": ["Sports"]
             }
@@ -343,7 +343,7 @@
                     },
                     {
                     "lang": "fr",
-                    "question": ""
+                    "question": "Qui est le développeur du jeu vidéo x?"
                     }],
                 "category": ["Games","Entertainment"]
             },
@@ -359,7 +359,7 @@
                     },
                     {
                     "lang": "fr",
-                    "question": ""
+                    "question": "Quelles sont les plateformes compatibles avec x?"
                     }],
                 "category": ["Games","Entertainment"]
             }
@@ -382,7 +382,7 @@
                     },
                     {
                     "lang": "fr",
-                    "question": ""
+                    "question": "Quel est l'habitat naturel de l'espèce x?"
                     }],
                 "category": ["Animals","Science"]
             },
@@ -398,7 +398,7 @@
                     },
                     {
                     "lang": "fr",
-                    "question": ""
+                    "question": "Quelles espèces partagent l'habitat avec x?"
                     }],
                 "category": ["Animals","Science"]
             }
