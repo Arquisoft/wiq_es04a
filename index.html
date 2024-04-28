@@ -2956,7 +2956,7 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <div class="sect1">
 <h2 id="section-load-tests">13. Appendix I: Load tests</h2>
 <div class="sectionbody">
-<div class="paragraph arc42help">
+<div class="paragraph">
 <p>We conducted load tests on our application using Gatling. This type of testing allows us to know how <em>strong</em> our application is in relation with the amount of users that interact with it at the same time. Initially, we recorded the specific functionalities we intended to test, and then we configured the tests accordingly. Our primary focus was on testing the game component, as it constitutes the core aspect of our application. After recording the functionality to be tested, we increased the number of requests to 1,000 and established that these requests be made gradually, simulating a real-life scenario.</p>
 </div>
 <div class="imageblock">
@@ -3047,7 +3047,7 @@ On the other hand, the overall increase in the time it takes to respond to a req
 <div class="sect1">
 <h2 id="section-other-tests">14. Appendix II: Other tests</h2>
 <div class="sectionbody">
-<div class="sect2 arc42help">
+<div class="sect2">
 <h3 id="_unitary_tests">14.1. Unitary tests</h3>
 <div class="paragraph">
 <p>We did unitary tests through the whole application. These tests were useful when getting to know if what we had just implemented worked properly or not. It is also a very esasy way of checking if you changed something without noticing. For example, if anything were modified, unitary tests where adapted to this new functionality. However, the changes made in the application may affect some parts that we were not expecting to be affected. This way we could be able to garantee that the application continued to work properly and to check if there were some parts that depended on others when they should not. For these reasons, it is very important to have as much as possible of our code covered. We have achieved a coverage percentage greater than 80%.</p>
@@ -3104,7 +3104,7 @@ The second way is without graphic interface. It is done this way when e2e tests 
 <div class="sect1">
 <h2 id="section-monitoring">15. Appendix III: Application monitoring</h2>
 <div class="sectionbody">
-<div class="paragraph arc42help">
+<div class="paragraph">
 <p>Monitoring an application is a crucial part of it. It is an easy way of knowing how well a web application is working through different graphics and metrics. For this, we adapted the monitoring system that was given to us and we personalized it. That means we are using Prometheus as well as Grafana to monitorize our project. Prometheus intercepts every request that reaches our application&#8217;s gateway. Grafana takes those data at paints them in easy-understanding graphics. We have a dashboard in Grafana to display some aspects that we consider relevant.</p>
 </div>
 <div class="paragraph">
