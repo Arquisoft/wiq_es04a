@@ -1,6 +1,20 @@
 # Wikidata Infinite Quest
 🌐 [wikiquest.sytes.net](http://wikiquest.sytes.net/)
 ⚠️ If you entered the site time ago it requires log out and log in one time to remove errors.
+
+## 🌟 Useful Links
+
+- APIs Exposed:
+  - [questions](https://app.swaggerhub.com/apis-docs/UO288347_1/questions-api/1.0.0)
+  - [users](https://app.swaggerhub.com/apis-docs/UO289689_1/users-api/1.0.0)
+- [Documentation](https://arquisoft.github.io/wiq_es04a/)
+- Boards:
+  - [Development](https://github.com/orgs/Arquisoft/projects/81/views/1)
+  - [Documentation](https://github.com/orgs/Arquisoft/projects/82/views/1)
+- [Android App Download](https://mega.nz/file/vNVkhQwT#l3K-nttaNWJ1tjdUVXJlCClmYm9rmpgBS_ULNewASL4)
+- [Monitorization](http://20.19.89.97:9091/d/1DYaynomMk/wiq-es04-dashboard?orgId=1)
+
+
 ## 👨‍💻 Contributors:
 
 | Contributor | Contact |
@@ -30,7 +44,7 @@ This repo is an application composed of several components.
 
 The Users service uses a MariaDB DBMS accesed with sequelizer and questions service uses MongoDB accesed with mongoose.
 
-## Quick start guide
+## 🚀 Quick start guide
 
 ### Using docker
 
@@ -60,7 +74,7 @@ Lastly, go to the webapp directory and launch this component with `npm install` 
 
 After all the components are launched, the app should be available in localhost in port 3000.
 
-## Deployment
+## 🛠️ Deployment
 
 For the deployment, we have several options. 
 
