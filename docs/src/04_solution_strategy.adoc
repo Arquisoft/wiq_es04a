@@ -53,26 +53,32 @@ For the question generation process, we consult Wikidata using one of the questi
 The JSON structure allows us to select the desired categories for the questions requested if necessary, and, in the future, the language of the question. From there, we construct the query in Wikidata and convert it into a question object. Here's an example of a category element in the JSON:
 
 ```json
-{
-    "name": "football",
-    "instance": "Q476028",
-    "properties": [
-        {   
-            "property": "P115",
-            "template": 
-                [{
-                "lang": "es",
-                "question": "Cuál es el estadio del equipo x"
+[
+    {
+        "name": "country",
+        "instance": "Q6256",
+        "properties": [
+            {
+                "property": "P36",
+                "template": {
+                    "es": "Cuál es la capital de x",
+                    "en": "What is the capital of x",
+                    "fr": "Quelle est la capitale de x"
                 },
-                {
-                "lang": "en",
-                "question": "What is the stadium of x team"
-                }],
-            "category": ["Sports"]
-        },
-        ...
-    ]
-}
+                "category": ["Geography", "Cities"]
+            },
+            {
+                "property": "P38",
+                "template": {
+                    "es": "Que moneda tiene x",
+                    "en": "What currency x has",
+                    "fr": "Quelle est la devise de x"
+                },
+                "category": ["Political"]
+            }, ...
+        ], ...
+    }, ...
+]
 ```
 
 This structure allows us to select multiple and varying questions from a given category or for a given item, varying the properties depending on the type of element we are querying within a category (i.e., a Wikidata Item).
