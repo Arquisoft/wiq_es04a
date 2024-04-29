@@ -42,6 +42,7 @@ The architectural decisions are completely documented in our https://github.com/
 
 === Design and Decisions
 - https://github.com/Arquisoft/wiq_es04a/wiki/ADR-08-‐-Questions-Database-Functioning[ADR 08] - Questions Database Functioning
+- https://github.com/Arquisoft/wiq_es04a/wiki/ADR-10-‐-Questions-API-structure[ADR 10] - Questions API Design
 
 === Technology
 - https://github.com/Arquisoft/wiq_es04a/wiki/ADR-02-‐-Microservices-Architecture[ADR 02] - Microservices Architecture
